@@ -16,8 +16,6 @@ set(EP_SOURCE_DIR_PREFIX ${CMAKE_BINARY_DIR}/subprojects/Source)
 
 add_subdirectory(dependencies)
 
-add_subdirectory(src/client)
-
 include(ExternalProject)
 
 ExternalProject_Add(${PROJECT_NAME}_client_core
