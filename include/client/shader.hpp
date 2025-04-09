@@ -7,6 +7,6 @@
 #include <string>
 #include <vector>
 
-#include "core.h"
+#include "core.hpp"
 
 GLuint LoadShaders(const char* vertex_file_path, const char* fragment_file_path);

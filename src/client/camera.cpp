@@ -2,7 +2,7 @@
 // Camera.cpp
 ////////////////////////////////////////
 
-#include "client/camera.h"
+#include "client/camera.hpp"
 
 Camera::Camera() {
     Reset();

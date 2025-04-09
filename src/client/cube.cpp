@@ -1,4 +1,4 @@
-#include "client/cube.h"
+#include "client/cube.hpp"
 
 Cube::Cube(glm::vec3 cubeMin, glm::vec3 cubeMax) {
     // Model matrix.

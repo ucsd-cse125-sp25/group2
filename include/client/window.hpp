@@ -1,9 +1,9 @@
 #pragma once
 
-#include "camera.h"
-#include "cube.h"
-#include "shader.h"
-#include "core.h"
+#include "camera.hpp"
+#include "cube.hpp"
+#include "shader.hpp"
+#include "core.hpp"
 
 class Window {
 public:

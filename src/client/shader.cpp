@@ -1,4 +1,4 @@
-#include "client/shader.h"
+#include "client/shader.hpp"
 
 enum ShaderType { 
 	vertex,

@@ -1,4 +1,4 @@
-#include "client/window.h"
+#include "client/window.hpp"
 
 // Window Properties
 int Window::width;

@@ -1,4 +1,4 @@
-#include "client/window.h"
+#include "client/window.hpp"
 
 void error_callback(int error, const char* description) {
     // Print error.
