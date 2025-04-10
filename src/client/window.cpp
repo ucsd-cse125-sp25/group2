@@ -45,8 +45,7 @@ bool Window::initializeObjects() {
     // cube = new Cube(glm::vec3(-1, 0, -2), glm::vec3(1, 1, 1));
 
     // Load model
-    // I can only pass the absolute path in as of now, need to work on this...
-    model = new Model("/home/jontran123/Class/group2/src/client/resources/objects/backpack/backpack.obj");
+    model = new Model("../src/client/resources/objects/backpack/backpack.obj");
 
     return true;
 }
