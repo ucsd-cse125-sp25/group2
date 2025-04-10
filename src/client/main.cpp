@@ -1,4 +1,5 @@
 #include "client/window.hpp"
+#include <stb_image.h>
 
 void error_callback(int error, const char* description) {
     // Print error.
@@ -20,6 +21,8 @@ void setup_callbacks(GLFWwindow* window) {
 }
 
 void setup_opengl_settings() {
+    // Textures are loaded in upside down, flip vertically.
+    stbi_set_flip_vertically_on_load(true);
     // Enable depth buffering.
     glEnable(GL_DEPTH_TEST);
     // Related to shaders and z value comparisons for the depth buffer.
