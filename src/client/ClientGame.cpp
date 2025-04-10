@@ -1,5 +1,5 @@
-#include "StdAfx.h"
-#include "ClientGame.h"
+#include "StdAfx.hpp"
+#include "ClientGame.hpp"
 
 
 ClientGame::ClientGame(void)

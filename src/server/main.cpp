@@ -2,9 +2,9 @@
 //
 
 // may need #include "stdafx.h" in visual studio
-#include "stdafx.h"
-#include "ServerGame.h"
-#include "ClientGame.h"
+#include "stdafx.hpp"
+#include "ServerGame.hpp"
+#include "ClientGame.hpp"
 // used for multi-threading
 #include <process.h>
 

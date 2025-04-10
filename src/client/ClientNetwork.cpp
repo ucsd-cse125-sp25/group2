@@ -1,5 +1,5 @@
-#include "StdAfx.h"
-#include "ClientNetwork.h"
+#include "StdAfx.hpp"
+#include "ClientNetwork.hpp"
 
 
 ClientNetwork::ClientNetwork(void)

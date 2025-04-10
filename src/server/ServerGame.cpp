@@ -1,5 +1,5 @@
-#include "StdAfx.h"
-#include "ServerGame.h"
+#include "StdAfx.hpp"
+#include "ServerGame.hpp"
 
 unsigned int ServerGame::client_id; 
 

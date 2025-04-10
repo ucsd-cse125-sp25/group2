@@ -1,5 +1,5 @@
-#include "StdAfx.h"
-#include "ServerNetwork.h"
+#include "StdAfx.hpp"
+#include "ServerNetwork.hpp"
 
 
 ServerNetwork::ServerNetwork(void)
