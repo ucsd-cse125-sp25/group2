@@ -5,6 +5,8 @@ project(barnyard_breakout LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+set(BUILD_SHARED_LIBS ON)
+
 # debug
 set(CMAKE_BUILD_TYPE Debug)
 
@@ -19,7 +21,7 @@ add_subdirectory(dependencies)
 include(ExternalProject)
 
 ExternalProject_Add(${PROJECT_NAME}_client_core
-  DEPENDS GLFW_external GLEW_external glm_external
+  DEPENDS assimp_external GLFW_external GLEW_external glm_external stb_external
   SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src/client
   CMAKE_ARGS
   -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}

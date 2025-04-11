@@ -15,14 +15,19 @@ endif()
 
 file(TO_NATIVE_PATH "${STAGED_INSTALL_PREFIX}/${_LIBDIR}/cmake/glfw3" glfw3_DIR)
 file(TO_NATIVE_PATH "${STAGED_INSTALL_PREFIX}/${_LIBDIR}/cmake/glew" GLEW_DIR)
+file(TO_NATIVE_PATH "${STAGED_INSTALL_PREFIX}/${_LIBDIR}/cmake/assimp-5.2" assimp_DIR)
 
 message(STATUS "glfw3_DIR is... ${glfw3_DIR}")
 message(STATUS "GLEW_DIR is... ${GLEW_DIR}")
+message(STATUS "assimp_DIR is... ${assimp_DIR}")
 
 find_package(glfw3 REQUIRED CONFIG)
 
 set(GLEW_USE_STATIC_LIBS ON)
 find_package(GLEW REQUIRED CONFIG)
+
+set(Assimp_DIR "${assimp_DIR}")
+find_package(assimp REQUIRED CONFIG)
 
 set(CLIENT_SRCS
     main.cpp
@@ -30,10 +35,13 @@ set(CLIENT_SRCS
     camera.cpp
     shader.cpp
     cube.cpp
+    mesh.cpp
+    model.cpp
+    stb_image.cpp
 )
 
 add_executable(main ${CLIENT_SRCS})
 
 target_include_directories(main PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../../include)
 
-target_link_libraries(main PRIVATE GLEW::glew_s glfw)
+target_link_libraries(main PRIVATE GLEW::glew_s glfw assimp::assimp)
