@@ -6,7 +6,7 @@
 #include <vector>
 using namespace std;
 
-// #define MAX_BONE_INFLUENCE 4
+#define MAX_BONE_INFLUENCE 4
 
 struct Vertex
 {
@@ -14,10 +14,10 @@ struct Vertex
     glm::vec3 normal;
     glm::vec2 texCoords;
     // Unneeded for now
-    // glm::vec3 tangent;
-    // glm::vec3 bitangent;
-    // int m_boneIDs[MAX_BONE_INFLUENCE];
-    // float m_weights[MAX_BONE_INFLUENCE];
+    glm::vec3 tangent;
+    glm::vec3 bitangent;
+    int m_boneIDs[MAX_BONE_INFLUENCE];
+    float m_weights[MAX_BONE_INFLUENCE];
 };
 
 struct Texture

@@ -30,7 +30,7 @@ void Model::loadModel(string path)
 {
     Assimp::Importer import;
     const aiScene *scene = import.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs);	
-
+    
     if(!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) 
     {
         cout << "ERROR::ASSIMP::" << import.GetErrorString() << endl;
@@ -88,20 +88,23 @@ Mesh Model::processMesh(aiMesh *mesh, const aiScene *scene)
             glm::vec2 vec;
             vec.x = mesh->mTextureCoords[0][i].x;
             vec.y = mesh->mTextureCoords[0][i].y;
-            vertex.texCoords = vec;
-
-            // Optional vertex info - Causes program to seg fault, need to look into this.
-            // vector.x = mesh->mTangents[i].x;
-            // vector.y = mesh->mTangents[i].y;
-            // vector.z = mesh->mTangents[i].z;
-            // vertex.tangent = vector;
-            // vector.x = mesh->mBitangents[i].x;
-            // vector.y = mesh->mBitangents[i].y;
-            // vector.z = mesh->mBitangents[i].z;
-            // vertex.bitangent = vector;
+            vertex.texCoords = vec;            
         }
         else
             vertex.texCoords = glm::vec2(0);
+        
+        // Tangents and Bitangents
+        if (mesh->HasTangentsAndBitangents())
+        {
+            vector.x = mesh->mTangents[i].x;
+            vector.y = mesh->mTangents[i].y;
+            vector.z = mesh->mTangents[i].z;
+            vertex.tangent = vector;
+            vector.x = mesh->mBitangents[i].x;
+            vector.y = mesh->mBitangents[i].y;
+            vector.z = mesh->mBitangents[i].z;
+            vertex.bitangent = vector;
+        }
         vertices.push_back(vertex);
     }
     for(unsigned int i = 0; i < mesh->mNumFaces; i++)

@@ -18,7 +18,8 @@ public:
     static Model* model;
 
     // Shader Program
-    static Shader shaderProgram;
+    static Shader cubeShaderProgram;
+    static Shader modelShaderProgram;
 
     // Act as Constructors and desctructors
     static bool initializeProgram();
