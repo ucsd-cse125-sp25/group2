@@ -19,7 +19,7 @@ add_subdirectory(dependencies)
 include(ExternalProject)
 
 ExternalProject_Add(${PROJECT_NAME}_client_core
-  DEPENDS GLFW_external GLEW_external glm_external
+  DEPENDS GLFW_external GLEW_external glm_external asio_external
   SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src/client
   CMAKE_ARGS
   -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}

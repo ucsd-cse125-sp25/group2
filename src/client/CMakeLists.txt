@@ -24,6 +24,8 @@ find_package(glfw3 REQUIRED CONFIG)
 set(GLEW_USE_STATIC_LIBS ON)
 find_package(GLEW REQUIRED CONFIG)
 
+set(ASIO_INCLUDE_DIR "${EP_SOURCE_DIR_PREFIX}/asio/asio/include")
+
 set(CLIENT_SRCS
     main.cpp
     client.cpp
@@ -34,6 +36,12 @@ set(CLIENT_SRCS
 
 add_executable(main ${CLIENT_SRCS})
 
-target_include_directories(main PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../../include)
+target_include_directories(main PRIVATE 
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../include
+    ${ASIO_INCLUDE_DIR}
+)
+
+# Build in standalone mode to not include Boost
+target_compile_definitions(main PRIVATE ASIO_STANDALONE)
 
 target_link_libraries(main PRIVATE GLEW::glew_s glfw)
