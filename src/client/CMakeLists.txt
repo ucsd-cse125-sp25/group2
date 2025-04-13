@@ -26,7 +26,7 @@ find_package(GLEW REQUIRED CONFIG)
 
 set(CLIENT_SRCS
     main.cpp
-    window.cpp
+    client.cpp
     camera.cpp
     shader.cpp
     cube.cpp
