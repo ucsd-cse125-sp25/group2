@@ -13,17 +13,19 @@ set_property(DIRECTORY PROPERTY EP_BASE ${CMAKE_BINARY_DIR}/subprojects)
 
 set(STAGED_INSTALL_PREFIX ${CMAKE_BINARY_DIR}/stage)
 set(EP_SOURCE_DIR_PREFIX ${CMAKE_BINARY_DIR}/subprojects/Source)
+set(FETCH_SOURCE_DIR_PREFIX ${CMAKE_BINARY_DIR}/_deps)
 
 add_subdirectory(dependencies)
 
 include(ExternalProject)
 
 ExternalProject_Add(${PROJECT_NAME}_client_core
-  DEPENDS GLFW_external GLEW_external glm_external asio_external
+  DEPENDS GLFW_external GLEW_external glm_external
   SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src/client
   CMAKE_ARGS
   -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
   -DSTAGED_INSTALL_PREFIX=${STAGED_INSTALL_PREFIX}
+  -DASIO_DIR=${FETCH_SOURCE_DIR_PREFIX}/asio_external-src/asio/include
   CMAKE_CACHE_ARGS
   -DCMAKE_PREFIX_PATH:PATH=${CMAKE_PREFIX_PATH}
   BUILD_ALWAYS ON
