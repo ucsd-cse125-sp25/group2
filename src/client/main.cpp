@@ -1,4 +1,6 @@
 #include "client/client.hpp"
+#include "client/clientnetwork.hpp"
+#include "client/servernetwork.hpp"
 #include <memory>
 
 void error_callback(int error, const char* description) {
@@ -48,40 +50,76 @@ void print_versions() {
 #endif
 }
 
-int main(void) {
-    // Create the GLFW window.
-    std::unique_ptr<Client> client(new Client());
-    // Client* client = new Client();
-    GLFWwindow* window = client->createWindow(800, 600);
-    glfwSetWindowUserPointer(window, client.get());
-    if (!window) exit(EXIT_FAILURE);
+// int main(void) {
+//     // Create the GLFW window.
+//     std::unique_ptr<Client> client(new Client());
+//     // Client* client = new Client();
+//     GLFWwindow* window = client->createWindow(800, 600);
+//     glfwSetWindowUserPointer(window, client.get());
+//     if (!window) exit(EXIT_FAILURE);
 
-    // Print OpenGL and GLSL versions.
-    print_versions();
-    // Setup callbacks.
-    setup_callbacks(window);
-    // Setup OpenGL settings.
-    setup_opengl_settings();
+//     // Print OpenGL and GLSL versions.
+//     print_versions();
+//     // Setup callbacks.
+//     setup_callbacks(window);
+//     // Setup OpenGL settings.
+//     setup_opengl_settings();
 
-    // Initialize the shader program; exit if initialization fails.
-    if (!client->initializeProgram()) exit(EXIT_FAILURE);
-    // Initialize objects/pointers for rendering; exit if initialization fails.
-    if (!client->initializeObjects()) exit(EXIT_FAILURE);
+//     // Initialize the shader program; exit if initialization fails.
+//     if (!client->initializeProgram()) exit(EXIT_FAILURE);
+//     // Initialize objects/pointers for rendering; exit if initialization fails.
+//     if (!client->initializeObjects()) exit(EXIT_FAILURE);
 
-    // Loop while GLFW window should stay open.
-    while (!glfwWindowShouldClose(window)) {
-        // Main render display callback. Rendering of objects is done here.
-        client->displayCallback(window);
+//     // Loop while GLFW window should stay open.
+//     while (!glfwWindowShouldClose(window)) {
+//         // Main render display callback. Rendering of objects is done here.
+//         client->displayCallback(window);
 
-        // Idle callback. Updating objects, etc. can be done here.
-        client->idleCallback();
+//         // Idle callback. Updating objects, etc. can be done here.
+//         client->idleCallback();
+//     }
+
+//     client->cleanUp();
+//     // Destroy the window.
+//     glfwDestroyWindow(window);
+//     // Terminate GLFW.
+//     glfwTerminate();
+
+//     exit(EXIT_SUCCESS);
+// }
+
+int main() {
+    try {
+        asio::io_context io_context;
+  
+        // Start the server in a separate thread
+        std::thread server_thread([&io_context]() {
+            ServerNetwork server(io_context, "127.0.0.1", "12345");
+            server.start();
+            io_context.run();
+        });
+  
+        // Wait a moment for the server to start
+        std::this_thread::sleep_for(std::chrono::seconds(1));
+  
+        // Initialize the client and connect to the server
+        ClientNetwork client(io_context, "127.0.0.1", "12345");
+  
+        // Send a message from the client to the server
+        std::string message = "Hello from Client!";
+        std::cout << "Client sending message: " << message << "\n";
+        client.send(message);
+  
+        // Receive a response from the server
+        std::string response = client.receive();
+        std::cout << "Client received response: " << response << "\n";
+  
+        // Join the server thread before exiting
+        server_thread.join();
+  
+    } catch (std::exception& e) {
+        std::cerr << "Exception: " << e.what() << "\n";
     }
-
-    client->cleanUp();
-    // Destroy the window.
-    glfwDestroyWindow(window);
-    // Terminate GLFW.
-    glfwTerminate();
-
-    exit(EXIT_SUCCESS);
-}
+  
+    return 0;
+  }
