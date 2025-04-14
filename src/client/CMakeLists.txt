@@ -35,9 +35,6 @@ set(CLIENT_SRCS
 
 add_executable(client ${CLIENT_SRCS})
 
-# include precompiled header for faster build
-target_precompile_headers(client PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../../include/shared/pch.hpp)
-
 target_include_directories(client PRIVATE 
     ${CMAKE_CURRENT_SOURCE_DIR}/../../include
     ${ASIO_DIR}
