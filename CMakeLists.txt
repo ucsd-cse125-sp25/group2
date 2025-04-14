@@ -19,6 +19,7 @@ add_subdirectory(dependencies)
 
 include(ExternalProject)
 
+# Build client side
 ExternalProject_Add(${PROJECT_NAME}_client_core
   DEPENDS GLFW_external GLEW_external glm_external
   SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src/client
@@ -34,8 +35,28 @@ ExternalProject_Add(${PROJECT_NAME}_client_core
 
 ExternalProject_Add_Step(${PROJECT_NAME}_client_core copy_executable
   COMMAND ${CMAKE_COMMAND} -E copy_if_different
-    ${CMAKE_BINARY_DIR}/subprojects/Build/${PROJECT_NAME}_client_core/main
-    ${CMAKE_BINARY_DIR}/main
+    ${CMAKE_BINARY_DIR}/subprojects/Build/${PROJECT_NAME}_client_core/client
+    ${CMAKE_BINARY_DIR}/client
+  DEPENDEES build
+  ALWAYS 1
+)
+
+# Build server side
+ExternalProject_Add(${PROJECT_NAME}_server_core
+  SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src/server
+  CMAKE_ARGS
+  -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
+  -DASIO_DIR=${FETCH_SOURCE_DIR_PREFIX}/asio_external-src/asio/include
+  CMAKE_CACHE_ARGS
+  -DCMAKE_PREFIX_PATH:PATH=${CMAKE_PREFIX_PATH}
+  BUILD_ALWAYS ON
+  INSTALL_COMMAND ""
+)
+
+ExternalProject_Add_Step(${PROJECT_NAME}_server_core copy_executable
+  COMMAND ${CMAKE_COMMAND} -E copy_if_different
+    ${CMAKE_BINARY_DIR}/subprojects/Build/${PROJECT_NAME}_server_core/server
+    ${CMAKE_BINARY_DIR}/server
   DEPENDEES build
   ALWAYS 1
 )

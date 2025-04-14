@@ -1,0 +1,20 @@
+cmake_minimum_required(VERSION 3.6 FATAL_ERROR)
+
+project(barnyard_breakout LANGUAGES CXX)
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+set(SERVER_SRCS
+    main.cpp
+    servernetwork.cpp
+)
+
+add_executable(server ${SERVER_SRCS})
+
+target_include_directories(server PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../include
+    ${ASIO_DIR}
+)
+
+target_compile_definitions(server PRIVATE ASIO_STANDALONE)

@@ -31,17 +31,16 @@ set(CLIENT_SRCS
     shader.cpp
     cube.cpp
     clientnetwork.cpp 
-    servernetwork.cpp
 )
 
-add_executable(main ${CLIENT_SRCS})
+add_executable(client ${CLIENT_SRCS})
 
-target_include_directories(main PRIVATE 
+target_include_directories(client PRIVATE 
     ${CMAKE_CURRENT_SOURCE_DIR}/../../include
     ${ASIO_DIR}
 )
 
 # Build in standalone mode to not include Boost
-target_compile_definitions(main PRIVATE ASIO_STANDALONE)
+target_compile_definitions(client PRIVATE ASIO_STANDALONE)
 
-target_link_libraries(main PRIVATE GLEW::glew_s glfw)
+target_link_libraries(client PRIVATE GLEW::glew_s glfw)

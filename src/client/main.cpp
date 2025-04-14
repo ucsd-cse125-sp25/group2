@@ -1,6 +1,5 @@
 #include "client/client.hpp"
 #include "client/clientnetwork.hpp"
-#include "client/servernetwork.hpp"
 #include <memory>
 
 void error_callback(int error, const char* description) {
@@ -91,35 +90,19 @@ void print_versions() {
 int main() {
     try {
         asio::io_context io_context;
-  
-        // Start the server in a separate thread
-        std::thread server_thread([&io_context]() {
-            ServerNetwork server(io_context, "127.0.0.1", "12345");
-            server.start();
-            io_context.run();
-        });
-  
-        // Wait a moment for the server to start
-        std::this_thread::sleep_for(std::chrono::seconds(1));
-  
-        // Initialize the client and connect to the server
+
         ClientNetwork client(io_context, "127.0.0.1", "12345");
-  
-        // Send a message from the client to the server
+
         std::string message = "Hello from Client!";
         std::cout << "Client sending message: " << message << "\n";
         client.send(message);
-  
-        // Receive a response from the server
+
         std::string response = client.receive();
         std::cout << "Client received response: " << response << "\n";
-  
-        // Join the server thread before exiting
-        server_thread.join();
-  
+
     } catch (std::exception& e) {
-        std::cerr << "Exception: " << e.what() << "\n";
+        std::cerr << "Client exception: " << e.what() << "\n";
     }
-  
+
     return 0;
-  }
+}
