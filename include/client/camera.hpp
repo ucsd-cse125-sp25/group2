@@ -1,5 +1,7 @@
 #pragma once
 
+#define GLM_ENABLE_EXPERIMENTAL
+
 #include "core.hpp"
 #include "glm/gtx/euler_angles.hpp"
 
