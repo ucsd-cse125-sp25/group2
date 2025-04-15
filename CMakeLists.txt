@@ -25,5 +25,6 @@ add_subdirectory(dependencies/glm)
 add_subdirectory(dependencies/asio)
 
 # Client/Server build
+add_subdirectory(src/shared)
 add_subdirectory(src/client)
 add_subdirectory(src/server)

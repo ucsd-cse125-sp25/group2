@@ -49,60 +49,60 @@ void print_versions() {
 #endif
 }
 
-// int main(void) {
-//     // Create the GLFW window.
-//     std::unique_ptr<Client> client(new Client());
-//     // Client* client = new Client();
-//     GLFWwindow* window = client->createWindow(800, 600);
-//     glfwSetWindowUserPointer(window, client.get());
-//     if (!window) exit(EXIT_FAILURE);
+int main(void) {
+    // Create the GLFW window.
+    std::unique_ptr<Client> client(new Client());
+    // Client* client = new Client();
+    GLFWwindow* window = client->createWindow(800, 600);
+    glfwSetWindowUserPointer(window, client.get());
+    if (!window) exit(EXIT_FAILURE);
 
-//     // Print OpenGL and GLSL versions.
-//     print_versions();
-//     // Setup callbacks.
-//     setup_callbacks(window);
-//     // Setup OpenGL settings.
-//     setup_opengl_settings();
+    // Print OpenGL and GLSL versions.
+    print_versions();
+    // Setup callbacks.
+    setup_callbacks(window);
+    // Setup OpenGL settings.
+    setup_opengl_settings();
 
-//     // Initialize the shader program; exit if initialization fails.
-//     if (!client->initializeProgram()) exit(EXIT_FAILURE);
-//     // Initialize objects/pointers for rendering; exit if initialization fails.
-//     if (!client->initializeObjects()) exit(EXIT_FAILURE);
+    // Initialize the shader program; exit if initialization fails.
+    if (!client->initializeProgram()) exit(EXIT_FAILURE);
+    // Initialize objects/pointers for rendering; exit if initialization fails.
+    if (!client->initializeObjects()) exit(EXIT_FAILURE);
 
-//     // Loop while GLFW window should stay open.
-//     while (!glfwWindowShouldClose(window)) {
-//         // Main render display callback. Rendering of objects is done here.
-//         client->displayCallback(window);
+    // Loop while GLFW window should stay open.
+    while (!glfwWindowShouldClose(window)) {
+        // Main render display callback. Rendering of objects is done here.
+        client->displayCallback(window);
 
-//         // Idle callback. Updating objects, etc. can be done here.
-//         client->idleCallback();
-//     }
-
-//     client->cleanUp();
-//     // Destroy the window.
-//     glfwDestroyWindow(window);
-//     // Terminate GLFW.
-//     glfwTerminate();
-
-//     exit(EXIT_SUCCESS);
-// }
-
-int main() {
-    try {
-        asio::io_context io_context;
-
-        ClientNetwork client(io_context, "127.0.0.1", "12345");
-
-        std::string message = "Hello from Client!";
-        std::cout << "Client sending message: " << message << "\n";
-        client.send(message);
-
-        std::string response = client.receive();
-        std::cout << "Client received response: " << response << "\n";
-
-    } catch (std::exception& e) {
-        std::cerr << "Client exception: " << e.what() << "\n";
+        // Idle callback. Updating objects, etc. can be done here.
+        client->idleCallback();
     }
 
-    return 0;
+    client->cleanUp();
+    // Destroy the window.
+    glfwDestroyWindow(window);
+    // Terminate GLFW.
+    glfwTerminate();
+
+    exit(EXIT_SUCCESS);
 }
+
+// int main() {
+//     try {
+//         asio::io_context io_context;
+
+//         ClientNetwork client(io_context, "127.0.0.1", "12345");
+
+//         std::string message = "Hello from Client!";
+//         std::cout << "Client sending message: " << message << "\n";
+//         client.send(message);
+
+//         std::string response = client.receive();
+//         std::cout << "Client received response: " << response << "\n";
+
+//     } catch (std::exception& e) {
+//         std::cerr << "Client exception: " << e.what() << "\n";
+//     }
+
+//     return 0;
+// }

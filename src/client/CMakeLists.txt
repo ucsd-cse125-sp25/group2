@@ -1,4 +1,5 @@
 set(TARGET_NAME client)
+# Don't need this now
 set(LIB_NAME client_lib)
 
 set(CLIENT_SRCS
@@ -6,7 +7,6 @@ set(CLIENT_SRCS
     client.cpp
     camera.cpp
     shader.cpp
-    cube.cpp
     clientnetwork.cpp 
 )
 
@@ -21,6 +21,7 @@ target_compile_definitions(${TARGET_NAME} PRIVATE ASIO_STANDALONE)
 target_compile_definitions(${TARGET_NAME} PRIVATE GLM_ENABLE_EXPERIMENTAL)
 
 target_link_libraries(${TARGET_NAME} PRIVATE
+    shared_lib
     glm
     glfw
     libglew_static 

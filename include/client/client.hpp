@@ -1,9 +1,9 @@
 #pragma once
 
-#include "camera.hpp"
-#include "cube.hpp"
-#include "shader.hpp"
 #include "core.hpp"
+#include "camera.hpp"
+#include "shader.hpp"
+#include "shared/cube.hpp"
 
 class Client {
 public:

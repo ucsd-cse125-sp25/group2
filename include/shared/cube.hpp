@@ -2,7 +2,7 @@
 
 #include <vector>
 
-#include "core.hpp"
+#include "client/core.hpp"
 
 class Cube {
 private:
