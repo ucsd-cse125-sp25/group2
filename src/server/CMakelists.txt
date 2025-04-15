@@ -1,20 +1,20 @@
-cmake_minimum_required(VERSION 3.6 FATAL_ERROR)
-
-project(barnyard_breakout LANGUAGES CXX)
-
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(TARGET_NAME server)
+set(LIB_NAME server_lib)
 
 set(SERVER_SRCS
     main.cpp
     servernetwork.cpp
 )
 
-add_executable(server ${SERVER_SRCS})
+add_executable(${TARGET_NAME} ${SERVER_SRCS})
 
-target_include_directories(server PRIVATE
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../include
-    ${ASIO_DIR}
+target_include_directories(${TARGET_NAME} PRIVATE
+    ${INCLUDE_DIRECTORY}
 )
 
-target_compile_definitions(server PRIVATE ASIO_STANDALONE)
+# Build in standalone mode to not include Boost
+target_compile_definitions(${TARGET_NAME} PRIVATE ASIO_STANDALONE)
+
+target_link_libraries(${TARGET_NAME} PRIVATE 
+    asio
+)

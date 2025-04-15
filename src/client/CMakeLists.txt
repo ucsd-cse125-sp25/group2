@@ -1,28 +1,5 @@
-cmake_minimum_required(VERSION 3.6 FATAL_ERROR)
-
-project(barnyard_breakout LANGUAGES CXX)
-
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
-if(EXISTS "${STAGED_INSTALL_PREFIX}/lib64")
-    set(_LIBDIR "lib64")
-elseif(EXISTS "${STAGED_INSTALL_PREFIX}/lib")
-    set(_LIBDIR "lib")
-else()
-    message(FATAL_ERROR "No 'lib' or 'lib64' directory found in ${STAGED_INSTALL_PREFIX}")
-endif()
-
-file(TO_NATIVE_PATH "${STAGED_INSTALL_PREFIX}/${_LIBDIR}/cmake/glfw3" glfw3_DIR)
-file(TO_NATIVE_PATH "${STAGED_INSTALL_PREFIX}/${_LIBDIR}/cmake/glew" GLEW_DIR)
-
-message(STATUS "glfw3_DIR is... ${glfw3_DIR}")
-message(STATUS "GLEW_DIR is... ${GLEW_DIR}")
-
-find_package(glfw3 REQUIRED CONFIG)
-
-set(GLEW_USE_STATIC_LIBS ON)
-find_package(GLEW REQUIRED CONFIG)
+set(TARGET_NAME client)
+set(LIB_NAME client_lib)
 
 set(CLIENT_SRCS
     main.cpp
@@ -33,14 +10,19 @@ set(CLIENT_SRCS
     clientnetwork.cpp 
 )
 
-add_executable(client ${CLIENT_SRCS})
+add_executable(${TARGET_NAME} ${CLIENT_SRCS})
 
-target_include_directories(client PRIVATE 
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../include
-    ${ASIO_DIR}
+target_include_directories(${TARGET_NAME} PRIVATE 
+    ${INCLUDE_DIRECTORY}
 )
 
 # Build in standalone mode to not include Boost
-target_compile_definitions(client PRIVATE ASIO_STANDALONE)
+target_compile_definitions(${TARGET_NAME} PRIVATE ASIO_STANDALONE)
+target_compile_definitions(${TARGET_NAME} PRIVATE GLM_ENABLE_EXPERIMENTAL)
 
-target_link_libraries(client PRIVATE GLEW::glew_s glfw)
+target_link_libraries(${TARGET_NAME} PRIVATE
+    glm
+    glfw
+    libglew_static 
+    asio
+)

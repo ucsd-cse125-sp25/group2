@@ -1,62 +1,29 @@
-cmake_minimum_required(VERSION 3.6 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.14 FATAL_ERROR)
 
 project(barnyard_breakout LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# debug
-set(CMAKE_BUILD_TYPE Debug)
+# Make all executables to be placed directly in the build directory
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 
-# ExternalProject base
-set_property(DIRECTORY PROPERTY EP_BASE ${CMAKE_BINARY_DIR}/subprojects)
+# Default to Release
+if(NOT CMAKE_BUILD_TYPE)
+  set(CMAKE_BUILD_TYPE Release CACHE STRING "Choose the type of build." FORCE)
+endif()
 
-set(STAGED_INSTALL_PREFIX ${CMAKE_BINARY_DIR}/stage)
-set(EP_SOURCE_DIR_PREFIX ${CMAKE_BINARY_DIR}/subprojects/Source)
-set(FETCH_SOURCE_DIR_PREFIX ${CMAKE_BINARY_DIR}/_deps)
+include(FetchContent)
 
-add_subdirectory(dependencies)
+# Set custom variables
+SET(INCLUDE_DIRECTORY ${PROJECT_SOURCE_DIR}/include)
 
-include(ExternalProject)
+# Dependencies
+add_subdirectory(dependencies/glfw)
+add_subdirectory(dependencies/glew)
+add_subdirectory(dependencies/glm)
+add_subdirectory(dependencies/asio)
 
-# Build client side
-ExternalProject_Add(${PROJECT_NAME}_client_core
-  DEPENDS GLFW_external GLEW_external glm_external
-  SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src/client
-  CMAKE_ARGS
-  -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
-  -DSTAGED_INSTALL_PREFIX=${STAGED_INSTALL_PREFIX}
-  -DASIO_DIR=${FETCH_SOURCE_DIR_PREFIX}/asio_external-src/asio/include
-  CMAKE_CACHE_ARGS
-  -DCMAKE_PREFIX_PATH:PATH=${CMAKE_PREFIX_PATH}
-  BUILD_ALWAYS ON
-  INSTALL_COMMAND ""
-)
-
-ExternalProject_Add_Step(${PROJECT_NAME}_client_core copy_executable
-  COMMAND ${CMAKE_COMMAND} -E copy_if_different
-    ${CMAKE_BINARY_DIR}/subprojects/Build/${PROJECT_NAME}_client_core/client
-    ${CMAKE_BINARY_DIR}/client
-  DEPENDEES build
-  ALWAYS 1
-)
-
-# Build server side
-ExternalProject_Add(${PROJECT_NAME}_server_core
-  SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src/server
-  CMAKE_ARGS
-  -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
-  -DASIO_DIR=${FETCH_SOURCE_DIR_PREFIX}/asio_external-src/asio/include
-  CMAKE_CACHE_ARGS
-  -DCMAKE_PREFIX_PATH:PATH=${CMAKE_PREFIX_PATH}
-  BUILD_ALWAYS ON
-  INSTALL_COMMAND ""
-)
-
-ExternalProject_Add_Step(${PROJECT_NAME}_server_core copy_executable
-  COMMAND ${CMAKE_COMMAND} -E copy_if_different
-    ${CMAKE_BINARY_DIR}/subprojects/Build/${PROJECT_NAME}_server_core/server
-    ${CMAKE_BINARY_DIR}/server
-  DEPENDEES build
-  ALWAYS 1
-)
+# Client/Server build
+add_subdirectory(src/client)
+add_subdirectory(src/server)
