@@ -22,7 +22,13 @@ bool Client::initializeObjects() {
     return true;
 }
 
+bool Client::initializeNetwork(asio::io_context& io_context, const std::string& ip, const std::string& port) {
+    network = new ClientNetwork(io_context, ip, port);
+    return !network->err;
+}
+
 void Client::cleanUp() {
+    delete network;
     // Deallcoate the objects.
     delete cube;
 
@@ -98,6 +104,7 @@ void Client::idleCallback() {
 }
 
 void Client::displayCallback(GLFWwindow* window) {
+
     // Clear the color and depth buffers.
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -106,8 +113,10 @@ void Client::displayCallback(GLFWwindow* window) {
 
     // Gets events, including input such as keyboard and mouse or window resizing.
     glfwPollEvents();
-    // Swap buffers.
+
+    // Main render display callback. Rendering of objects is done here.
     glfwSwapBuffers(window);
+
 }
 
 // helper to reset the camera

@@ -16,10 +16,11 @@ int main() {
         while (true) {
             auto start = high_resolution_clock::now();
 
-
+            server.receive_from_clients();
+            
             auto stop = high_resolution_clock::now();
             auto wait = duration_cast<milliseconds>(SERVERTICKS - (stop - start));
-            std::cout << wait.count() << " wait time: " << count++ << std::endl;
+            //std::cout << wait.count() << " wait time: " << count++ << std::endl;
 
             if (wait <= 0ms) {
                 std::cerr << "Warning went over server tick";

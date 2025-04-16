@@ -4,6 +4,9 @@
 #include "camera.hpp"
 #include "shader.hpp"
 #include "shared/cube.hpp"
+#include "client/clientnetwork.hpp"
+
+#define FPS (1.0 / 60.0)
 
 class Client {
 public:
@@ -23,9 +26,13 @@ public:
     // Shader Program
     GLuint shaderProgram;
 
+    //Network
+    ClientNetwork *network;
+
     // Act as Constructors and desctructors
     bool initializeProgram();
     bool initializeObjects();
+    bool initializeNetwork(asio::io_context& io_context, const std::string& ip, const std::string& port);
     void cleanUp();
 
     // for the Window

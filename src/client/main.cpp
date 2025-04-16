@@ -1,5 +1,4 @@
 #include "client/client.hpp"
-#include "client/clientnetwork.hpp"
 #include <memory>
 
 void error_callback(int error, const char* description) {
@@ -69,9 +68,19 @@ int main(void) {
     // Initialize objects/pointers for rendering; exit if initialization fails.
     if (!client->initializeObjects()) exit(EXIT_FAILURE);
 
+    asio::io_context io_context;
+    if (!client->initializeNetwork(io_context, "127.0.0.1","12345")) exit(EXIT_FAILURE);
+
+    string_packet packet;
+    packet.message = string("Hello from Client!");
+    std::cout << "Client sending message: " << packet.message << "\n";
+    client->network->send(packet);
+
     // Loop while GLFW window should stay open.
     while (!glfwWindowShouldClose(window)) {
-        // Main render display callback. Rendering of objects is done here.
+        //Constantly receive from server
+        client->network->receive();
+
         client->displayCallback(window);
 
         // Idle callback. Updating objects, etc. can be done here.
@@ -96,7 +105,8 @@ int main(void) {
 //         std::string message = "Hello from Client!";
 //         std::cout << "Client sending message: " << message << "\n";
 //         client.send(message);
-
+        
+//         //std::this_thread::sleep_for(std::chrono::milliseconds(500));
 //         std::string response = client.receive();
 //         std::cout << "Client received response: " << response << "\n";
 
