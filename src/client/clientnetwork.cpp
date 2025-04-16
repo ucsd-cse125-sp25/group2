@@ -30,8 +30,8 @@ ClientNetwork::~ClientNetwork() {
 
 void ClientNetwork::send(const Ipacket& packet) {
     vector<char> body = packet.serialize();
-    printf("sending size: %ld\n", body.size());
-    uint16_t body_size = htons(static_cast<uint16_t>(body.size()));
+    //printf("sending size: %ld\n", body.size());
+    uint16_t body_size = static_cast<uint16_t>(body.size());
     
     vector<char> buffer;
     buffer.reserve(1 + 2 + body.size());
@@ -60,8 +60,6 @@ bool ClientNetwork::receive() {
             std::cerr << "did not read packet size" << std::endl;
             return false;
         }
-        //FUCK NTOHS AHHHHHHHHHHHHHHHHHH
-        size = ntohs(size);
 
         std::vector<char> payload(size);
         _socket.read_some(asio::buffer(payload));

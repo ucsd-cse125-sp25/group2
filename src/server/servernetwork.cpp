@@ -49,8 +49,7 @@ void ServerNetwork::accept_client() {
 void ServerNetwork::send_to_client(unsigned int id, const Ipacket& packet) {
     auto socket = clients[id];
     vector<char> body = packet.serialize();
-    uint16_t body_size = htons(static_cast<uint16_t>(body.size()));
-    //printf("size: %d\n", body_size);
+    uint16_t body_size = static_cast<uint16_t>(body.size());
     
     vector<char> buffer;
     buffer.reserve(1 + 2 + body.size());
@@ -70,7 +69,7 @@ void ServerNetwork::send_to_client(unsigned int id, const Ipacket& packet) {
 void ServerNetwork::send_to_all(const Ipacket& packet) {
     for (const auto&[id, socket] : clients) {
         vector<char> body = packet.serialize();
-        uint16_t body_size = htons(static_cast<uint16_t>(body.size()));
+        uint16_t body_size = static_cast<uint16_t>(body.size());
         
         vector<char> buffer;
         buffer.reserve(1 + 2 + body.size());
@@ -100,7 +99,7 @@ void ServerNetwork::receive_from_clients() {
                 std::cerr << "did not read packet type" << std::endl;
             }
             //FUCK NTOHS AHHHHHHHHHHHHHHHHHH
-            size = ntohs(size);
+            //size = ntohs(size);
     
             std::vector<char> payload(size);
             socket->read_some(asio::buffer(payload));
