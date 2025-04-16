@@ -93,27 +93,34 @@ void ServerNetwork::receive_from_clients() {
     
             if (socket->read_some(asio::buffer(&type, 1)) <= 0) {
                 std::cerr << "did not read packet type" << std::endl;
+                continue;
             }
     
             if (socket->read_some(asio::buffer(&size, 2)) <= 0) {
                 std::cerr << "did not read packet type" << std::endl;
+                continue;
             }
-            //FUCK NTOHS AHHHHHHHHHHHHHHHHHH
-            //size = ntohs(size);
     
             std::vector<char> payload(size);
             socket->read_some(asio::buffer(payload));
     
             printf("type %d size: %d packet size %ld\n", (uint8_t)type, size, sizeof(init_packet));
-            switch (static_cast<PacketType>(type)) {
-                case PacketType::STRING:
-                    {
-                        string_packet string;
-                        string.message.assign(payload.data(), size);
-                        printf("Server Message: %s\n", string.message.c_str());
-                    }
-                    break;
-            }
+            process_packets(static_cast<PacketType>(type),payload,size);
         }
+    }
+}
+
+void ServerNetwork::process_packets(PacketType type, vector<char> payload, uint16_t size) {
+    switch (type) {
+        case PacketType::STRING:
+            {
+                string_packet string;
+                string.message.assign(payload.data(), size);
+                printf("Server Message: %s\n", string.message.c_str());
+            }
+            break;
+        default:
+            std::cerr << "Unhandled packet type" << std::endl;
+            break;
     }
 }

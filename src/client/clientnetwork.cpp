@@ -65,23 +65,29 @@ bool ClientNetwork::receive() {
         _socket.read_some(asio::buffer(payload));
 
         //printf("type %d size: %d packet size %ld\n", (uint8_t)type, size, sizeof(init_packet));
-        switch (static_cast<PacketType>(type)) {
-            case PacketType::INIT:
-                {
-                    std::cout << "entered init" << std::endl;
-                    init_packet init;
-                    memcpy(&init.client_id,payload.data(),size);
-                    printf("init %d\n", init.client_id);
-                    return true;
-                }
-            case PacketType::STRING:
-                {
-                    string_packet string;
-                    memcpy(&string.message,payload.data(),size);
-                    printf("Server Message: %s\n", string.message.c_str());
-                    return true;
-                }
-        }
+        return process_packets(static_cast<PacketType>(type),payload,size);
     }
     return false;
+}
+
+bool ClientNetwork::process_packets(PacketType type, vector<char> payload, uint16_t size) {
+    switch (type) {
+        case PacketType::INIT:
+            {
+                init_packet init;
+                memcpy(&init.client_id,payload.data(),size);
+                printf("init %d\n", init.client_id);
+                return true;
+            }
+        case PacketType::STRING:
+            {
+                string_packet string;
+                memcpy(&string.message,payload.data(),size);
+                printf("Server Message: %s\n", string.message.c_str());
+                return true;
+            }
+        default:
+            std::cerr << "unhandled packet" << std::endl;
+            return false;
+    }
 }

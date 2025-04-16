@@ -19,6 +19,7 @@ class ServerNetwork {
         asio::ip::tcp::acceptor _acceptor;
         std::map<CLIENT_ID, std::shared_ptr<asio::ip::tcp::socket>> clients;
         void accept_client();
+        void process_packets(PacketType type, vector<char> payload, uint16_t size);
     public:
         ServerNetwork(asio::io_context& io_context, const std::string& ip, const std::string& port);
         void start();

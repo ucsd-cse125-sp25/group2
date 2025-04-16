@@ -9,6 +9,8 @@ class ClientNetwork
 {
 private:
     tcp::socket _socket;
+
+    bool process_packets(PacketType type, vector<char> payload, uint16_t size);
 public:
     bool err;
 
