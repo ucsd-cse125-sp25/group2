@@ -27,7 +27,7 @@ ClientNetwork::~ClientNetwork() {
     }
 }
 
-void ClientNetwork::send(const Ipacket& packet) {
+void ClientNetwork::send(const IPacket& packet) {
     vector<char> body = packet.serialize();
     //printf("sending size: %ld\n", body.size());
     uint16_t body_size = static_cast<uint16_t>(body.size());
@@ -72,17 +72,17 @@ bool ClientNetwork::process_packets(PacketType type, vector<char> payload, uint1
     switch (type) {
         case PacketType::INIT:
             {
-                std::unique_ptr<Ipacket> packet = deserialize(PacketType::INIT, payload, size);
+                std::unique_ptr<IPacket> packet = deserialize(PacketType::INIT, payload, size);
                 return true;
             }
         case PacketType::STRING:
             {
-                std::unique_ptr<Ipacket> packet = deserialize(PacketType::STRING, payload, size);
+                std::unique_ptr<IPacket> packet = deserialize(PacketType::STRING, payload, size);
                 return true;
             }
         case PacketType::POSITION:
             {
-                std::unique_ptr<Ipacket> packet = deserialize(PacketType::POSITION, payload, size);
+                std::unique_ptr<IPacket> packet = deserialize(PacketType::POSITION, payload, size);
 
                 // TEST
                 if (auto* posPacket = dynamic_cast<PositionPacket*>(packet.get())) {

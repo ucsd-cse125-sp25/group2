@@ -18,7 +18,7 @@ public:
     ClientNetwork(asio::io_context& io_context, const std::string& ip, const std::string& port);
     ~ClientNetwork(void);
 
-    void send(const Ipacket& packet);
+    void send(const IPacket& packet);
 
     bool receive();
 };

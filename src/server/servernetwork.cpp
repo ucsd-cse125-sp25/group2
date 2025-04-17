@@ -30,16 +30,12 @@ void ServerNetwork::accept_client() {
         if (!ec) {
             std::cout << "New client connected\n";
             this->clients[client_id] = socket;
-            InitPacket init;
-            init.client_id = client_id;
+            InitPacket init(client_id);
             send_to_client(client_id, init);
-            
-            // pass position for testing
-            PositionPacket packet;
-            packet.x = 0.0f;
-            packet.y = 0.0f;
-            packet.z = 0.0f;
-            send_to_client(client_id, packet);
+
+            // initialize game state and send to client
+            game = new GameState();
+            send_to_client(client_id, game->init());
 
             this->client_id++;
         } else {
@@ -52,9 +48,9 @@ void ServerNetwork::accept_client() {
 
 /*
  * Core communication to client
- * need to send a packet that inherits Ipacket 
+ * need to send a packet that inherits IPacket 
 */
-void ServerNetwork::send_to_client(unsigned int id, const Ipacket& packet) {
+void ServerNetwork::send_to_client(unsigned int id, const IPacket& packet) {
     auto socket = clients[id];
     vector<char> body = packet.serialize();
     uint16_t body_size = static_cast<uint16_t>(body.size());
@@ -72,9 +68,9 @@ void ServerNetwork::send_to_client(unsigned int id, const Ipacket& packet) {
 }
 /*
  * Send packet to all clients known to server
- * need to send a packet that inherits Ipacket 
+ * need to send a packet that inherits IPacket 
 */
-void ServerNetwork::send_to_all(const Ipacket& packet) {
+void ServerNetwork::send_to_all(const IPacket& packet) {
     for (const auto&[id, socket] : clients) {
         vector<char> body = packet.serialize();
         uint16_t body_size = static_cast<uint16_t>(body.size());
@@ -121,12 +117,12 @@ void ServerNetwork::process_packets(PacketType type, vector<char> payload, uint1
     switch (type) {
         case PacketType::INIT:
             {
-                std::unique_ptr<Ipacket> packet = deserialize(PacketType::INIT, payload, size);
+                std::unique_ptr<IPacket> packet = deserialize(PacketType::INIT, payload, size);
                 break;
             }
         case PacketType::STRING:
             {
-                std::unique_ptr<Ipacket> packet = deserialize(PacketType::STRING, payload, size);
+                std::unique_ptr<IPacket> packet = deserialize(PacketType::STRING, payload, size);
                 break;
             }
         default:

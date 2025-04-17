@@ -2,7 +2,9 @@
 #include <stdint.h>
 #include <vector>
 #include <cstring>
+#include <string>
 #include <memory>
+#include <stdexcept>
 
 using namespace std;
 
@@ -22,15 +24,15 @@ enum class ActionType : uint8_t
     BACK
 };
 
-struct Ipacket
+struct IPacket
 {
     virtual PacketType get_type() const = 0;
     virtual vector<char> serialize() const = 0;
-    virtual ~Ipacket() = default;
+    virtual ~IPacket() = default;
 };
 
 // TESTING
-struct StringPacket : public Ipacket
+struct StringPacket : public IPacket
 {
     string message;
 
@@ -47,12 +49,12 @@ struct StringPacket : public Ipacket
     }
     static StringPacket deserialize(vector<char> payload, uint16_t size)
     {
-        StringPacket packet(std::string(payload.begin(), payload.begin() + size));
+        StringPacket packet(string(payload.begin(), payload.begin() + size));
         return packet;
     }
 };
 
-struct InitPacket : public Ipacket
+struct InitPacket : public IPacket
 {
     int client_id;
 
@@ -76,7 +78,7 @@ struct InitPacket : public Ipacket
     }
 };
 
-struct PositionPacket : public Ipacket
+struct PositionPacket : public IPacket
 {
     float x, y, z;
 
@@ -106,7 +108,7 @@ struct PositionPacket : public Ipacket
     }
 };
 
-struct ActionPacket : public Ipacket
+struct ActionPacket : public IPacket
 {
     ActionType type;
     ActionPacket(ActionType t) : type(t) {}
@@ -129,7 +131,7 @@ struct ActionPacket : public Ipacket
     }
 };
 
-inline std::unique_ptr<Ipacket> deserialize(PacketType type, vector<char> payload, uint16_t size)
+inline std::unique_ptr<IPacket> deserialize(PacketType type, vector<char> payload, uint16_t size)
 {
     switch (type)
     {
@@ -140,6 +142,6 @@ inline std::unique_ptr<Ipacket> deserialize(PacketType type, vector<char> payloa
     case PacketType::POSITION:
         return std::make_unique<PositionPacket>(PositionPacket::deserialize(payload, size));
     default:
-        throw std::runtime_error("Unknown packet type");
+        throw runtime_error("Unknown packet type");
     }
 }
