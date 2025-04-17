@@ -16,7 +16,7 @@ public:
     static Cube* cube;
 
     // Shader Program
-    static GLuint shaderProgram;
+    static Shader shaderProgram;
 
     // Act as Constructors and desctructors
     static bool initializeProgram();
