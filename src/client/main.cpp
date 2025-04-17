@@ -48,71 +48,67 @@ void print_versions() {
 #endif
 }
 
-int main(void) {
-    // Create the GLFW window.
-    std::unique_ptr<Client> client(new Client());
-    // Client* client = new Client();
-    GLFWwindow* window = client->createWindow(800, 600);
-    glfwSetWindowUserPointer(window, client.get());
-    if (!window) exit(EXIT_FAILURE);
+// int main(void) {
+//     // Create the GLFW window.
+//     std::unique_ptr<Client> client(new Client());
+//     // Client* client = new Client();
+//     GLFWwindow* window = client->createWindow(800, 600);
+//     glfwSetWindowUserPointer(window, client.get());
+//     if (!window) exit(EXIT_FAILURE);
 
-    // Print OpenGL and GLSL versions.
-    print_versions();
-    // Setup callbacks.
-    setup_callbacks(window);
-    // Setup OpenGL settings.
-    setup_opengl_settings();
+//     // Print OpenGL and GLSL versions.
+//     print_versions();
+//     // Setup callbacks.
+//     setup_callbacks(window);
+//     // Setup OpenGL settings.
+//     setup_opengl_settings();
 
-    // Initialize the shader program; exit if initialization fails.
-    if (!client->initializeProgram()) exit(EXIT_FAILURE);
-    // Initialize objects/pointers for rendering; exit if initialization fails.
-    if (!client->initializeObjects()) exit(EXIT_FAILURE);
+//     // Initialize the shader program; exit if initialization fails.
+//     if (!client->initializeProgram()) exit(EXIT_FAILURE);
+//     // Initialize objects/pointers for rendering; exit if initialization fails.
+//     if (!client->initializeObjects()) exit(EXIT_FAILURE);
 
-    asio::io_context io_context;
-    if (!client->initializeNetwork(io_context, "127.0.0.1","12345")) exit(EXIT_FAILURE);
+//     asio::io_context io_context;
+//     if (!client->initializeNetwork(io_context, "127.0.0.1","12345")) exit(EXIT_FAILURE);
 
-    string_packet packet;
-    packet.message = string("Hello from Client!");
-    std::cout << "Client sending message: " << packet.message << "\n";
-    client->network->send(packet);
+//     StringPacket packet;
+//     packet.message = string("Hello from Client!");
+//     std::cout << "Client sending message: " << packet.message << "\n";
+//     client->network->send(packet);
 
-    // Loop while GLFW window should stay open.
-    while (!glfwWindowShouldClose(window)) {
-        //Constantly receive from server
-        client->network->receive();
+//     // Loop while GLFW window should stay open.
+//     while (!glfwWindowShouldClose(window)) {
+//         //Constantly receive from server
+//         client->network->receive();
 
-        client->displayCallback(window);
+//         client->displayCallback(window);
 
-        // Idle callback. Updating objects, etc. can be done here.
-        client->idleCallback();
-    }
-
-    client->cleanUp();
-    // Destroy the window.
-    glfwDestroyWindow(window);
-    // Terminate GLFW.
-    glfwTerminate();
-
-    exit(EXIT_SUCCESS);
-}
-
-// int main() {
-//     try {
-//         asio::io_context io_context;
-
-//         ClientNetwork client(io_context, "127.0.0.1", "12345");
-
-//         std::string message = "Hello from Client!";
-//         std::cout << "Client sending message: " << message << "\n";
-//         client.send(message);
-        
-//         //std::this_thread::sleep_for(std::chrono::milliseconds(500));
-//         std::string response = client.receive();
-//         std::cout << "Client received response: " << response << "\n";
-
-//     } catch (std::exception& e) {
-//         std::cerr << "Client exception: " << e.what() << "\n";
+//         // Idle callback. Updating objects, etc. can be done here.
+//         client->idleCallback();
 //     }
 
-//     return 0;
+//     client->cleanUp();
+//     // Destroy the window.
+//     glfwDestroyWindow(window);
+//     // Terminate GLFW.
+//     glfwTerminate();
+
+//     exit(EXIT_SUCCESS);
 // }
+
+int main(void) {
+    try {
+        std::unique_ptr<Client> client(new Client());
+        asio::io_context io_context;
+        if (!client->initializeNetwork(io_context, "127.0.0.1","12345")) exit(EXIT_FAILURE);
+
+        while (true) {
+            client->network->receive();
+        }
+
+    } catch (std::exception& e) {
+        std::cerr << "Client exception: " << e.what() << "\n";
+    }
+
+    return 0;
+}

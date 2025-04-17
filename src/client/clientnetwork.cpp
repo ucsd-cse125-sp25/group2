@@ -27,7 +27,6 @@ ClientNetwork::~ClientNetwork() {
     }
 }
 
-
 void ClientNetwork::send(const Ipacket& packet) {
     vector<char> body = packet.serialize();
     //printf("sending size: %ld\n", body.size());
@@ -64,7 +63,6 @@ bool ClientNetwork::receive() {
         std::vector<char> payload(size);
         _socket.read_some(asio::buffer(payload));
 
-        //printf("type %d size: %d packet size %ld\n", (uint8_t)type, size, sizeof(init_packet));
         return process_packets(static_cast<PacketType>(type),payload,size);
     }
     return false;
@@ -74,20 +72,28 @@ bool ClientNetwork::process_packets(PacketType type, vector<char> payload, uint1
     switch (type) {
         case PacketType::INIT:
             {
-                init_packet init;
-                memcpy(&init.client_id,payload.data(),size);
-                printf("init %d\n", init.client_id);
+                std::unique_ptr<Ipacket> packet = deserialize(PacketType::INIT, payload, size);
                 return true;
             }
         case PacketType::STRING:
             {
-                string_packet string;
-                memcpy(&string.message,payload.data(),size);
-                printf("Server Message: %s\n", string.message.c_str());
+                std::unique_ptr<Ipacket> packet = deserialize(PacketType::STRING, payload, size);
+                return true;
+            }
+        case PacketType::POSITION:
+            {
+                std::unique_ptr<Ipacket> packet = deserialize(PacketType::POSITION, payload, size);
+
+                // TEST
+                if (auto* posPacket = dynamic_cast<PositionPacket*>(packet.get())) {
+                    std::cout << "x: " << posPacket->x << std::endl;
+                    std::cout << "y: " << posPacket->y << std::endl;
+                    std::cout << "z: " << posPacket->z << std::endl;
+                }
                 return true;
             }
         default:
-            std::cerr << "unhandled packet" << std::endl;
+            throw std::runtime_error("Unknown packet type");
             return false;
     }
 }

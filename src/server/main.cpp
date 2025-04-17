@@ -13,6 +13,7 @@ int main() {
         ServerNetwork server(io_context, "127.0.0.1", "12345");
         server.start();
         int count = 0;
+
         while (true) {
             auto start = high_resolution_clock::now();
 

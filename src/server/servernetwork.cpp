@@ -30,9 +30,17 @@ void ServerNetwork::accept_client() {
         if (!ec) {
             std::cout << "New client connected\n";
             this->clients[client_id] = socket;
-            init_packet init;
+            InitPacket init;
             init.client_id = client_id;
             send_to_client(client_id, init);
+            
+            // pass position for testing
+            PositionPacket packet;
+            packet.x = 0.0f;
+            packet.y = 0.0f;
+            packet.z = 0.0f;
+            send_to_client(client_id, packet);
+
             this->client_id++;
         } else {
             std::cerr << "Accept failed: " << ec.message() << "\n";
@@ -104,7 +112,6 @@ void ServerNetwork::receive_from_clients() {
             std::vector<char> payload(size);
             socket->read_some(asio::buffer(payload));
     
-            printf("type %d size: %d packet size %ld\n", (uint8_t)type, size, sizeof(init_packet));
             process_packets(static_cast<PacketType>(type),payload,size);
         }
     }
@@ -112,15 +119,17 @@ void ServerNetwork::receive_from_clients() {
 
 void ServerNetwork::process_packets(PacketType type, vector<char> payload, uint16_t size) {
     switch (type) {
+        case PacketType::INIT:
+            {
+                std::unique_ptr<Ipacket> packet = deserialize(PacketType::INIT, payload, size);
+                break;
+            }
         case PacketType::STRING:
             {
-                string_packet string;
-                string.message.assign(payload.data(), size);
-                printf("Server Message: %s\n", string.message.c_str());
+                std::unique_ptr<Ipacket> packet = deserialize(PacketType::STRING, payload, size);
+                break;
             }
-            break;
         default:
-            std::cerr << "Unhandled packet type" << std::endl;
-            break;
+            throw std::runtime_error("Unknown packet type server");
     }
 }
