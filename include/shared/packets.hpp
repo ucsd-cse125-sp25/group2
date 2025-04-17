@@ -2,24 +2,24 @@
 #include <stdint.h>
 #include <vector>
 #include <cstring>
-
+#include <memory>
 
 using namespace std;
 
 enum class PacketType: uint8_t {
     INIT,
-    TRANSFORM,
-    INPUT, 
-    STRING,
+    POSITION,
+    STRING
 };
+
 struct Ipacket {
     virtual PacketType get_type() const = 0;
     virtual vector<char> serialize() const = 0;
     virtual ~Ipacket() = default;
 };
 
-// for testing
-struct string_packet: public Ipacket {
+// TESTING
+struct StringPacket: public Ipacket {
     string message;
 
     PacketType get_type() const override {
@@ -27,14 +27,17 @@ struct string_packet: public Ipacket {
     }
     vector<char> serialize() const override {
         vector<char> buffer(message.size());
-
         memcpy(buffer.data(), message.data(), message.size());
-
         return buffer;
+    }
+    static StringPacket deserialize(vector<char> payload, uint16_t size) {
+        StringPacket packet;
+        packet.message = std::string(payload.begin(), payload.begin() + size);
+        return packet;
     }
 };
 
-struct init_packet : public Ipacket {
+struct InitPacket : public Ipacket {
     int client_id;
 
     PacketType get_type() const override {
@@ -45,27 +48,44 @@ struct init_packet : public Ipacket {
         memcpy(buffer.data(), &client_id, sizeof(client_id));
         return buffer;
     }
+    static InitPacket deserialize(const vector<char>& payload, uint16_t size) {
+        InitPacket packet;
+        memcpy(&packet.client_id, payload.data(), size);
+        return packet;
+    }
 };
 
-struct input_packet : public Ipacket {
-    PacketType get_type() const override {
-        return PacketType::INPUT;
-    }
-};
-struct transform_packet : public Ipacket {
+struct PositionPacket : public Ipacket {
     float x,y,z;
-    float rotation;
-    float scale;
+
     PacketType get_type() const override {
-        return PacketType::TRANSFORM;
+        return PacketType::POSITION;
     }
     vector<char> serialize() const override {
-        vector<char> buffer (sizeof(x) + sizeof(y) + sizeof(z) + sizeof(rotation) + sizeof(scale));
+        vector<char> buffer (sizeof(x) + sizeof(y) + sizeof(z));
         memcpy(buffer.data(), &x, sizeof(x));
         memcpy(buffer.data() + sizeof(x), &y, sizeof(y));
         memcpy(buffer.data() + sizeof(x) + sizeof(y), &z, sizeof(z));
-        memcpy(buffer.data() + sizeof(x) + sizeof(y) + sizeof(z), &rotation, sizeof(rotation));
-        memcpy(buffer.data() + sizeof(x) + sizeof(y) + sizeof(z) + sizeof(rotation), &scale, sizeof(scale));
         return buffer;
     }
+    static PositionPacket deserialize(const vector<char>& payload, uint16_t size) {
+        PositionPacket packet;
+        memcpy(&packet.x, payload.data(), sizeof(float));
+        memcpy(&packet.y, payload.data() + sizeof(float), sizeof(float));
+        memcpy(&packet.z, payload.data() + 2 * sizeof(float), sizeof(float));
+        return packet;
+    }
 };
+
+inline std::unique_ptr<Ipacket> deserialize(PacketType type, vector<char> payload, uint16_t size) {
+    switch (type) {
+        case PacketType::STRING:
+            return std::make_unique<StringPacket>(StringPacket::deserialize(payload, size));
+        case PacketType::INIT:
+            return std::make_unique<InitPacket>(InitPacket::deserialize(payload, size));
+        case PacketType::POSITION:
+            return std::make_unique<PositionPacket>(PositionPacket::deserialize(payload, size));
+        default:
+            throw std::runtime_error("Unknown packet type");
+    }
+}
