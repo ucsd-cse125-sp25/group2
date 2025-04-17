@@ -4,6 +4,7 @@
 #include "cube.hpp"
 #include "shader.hpp"
 #include "core.hpp"
+#include "gamestate.hpp"
 
 class Window {
 public:
@@ -16,7 +17,7 @@ public:
     static Cube* cube;
 
     // Shader Program
-    static GLuint shaderProgram;
+    static Shader shaderProgram;
 
     // Act as Constructors and desctructors
     static bool initializeProgram();
@@ -28,7 +29,7 @@ public:
     static void resizeCallback(GLFWwindow* window, int width, int height);
 
     // update and draw functions
-    static void idleCallback();
+    static void idleCallback(float deltaTime);
     static void displayCallback(GLFWwindow*);
 
     // helper to reset the camera

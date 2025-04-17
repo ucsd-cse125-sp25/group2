@@ -1,38 +1,38 @@
 #include <memory>
 #include <string>
+#include "core.hpp"
+#include "cube.hpp"
+#include "transform.hpp"
 
 #ifndef OBJECT_HPP
 #define OBJECT_HPP
 
-class Object
+class GameObject
 {
 protected:
     std::string id;
     bool interactable;
-    float positionX;
-    float positionY;
-    float positionZ;
+    Cube* model;
+    Transform* transform;
+    Shader shader;
 
     // displayed in view or not
     bool active;
 
 public:
-    Object(const std::string &objectId = "", bool interactable, float x = 0.0f, float y = 0.0f,
-           float z = 0.0f);
+    GameObject(const std::string &objectId = "", bool interactable = false, Shader shader = Shader());
 
-    virtual ~Object();
+    virtual ~GameObject();
 
     virtual void activate();
     virtual void deactivate();
     bool isActive() const;
 
-    void setPosition(float x, float y, float z);
-    float getPositionX() const;
-    float getPositionY() const;
-    float getPositionZ() const;
-
     const std::string &getId() const;
     void setId(const std::string &newId);
+
+    void Update(Transform* tf, float deltaTime);
+    void Render(const glm::mat4& viewProjMtx);
 };
 
 #endif // OBJECT_HPP

@@ -1,4 +1,4 @@
-#include "object.hpp"
+#include "gameobject.hpp"
 #include <string>
 
 #ifndef ANIMAL_HPP
@@ -18,7 +18,7 @@ public:
     virtual ~Animal();
 
     virtual void move(float deltaX, float deltaY, float deltaZ);
-    virtual void interact(const Object &other);
+    virtual void interact(const GameObject &other);
 
     float getPositionX() const;
     float getPositionY() const;

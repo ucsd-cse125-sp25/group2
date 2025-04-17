@@ -59,13 +59,20 @@ int main(void) {
     // Initialize objects/pointers for rendering; exit if initialization fails.
     if (!Window::initializeObjects()) exit(EXIT_FAILURE);
 
+    float deltaTime = 0.0f;
+    float lastFrame = 0.0f;
+
     // Loop while GLFW window should stay open.
     while (!glfwWindowShouldClose(window)) {
+        float currentFrame = glfwGetTime();
+        deltaTime = currentFrame - lastFrame;
+        lastFrame = currentFrame;
+        
         // Main render display callback. Rendering of objects is done here.
         Window::displayCallback(window);
 
         // Idle callback. Updating objects, etc. can be done here.
-        Window::idleCallback();
+        Window::idleCallback(deltaTime);
     }
 
     Window::cleanUp();

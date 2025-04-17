@@ -1,5 +1,4 @@
-#include "server/logic/animal.hpp"
-#include "server/logic/object.hpp"
+#include "client/animal.hpp"
 
 Animal::Animal(float x, float y, float z, const std::string &type)
     : positionX(x), positionY(y), positionZ(z), animalType(type)
@@ -15,7 +14,7 @@ void Animal::move(float deltaX, float deltaY, float deltaZ)
     positionZ += deltaZ;
 }
 
-void Animal::interact(const Object &other) {}
+void Animal::interact(const GameObject &other) {}
 
 float Animal::getPositionX() const { return positionX; }
 

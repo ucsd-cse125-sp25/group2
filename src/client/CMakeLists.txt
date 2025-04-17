@@ -30,10 +30,17 @@ set(CLIENT_SRCS
     camera.cpp
     shader.cpp
     cube.cpp
+    
+    animal.cpp
+    gameobject.cpp
+    gamestate.cpp
+    transform.cpp
 )
 
 add_executable(main ${CLIENT_SRCS})
 
-target_include_directories(main PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../../include)
+target_include_directories(main PRIVATE 
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../include
+    )
 
 target_link_libraries(main PRIVATE GLEW::glew_s glfw)
