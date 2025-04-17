@@ -5,6 +5,9 @@ int Window::width;
 int Window::height;
 const char* Window::windowTitle = "Model Environment";
 
+// Game State
+GameState* gameState;
+
 // Objects to render
 Cube* Window::cube;
 
@@ -16,25 +19,19 @@ bool LeftDown, RightDown;
 int MouseX, MouseY;
 
 // The shader program id
-GLuint Window::shaderProgram;
+Shader Window::shaderProgram;
 
 // Constructors and desctructors
 bool Window::initializeProgram() {
     // Create a shader program with a vertex shader and a fragment shader.
-    shaderProgram = LoadShaders("../src/client/shaders/shader.vert", "../src/client/shaders/shader.frag");
-
-    // Check the shader program.
-    if (!shaderProgram) {
-        std::cerr << "Failed to initialize shader program" << std::endl;
-        return false;
-    }
-
+    // shaderProgram = Shader("../src/client/shaders/shader.vert", "../src/client/shaders/shader.frag");
+    gameState = new GameState();
     return true;
 }
 
 bool Window::initializeObjects() {
     // Create a cube
-    cube = new Cube();
+    // cube = new Cube();
     // cube = new Cube(glm::vec3(-1, 0, -2), glm::vec3(1, 1, 1));
 
     return true;
@@ -42,10 +39,10 @@ bool Window::initializeObjects() {
 
 void Window::cleanUp() {
     // Deallcoate the objects.
-    delete cube;
+    // delete cube;
 
     // Delete the shader program.
-    glDeleteProgram(shaderProgram);
+    // shaderProgram.deleteShader();
 }
 
 // for the Window
@@ -111,11 +108,10 @@ void Window::resizeCallback(GLFWwindow* window, int width, int height) {
 }
 
 // update and draw functions
-void Window::idleCallback() {
+void Window::idleCallback(float deltaTime) {
     // Perform any updates as necessary.
     Cam->Update();
-
-    cube->update();
+    gameState->Update(deltaTime);
 }
 
 void Window::displayCallback(GLFWwindow* window) {
@@ -123,7 +119,9 @@ void Window::displayCallback(GLFWwindow* window) {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     // Render the object.
-    cube->draw(Cam->GetViewProjectMtx(), Window::shaderProgram);
+    // cube->draw(Cam->GetViewProjectMtx(), Window::shaderProgram);
+
+    gameState->Render(Cam->GetViewProjectMtx());
 
     // Gets events, including input such as keyboard and mouse or window resizing.
     glfwPollEvents();
@@ -139,25 +137,15 @@ void Window::resetCamera() {
 
 // callbacks - for Interaction
 void Window::keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) {
-    /*
-     * TODO: Modify below to add your key callbacks.
-     */
-
-    // Check for a key press.
-    if (action == GLFW_PRESS) {
-        switch (key) {
-            case GLFW_KEY_ESCAPE:
-                // Close the window. This causes the program to also terminate.
-                glfwSetWindowShouldClose(window, GL_TRUE);
-                break;
-
-            case GLFW_KEY_R:
-                resetCamera();
-                break;
-
-            default:
-                break;
-        }
+    if (action == GLFW_PRESS)
+    {
+        if (key == GLFW_KEY_ESCAPE)
+            glfwSetWindowShouldClose(window, true);
+        gameState->keyStates[key] = true;
+    }
+    if (action == GLFW_RELEASE)
+    {
+        gameState->keyStates[key] = false;
     }
 }
 

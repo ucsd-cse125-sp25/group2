@@ -131,14 +131,14 @@ Cube::~Cube() {
     glDeleteVertexArrays(1, &VAO);
 }
 
-void Cube::draw(const glm::mat4& viewProjMtx, GLuint shader) {
-    // actiavte the shader program
-    glUseProgram(shader);
+void Cube::draw(const glm::mat4& viewProjMtx, Shader& shader) {
+    // activate the shader program
+    shader.use();
 
     // get the locations and send the uniforms to the shader
-    glUniformMatrix4fv(glGetUniformLocation(shader, "viewProj"), 1, false, (float*)&viewProjMtx);
-    glUniformMatrix4fv(glGetUniformLocation(shader, "model"), 1, GL_FALSE, (float*)&model);
-    glUniform3fv(glGetUniformLocation(shader, "DiffuseColor"), 1, &color[0]);
+    shader.setMat4("viewProj", viewProjMtx);
+    shader.setMat4("model", model);
+    shader.setVec3("DiffuseColor", color);
 
     // Bind the VAO
     glBindVertexArray(VAO);
@@ -151,9 +151,14 @@ void Cube::draw(const glm::mat4& viewProjMtx, GLuint shader) {
     glUseProgram(0);
 }
 
-void Cube::update() {
-    // Spin the cube
-    spin(0.05f);
+void Cube::update(Transform* transform) {
+    glm::mat4 scaleMat = glm::scale(glm::mat4(1.0f), transform->getScale());
+    glm::mat4 rotMat = glm::rotate(glm::mat4(1.0f), glm::radians(transform->getRotation().x), glm::vec3(1, 0, 0));
+    rotMat = glm::rotate(rotMat, glm::radians(transform->getRotation().y), glm::vec3(0, 1, 0));
+    rotMat = glm::rotate(rotMat, glm::radians(transform->getRotation().z), glm::vec3(0, 0, 1));
+    glm::mat4 transMat = glm::translate(glm::mat4(1.0f), transform->getPosition());
+    
+    model = transMat * rotMat * scaleMat;
 }
 
 void Cube::spin(float deg) {
