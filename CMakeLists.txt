@@ -5,6 +5,8 @@ project(barnyard_breakout LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+set(BUILD_SHARED_LIBS ON)
+
 # debug
 set(CMAKE_BUILD_TYPE Debug)
 
@@ -30,14 +32,20 @@ endif()
 # dependency paths
 file(TO_NATIVE_PATH "${STAGED_INSTALL_PREFIX}/${_LIBDIR}/cmake/glfw3" glfw3_DIR)
 file(TO_NATIVE_PATH "${STAGED_INSTALL_PREFIX}/${_LIBDIR}/cmake/glew" GLEW_DIR)
+file(TO_NATIVE_PATH "${STAGED_INSTALL_PREFIX}/${_LIBDIR}/cmake/assimp-5.2" assimp_DIR)
 
 message(STATUS "glfw3_DIR is... ${glfw3_DIR}")
 message(STATUS "GLEW_DIR is... ${GLEW_DIR}")
+message(STATUS "assimp_DIR is... ${assimp_DIR}")
 
 # find required packages
 find_package(glfw3 REQUIRED CONFIG)
+
 set(GLEW_USE_STATIC_LIBS ON)
 find_package(GLEW REQUIRED CONFIG)
+
+set(Assimp_DIR "${assimp_DIR}")
+find_package(assimp REQUIRED CONFIG)
 
 # collect source files recursively
 function(collect_sources dir out_var)
@@ -60,7 +68,7 @@ target_include_directories(main PRIVATE
 )
 
 # link dependencies
-target_link_libraries(main PRIVATE GLEW::glew_s glfw)
+target_link_libraries(main PRIVATE GLEW::glew_s glfw assimp::assimp)
 
 # copy executable to build dir
 add_custom_command(

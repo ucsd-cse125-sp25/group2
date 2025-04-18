@@ -7,6 +7,7 @@ const char* Window::windowTitle = "Model Environment";
 
 // Objects to render
 Cube* Window::cube;
+Model* Window::model;
 
 // Camera Properties
 Camera* Cam;
@@ -16,18 +17,19 @@ bool LeftDown, RightDown;
 int MouseX, MouseY;
 
 // The shader program id
-Shader Window::shaderProgram;
+Shader Window::cubeShaderProgram;
+Shader Window::modelShaderProgram;
+
 
 // Constructors and desctructors
 bool Window::initializeProgram() {
-    // Create a shader program with a vertex shader and a fragment shader.
-    shaderProgram = Shader("../src/client/shaders/shader.vert", "../src/client/shaders/shader.frag");
 
-    // Check the shader program.
-    // if (!shaderProgram) {
-    //     std::cerr << "Failed to initialize shader program" << std::endl;
-    //     return false;
-    // }
+    // Cube shader program
+    cubeShaderProgram = Shader("../src/client/shaders/shader.vert", "../src/client/shaders/shader.frag"); 
+
+    // Model shader program
+    modelShaderProgram = Shader("../src/client/shaders/model.vert", "../src/client/shaders/model.frag"); 
+
 
     return true;
 }
@@ -37,6 +39,9 @@ bool Window::initializeObjects() {
     cube = new Cube();
     // cube = new Cube(glm::vec3(-1, 0, -2), glm::vec3(1, 1, 1));
 
+    // Load model
+    model = new Model("../src/client/resources/objects/backpack/backpack.obj");
+
     return true;
 }
 
@@ -44,8 +49,10 @@ void Window::cleanUp() {
     // Deallcoate the objects.
     delete cube;
 
-    // Delete the shader program.
-    shaderProgram.deleteShader();
+    // Delete the shader programs.
+    cubeShaderProgram.deleteShader();
+    modelShaderProgram.deleteShader();
+
 }
 
 // for the Window
@@ -116,6 +123,8 @@ void Window::idleCallback() {
     Cam->Update();
 
     cube->update();
+
+    model->Update();
 }
 
 void Window::displayCallback(GLFWwindow* window) {
@@ -123,7 +132,11 @@ void Window::displayCallback(GLFWwindow* window) {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     // Render the object.
-    cube->draw(Cam->GetViewProjectMtx(), Window::shaderProgram);
+    cube->draw(Cam->GetViewProjectMtx(), Window::cubeShaderProgram);
+
+    // Render the model.
+    model->Draw(Cam->GetViewProjectMtx(), Window::modelShaderProgram);
+
 
     // Gets events, including input such as keyboard and mouse or window resizing.
     glfwPollEvents();

@@ -4,6 +4,7 @@
 #include "cube.hpp"
 #include "shader.hpp"
 #include "core.hpp"
+#include "model.hpp"
 
 class Window {
 public:
@@ -14,9 +15,11 @@ public:
 
     // Objects to render
     static Cube* cube;
+    static Model* model;
 
     // Shader Program
-    static Shader shaderProgram;
+    static Shader cubeShaderProgram;
+    static Shader modelShaderProgram;
 
     // Act as Constructors and desctructors
     static bool initializeProgram();
