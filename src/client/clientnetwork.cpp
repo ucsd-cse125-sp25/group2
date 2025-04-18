@@ -11,10 +11,10 @@ ClientNetwork::ClientNetwork(asio::io_context& io_context, const std::string& ip
         auto endpoints = resolver.resolve(ip, port);
         asio::connect(_socket, endpoints);
         err = false;
-        std::cout << "Connected to " << ip << ":" << port << "\n";
+        std::cout << "Connected to " << ip << ":" << port << std::endl;
     } catch (std::exception& e) {
         err = true;
-        std::cerr << "Connection failed: " << e.what() << "\n";
+        std::cerr << "Connection Failed: " << e.what() << std::endl;
     }
 } 
 
@@ -29,7 +29,6 @@ ClientNetwork::~ClientNetwork() {
 
 void ClientNetwork::send(const IPacket& packet) {
     vector<char> body = packet.serialize();
-    //printf("sending size: %ld\n", body.size());
     uint16_t body_size = static_cast<uint16_t>(body.size());
     
     vector<char> buffer;
@@ -51,12 +50,12 @@ std::unique_ptr<IPacket> ClientNetwork::receive() {
     if ((available = _socket.available()) > 0) {
 
         if (_socket.read_some(asio::buffer(&type, 1)) < 1) {
-            std::cerr << "did not read packet type" << std::endl;
+            std::cerr << "Client Warning: Could not read packet type" << std::endl;
             return nullptr;
         }
 
         if (_socket.read_some(asio::buffer(&size, 2)) < 2) {
-            std::cerr << "did not read packet size" << std::endl;
+            std::cerr << "Client Warning: Could not read packet size" << std::endl;
             return nullptr;
         }
 
@@ -93,7 +92,7 @@ std::unique_ptr<IPacket> ClientNetwork::process_packets(PacketType type, vector<
                 return packet;
             }
         default:
-            throw std::runtime_error("Unknown packet type");
+            std::cerr << ("Client Warning: Unknown packet type") << std::endl;
             return nullptr;
     }
 }

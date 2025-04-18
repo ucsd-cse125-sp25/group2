@@ -9,7 +9,7 @@ ServerNetwork::ServerNetwork(asio::io_context& io_context, const std::string& ip
 : _acceptor(io_context, asio::ip::tcp::endpoint(asio::ip::make_address(ip), std::stoi(port))),
   client_id(0)
 {
-    std::cout << "Server started on " << ip << ":" << port << "\n";
+    std::cout << "Server started on " << ip << ":" << port << std::endl;
 }
 
 
@@ -28,7 +28,7 @@ void ServerNetwork::accept_client() {
 
     _acceptor.async_accept(*socket, [this, socket](std::error_code ec) {
         if (!ec) {
-            std::cout << "New client connected\n";
+            std::cout << "New client connected" << std::endl;
             this->clients[client_id] = socket;
             InitPacket init(client_id);
             send_to_client(client_id, init);
@@ -37,9 +37,9 @@ void ServerNetwork::accept_client() {
             game = new GameState();
             send_to_client(client_id, game->init());
 
-            this->client_id++;
+            client_id++;
         } else {
-            std::cerr << "Accept failed: " << ec.message() << "\n";
+            std::cerr << "Accept Failed: " << ec.message() << std::endl;
         }
 
         accept_client();
@@ -66,6 +66,7 @@ void ServerNetwork::send_to_client(unsigned int id, const IPacket& packet) {
     
     asio::write(*socket, asio::buffer(buffer));
 }
+
 /*
  * Send packet to all clients known to server
  * need to send a packet that inherits IPacket 
@@ -96,12 +97,12 @@ void ServerNetwork::receive_from_clients() {
         if ((available = socket->available()) > 0) {
     
             if (socket->read_some(asio::buffer(&type, 1)) <= 0) {
-                std::cerr << "did not read packet type" << std::endl;
+                std::cerr << "Server Warning: Could not read packet type" << std::endl;
                 continue;
             }
     
             if (socket->read_some(asio::buffer(&size, 2)) <= 0) {
-                std::cerr << "did not read packet type" << std::endl;
+                std::cerr << "Server Warning: Could not read packet size" << std::endl;
                 continue;
             }
     
@@ -125,7 +126,12 @@ void ServerNetwork::process_packets(PacketType type, vector<char> payload, uint1
                 std::unique_ptr<IPacket> packet = deserialize(PacketType::STRING, payload, size);
                 break;
             }
+        case PacketType::POSITION:
+            {
+                std::unique_ptr<IPacket> packet = deserialize(PacketType::POSITION, payload, size);
+                break;
+            }
         default:
-            throw std::runtime_error("Unknown packet type server");
+            std::cerr << ("Server Warning: Unknown packet type") << std::endl;
     }
 }

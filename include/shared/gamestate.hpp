@@ -5,10 +5,7 @@
 #include <memory>
 #include <vector>
 
-class GameState {
-    private:
-    std::vector<IPacket> initial_objects;
-    
+class GameState {    
     public:
         GameState();
         PositionPacket init();
