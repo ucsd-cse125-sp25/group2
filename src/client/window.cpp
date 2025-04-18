@@ -16,18 +16,18 @@ bool LeftDown, RightDown;
 int MouseX, MouseY;
 
 // The shader program id
-GLuint Window::shaderProgram;
+Shader Window::shaderProgram;
 
 // Constructors and desctructors
 bool Window::initializeProgram() {
     // Create a shader program with a vertex shader and a fragment shader.
-    shaderProgram = LoadShaders("../src/client/shaders/shader.vert", "../src/client/shaders/shader.frag");
+    shaderProgram = Shader("../src/client/shaders/shader.vert", "../src/client/shaders/shader.frag");
 
     // Check the shader program.
-    if (!shaderProgram) {
-        std::cerr << "Failed to initialize shader program" << std::endl;
-        return false;
-    }
+    // if (!shaderProgram) {
+    //     std::cerr << "Failed to initialize shader program" << std::endl;
+    //     return false;
+    // }
 
     return true;
 }
@@ -45,7 +45,7 @@ void Window::cleanUp() {
     delete cube;
 
     // Delete the shader program.
-    glDeleteProgram(shaderProgram);
+    shaderProgram.deleteShader();
 }
 
 // for the Window
