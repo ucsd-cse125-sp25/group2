@@ -20,15 +20,16 @@ int MouseX, MouseY;
 Shader Window::cubeShaderProgram;
 Shader Window::modelShaderProgram;
 
+
 // Constructors and desctructors
 bool Window::initializeProgram() {
-    // Create a shader program with a vertex shader and a fragment shader.
 
     // Cube shader program
     cubeShaderProgram = Shader("../src/client/shaders/shader.vert", "../src/client/shaders/shader.frag"); 
 
     // Model shader program
     modelShaderProgram = Shader("../src/client/shaders/model.vert", "../src/client/shaders/model.frag"); 
+
 
     return true;
 }
@@ -51,6 +52,7 @@ void Window::cleanUp() {
     // Delete the shader programs.
     cubeShaderProgram.deleteShader();
     modelShaderProgram.deleteShader();
+
 }
 
 // for the Window
