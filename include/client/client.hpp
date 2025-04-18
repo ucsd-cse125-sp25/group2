@@ -50,4 +50,7 @@ public:
     void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
     void mouse_callback(GLFWwindow* window, int button, int action, int mods);
     void cursor_callback(GLFWwindow* window, double currX, double currY);
+
+    //FOR TESTING
+    bool initializeCube(float x, float y, float z);
 };

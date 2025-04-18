@@ -10,7 +10,7 @@ class ClientNetwork
 private:
     tcp::socket _socket;
 
-    bool process_packets(PacketType type, vector<char> payload, uint16_t size);
+    std::unique_ptr<IPacket> process_packets(PacketType type, vector<char> payload, uint16_t size);
 public:
     bool err;
 
@@ -20,5 +20,5 @@ public:
 
     void send(const IPacket& packet);
 
-    bool receive();
+    std::unique_ptr<IPacket> receive();
 };

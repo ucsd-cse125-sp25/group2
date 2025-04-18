@@ -1,5 +1,5 @@
 #include "client/clientnetwork.hpp"
-
+#include "shared/cube.hpp"
 /*
  * Constructor for ClientNetwork
  * resolver is used to find all endpoints of an ip and port combination (essentially find devices on that ip:port)
@@ -44,7 +44,7 @@ void ClientNetwork::send(const IPacket& packet) {
     asio::write(_socket, asio::buffer(buffer));
 }
 
-bool ClientNetwork::receive() {
+std::unique_ptr<IPacket> ClientNetwork::receive() {
     PacketType type;
     uint16_t size = 0;
     size_t available;
@@ -52,12 +52,12 @@ bool ClientNetwork::receive() {
 
         if (_socket.read_some(asio::buffer(&type, 1)) < 1) {
             std::cerr << "did not read packet type" << std::endl;
-            return false;
+            return nullptr;
         }
 
         if (_socket.read_some(asio::buffer(&size, 2)) < 2) {
             std::cerr << "did not read packet size" << std::endl;
-            return false;
+            return nullptr;
         }
 
         std::vector<char> payload(size);
@@ -65,20 +65,20 @@ bool ClientNetwork::receive() {
 
         return process_packets(static_cast<PacketType>(type),payload,size);
     }
-    return false;
+    return nullptr;
 }
 
-bool ClientNetwork::process_packets(PacketType type, vector<char> payload, uint16_t size) {
+std::unique_ptr<IPacket> ClientNetwork::process_packets(PacketType type, vector<char> payload, uint16_t size) {
     switch (type) {
         case PacketType::INIT:
             {
                 std::unique_ptr<IPacket> packet = deserialize(PacketType::INIT, payload, size);
-                return true;
+                return packet;
             }
         case PacketType::STRING:
             {
                 std::unique_ptr<IPacket> packet = deserialize(PacketType::STRING, payload, size);
-                return true;
+                return packet;
             }
         case PacketType::POSITION:
             {
@@ -90,10 +90,10 @@ bool ClientNetwork::process_packets(PacketType type, vector<char> payload, uint1
                     std::cout << "y: " << posPacket->y << std::endl;
                     std::cout << "z: " << posPacket->z << std::endl;
                 }
-                return true;
+                return packet;
             }
         default:
             throw std::runtime_error("Unknown packet type");
-            return false;
+            return nullptr;
     }
 }

@@ -48,67 +48,31 @@ void print_versions() {
 #endif
 }
 
-// int main(void) {
-//     // Create the GLFW window.
-//     std::unique_ptr<Client> client(new Client());
-//     // Client* client = new Client();
-//     GLFWwindow* window = client->createWindow(800, 600);
-//     glfwSetWindowUserPointer(window, client.get());
-//     if (!window) exit(EXIT_FAILURE);
-
-//     // Print OpenGL and GLSL versions.
-//     print_versions();
-//     // Setup callbacks.
-//     setup_callbacks(window);
-//     // Setup OpenGL settings.
-//     setup_opengl_settings();
-
-//     // Initialize the shader program; exit if initialization fails.
-//     if (!client->initializeProgram()) exit(EXIT_FAILURE);
-//     // Initialize objects/pointers for rendering; exit if initialization fails.
-//     if (!client->initializeObjects()) exit(EXIT_FAILURE);
-
-//     asio::io_context io_context;
-//     if (!client->initializeNetwork(io_context, "127.0.0.1","12345")) exit(EXIT_FAILURE);
-
-//     StringPacket packet;
-//     packet.message = string("Hello from Client!");
-//     std::cout << "Client sending message: " << packet.message << "\n";
-//     client->network->send(packet);
-
-//     // Loop while GLFW window should stay open.
-//     while (!glfwWindowShouldClose(window)) {
-//         //Constantly receive from server
-//         client->network->receive();
-
-//         client->displayCallback(window);
-
-//         // Idle callback. Updating objects, etc. can be done here.
-//         client->idleCallback();
-//     }
-
-//     client->cleanUp();
-//     // Destroy the window.
-//     glfwDestroyWindow(window);
-//     // Terminate GLFW.
-//     glfwTerminate();
-
-//     exit(EXIT_SUCCESS);
-// }
-
 int main(void) {
-    try {
-        std::unique_ptr<Client> client(new Client());
-        asio::io_context io_context;
-        if (!client->initializeNetwork(io_context, "127.0.0.1","12345")) exit(EXIT_FAILURE);
+    // Create the GLFW window.
+    std::unique_ptr<Client> client(new Client());
+    GLFWwindow* window = client->createWindow(800, 600);
+    glfwSetWindowUserPointer(window, client.get());
+    if (!window) exit(EXIT_FAILURE);
 
-        while (true) {
-            client->network->receive();
-        }
+    print_versions();
+    setup_callbacks(window);
+    setup_opengl_settings();
 
-    } catch (std::exception& e) {
-        std::cerr << "Client exception: " << e.what() << "\n";
+    if (!client->initializeProgram()) exit(EXIT_FAILURE);
+
+    asio::io_context io_context;
+    if (!client->initializeNetwork(io_context, "127.0.0.1","12345")) exit(EXIT_FAILURE);
+
+    while (!glfwWindowShouldClose(window)) {
+        client->displayCallback(window);
+
+        // Idle callback. Updating objects, etc. can be done here.
+        client->idleCallback();
     }
 
-    return 0;
+    client->cleanUp();
+    glfwDestroyWindow(window);
+    glfwTerminate();
+    exit(EXIT_SUCCESS);
 }

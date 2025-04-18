@@ -22,6 +22,12 @@ bool Client::initializeObjects() {
     return true;
 }
 
+bool Client::initializeCube(float x, float y, float z) {
+    glm::vec3 center = glm::vec3(x,y,z);
+    cube = new Cube(center - glm::vec3(1,1,1), center + glm::vec3(1,1,1));
+    return true;
+}
+
 bool Client::initializeNetwork(asio::io_context& io_context, const std::string& ip, const std::string& port) {
     network = new ClientNetwork(io_context, ip, port);
     return !network->err;
@@ -98,6 +104,13 @@ void Client::resizeCallback(GLFWwindow* window, int width, int height) {
 // update and draw functions
 void Client::idleCallback() {
     // Perform any updates as necessary.
+    std::unique_ptr<IPacket> packet = network->receive();
+    if (packet) {
+        if (auto* posPacket = dynamic_cast<PositionPacket*>(packet.get())) {
+            initializeCube(posPacket->x, posPacket->y, posPacket->z);
+        }
+    }
+
     cam->Update();
 
     cube->update();
@@ -109,7 +122,7 @@ void Client::displayCallback(GLFWwindow* window) {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     // Render the object.
-    cube->draw(cam->GetViewProjectMtx(), shaderProgram);
+    if (cube) cube->draw(cam->GetViewProjectMtx(), shaderProgram);
 
     // Gets events, including input such as keyboard and mouse or window resizing.
     glfwPollEvents();
