@@ -1,13 +1,14 @@
 #pragma once
 
+#include "shared/packets.hpp"
+#include "shared/gamestate.hpp"
+
 #include <asio.hpp>
 #include <iostream>
 #include <thread>
 #include <vector>
 #include <memory>
 #include <map>
-#include "shared/packets.hpp"
-#include "shared/gamestate.hpp"
 
 #define CLIENT_ID unsigned int
 

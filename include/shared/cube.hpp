@@ -1,8 +1,10 @@
 #pragma once
 
-#include <vector>
-
 #include "client/core.hpp"
+#include "client/shader.hpp"
+#include "shared/cube.hpp"
+
+#include <vector>
 
 class Cube {
 private:
@@ -21,7 +23,7 @@ public:
     Cube(glm::vec3 cubeMin = glm::vec3(-1, -1, -1), glm::vec3 cubeMax = glm::vec3(1, 1, 1));
     ~Cube();
 
-    void draw(const glm::mat4& viewProjMtx, GLuint shader);
+    void draw(const glm::mat4& viewProjMtx, Shader& shader);
     void update();
 
     void spin(float deg);

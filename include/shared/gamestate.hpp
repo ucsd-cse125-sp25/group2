@@ -1,7 +1,8 @@
 #pragma once
 
-#include "packets.hpp"
-#include "cube.hpp"
+#include "shared/packets.hpp"
+#include "shared/cube.hpp"
+
 #include <memory>
 #include <vector>
 

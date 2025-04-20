@@ -3,8 +3,8 @@ FetchContent_Declare(glew
     GIT_TAG glew-cmake-2.2.0
 )
 
-option(glew-cmake_BUILD_STATIC "Build the static glew library" ON)
-option(glew-cmake_BUILD_SHARED "Do not build the shared glew library" OFF)
-option(ONLY_LIBS "Do not build executables" OFF)
+set(glew-cmake_BUILD_STATIC ON CACHE BOOL "" FORCE)
+set(glew-cmake_BUILD_SHARED OFF CACHE BOOL "" FORCE)
+set(ONLY_LIBS OFF CACHE BOOL "" FORCE)
 
 FetchContent_MakeAvailable(glew)

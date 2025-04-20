@@ -2,14 +2,12 @@
 
 // Constructors and desctructors
 bool Client::initializeProgram() {
-    // Create a shader program with a vertex shader and a fragment shader.
-    shaderProgram = LoadShaders("../src/client/shaders/shader.vert", "../src/client/shaders/shader.frag");
+    // Cube shader program
+    cubeShaderProgram = Shader("../src/client/shaders/shader.vert", "../src/client/shaders/shader.frag"); 
 
-    // Check the shader program.
-    if (!shaderProgram) {
-        std::cerr << "Failed to initialize shader program" << std::endl;
-        return false;
-    }
+    // Model shader program
+    modelShaderProgram = Shader("../src/client/shaders/model.vert", "../src/client/shaders/model.frag"); 
+
 
     return true;
 }
@@ -18,6 +16,9 @@ bool Client::initializeObjects() {
     // Create a cube
     cube = new Cube();
     // cube = new Cube(glm::vec3(-1, 0, -2), glm::vec3(1, 1, 1));
+
+    // Load model
+    model = new Model("../src/client/resources/objects/backpack/backpack.obj");
 
     return true;
 }
@@ -38,8 +39,10 @@ void Client::cleanUp() {
     // Deallcoate the objects.
     delete cube;
 
-    // Delete the shader program.
-    glDeleteProgram(shaderProgram);
+    // Delete the shader programs.
+    cubeShaderProgram.deleteShader();
+    modelShaderProgram.deleteShader();
+
 }
 
 // for the Window
@@ -113,7 +116,9 @@ void Client::idleCallback() {
 
     cam->Update();
 
-    cube->update();
+    if (cube) cube->update();
+
+    if (model) model->Update();
 }
 
 void Client::displayCallback(GLFWwindow* window) {
@@ -122,7 +127,10 @@ void Client::displayCallback(GLFWwindow* window) {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     // Render the object.
-    if (cube) cube->draw(cam->GetViewProjectMtx(), shaderProgram);
+    if (cube) cube->draw(cam->GetViewProjectMtx(), cubeShaderProgram);
+
+    // Render the model.
+    if (model) model->Draw(cam->GetViewProjectMtx(), modelShaderProgram);
 
     // Gets events, including input such as keyboard and mouse or window resizing.
     glfwPollEvents();

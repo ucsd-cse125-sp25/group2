@@ -1,7 +1,8 @@
 #pragma once 
+#include "shared/packets.hpp"
 #include <iostream>
 #include <asio.hpp>
-#include "shared/packets.hpp"
+
 
 using asio::ip::tcp;
 

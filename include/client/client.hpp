@@ -1,10 +1,11 @@
 #pragma once
 
-#include "core.hpp"
-#include "camera.hpp"
-#include "shader.hpp"
-#include "shared/cube.hpp"
+#include "client/core.hpp"
+#include "client/camera.hpp"
+#include "client/shader.hpp"
 #include "client/clientnetwork.hpp"
+#include "client/model.hpp"
+#include "shared/cube.hpp"
 
 #define FPS (1.0 / 60.0)
 
@@ -22,9 +23,11 @@ public:
 
     // Objects to render
     Cube* cube;
+    Model* model;
 
     // Shader Program
-    GLuint shaderProgram;
+    Shader cubeShaderProgram;
+    Shader modelShaderProgram;
 
     //Network
     ClientNetwork *network;
