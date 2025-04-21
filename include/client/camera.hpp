@@ -9,7 +9,7 @@
 
 class Camera {
 public:
-    Camera();
+        Camera();
 
     void Update();
     void Reset();
