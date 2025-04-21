@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: AutoModality/action-ros-clang-format@v1
+      - uses: jidicula/clang-format-action@v4.15.0
   prettier:
     permissions:
       contents: write
