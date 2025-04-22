@@ -1,29 +1,7 @@
-#include "client/window.hpp"
-
-// Window Properties
-int Window::width;
-int Window::height;
-const char* Window::windowTitle = "Model Environment";
-
-// Objects to render
-Cube* Window::cube;
-Model* Window::model;
-
-// Camera Properties
-Camera* Cam;
-
-// Interaction Variables
-bool LeftDown, RightDown;
-int MouseX, MouseY;
-
-// The shader program id
-Shader Window::cubeShaderProgram;
-Shader Window::modelShaderProgram;
-
+#include "client/client.hpp"
 
 // Constructors and desctructors
-bool Window::initializeProgram() {
-
+bool Client::initializeProgram() {
     // Cube shader program
     cubeShaderProgram = Shader("../src/client/shaders/shader.vert", "../src/client/shaders/shader.frag"); 
 
@@ -34,7 +12,7 @@ bool Window::initializeProgram() {
     return true;
 }
 
-bool Window::initializeObjects() {
+bool Client::initializeObjects() {
     // Create a cube
     cube = new Cube();
     // cube = new Cube(glm::vec3(-1, 0, -2), glm::vec3(1, 1, 1));
@@ -45,7 +23,19 @@ bool Window::initializeObjects() {
     return true;
 }
 
-void Window::cleanUp() {
+bool Client::initializeCube(float x, float y, float z) {
+    glm::vec3 center = glm::vec3(x,y,z);
+    cube = new Cube(center - glm::vec3(1,1,1), center + glm::vec3(1,1,1));
+    return true;
+}
+
+bool Client::initializeNetwork(asio::io_context& io_context, const std::string& ip, const std::string& port) {
+    network = new ClientNetwork(io_context, ip, port);
+    return !network->err;
+}
+
+void Client::cleanUp() {
+    delete network;
     // Deallcoate the objects.
     delete cube;
 
@@ -56,7 +46,8 @@ void Window::cleanUp() {
 }
 
 // for the Window
-GLFWwindow* Window::createWindow(int width, int height) {
+GLFWwindow* Client::createWindow(int width, int height) {
+    windowTitle = "Model Environment";
     // Initialize GLFW.
     if (!glfwInit()) {
         std::cerr << "Failed to initialize GLFW" << std::endl;
@@ -91,67 +82,80 @@ GLFWwindow* Window::createWindow(int width, int height) {
     glfwSwapInterval(0);
 
     // set up the camera
-    Cam = new Camera();
-    Cam->SetAspect(float(width) / float(height));
+    cam = new Camera();
+    cam->SetAspect(float(width) / float(height));
 
     // initialize the interaction var./iables
-    LeftDown = RightDown = false;
-    MouseX = MouseY = 0;
+    leftDown = rightDown = false;
+    mouseX = mouseY = 0;
 
     // Call the resize callback to make sure things get drawn immediately.
-    Window::resizeCallback(window, width, height);
+    Client::resizeCallback(window, width, height);
 
     return window;
 }
 
-void Window::resizeCallback(GLFWwindow* window, int width, int height) {
-#ifdef __APPLE__
-    // In case your Mac has a retina display.
-    glfwGetFramebufferSize(window, &width, &height);
-#endif
-    Window::width = width;
-    Window::height = height;
+void Client::resizeCallback(GLFWwindow* window, int width, int height) {
+    this->width = width;
+    this->height = height;
     // Set the viewport size.
     glViewport(0, 0, width, height);
 
-    Cam->SetAspect(float(width) / float(height));
+    cam->SetAspect(float(width) / float(height));
 }
 
 // update and draw functions
-void Window::idleCallback() {
+void Client::idleCallback() {
     // Perform any updates as necessary.
-    Cam->Update();
+    deque<std::unique_ptr<IPacket>> packets = network->receive();
+    std::unique_ptr<IPacket> first;
+    if (packets.size() > 0) {
+        packets.pop_front();
+        first = std::move(packets.front());
+    } else {
+        first = nullptr;
+    }
 
-    cube->update();
+    if (first) {
+        if (auto* posPacket = dynamic_cast<PositionPacket*>(first.get())) {
+            initializeCube(posPacket->x, posPacket->y, posPacket->z);
+        }
+    }
 
-    model->Update();
+    cam->Update();
+
+    if (cube) cube->update();
+
+    if (model) model->Update();
 }
 
-void Window::displayCallback(GLFWwindow* window) {
+void Client::displayCallback(GLFWwindow* window) {
+
     // Clear the color and depth buffers.
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     // Render the object.
-    cube->draw(Cam->GetViewProjectMtx(), Window::cubeShaderProgram);
+    if (cube) cube->draw(cam->GetViewProjectMtx(), cubeShaderProgram);
 
     // Render the model.
-    model->Draw(Cam->GetViewProjectMtx(), Window::modelShaderProgram);
-
+    if (model) model->Draw(cam->GetViewProjectMtx(), modelShaderProgram);
 
     // Gets events, including input such as keyboard and mouse or window resizing.
     glfwPollEvents();
-    // Swap buffers.
+
+    // Main render display callback. Rendering of objects is done here.
     glfwSwapBuffers(window);
+
 }
 
 // helper to reset the camera
-void Window::resetCamera() {
-    Cam->Reset();
-    Cam->SetAspect(float(Window::width) / float(Window::height));
+void Client::resetCamera() {
+    cam->Reset();
+    cam->SetAspect(float(width) / float(height));
 }
 
 // callbacks - for Interaction
-void Window::keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) {
+void Client::keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) {
     /*
      * TODO: Modify below to add your key callbacks.
      */
@@ -174,33 +178,33 @@ void Window::keyCallback(GLFWwindow* window, int key, int scancode, int action, 
     }
 }
 
-void Window::mouse_callback(GLFWwindow* window, int button, int action, int mods) {
+void Client::mouse_callback(GLFWwindow* window, int button, int action, int mods) {
     if (button == GLFW_MOUSE_BUTTON_LEFT) {
-        LeftDown = (action == GLFW_PRESS);
+        leftDown = (action == GLFW_PRESS);
     }
     if (button == GLFW_MOUSE_BUTTON_RIGHT) {
-        RightDown = (action == GLFW_PRESS);
+        rightDown = (action == GLFW_PRESS);
     }
 }
 
-void Window::cursor_callback(GLFWwindow* window, double currX, double currY) {
+void Client::cursor_callback(GLFWwindow* window, double currX, double currY) {
     int maxDelta = 100;
-    int dx = glm::clamp((int)currX - MouseX, -maxDelta, maxDelta);
-    int dy = glm::clamp(-((int)currY - MouseY), -maxDelta, maxDelta);
+    int dx = glm::clamp((int)currX - mouseX, -maxDelta, maxDelta);
+    int dy = glm::clamp(-((int)currY - mouseY), -maxDelta, maxDelta);
 
-    MouseX = (int)currX;
-    MouseY = (int)currY;
+    mouseX = (int)currX;
+    mouseY = (int)currY;
 
     // Move camera
     // NOTE: this should really be part of Camera::Update()
-    if (LeftDown) {
+    if (leftDown) {
         const float rate = 1.0f;
-        Cam->SetAzimuth(Cam->GetAzimuth() + dx * rate);
-        Cam->SetIncline(glm::clamp(Cam->GetIncline() - dy * rate, -90.0f, 90.0f));
+        cam->SetAzimuth(cam->GetAzimuth() + dx * rate);
+        cam->SetIncline(glm::clamp(cam->GetIncline() - dy * rate, -90.0f, 90.0f));
     }
-    if (RightDown) {
+    if (rightDown) {
         const float rate = 0.005f;
-        float dist = glm::clamp(Cam->GetDistance() * (1.0f - dx * rate), 0.01f, 1000.0f);
-        Cam->SetDistance(dist);
+        float dist = glm::clamp(cam->GetDistance() * (1.0f - dx * rate), 0.01f, 1000.0f);
+        cam->SetDistance(dist);
     }
 }

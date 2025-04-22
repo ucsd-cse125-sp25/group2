@@ -1,4 +1,5 @@
-#include "client/window.hpp"
+#include "client/client.hpp"
+#include <memory>
 #include <stb_image.h>
 
 void error_callback(int error, const char* description) {
@@ -9,15 +10,20 @@ void error_callback(int error, const char* description) {
 void setup_callbacks(GLFWwindow* window) {
     // Set the error callback.
     glfwSetErrorCallback(error_callback);
-    // Set the window resize callback.
-    glfwSetWindowSizeCallback(window, Window::resizeCallback);
 
-    // Set the key callback.
-    glfwSetKeyCallback(window, Window::keyCallback);
+    /* Set key callback */
+    glfwSetKeyCallback(window, [](GLFWwindow* w, int key, int scancode, int action, int mods) {
+        static_cast<Client*>(glfwGetWindowUserPointer(w))->keyCallback(w, key, scancode, action, mods);
+    });
 
-    // Set the mouse and cursor callbacks
-    glfwSetMouseButtonCallback(window, Window::mouse_callback);
-    glfwSetCursorPosCallback(window, Window::cursor_callback);
+    /* Set mouse and cursor callbacks */
+    glfwSetMouseButtonCallback(window, [](GLFWwindow* w, int button, int action, int mods) {
+        static_cast<Client*>(glfwGetWindowUserPointer(w))->mouse_callback(w, button, action, mods);
+    });
+
+    glfwSetCursorPosCallback(window, [](GLFWwindow* w, double xposIn, double yposIn) {
+        static_cast<Client*>(glfwGetWindowUserPointer(w))->cursor_callback(w, xposIn, yposIn);
+    });
 }
 
 void setup_opengl_settings() {
@@ -47,35 +53,66 @@ void print_versions() {
 
 int main(void) {
     // Create the GLFW window.
-    GLFWwindow* window = Window::createWindow(800, 600);
+    std::unique_ptr<Client> client(new Client());
+    GLFWwindow* window = client->createWindow(800, 600);
+    glfwSetWindowUserPointer(window, client.get());
     if (!window) exit(EXIT_FAILURE);
 
-    // Print OpenGL and GLSL versions.
     print_versions();
-    // Setup callbacks.
     setup_callbacks(window);
-    // Setup OpenGL settings.
     setup_opengl_settings();
 
-    // Initialize the shader program; exit if initialization fails.
-    if (!Window::initializeProgram()) exit(EXIT_FAILURE);
-    // Initialize objects/pointers for rendering; exit if initialization fails.
-    if (!Window::initializeObjects()) exit(EXIT_FAILURE);
+    if (!client->initializeProgram()) exit(EXIT_FAILURE);
 
-    // Loop while GLFW window should stay open.
+    asio::io_context io_context;
+    if (!client->initializeNetwork(io_context, "127.0.0.1","12345")) exit(EXIT_FAILURE);
+
     while (!glfwWindowShouldClose(window)) {
-        // Main render display callback. Rendering of objects is done here.
-        Window::displayCallback(window);
+        client->displayCallback(window);
 
         // Idle callback. Updating objects, etc. can be done here.
-        Window::idleCallback();
+        client->idleCallback();
     }
 
-    Window::cleanUp();
-    // Destroy the window.
+    client->cleanUp();
     glfwDestroyWindow(window);
-    // Terminate GLFW.
     glfwTerminate();
-
     exit(EXIT_SUCCESS);
 }
+
+// Model loading only
+// int main(void) {
+//     // Create the GLFW window.
+//     std::unique_ptr<Client> client(new Client());
+//     GLFWwindow* window = client->createWindow(800, 600);
+//     if (!window) exit(EXIT_FAILURE);
+
+//     // Print OpenGL and GLSL versions.
+//     print_versions();
+//     // Setup callbacks.
+//     setup_callbacks(window);
+//     // Setup OpenGL settings.
+//     setup_opengl_settings();
+
+//     // Initialize the shader program; exit if initialization fails.
+//     if (!client->initializeProgram()) exit(EXIT_FAILURE);
+//     // Initialize objects/pointers for rendering; exit if initialization fails.
+//     if (!client->initializeObjects()) exit(EXIT_FAILURE);
+
+//     // Loop while GLFW window should stay open.
+//     while (!glfwWindowShouldClose(window)) {
+//         // Main render display callback. Rendering of objects is done here.
+//         client->displayCallback(window);
+
+//         // Idle callback. Updating objects, etc. can be done here.
+//         client->idleCallback();
+//     }
+
+//     client->cleanUp();
+//     // Destroy the window.
+//     glfwDestroyWindow(window);
+//     // Terminate GLFW.
+//     glfwTerminate();
+
+//     exit(EXIT_SUCCESS);
+// }

@@ -1,15 +1,10 @@
-include(ExternalProject)
-ExternalProject_Add(GLEW_external
-    URL https://github.com/nigels-com/glew/releases/download/glew-2.2.0/glew-2.2.0.zip
-    SOURCE_SUBDIR build/cmake
-    UPDATE_COMMAND ""
-    CMAKE_ARGS
-    -DCMAKE_INSTALL_PREFIX=${STAGED_INSTALL_PREFIX}
-    -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
-    TEST_AFTER_INSTALL OFF
-    DOWNLOAD_NO_PROGRESS ON
-    DOWNLOAD_EXTRACT_TIMESTAMP ON
-    LOG_CONFIGURE ON
-    LOG_BUILD ON
-    LOG_INSTALL ON
+FetchContent_Declare(glew
+    GIT_REPOSITORY https://github.com/Perlmint/glew-cmake
+    GIT_TAG glew-cmake-2.2.0
 )
+
+set(glew-cmake_BUILD_STATIC ON CACHE BOOL "" FORCE)
+set(glew-cmake_BUILD_SHARED OFF CACHE BOOL "" FORCE)
+set(ONLY_LIBS OFF CACHE BOOL "" FORCE)
+
+FetchContent_MakeAvailable(glew)

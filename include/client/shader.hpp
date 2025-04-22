@@ -1,7 +1,6 @@
-#ifndef SHADER_H
-#define SHADER_H
+#pragma once
 
-#include "core.hpp"
+#include "client/core.hpp"
 
 #include <string>
 #include <fstream>
@@ -10,14 +9,10 @@
 
 // This shader file makes it easier to update and send information to the specific shaders, easily works with the current shaders we have
 
-class Shader
-{
+class Shader {
 public:
     unsigned int ID;
-    Shader()
-    {
-
-    }
+    Shader() {}
     // constructor generates the shader on the fly
     // ------------------------------------------------------------------------
     Shader(const char* vertexPath, const char* fragmentPath, const char* geometryPath = nullptr)
@@ -197,4 +192,3 @@ private:
         }
     }
 };
-#endif

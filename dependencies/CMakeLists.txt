@@ -1,3 +1,4 @@
+add_subdirectory(asio)
 add_subdirectory(assimp)
 add_subdirectory(glfw)
 add_subdirectory(glew)

@@ -1,4 +1,4 @@
-#include "client/cube.hpp"
+#include "shared/cube.hpp"
 
 Cube::Cube(glm::vec3 cubeMin, glm::vec3 cubeMax) {
     // Model matrix.
@@ -157,6 +157,5 @@ void Cube::update() {
 }
 
 void Cube::spin(float deg) {
-    // Update the model matrix by multiplying a rotation matrix
-    model = glm::rotate(model, glm::radians(deg), glm::vec3(0.0f, 1.0f, 0.0f));
+    model = model;
 }

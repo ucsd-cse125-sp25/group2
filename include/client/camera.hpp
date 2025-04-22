@@ -1,6 +1,6 @@
 #pragma once
 
-#include "core.hpp"
+#include "client/core.hpp"
 #include "glm/gtx/euler_angles.hpp"
 
 // The Camera class provides a simple means to controlling the 3D camera. It could

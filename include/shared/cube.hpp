@@ -1,8 +1,10 @@
 #pragma once
 
+#include "client/core.hpp"
+#include "client/shader.hpp"
+#include "shared/cube.hpp"
+
 #include <vector>
-#include "shader.hpp"
-#include "core.hpp"
 
 class Cube {
 private:
