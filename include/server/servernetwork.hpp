@@ -22,11 +22,11 @@ class ServerNetwork {
         GameState* game;
 
         void accept_client();
-        void process_packets(PacketType type, vector<char> payload, uint16_t size);
+        std::unique_ptr<IPacket> process_packets(PacketType type, vector<char> payload, uint16_t size);
     public:
         ServerNetwork(asio::io_context& io_context, const std::string& ip, const std::string& port);
         void start();
         void send_to_client(unsigned int id, const IPacket& packet);
         void send_to_all(const IPacket& packet);
-        void receive_from_clients();
+        vector<std::unique_ptr<IPacket>> receive_from_clients();
 };

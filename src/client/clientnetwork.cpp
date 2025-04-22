@@ -43,28 +43,29 @@ void ClientNetwork::send(const IPacket& packet) {
     asio::write(_socket, asio::buffer(buffer));
 }
 
-std::unique_ptr<IPacket> ClientNetwork::receive() {
-    PacketType type;
-    uint16_t size = 0;
-    size_t available;
-    if ((available = _socket.available()) > 0) {
+deque<std::unique_ptr<IPacket>> ClientNetwork::receive() {
+    deque<std::unique_ptr<IPacket>> packets;
+    while (_socket.available() > 0) {
+        PacketType type;
+        uint16_t size = 0;
+        size_t available;
 
         if (_socket.read_some(asio::buffer(&type, 1)) < 1) {
             std::cerr << "Client Warning: Could not read packet type" << std::endl;
-            return nullptr;
+            return packets;
         }
 
         if (_socket.read_some(asio::buffer(&size, 2)) < 2) {
             std::cerr << "Client Warning: Could not read packet size" << std::endl;
-            return nullptr;
+            return packets;
         }
 
         std::vector<char> payload(size);
         _socket.read_some(asio::buffer(payload));
 
-        return process_packets(static_cast<PacketType>(type),payload,size);
+        packets.push_back(process_packets(static_cast<PacketType>(type),payload,size));
     }
-    return nullptr;
+    return packets;
 }
 
 std::unique_ptr<IPacket> ClientNetwork::process_packets(PacketType type, vector<char> payload, uint16_t size) {

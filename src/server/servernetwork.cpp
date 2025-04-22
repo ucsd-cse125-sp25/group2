@@ -89,49 +89,51 @@ void ServerNetwork::send_to_all(const IPacket& packet) {
     }
 }
 
-void ServerNetwork::receive_from_clients() {
+vector<std::unique_ptr<IPacket>> ServerNetwork::receive_from_clients() {
+    vector<std::unique_ptr<IPacket>> packets;
     for (const auto&[id, socket] : clients) {
         PacketType type;
         uint16_t size = 0;
-        size_t available;
-        if ((available = socket->available()) > 0) {
+        while (socket->available() > 0) {
     
             if (socket->read_some(asio::buffer(&type, 1)) <= 0) {
                 std::cerr << "Server Warning: Could not read packet type" << std::endl;
-                continue;
+                return packets;
             }
     
             if (socket->read_some(asio::buffer(&size, 2)) <= 0) {
                 std::cerr << "Server Warning: Could not read packet size" << std::endl;
-                continue;
+                return packets;
             }
     
             std::vector<char> payload(size);
             socket->read_some(asio::buffer(payload));
     
-            process_packets(static_cast<PacketType>(type),payload,size);
+            packets.push_back(process_packets(static_cast<PacketType>(type),payload,size));
         }
     }
+    return packets;
 }
 
-void ServerNetwork::process_packets(PacketType type, vector<char> payload, uint16_t size) {
+std::unique_ptr<IPacket> ServerNetwork::process_packets(PacketType type, vector<char> payload, uint16_t size) {
     switch (type) {
         case PacketType::INIT:
             {
                 std::unique_ptr<IPacket> packet = deserialize(PacketType::INIT, payload, size);
-                break;
+                return packet;
             }
         case PacketType::STRING:
             {
                 std::unique_ptr<IPacket> packet = deserialize(PacketType::STRING, payload, size);
-                break;
+                return packet;
             }
         case PacketType::POSITION:
             {
                 std::unique_ptr<IPacket> packet = deserialize(PacketType::POSITION, payload, size);
-                break;
+                return packet;
             }
         default:
             std::cerr << ("Server Warning: Unknown packet type") << std::endl;
+            return nullptr;
     }
 }

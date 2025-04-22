@@ -2,7 +2,7 @@
 #include "shared/packets.hpp"
 #include <iostream>
 #include <asio.hpp>
-
+#include <deque>
 
 using asio::ip::tcp;
 
@@ -21,5 +21,5 @@ public:
 
     void send(const IPacket& packet);
 
-    std::unique_ptr<IPacket> receive();
+    deque<std::unique_ptr<IPacket>> receive();
 };

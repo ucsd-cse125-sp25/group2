@@ -107,9 +107,17 @@ void Client::resizeCallback(GLFWwindow* window, int width, int height) {
 // update and draw functions
 void Client::idleCallback() {
     // Perform any updates as necessary.
-    std::unique_ptr<IPacket> packet = network->receive();
-    if (packet) {
-        if (auto* posPacket = dynamic_cast<PositionPacket*>(packet.get())) {
+    deque<std::unique_ptr<IPacket>> packets = network->receive();
+    std::unique_ptr<IPacket> first;
+    if (packets.size() > 0) {
+        packets.pop_front();
+        first = std::move(packets.front());
+    } else {
+        first = nullptr;
+    }
+
+    if (first) {
+        if (auto* posPacket = dynamic_cast<PositionPacket*>(first.get())) {
             initializeCube(posPacket->x, posPacket->y, posPacket->z);
         }
     }
