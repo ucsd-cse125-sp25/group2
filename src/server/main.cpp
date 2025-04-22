@@ -1,4 +1,4 @@
-#include "server/servernetwork.hpp"
+#include "include\server\server.hpp"
 #include <chrono>
 #include <iostream>
 
@@ -11,7 +11,7 @@ int main() {
     try {
         // Create context and start the server
         asio::io_context io_context;
-        ServerNetwork server(io_context, "127.0.0.1", "12345");
+        Server server(io_context, "127.0.0.1", "12345");
         server.start();
         int count = 0;
 
@@ -19,7 +19,7 @@ int main() {
         while (true) {
             auto start = high_resolution_clock::now();
 
-            server.receive_from_clients();
+            server.update();
             
             auto stop = high_resolution_clock::now();
             auto wait = duration_cast<milliseconds>(SERVERTICKS - (stop - start));

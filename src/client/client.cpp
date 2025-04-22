@@ -171,7 +171,18 @@ void Client::keyCallback(GLFWwindow* window, int key, int scancode, int action, 
             case GLFW_KEY_R:
                 resetCamera();
                 break;
-
+            case GLFW_KEY_W:
+                network->send(ActionPacket(ActionType::FORWARD));
+                break;
+            case GLFW_KEY_A:
+                network->send(ActionPacket(ActionType::LEFT));
+                break;
+            case GLFW_KEY_S:
+                network->send(ActionPacket(ActionType::BACK));
+                break;
+            case GLFW_KEY_D:
+                network->send(ActionPacket(ActionType::RIGHT));
+                break;
             default:
                 break;
         }

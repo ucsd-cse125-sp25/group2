@@ -89,8 +89,8 @@ void ServerNetwork::send_to_all(const IPacket& packet) {
     }
 }
 
-vector<std::unique_ptr<IPacket>> ServerNetwork::receive_from_clients() {
-    vector<std::unique_ptr<IPacket>> packets;
+deque<std::unique_ptr<IPacket>> ServerNetwork::receive_from_clients() {
+    deque<std::unique_ptr<IPacket>> packets;
     for (const auto&[id, socket] : clients) {
         PacketType type;
         uint16_t size = 0;
@@ -130,6 +130,11 @@ std::unique_ptr<IPacket> ServerNetwork::process_packets(PacketType type, vector<
         case PacketType::POSITION:
             {
                 std::unique_ptr<IPacket> packet = deserialize(PacketType::POSITION, payload, size);
+                return packet;
+            }
+        case PacketType::ACTION: 
+            {
+                std::unique_ptr<IPacket> packet = deserialize(PacketType::ACTION, payload, size);
                 return packet;
             }
         default:
