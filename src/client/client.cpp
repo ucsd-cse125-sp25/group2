@@ -15,8 +15,7 @@ bool Client::initializeProgram() {
 bool Client::initializeObjects() {
     // Create a cube
     cube = new Cube();
-    // cube = new Cube(glm::vec3(-1, 0, -2), glm::vec3(1, 1, 1));
-
+    
     // Load model
     model = new Model("../src/client/resources/objects/backpack/backpack.obj");
 

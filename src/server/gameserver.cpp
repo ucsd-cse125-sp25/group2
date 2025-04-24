@@ -34,7 +34,7 @@ void Server::update() {
             case PacketType::ACTION: {
                 auto action_packet = static_cast<ActionPacket*>(packet.get());
                 // Handle action packet
-                send_to_all(&game->handleAction(action_packet));
+                network->send_to_all(game->handleAction(action_packet));
                 break;
             }
         }

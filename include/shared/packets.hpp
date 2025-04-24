@@ -141,6 +141,8 @@ inline std::unique_ptr<IPacket> deserialize(PacketType type, vector<char> payloa
         return std::make_unique<InitPacket>(InitPacket::deserialize(payload, size));
     case PacketType::POSITION:
         return std::make_unique<PositionPacket>(PositionPacket::deserialize(payload, size));
+    case PacketType::ACTION:
+        return std::make_unique<ActionPacket>(ActionPacket::deserialize(payload, size));
     default:
         throw runtime_error("Unknown packet type");
     }

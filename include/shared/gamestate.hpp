@@ -13,5 +13,5 @@ class GameState {
     public:
         GameState();
         PositionPacket init();
-        PositionPacket handleAction(ActionPacket packet);
+        PositionPacket handleAction(ActionPacket* packet);
 };

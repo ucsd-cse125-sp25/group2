@@ -135,6 +135,7 @@ std::unique_ptr<IPacket> ServerNetwork::process_packets(PacketType type, vector<
             }
         case PacketType::ACTION: 
             {
+                std::cout << "action receive" << std::endl;
                 std::unique_ptr<IPacket> packet = deserialize(PacketType::ACTION, payload, size);
                 return packet;
             }

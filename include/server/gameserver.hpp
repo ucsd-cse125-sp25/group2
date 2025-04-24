@@ -2,7 +2,6 @@
 
 #include "server/servernetwork.hpp"
 
-
 class Server {
     private:
         GameState* game;

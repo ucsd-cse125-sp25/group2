@@ -11,15 +11,15 @@ PositionPacket GameState::init() {
     return cube;
 }
 
-PositionPacket GameState::handleAction(ActionPacket packet) {
+PositionPacket GameState::handleAction(ActionPacket* packet) {
     // Handle the action packet
-    switch (packet.action) {
+    PositionPacket cube(x, y, z); // Declare and initialize cube before the switch
+    switch (packet->type) {
         case ActionType::FORWARD:
             // Move forward
             z++;
-            PositionPacket cube(x, y, z);
+            cube = PositionPacket(x, y, z);
             return cube;
-            break;
         case ActionType::BACK:
             // Move backward
             break;
@@ -32,4 +32,5 @@ PositionPacket GameState::handleAction(ActionPacket packet) {
         default:
             break;
     }
+    return cube; // Ensure cube is returned in all cases
 }
