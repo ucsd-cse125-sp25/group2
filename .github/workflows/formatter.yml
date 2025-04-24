@@ -6,31 +6,15 @@ on:
   push:
 
 jobs:
-  cpp-format:
+  clang-format:
     permissions:
       contents: write
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-        with:
-          ref: ${{ github.head_ref }}
-          fetch-depth: 2
-
-      - uses: jayllyz/clang-format-action@v1
-        # Default options
-        with:
-          check: false
-          style: file
-          extensions: cpp,h,hpp,c
-          clang-version: latest
-          base-ref: ${{ github.head_ref }}
-
-      # commit the changes (if there are any)
-      - name: Commit changes
-        uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          commit_message: "Formatted!"
-          branch: ${{ github.head_ref }}
+      - uses: actions/checkout@v2
+      - uses: AutoModality/action-ros-clang-format@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   prettier:
     permissions:
       contents: write
