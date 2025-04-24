@@ -15,7 +15,7 @@ bool Client::initializeProgram() {
 bool Client::initializeObjects() {
     // Create a cube
     cube = new Cube();
-    
+
     // Load model
     model = new Model("../src/client/resources/objects/backpack/backpack.obj");
 
@@ -107,17 +107,22 @@ void Client::resizeCallback(GLFWwindow* window, int width, int height) {
 void Client::idleCallback() {
     // Perform any updates as necessary.
     deque<std::unique_ptr<IPacket>> packets = network->receive();
-    std::unique_ptr<IPacket> first;
-    if (packets.size() > 0) {
+    
+    while (!packets.empty()) {
+        std::unique_ptr<IPacket> packet = std::move(packets.front());
         packets.pop_front();
-        first = std::move(packets.front());
-    } else {
-        first = nullptr;
-    }
 
-    if (first) {
-        if (auto* posPacket = dynamic_cast<PositionPacket*>(first.get())) {
-            initializeCube(posPacket->x, posPacket->y, posPacket->z);
+        switch (packet->get_type()) {
+            case PacketType::INIT: {
+                // do nothing
+                break;
+            }
+            case PacketType::POSITION: {
+                auto position_packet = dynamic_cast<PositionPacket*>(packet.get());
+                // initialize cube
+                initializeCube(position_packet->x, position_packet->y, position_packet->z);
+                break;
+            }
         }
     }
 

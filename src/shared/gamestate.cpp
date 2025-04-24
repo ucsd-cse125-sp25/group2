@@ -17,17 +17,23 @@ PositionPacket GameState::handleAction(ActionPacket* packet) {
     switch (packet->type) {
         case ActionType::FORWARD:
             // Move forward
-            z++;
+            z-=1.0f;
             cube = PositionPacket(x, y, z);
             return cube;
         case ActionType::BACK:
             // Move backward
+            z+=1.0f;
+            cube = PositionPacket(x, y, z);
             break;
         case ActionType::LEFT:
             // Move left
+            x-=1.0f;
+            cube = PositionPacket(x, y, z);
             break;
         case ActionType::RIGHT:
             // Move right
+            x+=1.0f;
+            cube = PositionPacket(x, y, z);
             break;
         default:
             break;
