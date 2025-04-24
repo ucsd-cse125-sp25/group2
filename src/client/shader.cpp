@@ -1,8 +1,8 @@
 // #include "client/shader.hpp"
 
-// enum ShaderType { 
+// enum ShaderType {
 // 	vertex,
-// 	fragment 
+// 	fragment
 // };
 
 // GLuint LoadSingleShader(const char* shaderFilePath, ShaderType type) {
@@ -23,7 +23,8 @@
 //         shaderStream.close();
 //     } else {
 //         std::cerr << "Impossible to open " << shaderFilePath << ". "
-//                   << "Check to make sure the file exists and you passed in the "
+//                   << "Check to make sure the file exists and you passed in
+//                   the "
 //                   << "right filepath!"
 //                   << std::endl;
 //         return 0;
@@ -43,10 +44,10 @@
 //     glGetShaderiv(shaderID, GL_INFO_LOG_LENGTH, &InfoLogLength);
 //     if (InfoLogLength > 0) {
 //         std::vector<char> shaderErrorMessage(InfoLogLength + 1);
-//         glGetShaderInfoLog(shaderID, InfoLogLength, NULL, shaderErrorMessage.data());
-//         std::string msg(shaderErrorMessage.begin(), shaderErrorMessage.end());
-//         std::cerr << msg << std::endl;
-//         return 0;
+//         glGetShaderInfoLog(shaderID, InfoLogLength, NULL,
+//         shaderErrorMessage.data()); std::string
+//         msg(shaderErrorMessage.begin(), shaderErrorMessage.end()); std::cerr
+//         << msg << std::endl; return 0;
 //     } else {
 //         if (type == vertex)
 //             printf("Successfully compiled vertex shader!\n");
@@ -57,7 +58,8 @@
 //     return shaderID;
 // }
 
-// GLuint LoadShaders(const char* vertexFilePath, const char* fragmentFilePath) {
+// GLuint LoadShaders(const char* vertexFilePath, const char* fragmentFilePath)
+// {
 //     // Create the vertex shader and fragment shader.
 //     GLuint vertexShaderID = LoadSingleShader(vertexFilePath, vertex);
 //     GLuint fragmentShaderID = LoadSingleShader(fragmentFilePath, fragment);
@@ -80,8 +82,9 @@
 //     glGetProgramiv(programID, GL_INFO_LOG_LENGTH, &InfoLogLength);
 //     if (InfoLogLength > 0) {
 //         std::vector<char> ProgramErrorMessage(InfoLogLength + 1);
-//         glGetProgramInfoLog(programID, InfoLogLength, NULL, ProgramErrorMessage.data());
-//         std::string msg(ProgramErrorMessage.begin(), ProgramErrorMessage.end());
+//         glGetProgramInfoLog(programID, InfoLogLength, NULL,
+//         ProgramErrorMessage.data()); std::string
+//         msg(ProgramErrorMessage.begin(), ProgramErrorMessage.end());
 //         std::cerr << msg << std::endl;
 //         glDeleteProgram(programID);
 //         return 0;
