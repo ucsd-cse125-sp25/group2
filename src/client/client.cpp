@@ -19,6 +19,9 @@ bool Client::initializeObjects() {
 
     // Load model
     model = new Model("../src/client/resources/objects/backpack/backpack.obj");
+    physicsWorld = Physics(); 
+    Object* obj = new Object();
+    physicsWorld.Add(obj);
 
     return true;
 }
@@ -127,10 +130,13 @@ void Client::idleCallback() {
     if (cube) cube->update();
 
     if (model) model->Update();
+
+    physicsWorld.Update(0.1f);
+
+
 }
 
 void Client::displayCallback(GLFWwindow* window) {
-
     // Clear the color and depth buffers.
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 

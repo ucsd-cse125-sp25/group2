@@ -64,9 +64,11 @@ int main(void) {
 
     if (!client->initializeProgram()) exit(EXIT_FAILURE);
 
+    if (!client->initializeObjects()) exit(EXIT_FAILURE);
+
     asio::io_context io_context;
     if (!client->initializeNetwork(io_context, "127.0.0.1","12345")) exit(EXIT_FAILURE);
-
+    // std::cout << "HERE" << std::endl;
     while (!glfwWindowShouldClose(window)) {
         client->displayCallback(window);
 
