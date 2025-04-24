@@ -92,6 +92,7 @@ std::unique_ptr<IPacket> ClientNetwork::process_packets(PacketType type, vector<
                 }
                 return packet;
             }
+        
         default:
             std::cerr << ("Client Warning: Unknown packet type") << std::endl;
             return nullptr;
