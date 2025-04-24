@@ -23,7 +23,7 @@ void Camera::Update() {
   ViewProjectMtx = project * view;
 }
 void Camera::Reset() {
-            FOV = 45.0f;
+  FOV = 45.0f;
   Aspect = 1.33f;
   NearClip = 0.1f;
   FarClip = 100.0f;
