@@ -1,6 +1,6 @@
-#include "core.hpp"
-#include "cube.hpp"
-#include "transform.hpp"
+#include "client/core.hpp"
+#include "shared/cube.hpp"
+#include "client/transform.hpp"
 #include <memory>
 #include <string>
 

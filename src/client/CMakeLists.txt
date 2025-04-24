@@ -1,46 +1,27 @@
-cmake_minimum_required(VERSION 3.6 FATAL_ERROR)
+set(TARGET_NAME client)
+# Don't need this now
+set(LIB_NAME client_lib)
 
-project(barnyard_breakout LANGUAGES CXX)
+collect_sources("${CMAKE_CURRENT_SOURCE_DIR}" CLIENT_SRCS)
 
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
+add_executable(${TARGET_NAME} ${CLIENT_SRCS})
 
-if(EXISTS "${STAGED_INSTALL_PREFIX}/lib64")
-    set(_LIBDIR "lib64")
-elseif(EXISTS "${STAGED_INSTALL_PREFIX}/lib")
-    set(_LIBDIR "lib")
-else()
-    message(FATAL_ERROR "No 'lib' or 'lib64' directory found in ${STAGED_INSTALL_PREFIX}")
-endif()
-
-file(TO_NATIVE_PATH "${STAGED_INSTALL_PREFIX}/${_LIBDIR}/cmake/glfw3" glfw3_DIR)
-file(TO_NATIVE_PATH "${STAGED_INSTALL_PREFIX}/${_LIBDIR}/cmake/glew" GLEW_DIR)
-
-message(STATUS "glfw3_DIR is... ${glfw3_DIR}")
-message(STATUS "GLEW_DIR is... ${GLEW_DIR}")
-
-find_package(glfw3 REQUIRED CONFIG)
-
-set(GLEW_USE_STATIC_LIBS ON)
-find_package(GLEW REQUIRED CONFIG)
-
-set(CLIENT_SRCS
-    main.cpp
-    window.cpp
-    camera.cpp
-    shader.cpp
-    cube.cpp
-    
-    animal.cpp
-    gameobject.cpp
-    gamestate.cpp
-    transform.cpp
+target_include_directories(${TARGET_NAME} PRIVATE 
+    ${INCLUDE_DIRECTORY}
 )
 
-add_executable(main ${CLIENT_SRCS})
+# Compile Definitions
+# Build in standalone mode to not include Boost
+target_compile_definitions(${TARGET_NAME} PRIVATE ASIO_STANDALONE)
+# GLM Experimental
+target_compile_definitions(${TARGET_NAME} PRIVATE GLM_ENABLE_EXPERIMENTAL)
 
-target_include_directories(main PRIVATE 
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../include
-    )
-
-target_link_libraries(main PRIVATE GLEW::glew_s glfw)
+target_link_libraries(${TARGET_NAME} PRIVATE
+    shared_lib
+    glm
+    glfw
+    libglew_static 
+    asio
+    assimp
+    stb_image
+)
