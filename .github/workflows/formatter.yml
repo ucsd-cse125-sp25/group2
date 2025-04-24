@@ -11,10 +11,17 @@ jobs:
       contents: write
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: AutoModality/action-ros-clang-format@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          # Make sure the actual branch is checked out when running on pull requests
+          ref: ${{ github.head_ref }}
+
+      - name: Make the script file executable
+        run: chmod +x format.sh
+
+      - name: Running clang-format
+        run: ./format.sh
   prettier:
     permissions:
       contents: write
