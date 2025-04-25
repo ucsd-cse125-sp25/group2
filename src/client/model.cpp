@@ -3,6 +3,8 @@
 
 Model::Model(const char *path)
 {
+    model = glm::mat4(1);
+    color = glm::vec3(1.0f, 0.95f, 0.1f);
     loadModel(path);
 }
 
@@ -12,18 +14,23 @@ void Model::Draw(const glm::mat4& viewProjMtx, Shader &shader)
     shader.use();
     // Send camera view projection matrix to vertex shader file
     shader.setMat4("viewProj", viewProjMtx);
-    glm::mat4 model = glm::mat4(1.0f);
-    model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
     // Send model matrix to vertex shader file
     shader.setMat4("model", model);
+    shader.setVec3("DiffuseColor", color);
     for(unsigned int i = 0; i < meshes.size(); i++)
         // Draw each mesh
         meshes[i].Draw(shader);
 }
 
-void Model::Update()
+void Model::Update(Transform* transform)
 {
-    // Don't need to do anything here yet.
+    glm::mat4 scaleMat = glm::scale(glm::mat4(1.0f), transform->getScale());
+    glm::mat4 rotMat = glm::rotate(glm::mat4(1.0f), glm::radians(transform->getRotation().x), glm::vec3(1, 0, 0));
+    rotMat = glm::rotate(rotMat, glm::radians(transform->getRotation().y), glm::vec3(0, 1, 0));
+    rotMat = glm::rotate(rotMat, glm::radians(transform->getRotation().z), glm::vec3(0, 0, 1));
+    glm::mat4 transMat = glm::translate(glm::mat4(1.0f), transform->getPosition());
+    
+    model = transMat * rotMat * scaleMat;
 }
 
 void Model::loadModel(string path)

@@ -2,7 +2,7 @@
 
 GameObject::GameObject(const std::string &objectId, bool canInteract, Shader sd)
     : id(objectId), interactable(canInteract), active(true), transform(new Transform()), shader(sd),
-      model(new Cube())
+      model(new Model("../src/client/resources/objects/chicken/Chicken.obj"))
 {
 }
 
@@ -23,6 +23,6 @@ glm::vec3 GameObject::getPosition() const { return transform->getPosition(); }
 glm::vec3 GameObject::getRotation() const { return transform->getRotation(); }
 glm::vec3 GameObject::getScale() const { return transform->getScale(); }
 
-void GameObject::Update(Transform *tf, float deltaTime) { model->update(tf); }
+void GameObject::Update(Transform *tf, float deltaTime) { model->Update(tf); }
 
-void GameObject::Render(const glm::mat4 &viewProjMtx) { model->draw(viewProjMtx, shader); }
+void GameObject::Render(const glm::mat4 &viewProjMtx) { model->Draw(viewProjMtx, shader); }

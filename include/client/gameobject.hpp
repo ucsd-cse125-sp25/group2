@@ -1,5 +1,6 @@
 #include "client/core.hpp"
 #include "shared/cube.hpp"
+#include "client/model.hpp"
 #include "client/transform.hpp"
 #include <memory>
 #include <string>
@@ -14,7 +15,8 @@ protected:
     bool interactable;
 
     // change to model class
-    Cube *model;
+    // Cube *model;
+    Model *model;
     Transform *transform;
     Shader shader;
 
