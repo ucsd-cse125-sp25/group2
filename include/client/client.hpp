@@ -44,7 +44,7 @@ public:
   bool init();
   bool initObjects();
   bool initNetwork(asio::io_context &io_context, const std::string &ip,
-                         const std::string &port);
+                   const std::string &port);
   void cleanUp();
 
   // for the Window
@@ -65,5 +65,5 @@ public:
   void cursor_callback(GLFWwindow *window, double currX, double currY);
 
   // Getters
-  GLFWwindow* getWindow() { return window; }
+  GLFWwindow *getWindow() { return window; }
 };

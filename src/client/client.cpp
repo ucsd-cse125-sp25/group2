@@ -1,13 +1,10 @@
 #include "client/client.hpp"
 
-Client::Client():
-  cam(new Camera()),
-  leftDown(false),
-  rightDown(false),
-  mouseX(0),
-  mouseY(0) {
-    cam->SetAspect(float(width) / float(height));
-  }
+Client::Client()
+    : cam(new Camera()), leftDown(false), rightDown(false), mouseX(0),
+      mouseY(0) {
+  cam->SetAspect(float(width) / float(height));
+}
 
 bool Client::init() {
   // Initialize glfw
@@ -30,7 +27,7 @@ bool Client::init() {
   glfwMakeContextCurrent(window);
 
   glewInit();
-  
+
   return true;
 }
 
@@ -40,8 +37,8 @@ bool Client::initObjects() {
   return true;
 }
 
-bool Client::initNetwork(asio::io_context &io_context,
-                               const std::string &ip, const std::string &port) {
+bool Client::initNetwork(asio::io_context &io_context, const std::string &ip,
+                         const std::string &port) {
   network = new ClientNetwork(io_context, ip, port);
   return !network->err;
 }
@@ -58,7 +55,6 @@ void Client::cleanUp() {
   // Destroy GLFW window
   glfwDestroyWindow(window);
 }
-
 
 void Client::resizeCallback(GLFWwindow *window, int width, int height) {
   this->width = width;

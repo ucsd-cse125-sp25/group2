@@ -67,8 +67,9 @@ int main(void) {
   }
 
   // Get window
-  GLFWwindow* window = client->getWindow();
-  if (!window) exit(EXIT_FAILURE);
+  GLFWwindow *window = client->getWindow();
+  if (!window)
+    exit(EXIT_FAILURE);
 
   glfwSetWindowUserPointer(window, client.get());
   print_versions();
