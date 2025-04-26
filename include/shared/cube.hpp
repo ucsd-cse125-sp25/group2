@@ -3,6 +3,7 @@
 #include "client/core.hpp"
 #include "client/shader.hpp"
 #include "shared/cube.hpp"
+#include "client/transform.hpp"
 
 #include <vector>
 
@@ -25,7 +26,7 @@ public:
   ~Cube();
 
   void draw(const glm::mat4 &viewProjMtx, Shader &shader);
-  void update();
+  void update(Transform *transform);
 
   void spin(float deg);
 };

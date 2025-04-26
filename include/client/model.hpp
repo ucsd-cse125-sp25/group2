@@ -3,6 +3,8 @@
 #include "client/core.hpp"
 #include "client/mesh.hpp"
 #include "client/shader.hpp"
+#include "client/mesh.hpp"
+#include "client/transform.hpp"
 #include <assimp/Importer.hpp>
 #include <assimp/postprocess.h>
 #include <assimp/scene.h>
@@ -12,11 +14,12 @@ using namespace std;
 
 class Model {
 public:
-  Model(const char *path);
-  void Draw(const glm::mat4 &viewProjMtx, Shader &shader);
-  void Update();
-
+    Model(const char *path);
+    void Draw(const glm::mat4& viewProjMtx, Shader &shader);
+    void Update(Transform* transform);
 private:
+  glm::mat4 model;
+  glm::vec3 color;
   vector<Mesh> meshes;
   vector<Texture> textures_loaded;
   string directory;

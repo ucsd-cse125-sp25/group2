@@ -6,6 +6,7 @@
 #include "client/model.hpp"
 #include "client/shader.hpp"
 #include "shared/cube.hpp"
+#include "client/gamestate.hpp"
 
 #define FPS (1.0 / 60.0)
 
@@ -26,6 +27,7 @@ public:
   // Objects to render
   Cube *cube;
   Model *model;
+  GameState *gameState;
 
   // Shader Program
   Shader cubeShaderProgram;
