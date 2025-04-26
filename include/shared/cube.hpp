@@ -2,8 +2,8 @@
 
 #include "client/core.hpp"
 #include "client/shader.hpp"
-#include "shared/cube.hpp"
 #include "client/transform.hpp"
+#include "shared/cube.hpp"
 
 #include <vector>
 
