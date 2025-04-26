@@ -132,7 +132,7 @@ Cube::~Cube() {
 }
 
 void Cube::draw(const glm::mat4& viewProjMtx, Shader& shader) {
-    // actiavte the shader program
+    // activate the shader program
     shader.use();
 
     // get the locations and send the uniforms to the shader
@@ -151,9 +151,14 @@ void Cube::draw(const glm::mat4& viewProjMtx, Shader& shader) {
     glUseProgram(0);
 }
 
-void Cube::update() {
-    // Spin the cube
-    spin(0.05f);
+void Cube::update(Transform* transform) {
+    glm::mat4 scaleMat = glm::scale(glm::mat4(1.0f), transform->getScale());
+    glm::mat4 rotMat = glm::rotate(glm::mat4(1.0f), glm::radians(transform->getRotation().x), glm::vec3(1, 0, 0));
+    rotMat = glm::rotate(rotMat, glm::radians(transform->getRotation().y), glm::vec3(0, 1, 0));
+    rotMat = glm::rotate(rotMat, glm::radians(transform->getRotation().z), glm::vec3(0, 0, 1));
+    glm::mat4 transMat = glm::translate(glm::mat4(1.0f), transform->getPosition());
+    
+    model = transMat * rotMat * scaleMat;
 }
 
 void Cube::spin(float deg) {

@@ -3,23 +3,22 @@
 // Constructors and desctructors
 bool Client::initializeProgram() {
     // Cube shader program
-    cubeShaderProgram = Shader("../src/client/shaders/shader.vert", "../src/client/shaders/shader.frag"); 
+    // cubeShaderProgram = Shader("../src/client/shaders/shader.vert", "../src/client/shaders/shader.frag"); 
 
     // Model shader program
-    modelShaderProgram = Shader("../src/client/shaders/model.vert", "../src/client/shaders/model.frag"); 
+    // modelShaderProgram = Shader("../src/client/shaders/model.vert", "../src/client/shaders/model.frag"); 
 
-
+    gameState = new GameState();
     return true;
 }
 
 bool Client::initializeObjects() {
     // Create a cube
-    cube = new Cube();
+    // cube = new Cube();
     // cube = new Cube(glm::vec3(-1, 0, -2), glm::vec3(1, 1, 1));
 
     // Load model
-    model = new Model("../src/client/resources/objects/backpack/backpack.obj");
-
+    // model = new Model("../src/client/resources/objects/backpack/backpack.obj");
     return true;
 }
 
@@ -124,9 +123,12 @@ void Client::idleCallback() {
 
     cam->Update();
 
-    if (cube) cube->update();
+    // if (cube) cube->update();
 
-    if (model) model->Update();
+    // if (model) model->Update();
+
+    // I am passing a hardcoded value for deltaTime/frame rate. We can get the real one from the network later
+    if (gameState) gameState->Update(0.01f);
 }
 
 void Client::displayCallback(GLFWwindow* window) {
@@ -139,6 +141,8 @@ void Client::displayCallback(GLFWwindow* window) {
 
     // Render the model.
     if (model) model->Draw(cam->GetViewProjectMtx(), modelShaderProgram);
+
+    if (gameState) gameState->Render(cam->GetViewProjectMtx());
 
     // Gets events, including input such as keyboard and mouse or window resizing.
     glfwPollEvents();
@@ -156,25 +160,15 @@ void Client::resetCamera() {
 
 // callbacks - for Interaction
 void Client::keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) {
-    /*
-     * TODO: Modify below to add your key callbacks.
-     */
-
-    // Check for a key press.
-    if (action == GLFW_PRESS) {
-        switch (key) {
-            case GLFW_KEY_ESCAPE:
-                // Close the window. This causes the program to also terminate.
-                glfwSetWindowShouldClose(window, GL_TRUE);
-                break;
-
-            case GLFW_KEY_R:
-                resetCamera();
-                break;
-
-            default:
-                break;
-        }
+    if (action == GLFW_PRESS)
+    {
+        if (key == GLFW_KEY_ESCAPE)
+            glfwSetWindowShouldClose(window, true);
+        gameState->keyStates[key] = true;
+    }
+    if (action == GLFW_RELEASE)
+    {
+        gameState->keyStates[key] = false;
     }
 }
 
