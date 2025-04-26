@@ -16,6 +16,8 @@ public:
     int height;
     const char* windowTitle;
 
+    // list <GameObject*> objects;
+
     // Camera properties
     Camera* cam;
     bool leftDown, rightDown;
@@ -55,5 +57,5 @@ public:
     void cursor_callback(GLFWwindow* window, double currX, double currY);
 
     //FOR TESTING
-    bool initializeCube(float x, float y, float z);
+    bool initializeCube(glm::vec3 position);
 };

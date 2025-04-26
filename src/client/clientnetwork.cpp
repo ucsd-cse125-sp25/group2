@@ -70,32 +70,45 @@ deque<std::unique_ptr<IPacket>> ClientNetwork::receive() {
         std::vector<char> payload(size);
         _socket.read_some(asio::buffer(payload));
 
-        packets.push_back(process_packets(static_cast<PacketType>(type),payload,size));
+        packets.push_back(process_packets(static_cast<PacketType>(type),payload));
     }
     return packets;
 }
 
-std::unique_ptr<IPacket> ClientNetwork::process_packets(PacketType type, vector<char> payload, uint16_t size) {
+std::unique_ptr<IPacket> ClientNetwork::process_packets(PacketType type, vector<char> payload) {
     switch (type) {
         case PacketType::INIT:
             {
-                std::unique_ptr<IPacket> packet = deserialize(PacketType::INIT, payload, size);
+                std::unique_ptr<IPacket> packet = deserialize(PacketType::INIT, payload);
                 return packet;
             }
         case PacketType::STRING:
             {
-                std::unique_ptr<IPacket> packet = deserialize(PacketType::STRING, payload, size);
+                std::unique_ptr<IPacket> packet = deserialize(PacketType::STRING, payload);
                 return packet;
             }
         case PacketType::POSITION:
             {
-                std::unique_ptr<IPacket> packet = deserialize(PacketType::POSITION, payload, size);
+                std::unique_ptr<IPacket> packet = deserialize(PacketType::POSITION, payload);
 
                 // TEST
                 if (auto* posPacket = dynamic_cast<PositionPacket*>(packet.get())) {
-                    std::cout << "x: " << posPacket->x << std::endl;
-                    std::cout << "y: " << posPacket->y << std::endl;
-                    std::cout << "z: " << posPacket->z << std::endl;
+                    std::cout << "x: " << posPacket->position.x << std::endl;
+                    std::cout << "y: " << posPacket->position.y << std::endl;
+                    std::cout << "z: " << posPacket->position.z << std::endl;
+                }
+                return packet;
+            }
+        case PacketType::OBJECT:
+            {
+                std::unique_ptr<IPacket> packet = deserialize(PacketType::OBJECT, payload);
+
+                if (auto* objectPacket = dynamic_cast<ObjectPacket*>(packet.get())) {
+                    std::cout << "id: " << objectPacket->id << std::endl;
+                    std::cout << "type: " << int(objectPacket->type) << std::endl;
+                    std::cout << "x: " << objectPacket->position.x << std::endl;
+                    std::cout << "y: " << objectPacket->position.y << std::endl;
+                    std::cout << "z: " << objectPacket->position.z << std::endl;
                 }
                 return packet;
             }

@@ -22,7 +22,7 @@ class ServerNetwork {
         GameState* game;
 
         void accept_client();
-        std::unique_ptr<IPacket> process_packets(PacketType type, vector<char> payload, uint16_t size);
+        std::unique_ptr<IPacket> process_packets(PacketType type, vector<char> payload);
     public:
         ServerNetwork(asio::io_context& io_context, const std::string& ip, const std::string& port, GameState* game);
         void start();

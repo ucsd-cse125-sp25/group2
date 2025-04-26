@@ -108,7 +108,7 @@ deque<std::unique_ptr<IPacket>> ServerNetwork::receive_from_clients() {
                 break;
 
     
-            packets.push_back(process_packets(static_cast<PacketType>(type),payload,size));
+            packets.push_back(process_packets(static_cast<PacketType>(type),payload));
         }
         if (ec == asio::error::eof || ec == asio::error::connection_reset) {
             handle_client_disconnect(it->first);
@@ -118,27 +118,27 @@ deque<std::unique_ptr<IPacket>> ServerNetwork::receive_from_clients() {
     return packets;
 }
 
-std::unique_ptr<IPacket> ServerNetwork::process_packets(PacketType type, vector<char> payload, uint16_t size) {
+std::unique_ptr<IPacket> ServerNetwork::process_packets(PacketType type, vector<char> payload) {
     switch (type) {
         case PacketType::INIT:
             {
-                std::unique_ptr<IPacket> packet = deserialize(PacketType::INIT, payload, size);
+                std::unique_ptr<IPacket> packet = deserialize(PacketType::INIT, payload);
                 return packet;
             }
         case PacketType::STRING:
             {
-                std::unique_ptr<IPacket> packet = deserialize(PacketType::STRING, payload, size);
+                std::unique_ptr<IPacket> packet = deserialize(PacketType::STRING, payload);
                 return packet;
             }
         case PacketType::POSITION:
             {
-                std::unique_ptr<IPacket> packet = deserialize(PacketType::POSITION, payload, size);
+                std::unique_ptr<IPacket> packet = deserialize(PacketType::POSITION, payload);
                 return packet;
             }
         case PacketType::ACTION: 
             {
                 std::cout << "action receive" << std::endl;
-                std::unique_ptr<IPacket> packet = deserialize(PacketType::ACTION, payload, size);
+                std::unique_ptr<IPacket> packet = deserialize(PacketType::ACTION, payload);
                 return packet;
             }
         case PacketType::DISCONNECT:

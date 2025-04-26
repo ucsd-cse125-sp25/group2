@@ -26,15 +26,14 @@ void Server::update() {
                 // Handle position packet
                 break;
             }
-            case PacketType::STRING: {
-                auto string_packet = static_cast<StringPacket*>(packet.get());
-                // Handle string packet
-                break;
-            }
             case PacketType::ACTION: {
                 auto action_packet = static_cast<ActionPacket*>(packet.get());
                 // Handle action packet
                 network->send_to_all(game->handleAction(action_packet));
+                break;
+            }
+            case PacketType::OBJECT: {
+                auto object_packet = static_cast<ObjectPacket*>(packet.get());
                 break;
             }
             case PacketType::DISCONNECT: {

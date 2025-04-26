@@ -8,7 +8,6 @@ bool Client::initializeProgram() {
     // Model shader program
     modelShaderProgram = Shader("../src/client/shaders/model.vert", "../src/client/shaders/model.frag"); 
 
-
     return true;
 }
 
@@ -22,8 +21,8 @@ bool Client::initializeObjects() {
     return true;
 }
 
-bool Client::initializeCube(float x, float y, float z) {
-    glm::vec3 center = glm::vec3(x,y,z);
+bool Client::initializeCube(glm::vec3 position) {
+    glm::vec3 center = position;
     cube = new Cube(center - glm::vec3(1,1,1), center + glm::vec3(1,1,1));
     return true;
 }
@@ -121,7 +120,13 @@ void Client::idleCallback() {
             case PacketType::POSITION: {
                 auto position_packet = dynamic_cast<PositionPacket*>(packet.get());
                 // initialize cube
-                initializeCube(position_packet->x, position_packet->y, position_packet->z);
+                initializeCube(position_packet->position);
+                break;
+            }
+            case PacketType::OBJECT: {
+                auto position_packet = dynamic_cast<ObjectPacket*>(packet.get());
+                // initialize cube
+                initializeCube(position_packet->position);
                 break;
             }
         }

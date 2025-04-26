@@ -14,7 +14,7 @@ private:
     tcp::socket _socket;
     CLIENT_ID id;
 
-    std::unique_ptr<IPacket> process_packets(PacketType type, vector<char> payload, uint16_t size);
+    std::unique_ptr<IPacket> process_packets(PacketType type, vector<char> payload);
 public:
     bool err;
 
