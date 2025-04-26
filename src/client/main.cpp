@@ -59,70 +59,39 @@ void print_versions() {
 }
 
 int main(void) {
-  // Create the GLFW window.
+  // Initialize client
   std::unique_ptr<Client> client(new Client());
-  GLFWwindow *window = client->createWindow(800, 600);
-  glfwSetWindowUserPointer(window, client.get());
-  if (!window)
+  if (!client->init()) {
+    std::cout << "Client Initialization Failed" << std::endl;
     exit(EXIT_FAILURE);
+  }
 
+  // Get window
+  GLFWwindow* window = client->getWindow();
+  if (!window) exit(EXIT_FAILURE);
+
+  glfwSetWindowUserPointer(window, client.get());
   print_versions();
   setup_callbacks(window);
+  // Setup OpenGL settings
   setup_opengl_settings();
 
-  if (!client->initializeProgram())
-    exit(EXIT_FAILURE);
-
+  // Create client network
   asio::io_context io_context;
-  if (!client->initializeNetwork(io_context, "127.0.0.1", "12345"))
+  if (!client->initNetwork(io_context, "127.0.0.1", "12345")) {
+    std::cout << "Client Network Failed" << std::endl;
     exit(EXIT_FAILURE);
+  }
 
   while (!glfwWindowShouldClose(window)) {
+    // Rendering call back
     client->displayCallback(window);
 
-    // Idle callback. Updating objects, etc. can be done here.
+    // Updating of objects
     client->idleCallback();
   }
 
   client->cleanUp();
-  glfwDestroyWindow(window);
   glfwTerminate();
   exit(EXIT_SUCCESS);
 }
-
-// Model loading only
-// int main(void) {
-//     // Create the GLFW window.
-//     std::unique_ptr<Client> client(new Client());
-//     GLFWwindow* window = client->createWindow(800, 600);
-//     if (!window) exit(EXIT_FAILURE);
-
-//     // Print OpenGL and GLSL versions.
-//     print_versions();
-//     // Setup callbacks.
-//     setup_callbacks(window);
-//     // Setup OpenGL settings.
-//     setup_opengl_settings();
-
-//     // Initialize the shader program; exit if initialization fails.
-//     if (!client->initializeProgram()) exit(EXIT_FAILURE);
-//     // Initialize objects/pointers for rendering; exit if initialization
-//     fails. if (!client->initializeObjects()) exit(EXIT_FAILURE);
-
-//     // Loop while GLFW window should stay open.
-//     while (!glfwWindowShouldClose(window)) {
-//         // Main render display callback. Rendering of objects is done here.
-//         client->displayCallback(window);
-
-//         // Idle callback. Updating objects, etc. can be done here.
-//         client->idleCallback();
-//     }
-
-//     client->cleanUp();
-//     // Destroy the window.
-//     glfwDestroyWindow(window);
-//     // Terminate GLFW.
-//     glfwTerminate();
-
-//     exit(EXIT_SUCCESS);
-// }

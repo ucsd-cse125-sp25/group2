@@ -13,6 +13,7 @@
 class Client {
 public:
   // Window Properties
+  GLFWwindow *window;
   int width;
   int height;
   const char *windowTitle;
@@ -36,10 +37,13 @@ public:
   // Network
   ClientNetwork *network;
 
-  // Act as Constructors and desctructors
-  bool initializeProgram();
-  bool initializeObjects();
-  bool initializeNetwork(asio::io_context &io_context, const std::string &ip,
+  // Constructors and desctructors
+  Client();
+  ~Client();
+
+  bool init();
+  bool initObjects();
+  bool initNetwork(asio::io_context &io_context, const std::string &ip,
                          const std::string &port);
   void cleanUp();
 
@@ -60,6 +64,6 @@ public:
   void mouse_callback(GLFWwindow *window, int button, int action, int mods);
   void cursor_callback(GLFWwindow *window, double currX, double currY);
 
-  // FOR TESTING
-  bool initializeCube(glm::vec3 position);
+  // Getters
+  GLFWwindow* getWindow() { return window; }
 };

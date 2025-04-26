@@ -1,37 +1,46 @@
 #include "client/client.hpp"
 
-// Constructors and desctructors
-bool Client::initializeProgram() {
-  // Cube shader program
-  // cubeShaderProgram = Shader("../src/client/shaders/shader.vert",
-  // "../src/client/shaders/shader.frag");
+Client::Client():
+  cam(new Camera()),
+  leftDown(false),
+  rightDown(false),
+  mouseX(0),
+  mouseY(0) {
+    cam->SetAspect(float(width) / float(height));
+  }
 
-  // Model shader program
-  // modelShaderProgram = Shader("../src/client/shaders/model.vert",
-  // "../src/client/shaders/model.frag");
+bool Client::init() {
+  // Initialize glfw
+  if (!glfwInit()) {
+    std::cerr << "Failed to initialize GLFW" << std::endl;
+    return NULL;
+  }
 
-  gameState = new GameState();
+  glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+  glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+
+  // Create the GLFW window.
+  window = glfwCreateWindow(800, 600, "Barnyard Breakout", NULL, NULL);
+  if (!window) {
+    std::cerr << "Window Creation Failed" << std::endl;
+    glfwTerminate();
+    return false;
+  }
+
+  glfwMakeContextCurrent(window);
+
+  glewInit();
+  
   return true;
 }
 
-// don't need
-bool Client::initializeObjects() {
-  // Create a cube
-  // cube = new Cube();
-  // cube = new Cube(glm::vec3(-1, 0, -2), glm::vec3(1, 1, 1));
-
-  // Load model
-  // model = new Model("../src/client/resources/objects/backpack/backpack.obj");
+bool Client::initObjects() {
+  // initialize the objects in the list of objects in the client game state
+  cube = new Cube();
   return true;
 }
 
-bool Client::initializeCube(glm::vec3 position) {
-  glm::vec3 center = position;
-  cube = new Cube(center - glm::vec3(1, 1, 1), center + glm::vec3(1, 1, 1));
-  return true;
-}
-
-bool Client::initializeNetwork(asio::io_context &io_context,
+bool Client::initNetwork(asio::io_context &io_context,
                                const std::string &ip, const std::string &port) {
   network = new ClientNetwork(io_context, ip, port);
   return !network->err;
@@ -40,63 +49,16 @@ bool Client::initializeNetwork(asio::io_context &io_context,
 // replace with destructor
 void Client::cleanUp() {
   delete network;
-  // Deallcoate the objects.
   delete cube;
 
-  // Delete the shader programs.
+  // Delete the shader programs
   cubeShaderProgram.deleteShader();
   modelShaderProgram.deleteShader();
+
+  // Destroy GLFW window
+  glfwDestroyWindow(window);
 }
 
-// for the Window
-GLFWwindow *Client::createWindow(int width, int height) {
-  windowTitle = "Model Environment";
-  // Initialize GLFW.
-  if (!glfwInit()) {
-    std::cerr << "Failed to initialize GLFW" << std::endl;
-    return NULL;
-  }
-
-  // 4x antialiasing.
-  glfwWindowHint(GLFW_SAMPLES, 4);
-
-  // Ensure that minimum OpenGL version is 3.3
-  glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-  glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-  // Enable forward compatibility and allow a modern OpenGL context
-  glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-  glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-
-  // Create the GLFW window.
-  GLFWwindow *window = glfwCreateWindow(width, height, windowTitle, NULL, NULL);
-
-  // Check if the window could not be created.
-  if (!window) {
-    std::cerr << "Failed to open GLFW window." << std::endl;
-    glfwTerminate();
-    return NULL;
-  }
-
-  // Make the context of the window.
-  glfwMakeContextCurrent(window);
-
-  // Set swap interval to 1.
-  glewInit();
-  glfwSwapInterval(0);
-
-  // set up the camera
-  cam = new Camera();
-  cam->SetAspect(float(width) / float(height));
-
-  // initialize the interaction var./iables
-  leftDown = rightDown = false;
-  mouseX = mouseY = 0;
-
-  // Call the resize callback to make sure things get drawn immediately.
-  Client::resizeCallback(window, width, height);
-
-  return window;
-}
 
 void Client::resizeCallback(GLFWwindow *window, int width, int height) {
   this->width = width;
@@ -125,13 +87,11 @@ void Client::idleCallback() {
     case PacketType::POSITION: {
       auto position_packet = dynamic_cast<PositionPacket *>(packet.get());
       // initialize cube
-      initializeCube(position_packet->position);
       break;
     }
     case PacketType::OBJECT: {
       auto position_packet = dynamic_cast<ObjectPacket *>(packet.get());
       // initialize cube
-      initializeCube(position_packet->position);
       break;
     }
     }
@@ -145,8 +105,7 @@ void Client::idleCallback() {
 
   // I am passing a hardcoded value for deltaTime/frame rate. We can get the
   // real one from the network later
-  if (gameState)
-    gameState->Update(0.01f);
+  cube->update();
 }
 
 void Client::displayCallback(GLFWwindow *window) {
