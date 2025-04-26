@@ -231,7 +231,7 @@ struct DisconnectPacket: public IPacket
     }
 };
 
-inline std::unique_ptr<IPacket> deserialize(PacketType type, vector<char> payload, uint16_t size)
+inline std::unique_ptr<IPacket> deserialize(PacketType type, vector<char> payload)
 {
     switch (type)
     {

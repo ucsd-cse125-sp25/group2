@@ -143,7 +143,7 @@ std::unique_ptr<IPacket> ServerNetwork::process_packets(PacketType type, vector<
             }
         case PacketType::DISCONNECT:
             {
-                std::unique_ptr<IPacket> packet = deserialize(PacketType::DISCONNECT, payload, size);
+                std::unique_ptr<IPacket> packet = deserialize(PacketType::DISCONNECT, payload);
                 return packet;
             }
         default:
