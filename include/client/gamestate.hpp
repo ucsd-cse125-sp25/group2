@@ -1,7 +1,7 @@
 #pragma once
 
-#include "shared/gameobject.hpp"
 #include "shader.hpp"
+#include "shared/gameobject.hpp"
 #include <unordered_map>
 #include <vector>
 
