@@ -1,6 +1,6 @@
 #pragma once
 
-#include "shared/cube.hpp"
+#include "shared/objects/cube.hpp"
 #include "shared/packets.hpp"
 
 #include <memory>

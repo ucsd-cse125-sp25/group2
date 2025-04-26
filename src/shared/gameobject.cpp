@@ -1,4 +1,4 @@
-#include "client/gameobject.hpp"
+#include "shared/gameobject.hpp"
 
 GameObject::GameObject(const std::string &objectId, bool canInteract, Shader sd)
     : id(objectId), interactable(canInteract), active(true),

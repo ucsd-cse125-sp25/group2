@@ -3,7 +3,7 @@
 #include "client/core.hpp"
 #include "client/shader.hpp"
 #include "client/transform.hpp"
-#include "shared/cube.hpp"
+#include "shared/objects/cube.hpp"
 
 #include <vector>
 

@@ -1,5 +1,5 @@
 #include "client/clientnetwork.hpp"
-#include "shared/cube.hpp"
+#include "shared/objects/cube.hpp"
 /*
  * Constructor for ClientNetwork
  * resolver is used to find all endpoints of an ip and port combination

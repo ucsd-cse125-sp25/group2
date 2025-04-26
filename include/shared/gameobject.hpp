@@ -1,7 +1,7 @@
 #include "client/core.hpp"
 #include "client/model.hpp"
 #include "client/transform.hpp"
-#include "shared/cube.hpp"
+#include "shared/objects/cube.hpp"
 #include <memory>
 #include <string>
 
@@ -13,8 +13,6 @@ protected:
   std::string id;
   bool interactable;
 
-  // change to model class
-  // Cube *model;
   Model *model;
   Transform *transform;
   Shader shader;

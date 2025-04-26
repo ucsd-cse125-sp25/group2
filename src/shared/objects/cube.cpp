@@ -1,4 +1,4 @@
-#include "shared/cube.hpp"
+#include "shared/objects/cube.hpp"
 
 Cube::Cube(glm::vec3 cubeMin, glm::vec3 cubeMax) {
   // Model matrix.

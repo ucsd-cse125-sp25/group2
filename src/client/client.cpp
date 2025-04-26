@@ -14,6 +14,7 @@ bool Client::initializeProgram() {
   return true;
 }
 
+// don't need
 bool Client::initializeObjects() {
   // Create a cube
   // cube = new Cube();
@@ -36,6 +37,7 @@ bool Client::initializeNetwork(asio::io_context &io_context,
   return !network->err;
 }
 
+// replace with destructor
 void Client::cleanUp() {
   delete network;
   // Deallcoate the objects.

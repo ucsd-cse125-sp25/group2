@@ -1,6 +1,6 @@
 #pragma once
 
-#include "gameobject.hpp"
+#include "shared/gameobject.hpp"
 #include "shader.hpp"
 #include <unordered_map>
 #include <vector>
