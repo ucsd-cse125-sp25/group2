@@ -53,6 +53,10 @@ void ServerNetwork::accept_client() {
 */
 void ServerNetwork::send_to_client(unsigned int id, const IPacket& packet) {
     auto socket = clients[id];
+    if (!socket->is_open()) {
+        handle_client_disconnect(id);
+        return;
+    }
     vector<char> body = packet.serialize();
     uint16_t body_size = static_cast<uint16_t>(body.size());
     
@@ -65,7 +69,12 @@ void ServerNetwork::send_to_client(unsigned int id, const IPacket& packet) {
     buffer.push_back(static_cast<uint8_t>((body_size >> 8) & 0xFF));
     buffer.insert(buffer.end(), body.begin(), body.end());
     
-    asio::write(*socket, asio::buffer(buffer));
+    try {
+        asio::write(*socket, asio::buffer(buffer));
+    } catch (const std::system_error& e) {
+        std::cerr << "Write failed: " << e.what() << std::endl;
+        handle_client_disconnect(id);
+    }
 }
 
 /*
@@ -74,45 +83,38 @@ void ServerNetwork::send_to_client(unsigned int id, const IPacket& packet) {
 */
 void ServerNetwork::send_to_all(const IPacket& packet) {
     for (const auto&[id, socket] : clients) {
-        vector<char> body = packet.serialize();
-        uint16_t body_size = static_cast<uint16_t>(body.size());
-        
-        vector<char> buffer;
-        buffer.reserve(1 + 2 + body.size());
-
-        // Header format: [PacketType (1 byte)][PayloadSize (2 bytes)][Payload]
-        buffer.push_back(static_cast<uint8_t>(packet.get_type()));
-        buffer.push_back(static_cast<uint8_t>(body_size & 0xFF));
-        buffer.push_back(static_cast<uint8_t>((body_size >> 8) & 0xFF));
-        buffer.insert(buffer.end(), body.begin(), body.end());
-        
-        asio::write(*socket, asio::buffer(buffer));
+        send_to_client(id,packet);
     }
 }
 
 deque<std::unique_ptr<IPacket>> ServerNetwork::receive_from_clients() {
     deque<std::unique_ptr<IPacket>> packets;
-    for (const auto&[id, socket] : clients) {
-        PacketType type;
-        uint16_t size = 0;
+    for (auto it = clients.begin(); it != clients.end(); ) {
+        auto& socket = it->second;
+        asio::error_code ec;
+
         while (socket->available() > 0) {
+            PacketType type;
+            uint16_t size = 0;
     
-            if (socket->read_some(asio::buffer(&type, 1)) <= 0) {
-                std::cerr << "Server Warning: Could not read packet type" << std::endl;
-                return packets;
-            }
+            if (socket->read_some(asio::buffer(&type, 1), ec) <= 0 || ec) 
+                break;
     
-            if (socket->read_some(asio::buffer(&size, 2)) <= 0) {
-                std::cerr << "Server Warning: Could not read packet size" << std::endl;
-                return packets;
-            }
+            if (socket->read_some(asio::buffer(&size, 2), ec) <= 0 || ec) 
+                break;
     
             std::vector<char> payload(size);
-            socket->read_some(asio::buffer(payload));
+            if (socket->read_some(asio::buffer(payload, size), ec) <= 0 || ec)
+                break;
+
     
             packets.push_back(process_packets(static_cast<PacketType>(type),payload,size));
         }
-    }
+        if (ec == asio::error::eof || ec == asio::error::connection_reset) {
+            handle_client_disconnect(it->first);
+        }
+        ++it;
+    } 
     return packets;
 }
 
@@ -139,8 +141,22 @@ std::unique_ptr<IPacket> ServerNetwork::process_packets(PacketType type, vector<
                 std::unique_ptr<IPacket> packet = deserialize(PacketType::ACTION, payload, size);
                 return packet;
             }
+        case PacketType::DISCONNECT:
+            {
+                std::unique_ptr<IPacket> packet = deserialize(PacketType::DISCONNECT, payload, size);
+                return packet;
+            }
         default:
             std::cerr << ("Server Warning: Unknown packet type") << std::endl;
             return nullptr;
     }
+}
+
+void ServerNetwork::handle_client_disconnect(CLIENT_ID id) {
+    std::cerr << "Client " << id << " disconnected." << std::endl;
+    auto socket = clients[id];
+    if (socket->is_open()) {
+        socket->close();
+    }
+    clients.erase(id);
 }

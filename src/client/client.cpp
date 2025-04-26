@@ -114,7 +114,8 @@ void Client::idleCallback() {
 
         switch (packet->get_type()) {
             case PacketType::INIT: {
-                // do nothing
+                auto init_packet = dynamic_cast<InitPacket*>(packet.get());
+                network->set_id(init_packet->client_id);
                 break;
             }
             case PacketType::POSITION: {

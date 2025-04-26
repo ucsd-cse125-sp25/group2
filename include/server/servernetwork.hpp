@@ -28,5 +28,6 @@ class ServerNetwork {
         void start();
         void send_to_client(unsigned int id, const IPacket& packet);
         void send_to_all(const IPacket& packet);
+        void handle_client_disconnect(CLIENT_ID id);
         deque<std::unique_ptr<IPacket>> receive_from_clients();
 };

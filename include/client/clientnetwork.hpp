@@ -6,10 +6,13 @@
 
 using asio::ip::tcp;
 
+#define CLIENT_ID unsigned int
+
 class ClientNetwork
 {
 private:
     tcp::socket _socket;
+    CLIENT_ID id;
 
     std::unique_ptr<IPacket> process_packets(PacketType type, vector<char> payload, uint16_t size);
 public:
@@ -20,6 +23,7 @@ public:
     ~ClientNetwork(void);
 
     void send(const IPacket& packet);
+    void set_id(CLIENT_ID id);
 
     deque<std::unique_ptr<IPacket>> receive();
 };

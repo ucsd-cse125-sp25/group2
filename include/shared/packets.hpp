@@ -13,7 +13,8 @@ enum class PacketType : uint8_t
     INIT,
     POSITION,
     STRING,
-    ACTION
+    ACTION,
+    DISCONNECT
 };
 
 enum class ActionType : uint8_t
@@ -131,6 +132,30 @@ struct ActionPacket : public IPacket
     }
 };
 
+struct DisconnectPacket: public IPacket
+{
+    int client_id;
+
+    DisconnectPacket(int id) : client_id(id) {}
+    PacketType get_type() const override
+    {
+        return PacketType::DISCONNECT;
+    }
+    vector<char> serialize() const override
+    {
+        vector<char> buffer(sizeof(client_id));
+        memcpy(buffer.data(), &client_id, sizeof(client_id));
+        return buffer;
+    }
+    static DisconnectPacket deserialize(const vector<char> &payload, uint16_t size)
+    {
+        int id;
+        memcpy(&id, payload.data(), size);
+        DisconnectPacket packet(id);
+        return packet;
+    }
+};
+
 inline std::unique_ptr<IPacket> deserialize(PacketType type, vector<char> payload, uint16_t size)
 {
     switch (type)
@@ -143,6 +168,8 @@ inline std::unique_ptr<IPacket> deserialize(PacketType type, vector<char> payloa
         return std::make_unique<PositionPacket>(PositionPacket::deserialize(payload, size));
     case PacketType::ACTION:
         return std::make_unique<ActionPacket>(ActionPacket::deserialize(payload, size));
+    case PacketType::DISCONNECT:
+        return std::make_unique<DisconnectPacket>(DisconnectPacket::deserialize(payload, size));
     default:
         throw runtime_error("Unknown packet type");
     }

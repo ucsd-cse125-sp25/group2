@@ -18,11 +18,18 @@ ClientNetwork::ClientNetwork(asio::io_context& io_context, const std::string& ip
     }
 } 
 
+void ClientNetwork::set_id(CLIENT_ID id) {
+    this->id = id;
+}
+
 /*
  * clean up open socket
 */
 ClientNetwork::~ClientNetwork() {
     if (_socket.is_open()) {
+        std::cout << "Sending disconnect packet" << std::endl;
+        send(DisconnectPacket(this->id));
+        _socket.shutdown(asio::ip::tcp::socket::shutdown_both);
         _socket.close();
     }
 }

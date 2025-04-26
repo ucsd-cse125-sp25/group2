@@ -37,6 +37,11 @@ void Server::update() {
                 network->send_to_all(game->handleAction(action_packet));
                 break;
             }
+            case PacketType::DISCONNECT: {
+                auto disconnect_packet = static_cast<DisconnectPacket*>(packet.get());
+                network->handle_client_disconnect(disconnect_packet->client_id);
+                break;
+            }
         }
     }
 }
