@@ -1,14 +1,16 @@
 #include "server/gameserver.hpp"
 
-Server::Server(asio::io_context &io_context, const std::string &ip,
-               const std::string &port)
-    : game(new GameState()) {
-  network = new ServerNetwork(io_context, ip, port, game);
+GameServer::GameServer(asio::io_context &io_context, const std::string &ip,
+               const std::string &port) {
+  game = std::make_unique<GameState>();
+  network = std::make_unique<ServerNetwork>(io_context, ip, port, game);
 }
 
-void Server::start() { network->start(); }
+GameServer::~GameServer() {}
 
-void Server::update() {
+void GameServer::start() { network->start(); }
+
+void GameServer::update() {
   deque<std::unique_ptr<IPacket>> list_packets =
       network->receive_from_clients();
 
@@ -45,5 +47,3 @@ void Server::update() {
     }
   }
 }
-
-Server::~Server() { delete network; }

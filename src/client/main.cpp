@@ -37,20 +37,7 @@ void setup_opengl_settings() {
   // Set polygon drawing mode to fill front and back of each polygon
   glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
   // Set clear color to black
-  glClearColor(0.9, 0.9, 0.9, 1);
-}
-
-void print_versions() {
-  // Get info of GPU and supported OpenGL version.
-  std::cout << "Renderer: " << glGetString(GL_RENDERER) << std::endl;
-  std::cout << "OpenGL version supported: " << glGetString(GL_VERSION)
-            << std::endl;
-
-  // If the shading language symbol is defined.
-#ifdef GL_SHADING_LANGUAGE_VERSION
-  std::cout << "Supported GLSL version is: "
-            << glGetString(GL_SHADING_LANGUAGE_VERSION) << std::endl;
-#endif
+  glClearColor(0, 0, 0, 0);
 }
 
 int main(void) {
@@ -67,7 +54,6 @@ int main(void) {
     exit(EXIT_FAILURE);
 
   glfwSetWindowUserPointer(window, client.get());
-  print_versions();
   setup_callbacks(window);
   // Setup OpenGL settings
   setup_opengl_settings();
