@@ -7,6 +7,7 @@
 #include "client/model.hpp"
 #include "shared/cube.hpp"
 #include "shared/physics.hpp"
+#include "client/gamestate.hpp"
 
 #define FPS (1.0 / 60.0)
 
@@ -25,7 +26,7 @@ public:
     // Objects to render
     Cube* cube;
     Model* model;
-    Physics physicsWorld;
+    GameState* gameState;
 
     // Shader Program
     Shader cubeShaderProgram;

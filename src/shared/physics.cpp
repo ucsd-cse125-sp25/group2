@@ -1,24 +1,37 @@
 #include "shared/physics.hpp"
 #include <iostream>
 
-void Physics::Add(Object* obj)
+void Physics::Add(GameObject* obj)
 {
     this->objects.push_back(obj);
 }
 
-void Physics::Remove(Object* obj)
+void Physics::Remove(GameObject* obj)
 {
     this->objects.erase(std::remove(this->objects.begin(), this->objects.end(), obj));
 }
 
 void Physics::Update(float deltaTime)
 {
-    for (Object* obj : this->objects)
+    for (GameObject* obj : this->objects)
     {
-        obj->force += obj->mass * this->gravity;
-        obj->velocity += obj->force / obj->mass * deltaTime;
-        obj->position += obj->velocity * deltaTime;
+        RigidBody* rb = obj->getRigidBody();
+        Transform* tf = obj->getTransform();
+        float halfHeight = 2.05f;
+
+        rb->applyForce(rb->getMass() * this->gravity);
+
+        glm::vec3 vel = rb->getVelocity() + rb->getForce() / rb->getMass() * deltaTime;
+        if (tf->getPosition().y <= halfHeight) vel = glm::vec3(0);
+        rb->setVelocity(vel);
+
+        glm::vec3 pos = tf->getPosition() + rb->getVelocity() * deltaTime;
+        if (pos.y < halfHeight) pos.y = halfHeight;
+        tf->setPosition(pos);
         
-        obj->force = glm::vec3(0);
+        rb->setForce(glm::vec3(0));
+
+        // std::cout << pos.x << " " << pos.y << " " << pos.z << std::endl;
+        // std::cout << vel.x << " " << vel.y << " " << vel.z << std::endl;
     }
 }
