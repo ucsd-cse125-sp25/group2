@@ -13,7 +13,7 @@ private:
   tcp::socket _socket;
   CLIENT_ID id;
 
-  std::unique_ptr<IPacket> process_packets(PacketType type,
+  std::unique_ptr<IPacket> processPackets(PacketType type,
                                            vector<char> payload);
 
 public:
@@ -25,7 +25,7 @@ public:
   ~ClientNetwork();
 
   void send(const IPacket &packet);
-  void set_id(CLIENT_ID id);
-
   deque<std::unique_ptr<IPacket>> receive();
+
+  void setId(CLIENT_ID id) { this->id = id; }
 };
