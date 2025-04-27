@@ -1,13 +1,8 @@
 #include "client/client.hpp"
 
-Client::Client():
-  cam(new Camera()),
-  leftDown(false),
-  rightDown(false),
-  mouseX(0),
-  mouseY(0) {
-    cam->SetAspect(float(width) / float(height));
-  }
+Client::Client(): cam(new Camera()) {}
+
+Client::~Client() {}
 
 bool Client::init() {
   // Initialize glfw
@@ -35,7 +30,7 @@ bool Client::init() {
 }
 
 bool Client::initObjects() {
-  // initialize the objects in the list of objects in the client game state
+  // TODO:initialize the objects in the list of objects in the client game state
   cube = new Cube();
   return true;
 }
@@ -65,13 +60,10 @@ void Client::resizeCallback(GLFWwindow *window, int width, int height) {
   this->height = height;
   // Set the viewport size.
   glViewport(0, 0, width, height);
-
-  cam->SetAspect(float(width) / float(height));
 }
 
-// update and draw functions
+// Perform any updates to objects, camera, etc
 void Client::idleCallback() {
-  // Perform any updates as necessary.
   deque<std::unique_ptr<IPacket>> packets = network->receive();
 
   while (!packets.empty()) {
@@ -97,44 +89,19 @@ void Client::idleCallback() {
     }
   }
 
-  cam->Update();
-
-  // if (cube) cube->update();
-
-  // if (model) model->Update();
-
-  // I am passing a hardcoded value for deltaTime/frame rate. We can get the
-  // real one from the network later
+  cam->update(mouseX, mouseY);
   cube->update();
 }
 
 void Client::displayCallback(GLFWwindow *window) {
-
-  // Clear the color and depth buffers.
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-  // Render the object.
+  // test
   if (cube)
-    cube->draw(cam->GetViewProjectMtx(), cubeShaderProgram);
+    cube->draw(cam->getViewProj(), cubeShaderProgram);
 
-  // Render the model.
-  if (model)
-    model->Draw(cam->GetViewProjectMtx(), modelShaderProgram);
-
-  if (gameState)
-    gameState->Render(cam->GetViewProjectMtx());
-
-  // Gets events, including input such as keyboard and mouse or window resizing.
   glfwPollEvents();
-
-  // Main render display callback. Rendering of objects is done here.
   glfwSwapBuffers(window);
-}
-
-// helper to reset the camera
-void Client::resetCamera() {
-  cam->Reset();
-  cam->SetAspect(float(width) / float(height));
 }
 
 // callbacks - for Interaction
@@ -150,35 +117,9 @@ void Client::keyCallback(GLFWwindow *window, int key, int scancode, int action,
   }
 }
 
-void Client::mouse_callback(GLFWwindow *window, int button, int action,
-                            int mods) {
-  if (button == GLFW_MOUSE_BUTTON_LEFT) {
-    leftDown = (action == GLFW_PRESS);
-  }
-  if (button == GLFW_MOUSE_BUTTON_RIGHT) {
-    rightDown = (action == GLFW_PRESS);
-  }
-}
-
-void Client::cursor_callback(GLFWwindow *window, double currX, double currY) {
-  int maxDelta = 100;
-  int dx = glm::clamp((int)currX - mouseX, -maxDelta, maxDelta);
-  int dy = glm::clamp(-((int)currY - mouseY), -maxDelta, maxDelta);
-
-  mouseX = (int)currX;
-  mouseY = (int)currY;
-
-  // Move camera
-  // NOTE: this should really be part of Camera::Update()
-  if (leftDown) {
-    const float rate = 1.0f;
-    cam->SetAzimuth(cam->GetAzimuth() + dx * rate);
-    cam->SetIncline(glm::clamp(cam->GetIncline() - dy * rate, -90.0f, 90.0f));
-  }
-  if (rightDown) {
-    const float rate = 0.005f;
-    float dist =
-        glm::clamp(cam->GetDistance() * (1.0f - dx * rate), 0.01f, 1000.0f);
-    cam->SetDistance(dist);
-  }
+void Client::mouseCallback(GLFWwindow *window, double xPos, double yPos) {
+   auto newMouseX = static_cast<float>(xPos);
+   auto newMouseY = static_cast<float>(yPos);
+   mouseX = newMouseX;
+   mouseY = newMouseY;
 }

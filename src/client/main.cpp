@@ -14,35 +14,28 @@ void setup_callbacks(GLFWwindow *window) {
   /* Set key callback */
   glfwSetKeyCallback(
       window, [](GLFWwindow *w, int key, int scancode, int action, int mods) {
-        static_cast<Client *>(glfwGetWindowUserPointer(w))
+        static_cast<Client*>(glfwGetWindowUserPointer(w))
             ->keyCallback(w, key, scancode, action, mods);
       });
 
   /* Set mouse and cursor callbacks */
-  glfwSetMouseButtonCallback(
-      window, [](GLFWwindow *w, int button, int action, int mods) {
-        static_cast<Client *>(glfwGetWindowUserPointer(w))
-            ->mouse_callback(w, button, action, mods);
-      });
-
-  glfwSetCursorPosCallback(window,
-                           [](GLFWwindow *w, double xposIn, double yposIn) {
-                             static_cast<Client *>(glfwGetWindowUserPointer(w))
-                                 ->cursor_callback(w, xposIn, yposIn);
-                           });
+  glfwSetCursorPosCallback(window, [](GLFWwindow* w, double xposIn, double yposIn) {
+        static_cast<Client*>(glfwGetWindowUserPointer(w))->mouseCallback(w, xposIn, yposIn);
+    });
 }
 
 void setup_opengl_settings() {
-  // Textures are loaded in upside down, flip vertically.
+  // Textures are loaded in upside down, flip vertically
   stbi_set_flip_vertically_on_load(true);
-  // Enable depth buffering.
+  // Enable depth buffering
   glEnable(GL_DEPTH_TEST);
-  // Related to shaders and z value comparisons for the depth buffer.
+  glEnable(GL_CULL_FACE);
+  // Related to shaders and z value comparisons for the depth buffer
   glDepthFunc(GL_LEQUAL);
-  // Set polygon drawing mode to fill front and back of each polygon.
+  // Set polygon drawing mode to fill front and back of each polygon
   glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-  // Set clear color to black.
-  glClearColor(0.0, 0.0, 0.0, 0.0);
+  // Set clear color to black
+  glClearColor(0.9, 0.9, 0.9, 1);
 }
 
 void print_versions() {
@@ -82,6 +75,9 @@ int main(void) {
     std::cout << "Client Network Failed" << std::endl;
     exit(EXIT_FAILURE);
   }
+
+  // Delete later
+  client->initObjects();
 
   while (!glfwWindowShouldClose(window)) {
     // Rendering call back

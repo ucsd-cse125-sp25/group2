@@ -16,14 +16,12 @@ public:
   GLFWwindow *window;
   int width;
   int height;
-  const char *windowTitle;
 
   // list <GameObject*> objects;
 
   // Camera properties
-  Camera *cam;
-  bool leftDown, rightDown;
-  int mouseX, mouseY;
+  std::unique_ptr<Camera> cam;
+  float mouseX, mouseY;
 
   // Objects to render
   Cube *cube;
@@ -48,21 +46,17 @@ public:
   void cleanUp();
 
   // for the Window
-  GLFWwindow *createWindow(int width, int height);
+  GLFWwindow* createWindow(int width, int height);
   void resizeCallback(GLFWwindow *window, int width, int height);
 
   // update and draw functions
   void idleCallback();
   void displayCallback(GLFWwindow *);
 
-  // helper to reset the camera
-  void resetCamera();
-
   // callbacks - for interaction
   void keyCallback(GLFWwindow *window, int key, int scancode, int action,
                    int mods);
-  void mouse_callback(GLFWwindow *window, int button, int action, int mods);
-  void cursor_callback(GLFWwindow *window, double currX, double currY);
+  void mouseCallback(GLFWwindow *window, double xPos, double yPos);
 
   // Getters
   GLFWwindow* getWindow() { return window; }

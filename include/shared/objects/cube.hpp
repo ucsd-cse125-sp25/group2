@@ -26,7 +26,7 @@ public:
   ~Cube();
 
   void draw(const glm::mat4 &viewProjMtx, Shader &shader);
-  void update(Transform *transform);
+  void update();
 
   void spin(float deg);
 };
