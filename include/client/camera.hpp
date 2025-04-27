@@ -2,8 +2,7 @@
 
 #include "client/core.hpp"
 #include "glm/gtx/euler_angles.hpp"
-class Camera
-{
+class Camera {
 public:
   Camera();
   ~Camera();

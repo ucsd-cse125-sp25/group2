@@ -1,6 +1,6 @@
 #include "client/client.hpp"
 
-Client::Client(): cam(new Camera()) {}
+Client::Client() : cam(new Camera()) {}
 
 Client::~Client() {}
 
@@ -25,7 +25,7 @@ bool Client::init() {
   glfwMakeContextCurrent(window);
 
   glewInit();
-  
+
   return true;
 }
 
@@ -35,8 +35,8 @@ bool Client::initObjects() {
   return true;
 }
 
-bool Client::initNetwork(asio::io_context &io_context,
-                               const std::string &ip, const std::string &port) {
+bool Client::initNetwork(asio::io_context &io_context, const std::string &ip,
+                         const std::string &port) {
   network = new ClientNetwork(io_context, ip, port);
   return !network->err;
 }
@@ -53,7 +53,6 @@ void Client::cleanUp() {
   // Destroy GLFW window
   glfwDestroyWindow(window);
 }
-
 
 void Client::resizeCallback(GLFWwindow *window, int width, int height) {
   this->width = width;
@@ -118,8 +117,8 @@ void Client::keyCallback(GLFWwindow *window, int key, int scancode, int action,
 }
 
 void Client::mouseCallback(GLFWwindow *window, double xPos, double yPos) {
-   auto newMouseX = static_cast<float>(xPos);
-   auto newMouseY = static_cast<float>(yPos);
-   mouseX = newMouseX;
-   mouseY = newMouseY;
+  auto newMouseX = static_cast<float>(xPos);
+  auto newMouseY = static_cast<float>(yPos);
+  mouseX = newMouseX;
+  mouseY = newMouseY;
 }

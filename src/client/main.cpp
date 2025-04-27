@@ -14,14 +14,16 @@ void setup_callbacks(GLFWwindow *window) {
   /* Set key callback */
   glfwSetKeyCallback(
       window, [](GLFWwindow *w, int key, int scancode, int action, int mods) {
-        static_cast<Client*>(glfwGetWindowUserPointer(w))
+        static_cast<Client *>(glfwGetWindowUserPointer(w))
             ->keyCallback(w, key, scancode, action, mods);
       });
 
   /* Set mouse and cursor callbacks */
-  glfwSetCursorPosCallback(window, [](GLFWwindow* w, double xposIn, double yposIn) {
-        static_cast<Client*>(glfwGetWindowUserPointer(w))->mouseCallback(w, xposIn, yposIn);
-    });
+  glfwSetCursorPosCallback(window,
+                           [](GLFWwindow *w, double xposIn, double yposIn) {
+                             static_cast<Client *>(glfwGetWindowUserPointer(w))
+                                 ->mouseCallback(w, xposIn, yposIn);
+                           });
 }
 
 void setup_opengl_settings() {
@@ -60,8 +62,9 @@ int main(void) {
   }
 
   // Get window
-  GLFWwindow* window = client->getWindow();
-  if (!window) exit(EXIT_FAILURE);
+  GLFWwindow *window = client->getWindow();
+  if (!window)
+    exit(EXIT_FAILURE);
 
   glfwSetWindowUserPointer(window, client.get());
   print_versions();

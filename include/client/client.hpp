@@ -42,11 +42,11 @@ public:
   bool init();
   bool initObjects();
   bool initNetwork(asio::io_context &io_context, const std::string &ip,
-                         const std::string &port);
+                   const std::string &port);
   void cleanUp();
 
   // for the Window
-  GLFWwindow* createWindow(int width, int height);
+  GLFWwindow *createWindow(int width, int height);
   void resizeCallback(GLFWwindow *window, int width, int height);
 
   // update and draw functions
@@ -59,5 +59,5 @@ public:
   void mouseCallback(GLFWwindow *window, double xPos, double yPos);
 
   // Getters
-  GLFWwindow* getWindow() { return window; }
+  GLFWwindow *getWindow() { return window; }
 };

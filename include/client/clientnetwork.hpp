@@ -8,8 +8,7 @@ using asio::ip::tcp;
 
 #define CLIENT_ID unsigned int
 
-class ClientNetwork
-{
+class ClientNetwork {
 private:
   tcp::socket _socket;
   CLIENT_ID id;
