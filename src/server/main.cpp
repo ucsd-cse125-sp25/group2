@@ -11,7 +11,7 @@ int main() {
   try {
     // Create context and start the server
     asio::io_context io_context;
-    Server server(io_context, "127.0.0.1", "12345");
+    GameServer server(io_context, "127.0.0.1", "12345");
     server.start();
     int count = 0;
 
