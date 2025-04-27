@@ -1,7 +1,7 @@
 #include "server/gameserver.hpp"
 
 GameServer::GameServer(asio::io_context &io_context, const std::string &ip,
-               const std::string &port) {
+                       const std::string &port) {
   game = std::make_unique<GameState>();
   network = std::make_unique<ServerNetwork>(io_context, ip, port, game.get());
 }
@@ -11,8 +11,7 @@ GameServer::~GameServer() {}
 void GameServer::start() { network->start(); }
 
 void GameServer::update() {
-  deque<std::unique_ptr<IPacket>> list_packets =
-      network->receiveFromClients();
+  deque<std::unique_ptr<IPacket>> list_packets = network->receiveFromClients();
 
   while (!list_packets.empty()) {
     std::unique_ptr<IPacket> packet = std::move(list_packets.front());

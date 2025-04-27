@@ -42,7 +42,7 @@ public:
   // Getters
   GLFWwindow *getWindow() { return window; }
 
-  private:
+private:
   // Camera properties
   std::unique_ptr<Camera> cam;
   float mouseX, mouseY;

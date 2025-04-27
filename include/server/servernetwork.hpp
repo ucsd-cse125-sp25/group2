@@ -23,7 +23,7 @@ private:
 
   void acceptClient();
   std::unique_ptr<IPacket> processPackets(PacketType type,
-                                           vector<char> payload);
+                                          vector<char> payload);
 
 public:
   ServerNetwork(asio::io_context &io_context, const std::string &ip,

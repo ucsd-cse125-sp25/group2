@@ -14,7 +14,7 @@ private:
   CLIENT_ID id;
 
   std::unique_ptr<IPacket> processPackets(PacketType type,
-                                           vector<char> payload);
+                                          vector<char> payload);
 
 public:
   bool err;

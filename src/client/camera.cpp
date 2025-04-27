@@ -1,14 +1,15 @@
 #include "client/camera.hpp"
 
 Camera::Camera()
-    : cameraPos(glm::vec3(0.0f, 2.0f, 5.0f)), cameraFront(glm::vec3(0.0f, -0.3f, -1.0f)),
+    : cameraPos(glm::vec3(0.0f, 2.0f, 5.0f)),
+      cameraFront(glm::vec3(0.0f, -0.3f, -1.0f)),
       cameraUp(glm::vec3(0.0f, 1.0f, 0.0f)), viewProjMat(glm::mat4(1.0f)) {
   fov = 60.0f;
   aspect = 1.33f;
   nearClip = 0.1f;
   farClip = 100.0f;
 
-  yaw = -90.0f; 
+  yaw = -90.0f;
   pitch = 0.0f;
   lastX = 640.0f / 2.0f;
   lastY = 480.0f / 2.0f;

@@ -75,7 +75,7 @@ deque<std::unique_ptr<IPacket>> ClientNetwork::receive() {
 }
 
 std::unique_ptr<IPacket> ClientNetwork::processPackets(PacketType type,
-                                                        vector<char> payload) {
+                                                       vector<char> payload) {
   switch (type) {
   case PacketType::INIT: {
     std::unique_ptr<IPacket> packet = deserialize(PacketType::INIT, payload);

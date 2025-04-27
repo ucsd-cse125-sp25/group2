@@ -1,8 +1,6 @@
 #include "client/client.hpp"
 
-Client::Client() {
-  cam = std::make_unique<Camera>();
-}
+Client::Client() { cam = std::make_unique<Camera>(); }
 
 Client::~Client() {}
 
@@ -33,7 +31,8 @@ bool Client::init() {
 
 bool Client::initObjects() {
   // TODO:initialize the objects in the list of objects in the client game state
-  cubeShaderProgram = Shader("../src/client/shaders/shader.vert", "../src/client/shaders/shader.frag");
+  cubeShaderProgram = Shader("../src/client/shaders/shader.vert",
+                             "../src/client/shaders/shader.frag");
   cube = new Cube();
   return true;
 }

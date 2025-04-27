@@ -105,8 +105,7 @@ deque<std::unique_ptr<IPacket>> ServerNetwork::receiveFromClients() {
       if (socket->read_some(asio::buffer(payload, size), ec) <= 0 || ec)
         break;
 
-      packets.push_back(
-          processPackets(static_cast<PacketType>(type), payload));
+      packets.push_back(processPackets(static_cast<PacketType>(type), payload));
     }
     if (ec == asio::error::eof || ec == asio::error::connection_reset) {
       handleClientDisconnect(it->first);
@@ -117,7 +116,7 @@ deque<std::unique_ptr<IPacket>> ServerNetwork::receiveFromClients() {
 }
 
 std::unique_ptr<IPacket> ServerNetwork::processPackets(PacketType type,
-                                                        vector<char> payload) {
+                                                       vector<char> payload) {
   switch (type) {
   case PacketType::INIT: {
     std::unique_ptr<IPacket> packet = deserialize(PacketType::INIT, payload);
