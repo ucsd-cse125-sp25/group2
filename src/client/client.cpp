@@ -1,6 +1,8 @@
 #include "client/client.hpp"
 
-Client::Client() : cam(new Camera()) {}
+Client::Client() {
+  cam = std::make_unique<Camera>();
+}
 
 Client::~Client() {}
 
@@ -31,19 +33,18 @@ bool Client::init() {
 
 bool Client::initObjects() {
   // TODO:initialize the objects in the list of objects in the client game state
+  cubeShaderProgram = Shader("../src/client/shaders/shader.vert", "../src/client/shaders/shader.frag");
   cube = new Cube();
   return true;
 }
 
 bool Client::initNetwork(asio::io_context &io_context, const std::string &ip,
                          const std::string &port) {
-  network = new ClientNetwork(io_context, ip, port);
+  network = std::make_unique<ClientNetwork>(io_context, ip, port);
   return !network->err;
 }
 
-// replace with destructor
 void Client::cleanUp() {
-  delete network;
   delete cube;
 
   // Delete the shader programs
@@ -52,13 +53,6 @@ void Client::cleanUp() {
 
   // Destroy GLFW window
   glfwDestroyWindow(window);
-}
-
-void Client::resizeCallback(GLFWwindow *window, int width, int height) {
-  this->width = width;
-  this->height = height;
-  // Set the viewport size.
-  glViewport(0, 0, width, height);
 }
 
 // Perform any updates to objects, camera, etc
@@ -72,7 +66,7 @@ void Client::idleCallback() {
     switch (packet->get_type()) {
     case PacketType::INIT: {
       auto init_packet = dynamic_cast<InitPacket *>(packet.get());
-      network->set_id(init_packet->client_id);
+      network->setId(init_packet->client_id);
       break;
     }
     case PacketType::POSITION: {
@@ -96,8 +90,9 @@ void Client::displayCallback(GLFWwindow *window) {
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
   // test
-  if (cube)
+  if (cube) {
     cube->draw(cam->getViewProj(), cubeShaderProgram);
+  }
 
   glfwPollEvents();
   glfwSwapBuffers(window);
@@ -109,10 +104,6 @@ void Client::keyCallback(GLFWwindow *window, int key, int scancode, int action,
   if (action == GLFW_PRESS) {
     if (key == GLFW_KEY_ESCAPE)
       glfwSetWindowShouldClose(window, true);
-    gameState->keyStates[key] = true;
-  }
-  if (action == GLFW_RELEASE) {
-    gameState->keyStates[key] = false;
   }
 }
 

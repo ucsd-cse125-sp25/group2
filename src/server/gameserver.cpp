@@ -3,7 +3,7 @@
 GameServer::GameServer(asio::io_context &io_context, const std::string &ip,
                const std::string &port) {
   game = std::make_unique<GameState>();
-  network = std::make_unique<ServerNetwork>(io_context, ip, port, game);
+  network = std::make_unique<ServerNetwork>(io_context, ip, port, game.get());
 }
 
 GameServer::~GameServer() {}
@@ -12,7 +12,7 @@ void GameServer::start() { network->start(); }
 
 void GameServer::update() {
   deque<std::unique_ptr<IPacket>> list_packets =
-      network->receive_from_clients();
+      network->receiveFromClients();
 
   while (!list_packets.empty()) {
     std::unique_ptr<IPacket> packet = std::move(list_packets.front());
@@ -32,7 +32,7 @@ void GameServer::update() {
     case PacketType::ACTION: {
       auto action_packet = static_cast<ActionPacket *>(packet.get());
       // Handle action packet
-      network->send_to_all(game->handleAction(action_packet));
+      network->sendToAll(game->handleAction(action_packet));
       break;
     }
     case PacketType::OBJECT: {
@@ -41,7 +41,7 @@ void GameServer::update() {
     }
     case PacketType::DISCONNECT: {
       auto disconnect_packet = static_cast<DisconnectPacket *>(packet.get());
-      network->handle_client_disconnect(disconnect_packet->client_id);
+      network->handleClientDisconnect(disconnect_packet->client_id);
       break;
     }
     }

@@ -3,12 +3,12 @@
 #include <stb_image.h>
 
 void error_callback(int error, const char *description) {
-  // Print error.
+  // Print error
   std::cerr << description << std::endl;
 }
 
 void setup_callbacks(GLFWwindow *window) {
-  // Set the error callback.
+  // Set the error callback
   glfwSetErrorCallback(error_callback);
 
   /* Set key callback */
