@@ -1,9 +1,9 @@
 #pragma once
 
-#include "client/core.hpp"
 #include "client/mesh.hpp"
 #include "client/shader.hpp"
-#include "client/transform.hpp"
+#include "shared/core.hpp"
+#include "shared/transform.hpp"
 #include <assimp/Importer.hpp>
 #include <assimp/postprocess.h>
 #include <assimp/scene.h>
@@ -14,7 +14,7 @@ using namespace std;
 class Model {
 public:
   Model(const char *path);
-  void Draw(const glm::mat4 &viewProjMtx, Shader &shader);
+  void Draw(const glm::mat4 &viewProjMtx, unique_ptr<Shader> &shader);
   void Update(Transform *transform);
 
 private:

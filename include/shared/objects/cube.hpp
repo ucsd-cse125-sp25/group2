@@ -1,11 +1,13 @@
 #pragma once
 
-#include "client/core.hpp"
 #include "client/shader.hpp"
-#include "client/transform.hpp"
-#include "shared/cube.hpp"
-
+#include "shared/core.hpp"
+#include "shared/objects/cube.hpp"
+#include "shared/transform.hpp"
+#include <memory>
 #include <vector>
+
+using namespace std;
 
 class Cube {
 private:
@@ -25,8 +27,9 @@ public:
        glm::vec3 cubeMax = glm::vec3(1, 1, 1));
   ~Cube();
 
-  void draw(const glm::mat4 &viewProjMtx, Shader &shader);
-  void update(Transform *transform);
+  void draw(const glm::mat4 &viewProjMtx, unique_ptr<Shader> &shader);
+  // void update(Transform *transform);
+  void update();
 
   void spin(float deg);
 };

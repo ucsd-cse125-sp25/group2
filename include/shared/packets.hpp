@@ -1,5 +1,6 @@
 #pragma once
-#include "client/core.hpp"
+#include "shared/core.hpp"
+#include "shared/transform.hpp"
 #include <cstring>
 #include <memory>
 #include <stdexcept>
@@ -27,29 +28,6 @@ struct IPacket {
   virtual vector<char> serialize() const = 0;
   virtual ~IPacket() = default;
 };
-
-// TESTING
-// struct StringPacket : public IPacket
-// {
-//     string message;
-
-//     StringPacket(string m) : message(m) {}
-//     PacketType get_type() const override
-//     {
-//         return PacketType::STRING;
-//     }
-//     vector<char> serialize() const override
-//     {
-//         vector<char> buffer(message.size());
-//         memcpy(buffer.data(), message.data(), message.size());
-//         return buffer;
-//     }
-//     static StringPacket deserialize(vector<char> payload, uint16_t size)
-//     {
-//         StringPacket packet(string(payload.begin(), payload.begin() + size));
-//         return packet;
-//     }
-// };
 
 struct InitPacket : public IPacket {
   int client_id;
@@ -128,50 +106,19 @@ struct ActionPacket : public IPacket {
 struct ObjectPacket : public IPacket {
   int id;
   ObjectType type;
-  glm::vec3 position;
+  Transform transform;
+  bool interactable;
+  bool active;
 
-  // GameObject properties after merge
-  // Transform
-  // Model
-
-  ObjectPacket(int id, ObjectType type, glm::vec3 position)
-      : id(id), type(type), position(position) {}
+  ObjectPacket(int id, ObjectType type, Transform transform,
+               bool interactable = false, bool active = false)
+      : id(id), type(type), transform(transform), interactable(false),
+        active(active) {}
   PacketType get_type() const override { return PacketType::OBJECT; }
-  vector<char> serialize() const override {
-    vector<char> buffer(sizeof(int) + sizeof(ObjectType) + sizeof(glm::vec3));
 
-    unsigned long size = 0;
+  vector<char> serialize() const override;
 
-    memcpy(buffer.data(), &id, sizeof(int));
-    size += sizeof(int);
-    memcpy(buffer.data() + size, &type, sizeof(ObjectType));
-    size += sizeof(ObjectType);
-    memcpy(buffer.data() + size, &position.x, sizeof(position.x));
-    size += sizeof(float);
-    memcpy(buffer.data() + size, &position.y, sizeof(position.y));
-    size += sizeof(float);
-    memcpy(buffer.data() + size, &position.z, sizeof(position.z));
-    return buffer;
-  }
-  static ObjectPacket deserialize(const vector<char> &payload) {
-    int id;
-    ObjectType type;
-    glm::vec3 position;
-
-    unsigned long size = 0;
-    memcpy(&id, payload.data(), sizeof(int));
-    size += sizeof(int);
-    memcpy(&type, payload.data() + size, sizeof(ObjectType));
-    size += sizeof(ObjectType);
-    memcpy(&position.x, payload.data() + size, sizeof(float));
-    size += sizeof(float);
-    memcpy(&position.y, payload.data() + size, sizeof(float));
-    size += sizeof(float);
-    memcpy(&position.z, payload.data() + size, sizeof(float));
-
-    ObjectPacket packet(id, type, position);
-    return packet;
-  }
+  static ObjectPacket deserialize(const vector<char> &payload);
 };
 
 struct DisconnectPacket : public IPacket {
@@ -211,3 +158,26 @@ inline std::unique_ptr<IPacket> deserialize(PacketType type,
     throw runtime_error("Unknown packet type");
   }
 }
+
+// TESTING
+// struct StringPacket : public IPacket
+// {
+//     string message;
+
+//     StringPacket(string m) : message(m) {}
+//     PacketType get_type() const override
+//     {
+//         return PacketType::STRING;
+//     }
+//     vector<char> serialize() const override
+//     {
+//         vector<char> buffer(message.size());
+//         memcpy(buffer.data(), message.data(), message.size());
+//         return buffer;
+//     }
+//     static StringPacket deserialize(vector<char> payload, uint16_t size)
+//     {
+//         StringPacket packet(string(payload.begin(), payload.begin() + size));
+//         return packet;
+//     }
+// };

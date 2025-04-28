@@ -1,5 +1,8 @@
 #include "client/clientnetwork.hpp"
-#include "shared/cube.hpp"
+#include "shared/objects/cube.hpp"
+#include "shared/utilities/util_packets.hpp"
+
+using namespace std;
 /*
  * Constructor for ClientNetwork
  * resolver is used to find all endpoints of an ip and port combination
@@ -20,8 +23,6 @@ ClientNetwork::ClientNetwork(asio::io_context &io_context,
     std::cerr << "Connection Failed: " << e.what() << std::endl;
   }
 }
-
-void ClientNetwork::set_id(CLIENT_ID id) { this->id = id; }
 
 /*
  * clean up open socket
@@ -71,13 +72,13 @@ deque<std::unique_ptr<IPacket>> ClientNetwork::receive() {
     std::vector<char> payload(size);
     _socket.read_some(asio::buffer(payload));
 
-    packets.push_back(process_packets(static_cast<PacketType>(type), payload));
+    packets.push_back(processPackets(static_cast<PacketType>(type), payload));
   }
   return packets;
 }
 
-std::unique_ptr<IPacket> ClientNetwork::process_packets(PacketType type,
-                                                        vector<char> payload) {
+std::unique_ptr<IPacket> ClientNetwork::processPackets(PacketType type,
+                                                       vector<char> payload) {
   switch (type) {
   case PacketType::INIT: {
     std::unique_ptr<IPacket> packet = deserialize(PacketType::INIT, payload);
@@ -103,11 +104,7 @@ std::unique_ptr<IPacket> ClientNetwork::process_packets(PacketType type,
     std::unique_ptr<IPacket> packet = deserialize(PacketType::OBJECT, payload);
 
     if (auto *objectPacket = dynamic_cast<ObjectPacket *>(packet.get())) {
-      std::cout << "id: " << objectPacket->id << std::endl;
-      std::cout << "type: " << int(objectPacket->type) << std::endl;
-      std::cout << "x: " << objectPacket->position.x << std::endl;
-      std::cout << "y: " << objectPacket->position.y << std::endl;
-      std::cout << "z: " << objectPacket->position.z << std::endl;
+      // printObjectPacket(*objectPacket);
     }
     return packet;
   }
