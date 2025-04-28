@@ -5,6 +5,12 @@
 #include "client/core.hpp"
 #include "client/gameobject.hpp"
 
+struct Collision
+{
+    GameObject* a;
+    GameObject* b;
+};
+
 class Physics
 {
     private:
@@ -15,4 +21,6 @@ class Physics
         void Add(GameObject* obj);
         void Remove(GameObject* obj);
         void Update(float deltaTime);
+
+        void ResolveCollisions(float deltaTime);
 };

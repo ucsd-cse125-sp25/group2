@@ -15,6 +15,7 @@ public:
 	void Update(float deltaTime);
 
 	GameObject* getObject(int id);
+	std::vector<GameObject*> getAllObjects();
 
 	void InitializeGameObject(GameObject* gameObject);
 	void KeyboardInput(float deltaTime);

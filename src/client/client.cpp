@@ -9,16 +9,17 @@ bool Client::initializeProgram() {
     // modelShaderProgram = Shader("../src/client/shaders/model.vert", "../src/client/shaders/model.frag"); 
 
     gameState = new GameState();
+    renderer = new Renderer(cam);
     return true;
 }
 
 bool Client::initializeObjects() {
     // Create a cube
     // cube = new Cube();
-    cube = new Cube(glm::vec3(-20, -0.01, -20), glm::vec3(20, 0, 20));
+    cube = new Cube(glm::vec3(-20, -0.01, -20), glm::vec3(20, 0, 20), glm::vec3(0, 0.95, 0));
 
     // Load model
-    model = new Model("../src/client/resources/objects/chicken/Chicken.obj");    
+    // model = new Model("../src/client/resources/objects/chicken/Chicken.obj");    
     return true;
 }
 
@@ -143,8 +144,16 @@ void Client::displayCallback(GLFWwindow* window) {
     // Render the model.
     // if (model) model->Draw(cam->GetViewProjectMtx(), modelShaderProgram);
 
-    GameObject* player = gameState->getObject(0);
-    if (gameState) model->Draw(cam->GetViewProjectMtx(), player->getModelMatrix(), player->getShader());
+    if (gameState)
+    {
+        std::vector<GameObject*> objects = gameState->getAllObjects();
+        for (GameObject* o : objects)
+            renderer->Render(o);
+    }
+
+    // GameObject* player = gameState->getObject(0);
+    // if (gameState) model->Draw(cam->GetViewProjectMtx(), player->getModelMatrix(), player->getShader());
+    
 
     // Gets events, including input such as keyboard and mouse or window resizing.
     glfwPollEvents();

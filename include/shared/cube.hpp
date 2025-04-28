@@ -21,11 +21,11 @@ private:
     std::vector<unsigned int> indices;
 
 public:
-    Cube(glm::vec3 cubeMin = glm::vec3(-1, -1, -1), glm::vec3 cubeMax = glm::vec3(1, 1, 1));
+    Cube(glm::vec3 cubeMin = glm::vec3(-1, -1, -1), glm::vec3 cubeMax = glm::vec3(1, 1, 1), glm::vec3 col = glm::vec3(1));
     ~Cube();
 
     void draw(const glm::mat4& viewProjMtx, Shader& shader);
-    void update(Transform* transform);
+    void update(glm::mat4 matrix);
 
     void spin(float deg);
 };

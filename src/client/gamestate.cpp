@@ -7,14 +7,19 @@ GameState::GameState()
 
 	// Shader lightingShader = Shader("shaders/cube.vertex", "shaders/cube.frag");
 	// Shader lightCubeShader = Shader("shaders/light.vertex", "shaders/light.frag");
-	// Shader modelShader = Shader("shaders/model.vert", "shaders/model.frag");
+	// Shader modelShader = Shader("../src/client/shaders/model.vert", "../src/client/shaders/model.frag");
 	Shader playerShader = Shader("../src/client/shaders/shader.vert", "../src/client/shaders/shader.frag");
 	// shaders.emplace_back(lightingShader);
 	// shaders.emplace_back(lightCubeShader);
 	// shaders.emplace_back(modelShader);
 	
-	player = new GameObject("player", false, playerShader);
+	player = new GameObject(this->gameObjects.size(), "../src/client/resources/objects/chicken/Chicken.obj", false, playerShader, glm::vec3(-4, 5, 0));
+	player->getTransform()->updateScale(0.5f);
+	player->getCollider()->updateCollider(glm::vec3(-4, 5, 0), 1, 1, 1);
 	InitializeGameObject(player);
+	GameObject* cow = new GameObject(this->gameObjects.size(), "../src/client/resources/objects/cow/Cow.obj", false, playerShader);
+	cow->getCollider()->updateCollider(glm::vec3(0), 1.9, 2, 0.9);
+	InitializeGameObject(cow);
 }
 
 void GameState::CleanUp() {
@@ -28,13 +33,18 @@ void GameState::Update(float deltaTime)
 	if (physicsWorld) physicsWorld->Update(deltaTime);
 	for (GameObject* o : gameObjects)
 	{
-		o->Update(deltaTime);
+		o->Update();
 	}
 }
 
 GameObject* GameState::getObject(int id)
 {
 	return this->gameObjects[id];
+}
+
+std::vector<GameObject*> GameState::getAllObjects()
+{
+	return this->gameObjects;
 }
 
 void GameState::InitializeGameObject(GameObject* gameObject)
@@ -59,6 +69,7 @@ void GameState::KeyboardInput(float deltaTime)
 	if (vector != glm::vec3(0))
 		vector = glm::normalize(vector);
 	player->getTransform()->updatePosition(vector * moveSpeed * deltaTime);
+		
 
 	float jumpForce = 1000.0f;
 	if (keyStates[GLFW_KEY_SPACE] == true)
@@ -77,13 +88,5 @@ void GameState::KeyboardInput(float deltaTime)
 		vector += glm::vec3(0, rotSpeed, 0);
 	if (keyStates[GLFW_KEY_RIGHT] == true)
 		vector -= glm::vec3(0, rotSpeed, 0);
-	player->getTransform()->updateRotation(vector * rotSpeed * deltaTime);
-
-	// Scale
-	float value = 1;
-	if (keyStates[GLFW_KEY_E] == true)
-		value = 2;
-	if (keyStates[GLFW_KEY_Q] == true)
-		value = 0.5f;
-	player->getTransform()->updateScale(value);
+	player->getTransform()->updateRotation(vector * rotSpeed * deltaTime);	
 }

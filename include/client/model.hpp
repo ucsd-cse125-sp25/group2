@@ -17,6 +17,8 @@ public:
     Model(const char *path);
     void Draw(const glm::mat4& viewProjMtx, glm::mat4 modelMat, Shader& shader);
     void Update(Transform* transform);
+    void ChangeColor(glm::vec3 col);
+
 private:
     glm::mat4 model;
     glm::vec3 color;

@@ -9,7 +9,14 @@ protected:
     glm::vec3 rotation;
     glm::vec3 scale;
 public:
-	Transform(glm::vec3 pos = glm::vec3(0), glm::vec3 rot = glm::vec3(0), glm::vec3 scl = glm::vec3(1, 1, 1)) 
+    Transform(glm::vec3 pos = glm::vec3(0))
+    {
+        this->position = pos;
+        this->rotation = glm::vec3(0);
+        this->scale = glm::vec3(1);
+    }
+
+	Transform(glm::vec3 pos, glm::vec3 rot, glm::vec3 scl) 
     {
         this->position = pos;
         this->rotation = rot;
