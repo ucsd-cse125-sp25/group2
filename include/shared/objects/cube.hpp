@@ -5,6 +5,7 @@
 #include "shared/objects/cube.hpp"
 #include "shared/transform.hpp"
 #include <vector>
+#include <memory>
 
 using namespace std;
 

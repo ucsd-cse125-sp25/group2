@@ -4,6 +4,8 @@
 #include "shared/core.hpp"
 #include <string>
 #include <vector>
+#include <memory>
+
 using namespace std;
 
 #define MAX_BONE_INFLUENCE 4

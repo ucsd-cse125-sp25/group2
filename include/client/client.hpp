@@ -29,9 +29,6 @@ public:
                    const std::string &port);
   void cleanUp();
 
-  // creating the Window
-  GLFWwindow *createWindow(int width, int height);
-
   // update and draw functions
   void idleCallback();
   void displayCallback(GLFWwindow *);
