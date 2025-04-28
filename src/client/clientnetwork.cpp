@@ -1,5 +1,8 @@
 #include "client/clientnetwork.hpp"
 #include "shared/objects/cube.hpp"
+#include "shared/utilities/util_packets.hpp"
+
+using namespace std;
 /*
  * Constructor for ClientNetwork
  * resolver is used to find all endpoints of an ip and port combination
@@ -101,11 +104,7 @@ std::unique_ptr<IPacket> ClientNetwork::processPackets(PacketType type,
     std::unique_ptr<IPacket> packet = deserialize(PacketType::OBJECT, payload);
 
     if (auto *objectPacket = dynamic_cast<ObjectPacket *>(packet.get())) {
-      std::cout << "id: " << objectPacket->id << std::endl;
-      std::cout << "type: " << int(objectPacket->type) << std::endl;
-      std::cout << "x: " << objectPacket->position.x << std::endl;
-      std::cout << "y: " << objectPacket->position.y << std::endl;
-      std::cout << "z: " << objectPacket->position.z << std::endl;
+      // printObjectPacket(*objectPacket);
     }
     return packet;
   }

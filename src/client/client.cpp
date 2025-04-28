@@ -31,8 +31,8 @@ bool Client::init() {
 
 bool Client::initObjects() {
   // TODO:initialize the objects in the list of objects in the client game state
-  cubeShaderProgram = Shader("../src/client/shaders/shader.vert",
-                             "../src/client/shaders/shader.frag");
+  cubeShaderProgram = make_unique<Shader>(Shader("../src/client/shaders/shader.vert",
+                             "../src/client/shaders/shader.frag"));
   cube = new Cube();
   return true;
 }
@@ -47,8 +47,8 @@ void Client::cleanUp() {
   delete cube;
 
   // Delete the shader programs
-  cubeShaderProgram.deleteShader();
-  modelShaderProgram.deleteShader();
+  // cubeShaderProgram.deleteShader();
+  // modelShaderProgram.deleteShader();
 
   // Destroy GLFW window
   glfwDestroyWindow(window);
@@ -74,7 +74,7 @@ void Client::idleCallback() {
       break;
     }
     case PacketType::OBJECT: {
-      auto position_packet = dynamic_cast<ObjectPacket *>(packet.get());
+      auto object_packet = dynamic_cast<ObjectPacket *>(packet.get());
       // initialize cube
       break;
     }
@@ -82,7 +82,7 @@ void Client::idleCallback() {
   }
 
   cam->update(mouseX, mouseY);
-  cube->update();
+  // cube->update();
 }
 
 void Client::displayCallback(GLFWwindow *window) {

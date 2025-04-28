@@ -2,13 +2,15 @@
 
 #include "client/camera.hpp"
 #include "client/clientnetwork.hpp"
-#include "client/core.hpp"
+#include "shared/core.hpp"
 #include "client/gamestate.hpp"
 #include "client/model.hpp"
 #include "client/shader.hpp"
 #include "shared/objects/cube.hpp"
 
 #define FPS (1.0 / 60.0)
+
+using namespace std;
 
 class Client {
 public:
@@ -54,8 +56,8 @@ private:
   // Later: list <GameObject*> objects;
 
   // Shader Program
-  Shader cubeShaderProgram;
-  Shader modelShaderProgram;
+  unique_ptr<Shader> cubeShaderProgram;
+  unique_ptr<Shader> modelShaderProgram;
 
   // Network
   std::unique_ptr<ClientNetwork> network;

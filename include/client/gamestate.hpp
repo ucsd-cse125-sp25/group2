@@ -5,6 +5,8 @@
 #include <unordered_map>
 #include <vector>
 
+using namespace std;
+
 class GameState {
 public:
   std::unordered_map<int, bool> keyStates;
@@ -17,7 +19,6 @@ public:
   void KeyboardInput(float deltaTime);
 
 private:
-  std::vector<Shader> shaders;
   std::vector<GameObject *> gameObjects;
   std::unordered_map<GameObject *, Transform *> transforms;
 

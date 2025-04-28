@@ -2,6 +2,8 @@
 #include <memory>
 #include <stb_image.h>
 
+using namespace std;
+
 void error_callback(int error, const char *description) {
   // Print error
   std::cerr << description << std::endl;

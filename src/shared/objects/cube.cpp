@@ -1,5 +1,7 @@
 #include "shared/objects/cube.hpp"
 
+using namespace std;
+
 Cube::Cube(glm::vec3 cubeMin, glm::vec3 cubeMax) {
   // Model matrix.
   model = glm::mat4(1.0f);
@@ -120,14 +122,14 @@ Cube::~Cube() {
   glDeleteVertexArrays(1, &VAO);
 }
 
-void Cube::draw(const glm::mat4 &viewProjMtx, Shader &shader) {
+void Cube::draw(const glm::mat4 &viewProjMtx, unique_ptr<Shader> &shader) {
   // activate the shader program
-  shader.use();
+  shader->use();
 
   // get the locations and send the uniforms to the shader
-  shader.setMat4("viewProj", viewProjMtx);
-  shader.setMat4("model", model);
-  shader.setVec3("DiffuseColor", color);
+  shader->setMat4("viewProj", viewProjMtx);
+  shader->setMat4("model", model);
+  shader->setVec3("DiffuseColor", color);
 
   // Bind the VAO
   glBindVertexArray(VAO);

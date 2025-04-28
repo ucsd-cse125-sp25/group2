@@ -1,6 +1,6 @@
 #pragma once
 
-#include "client/core.hpp"
+#include "shared/core.hpp"
 #include "glm/gtx/euler_angles.hpp"
 class Camera {
 public:

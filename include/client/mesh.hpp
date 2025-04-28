@@ -1,7 +1,7 @@
 #pragma once
 
-#include "core.hpp"
-#include "shader.hpp"
+#include "shared/core.hpp"
+#include "client/shader.hpp"
 #include <string>
 #include <vector>
 using namespace std;
@@ -33,7 +33,7 @@ public:
 
   Mesh(vector<Vertex> vertices, vector<unsigned int> indices,
        vector<Texture> textures);
-  void Draw(Shader &shader);
+  void Draw(unique_ptr<Shader> &shader);
 
 private:
   unsigned int VAO, VBO, EBO;

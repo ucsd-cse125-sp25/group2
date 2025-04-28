@@ -1,5 +1,7 @@
 #include "client/gamestate.hpp"
 
+using namespace std;
+
 GameState::GameState() {
   keyStates = std::unordered_map<int, bool>();
   transforms = std::unordered_map<GameObject *, Transform *>();
@@ -8,14 +10,18 @@ GameState::GameState() {
   // Shader lightCubeShader = Shader("shaders/light.vertex",
   // "shaders/light.frag"); Shader modelShader = Shader("shaders/model.vert",
   // "shaders/model.frag");
-  Shader playerShader = Shader("../src/client/shaders/shader.vert",
-                               "../src/client/shaders/shader.frag");
+  unique_ptr<Shader> playerShader = make_unique<Shader>(Shader("../src/client/shaders/shader.vert",
+                               "../src/client/shaders/shader.frag"));
+  unique_ptr<Model> chickenModel = make_unique<Model>(Model("../src/client/resources/objects/chicken/Chicken.obj"));
   // shaders.emplace_back(lightingShader);
   // shaders.emplace_back(lightCubeShader);
   // shaders.emplace_back(modelShader);
-  shaders.emplace_back(playerShader);
 
-  player = new GameObject("player", false, playerShader);
+  unique_ptr<Transform> transform_ptr = nullptr;
+  player = new GameObject(0, false, transform_ptr);
+  player->setShader(playerShader);
+  player->setModel(chickenModel);
+
   InitializeGameObject(player);
 }
 

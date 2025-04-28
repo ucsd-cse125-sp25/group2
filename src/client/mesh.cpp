@@ -1,5 +1,7 @@
 #include "client/mesh.hpp"
 
+using namespace std;
+
 Mesh::Mesh(vector<Vertex> vertices, vector<unsigned int> indices,
            vector<Texture> textures) {
   this->vertices = vertices;
@@ -37,7 +39,7 @@ void Mesh::setupMesh() {
   glBindVertexArray(0);
 }
 
-void Mesh::Draw(Shader &shader) {
+void Mesh::Draw(unique_ptr<Shader> &shader) {
   // Draw the mesh based on the texture
   unsigned int diffuseNr = 1;
   unsigned int specularNr = 1;
@@ -59,7 +61,7 @@ void Mesh::Draw(Shader &shader) {
       number = std::to_string(heightNr++); // transfer unsigned int to string
 
     // now set the sampler to the correct texture unit
-    glUniform1i(glGetUniformLocation(shader.ID, (name + number).c_str()), i);
+    glUniform1i(glGetUniformLocation(shader->ID, (name + number).c_str()), i);
     // and finally bind the texture
     glBindTexture(GL_TEXTURE_2D, textures[i].id);
   }
