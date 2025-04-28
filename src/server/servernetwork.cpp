@@ -14,7 +14,7 @@ ServerNetwork::ServerNetwork(asio::io_context &io_context,
   std::cout << "Server started on " << ip << ":" << port << std::endl;
 }
 
-void ServerNetwork::start() { accept_client(); }
+void ServerNetwork::start() { acceptClient(); }
 
 /*
  * Asynchronously accept clients
@@ -22,7 +22,7 @@ void ServerNetwork::start() { accept_client(); }
  * All lambda function says is that socket that was created and use it to handle
  * client messages Accept_client again to keep listening for new clients
  */
-void ServerNetwork::accept_client() {
+void ServerNetwork::acceptClient() {
   auto socket =
       std::make_shared<asio::ip::tcp::socket>(_acceptor.get_executor());
 
@@ -31,17 +31,17 @@ void ServerNetwork::accept_client() {
       std::cout << "New client connected" << std::endl;
       this->clients[client_id] = socket;
       InitPacket init(client_id);
-      send_to_client(client_id, init);
+      sendToClient(client_id, init);
 
       // initialize game state and send to client
-      send_to_client(client_id, game->init());
+      sendToClient(client_id, game->init());
 
       client_id++;
     } else {
       std::cerr << "Accept Failed: " << ec.message() << std::endl;
     }
 
-    accept_client();
+    acceptClient();
   });
 }
 
@@ -49,10 +49,10 @@ void ServerNetwork::accept_client() {
  * Core communication to client
  * need to send a packet that inherits IPacket
  */
-void ServerNetwork::send_to_client(unsigned int id, const IPacket &packet) {
+void ServerNetwork::sendToClient(unsigned int id, const IPacket &packet) {
   auto socket = clients[id];
   if (!socket->is_open()) {
-    handle_client_disconnect(id);
+    handleClientDisconnect(id);
     return;
   }
   vector<char> body = packet.serialize();
@@ -71,7 +71,7 @@ void ServerNetwork::send_to_client(unsigned int id, const IPacket &packet) {
     asio::write(*socket, asio::buffer(buffer));
   } catch (const std::system_error &e) {
     std::cerr << "Write failed: " << e.what() << std::endl;
-    handle_client_disconnect(id);
+    handleClientDisconnect(id);
   }
 }
 
@@ -79,13 +79,13 @@ void ServerNetwork::send_to_client(unsigned int id, const IPacket &packet) {
  * Send packet to all clients known to server
  * need to send a packet that inherits IPacket
  */
-void ServerNetwork::send_to_all(const IPacket &packet) {
+void ServerNetwork::sendToAll(const IPacket &packet) {
   for (const auto &[id, socket] : clients) {
-    send_to_client(id, packet);
+    sendToClient(id, packet);
   }
 }
 
-deque<std::unique_ptr<IPacket>> ServerNetwork::receive_from_clients() {
+deque<std::unique_ptr<IPacket>> ServerNetwork::receiveFromClients() {
   deque<std::unique_ptr<IPacket>> packets;
   for (auto it = clients.begin(); it != clients.end();) {
     auto &socket = it->second;
@@ -105,19 +105,18 @@ deque<std::unique_ptr<IPacket>> ServerNetwork::receive_from_clients() {
       if (socket->read_some(asio::buffer(payload, size), ec) <= 0 || ec)
         break;
 
-      packets.push_back(
-          process_packets(static_cast<PacketType>(type), payload));
+      packets.push_back(processPackets(static_cast<PacketType>(type), payload));
     }
     if (ec == asio::error::eof || ec == asio::error::connection_reset) {
-      handle_client_disconnect(it->first);
+      handleClientDisconnect(it->first);
     }
     ++it;
   }
   return packets;
 }
 
-std::unique_ptr<IPacket> ServerNetwork::process_packets(PacketType type,
-                                                        vector<char> payload) {
+std::unique_ptr<IPacket> ServerNetwork::processPackets(PacketType type,
+                                                       vector<char> payload) {
   switch (type) {
   case PacketType::INIT: {
     std::unique_ptr<IPacket> packet = deserialize(PacketType::INIT, payload);
@@ -148,8 +147,8 @@ std::unique_ptr<IPacket> ServerNetwork::process_packets(PacketType type,
   }
 }
 
-void ServerNetwork::handle_client_disconnect(CLIENT_ID id) {
-  std::cerr << "Client " << id << " disconnected." << std::endl;
+void ServerNetwork::handleClientDisconnect(CLIENT_ID id) {
+  std::cerr << "Client " << id << " Disconnected" << std::endl;
   auto socket = clients[id];
   if (socket->is_open()) {
     socket->close();

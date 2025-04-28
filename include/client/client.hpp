@@ -10,32 +10,13 @@
 
 #define FPS (1.0 / 60.0)
 
-class Client {
+class Client
+{
 public:
-  // Window Properties
+  // Window properties
   GLFWwindow *window;
   int width;
   int height;
-  const char *windowTitle;
-
-  // list <GameObject*> objects;
-
-  // Camera properties
-  Camera *cam;
-  bool leftDown, rightDown;
-  int mouseX, mouseY;
-
-  // Objects to render
-  Cube *cube;
-  Model *model;
-  GameState *gameState;
-
-  // Shader Program
-  Shader cubeShaderProgram;
-  Shader modelShaderProgram;
-
-  // Network
-  ClientNetwork *network;
 
   // Constructors and desctructors
   Client();
@@ -47,23 +28,36 @@ public:
                    const std::string &port);
   void cleanUp();
 
-  // for the Window
+  // creating the Window
   GLFWwindow *createWindow(int width, int height);
-  void resizeCallback(GLFWwindow *window, int width, int height);
 
   // update and draw functions
   void idleCallback();
   void displayCallback(GLFWwindow *);
 
-  // helper to reset the camera
-  void resetCamera();
-
-  // callbacks - for interaction
+  // callbacks - for interactions
   void keyCallback(GLFWwindow *window, int key, int scancode, int action,
                    int mods);
-  void mouse_callback(GLFWwindow *window, int button, int action, int mods);
-  void cursor_callback(GLFWwindow *window, double currX, double currY);
+  void mouseCallback(GLFWwindow *window, double xPos, double yPos);
 
   // Getters
   GLFWwindow *getWindow() { return window; }
+
+private:
+  // Camera properties
+  std::unique_ptr<Camera> cam;
+  float mouseX, mouseY;
+
+  // Gamestate properties
+  Cube *cube;
+  Model *model;
+  GameState *gameState;
+  // Later: list <GameObject*> objects;
+
+  // Shader Program
+  Shader cubeShaderProgram;
+  Shader modelShaderProgram;
+
+  // Network
+  std::unique_ptr<ClientNetwork> network;
 };

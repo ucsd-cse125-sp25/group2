@@ -2,15 +2,17 @@
 
 #include "server/servernetwork.hpp"
 
-class Server {
+#include <memory>
+
+class GameServer {
 private:
-  GameState *game;
+  std::unique_ptr<GameState> game;
 
 public:
-  ServerNetwork *network;
-  Server(asio::io_context &io_context, const std::string &ip,
-         const std::string &port);
-  ~Server();
+  std::unique_ptr<ServerNetwork> network;
+  GameServer(asio::io_context &io_context, const std::string &ip,
+             const std::string &port);
+  ~GameServer();
   void start();
   void update();
 };

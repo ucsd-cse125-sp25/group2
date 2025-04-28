@@ -21,8 +21,6 @@ ClientNetwork::ClientNetwork(asio::io_context &io_context,
   }
 }
 
-void ClientNetwork::set_id(CLIENT_ID id) { this->id = id; }
-
 /*
  * clean up open socket
  */
@@ -71,13 +69,13 @@ deque<std::unique_ptr<IPacket>> ClientNetwork::receive() {
     std::vector<char> payload(size);
     _socket.read_some(asio::buffer(payload));
 
-    packets.push_back(process_packets(static_cast<PacketType>(type), payload));
+    packets.push_back(processPackets(static_cast<PacketType>(type), payload));
   }
   return packets;
 }
 
-std::unique_ptr<IPacket> ClientNetwork::process_packets(PacketType type,
-                                                        vector<char> payload) {
+std::unique_ptr<IPacket> ClientNetwork::processPackets(PacketType type,
+                                                       vector<char> payload) {
   switch (type) {
   case PacketType::INIT: {
     std::unique_ptr<IPacket> packet = deserialize(PacketType::INIT, payload);

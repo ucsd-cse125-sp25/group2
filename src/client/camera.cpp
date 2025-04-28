@@ -1,34 +1,62 @@
-////////////////////////////////////////
-// Camera.cpp
-////////////////////////////////////////
-
 #include "client/camera.hpp"
 
-Camera::Camera() { Reset(); }
-void Camera::Update() {
-  // Compute camera world matrix
-  glm::mat4 world(1);
-  world[3][2] = Distance;
-  world = glm::eulerAngleY(glm::radians(-Azimuth)) *
-          glm::eulerAngleX(glm::radians(-Incline)) * world;
+Camera::Camera()
+    : cameraPos(glm::vec3(0.0f, 2.0f, 5.0f)),
+      cameraFront(glm::vec3(0.0f, -0.3f, -1.0f)),
+      cameraUp(glm::vec3(0.0f, 1.0f, 0.0f)), viewProjMat(glm::mat4(1.0f)) {
+  fov = 60.0f;
+  aspect = 1.33f;
+  nearClip = 0.1f;
+  farClip = 100.0f;
 
-  // Compute view matrix (inverse of world matrix)
-  glm::mat4 view = glm::inverse(world);
+  yaw = -90.0f;
+  pitch = 0.0f;
+  lastX = 640.0f / 2.0f;
+  lastY = 480.0f / 2.0f;
 
-  // Compute perspective projection matrix
-  glm::mat4 project =
-      glm::perspective(glm::radians(FOV), Aspect, NearClip, FarClip);
+  sensitivity = 0.1f;
+  firstMouse = true;
 
-  // Compute final view-projection matrix
-  ViewProjectMtx = project * view;
+  worldUp = cameraUp;
 }
-void Camera::Reset() {
-  FOV = 45.0f;
-  Aspect = 1.33f;
-  NearClip = 0.1f;
-  FarClip = 100.0f;
 
-  Distance = 10.0f;
-  Azimuth = 0.0f;
-  Incline = 20.0f;
+Camera::~Camera() {}
+
+void Camera::update(float xpos, float ypos) {
+  if (firstMouse) {
+    lastX = xpos;
+    lastY = ypos;
+    firstMouse = false;
+  }
+
+  float xoffset = xpos - lastX;
+  float yoffset = lastY - ypos;
+  lastX = xpos;
+  lastY = ypos;
+
+  xoffset *= sensitivity;
+  yoffset *= sensitivity;
+
+  yaw += xoffset;
+  pitch += yoffset;
+
+  if (pitch > 70.0f)
+    pitch = 70.0f;
+  if (pitch < -70.0f)
+    pitch = -70.0f;
+
+  // Updating view projection matrix
+  glm::vec3 front;
+  front.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
+  front.y = sin(glm::radians(pitch));
+  front.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
+  cameraFront = glm::normalize(front);
+
+  cameraRight = glm::normalize(glm::cross(cameraFront, worldUp));
+  cameraUp = glm::normalize(glm::cross(cameraRight, cameraFront));
+
+  projection = glm::perspective(glm::radians(fov), aspect, nearClip, farClip);
+  view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
+
+  viewProjMat = projection * view;
 }
