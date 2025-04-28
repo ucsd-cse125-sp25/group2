@@ -10,8 +10,7 @@
 
 #define FPS (1.0 / 60.0)
 
-class Client
-{
+class Client {
 public:
   // Window properties
   GLFWwindow *window;
