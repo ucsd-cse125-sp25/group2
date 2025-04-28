@@ -1,9 +1,8 @@
 #pragma once
 
-#include "client/core.hpp"
+#include "shared/core.hpp"
 #include "client/shader.hpp"
-#include "client/transform.hpp"
-#include "shared/cube.hpp"
+#include "shared/transform.hpp"
 
 #include <vector>
 

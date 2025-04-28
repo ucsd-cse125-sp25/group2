@@ -1,6 +1,7 @@
 #pragma once
 
 #include "server/servernetwork.hpp"
+#include "server/servergamestate.hpp"
 
 class Server {
 private:

@@ -1,5 +1,5 @@
 #pragma once
-#include "client/core.hpp"
+#include "shared/core.hpp"
 #include <cstring>
 #include <memory>
 #include <stdexcept>
@@ -19,8 +19,6 @@ enum class PacketType : uint8_t {
 };
 
 enum class ActionType : uint8_t { FORWARD, RIGHT, LEFT, BACK };
-
-enum class ObjectType : uint8_t { CUBE };
 
 struct IPacket {
   virtual PacketType get_type() const = 0;

@@ -1,5 +1,3 @@
-#include "server/gameserver.hpp"
-
 Server::Server(asio::io_context &io_context, const std::string &ip,
                const std::string &port)
     : game(new GameState()) {

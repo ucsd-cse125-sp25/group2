@@ -1,8 +1,27 @@
-#include "shared/gamestate.hpp"
-#include "shared/packets.hpp"
+#include "server/servergamestate.hpp"
 
-GameState::GameState() {}
 
+ServerGameState::ServerGameState() {
+  level = 0;
+  // read in file
+  
+  ifstream object_files("level0.txt");
+
+  if (object_files.is_open()) {
+    string line;
+
+    getline(object_files, line);
+
+    while (getline(object_files, line)) {
+      
+    }
+    
+  }
+
+}
+
+/*
+Old Code
 ObjectPacket GameState::init() {
   // initialize cube at the world origin
   x = 0.0f;
@@ -42,3 +61,4 @@ PositionPacket GameState::handleAction(ActionPacket *packet) {
   }
   return cube; // Ensure cube is returned in all cases
 }
+*/
