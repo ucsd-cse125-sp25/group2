@@ -1,9 +1,11 @@
 #pragma once
 
-#include "core.hpp"
 #include "client/shader.hpp"
+#include "shared/core.hpp"
+#include <memory>
 #include <string>
 #include <vector>
+
 using namespace std;
 
 #define MAX_BONE_INFLUENCE 4
@@ -33,7 +35,7 @@ public:
 
   Mesh(vector<Vertex> vertices, vector<unsigned int> indices,
        vector<Texture> textures);
-  void Draw(Shader &shader);
+  void Draw(unique_ptr<Shader> &shader);
 
 private:
   unsigned int VAO, VBO, EBO;

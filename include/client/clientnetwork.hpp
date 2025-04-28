@@ -13,8 +13,8 @@ private:
   tcp::socket _socket;
   CLIENT_ID id;
 
-  std::unique_ptr<IPacket> process_packets(PacketType type,
-                                           vector<char> payload);
+  std::unique_ptr<IPacket> processPackets(PacketType type,
+                                          vector<char> payload);
 
 public:
   bool err;
@@ -22,10 +22,10 @@ public:
   // ctor/dtor
   ClientNetwork(asio::io_context &io_context, const std::string &ip,
                 const std::string &port);
-  ~ClientNetwork(void);
+  ~ClientNetwork();
 
   void send(const IPacket &packet);
-  void set_id(CLIENT_ID id);
-
   deque<std::unique_ptr<IPacket>> receive();
+
+  void setId(CLIENT_ID id) { this->id = id; }
 };

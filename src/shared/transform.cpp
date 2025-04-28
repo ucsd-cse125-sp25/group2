@@ -6,12 +6,6 @@ Transform::Transform(glm::vec3 pos, glm::vec3 rot, glm::vec3 scl) {
   this->scale = scl;
 }
 
-glm::vec3 Transform::getPosition() { return this->position; }
-
-glm::vec3 Transform::getRotation() { return this->rotation; }
-
-glm::vec3 Transform::getScale() { return this->scale; }
-
 void Transform::updatePosition(glm::vec3 moveInput) { position += moveInput; }
 
 void Transform::updateRotation(glm::vec3 rotateInput) {

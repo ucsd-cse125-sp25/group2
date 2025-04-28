@@ -1,4 +1,4 @@
-#include "gameobject.hpp"
+#include "shared/gameobject.hpp"
 #include <string>
 
 #ifndef ANIMAL_HPP

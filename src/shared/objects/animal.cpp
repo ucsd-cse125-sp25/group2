@@ -1,4 +1,4 @@
-#include "client/animal.hpp"
+#include "shared/objects/animal.hpp"
 
 Animal::Animal(float x, float y, float z, const std::string &type)
     : positionX(x), positionY(y), positionZ(z), animalType(type) {}

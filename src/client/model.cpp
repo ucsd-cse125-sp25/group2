@@ -1,20 +1,22 @@
 #include "client/model.hpp"
 #include <stb_image.h>
 
+using namespace std;
+
 Model::Model(const char *path) {
   model = glm::mat4(1);
   color = glm::vec3(1.0f, 0.95f, 0.1f);
   loadModel(path);
 }
 
-void Model::Draw(const glm::mat4 &viewProjMtx, Shader &shader) {
+void Model::Draw(const glm::mat4 &viewProjMtx, unique_ptr<Shader> &shader) {
   // Activate the shader program
-  shader.use();
+  shader->use();
   // Send camera view projection matrix to vertex shader file
-  shader.setMat4("viewProj", viewProjMtx);
+  shader->setMat4("viewProj", viewProjMtx);
   // Send model matrix to vertex shader file
-  shader.setMat4("model", model);
-  shader.setVec3("DiffuseColor", color);
+  shader->setMat4("model", model);
+  shader->setVec3("DiffuseColor", color);
   for (unsigned int i = 0; i < meshes.size(); i++)
     // Draw each mesh
     meshes[i].Draw(shader);

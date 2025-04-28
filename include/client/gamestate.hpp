@@ -1,9 +1,11 @@
 #pragma once
 
-#include "gameobject.hpp"
 #include "shader.hpp"
+#include "shared/gameobject.hpp"
 #include <unordered_map>
 #include <vector>
+
+using namespace std;
 
 class GameState {
 public:
@@ -17,7 +19,6 @@ public:
   void KeyboardInput(float deltaTime);
 
 private:
-  std::vector<Shader> shaders;
   std::vector<GameObject *> gameObjects;
   std::unordered_map<GameObject *, Transform *> transforms;
 

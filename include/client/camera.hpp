@@ -1,44 +1,43 @@
 #pragma once
 
-#include "client/core.hpp"
 #include "glm/gtx/euler_angles.hpp"
-
-// The Camera class provides a simple means to controlling the 3D camera. It
-// could be extended to support more interactive controls. Ultimately. the
-// camera sets the GL projection and viewing matrices.
-
+#include "shared/core.hpp"
 class Camera {
 public:
   Camera();
+  ~Camera();
 
-  void Update();
-  void Reset();
+  void update(float xpos, float ypos);
 
-  // Access functions
-  void SetAspect(float a) { Aspect = a; }
-  void SetDistance(float d) { Distance = d; }
-  void SetAzimuth(float a) { Azimuth = a; }
-  void SetIncline(float i) { Incline = i; }
-
-  float GetDistance() { return Distance; }
-  float GetAzimuth() { return Azimuth; }
-  float GetIncline() { return Incline; }
-
-  const glm::mat4 &GetViewProjectMtx() { return ViewProjectMtx; }
+  // Getters
+  glm::vec3 getFacing() { return cameraFront; }
+  glm::vec3 getPos() { return cameraPos; }
+  glm::mat4 getProjection() { return projection; }
+  glm::mat4 getView() { return view; }
+  glm::mat4 getViewProj() { return viewProjMat; }
 
 private:
   // Perspective controls
-  float FOV;      // Field of View Angle (degrees)
-  float Aspect;   // Aspect Ratio
-  float NearClip; // Near clipping plane distance
-  float FarClip;  // Far clipping plane distance
+  float fov;      // Field of View Angle (degrees)
+  float aspect;   // Aspect Ratio
+  float nearClip; // Near clipping plane distance
+  float farClip;  // Far clipping plane distance
 
-  // Polar controls
-  float Distance; // Distance of the camera eye position to the origin (meters)
-  float Azimuth;  // Rotation of the camera eye position around the Y axis
-                  // (degrees)
-  float Incline; // Angle of the camera eye position over the XZ plane (degrees)
+  float yaw;
+  float pitch;
+  float lastX;
+  float lastY;
 
-  // Computed data
-  glm::mat4 ViewProjectMtx;
+  bool firstMouse;
+  float sensitivity;
+
+  glm::vec3 cameraPos;
+  glm::vec3 cameraFront;
+  glm::vec3 cameraUp;
+  glm::vec3 cameraRight;
+  glm::vec3 worldUp;
+
+  glm::mat4 projection;
+  glm::mat4 view;
+  glm::mat4 viewProjMat;
 };
