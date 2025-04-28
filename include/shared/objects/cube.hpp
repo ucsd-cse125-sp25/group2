@@ -1,7 +1,7 @@
 #pragma once
 
-#include "shared/core.hpp"
 #include "client/shader.hpp"
+#include "shared/core.hpp"
 #include "shared/transform.hpp"
 
 #include <vector>
