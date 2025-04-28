@@ -2,10 +2,10 @@
 
 #include "client/camera.hpp"
 #include "client/clientnetwork.hpp"
-#include "shared/core.hpp"
 #include "client/gamestate.hpp"
 #include "client/model.hpp"
 #include "client/shader.hpp"
+#include "shared/core.hpp"
 #include "shared/objects/cube.hpp"
 
 #define FPS (1.0 / 60.0)

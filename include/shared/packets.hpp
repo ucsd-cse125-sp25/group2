@@ -1,12 +1,12 @@
 #pragma once
 #include "shared/core.hpp"
+#include "shared/transform.hpp"
 #include <cstring>
 #include <memory>
 #include <stdexcept>
 #include <stdint.h>
 #include <string>
 #include <vector>
-#include "shared/transform.hpp"
 
 using namespace std;
 
@@ -110,10 +110,11 @@ struct ObjectPacket : public IPacket {
   bool interactable;
   bool active;
 
-  ObjectPacket(int id, ObjectType type, Transform transform, bool interactable = false, bool active = false)
-      : id(id), type(type), transform(transform), interactable(false), active(active) {}
+  ObjectPacket(int id, ObjectType type, Transform transform,
+               bool interactable = false, bool active = false)
+      : id(id), type(type), transform(transform), interactable(false),
+        active(active) {}
   PacketType get_type() const override { return PacketType::OBJECT; }
-
 
   vector<char> serialize() const override;
 

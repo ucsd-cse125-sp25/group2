@@ -1,9 +1,9 @@
 #pragma once
 
-#include "shared/core.hpp"
 #include "client/shader.hpp"
-#include "shared/transform.hpp"
+#include "shared/core.hpp"
 #include "shared/objects/cube.hpp"
+#include "shared/transform.hpp"
 #include <vector>
 
 using namespace std;

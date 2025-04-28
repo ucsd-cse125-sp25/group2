@@ -10,9 +10,11 @@ GameState::GameState() {
   // Shader lightCubeShader = Shader("shaders/light.vertex",
   // "shaders/light.frag"); Shader modelShader = Shader("shaders/model.vert",
   // "shaders/model.frag");
-  unique_ptr<Shader> playerShader = make_unique<Shader>(Shader("../src/client/shaders/shader.vert",
-                               "../src/client/shaders/shader.frag"));
-  unique_ptr<Model> chickenModel = make_unique<Model>(Model("../src/client/resources/objects/chicken/Chicken.obj"));
+  unique_ptr<Shader> playerShader =
+      make_unique<Shader>(Shader("../src/client/shaders/shader.vert",
+                                 "../src/client/shaders/shader.frag"));
+  unique_ptr<Model> chickenModel = make_unique<Model>(
+      Model("../src/client/resources/objects/chicken/Chicken.obj"));
   // shaders.emplace_back(lightingShader);
   // shaders.emplace_back(lightCubeShader);
   // shaders.emplace_back(modelShader);

@@ -31,8 +31,9 @@ bool Client::init() {
 
 bool Client::initObjects() {
   // TODO:initialize the objects in the list of objects in the client game state
-  cubeShaderProgram = make_unique<Shader>(Shader("../src/client/shaders/shader.vert",
-                             "../src/client/shaders/shader.frag"));
+  cubeShaderProgram =
+      make_unique<Shader>(Shader("../src/client/shaders/shader.vert",
+                                 "../src/client/shaders/shader.frag"));
   cube = new Cube();
   return true;
 }
