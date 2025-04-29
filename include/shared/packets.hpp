@@ -49,41 +49,13 @@ struct InitPacket : public IPacket {
 
 struct PositionPacket : public IPacket {
   int object_id;
-  glm::vec3 position;
+  Transform transform;
 
-  PositionPacket(int object_id, glm::vec3 position)
-      : object_id(object_id), position(position) {}
+  PositionPacket(int object_id, Transform transform)
+      : object_id(object_id), transform(transform) {}
   PacketType get_type() const override { return PacketType::POSITION; }
-  vector<char> serialize() const override {
-    vector<char> buffer(sizeof(int) + sizeof(glm::vec3));
-
-    unsigned long size = 0;
-    memcpy(buffer.data(), &object_id, sizeof(int));
-    size += sizeof(int);
-    memcpy(buffer.data() + size, &position.x, sizeof(position.x));
-    size += sizeof(position.x);
-    memcpy(buffer.data() + size, &position.y, sizeof(position.y));
-    size += sizeof(position.y);
-    memcpy(buffer.data() + size, &position.z, sizeof(position.z));
-    return buffer;
-  }
-  static PositionPacket deserialize(const vector<char> &payload) {
-    int object_id;
-    glm::vec3 position;
-
-    unsigned long size = 0;
-
-    memcpy(&object_id, payload.data(), sizeof(int));
-    size += sizeof(int);
-    memcpy(&position.x, payload.data() + size, sizeof(float));
-    size += sizeof(float);
-    memcpy(&position.y, payload.data() + size, sizeof(float));
-    size += sizeof(float);
-    memcpy(&position.z, payload.data() + size, sizeof(float));
-    PositionPacket packet(object_id, position);
-
-    return packet;
-  }
+  vector<char> serialize() const override;
+  static PositionPacket deserialize(const vector<char> &payload);
 };
 
 struct ActionPacket : public IPacket {
