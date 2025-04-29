@@ -1,15 +1,15 @@
 #pragma once
 
+#include "shared/gameobject.hpp"
 #include "shared/objects/cube.hpp"
 #include "shared/packets.hpp"
-#include "shared/gameobject.hpp"
 
-#include <memory>
-#include <vector>
-#include <iostream>
-#include <string>
 #include <fstream>
+#include <iostream>
+#include <memory>
+#include <string>
 #include <unordered_map>
+#include <vector>
 
 using namespace std;
 
@@ -18,7 +18,7 @@ private:
   int level;
   unordered_map<string, GameObject> objects;
   vector<string> updated_ids;
-  
+
   // float x, y, z;
   // some sort hard coding for objects at each level
   // perhaps this should be done in a txt file that is read in

@@ -1,10 +1,9 @@
 #include "server/servergamestate.hpp"
 
-
 ServerGameState::ServerGameState() {
   level = 0;
   // read in file
-  
+
   ifstream object_files("level0.txt");
 
   if (object_files.is_open()) {
@@ -13,11 +12,8 @@ ServerGameState::ServerGameState() {
     getline(object_files, line);
 
     while (getline(object_files, line)) {
-      
     }
-    
   }
-
 }
 
 /*
