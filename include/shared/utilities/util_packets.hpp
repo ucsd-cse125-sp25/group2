@@ -25,3 +25,4 @@ void deserializeTransform(const vector<char> &payload, Transform &transform,
 // debugging methods
 
 void printObjectPacket(const ObjectPacket &packet);
+void printPositionPacket(const PositionPacket &packet);

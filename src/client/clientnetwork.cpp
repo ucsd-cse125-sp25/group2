@@ -94,9 +94,7 @@ std::unique_ptr<IPacket> ClientNetwork::processPackets(PacketType type,
 
     // TEST
     if (auto *posPacket = dynamic_cast<PositionPacket *>(packet.get())) {
-      std::cout << "x: " << posPacket->position.x << std::endl;
-      std::cout << "y: " << posPacket->position.y << std::endl;
-      std::cout << "z: " << posPacket->position.z << std::endl;
+      printPositionPacket(*posPacket);
     }
     return packet;
   }

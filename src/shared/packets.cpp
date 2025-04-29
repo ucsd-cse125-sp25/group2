@@ -40,3 +40,28 @@ ObjectPacket ObjectPacket::deserialize(const vector<char> &payload) {
   ObjectPacket packet(id, type, transform);
   return packet;
 }
+
+vector<char> PositionPacket::serialize() const {
+
+  vector<char> buffer(sizeof(int) + sizeof(ObjectType) + sizeof(glm::vec3));
+
+  unsigned long size = 0;
+
+  memcpy(buffer.data(), &object_id, sizeof(int));
+  size += sizeof(int);
+  serializeTransform(buffer.data(), transform, size);
+  return buffer;
+}
+
+PositionPacket PositionPacket::deserialize(const vector<char> &payload) {
+  int id;
+  Transform transform;
+
+  unsigned long size = 0;
+  memcpy(&id, payload.data(), sizeof(int));
+  size += sizeof(int);
+  deserializeTransform(payload, transform, size);
+
+  PositionPacket packet(id, transform);
+  return packet;
+}
