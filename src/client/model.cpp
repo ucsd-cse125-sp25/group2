@@ -14,7 +14,7 @@ Model::Model(const char *path) {
 //     this->color = col;
 // }
 
-void Model::Draw(const glm::mat4 &viewProjMtx, unique_ptr<Shader>& shader) {
+void Model::Draw(const glm::mat4 &viewProjMtx, unique_ptr<Shader> &shader) {
   // Activate the shader program
   shader->use();
   // Send camera view projection matrix to vertex shader file

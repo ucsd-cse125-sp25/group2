@@ -9,7 +9,7 @@ void error_callback(int error, const char *description) {
   std::cerr << description << std::endl;
 }
 
-void setup_callbacks(GLFWwindow* window) {
+void setup_callbacks(GLFWwindow *window) {
   // Set the error callback.
   glfwSetErrorCallback(error_callback);
 

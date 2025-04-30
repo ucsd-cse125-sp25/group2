@@ -9,7 +9,7 @@ ObjectPacket GameState::init() {
   y = 0.0f;
   z = 0.0f;
   ObjectPacket cube(0, ObjectType::CUBE, glm::vec3(x, y, z));
-  
+
   return cube;
 }
 

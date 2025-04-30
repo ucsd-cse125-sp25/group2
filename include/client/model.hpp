@@ -15,7 +15,7 @@ class Model {
 public:
   Model(const char *path);
   void Draw(const glm::mat4 &viewProjMtx, unique_ptr<Shader> &shader);
-  void Update(Transform* transform);
+  void Update(Transform *transform);
   void ChangeColor(glm::vec3 col);
 
 private:
@@ -25,9 +25,10 @@ private:
   vector<Texture> textures_loaded;
   string directory;
 
-    void loadModel(string path);
-    void processNode(aiNode *node, const aiScene *scene);
-    Mesh processMesh(aiMesh *mesh, const aiScene *scene);
-    vector<Texture> loadMaterialTextures(aiMaterial *mat, aiTextureType type, string typeName);
-    unsigned int  TextureFromFile(const char *path, const string &directory);
+  void loadModel(string path);
+  void processNode(aiNode *node, const aiScene *scene);
+  Mesh processMesh(aiMesh *mesh, const aiScene *scene);
+  vector<Texture> loadMaterialTextures(aiMaterial *mat, aiTextureType type,
+                                       string typeName);
+  unsigned int TextureFromFile(const char *path, const string &directory);
 };

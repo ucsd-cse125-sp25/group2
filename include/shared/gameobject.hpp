@@ -1,9 +1,9 @@
 #include "client/model.hpp"
+#include "shared/collider.hpp"
 #include "shared/core.hpp"
 #include "shared/objects/cube.hpp"
-#include "shared/transform.hpp"
 #include "shared/rigidbody.hpp"
-#include "shared/collider.hpp"
+#include "shared/transform.hpp"
 #include <memory>
 #include <string>
 
@@ -30,8 +30,10 @@ protected:
   bool interactable;
 
 public:
-  GameObject(const int objectId, const bool isActive, unique_ptr<Transform> &tf, unique_ptr<RigidBody> &rb, unique_ptr<Collider> &cl)
-      : id(objectId), active(isActive), transform(move(tf)), rigidbody(move(rb)), collider(move(cl)) {
+  GameObject(const int objectId, const bool isActive, unique_ptr<Transform> &tf,
+             unique_ptr<RigidBody> &rb, unique_ptr<Collider> &cl)
+      : id(objectId), active(isActive), transform(move(tf)),
+        rigidbody(move(rb)), collider(move(cl)) {
     model = nullptr;
     shader = nullptr;
     interactable = false;

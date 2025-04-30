@@ -2,15 +2,13 @@
 
 #include "client/camera.hpp"
 #include "client/clientnetwork.hpp"
-#include "client/model.hpp"
-#include "shared/physics.hpp"
 #include "client/gamestate.hpp"
+#include "client/model.hpp"
 #include "client/renderer.hpp"
-#include "client/gamestate.hpp"
-#include "client/model.hpp"
 #include "client/shader.hpp"
 #include "shared/core.hpp"
 #include "shared/objects/cube.hpp"
+#include "shared/physics.hpp"
 
 #define FPS (1.0 / 60.0)
 
@@ -26,7 +24,7 @@ public:
   // Constructors and desctructors
   Client();
   ~Client();
-    
+
   bool init();
   bool initObjects();
   bool initNetwork(asio::io_context &io_context, const std::string &ip,

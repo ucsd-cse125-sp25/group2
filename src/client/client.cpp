@@ -36,7 +36,8 @@ bool Client::initObjects() {
   cubeShaderProgram =
       make_unique<Shader>(Shader("../src/client/shaders/shader.vert",
                                  "../src/client/shaders/shader.frag"));
-  cube = new Cube(glm::vec3(-20, -0.01, -20), glm::vec3(20, 0, 20), glm::vec3(0, 0.95, 0));
+  cube = new Cube(glm::vec3(-20, -0.01, -20), glm::vec3(20, 0, 20),
+                  glm::vec3(0, 0.95, 0));
   gameState = new GameState();
   return true;
 }
@@ -88,42 +89,41 @@ void Client::idleCallback() {
   }
 
   cam->update(mouseX, mouseY);
-  // I am passing a hardcoded value for deltaTime/frame rate. We can get the real one from the network later
+  // I am passing a hardcoded value for deltaTime/frame rate. We can get the
+  // real one from the network later
   gameState->Update(0.005f);
   // cube->update();
 }
 
-void Client::displayCallback(GLFWwindow* window) {
-    // Clear the color and depth buffers.
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+void Client::displayCallback(GLFWwindow *window) {
+  // Clear the color and depth buffers.
+  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    // Render the object.
-    if (cube) {
-      cube->draw(cam->getViewProj(), cubeShaderProgram);
-    } 
+  // Render the object.
+  if (cube) {
+    cube->draw(cam->getViewProj(), cubeShaderProgram);
+  }
 
-    std::vector<GameObject*> objects = gameState->getAllObjects();
-      for (GameObject* o : objects)
-        o->Render(cam->getViewProj());
-    
-    // Gets events, including input such as keyboard and mouse or window resizing.
-    glfwPollEvents();
+  std::vector<GameObject *> objects = gameState->getAllObjects();
+  for (GameObject *o : objects)
+    o->Render(cam->getViewProj());
 
-    // Main render display callback. Rendering of objects is done here.
-    glfwSwapBuffers(window);
+  // Gets events, including input such as keyboard and mouse or window resizing.
+  glfwPollEvents();
 
+  // Main render display callback. Rendering of objects is done here.
+  glfwSwapBuffers(window);
 }
 
 // callbacks - for Interaction
-void Client::keyCallback(GLFWwindow *window, int key, int scancode, int action, int mods) {
-  if (action == GLFW_PRESS)
-  {
-      if (key == GLFW_KEY_ESCAPE)
-        glfwSetWindowShouldClose(window, true);
-      gameState->keyStates[key] = true;
+void Client::keyCallback(GLFWwindow *window, int key, int scancode, int action,
+                         int mods) {
+  if (action == GLFW_PRESS) {
+    if (key == GLFW_KEY_ESCAPE)
+      glfwSetWindowShouldClose(window, true);
+    gameState->keyStates[key] = true;
   }
-  if (action == GLFW_RELEASE)
-  {
+  if (action == GLFW_RELEASE) {
     gameState->keyStates[key] = false;
   }
 }

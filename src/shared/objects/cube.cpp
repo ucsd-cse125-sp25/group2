@@ -142,8 +142,6 @@ void Cube::draw(const glm::mat4 &viewProjMtx, unique_ptr<Shader> &shader) {
   glUseProgram(0);
 }
 
-void Cube::update() {
-  model = model;
-}
+void Cube::update() { model = model; }
 
 void Cube::spin(float deg) { model = model; }

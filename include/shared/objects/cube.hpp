@@ -25,7 +25,7 @@ private:
 public:
   Cube(glm::vec3 cubeMin = glm::vec3(-1, -1, -1),
        glm::vec3 cubeMax = glm::vec3(1, 1, 1),
-      glm::vec3 col = glm::vec3(1.0f, 0.95f, 0.1f));
+       glm::vec3 col = glm::vec3(1.0f, 0.95f, 0.1f));
   ~Cube();
 
   void draw(const glm::mat4 &viewProjMtx, unique_ptr<Shader> &shader);

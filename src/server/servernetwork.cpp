@@ -32,11 +32,11 @@ void ServerNetwork::acceptClient() {
       this->clients[client_id] = socket;
       InitPacket init(client_id);
       sendToClient(client_id, init);
-      
+
       // initialize game state and send to client
       sendToClient(client_id, game->init());
       client_id++;
-      
+
     } else {
       std::cerr << "Accept Failed: " << ec.message() << std::endl;
     }
