@@ -1,30 +1,29 @@
 #pragma once
 
-#include "client/core.hpp"
-#include "client/shader.hpp"
 #include "client/mesh.hpp"
-#include "client/transform.hpp"
+#include "client/shader.hpp"
+#include "shared/core.hpp"
+#include "shared/transform.hpp"
 #include <assimp/Importer.hpp>
-#include <assimp/scene.h>
 #include <assimp/postprocess.h>
+#include <assimp/scene.h>
 #include <string>
 #include <vector>
 using namespace std;
 
-class Model 
-{
+class Model {
 public:
-    Model(const char *path);
-    void Draw(const glm::mat4& viewProjMtx, glm::mat4 modelMat, Shader& shader);
-    void Update(Transform* transform);
-    void ChangeColor(glm::vec3 col);
+  Model(const char *path);
+  void Draw(const glm::mat4 &viewProjMtx, unique_ptr<Shader> &shader);
+  void Update(Transform* transform);
+  void ChangeColor(glm::vec3 col);
 
 private:
-    glm::mat4 model;
-    glm::vec3 color;
-    vector<Mesh> meshes;
-    vector<Texture> textures_loaded;
-    string directory;
+  glm::mat4 model;
+  glm::vec3 color;
+  vector<Mesh> meshes;
+  vector<Texture> textures_loaded;
+  string directory;
 
     void loadModel(string path);
     void processNode(aiNode *node, const aiScene *scene);

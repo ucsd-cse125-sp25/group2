@@ -16,7 +16,9 @@ target_compile_definitions(${TARGET_NAME} PRIVATE ASIO_STANDALONE)
 
 target_link_libraries(${TARGET_NAME} PRIVATE
     shared_lib
+    glm
     glfw
     libglew_static
     asio
+    assimp
 )

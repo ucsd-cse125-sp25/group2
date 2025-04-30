@@ -1,64 +1,66 @@
 #pragma once
 
-#include "client/core.hpp"
 #include "client/camera.hpp"
-#include "client/shader.hpp"
 #include "client/clientnetwork.hpp"
 #include "client/model.hpp"
-#include "shared/cube.hpp"
 #include "shared/physics.hpp"
 #include "client/gamestate.hpp"
 #include "client/renderer.hpp"
+#include "client/gamestate.hpp"
+#include "client/model.hpp"
+#include "client/shader.hpp"
+#include "shared/core.hpp"
+#include "shared/objects/cube.hpp"
 
 #define FPS (1.0 / 60.0)
 
+using namespace std;
+
 class Client {
 public:
-    // Window Properties
-    int width;
-    int height;
-    const char* windowTitle;
+  // Window properties
+  GLFWwindow *window;
+  int width;
+  int height;
 
-    // Camera properties
-    Camera* cam;
-    bool leftDown, rightDown;
-    int mouseX, mouseY;
+  // Constructors and desctructors
+  Client();
+  ~Client();
+    
+  bool init();
+  bool initObjects();
+  bool initNetwork(asio::io_context &io_context, const std::string &ip,
+                   const std::string &port);
+  void cleanUp();
 
-    // Objects to render
-    Cube* cube;
-    Model* model;
-    Renderer* renderer;
-    GameState* gameState;
+  // update and draw functions
+  void idleCallback();
+  void displayCallback(GLFWwindow *);
 
-    // Shader Program
-    Shader cubeShaderProgram;
-    Shader modelShaderProgram;
+  // callbacks - for interactions
+  void keyCallback(GLFWwindow *window, int key, int scancode, int action,
+                   int mods);
+  void mouseCallback(GLFWwindow *window, double xPos, double yPos);
 
-    //Network
-    ClientNetwork *network;
+  // Getters
+  GLFWwindow *getWindow() { return window; }
 
-    // Act as Constructors and desctructors
-    bool initializeProgram();
-    bool initializeObjects();
-    bool initializeNetwork(asio::io_context& io_context, const std::string& ip, const std::string& port);
-    void cleanUp();
+private:
+  // Camera properties
+  std::unique_ptr<Camera> cam;
+  float mouseX, mouseY;
 
-    // for the Window
-    GLFWwindow* createWindow(int width, int height);
-    void resizeCallback(GLFWwindow* window, int width, int height);
+  // Gamestate properties
+  Cube *cube;
+  Model *model;
+  GameState *gameState;
+  // Renderer* renderer;
+  // Later: list <GameObject*> objects;
 
-    // update and draw functions
-    void idleCallback();
-    void displayCallback(GLFWwindow*);
+  // Shader Program
+  unique_ptr<Shader> cubeShaderProgram;
+  unique_ptr<Shader> modelShaderProgram;
 
-    // helper to reset the camera
-    void resetCamera();
-
-    // callbacks - for interaction
-    void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
-    void mouse_callback(GLFWwindow* window, int button, int action, int mods);
-    void cursor_callback(GLFWwindow* window, double currX, double currY);
-
-    //FOR TESTING
-    bool initializeCube(float x, float y, float z);
+  // Network
+  std::unique_ptr<ClientNetwork> network;
 };

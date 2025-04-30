@@ -16,9 +16,10 @@ void Physics::Update(float deltaTime)
     ResolveCollisions(deltaTime);
     for (GameObject* obj : this->objects)
     {
-        Collider* cl = obj->getCollider();
-        RigidBody* rb = obj->getRigidBody();
-        Transform* tf = obj->getTransform();
+        Transform *tf = obj->getTransform();
+        RigidBody *rb = obj->getRigidBody();
+        Collider *cl = obj->getCollider();
+
         float halfHeight = 1;
         if (tf->getScale().x == 1) halfHeight = 1.75;
         else halfHeight = 1.025f;
@@ -51,16 +52,16 @@ void Physics::ResolveCollisions(float deltaTime)
         Collider* bBox = b->getCollider();
         if (!aBox || !bBox) continue;
 
-        if (aBox->intersect(bBox)) 
-        {
-            a->setColliding(true);
-            b->setColliding(true);
-        }
-        else
-        {
-            a->setColliding(false);
-            b->setColliding(false); 
-        }
+        // if (aBox->intersect(bBox)) 
+        // {
+        //     a->setColliding(true);
+        //     b->setColliding(true);
+        // }
+        // else
+        // {
+        //     a->setColliding(false);
+        //     b->setColliding(false); 
+        // }
         // collisions.emplace_back(a, b);
     }
 }

@@ -4,7 +4,7 @@
 #include <unordered_map>
 #include "shader.hpp"
 #include "client/camera.hpp"
-#include "client/gameobject.hpp"
+#include "shared/gameobject.hpp"
 #include "client/model.hpp"
 
 class Renderer

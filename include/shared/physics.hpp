@@ -2,8 +2,8 @@
 
 #include <vector>
 #include <algorithm>
-#include "client/core.hpp"
-#include "client/gameobject.hpp"
+#include "shared/core.hpp"
+#include "shared/gameobject.hpp"
 
 struct Collision
 {

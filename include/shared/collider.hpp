@@ -1,7 +1,7 @@
 #pragma once
 
-#include "client/core.hpp"
-#include "shared/cube.hpp"
+#include "shared/core.hpp"
+#include "shared/objects/cube.hpp"
 
 class Collider
 {
@@ -18,12 +18,12 @@ public:
     // Cube* box;
     Collider(glm::vec3 ctr = glm::vec3(0))
     {
-        updateCollider(ctr, 1, 1, 1);
+        setCollider(ctr, 1, 1, 1);
     }
 
     Collider(glm::vec3 ctr, float x, float y, float z)
     {
-        updateCollider(ctr, x, y, z);
+        setCollider(ctr, x, y, z);
     }
 
     // void Update(glm::mat4 matrix)
@@ -49,11 +49,11 @@ public:
 
     void updatePosition(glm::vec3 pos)
     {
-        updateCollider(pos, this->xLength, this->yLength, this->zLength);
+        setCollider(pos, this->xLength, this->yLength, this->zLength);
         // std::cout << this->center.x << " " << this->center.y << " " << this->center.z << std::endl;
     }
 
-    void updateCollider(glm::vec3 ctr, float x, float y, float z)
+    void setCollider(glm::vec3 ctr, float x, float y, float z)
     {
         this->xLength = x;
         this->yLength = y;
