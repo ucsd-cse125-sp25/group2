@@ -2,6 +2,9 @@
 
 #include "client/camera.hpp"
 #include "client/clientnetwork.hpp"
+#include "client/model.hpp"
+#include "shared/physics.hpp"
+#include "client/gamestate.hpp"
 #include "client/gamestate.hpp"
 #include "client/model.hpp"
 #include "client/renderer.hpp"
@@ -52,7 +55,6 @@ private:
   Cube *cube;
   Model *model;
   GameState *gameState;
-  // Renderer* renderer;
   // Later: list <GameObject*> objects;
 
   // Shader Program

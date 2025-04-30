@@ -5,28 +5,15 @@ GameState::GameState() {
   physicsWorld = new Physics();
   keyStates = std::unordered_map<int, bool>();
 
-  // Shader lightingShader = Shader("shaders/cube.vertex", "shaders/cube.frag");
-  // Shader lightCubeShader = Shader("shaders/light.vertex",
-  // "shaders/light.frag"); Shader modelShader = Shader("shaders/model.vert",
-  // "shaders/model.frag");
-
-  // shaders.emplace_back(lightingShader);
-  // shaders.emplace_back(lightCubeShader);
-  // shaders.emplace_back(modelShader);
-  // shaders.emplace_back(playerShader);
-  // unique_ptr<Shader> playerShader =
-  // 	make_unique<Shader>(Shader("../src/client/shaders/shader.vert",
-  // 								"../src/client/shaders/shader.frag"));
-  // unique_ptr<Model> model = make_unique<Model>(
-  // 	Model("../src/client/resources/objects/chicken/Chicken.obj"));
-  player = InitializeGameObject(
-      "../src/client/shaders/shader.vert", "../src/client/shaders/shader.frag",
-      "../src/client/resources/objects/chicken/Chicken.obj", glm::vec3(0, 5, 0),
-      glm::vec3(0), glm::vec3(0.5), glm::vec3(1));
-  // GameObject* cow = new GameObject(this->gameObjects.size(),
-  // "../src/client/resources/objects/cow/Cow.obj", false, playerShader);
-  // cow->getCollider()->updateCollider(glm::vec3(0), 1.9, 2, 0.9);
-  // InitializeGameObject(cow);
+	// Also just using hardcoded collision box sizes
+	player = InitializeGameObject("../src/client/shaders/shader.vert", "../src/client/shaders/shader.frag", "../src/client/resources/objects/chicken/Chicken.obj", 
+		glm::vec3(0, 5, 0), glm::vec3(0), glm::vec3(0.5), glm::vec3(1));
+	// InitializeGameObject("../src/client/shaders/shader.vert", "../src/client/shaders/shader.frag", "../src/client/resources/objects/cow/Cow.obj", 
+	// 	glm::vec3(0, 0, 0), glm::vec3(0), glm::vec3(1.25), glm::vec3(2.5, 2.5, 0.5));
+	// InitializeGameObject("../src/client/shaders/shader.vert", "../src/client/shaders/shader.frag", "../src/client/resources/objects/sheep/Sheep.obj", 
+	// 	glm::vec3(0, 0, 0), glm::vec3(0), glm::vec3(1), glm::vec3(2, 1.7, 0.5));
+	InitializeGameObject("../src/client/shaders/shader.vert", "../src/client/shaders/shader.frag", "../src/client/resources/objects/pig/Pig.obj", 
+		glm::vec3(0, 0, 0), glm::vec3(0), glm::vec3(0.75), glm::vec3(1.4, 1, 0.5));
 }
 
 void GameState::CleanUp() {
@@ -96,11 +83,11 @@ void GameState::KeyboardInput(float deltaTime) {
     vector = glm::normalize(vector);
   player->getTransform()->updatePosition(vector * moveSpeed * deltaTime);
 
-  float jumpForce = 1000.0f;
-  if (keyStates[GLFW_KEY_SPACE] == true &&
-      player->getRigidBody()->getVelocity().y > -4.905f) {
-    player->getTransform()->updatePosition(glm::vec3(0, 0.1, 0));
-  }
+	float jumpDelta = 0.07f;
+	if (keyStates[GLFW_KEY_SPACE] == true && player->getRigidBody()->getVelocity().y > -9.81/4.0)
+	{
+		player->getTransform()->updatePosition(glm::vec3(0, jumpDelta, 0));
+	}
 
   // Rotation
   vector = glm::vec3(0);

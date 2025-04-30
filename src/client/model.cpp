@@ -9,10 +9,10 @@ Model::Model(const char *path) {
   loadModel(path);
 }
 
-// void Model::ChangeColor(glm::vec3 col)
-// {
-//     this->color = col;
-// }
+void Model::ChangeColor(glm::vec3 col)
+{
+    this->color = col;
+}
 
 void Model::Draw(const glm::mat4 &viewProjMtx, unique_ptr<Shader> &shader) {
   // Activate the shader program

@@ -15,13 +15,14 @@ void Physics::Update(float deltaTime) {
     RigidBody *rb = obj->getRigidBody();
     Collider *cl = obj->getCollider();
 
-    float halfHeight = 1;
-    if (tf->getScale().x == 1)
-      halfHeight = 1.75;
-    else
-      halfHeight = 1.025f;
-
-    rb->applyForce(rb->getMass() * this->gravity);
+        // Hardcoded Values, we should store these in animal class maybe or a config file
+        float halfHeight = 1;
+        if (tf->getScale().x == 1.25f) halfHeight = 2.0f;
+        else if (tf->getScale().x == 1.0f) halfHeight = 0.1;
+        else if (tf->getScale().x == 0.75f) halfHeight = 1.2f;
+        else if (tf->getScale().x == 0.5f) halfHeight = 1.025f;
+        
+        rb->applyForce(rb->getMass() * this->gravity);
 
     glm::vec3 vel =
         rb->getVelocity() + rb->getForce() / rb->getMass() * deltaTime;
@@ -52,16 +53,16 @@ void Physics::ResolveCollisions(float deltaTime) {
       if (!aBox || !bBox)
         continue;
 
-      // if (aBox->intersect(bBox))
-      // {
-      //     a->setColliding(true);
-      //     b->setColliding(true);
-      // }
-      // else
-      // {
-      //     a->setColliding(false);
-      //     b->setColliding(false);
-      // }
-      // collisions.emplace_back(a, b);
+        if (aBox->intersect(bBox)) 
+        {
+            a->setColliding(true);
+            b->setColliding(true);
+        }
+        else
+        {
+            a->setColliding(false);
+            b->setColliding(false); 
+        }
+        // collisions.emplace_back(a, b);
     }
 }

@@ -28,6 +28,7 @@ protected:
 
   // server properties
   bool interactable;
+  bool colliding;
 
 public:
   GameObject(const int objectId, const bool isActive, unique_ptr<Transform> &tf,
@@ -61,6 +62,8 @@ public:
   void deactivate() { active = false; };
   void setInteractability(bool canInteract) { interactable = canInteract; };
   bool isInteractable() const { return interactable; };
+  void setColliding(bool isColliding) { colliding = isColliding; };
+  bool isColliding() const { return colliding; };
 };
 
 #endif // OBJECT_HPP
