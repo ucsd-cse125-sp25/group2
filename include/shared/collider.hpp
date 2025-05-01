@@ -3,6 +3,15 @@
 #include "shared/core.hpp"
 #include "shared/objects/cube.hpp"
 
+struct Plane {
+  glm::vec3 A;
+  glm::vec3 B;
+  glm::vec3 C;
+  glm::vec3 D;
+
+  Plane(glm::vec3 a, glm::vec3 b, glm::vec3 c, glm::vec3 d) { this->A = a; this->B = b; this->C = c; this->D = d; }
+};
+
 class Collider {
 private:
   float xLength;

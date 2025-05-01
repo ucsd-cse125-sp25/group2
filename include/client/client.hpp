@@ -4,7 +4,6 @@
 #include "client/clientnetwork.hpp"
 #include "client/gamestate.hpp"
 #include "client/model.hpp"
-#include "client/renderer.hpp"
 #include "client/shader.hpp"
 #include "shared/core.hpp"
 #include "shared/objects/cube.hpp"

@@ -17,6 +17,8 @@ protected:
   // shared properties
   int id;
   bool active;
+  bool colliding;
+  bool grounded;
   unique_ptr<Transform> transform;
   unique_ptr<RigidBody> rigidbody;
   unique_ptr<Collider> collider;
@@ -28,7 +30,6 @@ protected:
 
   // server properties
   bool interactable;
-  bool colliding;
 
 public:
   GameObject(const int objectId, const bool isActive, unique_ptr<Transform> &tf,
@@ -38,6 +39,8 @@ public:
     model = nullptr;
     shader = nullptr;
     interactable = false;
+    colliding = false;
+    grounded = true;
   };
 
   virtual ~GameObject(){};
@@ -45,6 +48,12 @@ public:
   // shared methods
   const int getId() const { return id; };
   bool isActive() const { return active; };
+  void setColliding(bool isColliding) { colliding = isColliding; };
+  bool isColliding() const { return colliding; };
+  void setGrounded(bool isGrounded) { grounded = isGrounded; };
+  bool isGrounded() const { return grounded; };
+  const float getArea() const { return getRigidBody()->getArea(); };
+  void setArea(float a) { getRigidBody()->setArea(a); };
   Transform *getTransform() const { return transform.get(); }
   RigidBody *getRigidBody() const { return rigidbody.get(); }
   Collider *getCollider() const { return collider.get(); }
@@ -62,8 +71,6 @@ public:
   void deactivate() { active = false; };
   void setInteractability(bool canInteract) { interactable = canInteract; };
   bool isInteractable() const { return interactable; };
-  void setColliding(bool isColliding) { colliding = isColliding; };
-  bool isColliding() const { return colliding; };
 };
 
 #endif // OBJECT_HPP
