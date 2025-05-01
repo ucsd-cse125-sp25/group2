@@ -118,7 +118,8 @@ void Client::processInput(float deltaTime) {
 }
 
 // callbacks - for Interaction
-void Client::framebufferSizeCallback(GLFWwindow* window, int width, int height) {
+void Client::framebufferSizeCallback(GLFWwindow *window, int width,
+                                     int height) {
   glViewport(0, 0, width, height);
   cam->updateAspect(width, height);
 }

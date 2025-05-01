@@ -14,8 +14,11 @@ void setup_callbacks(GLFWwindow *window) {
   glfwSetErrorCallback(error_callback);
 
   /* Set framebuffer size callback */
-  glfwSetFramebufferSizeCallback(window, [](GLFWwindow *w, int width, int height) {
-    static_cast<Client *>(glfwGetWindowUserPointer(w))->framebufferSizeCallback(w, width, height);});
+  glfwSetFramebufferSizeCallback(
+      window, [](GLFWwindow *w, int width, int height) {
+        static_cast<Client *>(glfwGetWindowUserPointer(w))
+            ->framebufferSizeCallback(w, width, height);
+      });
 
   /* Set key callback */
   glfwSetKeyCallback(

@@ -37,7 +37,7 @@ public:
   void processInput(float deltaTime);
 
   // callbacks - for interactions
-  void framebufferSizeCallback(GLFWwindow* window, int width, int height);
+  void framebufferSizeCallback(GLFWwindow *window, int width, int height);
   void keyCallback(GLFWwindow *window, int key, int scancode, int action,
                    int mods);
   void mouseCallback(GLFWwindow *window, double xPos, double yPos);
