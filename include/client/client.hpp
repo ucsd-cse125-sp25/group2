@@ -63,10 +63,8 @@ private:
   std::unique_ptr<ClientNetwork> network;
 
   // Key
-  bool isHeldForward = false;   // W
-  bool isHeldBackward = false;  // S
-  bool isHeldLeft = false;      // A
-  bool isHeldRight = false;     // D
-
-
+  bool isHeldForward = false;  // W
+  bool isHeldBackward = false; // S
+  bool isHeldLeft = false;     // A
+  bool isHeldRight = false;    // D
 };

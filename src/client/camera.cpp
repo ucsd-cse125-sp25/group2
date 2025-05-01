@@ -63,23 +63,29 @@ void Camera::update(float xpos, float ypos) {
 }
 
 void Camera::moveForward(float deltaTime) {
-  glm::vec3 forwardDir = glm::normalize(glm::vec3(cameraFront.x, 0.0f, cameraFront.z)); // Flatten Y
+  glm::vec3 forwardDir = glm::normalize(
+      glm::vec3(cameraFront.x, 0.0f, cameraFront.z)); // Flatten Y
   cameraPos += forwardDir * speed * deltaTime;
 }
 
 void Camera::moveBackward(float deltaTime) {
-  glm::vec3 forwardDir = glm::normalize(glm::vec3(cameraFront.x, 0.0f, cameraFront.z));
+  glm::vec3 forwardDir =
+      glm::normalize(glm::vec3(cameraFront.x, 0.0f, cameraFront.z));
   cameraPos -= forwardDir * speed * deltaTime;
 }
 
 void Camera::moveRight(float deltaTime) {
-  glm::vec3 forwardDir = glm::normalize(glm::vec3(cameraFront.x, 0.0f, cameraFront.z));
-  glm::vec3 rightDir = glm::normalize(glm::cross(forwardDir, glm::vec3(0.0f, 1.0f, 0.0f)));
+  glm::vec3 forwardDir =
+      glm::normalize(glm::vec3(cameraFront.x, 0.0f, cameraFront.z));
+  glm::vec3 rightDir =
+      glm::normalize(glm::cross(forwardDir, glm::vec3(0.0f, 1.0f, 0.0f)));
   cameraPos += rightDir * speed * deltaTime;
 }
 
 void Camera::moveLeft(float deltaTime) {
-  glm::vec3 forwardDir = glm::normalize(glm::vec3(cameraFront.x, 0.0f, cameraFront.z));
-  glm::vec3 rightDir = glm::normalize(glm::cross(forwardDir, glm::vec3(0.0f, 1.0f, 0.0f)));
+  glm::vec3 forwardDir =
+      glm::normalize(glm::vec3(cameraFront.x, 0.0f, cameraFront.z));
+  glm::vec3 rightDir =
+      glm::normalize(glm::cross(forwardDir, glm::vec3(0.0f, 1.0f, 0.0f)));
   cameraPos -= rightDir * speed * deltaTime;
 }
