@@ -62,6 +62,10 @@ void Camera::update(float xpos, float ypos) {
   viewProjMat = projection * view;
 }
 
+void Camera::updateAspect(float width, float height) {
+  aspect = width / height;
+}
+
 void Camera::moveForward(float deltaTime) {
   glm::vec3 forwardDir = glm::normalize(
       glm::vec3(cameraFront.x, 0.0f, cameraFront.z)); // Flatten Y

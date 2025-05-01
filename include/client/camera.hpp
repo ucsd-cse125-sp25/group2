@@ -8,6 +8,7 @@ public:
   ~Camera();
 
   void update(float xpos, float ypos);
+  void updateAspect(float width, float height);
 
   void moveForward(float deltaTime);
   void moveBackward(float deltaTime);

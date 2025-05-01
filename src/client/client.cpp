@@ -118,6 +118,11 @@ void Client::processInput(float deltaTime) {
 }
 
 // callbacks - for Interaction
+void Client::framebufferSizeCallback(GLFWwindow* window, int width, int height) {
+  glViewport(0, 0, width, height);
+  cam->updateAspect(width, height);
+}
+
 void Client::keyCallback(GLFWwindow *window, int key, int scancode, int action,
                          int mods) {
   if (action == GLFW_PRESS) {
