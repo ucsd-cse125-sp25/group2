@@ -9,7 +9,10 @@ struct Collision {
   GameObject *a;
   GameObject *b;
 
-  Collision(GameObject *a, GameObject *b) { this->a = a; this->b = b; }
+  Collision(GameObject *a, GameObject *b) {
+    this->a = a;
+    this->b = b;
+  }
 };
 
 class Physics {
