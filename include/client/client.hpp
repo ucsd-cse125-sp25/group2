@@ -33,7 +33,10 @@ public:
   void idleCallback();
   void displayCallback(GLFWwindow *);
 
-  // callbacks - for interactions
+  // process input
+  void processInput(float deltaTime);
+
+  // callbacks - for interactions'
   void keyCallback(GLFWwindow *window, int key, int scancode, int action,
                    int mods);
   void mouseCallback(GLFWwindow *window, double xPos, double yPos);
@@ -58,4 +61,12 @@ private:
 
   // Network
   std::unique_ptr<ClientNetwork> network;
+
+  // Key
+  bool isHeldForward = false;   // W
+  bool isHeldBackward = false;  // S
+  bool isHeldLeft = false;      // A
+  bool isHeldRight = false;     // D
+
+
 };

@@ -9,6 +9,11 @@ public:
 
   void update(float xpos, float ypos);
 
+  void moveForward(float deltaTime);
+  void moveBackward(float deltaTime);
+  void moveLeft(float deltaTime);
+  void moveRight(float deltaTime);
+
   // Getters
   glm::vec3 getFacing() { return cameraFront; }
   glm::vec3 getPos() { return cameraPos; }
@@ -30,6 +35,7 @@ private:
 
   bool firstMouse;
   float sensitivity;
+  float speed;
 
   glm::vec3 cameraPos;
   glm::vec3 cameraFront;

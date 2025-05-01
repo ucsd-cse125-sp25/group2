@@ -11,11 +11,12 @@ Camera::Camera()
 
   yaw = -90.0f;
   pitch = 0.0f;
-  lastX = 640.0f / 2.0f;
-  lastY = 480.0f / 2.0f;
+  lastX = 800.0f / 2.0f;
+  lastY = 600.0f / 2.0f;
 
-  sensitivity = 0.1f;
   firstMouse = true;
+  sensitivity = 0.1f;
+  speed = 2.5f;
 
   worldUp = cameraUp;
 }
@@ -59,4 +60,26 @@ void Camera::update(float xpos, float ypos) {
   view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
 
   viewProjMat = projection * view;
+}
+
+void Camera::moveForward(float deltaTime) {
+  glm::vec3 forwardDir = glm::normalize(glm::vec3(cameraFront.x, 0.0f, cameraFront.z)); // Flatten Y
+  cameraPos += forwardDir * speed * deltaTime;
+}
+
+void Camera::moveBackward(float deltaTime) {
+  glm::vec3 forwardDir = glm::normalize(glm::vec3(cameraFront.x, 0.0f, cameraFront.z));
+  cameraPos -= forwardDir * speed * deltaTime;
+}
+
+void Camera::moveRight(float deltaTime) {
+  glm::vec3 forwardDir = glm::normalize(glm::vec3(cameraFront.x, 0.0f, cameraFront.z));
+  glm::vec3 rightDir = glm::normalize(glm::cross(forwardDir, glm::vec3(0.0f, 1.0f, 0.0f)));
+  cameraPos += rightDir * speed * deltaTime;
+}
+
+void Camera::moveLeft(float deltaTime) {
+  glm::vec3 forwardDir = glm::normalize(glm::vec3(cameraFront.x, 0.0f, cameraFront.z));
+  glm::vec3 rightDir = glm::normalize(glm::cross(forwardDir, glm::vec3(0.0f, 1.0f, 0.0f)));
+  cameraPos -= rightDir * speed * deltaTime;
 }

@@ -70,12 +70,21 @@ int main(void) {
   // Delete later
   client->initObjects();
 
+  float lastFrameTime = glfwGetTime();
+
   while (!glfwWindowShouldClose(window)) {
-    // Rendering call back
-    client->displayCallback(window);
+    // Calculate Frame Time
+    float currentTime = glfwGetTime();
+    float deltaTime = currentTime - lastFrameTime;
+    lastFrameTime = currentTime;
+
+    client->processInput(deltaTime);
 
     // Updating of objects
     client->idleCallback();
+
+    // Rendering call back
+    client->displayCallback(window);
   }
 
   client->cleanUp();

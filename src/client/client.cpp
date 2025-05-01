@@ -101,6 +101,22 @@ void Client::displayCallback(GLFWwindow *window) {
   glfwSwapBuffers(window);
 }
 
+void Client::processInput(float deltaTime) {
+  // Process WASD Movement
+  if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
+    cam->moveForward(deltaTime);
+  }
+  if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
+    cam->moveBackward(deltaTime);
+  }
+  if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
+    cam->moveLeft(deltaTime);
+  }
+  if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
+    cam->moveRight(deltaTime);
+  }
+}
+
 // callbacks - for Interaction
 void Client::keyCallback(GLFWwindow *window, int key, int scancode, int action,
                          int mods) {
