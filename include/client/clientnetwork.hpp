@@ -1,10 +1,12 @@
 #pragma once
+
 #include "shared/packets.hpp"
 #include <asio.hpp>
 #include <deque>
 #include <iostream>
 
 using asio::ip::tcp;
+using namespace std;
 
 #define CLIENT_ID unsigned int
 
@@ -13,19 +15,19 @@ private:
   tcp::socket _socket;
   CLIENT_ID id;
 
-  std::unique_ptr<IPacket> processPackets(PacketType type,
+  unique_ptr<IPacket> processPackets(PacketType type,
                                           vector<char> payload);
 
 public:
   bool err;
 
   // ctor/dtor
-  ClientNetwork(asio::io_context &io_context, const std::string &ip,
-                const std::string &port);
+  ClientNetwork(asio::io_context &io_context, const string &ip,
+                const string &port);
   ~ClientNetwork();
 
   void send(const IPacket &packet);
-  deque<std::unique_ptr<IPacket>> receive();
+  deque<unique_ptr<IPacket>> receive();
 
   void setId(CLIENT_ID id) { this->id = id; }
 };

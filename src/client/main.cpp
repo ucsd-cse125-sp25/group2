@@ -6,7 +6,7 @@ using namespace std;
 
 void error_callback(int error, const char *description) {
   // Print error
-  std::cerr << description << std::endl;
+  cerr << description << endl;
 }
 
 void setup_callbacks(GLFWwindow *window) {
@@ -51,9 +51,9 @@ void setup_opengl_settings() {
 
 int main(void) {
   // Initialize client
-  std::unique_ptr<Client> client(new Client());
+  unique_ptr<Client> client(new Client());
   if (!client->init()) {
-    std::cout << "Client Initialization Failed" << std::endl;
+    cout << "Client Initialization Failed" << endl;
     exit(EXIT_FAILURE);
   }
 
@@ -70,7 +70,7 @@ int main(void) {
   // Create client network
   asio::io_context io_context;
   if (!client->initNetwork(io_context, "127.0.0.1", "12345")) {
-    std::cout << "Client Network Initialization Failed" << std::endl;
+    cout << "Client Network Initialization Failed" << endl;
     exit(EXIT_FAILURE);
   }
 

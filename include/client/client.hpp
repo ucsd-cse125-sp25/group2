@@ -8,8 +8,6 @@
 #include "shared/constants.hpp"
 #include "shared/core.hpp"
 
-#define FPS (1.0 / 60.0)
-
 using namespace std;
 
 class Client {

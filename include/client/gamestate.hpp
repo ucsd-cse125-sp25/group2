@@ -1,9 +1,11 @@
 #pragma once
 
-#include "shader.hpp"
+#include "client/shader.hpp"
 #include "shared/gameobject.hpp"
-#include "shared/utilities/pch.hpp"
+#include <vector>
+#include <memory>
 
+using namespace std;
 class GameState {
 public:
   GameState();

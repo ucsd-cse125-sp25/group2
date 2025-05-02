@@ -1,9 +1,6 @@
 #include "client/gamestate.hpp"
-
 // delete later
 #include "shared/objects/cube.hpp"
-
-using namespace std;
 
 GameState::GameState() {}
 
