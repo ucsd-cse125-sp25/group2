@@ -5,9 +5,9 @@
 #include "client/gamestate.hpp"
 #include "client/model.hpp"
 #include "client/shader.hpp"
+#include "shared/constants.hpp"
 #include "shared/core.hpp"
 #include "shared/objects/cube.hpp"
-#include "shared/constants.hpp"
 
 #define FPS (1.0 / 60.0)
 

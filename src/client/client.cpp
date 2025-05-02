@@ -25,7 +25,8 @@ bool Client::init() {
   // Create the GLFW window
   windowWidth = WINDOW_WIDTH;
   windowWidth = WINDOW_HEIGHT;
-  window = glfwCreateWindow(windowWidth, windowWidth, "Barnyard Breakout", NULL, NULL);
+  window = glfwCreateWindow(windowWidth, windowWidth, "Barnyard Breakout", NULL,
+                            NULL);
   if (!window) {
     std::cerr << "Window Creation Failed" << std::endl;
     glfwTerminate();
