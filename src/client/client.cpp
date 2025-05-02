@@ -1,13 +1,26 @@
 #include "client/client.hpp"
 
-Client::Client() { cam = std::make_unique<Camera>(); }
+Client::Client() {
+  // Initialize window properties
+  window = nullptr;
+  windowWidth = WINDOW_WIDTH;
+  windowHeight = WINDOW_HEIGHT;
+
+  // Initialize camera properties
+  cam = make_unique<Camera>();
+  mouseX = 0.0f;
+  mouseY = 0.0f;
+
+  // Initialize game state properties
+  gameState = make_unique<GameState>();
+}
 
 Client::~Client() {}
 
 bool Client::init() {
   // Initialize glfw
   if (!glfwInit()) {
-    std::cerr << "Failed to initialize GLFW" << std::endl;
+    cerr << "Failed to initialize GLFW" << endl;
     return NULL;
   }
 
@@ -23,12 +36,10 @@ bool Client::init() {
   // glfwWindowHint(GLFW_MAXIMIZED, GL_TRUE); Enable later
 
   // Create the GLFW window
-  windowWidth = WINDOW_WIDTH;
-  windowWidth = WINDOW_HEIGHT;
   window = glfwCreateWindow(windowWidth, windowWidth, "Barnyard Breakout", NULL,
                             NULL);
   if (!window) {
-    std::cerr << "Window Creation Failed" << std::endl;
+    cerr << "Window Creation Failed" << endl;
     glfwTerminate();
     return false;
   }
@@ -41,37 +52,30 @@ bool Client::init() {
 }
 
 bool Client::initObjects() {
-  // TODO:initialize the objects in the list of objects in the client game state
-  cubeShaderProgram =
-      make_unique<Shader>(Shader("../src/client/shaders/shader.vert",
-                                 "../src/client/shaders/shader.frag"));
-  cube = new Cube();
+  if (!gameState->init()) {
+    cerr << "GameState Initialization Failed" << endl;
+    return false;
+  }
   return true;
 }
 
-bool Client::initNetwork(asio::io_context &io_context, const std::string &ip,
-                         const std::string &port) {
-  network = std::make_unique<ClientNetwork>(io_context, ip, port);
+bool Client::initNetwork(asio::io_context &io_context, const string &ip,
+                         const string &port) {
+  network = make_unique<ClientNetwork>(io_context, ip, port);
   return !network->err;
 }
 
 void Client::cleanUp() {
-  delete cube;
-
-  // Delete the shader programs
-  // cubeShaderProgram.deleteShader();
-  // modelShaderProgram.deleteShader();
-
   // Destroy GLFW window
   glfwDestroyWindow(window);
 }
 
 // Perform any updates to objects, camera, etc
 void Client::idleCallback() {
-  deque<std::unique_ptr<IPacket>> packets = network->receive();
+  deque<unique_ptr<IPacket>> packets = network->receive();
 
   while (!packets.empty()) {
-    std::unique_ptr<IPacket> packet = std::move(packets.front());
+    unique_ptr<IPacket> packet = move(packets.front());
     packets.pop_front();
 
     switch (packet->get_type()) {
@@ -94,17 +98,16 @@ void Client::idleCallback() {
   }
 
   cam->update(mouseX, mouseY);
-  // cube->update();
+  gameState->update();
 }
 
 void Client::displayCallback(GLFWwindow *window) {
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-  // test
-  if (cube) {
-    cube->draw(cam->getViewProj(), cubeShaderProgram);
-  }
+  // Draw objects
+  gameState->draw(cam->getViewProj());
 
+  // Check events and swap buffers
   glfwPollEvents();
   glfwSwapBuffers(window);
 }

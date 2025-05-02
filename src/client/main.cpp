@@ -70,7 +70,7 @@ int main(void) {
   // Create client network
   asio::io_context io_context;
   if (!client->initNetwork(io_context, "127.0.0.1", "12345")) {
-    std::cout << "Client Network Failed" << std::endl;
+    std::cout << "Client Network Initialization Failed" << std::endl;
     exit(EXIT_FAILURE);
   }
 

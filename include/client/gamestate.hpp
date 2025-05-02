@@ -2,25 +2,18 @@
 
 #include "shader.hpp"
 #include "shared/gameobject.hpp"
-#include <unordered_map>
-#include <vector>
-
-using namespace std;
+#include "shared/utilities/pch.hpp"
 
 class GameState {
 public:
-  std::unordered_map<int, bool> keyStates;
-
   GameState();
-  void Update(float deltaTime);
-  void Render(const glm::mat4 &viewProjMtx);
 
-  void InitializeGameObject(GameObject *gameObject);
-  void KeyboardInput(float deltaTime);
+  bool init();
+  void update();
+  void draw(const glm::mat4 &viewProjMtx);
 
 private:
-  std::vector<GameObject *> gameObjects;
-  std::unordered_map<GameObject *, Transform *> transforms;
-
-  GameObject *player;
+  vector<unique_ptr<GameObject>> objectList;
+  // delete later
+  Cube *cube;
 };

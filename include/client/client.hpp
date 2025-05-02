@@ -7,7 +7,6 @@
 #include "client/shader.hpp"
 #include "shared/constants.hpp"
 #include "shared/core.hpp"
-#include "shared/objects/cube.hpp"
 
 #define FPS (1.0 / 60.0)
 
@@ -26,8 +25,8 @@ public:
 
   bool init();
   bool initObjects();
-  bool initNetwork(asio::io_context &io_context, const std::string &ip,
-                   const std::string &port);
+  bool initNetwork(asio::io_context &io_context, const string &ip,
+                   const string &port);
   void cleanUp();
 
   // update and draw functions
@@ -48,21 +47,14 @@ public:
 
 private:
   // Camera properties
-  std::unique_ptr<Camera> cam;
+  unique_ptr<Camera> cam;
   float mouseX, mouseY;
 
   // Gamestate properties
-  Cube *cube;
-  Model *model;
-  GameState *gameState;
-  // Later: list <GameObject*> objects;
-
-  // Shader Program
-  unique_ptr<Shader> cubeShaderProgram;
-  unique_ptr<Shader> modelShaderProgram;
+  unique_ptr<GameState> gameState;
 
   // Network
-  std::unique_ptr<ClientNetwork> network;
+  unique_ptr<ClientNetwork> network;
 
   // Key
   bool isHeldForward = false;  // W
