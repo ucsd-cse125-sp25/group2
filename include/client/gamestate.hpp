@@ -2,8 +2,8 @@
 
 #include "client/shader.hpp"
 #include "shared/gameobject.hpp"
-#include <vector>
 #include <memory>
+#include <vector>
 
 using namespace std;
 class GameState {

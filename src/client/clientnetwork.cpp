@@ -8,8 +8,8 @@
  * (essentially find devices on that ip:port) connect tries to connect this
  * client's socket to one endpoint found from resolver
  */
-ClientNetwork::ClientNetwork(asio::io_context &io_context,
-                             const string &ip, const string &port)
+ClientNetwork::ClientNetwork(asio::io_context &io_context, const string &ip,
+                             const string &port)
     : _socket(io_context) {
   try {
     asio::ip::tcp::resolver resolver(io_context);
@@ -77,7 +77,7 @@ deque<unique_ptr<IPacket>> ClientNetwork::receive() {
 }
 
 unique_ptr<IPacket> ClientNetwork::processPackets(PacketType type,
-                                                       vector<char> payload) {
+                                                  vector<char> payload) {
   switch (type) {
   case PacketType::INIT: {
     unique_ptr<IPacket> packet = deserialize(PacketType::INIT, payload);
@@ -88,8 +88,7 @@ unique_ptr<IPacket> ClientNetwork::processPackets(PacketType type,
     return packet;
   }
   case PacketType::POSITION: {
-    unique_ptr<IPacket> packet =
-        deserialize(PacketType::POSITION, payload);
+    unique_ptr<IPacket> packet = deserialize(PacketType::POSITION, payload);
 
     // TEST
     if (auto *posPacket = dynamic_cast<PositionPacket *>(packet.get())) {

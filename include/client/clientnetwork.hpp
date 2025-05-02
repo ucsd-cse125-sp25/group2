@@ -15,8 +15,7 @@ private:
   tcp::socket _socket;
   CLIENT_ID id;
 
-  unique_ptr<IPacket> processPackets(PacketType type,
-                                          vector<char> payload);
+  unique_ptr<IPacket> processPackets(PacketType type, vector<char> payload);
 
 public:
   bool err;

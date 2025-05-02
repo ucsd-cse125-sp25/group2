@@ -53,8 +53,7 @@ public:
         geometryCode = gShaderStream.str();
       }
     } catch (ifstream::failure &e) {
-      cout << "ERROR::SHADER::FILE_NOT_SUCCESSFULLY_READ: " << e.what()
-                << endl;
+      cout << "ERROR::SHADER::FILE_NOT_SUCCESSFULLY_READ: " << e.what() << endl;
     }
     const char *vShaderCode = vertexCode.c_str();
     const char *fShaderCode = fragmentCode.c_str();
@@ -158,21 +157,19 @@ private:
       glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
       if (!success) {
         glGetShaderInfoLog(shader, 1024, NULL, infoLog);
-        cout
-            << "ERROR::SHADER_COMPILATION_ERROR of type: " << type << "\n"
-            << infoLog
-            << "\n -- --------------------------------------------------- -- "
-            << endl;
+        cout << "ERROR::SHADER_COMPILATION_ERROR of type: " << type << "\n"
+             << infoLog
+             << "\n -- --------------------------------------------------- -- "
+             << endl;
       }
     } else {
       glGetProgramiv(shader, GL_LINK_STATUS, &success);
       if (!success) {
         glGetProgramInfoLog(shader, 1024, NULL, infoLog);
-        cout
-            << "ERROR::PROGRAM_LINKING_ERROR of type: " << type << "\n"
-            << infoLog
-            << "\n -- --------------------------------------------------- -- "
-            << endl;
+        cout << "ERROR::PROGRAM_LINKING_ERROR of type: " << type << "\n"
+             << infoLog
+             << "\n -- --------------------------------------------------- -- "
+             << endl;
       }
     }
   }
