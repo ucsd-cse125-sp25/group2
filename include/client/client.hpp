@@ -7,6 +7,7 @@
 #include "client/shader.hpp"
 #include "shared/core.hpp"
 #include "shared/objects/cube.hpp"
+#include "shared/constants.hpp"
 
 #define FPS (1.0 / 60.0)
 
@@ -16,8 +17,8 @@ class Client {
 public:
   // Window properties
   GLFWwindow *window;
-  int width;
-  int height;
+  int windowWidth;
+  int windowHeight;
 
   // Constructors and desctructors
   Client();

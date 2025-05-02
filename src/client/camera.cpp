@@ -2,7 +2,7 @@
 
 Camera::Camera()
     : cameraPos(glm::vec3(0.0f, 2.0f, 5.0f)),
-      cameraFront(glm::vec3(0.0f, -0.3f, -1.0f)),
+      cameraFront(glm::vec3(0.0f, 0.0f, -1.0f)),
       cameraUp(glm::vec3(0.0f, 1.0f, 0.0f)), viewProjMat(glm::mat4(1.0f)) {
   fov = 60.0f;
   aspect = 1.33f;
@@ -11,8 +11,8 @@ Camera::Camera()
 
   yaw = -90.0f;
   pitch = 0.0f;
-  lastX = 800.0f / 2.0f;
-  lastY = 600.0f / 2.0f;
+  lastX = 1920.0f / 2.0f;
+  lastY = 1080.0f / 2.0f;
 
   firstMouse = true;
   sensitivity = 0.1f;
@@ -41,10 +41,9 @@ void Camera::update(float xpos, float ypos) {
   yaw += xoffset;
   pitch += yoffset;
 
-  if (pitch > 70.0f)
-    pitch = 70.0f;
-  if (pitch < -70.0f)
-    pitch = -70.0f;
+  // restrict yaw (x-dir) and pitch (y-dir)
+  yaw = glm::clamp(yaw, -110.0f, -70.0f);
+  pitch = glm::clamp(pitch, -45.0f, 10.0f);
 
   // Updating view projection matrix
   glm::vec3 front;

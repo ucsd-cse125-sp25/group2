@@ -11,14 +11,21 @@ bool Client::init() {
     return NULL;
   }
 
+  // Requests an OpenGL 3.3 context
   glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
   glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
   // Enable forward compatibility and allow a modern OpenGL context
   glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
   glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+  // Window settings
+  glfwWindowHint(GLFW_RESIZABLE, GL_TRUE);
+  glfwWindowHint(GLFW_DECORATED, GL_TRUE);
+  // glfwWindowHint(GLFW_MAXIMIZED, GL_TRUE); Enable later
 
-  // Create the GLFW window.
-  window = glfwCreateWindow(800, 600, "Barnyard Breakout", NULL, NULL);
+  // Create the GLFW window
+  windowWidth = WINDOW_WIDTH;
+  windowWidth = WINDOW_HEIGHT;
+  window = glfwCreateWindow(windowWidth, windowWidth, "Barnyard Breakout", NULL, NULL);
   if (!window) {
     std::cerr << "Window Creation Failed" << std::endl;
     glfwTerminate();
@@ -120,8 +127,10 @@ void Client::processInput(float deltaTime) {
 // callbacks - for Interaction
 void Client::framebufferSizeCallback(GLFWwindow *window, int width,
                                      int height) {
-  glViewport(0, 0, width, height);
-  cam->updateAspect(width, height);
+  windowWidth = width;
+  windowHeight = height;
+  glViewport(0, 0, windowWidth, windowHeight);
+  cam->updateAspect(windowWidth, windowHeight);
 }
 
 void Client::keyCallback(GLFWwindow *window, int key, int scancode, int action,
