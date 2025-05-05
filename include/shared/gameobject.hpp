@@ -18,6 +18,7 @@ protected:
   // shared properties
   int id;
   bool active;
+  ObjectType type;
   unique_ptr<Transform> transform;
 
   // client properties
@@ -39,6 +40,7 @@ public:
 
   // shared methods
   const int getId() const { return id; };
+  ObjectType getType() const { return type; };
   bool isActive() const { return active; };
   glm::vec3 getPosition() { return transform->getPosition(); };
   glm::vec3 getRotation() { return transform->getRotation(); };

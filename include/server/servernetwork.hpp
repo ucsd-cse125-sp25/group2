@@ -1,6 +1,5 @@
 #pragma once
 
-#include "shared/gamestate.hpp"
 #include "shared/packets.hpp"
 
 #include <asio.hpp>
@@ -19,7 +18,6 @@ private:
   unsigned int client_id;
   asio::ip::tcp::acceptor _acceptor;
   std::map<CLIENT_ID, std::shared_ptr<asio::ip::tcp::socket>> clients;
-  GameState *game;
 
   void acceptClient();
   std::unique_ptr<IPacket> processPackets(PacketType type,
@@ -27,7 +25,7 @@ private:
 
 public:
   ServerNetwork(asio::io_context &io_context, const std::string &ip,
-                const std::string &port, GameState *game);
+                const std::string &port);
   void start();
   void sendToClient(unsigned int id, const IPacket &packet);
   void sendToAll(const IPacket &packet);

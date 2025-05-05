@@ -4,16 +4,22 @@
 #include "server/servernetwork.hpp"
 
 #include <memory>
+#include <string>
+
+using namespace std;
 
 class GameServer {
 private:
-  std::unique_ptr<GameState> game;
+  unique_ptr<ServerGameState> game;
+  void handleAction(unique_ptr<ActionPacket>);
 
 public:
-  std::unique_ptr<ServerNetwork> network;
-  GameServer(asio::io_context &io_context, const std::string &ip,
-             const std::string &port);
+  unique_ptr<ServerNetwork> network;
+  GameServer(asio::io_context &io_context, const string &ip,
+             const string &port);
   ~GameServer();
   void start();
-  void update();
+  void updateGameState();
+  void updateClients();
+  void handleAction(ActionPacket * packet);
 };

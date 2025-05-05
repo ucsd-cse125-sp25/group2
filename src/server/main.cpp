@@ -19,7 +19,8 @@ int main() {
     while (true) {
       auto start = high_resolution_clock::now();
 
-      server.update();
+      server.updateGameState();
+      server.updateClients();
 
       auto stop = high_resolution_clock::now();
       auto wait = duration_cast<milliseconds>(SERVERTICKS - (stop - start));

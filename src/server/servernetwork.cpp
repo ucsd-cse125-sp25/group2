@@ -6,11 +6,9 @@
  * io_context is basically a core class that allows networking I/O for Asio
  */
 ServerNetwork::ServerNetwork(asio::io_context &io_context,
-                             const std::string &ip, const std::string &port,
-                             GameState *game)
-    : _acceptor(io_context, asio::ip::tcp::endpoint(asio::ip::make_address(ip),
+                             const std::string &ip, const std::string &port): _acceptor(io_context, asio::ip::tcp::endpoint(asio::ip::make_address(ip),
                                                     std::stoi(port))),
-      game(game), clients(), client_id(0) {
+      clients(), client_id(0) {
   std::cout << "Server started on " << ip << ":" << port << std::endl;
 }
 
@@ -32,10 +30,10 @@ void ServerNetwork::acceptClient() {
       this->clients[client_id] = socket;
       InitPacket init(client_id);
       sendToClient(client_id, init);
-
+      /*
       // initialize game state and send to client
       sendToClient(client_id, game->init());
-
+      */
       client_id++;
     } else {
       std::cerr << "Accept Failed: " << ec.message() << std::endl;
