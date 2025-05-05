@@ -1,12 +1,10 @@
+#pragma once
+
 #include "client/model.hpp"
 #include "shared/core.hpp"
-#include "shared/objects/cube.hpp"
 #include "shared/transform.hpp"
 #include <memory>
 #include <string>
-
-#ifndef OBJECT_HPP
-#define OBJECT_HPP
 
 using namespace std;
 
@@ -37,17 +35,19 @@ public:
   // shared methods
   const int getId() const { return id; };
   bool isActive() const { return active; };
+  unique_ptr<Transform> getTransform() { return move(transform); };
   glm::vec3 getPosition() { return transform->getPosition(); };
   glm::vec3 getRotation() { return transform->getRotation(); };
   glm::vec3 getScale() { return transform->getScale(); };
 
   // client methods
+  void setModel(unique_ptr<Model> mod) { model = move(mod); };
+  void setShader(unique_ptr<Shader> shad) { shader = move(shad); };
   Model *getModel() const { return model.get(); };
-  void setModel(unique_ptr<Model> &mod) { model = move(mod); };
   Shader *getShader() const { return shader.get(); };
-  void setShader(unique_ptr<Shader> &shad) { shader = move(shad); };
-  void Update(Transform *tf, float deltaTime);
-  void Render(const glm::mat4 &viewProjMtx);
+
+  void update(Transform *tf);
+  void draw(const glm::mat4 &viewProjMtx);
 
   // server methods
   void activate() { active = true; };
@@ -55,5 +55,3 @@ public:
   void setInteractability(bool canInteract) { interactable = canInteract; };
   bool isInteractable() const { return interactable; };
 };
-
-#endif // OBJECT_HPP
