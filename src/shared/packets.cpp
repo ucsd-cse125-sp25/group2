@@ -3,6 +3,35 @@
 
 using namespace std;
 
+vector<char> InitPacket::serialize() const {
+  vector<char> buffer(sizeof(client_id));
+  memcpy(buffer.data(), &client_id, sizeof(client_id));
+  return buffer;
+}
+
+InitPacket InitPacket::deserialize(const vector<char> &payload) {
+  int id;
+  memcpy(&id, payload.data(), sizeof(int));
+  InitPacket packet(id);
+  return packet;
+}
+
+vector<char> ActionPacket::serialize() const {
+  vector<char> buffer(sizeof(int) + sizeof(ActionType));
+  memcpy(buffer.data(), &objectID, sizeof(int));
+  memcpy(buffer.data() + sizeof(int), &type, sizeof(ActionType));
+  return buffer;
+}
+
+ActionPacket ActionPacket::deserialize(const vector<char> &payload) {
+  int objectID;
+  ActionType type;
+  memcpy(&objectID, payload.data(), sizeof(int));
+  memcpy(&type, payload.data() + sizeof(int), sizeof(ActionType));
+  ActionPacket packet(objectID, type);
+  return packet;
+}
+
 vector<char> ObjectPacket::serialize() const {
 
   vector<char> buffer(sizeof(int) + sizeof(ObjectType) + sizeof(glm::vec3));
@@ -41,6 +70,19 @@ ObjectPacket ObjectPacket::deserialize(const vector<char> &payload) {
   return packet;
 }
 
+vector<char> DisconnectPacket::serialize() const {
+  vector<char> buffer(sizeof(client_id));
+  memcpy(buffer.data(), &client_id, sizeof(client_id));
+  return buffer;
+}
+
+DisconnectPacket DisconnectPacket::deserialize(const vector<char> &payload) {
+  int id;
+  memcpy(&id, payload.data(), sizeof(int));
+  DisconnectPacket packet(id);
+  return packet;
+}
+
 vector<char> PositionPacket::serialize() const {
 
   vector<char> buffer(sizeof(int) + sizeof(ObjectType) + sizeof(glm::vec3));
@@ -64,4 +106,20 @@ PositionPacket PositionPacket::deserialize(const vector<char> &payload) {
 
   PositionPacket packet(id, transform);
   return packet;
+}
+
+std::unique_ptr<IPacket> deserialize(PacketType type,
+                                      const vector<char> &payload) {
+  switch (type) {
+  case PacketType::INIT:
+    return make_unique<InitPacket>(InitPacket::deserialize(payload));
+  case PacketType::OBJECT:
+    return make_unique<ObjectPacket>(ObjectPacket::deserialize(payload));
+  case PacketType::POSITION:
+    return make_unique<PositionPacket>(PositionPacket::deserialize(payload));
+  case PacketType::DISCONNECT:
+    return make_unique<DisconnectPacket>(DisconnectPacket::deserialize(payload));
+  default:
+    throw runtime_error("Unknown packet type");
+  }
 }

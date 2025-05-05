@@ -19,7 +19,7 @@ enum class PacketType : uint8_t {
   DISCONNECT
 };
 
-enum class ActionType : uint8_t { FORWARD, RIGHT, LEFT, BACK };
+enum class ActionType : uint8_t { FORWARD, BACKWARD, LEFT, RIGHT };
 
 enum class ObjectType : uint8_t { CUBE };
 
@@ -34,17 +34,8 @@ struct InitPacket : public IPacket {
 
   InitPacket(int id) : client_id(id) {}
   PacketType get_type() const override { return PacketType::INIT; }
-  vector<char> serialize() const override {
-    vector<char> buffer(sizeof(client_id));
-    memcpy(buffer.data(), &client_id, sizeof(client_id));
-    return buffer;
-  }
-  static InitPacket deserialize(const vector<char> &payload) {
-    int id;
-    memcpy(&id, payload.data(), sizeof(int));
-    InitPacket packet(id);
-    return packet;
-  }
+  vector<char> serialize() const override;
+  static InitPacket deserialize(const vector<char> &payload);
 };
 
 struct PositionPacket : public IPacket {
@@ -59,20 +50,12 @@ struct PositionPacket : public IPacket {
 };
 
 struct ActionPacket : public IPacket {
+  int objectID;
   ActionType type;
-  ActionPacket(ActionType t) : type(t) {}
+  ActionPacket(int objectID, ActionType t) : objectID(objectID), type(t) {}
   PacketType get_type() const override { return PacketType::ACTION; }
-  vector<char> serialize() const override {
-    vector<char> buffer(sizeof(type));
-    memcpy(buffer.data(), &type, sizeof(type));
-    return buffer;
-  }
-  static ActionPacket deserialize(const vector<char> &payload) {
-    ActionType type;
-    memcpy(&type, payload.data(), sizeof(ActionType));
-    ActionPacket packet(static_cast<ActionType>(type));
-    return packet;
-  }
+  vector<char> serialize() const override;
+  static ActionPacket deserialize(const vector<char> &payload);
 };
 
 struct ObjectPacket : public IPacket {
@@ -87,9 +70,7 @@ struct ObjectPacket : public IPacket {
       : id(id), type(type), transform(transform), interactable(false),
         active(active) {}
   PacketType get_type() const override { return PacketType::OBJECT; }
-
   vector<char> serialize() const override;
-
   static ObjectPacket deserialize(const vector<char> &payload);
 };
 
@@ -98,58 +79,9 @@ struct DisconnectPacket : public IPacket {
 
   DisconnectPacket(int id) : client_id(id) {}
   PacketType get_type() const override { return PacketType::DISCONNECT; }
-  vector<char> serialize() const override {
-    vector<char> buffer(sizeof(client_id));
-    memcpy(buffer.data(), &client_id, sizeof(client_id));
-    return buffer;
-  }
-  static DisconnectPacket deserialize(const vector<char> &payload) {
-    int id;
-    memcpy(&id, payload.data(), sizeof(int));
-    DisconnectPacket packet(id);
-    return packet;
-  }
+  vector<char> serialize() const override;
+  static DisconnectPacket deserialize(const vector<char> &payload);
 };
 
-inline std::unique_ptr<IPacket> deserialize(PacketType type,
-                                            vector<char> payload) {
-  switch (type) {
-  case PacketType::INIT:
-    return std::make_unique<InitPacket>(InitPacket::deserialize(payload));
-  case PacketType::POSITION:
-    return std::make_unique<PositionPacket>(
-        PositionPacket::deserialize(payload));
-  case PacketType::ACTION:
-    return std::make_unique<ActionPacket>(ActionPacket::deserialize(payload));
-  case PacketType::OBJECT:
-    return std::make_unique<ObjectPacket>(ObjectPacket::deserialize(payload));
-  case PacketType::DISCONNECT:
-    return std::make_unique<DisconnectPacket>(
-        DisconnectPacket::deserialize(payload));
-  default:
-    throw runtime_error("Unknown packet type");
-  }
-}
-
-// TESTING
-// struct StringPacket : public IPacket
-// {
-//     string message;
-
-//     StringPacket(string m) : message(m) {}
-//     PacketType get_type() const override
-//     {
-//         return PacketType::STRING;
-//     }
-//     vector<char> serialize() const override
-//     {
-//         vector<char> buffer(message.size());
-//         memcpy(buffer.data(), message.data(), message.size());
-//         return buffer;
-//     }
-//     static StringPacket deserialize(vector<char> payload, uint16_t size)
-//     {
-//         StringPacket packet(string(payload.begin(), payload.begin() + size));
-//         return packet;
-//     }
-// };
+std::unique_ptr<IPacket> deserialize(PacketType type,
+                                   vector<char> payload);
