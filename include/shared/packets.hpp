@@ -1,6 +1,7 @@
 #pragma once
 #include "shared/core.hpp"
 #include "shared/transform.hpp"
+#include "shared/gameobject.hpp"
 #include <cstring>
 #include <memory>
 #include <stdexcept>

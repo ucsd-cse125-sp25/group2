@@ -6,6 +6,7 @@
 
 #include <fstream>
 #include <iostream>
+#include <sstream>
 #include <memory>
 #include <string>
 #include <unordered_map>
@@ -16,8 +17,8 @@ using namespace std;
 class ServerGameState {
 private:
   int level;
-  unordered_map<string, GameObject> objects;
-  vector<string> updated_ids;
+  unordered_map<int, unique_ptr<GameObject>> objects;
+  vector<int> updated_ids;
 
   // float x, y, z;
   // some sort hard coding for objects at each level
@@ -25,10 +26,10 @@ private:
 
 public:
   ServerGameState();
-  GameObject createObject(string id, ObjectType type);
-  GameObject getObject(string id);
-  vector<string> getLastUpdatedObjects();
-  void updateObject(string id, GameObject updatedObject);
+  unique_ptr<GameObject> createObject(vector<float> inputs);
+  unique_ptr<GameObject> getObject(int id);
+  vector<int> getLastUpdatedObjects();
+  void updateObject(int id, unique_ptr<GameObject> updatedObject);
   void loadLevel(int new_level);
 
   /* Old Functions

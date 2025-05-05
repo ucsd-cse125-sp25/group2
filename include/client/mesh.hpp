@@ -1,9 +1,10 @@
 #pragma once
 
 #include "client/shader.hpp"
-#include "core.hpp"
+#include "shared/core.hpp"
 #include <string>
 #include <vector>
+#include <memory>
 
 using namespace std;
 

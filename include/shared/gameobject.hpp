@@ -11,6 +11,8 @@
 
 using namespace std;
 
+enum class ObjectType : uint8_t { CUBE };
+
 class GameObject {
 protected:
   // shared properties
