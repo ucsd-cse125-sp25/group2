@@ -7,7 +7,7 @@ Client::Client() {
   windowHeight = WINDOW_HEIGHT;
 
   // Initialize camera properties
-  cam = make_unique<Camera>();
+  cam = make_unique<Camera>(glm::vec3(0.0f, 0.0f, 0.0f)); // Hardcoded target for now
   mouseX = 0.0f;
   mouseY = 0.0f;
 
@@ -21,7 +21,7 @@ bool Client::init() {
   // Initialize glfw
   if (!glfwInit()) {
     cerr << "Failed to initialize GLFW" << endl;
-    return NULL;
+    return false;
   }
 
   // Requests an OpenGL 3.3 context
@@ -84,20 +84,16 @@ void Client::idleCallback() {
       network->setId(init_packet->client_id);
       break;
     }
-    case PacketType::POSITION: {
-      auto position_packet = dynamic_cast<PositionPacket *>(packet.get());
-      // initialize cube
-      break;
-    }
     case PacketType::OBJECT: {
       auto object_packet = dynamic_cast<ObjectPacket *>(packet.get());
-      // initialize cube
+      
+      // call gameState->update() here w/ id and transform
       break;
     }
     }
   }
 
-  cam->update(mouseX, mouseY);
+  cam->update(mouseX, mouseY, glm::vec3(0.0f, 0.0f, 0.0f)); // Later: gamestate->getPlayerPosition()
   gameState->update();
 }
 
@@ -116,15 +112,24 @@ void Client::processInput(float deltaTime) {
   // Process WASD Movement
   if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
     cam->moveForward(deltaTime);
+    // ActionPacket packet(0, ActionType::FORWARD);  // Hardcoded object ID for now
+    // Later, we will use the ID of the player object
+    // network->send(packet);
   }
   if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
     cam->moveBackward(deltaTime);
+    // ActionPacket packet(0, ActionType::BACKWARD);
+    // network->send(packet);
   }
   if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
     cam->moveLeft(deltaTime);
+    // ActionPacket packet(0, ActionType::LEFT);
+    // network->send(packet);
   }
   if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
     cam->moveRight(deltaTime);
+    // ActionPacket packet(0, ActionType::RIGHT);
+    // network->send(packet);
   }
 }
 
