@@ -1,8 +1,6 @@
 #include "server/servergamestate.hpp"
 
-ServerGameState::ServerGameState() {
-  loadLevel(0);
-}
+ServerGameState::ServerGameState() { loadLevel(0); }
 
 unique_ptr<GameObject> ServerGameState::createObject(vector<float> inputs) {
 
@@ -12,11 +10,11 @@ unique_ptr<GameObject> ServerGameState::createObject(vector<float> inputs) {
     return nullptr;
   }
 
-  int id = int (inputs[0]); 
-  bool isActive = bool (int(inputs[2]));
+  int id = int(inputs[0]);
+  bool isActive = bool(int(inputs[2]));
   glm::vec3 position = glm::vec3(inputs[3], inputs[4], inputs[5]);
-  glm::vec3 rotation = glm::vec3(inputs[6], inputs[7], inputs[8]); 
-  glm::vec3 scale = glm::vec3(inputs[9], inputs[10], inputs[11]); 
+  glm::vec3 rotation = glm::vec3(inputs[6], inputs[7], inputs[8]);
+  glm::vec3 scale = glm::vec3(inputs[9], inputs[10], inputs[11]);
 
   unique_ptr<Transform> tf = make_unique<Transform>(position, rotation, scale);
   unique_ptr<GameObject> new_obj = make_unique<GameObject>(id, isActive, tf);
@@ -26,7 +24,7 @@ unique_ptr<GameObject> ServerGameState::createObject(vector<float> inputs) {
 
 unique_ptr<GameObject> ServerGameState::getObject(int id) {
   auto itr = objects.find(id);
-  if (itr != objects.end()){
+  if (itr != objects.end()) {
     return move(itr->second);
   }
 
@@ -39,7 +37,8 @@ vector<int> ServerGameState::getLastUpdatedObjects() {
   return res;
 }
 
-void ServerGameState::updateObject(int id, unique_ptr<GameObject> updatedObject) {
+void ServerGameState::updateObject(int id,
+                                   unique_ptr<GameObject> updatedObject) {
   objects[id] = move(updatedObject);
   updated_ids.push_back(id);
 }
@@ -51,12 +50,12 @@ void ServerGameState::loadLevel(int new_level) {
   updated_ids.clear();
 
   switch (new_level) {
-    case 0:
-      object_file.open("level0.csv");
-      break;
-    default:
-      cerr << "No file for level " << new_level << endl;
-      return;
+  case 0:
+    object_file.open("level0.csv");
+    break;
+  default:
+    cerr << "No file for level " << new_level << endl;
+    return;
   }
 
   if (object_file.is_open()) {
@@ -72,13 +71,12 @@ void ServerGameState::loadLevel(int new_level) {
       while (getline(ss, val, ',')) {
         inputs.push_back(stof(val));
       }
-      
+
       unique_ptr<GameObject> new_obj = createObject(inputs);
       int id = (*new_obj).getId();
       objects[id] = move(new_obj);
     }
   }
-
 }
 /*
 Old Code

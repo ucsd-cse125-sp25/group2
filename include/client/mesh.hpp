@@ -2,9 +2,9 @@
 
 #include "client/shader.hpp"
 #include "shared/core.hpp"
+#include <memory>
 #include <string>
 #include <vector>
-#include <memory>
 
 using namespace std;
 
