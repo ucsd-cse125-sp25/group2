@@ -4,10 +4,10 @@
 #include "shared/core.hpp"
 class Camera {
 public:
-  Camera();
+  Camera(glm::vec3 target);
   ~Camera();
 
-  void update(float xpos, float ypos);
+  void update(float xpos, float ypos, glm::vec3 target);
   void updateAspect(float width, float height);
 
   void moveForward(float deltaTime);

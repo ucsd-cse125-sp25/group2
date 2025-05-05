@@ -1,8 +1,9 @@
 #include "client/camera.hpp"
 
-Camera::Camera()
+Camera::Camera(glm::vec3 target)
     : cameraPos(glm::vec3(0.0f, 2.0f, 5.0f)),
       cameraFront(glm::vec3(0.0f, 0.0f, -1.0f)),
+      // cameraFront(glm::normalize(target - cameraPos)),
       cameraUp(glm::vec3(0.0f, 1.0f, 0.0f)), viewProjMat(glm::mat4(1.0f)) {
   fov = 60.0f;
   aspect = 1.33f;
@@ -23,7 +24,7 @@ Camera::Camera()
 
 Camera::~Camera() {}
 
-void Camera::update(float xpos, float ypos) {
+void Camera::update(float xpos, float ypos, glm::vec3 target) {
   if (firstMouse) {
     lastX = xpos;
     lastY = ypos;
@@ -46,6 +47,14 @@ void Camera::update(float xpos, float ypos) {
   pitch = glm::clamp(pitch, -45.0f, 10.0f);
 
   // Updating view projection matrix
+  // float radius = 5.0f;
+  // float camX = radius * cos(glm::radians(pitch)) * cos(glm::radians(yaw));
+  // float camY = radius * sin(glm::radians(pitch));
+  // float camZ = radius * cos(glm::radians(pitch)) * sin(glm::radians(yaw));
+
+  // cameraPos = target + glm::vec3(camX, camY, camZ);
+  // cameraFront = glm::normalize(target - cameraPos);
+
   glm::vec3 front;
   front.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
   front.y = sin(glm::radians(pitch));
