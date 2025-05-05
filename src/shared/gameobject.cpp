@@ -1,7 +1,7 @@
 #include "shared/gameobject.hpp"
 
-void GameObject::Update(Transform *tf, float deltaTime) { model->Update(tf); }
+void GameObject::update(Transform *tf) { model->Update(tf); }
 
-void GameObject::Render(const glm::mat4 &viewProjMtx) {
+void GameObject::draw(const glm::mat4 &viewProjMtx) {
   model->Draw(viewProjMtx, shader);
 }

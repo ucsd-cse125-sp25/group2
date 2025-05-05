@@ -1,6 +1,4 @@
 #include "client/clientnetwork.hpp"
-#include "shared/objects/cube.hpp"
-#include "shared/utilities/util_packets.hpp"
 
 /*
  * Constructor for ClientNetwork
