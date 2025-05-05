@@ -1,5 +1,4 @@
 #include "shared/packets.hpp"
-#include "shared/utilities/util_packets.hpp"
 
 using namespace std;
 
@@ -108,8 +107,7 @@ PositionPacket PositionPacket::deserialize(const vector<char> &payload) {
   return packet;
 }
 
-std::unique_ptr<IPacket> deserialize(PacketType type,
-                                      const vector<char> &payload) {
+std::unique_ptr<IPacket> deserialize(PacketType type, vector<char> &payload) {
   switch (type) {
   case PacketType::INIT:
     return make_unique<InitPacket>(InitPacket::deserialize(payload));
@@ -122,4 +120,36 @@ std::unique_ptr<IPacket> deserialize(PacketType type,
   default:
     throw runtime_error("Unknown packet type");
   }
+}
+
+// Debugging
+void printObjectPacket(const ObjectPacket &packet) {
+  std::cout << "ObjectPacket: " << std::endl;
+  std::cout << "id: " << packet.id << std::endl;
+  std::cout << "type: " << int(packet.type) << std::endl;
+  std::cout << "position: (" << packet.transform.getPosition().x << ", "
+            << packet.transform.getPosition().y << ", "
+            << packet.transform.getPosition().z << ")" << std::endl;
+  std::cout << "rotation: (" << packet.transform.getRotation().x << ", "
+            << packet.transform.getRotation().y << ", "
+            << packet.transform.getRotation().z << ")" << std::endl;
+  std::cout << "scale: (" << packet.transform.getScale().x << ", "
+            << packet.transform.getScale().y << ", "
+            << packet.transform.getScale().z << ")" << std::endl;
+  std::cout << "interactable: " << packet.interactable << std::endl;
+  std::cout << "active: " << packet.active << std::endl;
+}
+
+void printPositionPacket(const PositionPacket &packet) {
+  std::cout << "PositionPacket: " << std::endl;
+  std::cout << "id: " << packet.object_id << std::endl;
+  std::cout << "position: (" << packet.transform.getPosition().x << ", "
+            << packet.transform.getPosition().y << ", "
+            << packet.transform.getPosition().z << ")" << std::endl;
+  std::cout << "rotation: (" << packet.transform.getRotation().x << ", "
+            << packet.transform.getRotation().y << ", "
+            << packet.transform.getRotation().z << ")" << std::endl;
+  std::cout << "scale: (" << packet.transform.getScale().x << ", "
+            << packet.transform.getScale().y << ", "
+            << packet.transform.getScale().z << ")" << std::endl;
 }

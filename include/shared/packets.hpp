@@ -1,6 +1,7 @@
 #pragma once
 #include "shared/core.hpp"
 #include "shared/transform.hpp"
+#include "shared/utilities/util_packets.hpp"
 #include <cstring>
 #include <memory>
 #include <stdexcept>
@@ -83,5 +84,8 @@ struct DisconnectPacket : public IPacket {
   static DisconnectPacket deserialize(const vector<char> &payload);
 };
 
-std::unique_ptr<IPacket> deserialize(PacketType type,
-                                   vector<char> payload);
+std::unique_ptr<IPacket> deserialize(PacketType type, vector<char> &payload);
+
+// Debugging Methods
+void printObjectPacket(const ObjectPacket &packet);
+void printPositionPacket(const PositionPacket &packet);
