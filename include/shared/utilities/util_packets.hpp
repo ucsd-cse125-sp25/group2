@@ -2,12 +2,12 @@
 #include "shared/core.hpp"
 #include "shared/transform.hpp"
 #include <cstring>
+#include <iostream>
 #include <memory>
 #include <stdexcept>
 #include <stdint.h>
 #include <string>
 #include <vector>
-#include <iostream>
 
 using namespace std;
 

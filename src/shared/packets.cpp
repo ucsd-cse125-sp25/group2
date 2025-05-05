@@ -116,7 +116,8 @@ std::unique_ptr<IPacket> deserialize(PacketType type, vector<char> &payload) {
   case PacketType::POSITION:
     return make_unique<PositionPacket>(PositionPacket::deserialize(payload));
   case PacketType::DISCONNECT:
-    return make_unique<DisconnectPacket>(DisconnectPacket::deserialize(payload));
+    return make_unique<DisconnectPacket>(
+        DisconnectPacket::deserialize(payload));
   default:
     throw runtime_error("Unknown packet type");
   }

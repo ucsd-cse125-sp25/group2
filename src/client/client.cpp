@@ -7,7 +7,8 @@ Client::Client() {
   windowHeight = WINDOW_HEIGHT;
 
   // Initialize camera properties
-  cam = make_unique<Camera>(glm::vec3(0.0f, 0.0f, 0.0f)); // Hardcoded target for now
+  cam = make_unique<Camera>(
+      glm::vec3(0.0f, 0.0f, 0.0f)); // Hardcoded target for now
   mouseX = 0.0f;
   mouseY = 0.0f;
 
@@ -86,14 +87,16 @@ void Client::idleCallback() {
     }
     case PacketType::OBJECT: {
       auto object_packet = dynamic_cast<ObjectPacket *>(packet.get());
-      
+
       // call gameState->update() here w/ id and transform
       break;
     }
     }
   }
 
-  cam->update(mouseX, mouseY, glm::vec3(0.0f, 0.0f, 0.0f)); // Later: gamestate->getPlayerPosition()
+  cam->update(
+      mouseX, mouseY,
+      glm::vec3(0.0f, 0.0f, 0.0f)); // Later: gamestate->getPlayerPosition()
   gameState->update();
 }
 
@@ -112,9 +115,8 @@ void Client::processInput(float deltaTime) {
   // Process WASD Movement
   if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
     cam->moveForward(deltaTime);
-    // ActionPacket packet(0, ActionType::FORWARD);  // Hardcoded object ID for now
-    // Later, we will use the ID of the player object
-    // network->send(packet);
+    // ActionPacket packet(0, ActionType::FORWARD);  // Hardcoded object ID for
+    // now Later, we will use the ID of the player object network->send(packet);
   }
   if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
     cam->moveBackward(deltaTime);
