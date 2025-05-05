@@ -17,10 +17,10 @@ void GameServer::updateGameState() {
     list_packets.pop_front();
 
     switch (packet->get_type()) {
-      case PacketType::ACTION:
-        auto action_packet = static_cast<ActionPacket *>(packet.get());
-        handleAction(action_packet);
-        break;
+    case PacketType::ACTION:
+      auto action_packet = static_cast<ActionPacket *>(packet.get());
+      handleAction(action_packet);
+      break;
     }
   }
 }
@@ -28,15 +28,16 @@ void GameServer::updateGameState() {
 void GameServer::updateClients() {
   vector<int> object_ids = (*game).getLastUpdatedObjects();
   for (int i = 0; i < object_ids.size(); i++) {
-    GameObject * obj = (*game).getObject(object_ids[i]);
-    ObjectPacket obj_packet = ObjectPacket(obj->getId(), obj->getType(), Transform(obj->getPosition(), obj->getRotation(), obj->getScale()), obj->isInteractable(), obj->isActive());
+    GameObject *obj = (*game).getObject(object_ids[i]);
+    ObjectPacket obj_packet = ObjectPacket(
+        obj->getId(), obj->getType(),
+        Transform(obj->getPosition(), obj->getRotation(), obj->getScale()),
+        obj->isInteractable(), obj->isActive());
     network->sendToAll(obj_packet);
   }
 }
 
-void GameServer::handleAction(ActionPacket * packet){
- 
-}
+void GameServer::handleAction(ActionPacket *packet) {}
 
 /* old update
 void GameServer::update() {

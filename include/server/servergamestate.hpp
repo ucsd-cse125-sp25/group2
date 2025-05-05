@@ -27,7 +27,7 @@ private:
 public:
   ServerGameState();
   unique_ptr<GameObject> createObject(vector<float> inputs);
-  GameObject* getObject(int id);
+  GameObject *getObject(int id);
   vector<int> getLastUpdatedObjects();
   void updateObject(int id, unique_ptr<GameObject> updatedObject);
   void loadLevel(int new_level);

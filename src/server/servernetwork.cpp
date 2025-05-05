@@ -6,7 +6,8 @@
  * io_context is basically a core class that allows networking I/O for Asio
  */
 ServerNetwork::ServerNetwork(asio::io_context &io_context,
-                             const std::string &ip, const std::string &port): _acceptor(io_context, asio::ip::tcp::endpoint(asio::ip::make_address(ip),
+                             const std::string &ip, const std::string &port)
+    : _acceptor(io_context, asio::ip::tcp::endpoint(asio::ip::make_address(ip),
                                                     std::stoi(port))),
       clients(), client_id(0) {
   std::cout << "Server started on " << ip << ":" << port << std::endl;

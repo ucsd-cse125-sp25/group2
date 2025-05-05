@@ -21,5 +21,5 @@ public:
   void start();
   void updateGameState();
   void updateClients();
-  void handleAction(ActionPacket * packet);
+  void handleAction(ActionPacket *packet);
 };
