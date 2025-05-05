@@ -33,7 +33,7 @@ ActionPacket ActionPacket::deserialize(const vector<char> &payload) {
 
 vector<char> ObjectPacket::serialize() const {
 
-  vector<char> buffer(sizeof(int) + sizeof(ObjectType) + sizeof(glm::vec3));
+  vector<char> buffer(sizeof(int) + sizeof(ObjectType) + sizeof(Transform)  + 2 * sizeof(bool));
 
   unsigned long size = 0;
 

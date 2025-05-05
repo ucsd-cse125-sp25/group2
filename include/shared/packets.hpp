@@ -68,7 +68,7 @@ struct ObjectPacket : public IPacket {
 
   ObjectPacket(int id, ObjectType type, Transform transform,
                bool interactable = false, bool active = false)
-      : id(id), type(type), transform(transform), interactable(false),
+      : id(id), type(type), transform(transform), interactable(interactable),
         active(active) {}
   PacketType get_type() const override { return PacketType::OBJECT; }
   vector<char> serialize() const override;
