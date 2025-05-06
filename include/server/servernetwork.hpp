@@ -21,8 +21,7 @@ private:
   map<CLIENT_ID, shared_ptr<asio::ip::tcp::socket>> clients;
 
   void acceptClient();
-  unique_ptr<IPacket> processPackets(PacketType type,
-                                          vector<char> payload);
+  unique_ptr<IPacket> processPackets(PacketType type, vector<char> payload);
 
 public:
   ServerNetwork(asio::io_context &io_context, const string &ip,

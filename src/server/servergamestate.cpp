@@ -42,25 +42,25 @@ void ServerGameState::updateMovement(int id, MovementType type) {
   if (obj) {
     // do camera calculation here
     switch (type) {
-      case MovementType::FORWARD:
-        cout << "moving forward" << endl;
-        // obj->move(vec/transform);
-        break;
-      case MovementType::BACKWARD:
-        cout << "moving backward" << endl;
-        // obj->move(vec/transform);
-        break;
-      case MovementType::LEFT:
-        cout << "moving left" << endl;
-        // obj->move(vec/transform);
-        break;
-      case MovementType::RIGHT:
-        cout << "moving right" << endl;
-        // obj->move(vec/transform);
-        break;
-      default:
-        cerr << "Unknown movement type" << endl;
-        break;
+    case MovementType::FORWARD:
+      cout << "moving forward" << endl;
+      // obj->move(vec/transform);
+      break;
+    case MovementType::BACKWARD:
+      cout << "moving backward" << endl;
+      // obj->move(vec/transform);
+      break;
+    case MovementType::LEFT:
+      cout << "moving left" << endl;
+      // obj->move(vec/transform);
+      break;
+    case MovementType::RIGHT:
+      cout << "moving right" << endl;
+      // obj->move(vec/transform);
+      break;
+    default:
+      cerr << "Unknown movement type" << endl;
+      break;
     }
     updatedObjectIds.push_back(id);
   }

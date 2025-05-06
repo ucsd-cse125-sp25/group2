@@ -5,8 +5,8 @@
  * Called and acceptor which takes an io_context and endpoints
  * io_context is basically a core class that allows networking I/O for Asio
  */
-ServerNetwork::ServerNetwork(asio::io_context &io_context,
-                             const string &ip, const string &port)
+ServerNetwork::ServerNetwork(asio::io_context &io_context, const string &ip,
+                             const string &port)
     : _acceptor(io_context, asio::ip::tcp::endpoint(asio::ip::make_address(ip),
                                                     stoi(port))),
       clients(), clientID(0) {
@@ -22,8 +22,7 @@ void ServerNetwork::start() { acceptClient(); }
  * client messages Accept_client again to keep listening for new clients
  */
 void ServerNetwork::acceptClient() {
-  auto socket =
-      make_shared<asio::ip::tcp::socket>(_acceptor.get_executor());
+  auto socket = make_shared<asio::ip::tcp::socket>(_acceptor.get_executor());
 
   _acceptor.async_accept(*socket, [this, socket](error_code ec) {
     if (!ec) {
@@ -35,7 +34,7 @@ void ServerNetwork::acceptClient() {
       // initialize game state and send to client
       sendToClient(clientID, game->init());
       */
-     clientID++;
+      clientID++;
     } else {
       cerr << "Accept Failed: " << ec.message() << endl;
     }
@@ -115,20 +114,18 @@ deque<unique_ptr<IPacket>> ServerNetwork::receiveFromClients() {
 }
 
 unique_ptr<IPacket> ServerNetwork::processPackets(PacketType type,
-                                                       vector<char> payload) {
+                                                  vector<char> payload) {
   switch (type) {
   case PacketType::INIT: {
     unique_ptr<IPacket> packet = deserialize(PacketType::INIT, payload);
     return packet;
   }
   case PacketType::MOVEMENT: {
-    unique_ptr<IPacket> packet =
-        deserialize(PacketType::MOVEMENT, payload);
+    unique_ptr<IPacket> packet = deserialize(PacketType::MOVEMENT, payload);
     return packet;
   }
   case PacketType::DISCONNECT: {
-    unique_ptr<IPacket> packet =
-        deserialize(PacketType::DISCONNECT, payload);
+    unique_ptr<IPacket> packet = deserialize(PacketType::DISCONNECT, payload);
     return packet;
   }
   default:

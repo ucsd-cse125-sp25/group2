@@ -97,7 +97,7 @@ void Client::idleCallback() {
   cam->update(
       mouseX, mouseY,
       glm::vec3(0.0f, 0.0f, 0.0f)); // Later: gamestate->getPlayerPosition()
-      game->update();
+  game->update();
 }
 
 void Client::displayCallback(GLFWwindow *window) {
@@ -115,7 +115,8 @@ void Client::processInput(float deltaTime) {
   // Process WASD Movement
   if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
     cam->moveForward(deltaTime);
-    MovementPacket packet(0, MovementType::FORWARD);  // Hardcoded object ID for now
+    MovementPacket packet(0,
+                          MovementType::FORWARD); // Hardcoded object ID for now
     // Later, we will use the ID of the player object
     network->send(packet);
   }

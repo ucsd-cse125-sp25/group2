@@ -14,14 +14,9 @@
 
 using namespace std;
 
-enum class PacketType : uint8_t {
-  INIT,
-  OBJECT,
-  MOVEMENT,
-  DISCONNECT
-};
+enum class PacketType : uint8_t { INIT, OBJECT, MOVEMENT, DISCONNECT };
 
-enum class MovementType: uint8_t { FORWARD, BACKWARD, LEFT, RIGHT };
+enum class MovementType : uint8_t { FORWARD, BACKWARD, LEFT, RIGHT };
 
 struct IPacket {
   virtual PacketType getType() const = 0;
@@ -47,8 +42,8 @@ struct ObjectPacket : public IPacket {
 
   ObjectPacket(int id, ObjectType type, Transform transform,
                bool interactable = false, bool active = false)
-      : objectID(id), objectType(type), transform(transform), interactable(interactable),
-        active(active) {}
+      : objectID(id), objectType(type), transform(transform),
+        interactable(interactable), active(active) {}
   PacketType getType() const override { return PacketType::OBJECT; }
   vector<char> serialize() const override;
   static ObjectPacket deserialize(const vector<char> &payload);
@@ -57,8 +52,9 @@ struct ObjectPacket : public IPacket {
 struct MovementPacket : public IPacket {
   int objectID;
   MovementType movementType;
-  
-  MovementPacket(int id, MovementType type) : objectID(id), movementType(type) {}
+
+  MovementPacket(int id, MovementType type)
+      : objectID(id), movementType(type) {}
   PacketType getType() const override { return PacketType::MOVEMENT; }
   vector<char> serialize() const override;
   static MovementPacket deserialize(const vector<char> &payload);

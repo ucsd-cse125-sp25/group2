@@ -15,7 +15,8 @@ InitPacket InitPacket::deserialize(const vector<char> &payload) {
 }
 
 vector<char> ObjectPacket::serialize() const {
-  vector<char> buffer(sizeof(int) + sizeof(ObjectType) + sizeof(Transform)  + 2 * sizeof(bool));
+  vector<char> buffer(sizeof(int) + sizeof(ObjectType) + sizeof(Transform) +
+                      2 * sizeof(bool));
   unsigned long size = 0;
   memcpy(buffer.data(), &objectID, sizeof(int));
   size += sizeof(int);
@@ -101,14 +102,14 @@ void printObjectPacket(const ObjectPacket &packet) {
   cout << "id: " << packet.objectID << endl;
   cout << "type: " << int(packet.objectType) << endl;
   cout << "position: (" << packet.transform.getPosition().x << ", "
-            << packet.transform.getPosition().y << ", "
-            << packet.transform.getPosition().z << ")" << endl;
+       << packet.transform.getPosition().y << ", "
+       << packet.transform.getPosition().z << ")" << endl;
   cout << "rotation: (" << packet.transform.getRotation().x << ", "
-            << packet.transform.getRotation().y << ", "
-            << packet.transform.getRotation().z << ")" << endl;
+       << packet.transform.getRotation().y << ", "
+       << packet.transform.getRotation().z << ")" << endl;
   cout << "scale: (" << packet.transform.getScale().x << ", "
-            << packet.transform.getScale().y << ", "
-            << packet.transform.getScale().z << ")" << endl;
+       << packet.transform.getScale().y << ", " << packet.transform.getScale().z
+       << ")" << endl;
   cout << "interactable: " << packet.interactable << endl;
   cout << "active: " << packet.active << endl;
 }
