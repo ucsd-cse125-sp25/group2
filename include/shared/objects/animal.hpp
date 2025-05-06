@@ -25,5 +25,3 @@ public:
   float getPositionZ() const;
   string getAnimalType() const;
 };
-
-#endif // ANIMAL_HPP
