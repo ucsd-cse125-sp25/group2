@@ -22,10 +22,10 @@ unique_ptr<GameObject> ServerGameState::createObject(vector<float> inputs) {
   return new_obj;
 }
 
-unique_ptr<GameObject> ServerGameState::getObject(int id) {
+GameObject *ServerGameState::getObject(int id) {
   auto itr = objects.find(id);
   if (itr != objects.end()) {
-    return move(itr->second);
+    return itr->second.get();
   }
 
   return nullptr;
