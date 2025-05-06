@@ -1,7 +1,6 @@
 #pragma once
 
 #include "shared/gameobject.hpp"
-#include "shared/objects/cube.hpp"
 #include "shared/packets.hpp"
 
 #include <fstream>
@@ -15,25 +14,21 @@
 using namespace std;
 
 class ServerGameState {
-private:
-  int level;
-  unordered_map<int, unique_ptr<GameObject>> objects;
-  vector<int> updated_ids;
-
-  // float x, y, z;
-  // some sort hard coding for objects at each level
-  // perhaps this should be done in a txt file that is read in
-
 public:
   ServerGameState();
+
   unique_ptr<GameObject> createObject(vector<float> inputs);
+
+  // update methods
+  void updateMovement(int id, MovementType type);
+
+  // getters
   GameObject *getObject(int id);
   vector<int> getLastUpdatedObjects();
-  void updateObject(int id, unique_ptr<GameObject> updatedObject);
-  void loadLevel(int new_level);
+  // void loadLevel(int new_level);
 
-  /* Old Functions
-  ObjectPacket init();
-  PositionPacket handleAction(ActionPacket *packet);
-  */
+private:
+  int level;
+  unordered_map<int, unique_ptr<GameObject>> objectList;
+  vector<int> updatedObjectIds;
 };

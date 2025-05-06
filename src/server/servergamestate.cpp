@@ -1,6 +1,6 @@
 #include "server/servergamestate.hpp"
 
-ServerGameState::ServerGameState() { loadLevel(0); }
+ServerGameState::ServerGameState() {}
 
 unique_ptr<GameObject> ServerGameState::createObject(vector<float> inputs) {
 
@@ -23,26 +23,50 @@ unique_ptr<GameObject> ServerGameState::createObject(vector<float> inputs) {
 }
 
 GameObject *ServerGameState::getObject(int id) {
-  auto itr = objects.find(id);
-  if (itr != objects.end()) {
+  auto itr = objectList.find(id);
+  if (itr != objectList.end()) {
     return itr->second.get();
   }
-
+  cerr << "Object with id " << id << " not found" << endl;
   return nullptr;
 }
 
 vector<int> ServerGameState::getLastUpdatedObjects() {
-  auto res = move(updated_ids);
-  updated_ids.clear();
+  auto res = move(updatedObjectIds);
+  updatedObjectIds.clear();
   return res;
 }
 
-void ServerGameState::updateObject(int id,
-                                   unique_ptr<GameObject> updatedObject) {
-  objects[id] = move(updatedObject);
-  updated_ids.push_back(id);
+void ServerGameState::updateMovement(int id, MovementType type) {
+  auto obj = getObject(id);
+  if (obj) {
+    // do camera calculation here
+    switch (type) {
+      case MovementType::FORWARD:
+        cout << "moving forward" << endl;
+        // obj->move(vec/transform);
+        break;
+      case MovementType::BACKWARD:
+        cout << "moving backward" << endl;
+        // obj->move(vec/transform);
+        break;
+      case MovementType::LEFT:
+        cout << "moving left" << endl;
+        // obj->move(vec/transform);
+        break;
+      case MovementType::RIGHT:
+        cout << "moving right" << endl;
+        // obj->move(vec/transform);
+        break;
+      default:
+        cerr << "Unknown movement type" << endl;
+        break;
+    }
+    updatedObjectIds.push_back(id);
+  }
 }
 
+/*
 void ServerGameState::loadLevel(int new_level) {
   level = new_level;
   ifstream object_file;
@@ -77,46 +101,5 @@ void ServerGameState::loadLevel(int new_level) {
       objects[id] = move(new_obj);
     }
   }
-}
-/*
-Old Code
-ObjectPacket GameState::init() {
-  // initialize cube at the world origin
-  x = 0.0f;
-  y = 0.0f;
-  z = 0.0f;
-  ObjectPacket cube(0, ObjectType::CUBE, glm::vec3(x, y, z));
-  return cube;
-}
-
-PositionPacket GameState::handleAction(ActionPacket *packet) {
-  // Handle the action packet
-  PositionPacket cube(
-      0, glm::vec3(x, y, z)); // Declare and initialize cube before the switch
-  switch (packet->type) {
-  case ActionType::FORWARD:
-    // Move forward
-    z -= 1.0f;
-    cube = PositionPacket(0, glm::vec3(x, y, z));
-    return cube;
-  case ActionType::BACK:
-    // Move backward
-    z += 1.0f;
-    cube = PositionPacket(0, glm::vec3(x, y, z));
-    break;
-  case ActionType::LEFT:
-    // Move left
-    x -= 1.0f;
-    cube = PositionPacket(0, glm::vec3(x, y, z));
-    break;
-  case ActionType::RIGHT:
-    // Move right
-    x += 1.0f;
-    cube = PositionPacket(0, glm::vec3(x, y, z));
-    break;
-  default:
-    break;
-  }
-  return cube; // Ensure cube is returned in all cases
 }
 */
