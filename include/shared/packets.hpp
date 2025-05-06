@@ -24,7 +24,7 @@ enum class PacketType : uint8_t {
 enum class MovementType: uint8_t { FORWARD, BACKWARD, LEFT, RIGHT };
 
 struct IPacket {
-  virtual PacketType get_type() const = 0;
+  virtual PacketType getType() const = 0;
   virtual vector<char> serialize() const = 0;
   virtual ~IPacket() = default;
 };
@@ -33,7 +33,7 @@ struct InitPacket : public IPacket {
   int client_id;
 
   InitPacket(int id) : client_id(id) {}
-  PacketType get_type() const override { return PacketType::INIT; }
+  PacketType getType() const override { return PacketType::INIT; }
   vector<char> serialize() const override;
   static InitPacket deserialize(const vector<char> &payload);
 };
@@ -42,7 +42,7 @@ struct MovementPacket : public IPacket {
   int objectID;
   MovementType type;
   MovementPacket(int objectID, MovementType t) : objectID(objectID), type(t) {}
-  PacketType get_type() const override { return PacketType::MOVEMENT; }
+  PacketType getType() const override { return PacketType::MOVEMENT; }
   vector<char> serialize() const override;
   static MovementPacket deserialize(const vector<char> &payload);
 };
@@ -58,7 +58,7 @@ struct ObjectPacket : public IPacket {
                bool interactable = false, bool active = false)
       : id(id), type(type), transform(transform), interactable(interactable),
         active(active) {}
-  PacketType get_type() const override { return PacketType::OBJECT; }
+  PacketType getType() const override { return PacketType::OBJECT; }
   vector<char> serialize() const override;
   static ObjectPacket deserialize(const vector<char> &payload);
 };
@@ -67,7 +67,7 @@ struct DisconnectPacket : public IPacket {
   int client_id;
 
   DisconnectPacket(int id) : client_id(id) {}
-  PacketType get_type() const override { return PacketType::DISCONNECT; }
+  PacketType getType() const override { return PacketType::DISCONNECT; }
   vector<char> serialize() const override;
   static DisconnectPacket deserialize(const vector<char> &payload);
 };
