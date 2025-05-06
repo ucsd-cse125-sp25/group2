@@ -30,9 +30,9 @@ struct IPacket {
 };
 
 struct InitPacket : public IPacket {
-  int client_id;
+  int clientID;
 
-  InitPacket(int id) : client_id(id) {}
+  InitPacket(int id) : clientID(id) {}
   PacketType getType() const override { return PacketType::INIT; }
   vector<char> serialize() const override;
   static InitPacket deserialize(const vector<char> &payload);
@@ -40,23 +40,24 @@ struct InitPacket : public IPacket {
 
 struct MovementPacket : public IPacket {
   int objectID;
-  MovementType type;
-  MovementPacket(int objectID, MovementType t) : objectID(objectID), type(t) {}
+  MovementType movementType;
+  
+  MovementPacket(int id, MovementType type) : objectID(id), movementType(type) {}
   PacketType getType() const override { return PacketType::MOVEMENT; }
   vector<char> serialize() const override;
   static MovementPacket deserialize(const vector<char> &payload);
 };
 
 struct ObjectPacket : public IPacket {
-  int id;
-  ObjectType type;
+  int objectID;
+  ObjectType objectType;
   Transform transform;
   bool interactable;
   bool active;
 
   ObjectPacket(int id, ObjectType type, Transform transform,
                bool interactable = false, bool active = false)
-      : id(id), type(type), transform(transform), interactable(interactable),
+      : objectID(id), objectType(type), transform(transform), interactable(interactable),
         active(active) {}
   PacketType getType() const override { return PacketType::OBJECT; }
   vector<char> serialize() const override;
@@ -64,9 +65,9 @@ struct ObjectPacket : public IPacket {
 };
 
 struct DisconnectPacket : public IPacket {
-  int client_id;
+  int clientID;
 
-  DisconnectPacket(int id) : client_id(id) {}
+  DisconnectPacket(int id) : clientID(id) {}
   PacketType getType() const override { return PacketType::DISCONNECT; }
   vector<char> serialize() const override;
   static DisconnectPacket deserialize(const vector<char> &payload);
