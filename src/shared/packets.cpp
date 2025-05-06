@@ -14,23 +14,6 @@ InitPacket InitPacket::deserialize(const vector<char> &payload) {
   return packet;
 }
 
-vector<char> MovementPacket::serialize() const {
-  vector<char> buffer(sizeof(int) + sizeof(MovementType));
-  memcpy(buffer.data(), &objectID, sizeof(int));
-  memcpy(buffer.data() + sizeof(int), &movementType, sizeof(MovementType));
-  return buffer;
-}
-
-MovementPacket MovementPacket::deserialize(const vector<char> &payload) {
-  int objectID;
-  MovementType movementType;
-
-  memcpy(&objectID, payload.data(), sizeof(int));
-  memcpy(&movementType, payload.data() + sizeof(int), sizeof(MovementType));
-  MovementPacket packet(objectID, movementType);
-  return packet;
-}
-
 vector<char> ObjectPacket::serialize() const {
   vector<char> buffer(sizeof(int) + sizeof(ObjectType) + sizeof(Transform)  + 2 * sizeof(bool));
   unsigned long size = 0;
@@ -65,6 +48,23 @@ ObjectPacket ObjectPacket::deserialize(const vector<char> &payload) {
   return packet;
 }
 
+vector<char> MovementPacket::serialize() const {
+  vector<char> buffer(sizeof(int) + sizeof(MovementType));
+  memcpy(buffer.data(), &objectID, sizeof(int));
+  memcpy(buffer.data() + sizeof(int), &movementType, sizeof(MovementType));
+  return buffer;
+}
+
+MovementPacket MovementPacket::deserialize(const vector<char> &payload) {
+  int objectID;
+  MovementType movementType;
+
+  memcpy(&objectID, payload.data(), sizeof(int));
+  memcpy(&movementType, payload.data() + sizeof(int), sizeof(MovementType));
+  MovementPacket packet(objectID, movementType);
+  return packet;
+}
+
 vector<char> DisconnectPacket::serialize() const {
   vector<char> buffer(sizeof(int));
   memcpy(buffer.data(), &clientID, sizeof(int));
@@ -85,6 +85,8 @@ std::unique_ptr<IPacket> deserialize(PacketType type, vector<char> &payload) {
     return make_unique<InitPacket>(InitPacket::deserialize(payload));
   case PacketType::OBJECT:
     return make_unique<ObjectPacket>(ObjectPacket::deserialize(payload));
+  case PacketType::MOVEMENT:
+    return make_unique<MovementPacket>(MovementPacket::deserialize(payload));
   case PacketType::DISCONNECT:
     return make_unique<DisconnectPacket>(
         DisconnectPacket::deserialize(payload));

@@ -16,8 +16,8 @@ using namespace std;
 
 enum class PacketType : uint8_t {
   INIT,
-  MOVEMENT,
   OBJECT,
+  MOVEMENT,
   DISCONNECT
 };
 
@@ -38,16 +38,6 @@ struct InitPacket : public IPacket {
   static InitPacket deserialize(const vector<char> &payload);
 };
 
-struct MovementPacket : public IPacket {
-  int objectID;
-  MovementType movementType;
-  
-  MovementPacket(int id, MovementType type) : objectID(id), movementType(type) {}
-  PacketType getType() const override { return PacketType::MOVEMENT; }
-  vector<char> serialize() const override;
-  static MovementPacket deserialize(const vector<char> &payload);
-};
-
 struct ObjectPacket : public IPacket {
   int objectID;
   ObjectType objectType;
@@ -62,6 +52,16 @@ struct ObjectPacket : public IPacket {
   PacketType getType() const override { return PacketType::OBJECT; }
   vector<char> serialize() const override;
   static ObjectPacket deserialize(const vector<char> &payload);
+};
+
+struct MovementPacket : public IPacket {
+  int objectID;
+  MovementType movementType;
+  
+  MovementPacket(int id, MovementType type) : objectID(id), movementType(type) {}
+  PacketType getType() const override { return PacketType::MOVEMENT; }
+  vector<char> serialize() const override;
+  static MovementPacket deserialize(const vector<char> &payload);
 };
 
 struct DisconnectPacket : public IPacket {
