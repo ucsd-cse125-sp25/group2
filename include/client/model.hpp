@@ -4,6 +4,7 @@
 #include "client/shader.hpp"
 #include "shared/core.hpp"
 #include "shared/transform.hpp"
+
 #include <assimp/Importer.hpp>
 #include <assimp/postprocess.h>
 #include <assimp/scene.h>

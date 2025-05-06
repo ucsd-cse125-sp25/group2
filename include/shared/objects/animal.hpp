@@ -1,8 +1,9 @@
-#include "shared/gameobject.hpp"
-#include <string>
 
-#ifndef ANIMAL_HPP
-#define ANIMAL_HPP
+#pragma once
+
+#include "shared/gameobject.hpp"
+
+#include <string>
 
 class Animal {
 protected:
