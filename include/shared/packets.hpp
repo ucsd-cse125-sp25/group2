@@ -14,14 +14,12 @@ using namespace std;
 
 enum class PacketType : uint8_t {
   INIT,
-  POSITION,
-  STRING,
-  ACTION,
+  MOVEMENT,
   OBJECT,
   DISCONNECT
 };
 
-enum class ActionType : uint8_t { FORWARD, BACKWARD, LEFT, RIGHT };
+enum class MovementType: uint8_t { FORWARD, BACKWARD, LEFT, RIGHT };
 
 struct IPacket {
   virtual PacketType get_type() const = 0;
@@ -38,24 +36,13 @@ struct InitPacket : public IPacket {
   static InitPacket deserialize(const vector<char> &payload);
 };
 
-struct PositionPacket : public IPacket {
-  int object_id;
-  Transform transform;
-
-  PositionPacket(int object_id, Transform transform)
-      : object_id(object_id), transform(transform) {}
-  PacketType get_type() const override { return PacketType::POSITION; }
-  vector<char> serialize() const override;
-  static PositionPacket deserialize(const vector<char> &payload);
-};
-
-struct ActionPacket : public IPacket {
+struct MovementPacket : public IPacket {
   int objectID;
-  ActionType type;
-  ActionPacket(int objectID, ActionType t) : objectID(objectID), type(t) {}
-  PacketType get_type() const override { return PacketType::ACTION; }
+  MovementType type;
+  MovementPacket(int objectID, MovementType t) : objectID(objectID), type(t) {}
+  PacketType get_type() const override { return PacketType::MOVEMENT; }
   vector<char> serialize() const override;
-  static ActionPacket deserialize(const vector<char> &payload);
+  static MovementPacket deserialize(const vector<char> &payload);
 };
 
 struct ObjectPacket : public IPacket {
@@ -87,4 +74,3 @@ std::unique_ptr<IPacket> deserialize(PacketType type, vector<char> &payload);
 
 // Debugging Methods
 void printObjectPacket(const ObjectPacket &packet);
-void printPositionPacket(const PositionPacket &packet);
