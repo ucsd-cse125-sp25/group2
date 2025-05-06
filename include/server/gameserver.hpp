@@ -1,5 +1,6 @@
 #pragma once
 
+#include "server/servergamestate.hpp"
 #include "server/servernetwork.hpp"
 
 #include <memory>

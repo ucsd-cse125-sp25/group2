@@ -1,5 +1,6 @@
 #pragma once
 #include "shared/core.hpp"
+#include "shared/gameobject.hpp"
 #include "shared/transform.hpp"
 #include "shared/utilities/util_packets.hpp"
 #include <cstring>
@@ -21,8 +22,6 @@ enum class PacketType : uint8_t {
 };
 
 enum class ActionType : uint8_t { FORWARD, BACKWARD, LEFT, RIGHT };
-
-enum class ObjectType : uint8_t { CUBE };
 
 struct IPacket {
   virtual PacketType get_type() const = 0;

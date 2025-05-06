@@ -3,10 +3,13 @@
 #include "client/model.hpp"
 #include "shared/core.hpp"
 #include "shared/transform.hpp"
+
 #include <memory>
 #include <string>
 
 using namespace std;
+
+enum class ObjectType : uint8_t { CUBE };
 
 class GameObject {
 protected:
