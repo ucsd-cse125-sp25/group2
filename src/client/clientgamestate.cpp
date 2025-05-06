@@ -1,17 +1,17 @@
-#include "client/gamestate.hpp"
+#include "client/clientgamestate.hpp"
 // delete later
 #include "shared/objects/cube.hpp"
 
-GameState::GameState() {}
+ClientGameState::ClientGameState() {}
 
-bool GameState::init() {
+bool ClientGameState::init() {
   // Initialize objects
   cube = new Cube();
   return true;
   // Later: objectList.push_back(make_unique<>());
 }
 
-void GameState::update() {
+void ClientGameState::update() {
   // Update all objects
   // for (auto &object : objectList) {
   //   object->update(deltaTime);
@@ -19,7 +19,7 @@ void GameState::update() {
   cube->update();
 }
 
-void GameState::draw(const glm::mat4 &viewProjMtx) {
+void ClientGameState::draw(const glm::mat4 &viewProjMtx) {
   // Draw all objects
   // for (auto &object : objectList) {
   //   object->draw(viewProjMtx);

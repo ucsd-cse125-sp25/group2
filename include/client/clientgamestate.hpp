@@ -2,13 +2,16 @@
 
 #include "client/shader.hpp"
 #include "shared/gameobject.hpp"
+#include "shared/objects/cube.hpp"
+
 #include <memory>
 #include <vector>
 
 using namespace std;
-class GameState {
+
+class ClientGameState {
 public:
-  GameState();
+  ClientGameState();
 
   bool init();
   void update();
