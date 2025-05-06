@@ -21,4 +21,5 @@ target_link_libraries(${TARGET_NAME} PRIVATE
     libglew_static
     asio
     assimp
+    csv_parser
 )

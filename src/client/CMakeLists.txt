@@ -24,4 +24,5 @@ target_link_libraries(${TARGET_NAME} PRIVATE
     asio
     assimp
     stb_image
+    csv_parser
 )
