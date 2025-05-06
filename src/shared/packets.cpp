@@ -1,7 +1,5 @@
 #include "shared/packets.hpp"
 
-using namespace std;
-
 vector<char> InitPacket::serialize() const {
   vector<char> buffer(sizeof(client_id));
   memcpy(buffer.data(), &client_id, sizeof(client_id));

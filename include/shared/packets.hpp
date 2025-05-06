@@ -1,8 +1,10 @@
 #pragma once
+
 #include "shared/core.hpp"
 #include "shared/gameobject.hpp"
 #include "shared/transform.hpp"
 #include "shared/utilities/util_packets.hpp"
+
 #include <cstring>
 #include <memory>
 #include <stdexcept>
