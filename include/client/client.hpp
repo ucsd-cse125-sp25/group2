@@ -2,7 +2,7 @@
 
 #include "client/camera.hpp"
 #include "client/clientnetwork.hpp"
-#include "client/gamestate.hpp"
+#include "client/clientgamestate.hpp"
 #include "client/model.hpp"
 #include "client/shader.hpp"
 #include "shared/constants.hpp"
@@ -49,7 +49,7 @@ private:
   float mouseX, mouseY;
 
   // Gamestate properties
-  unique_ptr<GameState> gameState;
+  unique_ptr<ClientGameState> game;
 
   // Network
   unique_ptr<ClientNetwork> network;

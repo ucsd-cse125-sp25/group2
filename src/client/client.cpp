@@ -13,7 +13,7 @@ Client::Client() {
   mouseY = 0.0f;
 
   // Initialize game state properties
-  gameState = make_unique<GameState>();
+  game = make_unique<ClientGameState>();
 }
 
 Client::~Client() {}
@@ -53,7 +53,7 @@ bool Client::init() {
 }
 
 bool Client::initObjects() {
-  if (!gameState->init()) {
+  if (!game->init()) {
     cerr << "GameState Initialization Failed" << endl;
     return false;
   }
@@ -79,10 +79,10 @@ void Client::idleCallback() {
     unique_ptr<IPacket> packet = move(packets.front());
     packets.pop_front();
 
-    switch (packet->get_type()) {
+    switch (packet->getType()) {
     case PacketType::INIT: {
       auto init_packet = dynamic_cast<InitPacket *>(packet.get());
-      network->setId(init_packet->client_id);
+      network->setId(init_packet->clientID);
       break;
     }
     case PacketType::OBJECT: {
@@ -97,14 +97,14 @@ void Client::idleCallback() {
   cam->update(
       mouseX, mouseY,
       glm::vec3(0.0f, 0.0f, 0.0f)); // Later: gamestate->getPlayerPosition()
-  gameState->update();
+      game->update();
 }
 
 void Client::displayCallback(GLFWwindow *window) {
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
   // Draw objects
-  gameState->draw(cam->getViewProj());
+  game->draw(cam->getViewProj());
 
   // Check events and swap buffers
   glfwPollEvents();
@@ -115,23 +115,24 @@ void Client::processInput(float deltaTime) {
   // Process WASD Movement
   if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
     cam->moveForward(deltaTime);
-    // ActionPacket packet(0, ActionType::FORWARD);  // Hardcoded object ID for
-    // now Later, we will use the ID of the player object network->send(packet);
+    MovementPacket packet(0, MovementType::FORWARD);  // Hardcoded object ID for now
+    // Later, we will use the ID of the player object
+    network->send(packet);
   }
   if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
     cam->moveBackward(deltaTime);
-    // ActionPacket packet(0, ActionType::BACKWARD);
-    // network->send(packet);
+    MovementPacket packet(0, MovementType::BACKWARD);
+    network->send(packet);
   }
   if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
     cam->moveLeft(deltaTime);
-    // ActionPacket packet(0, ActionType::LEFT);
-    // network->send(packet);
+    MovementPacket packet(0, MovementType::LEFT);
+    network->send(packet);
   }
   if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
     cam->moveRight(deltaTime);
-    // ActionPacket packet(0, ActionType::RIGHT);
-    // network->send(packet);
+    MovementPacket packet(0, MovementType::RIGHT);
+    network->send(packet);
   }
 }
 
