@@ -41,7 +41,7 @@ void ClientNetwork::send(const IPacket &packet) {
   buffer.reserve(1 + 2 + body.size());
 
   // Header format: [PacketType (1 byte)][PayloadSize (2 bytes)][Payload]
-  buffer.push_back(static_cast<uint8_t>(packet.get_type()));
+  buffer.push_back(static_cast<uint8_t>(packet.getType()));
   buffer.push_back(static_cast<char>(body_size & 0xFF));
   buffer.push_back(static_cast<char>((body_size >> 8) & 0xFF));
   buffer.insert(buffer.end(), body.begin(), body.end());
@@ -81,25 +81,16 @@ unique_ptr<IPacket> ClientNetwork::processPackets(PacketType type,
     unique_ptr<IPacket> packet = deserialize(PacketType::INIT, payload);
     return packet;
   }
-  case PacketType::STRING: {
-    unique_ptr<IPacket> packet = deserialize(PacketType::STRING, payload);
-    return packet;
-  }
-  case PacketType::POSITION: {
-    unique_ptr<IPacket> packet = deserialize(PacketType::POSITION, payload);
-
-    // TEST
-    if (auto *posPacket = dynamic_cast<PositionPacket *>(packet.get())) {
-      printPositionPacket(*posPacket);
-    }
-    return packet;
-  }
   case PacketType::OBJECT: {
     unique_ptr<IPacket> packet = deserialize(PacketType::OBJECT, payload);
 
     if (auto *objectPacket = dynamic_cast<ObjectPacket *>(packet.get())) {
       // printObjectPacket(*objectPacket);
     }
+    return packet;
+  }
+  case PacketType::MOVEMENT: {
+    unique_ptr<IPacket> packet = deserialize(PacketType::MOVEMENT, payload);
     return packet;
   }
 

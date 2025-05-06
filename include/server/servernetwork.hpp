@@ -9,13 +9,14 @@
 #include <memory>
 #include <thread>
 
-#define CLIENT_ID unsigned int
-
 using asio::ip::tcp;
+using namespace std;
+
+#define CLIENT_ID unsigned int
 
 class ServerNetwork {
 private:
-  unsigned int client_id;
+  CLIENT_ID clientID;
   asio::ip::tcp::acceptor _acceptor;
   std::map<CLIENT_ID, std::shared_ptr<asio::ip::tcp::socket>> clients;
 

@@ -12,8 +12,8 @@ using namespace std;
 
 class ClientNetwork {
 private:
-  tcp::socket _socket;
   CLIENT_ID id;
+  tcp::socket _socket;
 
   unique_ptr<IPacket> processPackets(PacketType type, vector<char> payload);
 

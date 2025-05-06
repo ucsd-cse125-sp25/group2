@@ -9,7 +9,7 @@ ServerNetwork::ServerNetwork(asio::io_context &io_context,
                              const std::string &ip, const std::string &port)
     : _acceptor(io_context, asio::ip::tcp::endpoint(asio::ip::make_address(ip),
                                                     std::stoi(port))),
-      clients(), client_id(0) {
+      clients(), clientID(0) {
   std::cout << "Server started on " << ip << ":" << port << std::endl;
 }
 
@@ -28,14 +28,14 @@ void ServerNetwork::acceptClient() {
   _acceptor.async_accept(*socket, [this, socket](std::error_code ec) {
     if (!ec) {
       std::cout << "New client connected" << std::endl;
-      this->clients[client_id] = socket;
-      InitPacket init(client_id);
-      sendToClient(client_id, init);
+      this->clients[clientID] = socket;
+      InitPacket init(clientID);
+      sendToClient(clientID, init);
       /*
       // initialize game state and send to client
-      sendToClient(client_id, game->init());
+      sendToClient(clientID, game->init());
       */
-      client_id++;
+     clientID++;
     } else {
       std::cerr << "Accept Failed: " << ec.message() << std::endl;
     }
@@ -61,7 +61,7 @@ void ServerNetwork::sendToClient(unsigned int id, const IPacket &packet) {
   buffer.reserve(1 + 2 + body.size());
 
   // Header format: [PacketType (1 byte)][PayloadSize (2 bytes)][Payload]
-  buffer.push_back(static_cast<uint8_t>(packet.get_type()));
+  buffer.push_back(static_cast<uint8_t>(packet.getType()));
   buffer.push_back(static_cast<uint8_t>(body_size & 0xFF));
   buffer.push_back(static_cast<uint8_t>((body_size >> 8) & 0xFF));
   buffer.insert(buffer.end(), body.begin(), body.end());
@@ -121,18 +121,9 @@ std::unique_ptr<IPacket> ServerNetwork::processPackets(PacketType type,
     std::unique_ptr<IPacket> packet = deserialize(PacketType::INIT, payload);
     return packet;
   }
-  case PacketType::STRING: {
-    std::unique_ptr<IPacket> packet = deserialize(PacketType::STRING, payload);
-    return packet;
-  }
-  case PacketType::POSITION: {
+  case PacketType::MOVEMENT: {
     std::unique_ptr<IPacket> packet =
-        deserialize(PacketType::POSITION, payload);
-    return packet;
-  }
-  case PacketType::ACTION: {
-    std::cout << "action receive" << std::endl;
-    std::unique_ptr<IPacket> packet = deserialize(PacketType::ACTION, payload);
+        deserialize(PacketType::MOVEMENT, payload);
     return packet;
   }
   case PacketType::DISCONNECT: {
