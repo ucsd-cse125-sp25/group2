@@ -11,10 +11,10 @@ GameServer::~GameServer() {}
 void GameServer::start() { network->start(); }
 
 void GameServer::updateGameState() {
-  deque<std::unique_ptr<IPacket>> list_packets = network->receiveFromClients();
+  deque<unique_ptr<IPacket>> list_packets = network->receiveFromClients();
   while (!list_packets.empty()) {
     // i dont like this change it to smartvector later
-    std::unique_ptr<IPacket> packet = std::move(list_packets.front());
+    unique_ptr<IPacket> packet = move(list_packets.front());
     list_packets.pop_front();
 
     switch (packet->getType()) {

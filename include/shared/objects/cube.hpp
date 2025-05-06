@@ -18,9 +18,9 @@ private:
   glm::vec3 color;
 
   // Cube Information
-  std::vector<glm::vec3> positions;
-  std::vector<glm::vec3> normals;
-  std::vector<unsigned int> indices;
+  vector<glm::vec3> positions;
+  vector<glm::vec3> normals;
+  vector<unsigned int> indices;
 
 public:
   Cube(glm::vec3 cubeMin = glm::vec3(-1, -1, -1),

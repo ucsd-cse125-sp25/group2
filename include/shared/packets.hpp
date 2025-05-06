@@ -73,7 +73,7 @@ struct DisconnectPacket : public IPacket {
   static DisconnectPacket deserialize(const vector<char> &payload);
 };
 
-std::unique_ptr<IPacket> deserialize(PacketType type, vector<char> &payload);
+unique_ptr<IPacket> deserialize(PacketType type, vector<char> &payload);
 
 // Debugging Methods
 void printObjectPacket(const ObjectPacket &packet);

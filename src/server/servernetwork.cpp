@@ -6,11 +6,11 @@
  * io_context is basically a core class that allows networking I/O for Asio
  */
 ServerNetwork::ServerNetwork(asio::io_context &io_context,
-                             const std::string &ip, const std::string &port)
+                             const string &ip, const string &port)
     : _acceptor(io_context, asio::ip::tcp::endpoint(asio::ip::make_address(ip),
-                                                    std::stoi(port))),
+                                                    stoi(port))),
       clients(), clientID(0) {
-  std::cout << "Server started on " << ip << ":" << port << std::endl;
+  cout << "Server started on " << ip << ":" << port << endl;
 }
 
 void ServerNetwork::start() { acceptClient(); }
@@ -23,11 +23,11 @@ void ServerNetwork::start() { acceptClient(); }
  */
 void ServerNetwork::acceptClient() {
   auto socket =
-      std::make_shared<asio::ip::tcp::socket>(_acceptor.get_executor());
+      make_shared<asio::ip::tcp::socket>(_acceptor.get_executor());
 
-  _acceptor.async_accept(*socket, [this, socket](std::error_code ec) {
+  _acceptor.async_accept(*socket, [this, socket](error_code ec) {
     if (!ec) {
-      std::cout << "New client connected" << std::endl;
+      cout << "New client connected" << endl;
       this->clients[clientID] = socket;
       InitPacket init(clientID);
       sendToClient(clientID, init);
@@ -37,7 +37,7 @@ void ServerNetwork::acceptClient() {
       */
      clientID++;
     } else {
-      std::cerr << "Accept Failed: " << ec.message() << std::endl;
+      cerr << "Accept Failed: " << ec.message() << endl;
     }
 
     acceptClient();
@@ -68,8 +68,8 @@ void ServerNetwork::sendToClient(unsigned int id, const IPacket &packet) {
 
   try {
     asio::write(*socket, asio::buffer(buffer));
-  } catch (const std::system_error &e) {
-    std::cerr << "Write failed: " << e.what() << std::endl;
+  } catch (const system_error &e) {
+    cerr << "Write failed: " << e.what() << endl;
     handleClientDisconnect(id);
   }
 }
@@ -84,8 +84,8 @@ void ServerNetwork::sendToAll(const IPacket &packet) {
   }
 }
 
-deque<std::unique_ptr<IPacket>> ServerNetwork::receiveFromClients() {
-  deque<std::unique_ptr<IPacket>> packets;
+deque<unique_ptr<IPacket>> ServerNetwork::receiveFromClients() {
+  deque<unique_ptr<IPacket>> packets;
   for (auto it = clients.begin(); it != clients.end();) {
     auto &socket = it->second;
     asio::error_code ec;
@@ -100,7 +100,7 @@ deque<std::unique_ptr<IPacket>> ServerNetwork::receiveFromClients() {
       if (socket->read_some(asio::buffer(&size, 2), ec) <= 0 || ec)
         break;
 
-      std::vector<char> payload(size);
+      vector<char> payload(size);
       if (socket->read_some(asio::buffer(payload, size), ec) <= 0 || ec)
         break;
 
@@ -114,31 +114,31 @@ deque<std::unique_ptr<IPacket>> ServerNetwork::receiveFromClients() {
   return packets;
 }
 
-std::unique_ptr<IPacket> ServerNetwork::processPackets(PacketType type,
+unique_ptr<IPacket> ServerNetwork::processPackets(PacketType type,
                                                        vector<char> payload) {
   switch (type) {
   case PacketType::INIT: {
-    std::unique_ptr<IPacket> packet = deserialize(PacketType::INIT, payload);
+    unique_ptr<IPacket> packet = deserialize(PacketType::INIT, payload);
     return packet;
   }
   case PacketType::MOVEMENT: {
-    std::unique_ptr<IPacket> packet =
+    unique_ptr<IPacket> packet =
         deserialize(PacketType::MOVEMENT, payload);
     return packet;
   }
   case PacketType::DISCONNECT: {
-    std::unique_ptr<IPacket> packet =
+    unique_ptr<IPacket> packet =
         deserialize(PacketType::DISCONNECT, payload);
     return packet;
   }
   default:
-    std::cerr << ("Server Warning: Unknown packet type") << std::endl;
+    cerr << ("Server Warning: Unknown packet type") << endl;
     return nullptr;
   }
 }
 
 void ServerNetwork::handleClientDisconnect(CLIENT_ID id) {
-  std::cerr << "Client " << id << " Disconnected" << std::endl;
+  cerr << "Client " << id << " Disconnected" << endl;
   auto socket = clients[id];
   if (socket->is_open()) {
     socket->close();

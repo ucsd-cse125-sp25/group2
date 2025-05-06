@@ -79,7 +79,7 @@ DisconnectPacket DisconnectPacket::deserialize(const vector<char> &payload) {
   return packet;
 }
 
-std::unique_ptr<IPacket> deserialize(PacketType type, vector<char> &payload) {
+unique_ptr<IPacket> deserialize(PacketType type, vector<char> &payload) {
   switch (type) {
   case PacketType::INIT:
     return make_unique<InitPacket>(InitPacket::deserialize(payload));
@@ -97,18 +97,18 @@ std::unique_ptr<IPacket> deserialize(PacketType type, vector<char> &payload) {
 
 // Debugging
 void printObjectPacket(const ObjectPacket &packet) {
-  std::cout << "ObjectPacket: " << std::endl;
-  std::cout << "id: " << packet.objectID << std::endl;
-  std::cout << "type: " << int(packet.objectType) << std::endl;
-  std::cout << "position: (" << packet.transform.getPosition().x << ", "
+  cout << "ObjectPacket: " << endl;
+  cout << "id: " << packet.objectID << endl;
+  cout << "type: " << int(packet.objectType) << endl;
+  cout << "position: (" << packet.transform.getPosition().x << ", "
             << packet.transform.getPosition().y << ", "
-            << packet.transform.getPosition().z << ")" << std::endl;
-  std::cout << "rotation: (" << packet.transform.getRotation().x << ", "
+            << packet.transform.getPosition().z << ")" << endl;
+  cout << "rotation: (" << packet.transform.getRotation().x << ", "
             << packet.transform.getRotation().y << ", "
-            << packet.transform.getRotation().z << ")" << std::endl;
-  std::cout << "scale: (" << packet.transform.getScale().x << ", "
+            << packet.transform.getRotation().z << ")" << endl;
+  cout << "scale: (" << packet.transform.getScale().x << ", "
             << packet.transform.getScale().y << ", "
-            << packet.transform.getScale().z << ")" << std::endl;
-  std::cout << "interactable: " << packet.interactable << std::endl;
-  std::cout << "active: " << packet.active << std::endl;
+            << packet.transform.getScale().z << ")" << endl;
+  cout << "interactable: " << packet.interactable << endl;
+  cout << "active: " << packet.active << endl;
 }

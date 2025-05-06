@@ -9,10 +9,10 @@ protected:
   float positionX;
   float positionY;
   float positionZ;
-  std::string animalType;
+  string animalType;
 
 public:
-  Animal(float x, float y, float z, const std::string &type);
+  Animal(float x, float y, float z, const string &type);
 
   virtual ~Animal();
 
@@ -22,7 +22,7 @@ public:
   float getPositionX() const;
   float getPositionY() const;
   float getPositionZ() const;
-  std::string getAnimalType() const;
+  string getAnimalType() const;
 };
 
 #endif // ANIMAL_HPP
