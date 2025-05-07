@@ -40,7 +40,7 @@ public:
   const int getId() const { return id; };
   ObjectType getType() const { return type; };
   bool isActive() const { return active; };
-  Transform* getTransform() { return transform.get(); };
+  Transform *getTransform() { return transform.get(); };
   glm::vec3 getPosition() { return transform->getPosition(); };
   glm::vec3 getRotation() { return transform->getRotation(); };
   glm::vec3 getScale() { return transform->getScale(); };

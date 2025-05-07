@@ -5,7 +5,9 @@ ServerGameState::ServerGameState() {}
 bool ServerGameState::init() {
   // Initialize objects
   io::CSVReader<15> in("../resources/objects/objects.csv");
-  in.read_header(io::ignore_extra_column, "ID", "ObjectType", "Active", "Px", "Py", "Pz", "Rx", "Ry", "Rz", "Sx", "Sy", "Sz", "ModelPath", "VertShaderPath", "FragShaderPath");
+  in.read_header(io::ignore_extra_column, "ID", "ObjectType", "Active", "Px",
+                 "Py", "Pz", "Rx", "Ry", "Rz", "Sx", "Sy", "Sz", "ModelPath",
+                 "VertShaderPath", "FragShaderPath");
 
   int objectId;
   string objectType;
@@ -16,12 +18,16 @@ bool ServerGameState::init() {
   string modelPath;
   string vertShaderPath, fragShaderPath;
 
-  while (in.read_row(objectId, objectType, isActive, posX, posY, posZ, rotX, rotY, rotZ, scaleX, scaleY, scaleZ, modelPath, fragShaderPath, vertShaderPath)) {
-      if (objectType == "CUBE") {
-        auto tf = make_unique<Transform>(glm::vec3(posX,posY,posZ), glm::vec3(rotX,rotY,rotZ), glm::vec3(scaleX,scaleY,scaleZ));
-        auto obj = make_unique<Cube>(objectId, isActive, tf);
-        objectList[objectId] = move(obj);
-      }
+  while (in.read_row(objectId, objectType, isActive, posX, posY, posZ, rotX,
+                     rotY, rotZ, scaleX, scaleY, scaleZ, modelPath,
+                     fragShaderPath, vertShaderPath)) {
+    if (objectType == "CUBE") {
+      auto tf = make_unique<Transform>(glm::vec3(posX, posY, posZ),
+                                       glm::vec3(rotX, rotY, rotZ),
+                                       glm::vec3(scaleX, scaleY, scaleZ));
+      auto obj = make_unique<Cube>(objectId, isActive, tf);
+      objectList[objectId] = move(obj);
+    }
   }
   return true;
 }
@@ -50,7 +56,8 @@ void ServerGameState::updateMovement(int id, MovementType type) {
     case MovementType::FORWARD:
       cout << "moving forward" << endl;
       tf->updatePosition(glm::vec3(0, 0, -1));
-      // cout << obj->getPosition().x << " " << obj->getPosition().y << " " << obj->getPosition().z << endl;
+      // cout << obj->getPosition().x << " " << obj->getPosition().y << " " <<
+      // obj->getPosition().z << endl;
       break;
     case MovementType::BACKWARD:
       cout << "moving backward" << endl;

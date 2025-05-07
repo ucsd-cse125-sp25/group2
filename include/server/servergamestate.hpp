@@ -1,9 +1,9 @@
 #pragma once
 
+#include "csv.h"
 #include "shared/gameobject.hpp"
 #include "shared/objects/cube.hpp"
 #include "shared/packets.hpp"
-#include "csv.h"
 
 #include <iostream>
 #include <memory>

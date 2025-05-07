@@ -8,7 +8,7 @@ GameServer::GameServer(asio::io_context &io_context, const string &ip,
 
 GameServer::~GameServer() {}
 
-void GameServer::start() { 
+void GameServer::start() {
   network->start();
   if (!game->init()) {
     cerr << "ServerGameState initialization failed" << endl;
