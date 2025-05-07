@@ -7,7 +7,7 @@ Model::Model(const char *path) {
   loadModel(path);
 }
 
-void Model::Draw(const glm::mat4 &viewProjMtx, unique_ptr<Shader> &shader) {
+void Model::draw(const glm::mat4 &viewProjMtx, unique_ptr<Shader> &shader) {
   // Activate the shader program
   shader->use();
   // Send camera view projection matrix to vertex shader file
@@ -17,10 +17,10 @@ void Model::Draw(const glm::mat4 &viewProjMtx, unique_ptr<Shader> &shader) {
   shader->setVec3("DiffuseColor", color);
   for (unsigned int i = 0; i < meshes.size(); i++)
     // Draw each mesh
-    meshes[i].Draw(shader);
+    meshes[i].draw(shader);
 }
 
-void Model::Update(Transform *transform) {
+void Model::update(Transform *transform) {
   glm::mat4 scaleMat = glm::scale(glm::mat4(1.0f), transform->getScale());
   glm::mat4 rotMat =
       glm::rotate(glm::mat4(1.0f), glm::radians(transform->getRotation().x),

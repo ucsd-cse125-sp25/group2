@@ -37,7 +37,7 @@ void Mesh::setupMesh() {
   glBindVertexArray(0);
 }
 
-void Mesh::Draw(unique_ptr<Shader> &shader) {
+void Mesh::draw(unique_ptr<Shader> &shader) {
   // Draw the mesh based on the texture
   unsigned int diffuseNr = 1;
   unsigned int specularNr = 1;

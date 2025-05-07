@@ -36,7 +36,7 @@ public:
 
   Mesh(vector<Vertex> vertices, vector<unsigned int> indices,
        vector<Texture> textures);
-  void Draw(unique_ptr<Shader> &shader);
+  void draw(unique_ptr<Shader> &shader);
 
 private:
   unsigned int VAO, VBO, EBO;

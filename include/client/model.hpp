@@ -16,8 +16,8 @@ using namespace std;
 class Model {
 public:
   Model(const char *path);
-  void Draw(const glm::mat4 &viewProjMtx, unique_ptr<Shader> &shader);
-  void Update(Transform *transform);
+  void draw(const glm::mat4 &viewProjMtx, unique_ptr<Shader> &shader);
+  void update(Transform *transform);
 
 private:
   glm::mat4 model;
