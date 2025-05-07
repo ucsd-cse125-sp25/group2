@@ -1,9 +1,4 @@
 #include "shared/utilities/util_packets.hpp"
-#include "shared/core.hpp"
-#include "shared/packets.hpp"
-#include <iostream>
-
-using namespace std;
 
 void serializeVector(char *dest, const glm::vec3 &vec3, unsigned long &size) {
   memcpy(dest + size, &vec3.x, sizeof(float));
@@ -42,36 +37,4 @@ void deserializeTransform(const vector<char> &payload, Transform &transform,
       deserializeVector(payload, transform.getRotation(), size));
   transform.setPosition(deserializeVector(payload, transform.getScale(), size));
   return;
-}
-
-// Debugging
-void printObjectPacket(const ObjectPacket &packet) {
-  std::cout << "ObjectPacket: " << std::endl;
-  std::cout << "id: " << packet.id << std::endl;
-  std::cout << "type: " << int(packet.type) << std::endl;
-  std::cout << "position: (" << packet.transform.getPosition().x << ", "
-            << packet.transform.getPosition().y << ", "
-            << packet.transform.getPosition().z << ")" << std::endl;
-  std::cout << "rotation: (" << packet.transform.getRotation().x << ", "
-            << packet.transform.getRotation().y << ", "
-            << packet.transform.getRotation().z << ")" << std::endl;
-  std::cout << "scale: (" << packet.transform.getScale().x << ", "
-            << packet.transform.getScale().y << ", "
-            << packet.transform.getScale().z << ")" << std::endl;
-  std::cout << "interactable: " << packet.interactable << std::endl;
-  std::cout << "active: " << packet.active << std::endl;
-}
-
-void printPositionPacket(const PositionPacket &packet) {
-  std::cout << "PositionPacket: " << std::endl;
-  std::cout << "id: " << packet.object_id << std::endl;
-  std::cout << "position: (" << packet.transform.getPosition().x << ", "
-            << packet.transform.getPosition().y << ", "
-            << packet.transform.getPosition().z << ")" << std::endl;
-  std::cout << "rotation: (" << packet.transform.getRotation().x << ", "
-            << packet.transform.getRotation().y << ", "
-            << packet.transform.getRotation().z << ")" << std::endl;
-  std::cout << "scale: (" << packet.transform.getScale().x << ", "
-            << packet.transform.getScale().y << ", "
-            << packet.transform.getScale().z << ")" << std::endl;
 }

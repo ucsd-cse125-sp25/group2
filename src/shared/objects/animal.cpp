@@ -1,6 +1,6 @@
 #include "shared/objects/animal.hpp"
 
-Animal::Animal(float x, float y, float z, const std::string &type)
+Animal::Animal(float x, float y, float z, const string &type)
     : positionX(x), positionY(y), positionZ(z), animalType(type) {}
 
 Animal::~Animal() {}
@@ -19,4 +19,4 @@ float Animal::getPositionY() const { return positionY; }
 
 float Animal::getPositionZ() const { return positionZ; }
 
-std::string Animal::getAnimalType() const { return animalType; }
+string Animal::getAnimalType() const { return animalType; }

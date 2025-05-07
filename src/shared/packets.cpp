@@ -1,17 +1,26 @@
 #include "shared/packets.hpp"
-#include "shared/utilities/util_packets.hpp"
 
-using namespace std;
+vector<char> InitPacket::serialize() const {
+  vector<char> buffer(sizeof(int));
+  memcpy(buffer.data(), &clientID, sizeof(int));
+  return buffer;
+}
+
+InitPacket InitPacket::deserialize(const vector<char> &payload) {
+  int clientID;
+
+  memcpy(&clientID, payload.data(), sizeof(int));
+  InitPacket packet(clientID);
+  return packet;
+}
 
 vector<char> ObjectPacket::serialize() const {
-
-  vector<char> buffer(sizeof(int) + sizeof(ObjectType) + sizeof(glm::vec3));
-
+  vector<char> buffer(sizeof(int) + sizeof(ObjectType) + sizeof(Transform) +
+                      2 * sizeof(bool));
   unsigned long size = 0;
-
-  memcpy(buffer.data(), &id, sizeof(int));
+  memcpy(buffer.data(), &objectID, sizeof(int));
   size += sizeof(int);
-  memcpy(buffer.data() + size, &type, sizeof(ObjectType));
+  memcpy(buffer.data() + size, &objectType, sizeof(ObjectType));
   size += sizeof(ObjectType);
   serializeTransform(buffer.data(), transform, size);
   memcpy(buffer.data() + size, &interactable, sizeof(bool));
@@ -21,47 +30,86 @@ vector<char> ObjectPacket::serialize() const {
 }
 
 ObjectPacket ObjectPacket::deserialize(const vector<char> &payload) {
-  int id;
-  ObjectType type;
+  int objectID;
+  ObjectType objectType;
   Transform transform;
   bool interactable;
   bool active;
 
   unsigned long size = 0;
-  memcpy(&id, payload.data(), sizeof(int));
+  memcpy(&objectID, payload.data(), sizeof(int));
   size += sizeof(int);
-  memcpy(&type, payload.data() + size, sizeof(ObjectType));
+  memcpy(&objectType, payload.data() + size, sizeof(ObjectType));
   size += sizeof(ObjectType);
   deserializeTransform(payload, transform, size);
   memcpy(&interactable, payload.data() + size, sizeof(bool));
   size += sizeof(bool);
   memcpy(&active, payload.data() + size, sizeof(bool));
-
-  ObjectPacket packet(id, type, transform);
+  ObjectPacket packet(objectID, objectType, transform);
   return packet;
 }
 
-vector<char> PositionPacket::serialize() const {
-
-  vector<char> buffer(sizeof(int) + sizeof(ObjectType) + sizeof(glm::vec3));
-
-  unsigned long size = 0;
-
-  memcpy(buffer.data(), &object_id, sizeof(int));
-  size += sizeof(int);
-  serializeTransform(buffer.data(), transform, size);
+vector<char> MovementPacket::serialize() const {
+  vector<char> buffer(sizeof(int) + sizeof(MovementType));
+  memcpy(buffer.data(), &objectID, sizeof(int));
+  memcpy(buffer.data() + sizeof(int), &movementType, sizeof(MovementType));
   return buffer;
 }
 
-PositionPacket PositionPacket::deserialize(const vector<char> &payload) {
-  int id;
-  Transform transform;
+MovementPacket MovementPacket::deserialize(const vector<char> &payload) {
+  int objectID;
+  MovementType movementType;
 
-  unsigned long size = 0;
-  memcpy(&id, payload.data(), sizeof(int));
-  size += sizeof(int);
-  deserializeTransform(payload, transform, size);
-
-  PositionPacket packet(id, transform);
+  memcpy(&objectID, payload.data(), sizeof(int));
+  memcpy(&movementType, payload.data() + sizeof(int), sizeof(MovementType));
+  MovementPacket packet(objectID, movementType);
   return packet;
+}
+
+vector<char> DisconnectPacket::serialize() const {
+  vector<char> buffer(sizeof(int));
+  memcpy(buffer.data(), &clientID, sizeof(int));
+  return buffer;
+}
+
+DisconnectPacket DisconnectPacket::deserialize(const vector<char> &payload) {
+  int clientID;
+
+  memcpy(&clientID, payload.data(), sizeof(int));
+  DisconnectPacket packet(clientID);
+  return packet;
+}
+
+unique_ptr<IPacket> deserialize(PacketType type, vector<char> &payload) {
+  switch (type) {
+  case PacketType::INIT:
+    return make_unique<InitPacket>(InitPacket::deserialize(payload));
+  case PacketType::OBJECT:
+    return make_unique<ObjectPacket>(ObjectPacket::deserialize(payload));
+  case PacketType::MOVEMENT:
+    return make_unique<MovementPacket>(MovementPacket::deserialize(payload));
+  case PacketType::DISCONNECT:
+    return make_unique<DisconnectPacket>(
+        DisconnectPacket::deserialize(payload));
+  default:
+    throw runtime_error("Unknown packet type");
+  }
+}
+
+// Debugging
+void printObjectPacket(const ObjectPacket &packet) {
+  cout << "ObjectPacket: " << endl;
+  cout << "id: " << packet.objectID << endl;
+  cout << "type: " << int(packet.objectType) << endl;
+  cout << "position: (" << packet.transform.getPosition().x << ", "
+       << packet.transform.getPosition().y << ", "
+       << packet.transform.getPosition().z << ")" << endl;
+  cout << "rotation: (" << packet.transform.getRotation().x << ", "
+       << packet.transform.getRotation().y << ", "
+       << packet.transform.getRotation().z << ")" << endl;
+  cout << "scale: (" << packet.transform.getScale().x << ", "
+       << packet.transform.getScale().y << ", " << packet.transform.getScale().z
+       << ")" << endl;
+  cout << "interactable: " << packet.interactable << endl;
+  cout << "active: " << packet.active << endl;
 }

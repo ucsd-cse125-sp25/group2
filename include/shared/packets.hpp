@@ -1,6 +1,10 @@
 #pragma once
+
 #include "shared/core.hpp"
+#include "shared/gameobject.hpp"
 #include "shared/transform.hpp"
+#include "shared/utilities/util_packets.hpp"
+
 #include <cstring>
 #include <memory>
 #include <stdexcept>
@@ -10,146 +14,62 @@
 
 using namespace std;
 
-enum class PacketType : uint8_t {
-  INIT,
-  POSITION,
-  STRING,
-  ACTION,
-  OBJECT,
-  DISCONNECT
-};
+enum class PacketType : uint8_t { INIT, OBJECT, MOVEMENT, DISCONNECT };
 
-enum class ActionType : uint8_t { FORWARD, RIGHT, LEFT, BACK };
-
-enum class ObjectType : uint8_t { CUBE };
+enum class MovementType : uint8_t { FORWARD, BACKWARD, LEFT, RIGHT };
 
 struct IPacket {
-  virtual PacketType get_type() const = 0;
+  virtual PacketType getType() const = 0;
   virtual vector<char> serialize() const = 0;
   virtual ~IPacket() = default;
 };
 
 struct InitPacket : public IPacket {
-  int client_id;
+  int clientID;
 
-  InitPacket(int id) : client_id(id) {}
-  PacketType get_type() const override { return PacketType::INIT; }
-  vector<char> serialize() const override {
-    vector<char> buffer(sizeof(client_id));
-    memcpy(buffer.data(), &client_id, sizeof(client_id));
-    return buffer;
-  }
-  static InitPacket deserialize(const vector<char> &payload) {
-    int id;
-    memcpy(&id, payload.data(), sizeof(int));
-    InitPacket packet(id);
-    return packet;
-  }
-};
-
-struct PositionPacket : public IPacket {
-  int object_id;
-  Transform transform;
-
-  PositionPacket(int object_id, Transform transform)
-      : object_id(object_id), transform(transform) {}
-  PacketType get_type() const override { return PacketType::POSITION; }
+  InitPacket(int id) : clientID(id) {}
+  PacketType getType() const override { return PacketType::INIT; }
   vector<char> serialize() const override;
-  static PositionPacket deserialize(const vector<char> &payload);
-};
-
-struct ActionPacket : public IPacket {
-  ActionType type;
-  ActionPacket(ActionType t) : type(t) {}
-  PacketType get_type() const override { return PacketType::ACTION; }
-  vector<char> serialize() const override {
-    vector<char> buffer(sizeof(type));
-    memcpy(buffer.data(), &type, sizeof(type));
-    return buffer;
-  }
-  static ActionPacket deserialize(const vector<char> &payload) {
-    ActionType type;
-    memcpy(&type, payload.data(), sizeof(ActionType));
-    ActionPacket packet(static_cast<ActionType>(type));
-    return packet;
-  }
+  static InitPacket deserialize(const vector<char> &payload);
 };
 
 struct ObjectPacket : public IPacket {
-  int id;
-  ObjectType type;
+  int objectID;
+  ObjectType objectType;
   Transform transform;
   bool interactable;
   bool active;
 
   ObjectPacket(int id, ObjectType type, Transform transform,
                bool interactable = false, bool active = false)
-      : id(id), type(type), transform(transform), interactable(false),
-        active(active) {}
-  PacketType get_type() const override { return PacketType::OBJECT; }
-
+      : objectID(id), objectType(type), transform(transform),
+        interactable(interactable), active(active) {}
+  PacketType getType() const override { return PacketType::OBJECT; }
   vector<char> serialize() const override;
-
   static ObjectPacket deserialize(const vector<char> &payload);
 };
 
-struct DisconnectPacket : public IPacket {
-  int client_id;
+struct MovementPacket : public IPacket {
+  int objectID;
+  MovementType movementType;
 
-  DisconnectPacket(int id) : client_id(id) {}
-  PacketType get_type() const override { return PacketType::DISCONNECT; }
-  vector<char> serialize() const override {
-    vector<char> buffer(sizeof(client_id));
-    memcpy(buffer.data(), &client_id, sizeof(client_id));
-    return buffer;
-  }
-  static DisconnectPacket deserialize(const vector<char> &payload) {
-    int id;
-    memcpy(&id, payload.data(), sizeof(int));
-    DisconnectPacket packet(id);
-    return packet;
-  }
+  MovementPacket(int id, MovementType type)
+      : objectID(id), movementType(type) {}
+  PacketType getType() const override { return PacketType::MOVEMENT; }
+  vector<char> serialize() const override;
+  static MovementPacket deserialize(const vector<char> &payload);
 };
 
-inline std::unique_ptr<IPacket> deserialize(PacketType type,
-                                            vector<char> payload) {
-  switch (type) {
-  case PacketType::INIT:
-    return std::make_unique<InitPacket>(InitPacket::deserialize(payload));
-  case PacketType::POSITION:
-    return std::make_unique<PositionPacket>(
-        PositionPacket::deserialize(payload));
-  case PacketType::ACTION:
-    return std::make_unique<ActionPacket>(ActionPacket::deserialize(payload));
-  case PacketType::OBJECT:
-    return std::make_unique<ObjectPacket>(ObjectPacket::deserialize(payload));
-  case PacketType::DISCONNECT:
-    return std::make_unique<DisconnectPacket>(
-        DisconnectPacket::deserialize(payload));
-  default:
-    throw runtime_error("Unknown packet type");
-  }
-}
+struct DisconnectPacket : public IPacket {
+  int clientID;
 
-// TESTING
-// struct StringPacket : public IPacket
-// {
-//     string message;
+  DisconnectPacket(int id) : clientID(id) {}
+  PacketType getType() const override { return PacketType::DISCONNECT; }
+  vector<char> serialize() const override;
+  static DisconnectPacket deserialize(const vector<char> &payload);
+};
 
-//     StringPacket(string m) : message(m) {}
-//     PacketType get_type() const override
-//     {
-//         return PacketType::STRING;
-//     }
-//     vector<char> serialize() const override
-//     {
-//         vector<char> buffer(message.size());
-//         memcpy(buffer.data(), message.data(), message.size());
-//         return buffer;
-//     }
-//     static StringPacket deserialize(vector<char> payload, uint16_t size)
-//     {
-//         StringPacket packet(string(payload.begin(), payload.begin() + size));
-//         return packet;
-//     }
-// };
+unique_ptr<IPacket> deserialize(PacketType type, vector<char> &payload);
+
+// Debugging Methods
+void printObjectPacket(const ObjectPacket &packet);

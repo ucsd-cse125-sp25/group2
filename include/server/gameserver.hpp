@@ -1,18 +1,23 @@
 #pragma once
 
+#include "server/servergamestate.hpp"
 #include "server/servernetwork.hpp"
 
-#include <memory>
+using namespace std;
 
 class GameServer {
-private:
-  std::unique_ptr<GameState> game;
-
 public:
-  std::unique_ptr<ServerNetwork> network;
-  GameServer(asio::io_context &io_context, const std::string &ip,
-             const std::string &port);
+  GameServer(asio::io_context &io_context, const string &ip,
+             const string &port);
   ~GameServer();
+
   void start();
-  void update();
+
+  void updateGameState();
+  void updateClients();
+
+private:
+  // Network and GameState
+  unique_ptr<ServerNetwork> network;
+  unique_ptr<ServerGameState> game;
 };

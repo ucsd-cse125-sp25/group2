@@ -6,12 +6,19 @@ using namespace std;
 
 void error_callback(int error, const char *description) {
   // Print error
-  std::cerr << description << std::endl;
+  cerr << description << endl;
 }
 
 void setup_callbacks(GLFWwindow *window) {
   // Set the error callback
   glfwSetErrorCallback(error_callback);
+
+  /* Set framebuffer size callback */
+  glfwSetFramebufferSizeCallback(
+      window, [](GLFWwindow *w, int width, int height) {
+        static_cast<Client *>(glfwGetWindowUserPointer(w))
+            ->framebufferSizeCallback(w, width, height);
+      });
 
   /* Set key callback */
   glfwSetKeyCallback(
@@ -44,9 +51,9 @@ void setup_opengl_settings() {
 
 int main(void) {
   // Initialize client
-  std::unique_ptr<Client> client(new Client());
+  unique_ptr<Client> client(new Client());
   if (!client->init()) {
-    std::cout << "Client Initialization Failed" << std::endl;
+    cout << "Client Initialization Failed" << endl;
     exit(EXIT_FAILURE);
   }
 
@@ -63,19 +70,28 @@ int main(void) {
   // Create client network
   asio::io_context io_context;
   if (!client->initNetwork(io_context, "127.0.0.1", "12345")) {
-    std::cout << "Client Network Failed" << std::endl;
+    cout << "Client Network Initialization Failed" << endl;
     exit(EXIT_FAILURE);
   }
 
   // Delete later
   client->initObjects();
 
+  float lastFrameTime = glfwGetTime();
+
   while (!glfwWindowShouldClose(window)) {
-    // Rendering call back
-    client->displayCallback(window);
+    // Calculate Frame Time
+    float currentTime = glfwGetTime();
+    float deltaTime = currentTime - lastFrameTime;
+    lastFrameTime = currentTime;
+
+    client->processInput(deltaTime);
 
     // Updating of objects
     client->idleCallback();
+
+    // Rendering call back
+    client->displayCallback(window);
   }
 
   client->cleanUp();

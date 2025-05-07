@@ -1,6 +1,5 @@
 #pragma once
 
-#include "shared/gamestate.hpp"
 #include "shared/packets.hpp"
 
 #include <asio.hpp>
@@ -10,27 +9,26 @@
 #include <memory>
 #include <thread>
 
-#define CLIENT_ID unsigned int
-
 using asio::ip::tcp;
+using namespace std;
+
+#define CLIENT_ID unsigned int
 
 class ServerNetwork {
 private:
-  unsigned int client_id;
+  CLIENT_ID clientID;
   asio::ip::tcp::acceptor _acceptor;
-  std::map<CLIENT_ID, std::shared_ptr<asio::ip::tcp::socket>> clients;
-  GameState *game;
+  map<CLIENT_ID, shared_ptr<asio::ip::tcp::socket>> clients;
 
   void acceptClient();
-  std::unique_ptr<IPacket> processPackets(PacketType type,
-                                          vector<char> payload);
+  unique_ptr<IPacket> processPackets(PacketType type, vector<char> payload);
 
 public:
-  ServerNetwork(asio::io_context &io_context, const std::string &ip,
-                const std::string &port, GameState *game);
+  ServerNetwork(asio::io_context &io_context, const string &ip,
+                const string &port);
   void start();
   void sendToClient(unsigned int id, const IPacket &packet);
   void sendToAll(const IPacket &packet);
   void handleClientDisconnect(CLIENT_ID id);
-  deque<std::unique_ptr<IPacket>> receiveFromClients();
+  deque<unique_ptr<IPacket>> receiveFromClients();
 };

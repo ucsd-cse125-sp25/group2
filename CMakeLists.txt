@@ -34,6 +34,7 @@ add_subdirectory(dependencies/glew)
 add_subdirectory(dependencies/glfw)
 add_subdirectory(dependencies/glm)
 add_subdirectory(dependencies/stb_image)
+add_subdirectory(dependencies/csv_parser)
 
 # Client/Server build
 add_subdirectory(src/shared)

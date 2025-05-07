@@ -4,10 +4,16 @@
 #include "shared/core.hpp"
 class Camera {
 public:
-  Camera();
+  Camera(glm::vec3 target);
   ~Camera();
 
-  void update(float xpos, float ypos);
+  void update(float xpos, float ypos, glm::vec3 target);
+  void updateAspect(float width, float height);
+
+  void moveForward(float deltaTime);
+  void moveBackward(float deltaTime);
+  void moveLeft(float deltaTime);
+  void moveRight(float deltaTime);
 
   // Getters
   glm::vec3 getFacing() { return cameraFront; }
@@ -30,6 +36,7 @@ private:
 
   bool firstMouse;
   float sensitivity;
+  float speed;
 
   glm::vec3 cameraPos;
   glm::vec3 cameraFront;
