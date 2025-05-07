@@ -1,13 +1,12 @@
 #pragma once
 
 #include "shared/gameobject.hpp"
+#include "shared/objects/cube.hpp"
 #include "shared/packets.hpp"
+#include "csv.h"
 
-#include <fstream>
 #include <iostream>
 #include <memory>
-#include <sstream>
-#include <string>
 #include <unordered_map>
 #include <vector>
 
@@ -17,7 +16,7 @@ class ServerGameState {
 public:
   ServerGameState();
 
-  unique_ptr<GameObject> createObject(vector<float> inputs);
+  bool init();
 
   // update methods
   void updateMovement(int id, MovementType type);
@@ -25,7 +24,6 @@ public:
   // getters
   GameObject *getObject(int id);
   vector<int> getLastUpdatedObjects();
-  // void loadLevel(int new_level);
 
 private:
   int level;

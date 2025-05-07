@@ -3,9 +3,10 @@
 #include "client/shader.hpp"
 #include "shared/gameobject.hpp"
 #include "shared/objects/cube.hpp"
+#include "csv.h"
 
 #include <memory>
-#include <vector>
+#include <unordered_map>
 
 using namespace std;
 
@@ -14,11 +15,13 @@ public:
   ClientGameState();
 
   bool init();
-  void update();
+
+  // update methods
+  void update(int id, Transform* tf);
   void draw(const glm::mat4 &viewProjMtx);
 
+  GameObject *getObject(int id);
+
 private:
-  vector<unique_ptr<GameObject>> objectList;
-  // delete later
-  Cube *cube;
+  unordered_map<int, unique_ptr<GameObject>> objectList;
 };

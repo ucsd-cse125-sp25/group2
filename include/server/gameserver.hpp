@@ -14,7 +14,7 @@ public:
   void start();
 
   void updateGameState();
-  void updateClients();
+  void dispatchUpdates();
 
 private:
   // Network and GameState

@@ -54,7 +54,7 @@ bool Client::init() {
 
 bool Client::initObjects() {
   if (!game->init()) {
-    cerr << "GameState Initialization Failed" << endl;
+    cerr << "ClientGameState Initialization Failed" << endl;
     return false;
   }
   return true;
@@ -81,14 +81,17 @@ void Client::idleCallback() {
 
     switch (packet->getType()) {
     case PacketType::INIT: {
-      auto init_packet = dynamic_cast<InitPacket *>(packet.get());
-      network->setId(init_packet->clientID);
+      auto initPacket = dynamic_cast<InitPacket *>(packet.get());
+      network->setId(initPacket->clientID);
       break;
     }
     case PacketType::OBJECT: {
-      auto object_packet = dynamic_cast<ObjectPacket *>(packet.get());
-
-      // call gameState->update() here w/ id and transform
+      auto objectPacket = dynamic_cast<ObjectPacket *>(packet.get());
+      cout << objectPacket->transform.getPosition().x << " "
+           << objectPacket->transform.getPosition().y << " "
+           << objectPacket->transform.getPosition().z << endl;
+      // transform address??
+      game->update(objectPacket->objectID, &objectPacket->transform);
       break;
     }
     }
@@ -97,7 +100,6 @@ void Client::idleCallback() {
   cam->update(
       mouseX, mouseY,
       glm::vec3(0.0f, 0.0f, 0.0f)); // Later: gamestate->getPlayerPosition()
-  game->update();
 }
 
 void Client::displayCallback(GLFWwindow *window) {
@@ -114,7 +116,7 @@ void Client::displayCallback(GLFWwindow *window) {
 void Client::processInput(float deltaTime) {
   // Process WASD Movement
   if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
-    cam->moveForward(deltaTime);
+    // cam->moveForward(deltaTime);
     MovementPacket packet(0,
                           MovementType::FORWARD); // Hardcoded object ID for now
     // Later, we will use the ID of the player object

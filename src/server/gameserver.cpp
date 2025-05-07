@@ -8,7 +8,13 @@ GameServer::GameServer(asio::io_context &io_context, const string &ip,
 
 GameServer::~GameServer() {}
 
-void GameServer::start() { network->start(); }
+void GameServer::start() { 
+  network->start();
+  if (!game->init()) {
+    cerr << "ServerGameState initialization failed" << endl;
+    return;
+  }
+}
 
 void GameServer::updateGameState() {
   deque<unique_ptr<IPacket>> list_packets = network->receiveFromClients();
@@ -27,14 +33,17 @@ void GameServer::updateGameState() {
   }
 }
 
-void GameServer::updateClients() {
-  vector<int> object_ids = (*game).getLastUpdatedObjects();
-  for (int i = 0; i < object_ids.size(); i++) {
-    GameObject *obj = (*game).getObject(object_ids[i]);
-    ObjectPacket obj_packet = ObjectPacket(
+void GameServer::dispatchUpdates() {
+  vector<int> updatedObjects = game->getLastUpdatedObjects();
+  for (int i = 0; i < updatedObjects.size(); i++) {
+    GameObject *obj = game->getObject(updatedObjects[i]);
+    cout << obj->getPosition().x << " " << obj->getPosition().y << " "
+         << obj->getPosition().z << endl;
+    ObjectPacket objPacket = ObjectPacket(
         obj->getId(), obj->getType(),
         Transform(obj->getPosition(), obj->getRotation(), obj->getScale()),
         obj->isInteractable(), obj->isActive());
-    network->sendToAll(obj_packet);
+    cout << "Sending object packet to all clients" << endl;
+    network->sendToAll(objPacket);
   }
 }
