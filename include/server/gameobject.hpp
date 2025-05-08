@@ -1,9 +1,9 @@
 #pragma once
 
+#include "shared/base_gameobject.hpp"
 #include "shared/core.hpp"
 #include "shared/transform.hpp"
 #include "shared/types.hpp"
-#include "shared/base_gameobject.hpp"
 
 #include <memory>
 #include <string>
@@ -19,7 +19,7 @@ protected:
 
 public:
   GameObject(const int objectId, const bool isActive, unique_ptr<Transform> &tf)
-      : BaseGameObject(objectId, isActive, tf){
+      : BaseGameObject(objectId, isActive, tf) {
     interactable = false;
     velocity = 0.1f;
   };

@@ -18,8 +18,9 @@ protected:
   unique_ptr<Transform> transform;
 
 public:
-  BaseGameObject(const int objectId, const bool isActive, unique_ptr<Transform> &tf)
-      : id(objectId), active(isActive), transform(move(tf)) {};
+  BaseGameObject(const int objectId, const bool isActive,
+                 unique_ptr<Transform> &tf)
+      : id(objectId), active(isActive), transform(move(tf)){};
 
   virtual ~BaseGameObject(){};
 
