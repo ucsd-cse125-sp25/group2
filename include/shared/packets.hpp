@@ -1,7 +1,7 @@
 #pragma once
 
-#include "core.hpp"
 #include "base_gameobject.hpp"
+#include "core.hpp"
 #include "transform.hpp"
 #include "types.hpp"
 #include "utilities/util_packets.hpp"

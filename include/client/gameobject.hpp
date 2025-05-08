@@ -1,8 +1,8 @@
 #pragma once
 
-#include "model.hpp"
 #include "base_gameobject.hpp"
 #include "core.hpp"
+#include "model.hpp"
 #include "transform.hpp"
 #include "types.hpp"
 

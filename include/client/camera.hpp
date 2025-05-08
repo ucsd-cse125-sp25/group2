@@ -1,7 +1,7 @@
 #pragma once
 
-#include "glm/gtx/euler_angles.hpp"
 #include "core.hpp"
+#include "glm/gtx/euler_angles.hpp"
 class Camera {
 public:
   Camera();

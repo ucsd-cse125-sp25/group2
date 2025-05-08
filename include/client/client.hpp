@@ -3,10 +3,10 @@
 #include "camera.hpp"
 #include "client_gamestate.hpp"
 #include "client_network.hpp"
-#include "model.hpp"
-#include "shader.hpp"
 #include "constants.hpp"
 #include "core.hpp"
+#include "model.hpp"
+#include "shader.hpp"
 
 using namespace std;
 

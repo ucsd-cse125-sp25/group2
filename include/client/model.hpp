@@ -1,8 +1,8 @@
 #pragma once
 
+#include "core.hpp"
 #include "mesh.hpp"
 #include "shader.hpp"
-#include "core.hpp"
 #include "transform.hpp"
 
 #include <assimp/Importer.hpp>
