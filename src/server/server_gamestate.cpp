@@ -1,4 +1,4 @@
-#include "server/servergamestate.hpp"
+#include "server/server_gamestate.hpp"
 
 ServerGameState::ServerGameState() {}
 

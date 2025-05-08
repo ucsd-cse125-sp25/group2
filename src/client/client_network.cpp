@@ -1,4 +1,4 @@
-#include "client/clientnetwork.hpp"
+#include "client/client_network.hpp"
 
 /*
  * Constructor for ClientNetwork

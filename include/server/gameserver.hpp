@@ -1,7 +1,7 @@
 #pragma once
 
-#include "server/servergamestate.hpp"
-#include "server/servernetwork.hpp"
+#include "server/server_gamestate.hpp"
+#include "server/server_network.hpp"
 
 using namespace std;
 
