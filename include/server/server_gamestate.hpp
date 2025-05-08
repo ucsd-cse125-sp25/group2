@@ -19,7 +19,7 @@ public:
   bool init();
 
   // update methods
-  void updateMovement(int id, MovementType type);
+  void updateMovement(int id, MovementType type, glm::vec3 cameraFront);
 
   // getters
   GameObject *getObject(int id);

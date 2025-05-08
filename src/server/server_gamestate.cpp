@@ -47,29 +47,25 @@ vector<int> ServerGameState::getLastUpdatedObjects() {
   return res;
 }
 
-void ServerGameState::updateMovement(int id, MovementType type) {
+void ServerGameState::updateMovement(int id, MovementType type, 
+                                     glm::vec3 cameraFront) {
   auto obj = getObject(id);
   if (obj) {
-    auto tf = obj->getTransform();
-    // do camera calculation here
+    // Find the direction of movement based on the camera's facing direction
+    glm::vec3 flatFront = glm::normalize(glm::vec3(cameraFront.x, 0.0f, cameraFront.z));
+    glm::vec3 cameraRight = glm::normalize(glm::cross(flatFront, glm::vec3(0.0f, 1.0f, 0.0f)));
     switch (type) {
     case MovementType::FORWARD:
-      cout << "moving forward" << endl;
-      tf->updatePosition(glm::vec3(0, 0, -1));
-      // cout << obj->getPosition().x << " " << obj->getPosition().y << " " <<
-      // obj->getPosition().z << endl;
+      obj->applyMovement(flatFront);
       break;
     case MovementType::BACKWARD:
-      cout << "moving backward" << endl;
-      tf->updatePosition(glm::vec3(0, 0, 1));
+      obj->applyMovement(-flatFront);
       break;
     case MovementType::LEFT:
-      cout << "moving left" << endl;
-      // obj->move(vec/transform);
+      obj->applyMovement(-cameraRight);
       break;
     case MovementType::RIGHT:
-      cout << "moving right" << endl;
-      // obj->move(vec/transform);
+      obj->applyMovement(cameraRight);
       break;
     default:
       cerr << "Unknown movement type" << endl;

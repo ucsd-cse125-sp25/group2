@@ -30,14 +30,13 @@ bool ClientGameState::init() {
       obj->setShader(
           make_unique<Shader>(vertShaderPath.c_str(), fragShaderPath.c_str()));
       objectList[objectId] = move(obj);
+      player = obj.get();
     }
   }
   return true;
 }
 
 void ClientGameState::update(int id, Transform *tf) {
-  // cout << tf->getPosition().x << " " << tf->getPosition().y << " " <<
-  // tf->getPosition().z << endl;
   auto obj = getObject(id);
   if (obj) {
     obj->update(tf);
