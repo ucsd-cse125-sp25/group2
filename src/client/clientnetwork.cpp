@@ -83,10 +83,6 @@ unique_ptr<IPacket> ClientNetwork::processPackets(PacketType type,
   }
   case PacketType::OBJECT: {
     unique_ptr<IPacket> packet = deserialize(PacketType::OBJECT, payload);
-
-    if (auto *objectPacket = dynamic_cast<ObjectPacket *>(packet.get())) {
-      // printObjectPacket(*objectPacket);
-    }
     return packet;
   }
   case PacketType::MOVEMENT: {

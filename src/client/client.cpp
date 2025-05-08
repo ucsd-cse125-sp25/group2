@@ -87,9 +87,6 @@ void Client::idleCallback() {
     }
     case PacketType::OBJECT: {
       auto objectPacket = dynamic_cast<ObjectPacket *>(packet.get());
-      cout << objectPacket->transform.getPosition().x << " "
-           << objectPacket->transform.getPosition().y << " "
-           << objectPacket->transform.getPosition().z << endl;
       // transform address??
       game->update(objectPacket->objectID, &objectPacket->transform);
       break;

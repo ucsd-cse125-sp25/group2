@@ -37,13 +37,10 @@ void GameServer::dispatchUpdates() {
   vector<int> updatedObjects = game->getLastUpdatedObjects();
   for (int i = 0; i < updatedObjects.size(); i++) {
     GameObject *obj = game->getObject(updatedObjects[i]);
-    cout << obj->getPosition().x << " " << obj->getPosition().y << " "
-         << obj->getPosition().z << endl;
     ObjectPacket objPacket = ObjectPacket(
         obj->getId(), obj->getType(),
         Transform(obj->getPosition(), obj->getRotation(), obj->getScale()),
         obj->isInteractable(), obj->isActive());
-    cout << "Sending object packet to all clients" << endl;
     network->sendToAll(objPacket);
   }
 }
