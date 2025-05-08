@@ -7,8 +7,7 @@ Client::Client() {
   windowHeight = WINDOW_HEIGHT;
 
   // Initialize camera properties
-  cam = make_unique<Camera>(
-      glm::vec3(0.0f, 0.0f, 0.0f)); // Hardcoded target for now
+  cam = make_unique<Camera>(); // Hardcoded target for now
   mouseX = 0.0f;
   mouseY = 0.0f;
 
@@ -95,8 +94,7 @@ void Client::idleCallback() {
   }
 
   cam->update(
-      mouseX, mouseY,
-      glm::vec3(0.0f, 0.0f, 0.0f)); // Later: gamestate->getPlayerPosition()
+      mouseX, mouseY, game->getPlayer()->getPosition());
 }
 
 void Client::displayCallback(GLFWwindow *window) {
@@ -115,24 +113,24 @@ void Client::processInput(float deltaTime) {
   if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
     // cam->moveForward(deltaTime);
     MovementPacket packet(0,
-                          MovementType::FORWARD); // Hardcoded object ID for now
+                          MovementType::FORWARD, cam->getFacing()); // Hardcoded object ID for now
     // Later, we will use the ID of the player object
     network->send(packet);
   }
   if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
     cam->moveBackward(deltaTime);
-    MovementPacket packet(0, MovementType::BACKWARD);
-    network->send(packet);
+    // MovementPacket packet(0, MovementType::BACKWARD);
+    // network->send(packet);
   }
   if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
     cam->moveLeft(deltaTime);
-    MovementPacket packet(0, MovementType::LEFT);
-    network->send(packet);
+    // MovementPacket packet(0, MovementType::LEFT);
+    // network->send(packet);
   }
   if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
     cam->moveRight(deltaTime);
-    MovementPacket packet(0, MovementType::RIGHT);
-    network->send(packet);
+    // MovementPacket packet(0, MovementType::RIGHT);
+    // network->send(packet);
   }
 }
 
