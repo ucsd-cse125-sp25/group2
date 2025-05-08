@@ -4,6 +4,7 @@
 #include "shared/gameobject.hpp"
 #include "shared/transform.hpp"
 #include "shared/utilities/util_packets.hpp"
+#include "shared/game_enums.hpp"
 
 #include <cstring>
 #include <memory>
@@ -15,9 +16,6 @@
 using namespace std;
 
 enum class PacketType : uint8_t { INIT, OBJECT, MOVEMENT, DISCONNECT };
-
-enum class MovementType : uint8_t { FORWARD, BACKWARD, LEFT, RIGHT };
-
 struct IPacket {
   virtual PacketType getType() const = 0;
   virtual vector<char> serialize() const = 0;
