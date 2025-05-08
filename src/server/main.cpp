@@ -1,4 +1,4 @@
-#include "server/gameserver.hpp"
+#include "gameserver.hpp"
 #include <chrono>
 #include <iostream>
 

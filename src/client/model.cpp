@@ -1,4 +1,4 @@
-#include "client/model.hpp"
+#include "model.hpp"
 #include <stb_image.h>
 
 Model::Model(const char *path) {

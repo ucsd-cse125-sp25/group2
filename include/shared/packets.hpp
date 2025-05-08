@@ -1,10 +1,10 @@
 #pragma once
 
-#include "shared/core.hpp"
-#include "shared/gameobject.hpp"
-#include "shared/transform.hpp"
-#include "shared/types.hpp"
-#include "shared/utilities/util_packets.hpp"
+#include "core.hpp"
+#include "base_gameobject.hpp"
+#include "transform.hpp"
+#include "types.hpp"
+#include "utilities/util_packets.hpp"
 
 #include <cstring>
 #include <memory>

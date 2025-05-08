@@ -1,4 +1,4 @@
-#include "client/client_gamestate.hpp"
+#include "client_gamestate.hpp"
 
 ClientGameState::ClientGameState() {}
 

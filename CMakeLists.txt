@@ -17,7 +17,9 @@ endif()
 include(FetchContent)
 
 # Set custom variables
-SET(INCLUDE_DIRECTORY ${PROJECT_SOURCE_DIR}/include)
+SET(CLIENT_INCLUDE_DIRECTORY ${PROJECT_SOURCE_DIR}/include/client)
+SET(SERVER_INCLUDE_DIRECTORY ${PROJECT_SOURCE_DIR}/include/server)
+SET(SHARED_INCLUDE_DIRECTORY ${PROJECT_SOURCE_DIR}/include/shared)
 
 # Custom function to collect source files in a directory
 function(collect_sources dir out_var)

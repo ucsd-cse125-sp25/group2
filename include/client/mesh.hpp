@@ -1,7 +1,7 @@
 #pragma once
 
-#include "client/shader.hpp"
-#include "shared/core.hpp"
+#include "shader.hpp"
+#include "core.hpp"
 
 #include <memory>
 #include <string>

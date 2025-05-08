@@ -1,4 +1,4 @@
-#include "shared/utilities/util_packets.hpp"
+#include "utilities/util_packets.hpp"
 
 void serializeVector(char *dest, const glm::vec3 &vec3, unsigned long &size) {
   memcpy(dest + size, &vec3.x, sizeof(float));

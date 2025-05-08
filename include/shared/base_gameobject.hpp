@@ -1,9 +1,8 @@
 #pragma once
 
-#include "client/model.hpp"
-#include "shared/core.hpp"
-#include "shared/transform.hpp"
-#include "shared/types.hpp"
+#include "core.hpp"
+#include "transform.hpp"
+#include "types.hpp"
 
 #include <memory>
 #include <string>

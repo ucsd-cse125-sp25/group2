@@ -1,4 +1,4 @@
-#include "client/client.hpp"
+#include "client.hpp"
 
 Client::Client() {
   // Initialize window properties
@@ -93,7 +93,7 @@ void Client::idleCallback() {
     }
   }
 
-  cam->update(mouseX, mouseY, game->getPlayer()->getPosition());
+  cam->update(mouseX, mouseY, glm::vec3(0.0f, 0.0f, 0.0f));
 }
 
 void Client::displayCallback(GLFWwindow *window) {

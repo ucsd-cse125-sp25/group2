@@ -1,4 +1,4 @@
-#include "client/client.hpp"
+#include "client.hpp"
 #include <memory>
 #include <stb_image.h>
 

@@ -1,4 +1,4 @@
-#include "server/gameserver.hpp"
+#include "gameserver.hpp"
 
 GameServer::GameServer(asio::io_context &io_context, const string &ip,
                        const string &port) {

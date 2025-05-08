@@ -1,4 +1,4 @@
-#include "client/mesh.hpp"
+#include "mesh.hpp"
 
 Mesh::Mesh(vector<Vertex> vertices, vector<unsigned int> indices,
            vector<Texture> textures) {

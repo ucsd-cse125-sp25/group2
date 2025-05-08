@@ -1,6 +1,6 @@
 #pragma once
 
-#include "shared/gameobject.hpp"
+#include "gameobject.hpp"
 
 class Cube : public GameObject {
 public:

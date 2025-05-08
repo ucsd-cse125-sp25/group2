@@ -1,4 +1,4 @@
-#include "client/camera.hpp"
+#include "camera.hpp"
 
 Camera::Camera()
     : cameraPos(glm::vec3(0.0f, 2.0f, 5.0f)),

@@ -1,4 +1,4 @@
-#include "shared/transform.hpp"
+#include "transform.hpp"
 
 Transform::Transform(glm::vec3 pos, glm::vec3 rot, glm::vec3 scl) {
   this->position = pos;

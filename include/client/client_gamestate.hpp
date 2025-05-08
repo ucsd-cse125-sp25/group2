@@ -1,9 +1,9 @@
 #pragma once
 
-#include "client/shader.hpp"
+#include "shader.hpp"
 #include "csv.h"
-#include "shared/gameobject.hpp"
-#include "shared/objects/cube.hpp"
+#include "gameobject.hpp"
+#include "objects/cube.hpp"
 
 #include <memory>
 #include <unordered_map>

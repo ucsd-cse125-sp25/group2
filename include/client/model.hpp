@@ -1,9 +1,9 @@
 #pragma once
 
-#include "client/mesh.hpp"
-#include "client/shader.hpp"
-#include "shared/core.hpp"
-#include "shared/transform.hpp"
+#include "mesh.hpp"
+#include "shader.hpp"
+#include "core.hpp"
+#include "transform.hpp"
 
 #include <assimp/Importer.hpp>
 #include <assimp/postprocess.h>

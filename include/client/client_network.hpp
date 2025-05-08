@@ -1,6 +1,6 @@
 #pragma once
 
-#include "shared/packets.hpp"
+#include "packets.hpp"
 
 #include <asio.hpp>
 #include <deque>

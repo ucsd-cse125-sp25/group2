@@ -1,4 +1,4 @@
-#include "shared/packets.hpp"
+#include "packets.hpp"
 
 vector<char> InitPacket::serialize() const {
   vector<char> buffer(sizeof(int));

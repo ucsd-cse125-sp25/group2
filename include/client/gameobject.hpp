@@ -1,10 +1,10 @@
 #pragma once
 
-#include "client/model.hpp"
-#include "shared/base_gameobject.hpp"
-#include "shared/core.hpp"
-#include "shared/transform.hpp"
-#include "shared/types.hpp"
+#include "model.hpp"
+#include "base_gameobject.hpp"
+#include "core.hpp"
+#include "transform.hpp"
+#include "types.hpp"
 
 #include <memory>
 #include <string>

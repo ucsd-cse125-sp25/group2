@@ -1,27 +1,27 @@
 
-#pragma once
+// #pragma once
 
-#include "shared/gameobject.hpp"
+// #include "base_gameobject.hpp"
 
-#include <string>
+// #include <string>
 
-class Animal {
-protected:
-  float positionX;
-  float positionY;
-  float positionZ;
-  string animalType;
+// class Animal {
+// protected:
+//   float positionX;
+//   float positionY;
+//   float positionZ;
+//   string animalType;
 
-public:
-  Animal(float x, float y, float z, const string &type);
+// public:
+//   Animal(float x, float y, float z, const string &type);
 
-  virtual ~Animal();
+//   virtual ~Animal();
 
-  virtual void move(float deltaX, float deltaY, float deltaZ);
-  virtual void interact(const GameObject &other);
+//   virtual void move(float deltaX, float deltaY, float deltaZ);
+//   virtual void interact(const GameObject &other);
 
-  float getPositionX() const;
-  float getPositionY() const;
-  float getPositionZ() const;
-  string getAnimalType() const;
-};
+//   float getPositionX() const;
+//   float getPositionY() const;
+//   float getPositionZ() const;
+//   string getAnimalType() const;
+// };
