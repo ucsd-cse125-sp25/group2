@@ -49,9 +49,10 @@ struct ObjectPacket : public IPacket {
 struct MovementPacket : public IPacket {
   int objectID;
   MovementType movementType;
+  glm::vec3 cameraFront;
 
-  MovementPacket(int id, MovementType type)
-      : objectID(id), movementType(type) {}
+  MovementPacket(int id, MovementType type, glm::vec3 cameraFront)
+      : objectID(id), movementType(type), cameraFront(cameraFront) {}
   PacketType getType() const override { return PacketType::MOVEMENT; }
   vector<char> serialize() const override;
   static MovementPacket deserialize(const vector<char> &payload);
