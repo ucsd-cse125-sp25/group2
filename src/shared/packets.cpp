@@ -46,6 +46,8 @@ ObjectPacket ObjectPacket::deserialize(const vector<char> &payload) {
   size += sizeof(bool);
   memcpy(&active, payload.data() + size, sizeof(bool));
   ObjectPacket packet(objectID, objectType, transform);
+  packet.active = active;
+  packet.interactable = interactable;
   return packet;
 }
 

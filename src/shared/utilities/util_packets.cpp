@@ -35,6 +35,6 @@ void deserializeTransform(const vector<char> &payload, Transform &transform,
       deserializeVector(payload, transform.getPosition(), size));
   transform.setRotation(
       deserializeVector(payload, transform.getRotation(), size));
-  transform.setPosition(deserializeVector(payload, transform.getScale(), size));
+  transform.setScale(deserializeVector(payload, transform.getScale(), size));
   return;
 }
