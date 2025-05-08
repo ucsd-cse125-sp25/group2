@@ -25,12 +25,16 @@ protected:
   // server properties
   bool interactable;
 
+  // physics properties
+  float velocity;
+
 public:
   GameObject(const int objectId, const bool isActive, unique_ptr<Transform> &tf)
       : id(objectId), active(isActive), transform(move(tf)) {
     model = nullptr;
     shader = nullptr;
     interactable = false;
+    velocity = 0.1f;
   };
 
   virtual ~GameObject(){};
@@ -58,4 +62,7 @@ public:
   void deactivate() { active = false; };
   void setInteractability(bool canInteract) { interactable = canInteract; };
   bool isInteractable() const { return interactable; };
+
+  // physics methods
+  void applyMovement(const glm::vec3 &direction);
 };
