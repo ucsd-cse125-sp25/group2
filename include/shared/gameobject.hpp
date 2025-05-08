@@ -10,7 +10,6 @@
 
 using namespace std;
 
-
 class GameObject {
 protected:
   // shared properties
