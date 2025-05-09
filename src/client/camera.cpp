@@ -39,30 +39,29 @@ void Camera::update(float xpos, float ypos, glm::vec3 target) {
   yaw += xoffset;
   pitch += yoffset;
 
-  // restrict yaw (x-dir) and pitch (y-dir)
-  yaw = glm::clamp(yaw, -110.0f, -70.0f);
-  pitch = glm::clamp(pitch, -45.0f, 10.0f);
+  // restrict yaw (x-dir) and allow 360 degrees for pitch (y-dir)
+  pitch = glm::clamp(pitch, 1.0f, 12.0f);
+  if (yaw > 360.0f) yaw -= 360.0f;
+  if (yaw < 0.0f) yaw += 360.0f;
 
   // Updating view projection matrix
-  // float radius = 5.0f;
-  // float camX = radius * cos(glm::radians(pitch)) * cos(glm::radians(yaw));
-  // float camY = radius * sin(glm::radians(pitch));
-  // float camZ = radius * cos(glm::radians(pitch)) * sin(glm::radians(yaw));
+  float radius = 13.0f;
+  float camX = radius * cos(glm::radians(pitch)) * cos(glm::radians(yaw));
+  float camY = radius * sin(glm::radians(pitch));
+  float camZ = radius * cos(glm::radians(pitch)) * sin(glm::radians(yaw));
 
-  // cameraPos = target + glm::vec3(camX, camY, camZ);
-  // cameraFront = glm::normalize(target - cameraPos);
+  cameraPos = target + glm::vec3(camX, camY, camZ);
 
-  glm::vec3 front;
-  front.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
-  front.y = sin(glm::radians(pitch));
-  front.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
-  cameraFront = glm::normalize(front);
+  glm::vec3 lookOffset(0.0f, 3.0f, 0.0f);  // look a bit higher than the target
+  glm::vec3 lookAtPoint = target + lookOffset;
+
+  cameraFront = glm::normalize(lookAtPoint - cameraPos);
 
   cameraRight = glm::normalize(glm::cross(cameraFront, worldUp));
   cameraUp = glm::normalize(glm::cross(cameraRight, cameraFront));
 
   projection = glm::perspective(glm::radians(fov), aspect, nearClip, farClip);
-  view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
+  view = glm::lookAt(cameraPos, lookAtPoint, cameraUp);
 
   viewProjMat = projection * view;
 }
