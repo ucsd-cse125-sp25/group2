@@ -1,4 +1,4 @@
-#include "shared/packets.hpp"
+#include "packets.hpp"
 
 vector<char> InitPacket::serialize() const {
   vector<char> buffer(sizeof(int));
@@ -46,23 +46,34 @@ ObjectPacket ObjectPacket::deserialize(const vector<char> &payload) {
   size += sizeof(bool);
   memcpy(&active, payload.data() + size, sizeof(bool));
   ObjectPacket packet(objectID, objectType, transform);
+  packet.active = active;
+  packet.interactable = interactable;
   return packet;
 }
 
 vector<char> MovementPacket::serialize() const {
-  vector<char> buffer(sizeof(int) + sizeof(MovementType));
+  vector<char> buffer(sizeof(int) + sizeof(MovementType) + sizeof(glm::vec3));
+  unsigned long size = 0;
   memcpy(buffer.data(), &objectID, sizeof(int));
-  memcpy(buffer.data() + sizeof(int), &movementType, sizeof(MovementType));
+  size += sizeof(int);
+  memcpy(buffer.data() + size, &movementType, sizeof(MovementType));
+  size += sizeof(MovementType);
+  serializeVector(buffer.data(), cameraFront, size);
   return buffer;
 }
 
 MovementPacket MovementPacket::deserialize(const vector<char> &payload) {
   int objectID;
   MovementType movementType;
+  glm::vec3 cameraFront;
 
+  unsigned long size = 0;
   memcpy(&objectID, payload.data(), sizeof(int));
-  memcpy(&movementType, payload.data() + sizeof(int), sizeof(MovementType));
-  MovementPacket packet(objectID, movementType);
+  size += sizeof(int);
+  memcpy(&movementType, payload.data() + size, sizeof(MovementType));
+  size += sizeof(MovementType);
+  cameraFront = deserializeVector(payload, cameraFront, size);
+  MovementPacket packet(objectID, movementType, cameraFront);
   return packet;
 }
 

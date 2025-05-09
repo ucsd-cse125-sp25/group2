@@ -1,11 +1,10 @@
 #pragma once
 
+#include "core.hpp"
 #include "glm/gtx/euler_angles.hpp"
-#include "shared/core.hpp"
 class Camera {
 public:
-  Camera(glm::vec3 target);
-  ~Camera();
+  Camera();
 
   void update(float xpos, float ypos, glm::vec3 target);
   void updateAspect(float width, float height);

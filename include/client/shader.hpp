@@ -1,6 +1,6 @@
 #pragma once
 
-#include "shared/core.hpp"
+#include "core.hpp"
 
 #include <fstream>
 #include <iostream>

@@ -1,7 +1,7 @@
 #pragma once
 
-#include "server/servergamestate.hpp"
-#include "server/servernetwork.hpp"
+#include "server_gamestate.hpp"
+#include "server_network.hpp"
 
 using namespace std;
 
@@ -14,7 +14,7 @@ public:
   void start();
 
   void updateGameState();
-  void updateClients();
+  void dispatchUpdates();
 
 private:
   // Network and GameState

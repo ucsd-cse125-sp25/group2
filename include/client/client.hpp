@@ -1,12 +1,12 @@
 #pragma once
 
-#include "client/camera.hpp"
-#include "client/clientgamestate.hpp"
-#include "client/clientnetwork.hpp"
-#include "client/model.hpp"
-#include "client/shader.hpp"
-#include "shared/constants.hpp"
-#include "shared/core.hpp"
+#include "camera.hpp"
+#include "client_gamestate.hpp"
+#include "client_network.hpp"
+#include "constants.hpp"
+#include "core.hpp"
+#include "model.hpp"
+#include "shader.hpp"
 
 using namespace std;
 

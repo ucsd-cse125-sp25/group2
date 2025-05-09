@@ -1,4 +1,4 @@
-#include "server/gameserver.hpp"
+#include "gameserver.hpp"
 #include <chrono>
 #include <iostream>
 
@@ -20,7 +20,7 @@ int main() {
       auto start = high_resolution_clock::now();
 
       server.updateGameState();
-      server.updateClients();
+      server.dispatchUpdates();
 
       auto stop = high_resolution_clock::now();
       auto wait = duration_cast<milliseconds>(SERVERTICKS - (stop - start));

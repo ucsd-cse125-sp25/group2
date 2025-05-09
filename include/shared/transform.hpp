@@ -1,6 +1,6 @@
 #pragma once
 
-#include "shared/core.hpp"
+#include "core.hpp"
 
 class Transform {
 protected:

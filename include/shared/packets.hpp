@@ -1,9 +1,10 @@
 #pragma once
 
-#include "shared/core.hpp"
-#include "shared/gameobject.hpp"
-#include "shared/transform.hpp"
-#include "shared/utilities/util_packets.hpp"
+#include "base_gameobject.hpp"
+#include "core.hpp"
+#include "transform.hpp"
+#include "types.hpp"
+#include "utilities/util_packets.hpp"
 
 #include <cstring>
 #include <memory>
@@ -13,10 +14,6 @@
 #include <vector>
 
 using namespace std;
-
-enum class PacketType : uint8_t { INIT, OBJECT, MOVEMENT, DISCONNECT };
-
-enum class MovementType : uint8_t { FORWARD, BACKWARD, LEFT, RIGHT };
 
 struct IPacket {
   virtual PacketType getType() const = 0;
@@ -52,9 +49,10 @@ struct ObjectPacket : public IPacket {
 struct MovementPacket : public IPacket {
   int objectID;
   MovementType movementType;
+  glm::vec3 cameraFront;
 
-  MovementPacket(int id, MovementType type)
-      : objectID(id), movementType(type) {}
+  MovementPacket(int id, MovementType type, glm::vec3 cameraFront)
+      : objectID(id), movementType(type), cameraFront(cameraFront) {}
   PacketType getType() const override { return PacketType::MOVEMENT; }
   vector<char> serialize() const override;
   static MovementPacket deserialize(const vector<char> &payload);

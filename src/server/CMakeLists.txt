@@ -7,7 +7,7 @@ collect_sources("${CMAKE_CURRENT_SOURCE_DIR}" SERVER_SRCS)
 add_executable(${TARGET_NAME} ${SERVER_SRCS})
 
 target_include_directories(${TARGET_NAME} PRIVATE 
-    ${INCLUDE_DIRECTORY}
+    ${SERVER_INCLUDE_DIRECTORY} ${SHARED_INCLUDE_DIRECTORY}
 )
 
 # Compile Definitions

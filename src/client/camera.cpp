@@ -1,9 +1,8 @@
-#include "client/camera.hpp"
+#include "camera.hpp"
 
-Camera::Camera(glm::vec3 target)
+Camera::Camera()
     : cameraPos(glm::vec3(0.0f, 2.0f, 5.0f)),
       cameraFront(glm::vec3(0.0f, 0.0f, -1.0f)),
-      // cameraFront(glm::normalize(target - cameraPos)),
       cameraUp(glm::vec3(0.0f, 1.0f, 0.0f)), viewProjMat(glm::mat4(1.0f)) {
   fov = 60.0f;
   aspect = 1.33f;
@@ -21,8 +20,6 @@ Camera::Camera(glm::vec3 target)
 
   worldUp = cameraUp;
 }
-
-Camera::~Camera() {}
 
 void Camera::update(float xpos, float ypos, glm::vec3 target) {
   if (firstMouse) {

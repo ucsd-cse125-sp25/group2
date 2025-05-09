@@ -1,4 +1,4 @@
-#include "client/mesh.hpp"
+#include "mesh.hpp"
 
 Mesh::Mesh(vector<Vertex> vertices, vector<unsigned int> indices,
            vector<Texture> textures) {
@@ -37,7 +37,7 @@ void Mesh::setupMesh() {
   glBindVertexArray(0);
 }
 
-void Mesh::Draw(unique_ptr<Shader> &shader) {
+void Mesh::draw(unique_ptr<Shader> &shader) {
   // Draw the mesh based on the texture
   unsigned int diffuseNr = 1;
   unsigned int specularNr = 1;
