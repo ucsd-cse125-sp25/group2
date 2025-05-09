@@ -86,7 +86,6 @@ void Client::idleCallback() {
     }
     case PacketType::OBJECT: {
       auto objectPacket = dynamic_cast<ObjectPacket *>(packet.get());
-      // transform address??
       game->update(objectPacket->objectID, &objectPacket->transform);
       break;
     }
@@ -110,7 +109,7 @@ void Client::displayCallback(GLFWwindow *window) {
 void Client::processInput(float deltaTime) {
   // Process WASD Movement
   if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
-    // cam->moveForward(deltaTime);
+    cam->moveForward(deltaTime);
     MovementPacket packet(0, MovementType::FORWARD,
                           cam->getFacing()); // Hardcoded object ID for now
     // Later, we will use the ID of the player object
@@ -118,18 +117,18 @@ void Client::processInput(float deltaTime) {
   }
   if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
     cam->moveBackward(deltaTime);
-    // MovementPacket packet(0, MovementType::BACKWARD);
-    // network->send(packet);
+    MovementPacket packet(0, MovementType::BACKWARD, cam->getFacing());
+    network->send(packet);
   }
   if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
     cam->moveLeft(deltaTime);
-    // MovementPacket packet(0, MovementType::LEFT);
-    // network->send(packet);
+    MovementPacket packet(0, MovementType::LEFT, cam->getFacing());
+    network->send(packet);
   }
   if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
     cam->moveRight(deltaTime);
-    // MovementPacket packet(0, MovementType::RIGHT);
-    // network->send(packet);
+    MovementPacket packet(0, MovementType::RIGHT, cam->getFacing());
+    network->send(packet);
   }
 }
 
