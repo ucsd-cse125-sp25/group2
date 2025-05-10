@@ -160,8 +160,8 @@ void Client::mouseButtonCallback(GLFWwindow *window, int button, int action,
                                  int mods) {
   if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS) {
     // Handle left mouse button press
-    glm::vec3 rayDirection = cam->calculateRayFromCamera(mouseX, mouseY, windowWidth,
-                                 windowHeight);
+    glm::vec3 rayDirection =
+        cam->calculateRayFromCamera(mouseX, mouseY, windowWidth, windowHeight);
     // Ray origin is the camera position
     glm::vec3 rayOrigin = cam->getPos();
     InteractionPacket packet(rayDirection, rayOrigin);

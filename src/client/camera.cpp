@@ -99,26 +99,28 @@ void Camera::moveLeft(float deltaTime) {
   cameraPos -= rightDir * speed * deltaTime;
 }
 
-glm::vec3 Camera::calculateRayFromCamera(float mouseX, float mouseY, float screenWidth, float screenHeight) {
+glm::vec3 Camera::calculateRayFromCamera(float mouseX, float mouseY,
+                                         float screenWidth,
+                                         float screenHeight) {
   // Convert screen coordinates to normalized device coordinates (NDC)
   // NDC range: x,y from -1 to 1
   float ndcX = (2.0f * mouseX) / screenWidth - 1.0f;
   float ndcY = 1.0f - (2.0f * mouseY) / screenHeight; // Flip Y coordinate
-  
+
   // Create a ray in clip space
   glm::vec4 rayClip = glm::vec4(ndcX, ndcY, -1.0f, 1.0f);
-  
+
   // Convert to eye space using the inverse projection matrix
   glm::mat4 invProj = glm::inverse(getProjection());
   glm::vec4 rayEye = invProj * rayClip;
   rayEye = glm::vec4(rayEye.x, rayEye.y, -1.0f, 0.0f); // Reset Z and W
-  
+
   // Convert to world space using the inverse view matrix
   glm::mat4 invView = glm::inverse(getView());
   glm::vec4 rayWorld = invView * rayEye;
-  
+
   // Normalize the direction
   glm::vec3 rayDirection = glm::normalize(glm::vec3(rayWorld));
-  
+
   return rayDirection;
 }

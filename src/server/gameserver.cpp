@@ -33,7 +33,8 @@ void GameServer::updateGameState() {
     }
     case PacketType::INTERACTION: {
       auto interactionPacket = static_cast<InteractionPacket *>(packet.get());
-      game->updateInteraction(interactionPacket->rayDirection, interactionPacket->rayOrigin);
+      game->updateInteraction(interactionPacket->rayDirection,
+                              interactionPacket->rayOrigin);
       break;
     }
     }
