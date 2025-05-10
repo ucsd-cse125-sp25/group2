@@ -4,7 +4,7 @@
 #include "core.hpp"
 #include "model.hpp"
 #include "transform.hpp"
-#include "types.hpp"
+#include "globals.hpp"
 
 #include <memory>
 #include <string>

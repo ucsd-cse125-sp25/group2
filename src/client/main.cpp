@@ -33,6 +33,12 @@ void setup_callbacks(GLFWwindow *window) {
                              static_cast<Client *>(glfwGetWindowUserPointer(w))
                                  ->mouseCallback(w, xposIn, yposIn);
                            });
+
+  glfwSetMouseButtonCallback(window, 
+  [](GLFWwindow *w, int button, int action, int mods) {
+    static_cast<Client *>(glfwGetWindowUserPointer(w))
+        ->mouseButtonCallback(w, button, action, mods);
+  });
 }
 
 void setup_opengl_settings() {

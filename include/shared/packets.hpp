@@ -3,7 +3,7 @@
 #include "base_gameobject.hpp"
 #include "core.hpp"
 #include "transform.hpp"
-#include "types.hpp"
+#include "globals.hpp"
 #include "utilities/util_packets.hpp"
 
 #include <cstring>
@@ -14,6 +14,8 @@
 #include <vector>
 
 using namespace std;
+
+enum class PacketType : uint8_t { INIT, OBJECT, MOVEMENT, INTERACTION, DISCONNECT };
 
 struct IPacket {
   virtual PacketType getType() const = 0;
@@ -32,15 +34,13 @@ struct InitPacket : public IPacket {
 
 struct ObjectPacket : public IPacket {
   int objectID;
-  ObjectType objectType;
   Transform transform;
-  bool interactable;
   bool active;
 
-  ObjectPacket(int id, ObjectType type, Transform transform,
-               bool interactable = false, bool active = false)
-      : objectID(id), objectType(type), transform(transform),
-        interactable(interactable), active(active) {}
+  ObjectPacket(int id, Transform transform,
+              bool active)
+      : objectID(id), transform(transform),
+        active(active) {}
   PacketType getType() const override { return PacketType::OBJECT; }
   vector<char> serialize() const override;
   static ObjectPacket deserialize(const vector<char> &payload);
@@ -56,6 +56,15 @@ struct MovementPacket : public IPacket {
   PacketType getType() const override { return PacketType::MOVEMENT; }
   vector<char> serialize() const override;
   static MovementPacket deserialize(const vector<char> &payload);
+};
+
+struct InteractionPacket : public IPacket {
+  int objectID;
+
+  InteractionPacket(int id) : objectID(id) {}
+  PacketType getType() const override { return PacketType::INTERACTION; }
+  vector<char> serialize() const override;
+  static InteractionPacket deserialize(const vector<char> &payload);
 };
 
 struct DisconnectPacket : public IPacket {
