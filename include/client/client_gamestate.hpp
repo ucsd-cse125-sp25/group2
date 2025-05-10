@@ -2,7 +2,6 @@
 
 #include "csv.h"
 #include "gameobject.hpp"
-#include "objects/cube.hpp"
 #include "shader.hpp"
 
 #include <memory>
