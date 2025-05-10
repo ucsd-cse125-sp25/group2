@@ -1,7 +1,7 @@
 #pragma once
 
 #include "csv.h"
-#include "gameobject.hpp"
+#include "client_gameobject.hpp"
 #include "shader.hpp"
 
 #include <memory>
