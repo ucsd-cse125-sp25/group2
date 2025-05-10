@@ -21,6 +21,8 @@ public:
   glm::mat4 getView() { return view; }
   glm::mat4 getViewProj() { return viewProjMat; }
 
+  glm::vec3 calculateRayFromCamera(float mouseX, float mouseY, float screenWidth, float screenHeight);
+
 private:
   // Perspective controls
   float fov;      // Field of View Angle (degrees)

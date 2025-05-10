@@ -61,22 +61,23 @@ MovementPacket MovementPacket::deserialize(const vector<char> &payload) {
   size += sizeof(int);
   memcpy(&movementType, payload.data() + size, sizeof(MovementType));
   size += sizeof(MovementType);
-  cameraFront = deserializeVector(payload, cameraFront, size);
+  cameraFront = deserializeVector(payload, size);
   MovementPacket packet(objectID, movementType, cameraFront);
   return packet;
 }
 
 vector<char> InteractionPacket::serialize() const {
-  vector<char> buffer(sizeof(int));
-  memcpy(buffer.data(), &objectID, sizeof(int));
+  vector<char> buffer(sizeof(glm::vec3) * 2);
+  unsigned long size = 0;
+  serializeVector(buffer.data(), rayDirection, size);
+  serializeVector(buffer.data(), rayOrigin, size);
   return buffer;
 }
 
 InteractionPacket InteractionPacket::deserialize(const vector<char> &payload) {
-  int objectID;
-
-  memcpy(&objectID, payload.data(), sizeof(int));
-  InteractionPacket packet(objectID);
+  unsigned long size = 0;
+  InteractionPacket packet(deserializeVector(payload, size), 
+                           deserializeVector(payload, size));
   return packet;
 }
 

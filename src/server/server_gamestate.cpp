@@ -3,81 +3,122 @@
 
 ServerGameState::ServerGameState() {}
 
-bool ServerGameState::init() {
-  // Initialize objects
-  io::CSVReader<NUM_COLUMNS_CSV> in("../resources/objects/objects.csv");
-  in.read_header(io::ignore_extra_column, "ID", "Active", "Px", "Py", "Pz",
-                 "Rx", "Ry", "Rz", "Sx", "Sy", "Sz", "ModelPath",
-                 "VertShaderPath", "FragShaderPath");
+bool ServerGameState::init()
+{
+    // Initialize objects
+    io::CSVReader<NUM_COLUMNS_CSV> in("../resources/objects/objects.csv");
+    in.read_header(io::ignore_extra_column, "ID", "Active", "Px", "Py", "Pz", "Rx", "Ry", "Rz",
+                   "Sx", "Sy", "Sz", "ModelPath", "VertShaderPath", "FragShaderPath");
 
-  int objectId;
-  int isActive;
-  float posX, posY, posZ;
-  float rotX, rotY, rotZ;
-  float scaleX, scaleY, scaleZ;
-  string modelPath;
-  string vertShaderPath, fragShaderPath;
+    int objectId;
+    int isActive;
+    float posX, posY, posZ;
+    float rotX, rotY, rotZ;
+    float scaleX, scaleY, scaleZ;
+    string modelPath;
+    string vertShaderPath, fragShaderPath;
 
-  while (in.read_row(objectId, isActive, posX, posY, posZ, rotX, rotY, rotZ,
-                     scaleX, scaleY, scaleZ, modelPath, fragShaderPath,
-                     vertShaderPath)) {
-    auto tf = make_unique<Transform>(glm::vec3(posX, posY, posZ),
-                                     glm::vec3(rotX, rotY, rotZ),
-                                     glm::vec3(scaleX, scaleY, scaleZ));
-    auto obj = make_unique<GameObject>(objectId, isActive, tf);
-    objectList[objectId] = move(obj);
-  }
-  return true;
-}
-
-GameObject *ServerGameState::getObject(int id) {
-  auto itr = objectList.find(id);
-  if (itr != objectList.end()) {
-    return itr->second.get();
-  }
-  cerr << "Object with id " << id << " not found" << endl;
-  return nullptr;
-}
-
-vector<int> ServerGameState::getLastUpdatedObjects() {
-  auto res = move(updatedObjectIds);
-  updatedObjectIds.clear();
-  return res;
-}
-
-void ServerGameState::updateMovement(int id, MovementType type,
-                                     glm::vec3 cameraFront) {
-  auto obj = getObject(id);
-  if (obj) {
-    // Find the direction of movement based on the camera's facing direction
-    glm::vec3 flatFront =
-        glm::normalize(glm::vec3(cameraFront.x, 0.0f, cameraFront.z));
-    glm::vec3 cameraRight =
-        glm::normalize(glm::cross(flatFront, glm::vec3(0.0f, 1.0f, 0.0f)));
-    switch (type) {
-    case MovementType::FORWARD:
-      obj->applyMovement(flatFront);
-      break;
-    case MovementType::BACKWARD:
-      obj->applyMovement(-flatFront);
-      break;
-    case MovementType::LEFT:
-      obj->applyMovement(-cameraRight);
-      break;
-    case MovementType::RIGHT:
-      obj->applyMovement(cameraRight);
-      break;
-    default:
-      cerr << "Unknown movement type" << endl;
-      break;
+    while (in.read_row(objectId, isActive, posX, posY, posZ, rotX, rotY, rotZ, scaleX, scaleY,
+                       scaleZ, modelPath, fragShaderPath, vertShaderPath))
+    {
+        auto tf = make_unique<Transform>(glm::vec3(posX, posY, posZ), glm::vec3(rotX, rotY, rotZ),
+                                         glm::vec3(scaleX, scaleY, scaleZ));
+        auto obj = make_unique<GameObject>(objectId, isActive, tf);
+        objectList[objectId] = move(obj);
     }
-    updatedObjectIds.push_back(id);
-  }
+    return true;
 }
 
-void ServerGameState::updateInteraction(int id) {
-  auto obj = getObject(id);
-  if (obj) {
-    cout << "Interacting with object: " << id << endl;
-  }
+GameObject *ServerGameState::getObject(int id)
+{
+    auto itr = objectList.find(id);
+    if (itr != objectList.end())
+    {
+        return itr->second.get();
+    }
+    cerr << "Object with id " << id << " not found" << endl;
+    return nullptr;
+}
+
+vector<int> ServerGameState::getLastUpdatedObjects()
+{
+    auto res = move(updatedObjectIds);
+    updatedObjectIds.clear();
+    return res;
+}
+
+void ServerGameState::updateMovement(int id, MovementType type, glm::vec3 cameraFront)
+{
+    auto obj = getObject(id);
+    if (obj)
+    {
+        // Find the direction of movement based on the camera's facing direction
+        glm::vec3 flatFront = glm::normalize(glm::vec3(cameraFront.x, 0.0f, cameraFront.z));
+        glm::vec3 cameraRight = glm::normalize(glm::cross(flatFront, glm::vec3(0.0f, 1.0f, 0.0f)));
+        switch (type)
+        {
+        case MovementType::FORWARD:
+            obj->applyMovement(flatFront);
+            break;
+        case MovementType::BACKWARD:
+            obj->applyMovement(-flatFront);
+            break;
+        case MovementType::LEFT:
+            obj->applyMovement(-cameraRight);
+            break;
+        case MovementType::RIGHT:
+            obj->applyMovement(cameraRight);
+            break;
+        default:
+            cerr << "Unknown movement type" << endl;
+            break;
+        }
+        updatedObjectIds.push_back(id);
+    }
+}
+
+void ServerGameState::updateInteraction(glm::vec3 rayDirection, glm::vec3 rayOrigin)
+{
+    // Variables to track the closest intersection
+    float closestDistance = std::numeric_limits<float>::max();
+    GameObject *closestObject = nullptr;
+
+    // Check each game object for intersection
+    for (const auto& [objectId, gameObject] : objectList)
+    {
+        // Skip inactive objects
+        if (!gameObject->isActive())
+        {
+            continue;
+        }
+
+        // Get object position (center)
+        glm::vec3 objectPos = gameObject->getPosition();
+
+        // Get object scale for rough size
+        glm::vec3 objectScale = gameObject->getScale();
+        float objectRadius = glm::length(objectScale) * 0.5f; // Approximate radius
+
+        // Calculate basic sphere intersection (can be improved for more accuracy)
+        glm::vec3 oc = rayOrigin - objectPos;
+        float a = glm::dot(rayDirection, rayDirection);
+        float b = 2.0f * glm::dot(oc, rayDirection);
+        float c = glm::dot(oc, oc) - objectRadius * objectRadius;
+        float discriminant = b * b - 4 * a * c;
+
+        if (discriminant > 0)
+        {
+            // Calculate intersection distance
+            float dist = (-b - sqrt(discriminant)) / (2.0f * a);
+
+            // Only consider positive distances (in front of camera)
+            if (dist > 0 && dist < closestDistance)
+            {
+                closestDistance = dist;
+                closestObject = gameObject.get();
+            }
+        }
+    }
+    cout << "Closest object ID: " << (closestObject ? closestObject->getId() : -1) << endl;
+    //return closestObject;
 }
