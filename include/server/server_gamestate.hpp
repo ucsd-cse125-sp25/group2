@@ -1,8 +1,8 @@
 #pragma once
 
 #include "csv.h"
-#include "server_gameobject.hpp"
 #include "packets.hpp"
+#include "server_gameobject.hpp"
 
 #include <iostream>
 #include <memory>
