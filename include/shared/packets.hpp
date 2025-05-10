@@ -2,8 +2,8 @@
 
 #include "base_gameobject.hpp"
 #include "core.hpp"
-#include "transform.hpp"
 #include "globals.hpp"
+#include "transform.hpp"
 #include "utilities/util_packets.hpp"
 
 #include <cstring>
@@ -15,7 +15,13 @@
 
 using namespace std;
 
-enum class PacketType : uint8_t { INIT, OBJECT, MOVEMENT, INTERACTION, DISCONNECT };
+enum class PacketType : uint8_t {
+  INIT,
+  OBJECT,
+  MOVEMENT,
+  INTERACTION,
+  DISCONNECT
+};
 
 struct IPacket {
   virtual PacketType getType() const = 0;
@@ -37,10 +43,8 @@ struct ObjectPacket : public IPacket {
   Transform transform;
   bool active;
 
-  ObjectPacket(int id, Transform transform,
-              bool active)
-      : objectID(id), transform(transform),
-        active(active) {}
+  ObjectPacket(int id, Transform transform, bool active)
+      : objectID(id), transform(transform), active(active) {}
   PacketType getType() const override { return PacketType::OBJECT; }
   vector<char> serialize() const override;
   static ObjectPacket deserialize(const vector<char> &payload);

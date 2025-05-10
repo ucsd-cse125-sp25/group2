@@ -2,9 +2,9 @@
 
 #include "base_gameobject.hpp"
 #include "core.hpp"
+#include "globals.hpp"
 #include "model.hpp"
 #include "transform.hpp"
-#include "globals.hpp"
 
 #include <memory>
 #include <string>

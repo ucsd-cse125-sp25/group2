@@ -2,8 +2,8 @@
 
 #include "base_gameobject.hpp"
 #include "core.hpp"
-#include "transform.hpp"
 #include "globals.hpp"
+#include "transform.hpp"
 
 #include <memory>
 #include <string>
@@ -35,7 +35,9 @@ public:
 
   void activate() { active = true; };
   void deactivate() { active = false; };
-  void setInteractability(InteractionType interact) { interactable = interact; };
+  void setInteractability(InteractionType interact) {
+    interactable = interact;
+  };
   InteractionType isInteractable() const { return interactable; };
 
   // physics methods

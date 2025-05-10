@@ -30,10 +30,9 @@ void GameServer::updateGameState() {
                            movementPacket->movementType,
                            movementPacket->cameraFront);
       break;
-      }
+    }
     case PacketType::INTERACTION: {
-      auto interactionPacket =
-          static_cast<InteractionPacket *>(packet.get());
+      auto interactionPacket = static_cast<InteractionPacket *>(packet.get());
       game->updateInteraction(interactionPacket->objectID);
       break;
     }
