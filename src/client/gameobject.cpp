@@ -1,4 +1,4 @@
-#include "gameobject.hpp"
+#include "client_gameobject.hpp"
 
 void GameObject::update(Transform *tf) { model->update(tf); }
 

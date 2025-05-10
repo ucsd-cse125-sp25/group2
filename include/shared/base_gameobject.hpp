@@ -1,8 +1,8 @@
 #pragma once
 
 #include "core.hpp"
+#include "globals.hpp"
 #include "transform.hpp"
-#include "types.hpp"
 
 #include <memory>
 #include <string>
@@ -13,7 +13,6 @@ class BaseGameObject {
 protected:
   int id;
   bool active;
-  ObjectType type;
   unique_ptr<Transform> transform;
 
 public:
@@ -24,7 +23,6 @@ public:
   virtual ~BaseGameObject(){};
 
   const int getId() const { return id; };
-  ObjectType getType() const { return type; };
   bool isActive() const { return active; };
   Transform *getTransform() { return transform.get(); };
   glm::vec3 getPosition() { return transform->getPosition(); };

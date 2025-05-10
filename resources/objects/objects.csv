@@ -1,2 +1,2 @@
-ID,ObjectType,Active,Px,Py,Pz,Rx,Ry,Rz,Sx,Sy,Sz,ModelPath,VertShaderPath,FragShaderPath
-0,CUBE,1,0.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0,1.0,../resources/objects/cube/Cube.obj,../resources/shaders/shader.vert,../resources/shaders/shader.frag
+ID,Active,Px,Py,Pz,Rx,Ry,Rz,Sx,Sy,Sz,ModelPath,VertShaderPath,FragShaderPath
+0,1,0.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0,1.0,../resources/objects/cube/Cube.obj,../resources/shaders/shader.vert,../resources/shaders/shader.frag

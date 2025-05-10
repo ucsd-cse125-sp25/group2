@@ -1,9 +1,8 @@
 #pragma once
 
 #include "csv.h"
-#include "gameobject.hpp"
-#include "objects/cube.hpp"
 #include "packets.hpp"
+#include "server_gameobject.hpp"
 
 #include <iostream>
 #include <memory>
@@ -13,6 +12,11 @@
 using namespace std;
 
 class ServerGameState {
+private:
+  int level;
+  unordered_map<int, unique_ptr<GameObject>> objectList;
+  vector<int> updatedObjectIds;
+
 public:
   ServerGameState();
 
@@ -20,13 +24,9 @@ public:
 
   // update methods
   void updateMovement(int id, MovementType type, glm::vec3 cameraFront);
+  void updateInteraction(int id);
 
   // getters
   GameObject *getObject(int id);
   vector<int> getLastUpdatedObjects();
-
-private:
-  int level;
-  unordered_map<int, unique_ptr<GameObject>> objectList;
-  vector<int> updatedObjectIds;
 };

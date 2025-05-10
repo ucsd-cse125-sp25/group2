@@ -1,16 +1,16 @@
 #include "server_gamestate.hpp"
+#include "globals.hpp"
 
 ServerGameState::ServerGameState() {}
 
 bool ServerGameState::init() {
   // Initialize objects
-  io::CSVReader<15> in("../resources/objects/objects.csv");
-  in.read_header(io::ignore_extra_column, "ID", "ObjectType", "Active", "Px",
-                 "Py", "Pz", "Rx", "Ry", "Rz", "Sx", "Sy", "Sz", "ModelPath",
+  io::CSVReader<NUM_COLUMNS_CSV> in("../resources/objects/objects.csv");
+  in.read_header(io::ignore_extra_column, "ID", "Active", "Px", "Py", "Pz",
+                 "Rx", "Ry", "Rz", "Sx", "Sy", "Sz", "ModelPath",
                  "VertShaderPath", "FragShaderPath");
 
   int objectId;
-  string objectType;
   int isActive;
   float posX, posY, posZ;
   float rotX, rotY, rotZ;
@@ -18,16 +18,14 @@ bool ServerGameState::init() {
   string modelPath;
   string vertShaderPath, fragShaderPath;
 
-  while (in.read_row(objectId, objectType, isActive, posX, posY, posZ, rotX,
-                     rotY, rotZ, scaleX, scaleY, scaleZ, modelPath,
-                     fragShaderPath, vertShaderPath)) {
-    if (objectType == "CUBE") {
-      auto tf = make_unique<Transform>(glm::vec3(posX, posY, posZ),
-                                       glm::vec3(rotX, rotY, rotZ),
-                                       glm::vec3(scaleX, scaleY, scaleZ));
-      auto obj = make_unique<Cube>(objectId, isActive, tf);
-      objectList[objectId] = move(obj);
-    }
+  while (in.read_row(objectId, isActive, posX, posY, posZ, rotX, rotY, rotZ,
+                     scaleX, scaleY, scaleZ, modelPath, fragShaderPath,
+                     vertShaderPath)) {
+    auto tf = make_unique<Transform>(glm::vec3(posX, posY, posZ),
+                                     glm::vec3(rotX, rotY, rotZ),
+                                     glm::vec3(scaleX, scaleY, scaleZ));
+    auto obj = make_unique<GameObject>(objectId, isActive, tf);
+    objectList[objectId] = move(obj);
   }
   return true;
 }
@@ -74,5 +72,12 @@ void ServerGameState::updateMovement(int id, MovementType type,
       break;
     }
     updatedObjectIds.push_back(id);
+  }
+}
+
+void ServerGameState::updateInteraction(int id) {
+  auto obj = getObject(id);
+  if (obj) {
+    cout << "Interacting with object: " << id << endl;
   }
 }

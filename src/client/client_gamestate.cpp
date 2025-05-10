@@ -1,16 +1,16 @@
 #include "client_gamestate.hpp"
+#include "globals.hpp"
 
 ClientGameState::ClientGameState() {}
 
 bool ClientGameState::init() {
   // Initialize objects
-  io::CSVReader<15> in("../resources/objects/objects.csv");
-  in.read_header(io::ignore_extra_column, "ID", "ObjectType", "Active", "Px",
-                 "Py", "Pz", "Rx", "Ry", "Rz", "Sx", "Sy", "Sz", "ModelPath",
+  io::CSVReader<NUM_COLUMNS_CSV> in("../resources/objects/objects.csv");
+  in.read_header(io::ignore_extra_column, "ID", "Active", "Px", "Py", "Pz",
+                 "Rx", "Ry", "Rz", "Sx", "Sy", "Sz", "ModelPath",
                  "VertShaderPath", "FragShaderPath");
 
   int objectId;
-  string objectType;
   int isActive;
   float posX, posY, posZ;
   float rotX, rotY, rotZ;
@@ -18,20 +18,18 @@ bool ClientGameState::init() {
   string modelPath;
   string vertShaderPath, fragShaderPath;
 
-  while (in.read_row(objectId, objectType, isActive, posX, posY, posZ, rotX,
-                     rotY, rotZ, scaleX, scaleY, scaleZ, modelPath,
-                     vertShaderPath, fragShaderPath)) {
-    if (objectType == "CUBE") {
-      auto tf = make_unique<Transform>(glm::vec3(posX, posY, posZ),
-                                       glm::vec3(rotX, rotY, rotZ),
-                                       glm::vec3(scaleX, scaleY, scaleZ));
-      auto obj = make_unique<Cube>(objectId, isActive, tf);
-      obj->setModel(make_unique<Model>(modelPath.c_str()));
-      obj->setShader(
-          make_unique<Shader>(vertShaderPath.c_str(), fragShaderPath.c_str()));
-      objectList[objectId] = move(obj);
-      player = obj.get();
-    }
+  while (in.read_row(objectId, isActive, posX, posY, posZ, rotX, rotY, rotZ,
+                     scaleX, scaleY, scaleZ, modelPath, vertShaderPath,
+                     fragShaderPath)) {
+    auto tf = make_unique<Transform>(glm::vec3(posX, posY, posZ),
+                                     glm::vec3(rotX, rotY, rotZ),
+                                     glm::vec3(scaleX, scaleY, scaleZ));
+    auto obj = make_unique<GameObject>(objectId, isActive, tf);
+    obj->setModel(make_unique<Model>(modelPath.c_str()));
+    obj->setShader(
+        make_unique<Shader>(vertShaderPath.c_str(), fragShaderPath.c_str()));
+    objectList[objectId] = move(obj);
+    player = obj.get();
   }
   return true;
 }

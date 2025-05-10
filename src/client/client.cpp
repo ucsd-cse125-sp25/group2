@@ -155,3 +155,13 @@ void Client::mouseCallback(GLFWwindow *window, double xPos, double yPos) {
   mouseX = newMouseX;
   mouseY = newMouseY;
 }
+
+void Client::mouseButtonCallback(GLFWwindow *window, int button, int action,
+                                 int mods) {
+  if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS) {
+    // Handle left mouse button press
+    InteractionPacket packet(0);
+    network->send(packet);
+    cout << "Left mouse button pressed" << endl;
+  }
+}
