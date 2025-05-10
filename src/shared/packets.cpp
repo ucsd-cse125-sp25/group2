@@ -15,8 +15,7 @@ InitPacket InitPacket::deserialize(const vector<char> &payload) {
 }
 
 vector<char> ObjectPacket::serialize() const {
-  vector<char> buffer(sizeof(int) + sizeof(Transform) +
-                      2 * sizeof(bool));
+  vector<char> buffer(sizeof(int) + sizeof(Transform) + 2 * sizeof(bool));
   unsigned long size = 0;
   memcpy(buffer.data(), &objectID, sizeof(int));
   size += sizeof(int);
@@ -104,7 +103,8 @@ unique_ptr<IPacket> deserialize(PacketType type, vector<char> &payload) {
   case PacketType::MOVEMENT:
     return make_unique<MovementPacket>(MovementPacket::deserialize(payload));
   case PacketType::INTERACTION:
-    return make_unique<InteractionPacket>(InteractionPacket::deserialize(payload));
+    return make_unique<InteractionPacket>(
+        InteractionPacket::deserialize(payload));
   case PacketType::DISCONNECT:
     return make_unique<DisconnectPacket>(
         DisconnectPacket::deserialize(payload));

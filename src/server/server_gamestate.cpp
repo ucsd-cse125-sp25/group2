@@ -6,8 +6,8 @@ ServerGameState::ServerGameState() {}
 bool ServerGameState::init() {
   // Initialize objects
   io::CSVReader<NUM_COLUMNS_CSV> in("../resources/objects/objects.csv");
-  in.read_header(io::ignore_extra_column, "ID",  "Active", "Px",
-                 "Py", "Pz", "Rx", "Ry", "Rz", "Sx", "Sy", "Sz", "ModelPath",
+  in.read_header(io::ignore_extra_column, "ID", "Active", "Px", "Py", "Pz",
+                 "Rx", "Ry", "Rz", "Sx", "Sy", "Sz", "ModelPath",
                  "VertShaderPath", "FragShaderPath");
 
   int objectId;
@@ -18,15 +18,14 @@ bool ServerGameState::init() {
   string modelPath;
   string vertShaderPath, fragShaderPath;
 
-  while (in.read_row(objectId, isActive, posX, posY, posZ, rotX,
-                     rotY, rotZ, scaleX, scaleY, scaleZ, modelPath,
-                     fragShaderPath, vertShaderPath)) {
-      auto tf = make_unique<Transform>(glm::vec3(posX, posY, posZ),
-                                       glm::vec3(rotX, rotY, rotZ),
-                                       glm::vec3(scaleX, scaleY, scaleZ));
-      auto obj = make_unique<GameObject>(objectId, isActive, tf);
-      objectList[objectId] = move(obj);
-    
+  while (in.read_row(objectId, isActive, posX, posY, posZ, rotX, rotY, rotZ,
+                     scaleX, scaleY, scaleZ, modelPath, fragShaderPath,
+                     vertShaderPath)) {
+    auto tf = make_unique<Transform>(glm::vec3(posX, posY, posZ),
+                                     glm::vec3(rotX, rotY, rotZ),
+                                     glm::vec3(scaleX, scaleY, scaleZ));
+    auto obj = make_unique<GameObject>(objectId, isActive, tf);
+    objectList[objectId] = move(obj);
   }
   return true;
 }

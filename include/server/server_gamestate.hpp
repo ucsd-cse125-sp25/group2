@@ -16,6 +16,7 @@ private:
   int level;
   unordered_map<int, unique_ptr<GameObject>> objectList;
   vector<int> updatedObjectIds;
+
 public:
   ServerGameState();
 
