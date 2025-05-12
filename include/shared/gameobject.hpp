@@ -17,7 +17,6 @@ protected:
   // shared properties
   int id;
   bool active;
-  bool colliding;
   bool grounded;
   unique_ptr<Transform> transform;
   unique_ptr<RigidBody> rigidbody;
@@ -39,8 +38,7 @@ public:
     model = nullptr;
     shader = nullptr;
     interactable = false;
-    colliding = false;
-    grounded = true;
+    grounded = false;
   };
 
   virtual ~GameObject(){};
@@ -48,8 +46,6 @@ public:
   // shared methods
   const int getId() const { return id; };
   bool isActive() const { return active; };
-  void setColliding(bool isColliding) { colliding = isColliding; };
-  bool isColliding() const { return colliding; };
   void setGrounded(bool isGrounded) { grounded = isGrounded; };
   bool isGrounded() const { return grounded; };
   const float getArea() const { return getRigidBody()->getArea(); };

@@ -2,6 +2,7 @@
 
 #include "shared/core.hpp"
 #include "shared/gameobject.hpp"
+#include <unordered_map>
 #include <algorithm>
 #include <vector>
 
@@ -28,8 +29,6 @@ public:
   void Update(float deltaTime);
 
   void CalculateForces();
-  void ResolveCollisions(float deltaTime);
-  void SolveCollisions(std::vector<Collision> collisions, float deltaTime);
-  void Solve(Collision collision, float deltaTime);
+  void ResolveCollisions();
   void MoveObjects(float deltaTime);
 };

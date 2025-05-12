@@ -7,6 +7,9 @@ protected:
   glm::vec3 position;
   glm::vec3 rotation;
   glm::vec3 scale;
+  glm::vec3 forward;
+  glm::vec3 up;
+  glm::vec3 right;
 
 public:
   Transform(glm::vec3 pos = glm::vec3(0), glm::vec3 rot = glm::vec3(0),
@@ -15,6 +18,9 @@ public:
   glm::vec3 getPosition() const { return this->position; }
   glm::vec3 getRotation() const { return this->rotation; };
   glm::vec3 getScale() const { return this->scale; };
+  glm::vec3 getForward() const { return this->forward; }
+  glm::vec3 getUp() const { return this->up; };
+  glm::vec3 getRight() const { return this->right; };
 
   void setPosition(glm::vec3 pos) { this->position = pos; }
   void setRotation(glm::vec3 rot) { this->rotation = rot; }
