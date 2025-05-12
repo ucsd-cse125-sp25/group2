@@ -2,8 +2,8 @@
 
 #include "shared/core.hpp"
 #include "shared/gameobject.hpp"
-#include <unordered_map>
 #include <algorithm>
+#include <unordered_map>
 #include <vector>
 
 struct Collision {

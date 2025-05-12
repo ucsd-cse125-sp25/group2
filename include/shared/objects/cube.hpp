@@ -14,7 +14,6 @@ private:
   GLuint VAO;
   GLuint VBO_positions, VBO_normals, EBO;
 
-  
   glm::vec3 color;
 
   // Cube Information
