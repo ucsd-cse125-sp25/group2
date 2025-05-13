@@ -54,8 +54,9 @@ void Mesh::Draw(unique_ptr<Shader> &shader) {
   shader->setVec3("materialAmbient", material.ambient);
   shader->setVec3("materialDiffuse", material.diffuse);
   shader->setVec3("materialSpecular", material.specular);
-  shader->setFloat("materialShininess", material.shininess > 0.0f ? material.shininess : 32.0f);
-  
+  shader->setFloat("materialShininess",
+                   material.shininess > 0.0f ? material.shininess : 32.0f);
+
   bool hasTextures = !textures.empty();
   shader->setBool("useTexture", hasTextures);
 

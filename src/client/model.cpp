@@ -121,7 +121,7 @@ Mesh Model::processMesh(aiMesh *mesh, const aiScene *scene) {
   if (mesh->mMaterialIndex >= 0) {
     // Object comes with diffuse, normal, roughness, and specular maps, so we
     // can insert them as textures
-    
+
     aiMaterial *aiMat = scene->mMaterials[mesh->mMaterialIndex];
 
     aiColor3D diffuse(0, 0, 0);
@@ -139,11 +139,11 @@ Mesh Model::processMesh(aiMesh *mesh, const aiScene *scene) {
     material.specular = glm::vec3(specular.r, specular.g, specular.b);
     material.shininess = shininess;
 
-    vector<Texture> diffuseMaps = loadMaterialTextures(
-        aiMat, aiTextureType_DIFFUSE, "texture_diffuse");
+    vector<Texture> diffuseMaps =
+        loadMaterialTextures(aiMat, aiTextureType_DIFFUSE, "texture_diffuse");
     textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
-    vector<Texture> specularMaps = loadMaterialTextures(
-        aiMat, aiTextureType_SPECULAR, "texture_specular");
+    vector<Texture> specularMaps =
+        loadMaterialTextures(aiMat, aiTextureType_SPECULAR, "texture_specular");
     textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
     std::vector<Texture> normalMaps =
         loadMaterialTextures(aiMat, aiTextureType_HEIGHT, "texture_normal");
