@@ -21,15 +21,13 @@ bool ServerGameState::init() {
   return true;
 }
 
-GameObject *ServerGameState::getObject(int id)
-{
-    auto itr = objectList.find(id);
-    if (itr != objectList.end())
-    {
-        return itr->second.get();
-    }
-    cerr << "Object with id " << id << " not found" << endl;
-    return nullptr;
+GameObject *ServerGameState::getObject(int id) {
+  auto itr = objectList.find(id);
+  if (itr != objectList.end()) {
+    return itr->second.get();
+  }
+  cerr << "Object with id " << id << " not found" << endl;
+  return nullptr;
 }
 
 void ServerGameState::updateInteraction(int id) {
@@ -44,32 +42,32 @@ vector<int> ServerGameState::getLastUpdatedObjects() {
   return res;
 }
 
-void ServerGameState::updateMovement(int id, MovementType type, glm::vec3 cameraFront)
-{
-    auto obj = getObject(id);
-    if (obj)
-    {
-        // Find the direction of movement based on the camera's facing direction
-        glm::vec3 flatFront = glm::normalize(glm::vec3(cameraFront.x, 0.0f, cameraFront.z));
-        glm::vec3 cameraRight = glm::normalize(glm::cross(flatFront, glm::vec3(0.0f, 1.0f, 0.0f)));
-        switch (type)
-        {
-        case MovementType::FORWARD:
-            obj->applyMovement(flatFront);
-            break;
-        case MovementType::BACKWARD:
-            obj->applyMovement(-flatFront);
-            break;
-        case MovementType::LEFT:
-            obj->applyMovement(-cameraRight);
-            break;
-        case MovementType::RIGHT:
-            obj->applyMovement(cameraRight);
-            break;
-        default:
-            cerr << "Unknown movement type" << endl;
-            break;
-        }
-        updatedObjectIds.push_back(id);
+void ServerGameState::updateMovement(int id, MovementType type,
+                                     glm::vec3 cameraFront) {
+  auto obj = getObject(id);
+  if (obj) {
+    // Find the direction of movement based on the camera's facing direction
+    glm::vec3 flatFront =
+        glm::normalize(glm::vec3(cameraFront.x, 0.0f, cameraFront.z));
+    glm::vec3 cameraRight =
+        glm::normalize(glm::cross(flatFront, glm::vec3(0.0f, 1.0f, 0.0f)));
+    switch (type) {
+    case MovementType::FORWARD:
+      obj->applyMovement(flatFront);
+      break;
+    case MovementType::BACKWARD:
+      obj->applyMovement(-flatFront);
+      break;
+    case MovementType::LEFT:
+      obj->applyMovement(-cameraRight);
+      break;
+    case MovementType::RIGHT:
+      obj->applyMovement(cameraRight);
+      break;
+    default:
+      cerr << "Unknown movement type" << endl;
+      break;
     }
+    updatedObjectIds.push_back(id);
+  }
 }
