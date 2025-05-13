@@ -10,69 +10,106 @@ void Physics::Remove(GameObject *obj) {
 
 void Physics::Update(float deltaTime) {
   CalculateForces();
-  ResolveCollisions(deltaTime);
+  ResolveCollisions();
   MoveObjects(deltaTime);
 }
 
 void Physics::CalculateForces() {
   for (GameObject *obj : this->objects) {
     glm::vec3 vel = obj->getRigidBody()->getVelocity();
-    glm::vec3 force = obj->getRigidBody()->getMass() * this->gravity;
-    if (vel != glm::vec3(0) && !obj->isGrounded())
-      force += 0.5f * this->density * glm::dot(vel, vel) * this->drag *
-               obj->getArea() * -1.0f * glm::normalize(vel);
-    obj->getRigidBody()->applyForce(force);
-  }
-}
-
-void Physics::ResolveCollisions(float deltaTime) {
-  std::vector<Collision> collisions;
-  for (GameObject *a : objects)
-    for (GameObject *b : objects) {
-      if (a == b)
-        break;
-      Collider *aBox = a->getCollider();
-      Collider *bBox = b->getCollider();
-      if (!aBox || !bBox)
-        continue;
-
-      if (aBox->intersect(bBox))
-        collisions.emplace_back(Collision(a, b));
+    glm::vec3 force = glm::vec3(0);
+    if (!obj->isGrounded()) {
+      force = obj->getRigidBody()->getMass() * this->gravity;
+      if (glm::dot(vel, vel) > 0.001f)
+        force += 0.5f * this->density * glm::dot(vel, vel) * this->drag *
+                 obj->getRigidBody()->getArea() * -1.0f * glm::normalize(vel);
     }
-  SolveCollisions(collisions, deltaTime);
-}
-
-void Physics::SolveCollisions(std::vector<Collision> collisions,
-                              float deltaTime) {
-  for (Collision c : collisions) {
-    Solve(c, deltaTime);
+    obj->getRigidBody()->applyForce(force);
+    obj->setGrounded(false);
   }
 }
 
-void Physics::Solve(Collision collision, float deltaTime) {
-  GameObject *a = collision.a;
-  GameObject *b = collision.b;
-  RigidBody *a_rb = a->getRigidBody();
-  RigidBody *b_rb = b->getRigidBody();
-  glm::vec3 a_vel = a_rb->getVelocity();
-  glm::vec3 b_vel = b_rb->getVelocity();
-  // Normal doesn't make sense, might need to change collider completely for
-  // this.
-  glm::vec3 normal = glm::normalize(a->getTransform()->getPosition() -
-                                    b->getTransform()->getPosition());
+void clampVelocities(RigidBody *rb) {
+  glm::vec3 v = rb->getVelocity();
+  if (glm::dot(v, v) < 0.001f) {
+    rb->setVelocity(glm::vec3(0.0f));
+    return;
+  }
 
-  float a_v_close = glm::dot(a_vel - b_vel, normal);
-  float b_v_close = glm::dot(b_vel - a_vel, -normal);
-  glm::vec3 impulse =
-      -(1 + a_rb->getRestitution()) * a_rb->getMass() * a_v_close * normal;
-  a_rb->applyImpulse(impulse);
-  impulse =
-      -(1 + a_rb->getRestitution()) * a_rb->getMass() * b_v_close * -normal;
-  b_rb->applyImpulse(impulse);
+  float damping = 0.95f;
+  rb->setVelocity(v * damping);
+}
+
+void Physics::ResolveCollisions() {
+  // Multiple iterations smooths out collision resolution fixes
+  const int solverIterations = 3;
+  for (int i = 0; i < solverIterations; ++i) {
+    for (GameObject *a : objects) {
+      for (GameObject *b : objects) {
+        if (a == b)
+          continue;
+
+        Collider *aCol = a->getCollider();
+        Collider *bCol = b->getCollider();
+        if (!aCol || !bCol)
+          continue;
+
+        glm::vec3 normal;
+        float penetration;
+        if (aCol->intersects(*bCol, normal, penetration)) {
+          // Check if the object is at rest (grounded)
+          bool aOnTop = glm::dot(normal, glm::vec3(0, 1, 0)) < 0.1f;
+          bool bOnTop = glm::dot(normal, glm::vec3(0, -1, 0)) < 0.1f;
+          if (aOnTop || bOnTop) {
+            if (aOnTop)
+              a->setGrounded(true);
+            if (bOnTop)
+              b->setGrounded(true);
+          }
+          // Get physics properties/variables
+          RigidBody *a_rb = a->getRigidBody();
+          RigidBody *b_rb = b->getRigidBody();
+          clampVelocities(a_rb);
+          clampVelocities(b_rb);
+          glm::vec3 a_vel = a_rb->getVelocity();
+          glm::vec3 b_vel = b_rb->getVelocity();
+          float restitution =
+              std::min(a_rb->getRestitution(), b_rb->getRestitution());
+          float invMassA = a_rb->isStatic() ? 0.0f : 1.0f / a_rb->getMass();
+          float invMassB = b_rb->isStatic() ? 0.0f : 1.0f / b_rb->getMass();
+          float massSum = invMassA + invMassB;
+
+          // Apply impulse based on mass and velocity of object's colliding.
+          float v_close = glm::dot(a_vel - b_vel, normal);
+          if (v_close < 0 && massSum > 0) {
+            glm::vec3 impulse = -(1 + restitution) * v_close / massSum * normal;
+            if (!a_rb->isStatic())
+              a_rb->applyImpulse(-impulse * invMassA);
+            if (!b_rb->isStatic())
+              b_rb->applyImpulse(impulse * invMassB);
+          }
+
+          // Push objects out of each other
+          const float percent = 0.1f;
+          const float slop = 0.01f;
+          if (massSum > 0) {
+            glm::vec3 correction =
+                std::max(penetration - slop, 0.0f) / massSum * percent * normal;
+            if (!a_rb->isStatic())
+              a->getTransform()->updatePosition(-correction * invMassA);
+            if (!b_rb->isStatic())
+              b->getTransform()->updatePosition(correction * invMassB);
+          }
+        }
+      }
+    }
+  }
 }
 
 void Physics::MoveObjects(float deltaTime) {
   for (GameObject *obj : this->objects) {
+    if (obj->getRigidBody()->isStatic())
+      continue;
     Transform *tf = obj->getTransform();
     RigidBody *rb = obj->getRigidBody();
     Collider *cl = obj->getCollider();
@@ -99,19 +136,9 @@ void Physics::MoveObjects(float deltaTime) {
       vel = glm::vec3(limitVel.x, vel.y, limitVel.z);
     }
     rb->setVelocity(vel);
-    // std::cout << vel.x << ", " << vel.y << ", " << vel.z << std::endl;
-
     glm::vec3 pos = tf->getPosition() + rb->getVelocity() * deltaTime;
-    if (pos.y <= halfHeight) {
-      rb->setVelocity(glm::vec3(0));
-      pos.y = halfHeight;
-      obj->setGrounded(true);
-    } else {
-      obj->setGrounded(false);
-    }
-
     tf->setPosition(pos);
-    cl->updatePosition(pos);
+    cl->update(tf);
     rb->setForce(glm::vec3(0));
   }
 }

@@ -3,69 +3,117 @@
 #include "shared/core.hpp"
 #include "shared/objects/cube.hpp"
 
-struct Plane {
-  glm::vec3 A;
-  glm::vec3 B;
-  glm::vec3 C;
-  glm::vec3 D;
-
-  Plane(glm::vec3 a, glm::vec3 b, glm::vec3 c, glm::vec3 d) {
-    this->A = a;
-    this->B = b;
-    this->C = c;
-    this->D = d;
-  }
-};
-
 class Collider {
 private:
-  float xLength;
-  float yLength;
-  float zLength;
   glm::vec3 center;
-  glm::vec3 boxMin;
-  glm::vec3 boxMax;
+  glm::vec3 halfExtents;
+  glm::mat3 orientation;
+  Cube *box;
+
+  void projectOntoAxis(const glm::vec3 &axis, float &outMin,
+                       float &outMax) const {
+    std::vector<glm::vec3> corners = getCorners();
+    outMin = outMax = glm::dot(axis, corners[0]);
+    for (int i = 1; i < corners.size(); ++i) {
+      float proj = glm::dot(axis, corners[i]);
+      outMin = std::min(outMin, proj);
+      outMax = std::max(outMax, proj);
+    }
+  }
 
 public:
-  // Cube* box;
-  Collider(glm::vec3 ctr = glm::vec3(0)) { setCollider(ctr, 1, 1, 1); }
-
-  Collider(glm::vec3 ctr, float x, float y, float z) {
-    setCollider(ctr, x, y, z);
+  Collider(glm::vec3 ctr = glm::vec3(0), glm::vec3 ext = glm::vec3(1.0f)) {
+    set(ctr, ext, glm::mat3(1));
   }
 
-  // void Update(glm::mat4 matrix)
-  // {
-  //     this->box->update(matrix);
-  // }
-
-  // void Draw(const glm::mat4& viewProjMtx, Shader& shader)
-  // {
-  //     this->box->draw(viewProjMtx, shader);
-  // }
-
-  bool intersect(Collider *other) {
-    return (other->boxMin.x <= boxMax.x && other->boxMax.x >= boxMin.x &&
-            other->boxMin.y <= boxMax.y && other->boxMax.y >= boxMin.y &&
-            other->boxMin.z <= boxMax.z && other->boxMax.z >= boxMin.z);
+  void set(glm::vec3 ctr, glm::vec3 ext, glm::mat3 orient) {
+    center = ctr;
+    halfExtents = ext;
+    orientation = orient;
+    box = new Cube(glm::vec3(-1), glm::vec3(1), glm::vec3(1.0f, 0.0f, 1.0f));
   }
 
-  void updatePosition(glm::vec3 pos) {
-    setCollider(pos, this->xLength, this->yLength, this->zLength);
-    // std::cout << this->center.x << " " << this->center.y << " " <<
-    // this->center.z << std::endl;
+  void update(Transform *tf) {
+    center = tf->getPosition();
+    glm::mat3 orient;
+    orient[0] = tf->getForward();
+    orient[1] = tf->getUp();
+    orient[2] = tf->getRight();
+    orientation = orient;
+
+    // std::cout << forward.x << " " << forward.y << " " << forward.z <<
+    // std::endl; std::cout << right.x << " " << right.y << " " << right.z <<
+    // std::endl;
+
+    glm::mat4 model(1);
+    model[0] = glm::vec4(orient[0], 0);
+    model[1] = glm::vec4(orient[1], 0);
+    model[2] = glm::vec4(orient[2], 0);
+    model[3] = glm::vec4(center, 1);
+    model = glm::scale(model, halfExtents);
+
+    box->model = model;
   }
 
-  void setCollider(glm::vec3 ctr, float x, float y, float z) {
-    this->xLength = x;
-    this->yLength = y;
-    this->zLength = z;
-    this->center = ctr;
-    this->boxMin = ctr - glm::vec3(this->xLength, this->yLength, this->zLength);
-    this->boxMax = ctr + glm::vec3(this->xLength, this->yLength, this->zLength);
-    // if (this->box) delete this->box;
-    // this->box = new Cube(-glm::vec3(this->xLength, this->yLength,
-    // this->zLength), glm::vec3(this->xLength, this->yLength, this->zLength),
-    // glm::vec3(0, 0.7, 0.7));
+  void draw(const glm::mat4 &viewProjMtx, std::unique_ptr<Shader> &shader) {
+    if (box)
+      box->draw(viewProjMtx, shader);
+  }
+
+  glm::vec3 getCenter() const { return center; }
+  glm::mat3 getOrientation() const { return orientation; }
+  glm::vec3 getHalfExtents() const { return halfExtents; }
+  std::vector<glm::vec3> getCorners() const {
+    std::vector<glm::vec3> corners;
+    for (int x = -1; x <= 1; x += 2)
+      for (int y = -1; y <= 1; y += 2)
+        for (int z = -1; z <= 1; z += 2)
+          corners.push_back(center +
+                            orientation * (halfExtents * glm::vec3(x, y, z)));
+    return corners;
+  }
+
+  bool intersects(const Collider &other, glm::vec3 &outNormal,
+                  float &outPenetration) const {
+    const float epsilon = 1e-5f;
+    float minPenetration = std::numeric_limits<float>::infinity();
+    glm::vec3 bestAxis;
+
+    std::vector<glm::vec3> axes;
+    for (int i = 0; i < 3; ++i)
+      axes.push_back(glm::normalize(orientation[i]));
+    for (int i = 0; i < 3; ++i)
+      axes.push_back(glm::normalize(other.orientation[i]));
+    for (int i = 0; i < 3; ++i) {
+      glm::vec3 axisA = orientation[i];
+      for (int j = 0; j < 3; ++j) {
+        glm::vec3 axisB = other.orientation[j];
+        glm::vec3 cross = glm::cross(axisA, axisB);
+        if (glm::length(cross) > epsilon)
+          axes.push_back(glm::normalize(cross));
+      }
+    }
+
+    for (const glm::vec3 &axis : axes) {
+      float aMin, aMax, bMin, bMax;
+      projectOntoAxis(axis, aMin, aMax);
+      other.projectOntoAxis(axis, bMin, bMax);
+
+      float overlap = std::min(aMax, bMax) - std::max(aMin, bMin);
+      if (overlap <= 0) {
+        return false;
+      }
+
+      if (overlap < minPenetration) {
+        minPenetration = overlap;
+        bestAxis = axis;
+        if (glm::dot(axis, other.center - center) < 0)
+          bestAxis = -axis;
+      }
+    }
+
+    outNormal = bestAxis;
+    outPenetration = minPenetration;
+    return true;
   }
 };
