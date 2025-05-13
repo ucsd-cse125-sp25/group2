@@ -8,14 +8,24 @@
 #define NUM_COLUMNS_CSV 15
 
 #define JSON_PATH "../resources/objects/objects.json"
+#define NUM_COLUMNS_CSV 15
 
-enum class MovementType : uint8_t { FORWARD, BACKWARD, LEFT, RIGHT };
+#define JSON_PATH "../resources/objects/objects.json"
 
-enum class InteractionType : uint8_t {
-  NONE,
-  PICKUP,
-  PRESS,
-  OPEN_CLOSE,
+enum class MovementType : uint8_t
+{
+    FORWARD,
+    BACKWARD,
+    LEFT,
+    RIGHT
+};
+
+enum class InteractionType : uint8_t
+{
+    NONE,
+    PICKUP,
+    PRESS,
+    OPEN_CLOSE,
 };
 
 #endif // GLOBALS_H
