@@ -10,6 +10,7 @@
 #include <assimp/scene.h>
 #include <string>
 #include <vector>
+#include <stb_image.h>
 
 using namespace std;
 
@@ -18,7 +19,7 @@ public:
   Model(const char *path);
   void draw(const glm::mat4 &viewProjMtx, unique_ptr<Shader> &shader);
   void update(Transform *transform);
-  void ChangeColor(glm::vec3 col);
+  void changeColor(glm::vec3 col);
 
 private:
   glm::mat4 model;
@@ -32,5 +33,5 @@ private:
   Mesh processMesh(aiMesh *mesh, const aiScene *scene);
   vector<Texture> loadMaterialTextures(aiMaterial *mat, aiTextureType type,
                                        string typeName);
-  unsigned int TextureFromFile(const char *path, const string &directory);
+  unsigned int textureFromFile(const char *path, const string &directory);
 };

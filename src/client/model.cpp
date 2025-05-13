@@ -1,5 +1,4 @@
 #include "model.hpp"
-#include <stb_image.h>
 
 Model::Model(const char *path) {
   model = glm::mat4(1);
@@ -7,7 +6,7 @@ Model::Model(const char *path) {
   loadModel(path);
 }
 
-void Model::ChangeColor(glm::vec3 col) { this->color = col; }
+void Model::changeColor(glm::vec3 col) { this->color = col; }
 
 void Model::draw(const glm::mat4 &viewProjMtx, unique_ptr<Shader> &shader) {
   // Activate the shader program
@@ -154,7 +153,7 @@ vector<Texture> Model::loadMaterialTextures(aiMaterial *mat, aiTextureType type,
     }
     if (!loaded) {
       Texture texture;
-      texture.id = TextureFromFile(path.C_Str(), directory);
+      texture.id = textureFromFile(path.C_Str(), directory);
       texture.type = typeName;
       texture.path = path.C_Str();
       textures.push_back(texture);
@@ -165,7 +164,7 @@ vector<Texture> Model::loadMaterialTextures(aiMaterial *mat, aiTextureType type,
 }
 
 // Generates a texture from the image provided.
-unsigned int Model::TextureFromFile(const char *path, const string &directory) {
+unsigned int Model::textureFromFile(const char *path, const string &directory) {
   string filename = string(path);
   filename = directory + '/' + filename;
 
