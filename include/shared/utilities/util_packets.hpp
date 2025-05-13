@@ -1,8 +1,10 @@
 #pragma once
-#include "shared/core.hpp"
-#include "shared/packets.hpp"
-#include "shared/transform.hpp"
+
+#include "core.hpp"
+#include "transform.hpp"
+
 #include <cstring>
+#include <iostream>
 #include <memory>
 #include <stdexcept>
 #include <stdint.h>
@@ -21,8 +23,3 @@ void serializeTransform(char *dest, const Transform &transform,
 
 void deserializeTransform(const vector<char> &payload, Transform &transform,
                           unsigned long &size);
-
-// debugging methods
-
-void printObjectPacket(const ObjectPacket &packet);
-void printPositionPacket(const PositionPacket &packet);

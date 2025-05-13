@@ -1,9 +1,9 @@
-#include "server/gameserver.hpp"
+#include "gameserver.hpp"
 #include <chrono>
 #include <iostream>
 
-using namespace std::chrono_literals;
-using namespace std::chrono;
+using namespace chrono_literals;
+using namespace chrono;
 
 #define SERVERTICKS milliseconds(30)
 
@@ -19,19 +19,20 @@ int main() {
     while (true) {
       auto start = high_resolution_clock::now();
 
-      server.update();
+      server.updateGameState();
+      server.dispatchUpdates();
 
       auto stop = high_resolution_clock::now();
       auto wait = duration_cast<milliseconds>(SERVERTICKS - (stop - start));
 
       if (wait <= 0ms) {
-        std::cerr << "Warning: Exceeded Server Tick";
+        cerr << "Warning: Exceeded Server Tick";
       } else {
         io_context.run_for(wait);
       }
     }
-  } catch (std::exception &e) {
-    std::cerr << "Server Exception: " << e.what() << std::endl;
+  } catch (exception &e) {
+    cerr << "Server Exception: " << e.what() << endl;
   }
 
   return 0;

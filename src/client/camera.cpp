@@ -1,8 +1,8 @@
-#include "client/camera.hpp"
+#include "camera.hpp"
 
 Camera::Camera()
     : cameraPos(glm::vec3(0.0f, 2.0f, 5.0f)),
-      cameraFront(glm::vec3(0.0f, -0.3f, -1.0f)),
+      cameraFront(glm::vec3(0.0f, 0.0f, -1.0f)),
       cameraUp(glm::vec3(0.0f, 1.0f, 0.0f)), viewProjMat(glm::mat4(1.0f)) {
   fov = 60.0f;
   aspect = 1.33f;
@@ -11,18 +11,17 @@ Camera::Camera()
 
   yaw = -90.0f;
   pitch = 0.0f;
-  lastX = 640.0f / 2.0f;
-  lastY = 480.0f / 2.0f;
+  lastX = 1920.0f / 2.0f;
+  lastY = 1080.0f / 2.0f;
 
-  sensitivity = 0.1f;
   firstMouse = true;
+  sensitivity = 0.1f;
+  speed = 2.5f;
 
   worldUp = cameraUp;
 }
 
-Camera::~Camera() {}
-
-void Camera::update(float xpos, float ypos) {
+void Camera::update(float xpos, float ypos, glm::vec3 target) {
   if (firstMouse) {
     lastX = xpos;
     lastY = ypos;
@@ -40,12 +39,19 @@ void Camera::update(float xpos, float ypos) {
   yaw += xoffset;
   pitch += yoffset;
 
-  if (pitch > 70.0f)
-    pitch = 70.0f;
-  if (pitch < -70.0f)
-    pitch = -70.0f;
+  // restrict yaw (x-dir) and pitch (y-dir)
+  yaw = glm::clamp(yaw, -110.0f, -70.0f);
+  pitch = glm::clamp(pitch, -45.0f, 10.0f);
 
   // Updating view projection matrix
+  // float radius = 5.0f;
+  // float camX = radius * cos(glm::radians(pitch)) * cos(glm::radians(yaw));
+  // float camY = radius * sin(glm::radians(pitch));
+  // float camZ = radius * cos(glm::radians(pitch)) * sin(glm::radians(yaw));
+
+  // cameraPos = target + glm::vec3(camX, camY, camZ);
+  // cameraFront = glm::normalize(target - cameraPos);
+
   glm::vec3 front;
   front.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
   front.y = sin(glm::radians(pitch));
@@ -59,4 +65,36 @@ void Camera::update(float xpos, float ypos) {
   view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
 
   viewProjMat = projection * view;
+}
+
+void Camera::updateAspect(float width, float height) {
+  aspect = width / height;
+}
+
+void Camera::moveForward(float deltaTime) {
+  glm::vec3 forwardDir = glm::normalize(
+      glm::vec3(cameraFront.x, 0.0f, cameraFront.z)); // Flatten Y
+  cameraPos += forwardDir * speed * deltaTime;
+}
+
+void Camera::moveBackward(float deltaTime) {
+  glm::vec3 forwardDir =
+      glm::normalize(glm::vec3(cameraFront.x, 0.0f, cameraFront.z));
+  cameraPos -= forwardDir * speed * deltaTime;
+}
+
+void Camera::moveRight(float deltaTime) {
+  glm::vec3 forwardDir =
+      glm::normalize(glm::vec3(cameraFront.x, 0.0f, cameraFront.z));
+  glm::vec3 rightDir =
+      glm::normalize(glm::cross(forwardDir, glm::vec3(0.0f, 1.0f, 0.0f)));
+  cameraPos += rightDir * speed * deltaTime;
+}
+
+void Camera::moveLeft(float deltaTime) {
+  glm::vec3 forwardDir =
+      glm::normalize(glm::vec3(cameraFront.x, 0.0f, cameraFront.z));
+  glm::vec3 rightDir =
+      glm::normalize(glm::cross(forwardDir, glm::vec3(0.0f, 1.0f, 0.0f)));
+  cameraPos -= rightDir * speed * deltaTime;
 }

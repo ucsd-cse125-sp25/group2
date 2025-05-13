@@ -17,7 +17,9 @@ endif()
 include(FetchContent)
 
 # Set custom variables
-SET(INCLUDE_DIRECTORY ${PROJECT_SOURCE_DIR}/include)
+SET(CLIENT_INCLUDE_DIRECTORY ${PROJECT_SOURCE_DIR}/include/client)
+SET(SERVER_INCLUDE_DIRECTORY ${PROJECT_SOURCE_DIR}/include/server)
+SET(SHARED_INCLUDE_DIRECTORY ${PROJECT_SOURCE_DIR}/include/shared)
 
 # Custom function to collect source files in a directory
 function(collect_sources dir out_var)
@@ -34,6 +36,7 @@ add_subdirectory(dependencies/glew)
 add_subdirectory(dependencies/glfw)
 add_subdirectory(dependencies/glm)
 add_subdirectory(dependencies/stb_image)
+add_subdirectory(dependencies/csv_parser)
 
 # Client/Server build
 add_subdirectory(src/shared)
