@@ -10,16 +10,9 @@
 
 using namespace std;
 
-enum class InteractionType : uint8_t {
-  NONE,
-  PICKUP,
-  PRESS,
-  OPEN_CLOSE,
-};
-
 class GameObject : public BaseGameObject {
 protected:
-  InteractionType interactable;
+  InteractionType interactionType;
 
   // physics properties
   float velocity;
@@ -27,7 +20,7 @@ protected:
 public:
   GameObject(const int objectId, const bool isActive, unique_ptr<Transform> &tf)
       : BaseGameObject(objectId, isActive, tf) {
-    interactable = InteractionType::NONE;
+    interactionType = InteractionType::NONE;
     velocity = 0.1f;
   };
 
@@ -35,10 +28,10 @@ public:
 
   void activate() { active = true; };
   void deactivate() { active = false; };
-  void setInteractability(InteractionType interact) {
-    interactable = interact;
+  void setInteractability(InteractionType interactionType) {
+    interactionType = interactionType;
   };
-  InteractionType isInteractable() const { return interactable; };
+  InteractionType getInteractionType() const { return interactionType; };
 
   // physics methods
   void applyMovement(const glm::vec3 &direction);
