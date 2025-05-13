@@ -13,7 +13,7 @@ GameState::GameState() {
       "../src/client/resources/objects/cow/Cow.obj", glm::vec3(0, -0.1, 0),
       glm::vec3(0), glm::vec3(1), glm::vec3(10, 0.1, 10));
   player = InitializeGameObject(
-      "../src/client/shaders/shader.vert", "../src/client/shaders/shader.frag",
+      "../src/client/shaders/material.vert", "../src/client/shaders/material.frag",
       "../src/client/resources/objects/chicken/Chicken.obj", glm::vec3(0, 5, 0),
       glm::vec3(0), glm::vec3(1), glm::vec3(0.235, 0.25, 0.165));
   InitializeGameObject(

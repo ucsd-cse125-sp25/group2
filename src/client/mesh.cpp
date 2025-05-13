@@ -7,6 +7,17 @@ Mesh::Mesh(vector<Vertex> vertices, vector<unsigned int> indices,
   this->vertices = vertices;
   this->indices = indices;
   this->textures = textures;
+  this->material = MaterialColor();
+
+  setupMesh();
+}
+
+Mesh::Mesh(vector<Vertex> vertices, vector<unsigned int> indices,
+           vector<Texture> textures, MaterialColor material) {
+  this->vertices = vertices;
+  this->indices = indices;
+  this->textures = textures;
+  this->material = material;
 
   setupMesh();
 }
@@ -40,6 +51,14 @@ void Mesh::setupMesh() {
 }
 
 void Mesh::Draw(unique_ptr<Shader> &shader) {
+  shader->setVec3("materialAmbient", material.ambient);
+  shader->setVec3("materialDiffuse", material.diffuse);
+  shader->setVec3("materialSpecular", material.specular);
+  shader->setFloat("materialShininess", material.shininess > 0.0f ? material.shininess : 32.0f);
+  
+  bool hasTextures = !textures.empty();
+  shader->setBool("useTexture", hasTextures);
+
   // Draw the mesh based on the texture
   unsigned int diffuseNr = 1;
   unsigned int specularNr = 1;

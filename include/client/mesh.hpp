@@ -27,14 +27,29 @@ struct Texture {
   string path;
 };
 
+struct MaterialColor {
+  glm::vec3 ambient; 
+  glm::vec3 diffuse;  
+  glm::vec3 specular;  
+  float shininess;     
+  MaterialColor() : 
+    ambient(0.2f, 0.2f, 0.2f),
+    diffuse(0.8f, 0.8f, 0.8f),
+    specular(0.0f, 0.0f, 0.0f),
+    shininess(0.0f) {}
+};
+
 class Mesh {
 public:
   vector<Vertex> vertices;
   vector<unsigned int> indices;
   vector<Texture> textures;
+  MaterialColor material;
 
   Mesh(vector<Vertex> vertices, vector<unsigned int> indices,
        vector<Texture> textures);
+  Mesh(vector<Vertex> vertices, vector<unsigned int> indices,
+       vector<Texture> textures, MaterialColor material);
   void Draw(unique_ptr<Shader> &shader);
 
 private:
