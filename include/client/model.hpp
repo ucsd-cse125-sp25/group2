@@ -8,9 +8,9 @@
 #include <assimp/Importer.hpp>
 #include <assimp/postprocess.h>
 #include <assimp/scene.h>
+#include <stb_image.h>
 #include <string>
 #include <vector>
-#include <stb_image.h>
 
 using namespace std;
 
