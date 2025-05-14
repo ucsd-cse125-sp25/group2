@@ -1,6 +1,7 @@
 #pragma once
 
 #include "packets.hpp"
+#include "globals.hpp"
 
 #include <asio.hpp>
 #include <deque>
@@ -8,6 +9,7 @@
 #include <map>
 #include <memory>
 #include <thread>
+#include <unordered_map>
 
 using asio::ip::tcp;
 using namespace std;
@@ -21,7 +23,9 @@ private:
   map<CLIENT_ID, shared_ptr<asio::ip::tcp::socket>> clients;
 
   void acceptClient();
-  unique_ptr<IPacket> processPackets(PacketType type, vector<char> payload);
+  unique_ptr<IPacket> processPackets(PacketType type, vector<char> payload, int clientID);
+
+  unordered_map<int, MovementType> lastMovement;
 
 public:
   ServerNetwork(asio::io_context &io_context, const string &ip,
