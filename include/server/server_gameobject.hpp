@@ -1,11 +1,11 @@
 #pragma once
 
 #include "base_gameobject.hpp"
+#include "collider.hpp"
 #include "core.hpp"
 #include "globals.hpp"
-#include "transform.hpp"
-#include "collider.hpp"
 #include "rigidbody.hpp"
+#include "transform.hpp"
 
 #include <memory>
 #include <string>
@@ -30,8 +30,10 @@ protected:
   unique_ptr<Collider> collider;
 
 public:
-  GameObject(const int objectId, const bool isActive, unique_ptr<Transform> &tf, unique_ptr<RigidBody> &rb, unique_ptr<Collider> &cl)
-      : BaseGameObject(objectId, isActive, tf), rigidbody(move(rb)), collider(move(cl)) {
+  GameObject(const int objectId, const bool isActive, unique_ptr<Transform> &tf,
+             unique_ptr<RigidBody> &rb, unique_ptr<Collider> &cl)
+      : BaseGameObject(objectId, isActive, tf), rigidbody(move(rb)),
+        collider(move(cl)) {
     interactable = InteractionType::NONE;
   };
 
