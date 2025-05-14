@@ -1,10 +1,13 @@
 #pragma once
 
-#include "shared/core.hpp"
-#include "shared/gameobject.hpp"
+#include "core.hpp"
+#include "server_gameobject.hpp"
+
 #include <algorithm>
 #include <unordered_map>
 #include <vector>
+
+using namespace std;
 
 struct Collision {
   GameObject *a;
@@ -18,17 +21,17 @@ struct Collision {
 
 class Physics {
 private:
-  std::vector<GameObject *> objects;
+  vector<GameObject *> objects;
   glm::vec3 gravity = glm::vec3(0, -9.81, 0);
   float density = 1.225f;
   float drag = 1.05f;
 
 public:
-  void Add(GameObject *obj);
-  void Remove(GameObject *obj);
-  void Update(float deltaTime);
+  void add(GameObject *obj);
+  void remove(GameObject *obj);
+  void update(float deltaTime);
 
-  void CalculateForces();
-  void ResolveCollisions();
-  void MoveObjects(float deltaTime);
+  void calculateForces();
+  void resolveCollisions();
+  void moveObjects(float deltaTime);
 };

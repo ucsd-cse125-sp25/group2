@@ -1,27 +1,25 @@
-#include "shared/physics.hpp"
-#include <iostream>
+#include "physics.hpp"
 
-void Physics::Add(GameObject *obj) { this->objects.push_back(obj); }
+void Physics::add(GameObject *obj) { objects.push_back(obj); }
 
-void Physics::Remove(GameObject *obj) {
-  this->objects.erase(
-      std::remove(this->objects.begin(), this->objects.end(), obj));
+void Physics::remove(GameObject *obj) {
+  objects.erase(find(objects.begin(), objects.end(), obj));
 }
 
-void Physics::Update(float deltaTime) {
-  CalculateForces();
-  ResolveCollisions();
-  MoveObjects(deltaTime);
+void Physics::update(float deltaTime) {
+  calculateForces();
+  resolveCollisions();
+  moveObjects(deltaTime);
 }
 
-void Physics::CalculateForces() {
-  for (GameObject *obj : this->objects) {
+void Physics::calculateForces() {
+  for (GameObject *obj : objects) {
     glm::vec3 vel = obj->getRigidBody()->getVelocity();
     glm::vec3 force = glm::vec3(0);
     if (!obj->isGrounded()) {
-      force = obj->getRigidBody()->getMass() * this->gravity;
+      force = obj->getRigidBody()->getMass() * gravity;
       if (glm::dot(vel, vel) > 0.001f)
-        force += 0.5f * this->density * glm::dot(vel, vel) * this->drag *
+        force += 0.5f * density * glm::dot(vel, vel) * drag *
                  obj->getRigidBody()->getArea() * -1.0f * glm::normalize(vel);
     }
     obj->getRigidBody()->applyForce(force);
@@ -40,7 +38,7 @@ void clampVelocities(RigidBody *rb) {
   rb->setVelocity(v * damping);
 }
 
-void Physics::ResolveCollisions() {
+void Physics::resolveCollisions() {
   // Multiple iterations smooths out collision resolution fixes
   const int solverIterations = 3;
   for (int i = 0; i < solverIterations; ++i) {
@@ -74,7 +72,7 @@ void Physics::ResolveCollisions() {
           glm::vec3 a_vel = a_rb->getVelocity();
           glm::vec3 b_vel = b_rb->getVelocity();
           float restitution =
-              std::min(a_rb->getRestitution(), b_rb->getRestitution());
+              min(a_rb->getRestitution(), b_rb->getRestitution());
           float invMassA = a_rb->isStatic() ? 0.0f : 1.0f / a_rb->getMass();
           float invMassB = b_rb->isStatic() ? 0.0f : 1.0f / b_rb->getMass();
           float massSum = invMassA + invMassB;
@@ -94,7 +92,7 @@ void Physics::ResolveCollisions() {
           const float slop = 0.01f;
           if (massSum > 0) {
             glm::vec3 correction =
-                std::max(penetration - slop, 0.0f) / massSum * percent * normal;
+                max(penetration - slop, 0.0f) / massSum * percent * normal;
             if (!a_rb->isStatic())
               a->getTransform()->updatePosition(-correction * invMassA);
             if (!b_rb->isStatic())
@@ -106,8 +104,8 @@ void Physics::ResolveCollisions() {
   }
 }
 
-void Physics::MoveObjects(float deltaTime) {
-  for (GameObject *obj : this->objects) {
+void Physics::moveObjects(float deltaTime) {
+  for (GameObject *obj : objects) {
     if (obj->getRigidBody()->isStatic())
       continue;
     Transform *tf = obj->getTransform();
