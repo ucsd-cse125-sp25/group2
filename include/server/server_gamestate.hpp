@@ -18,7 +18,7 @@ private:
   vector<int> updatedObjectIds;
 
 public:
-  ServerGameState() {};
+  ServerGameState(){};
 
   bool init();
 
