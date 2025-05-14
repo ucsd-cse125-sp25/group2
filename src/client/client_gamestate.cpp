@@ -1,36 +1,16 @@
 #include "client_gamestate.hpp"
+#include "client_object_loader.hpp"
 #include "globals.hpp"
 
-ClientGameState::ClientGameState() {}
+#include <nlohmann/json.hpp>
+
+using json = nlohmann::json;
 
 bool ClientGameState::init() {
-  // Initialize objects
-  io::CSVReader<NUM_COLUMNS_CSV> in("../resources/objects/objects.csv");
-  in.read_header(io::ignore_extra_column, "ID", "Active", "Px", "Py", "Pz",
-                 "Rx", "Ry", "Rz", "Sx", "Sy", "Sz", "ModelPath",
-                 "VertShaderPath", "FragShaderPath");
+  ObjectLoader objectLoader = ObjectLoader();
+  objectList = objectLoader.loadObjects();
+  player = objectList.begin()->second.get();
 
-  int objectId;
-  int isActive;
-  float posX, posY, posZ;
-  float rotX, rotY, rotZ;
-  float scaleX, scaleY, scaleZ;
-  string modelPath;
-  string vertShaderPath, fragShaderPath;
-
-  while (in.read_row(objectId, isActive, posX, posY, posZ, rotX, rotY, rotZ,
-                     scaleX, scaleY, scaleZ, modelPath, vertShaderPath,
-                     fragShaderPath)) {
-    auto tf = make_unique<Transform>(glm::vec3(posX, posY, posZ),
-                                     glm::vec3(rotX, rotY, rotZ),
-                                     glm::vec3(scaleX, scaleY, scaleZ));
-    auto obj = make_unique<GameObject>(objectId, isActive, tf);
-    obj->setModel(make_unique<Model>(modelPath.c_str()));
-    obj->setShader(
-        make_unique<Shader>(vertShaderPath.c_str(), fragShaderPath.c_str()));
-    objectList[objectId] = move(obj);
-    player = obj.get();
-  }
   return true;
 }
 

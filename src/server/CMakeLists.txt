@@ -22,4 +22,6 @@ target_link_libraries(${TARGET_NAME} PRIVATE
     asio
     assimp
     csv_parser
+    nlohmann_json::nlohmann_json
+    magic_enum::magic_enum
 )

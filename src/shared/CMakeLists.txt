@@ -14,4 +14,6 @@ target_link_libraries(${LIB_NAME} PRIVATE
     libglew_static
     asio
     assimp
+    nlohmann_json::nlohmann_json
+    magic_enum::magic_enum
 )
