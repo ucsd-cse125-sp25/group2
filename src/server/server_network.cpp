@@ -104,8 +104,8 @@ deque<unique_ptr<IPacket>> ServerNetwork::receiveFromClients() {
       if (socket->read_some(asio::buffer(payload, size), ec) <= 0 || ec)
         break;
 
-      unique_ptr<IPacket> packet = processPackets(
-          static_cast<PacketType>(type), payload, it->first);
+      unique_ptr<IPacket> packet =
+          processPackets(static_cast<PacketType>(type), payload, it->first);
       if (packet != nullptr) {
         packets.push_back(move(packet));
       }
@@ -120,7 +120,8 @@ deque<unique_ptr<IPacket>> ServerNetwork::receiveFromClients() {
 }
 
 unique_ptr<IPacket> ServerNetwork::processPackets(PacketType type,
-                                                  vector<char> payload, int clientID) {
+                                                  vector<char> payload,
+                                                  int clientID) {
   switch (type) {
   case PacketType::INIT: {
     unique_ptr<IPacket> packet = deserialize(PacketType::INIT, payload);
