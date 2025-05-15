@@ -9,11 +9,7 @@
 
 using namespace std;
 
-enum class Gamestate {
-  STARTSCREEN,
-  MAINMENU,
-  GAME
-};
+enum class Gamestate { STARTSCREEN, MAINMENU, GAME };
 
 class ClientGameState {
 public:

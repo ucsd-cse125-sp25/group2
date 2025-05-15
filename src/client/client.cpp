@@ -66,13 +66,13 @@ bool Client::initNetwork(asio::io_context &io_context, const string &ip,
 }
 
 bool Client::initUI() {
-    ui = make_unique<UIManager>();
-    ui->make_StartScreen();
-    ui->setStartClick([&state = game->state]() {
-      state = Gamestate::GAME;
-      std::cout << "State changed to Playing!\n";
-    });
-    return true;
+  ui = make_unique<UIManager>();
+  ui->make_StartScreen();
+  ui->setStartClick([&state = game->state]() {
+    state = Gamestate::GAME;
+    std::cout << "State changed to Playing!\n";
+  });
+  return true;
 }
 
 void Client::cleanUp() {
@@ -111,7 +111,7 @@ void Client::displayCallback(GLFWwindow *window) {
   // Draw objects
   if (game->state == Gamestate::STARTSCREEN) {
     ui->draw_start();
-    ui->startScreenUI->update(mouseX,mouseY, windowWidth, windowHeight);
+    ui->startScreenUI->update(mouseX, mouseY, windowWidth, windowHeight);
   }
 
   if (game->state == Gamestate::GAME) {
