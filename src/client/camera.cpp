@@ -49,6 +49,10 @@ void Camera::update(float xpos, float ypos, glm::vec3 target) {
   float camX = radius * cos(glm::radians(pitch)) * cos(glm::radians(yaw));
   float camY = radius * sin(glm::radians(pitch));
   float camZ = radius * cos(glm::radians(pitch)) * sin(glm::radians(yaw));
+  float radius = 13.0f;
+  float camX = radius * cos(glm::radians(pitch)) * cos(glm::radians(yaw));
+  float camY = radius * sin(glm::radians(pitch));
+  float camZ = radius * cos(glm::radians(pitch)) * sin(glm::radians(yaw));
 
   cameraPos = target + glm::vec3(camX, camY, camZ);
 
@@ -61,6 +65,7 @@ void Camera::update(float xpos, float ypos, glm::vec3 target) {
   cameraUp = glm::normalize(glm::cross(cameraRight, cameraFront));
 
   projection = glm::perspective(glm::radians(fov), aspect, nearClip, farClip);
+  view = glm::lookAt(cameraPos, lookAtPoint, cameraUp);
   view = glm::lookAt(cameraPos, lookAtPoint, cameraUp);
 
   viewProjMat = projection * view;

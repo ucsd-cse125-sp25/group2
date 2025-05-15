@@ -28,6 +28,7 @@ void ServerNetwork::acceptClient() {
     if (!ec) {
       cout << "New client connected" << endl;
       this->clients[clientID] = socket;
+      this->lastMovement[clientID] = MovementType::NONE;
       InitPacket init(clientID);
       sendToClient(clientID, init);
       /*
@@ -103,18 +104,24 @@ deque<unique_ptr<IPacket>> ServerNetwork::receiveFromClients() {
       if (socket->read_some(asio::buffer(payload, size), ec) <= 0 || ec)
         break;
 
-      packets.push_back(processPackets(static_cast<PacketType>(type), payload));
+      unique_ptr<IPacket> packet =
+          processPackets(static_cast<PacketType>(type), payload, it->first);
+      if (packet != nullptr) {
+        packets.push_back(move(packet));
+      }
     }
     if (ec == asio::error::eof || ec == asio::error::connection_reset) {
       handleClientDisconnect(it->first);
     }
-    ++it;
+    this->lastMovement[it->first] = MovementType::NONE;
+    it++;
   }
   return packets;
 }
 
 unique_ptr<IPacket> ServerNetwork::processPackets(PacketType type,
-                                                  vector<char> payload) {
+                                                  vector<char> payload,
+                                                  int clientID) {
   switch (type) {
   case PacketType::INIT: {
     unique_ptr<IPacket> packet = deserialize(PacketType::INIT, payload);
@@ -122,6 +129,18 @@ unique_ptr<IPacket> ServerNetwork::processPackets(PacketType type,
   }
   case PacketType::MOVEMENT: {
     unique_ptr<IPacket> packet = deserialize(PacketType::MOVEMENT, payload);
+    auto movementPacket = static_cast<MovementPacket *>(packet.get());
+    if (lastMovement[clientID] != movementPacket->movementType) {
+      lastMovement[clientID] = movementPacket->movementType;
+      return packet;
+    } else {
+      cout << "Client " << clientID
+           << " sent the same movement packet, ignoring." << endl;
+      return nullptr;
+    }
+  }
+  case PacketType::INTERACTION: {
+    unique_ptr<IPacket> packet = deserialize(PacketType::INTERACTION, payload);
     return packet;
   }
   case PacketType::INTERACTION: {
