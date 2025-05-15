@@ -1,14 +1,5 @@
 #include "server_gamestate.hpp"
-#include "globals.hpp"
-#include "server_object_loader.hpp"
 
-#include <fstream>
-#include <nlohmann/json.hpp>
-#include <string>
-
-using json = nlohmann::json;
-
-// For ServerGameState
 bool ServerGameState::init() {
   ObjectLoader objectLoader = ObjectLoader();
   objectList = objectLoader.loadObjects();

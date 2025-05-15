@@ -1,7 +1,8 @@
 #pragma once
 
 #include "client_gameobject.hpp"
-#include "shader.hpp"
+#include "client_object_loader.hpp"
+#include "globals.hpp"
 
 #include <memory>
 #include <unordered_map>

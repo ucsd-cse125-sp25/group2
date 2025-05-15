@@ -1,10 +1,4 @@
 #include "client_gamestate.hpp"
-#include "client_object_loader.hpp"
-#include "globals.hpp"
-
-#include <nlohmann/json.hpp>
-
-using json = nlohmann::json;
 
 bool ClientGameState::init() {
   ObjectLoader objectLoader = ObjectLoader();
