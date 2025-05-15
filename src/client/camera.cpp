@@ -49,10 +49,6 @@ void Camera::update(float xpos, float ypos, glm::vec3 target) {
   float camX = radius * cos(glm::radians(pitch)) * cos(glm::radians(yaw));
   float camY = radius * sin(glm::radians(pitch));
   float camZ = radius * cos(glm::radians(pitch)) * sin(glm::radians(yaw));
-  float radius = 13.0f;
-  float camX = radius * cos(glm::radians(pitch)) * cos(glm::radians(yaw));
-  float camY = radius * sin(glm::radians(pitch));
-  float camZ = radius * cos(glm::radians(pitch)) * sin(glm::radians(yaw));
 
   cameraPos = target + glm::vec3(camX, camY, camZ);
 
