@@ -64,6 +64,16 @@ bool Client::initNetwork(asio::io_context &io_context, const string &ip,
   return !network->err;
 }
 
+bool Client::initUI() {
+    ui = make_unique<UIManager>();
+    ui->make_StartScreen();
+    ui->setStartClick([&state = game->state]() {
+      state = Gamestate::GAME;
+      std::cout << "State changed to Playing!\n";
+    });
+    return true;
+}
+
 void Client::cleanUp() {
   // Destroy GLFW window
   glfwDestroyWindow(window);
@@ -99,7 +109,14 @@ void Client::displayCallback(GLFWwindow *window) {
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
   // Draw objects
-  game->draw(cam->getViewProj());
+  if (game->state == Gamestate::STARTSCREEN) {
+    ui->draw_start();
+    ui->startScreenUI->update(mouseX,mouseY, windowWidth, windowHeight);
+  }
+
+  if (game->state == Gamestate::GAME) {
+    game->draw(cam->getViewProj());
+  }
 
   // Check events and swap buffers
   glfwPollEvents();

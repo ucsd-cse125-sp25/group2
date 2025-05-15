@@ -6,6 +6,7 @@
 #include "core.hpp"
 #include "model.hpp"
 #include "shader.hpp"
+#include "ui_manager.hpp"
 
 using namespace std;
 
@@ -41,6 +42,8 @@ public:
   bool initObjects();
   bool initNetwork(asio::io_context &io_context, const string &ip,
                    const string &port);
+  bool initUI();
+
   void cleanUp();
 
   // update and draw functions
@@ -60,4 +63,23 @@ public:
 
   // Getters
   GLFWwindow *getWindow() { return window; }
+
+private:
+  // Camera properties
+  unique_ptr<Camera> cam;
+  float mouseX, mouseY;
+
+  // Gamestate properties
+  unique_ptr<ClientGameState> game;
+
+  unique_ptr<UIManager> ui;
+
+  // Network
+  unique_ptr<ClientNetwork> network;
+
+  // Key
+  bool isHeldForward = false;  // W
+  bool isHeldBackward = false; // S
+  bool isHeldLeft = false;     // A
+  bool isHeldRight = false;    // D
 };
