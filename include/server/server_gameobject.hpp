@@ -35,6 +35,7 @@ public:
       : BaseGameObject(objectId, isActive, tf), rigidbody(move(rb)),
         collider(move(cl)) {
     interactable = InteractionType::NONE;
+    grounded = true;
   };
 
   // server
