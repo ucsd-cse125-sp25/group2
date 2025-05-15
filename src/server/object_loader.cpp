@@ -1,13 +1,5 @@
-#include "globals.hpp"
-#include "server_gameobject.hpp"
+
 #include "server_object_loader.hpp"
-
-#include <fstream>
-#include <iostream>
-#include <magic_enum.hpp>
-#include <sstream>
-
-using namespace std;
 
 unordered_map<int, unique_ptr<GameObject>> ObjectLoader::loadObjects() {
   unordered_map<int, unique_ptr<GameObject>> objects;

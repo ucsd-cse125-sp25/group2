@@ -1,15 +1,4 @@
-#include "client_gameobject.hpp"
 #include "client_object_loader.hpp"
-#include "model.hpp"
-#include "shader.hpp"
-
-#include <fstream>
-#include <iostream>
-#include <sstream>
-
-using json = nlohmann::json;
-using vec3 = glm::vec3;
-using namespace std;
 
 unordered_map<int, unique_ptr<GameObject>> ObjectLoader::loadObjects() {
   unordered_map<int, unique_ptr<GameObject>> objects;
