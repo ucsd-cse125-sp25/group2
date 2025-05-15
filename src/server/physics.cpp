@@ -1,15 +1,10 @@
 #include "physics.hpp"
+#include <iostream>
 
 void Physics::add(GameObject *obj) { objects.push_back(obj); }
 
 void Physics::remove(GameObject *obj) {
   objects.erase(find(objects.begin(), objects.end(), obj));
-}
-
-void Physics::update(float deltaTime) {
-  calculateForces();
-  resolveCollisions();
-  moveObjects(deltaTime);
 }
 
 void Physics::calculateForces() {
@@ -23,18 +18,17 @@ void Physics::calculateForces() {
                  obj->getRigidBody()->getArea() * -1.0f * glm::normalize(vel);
     }
     obj->getRigidBody()->applyForce(force);
-    obj->setGrounded(false);
+    // obj->setGrounded(false);
   }
 }
 
-void clampVelocities(RigidBody *rb) {
+void Physics::clampVelocities(RigidBody *rb) {
   glm::vec3 v = rb->getVelocity();
   if (glm::dot(v, v) < 0.001f) {
     rb->setVelocity(glm::vec3(0.0f));
     return;
   }
 
-  float damping = 0.95f;
   rb->setVelocity(v * damping);
 }
 
@@ -104,31 +98,22 @@ void Physics::resolveCollisions() {
   }
 }
 
-void Physics::moveObjects(float deltaTime) {
+vector<int> Physics::moveObjects(float deltaTime) {
+  vector<int> movedObjectsID;
+  float moveSpeed = 10.0f;
+
   for (GameObject *obj : objects) {
     if (obj->getRigidBody()->isStatic())
       continue;
     Transform *tf = obj->getTransform();
     RigidBody *rb = obj->getRigidBody();
     Collider *cl = obj->getCollider();
-
-    // Hardcoded Values, we should store these in animal class or a config file
-    int id = obj->getId();
-    float halfHeight = 1;
-    if (id == 0)
-      halfHeight = 0.25f;
-    else if (id == 1)
-      halfHeight = 0.5f;
-    else if (id == 2)
-      halfHeight = 0.625f;
-    else if (id == 3)
-      halfHeight = 0.75f;
+    glm::vec3 lastPos = tf->getPosition();
 
     glm::vec3 vel =
         rb->getVelocity() + rb->getForce() / rb->getMass() * deltaTime;
     // Limit velocity to maxSpeed (Otherwise you go super fast mid air)
     glm::vec3 flatVel = glm::vec3(vel.x, 0, vel.z);
-    float moveSpeed = 4;
     if (glm::length(flatVel) > moveSpeed) {
       glm::vec3 limitVel = moveSpeed * glm::normalize(flatVel);
       vel = glm::vec3(limitVel.x, vel.y, limitVel.z);
@@ -138,5 +123,11 @@ void Physics::moveObjects(float deltaTime) {
     tf->setPosition(pos);
     cl->update(tf);
     rb->setForce(glm::vec3(0));
+    // rb->setVelocity(glm::vec3(0));
+
+    if (lastPos != pos) {
+      movedObjectsID.push_back(obj->getId());
+    }
   }
+  return movedObjectsID;
 }
