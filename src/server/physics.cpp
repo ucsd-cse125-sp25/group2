@@ -18,7 +18,7 @@ void Physics::calculateForces() {
                  obj->getRigidBody()->getArea() * -1.0f * glm::normalize(vel);
     }
     obj->getRigidBody()->applyForce(force);
-    // obj->setGrounded(false);
+    obj->setGrounded(false);
   }
 }
 

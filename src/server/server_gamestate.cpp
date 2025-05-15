@@ -1,7 +1,7 @@
 #include "server_gamestate.hpp"
 #include "globals.hpp"
 
-ServerGameState::ServerGameState() : deltaTime(0.005f) {
+ServerGameState::ServerGameState() : deltaTime(0.007f) {
   physicsWorld = make_unique<Physics>();
 }
 
@@ -27,8 +27,16 @@ bool ServerGameState::init() {
                                      glm::vec3(rotX, rotY, rotZ),
                                      glm::vec3(scaleX, scaleY, scaleZ));
     auto rb = make_unique<RigidBody>();
-    auto cl = make_unique<Collider>(tf->getPosition(), glm::vec3(2, 2, 2));
+    auto cl = make_unique<Collider>(tf->getPosition(), glm::vec3(1, 1, 1));
+    // Make floor collider larger
+    if (objectId == 2) {
+      cl = make_unique<Collider>(glm::vec3(posX, posY, posZ), glm::vec3(10, 1, 10));
+    }
     auto obj = make_unique<GameObject>(objectId, isActive, tf, rb, cl);
+    // Make floor collider static
+    if(objectId == 2) {
+      obj->getRigidBody()->setStatic(true);
+    }
     objectList[objectId] = move(obj);
     physicsWorld->add(objectList[objectId].get());
   }
