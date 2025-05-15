@@ -27,7 +27,7 @@ bool ServerGameState::init() {
                                      glm::vec3(rotX, rotY, rotZ),
                                      glm::vec3(scaleX, scaleY, scaleZ));
     auto rb = make_unique<RigidBody>();
-    auto cl = make_unique<Collider>(tf->getPosition(), glm::vec3(2,2,2));
+    auto cl = make_unique<Collider>(tf->getPosition(), glm::vec3(2, 2, 2));
     auto obj = make_unique<GameObject>(objectId, isActive, tf, rb, cl);
     objectList[objectId] = move(obj);
     physicsWorld->add(objectList[objectId].get());

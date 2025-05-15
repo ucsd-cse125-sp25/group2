@@ -45,7 +45,8 @@ public:
   vector<Texture> textures;
   MaterialColor material;
 
-  Mesh(vector<Vertex> vertices, vector<unsigned int> indices, vector<Texture> textures);
+  Mesh(vector<Vertex> vertices, vector<unsigned int> indices,
+       vector<Texture> textures);
   Mesh(vector<Vertex> vertices, vector<unsigned int> indices,
        vector<Texture> textures, MaterialColor material);
   void draw(unique_ptr<Shader> &shader);

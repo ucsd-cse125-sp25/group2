@@ -25,7 +25,8 @@ private:
   }
 
 public:
-  Collider(glm::vec3 ctr = glm::vec3(0), glm::vec3 ext = glm::vec3(1.0f)) : center(ctr), halfExtents(ext), orientation(glm::mat3(1)) {}
+  Collider(glm::vec3 ctr = glm::vec3(0), glm::vec3 ext = glm::vec3(1.0f))
+      : center(ctr), halfExtents(ext), orientation(glm::mat3(1)) {}
 
   void update(Transform *tf) {
     center = tf->getPosition();

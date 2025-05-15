@@ -2,8 +2,8 @@
 
 #include "csv.h"
 #include "packets.hpp"
-#include "server_gameobject.hpp"
 #include "physics.hpp"
+#include "server_gameobject.hpp"
 
 #include <iostream>
 #include <memory>
