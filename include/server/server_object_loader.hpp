@@ -7,7 +7,7 @@
 
 #include <fstream>
 #include <iostream>
-#include <magic_enum.hpp>
+#include <magic_enum/magic_enum.hpp>
 #include <sstream>
 #include <unordered_map>
 
