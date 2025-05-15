@@ -29,42 +29,6 @@ function(collect_sources dir out_var)
     set(${out_var} ${sources} PARENT_SCOPE)
 endfunction()
 
-# Add nlohmann_json
-# Try to find the package first
-find_package(nlohmann_json 3.12.0 QUIET)
-
-# If not found, download and install it
-if(NOT nlohmann_json_FOUND)
-    message(STATUS "nlohmann_json not found, fetching it...")
-    FetchContent_Declare(
-        nlohmann_json
-        GIT_REPOSITORY https://github.com/nlohmann/json.git
-        GIT_TAG v3.12.0
-    )
-    FetchContent_MakeAvailable(nlohmann_json)
-    message(STATUS "nlohmann_json has been fetched and made available")
-else()
-    message(STATUS "Found nlohmann_json: ${nlohmann_json_DIR}")
-endif()
-
-# Add magic_enum
-# Try to find the package first
-find_package(magic_enum CONFIG QUIET)
-
-# If not found, download and install it
-if(NOT magic_enum_FOUND)
-    message(STATUS "magic_enum not found, fetching it...")
-    FetchContent_Declare(
-        magic_enum
-        GIT_REPOSITORY https://github.com/Neargye/magic_enum.git
-        GIT_TAG v0.9.5  # Use the latest version available
-    )
-    FetchContent_MakeAvailable(magic_enum)
-    message(STATUS "magic_enum has been fetched and made available")
-else()
-    message(STATUS "Found magic_enum: ${magic_enum_DIR}")
-endif()
-
 # Dependencies
 add_subdirectory(dependencies/asio)
 add_subdirectory(dependencies/assimp)
