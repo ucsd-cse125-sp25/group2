@@ -7,6 +7,7 @@
 #include "core.hpp"
 #include "model.hpp"
 #include "shader.hpp"
+#include "ui_manager.hpp"
 
 using namespace std;
 
@@ -25,6 +26,8 @@ public:
   bool initObjects();
   bool initNetwork(asio::io_context &io_context, const string &ip,
                    const string &port);
+  bool initUI();
+
   void cleanUp();
 
   // update and draw functions
@@ -52,6 +55,8 @@ private:
 
   // Gamestate properties
   unique_ptr<ClientGameState> game;
+
+  unique_ptr<UIManager> ui;
 
   // Network
   unique_ptr<ClientNetwork> network;

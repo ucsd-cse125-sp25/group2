@@ -31,6 +31,7 @@ bool ClientGameState::init() {
     objectList[objectId] = move(obj);
     player = obj.get();
   }
+  state = Gamestate::STARTSCREEN;
   return true;
 }
 

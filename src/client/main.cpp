@@ -83,6 +83,11 @@ int main(void) {
   // Delete later
   client->initObjects();
 
+  if (!client->initUI()) {
+      cout << "StartSceen Failed" << endl;
+  }
+  
+
   float lastFrameTime = glfwGetTime();
 
   while (!glfwWindowShouldClose(window)) {
