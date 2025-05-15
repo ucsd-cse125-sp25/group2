@@ -30,11 +30,12 @@ bool ServerGameState::init() {
     auto cl = make_unique<Collider>(tf->getPosition(), glm::vec3(1, 1, 1));
     // Make floor collider larger
     if (objectId == 2) {
-      cl = make_unique<Collider>(glm::vec3(posX, posY, posZ), glm::vec3(10, 1, 10));
+      cl = make_unique<Collider>(glm::vec3(posX, posY, posZ),
+                                 glm::vec3(10, 1, 10));
     }
     auto obj = make_unique<GameObject>(objectId, isActive, tf, rb, cl);
     // Make floor collider static
-    if(objectId == 2) {
+    if (objectId == 2) {
       obj->getRigidBody()->setStatic(true);
     }
     objectList[objectId] = move(obj);
