@@ -111,24 +111,24 @@ void Client::displayCallback(GLFWwindow *window) {
 void Client::processInput(float deltaTime) {
   // Process WASD Movement
   if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
-    cam->moveForward(deltaTime);
+    // cam->moveForward(deltaTime);
     MovementPacket packet(0, MovementType::FORWARD,
                           cam->getFacing()); // Hardcoded object ID for now
     // Later, we will use the ID of the player object
     network->send(packet);
   }
   if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
-    cam->moveBackward(deltaTime);
+    // cam->moveBackward(deltaTime);
     MovementPacket packet(0, MovementType::BACKWARD, cam->getFacing());
     network->send(packet);
   }
   if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
-    cam->moveLeft(deltaTime);
+    // cam->moveLeft(deltaTime);
     MovementPacket packet(0, MovementType::LEFT, cam->getFacing());
     network->send(packet);
   }
   if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
-    cam->moveRight(deltaTime);
+    // cam->moveRight(deltaTime);
     MovementPacket packet(0, MovementType::RIGHT, cam->getFacing());
     network->send(packet);
   }
@@ -148,10 +148,6 @@ void Client::keyCallback(GLFWwindow *window, int key, int scancode, int action,
   if (action == GLFW_PRESS) {
     if (key == GLFW_KEY_ESCAPE)
       glfwSetWindowShouldClose(window, true);
-    gameState->keyStates[key] = true;
-  }
-  if (action == GLFW_RELEASE) {
-    gameState->keyStates[key] = false;
   }
 }
 
