@@ -11,8 +11,6 @@ using namespace std;
 
 class ClientGameState {
 public:
-  ClientGameState();
-
   bool init();
 
   // update methods
