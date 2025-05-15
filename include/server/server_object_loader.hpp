@@ -1,15 +1,15 @@
 #pragma once
 
 #include "base_object_loader.hpp"
+#include "globals.hpp"
 #include "server_gameobject.hpp"
 #include "transform.hpp"
-#include "globals.hpp"
 
-#include <unordered_map>
 #include <fstream>
 #include <iostream>
 #include <magic_enum.hpp>
 #include <sstream>
+#include <unordered_map>
 
 class ObjectLoader : public BaseObjectLoader {
 public:

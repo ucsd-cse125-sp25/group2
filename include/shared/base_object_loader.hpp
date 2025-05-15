@@ -21,5 +21,5 @@ public:
 
 private:
   static glm::vec3 parseVec3(const json &json, const string &key,
-                        const glm::vec3 &defaultValue);
+                             const glm::vec3 &defaultValue);
 };

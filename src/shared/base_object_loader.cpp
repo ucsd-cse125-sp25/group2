@@ -34,12 +34,13 @@ BaseObjectData BaseObjectLoader::createBaseGameObject(const json &objData) {
 }
 
 glm::vec3 BaseObjectLoader::parseVec3(const json &json, const string &key,
-                                 const glm::vec3 &defaultValue) {
+                                      const glm::vec3 &defaultValue) {
   if (!json.contains(key) || !json[key].is_object()) {
     return defaultValue;
   }
 
   auto &vec = json[key];
-  return glm::vec3(vec.value("x", defaultValue.x), vec.value("y", defaultValue.y),
-              vec.value("z", defaultValue.z));
+  return glm::vec3(vec.value("x", defaultValue.x),
+                   vec.value("y", defaultValue.y),
+                   vec.value("z", defaultValue.z));
 };
