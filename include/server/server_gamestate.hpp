@@ -1,8 +1,8 @@
 #pragma once
 
+#include "globals.hpp"
 #include "packets.hpp"
 #include "server_gameobject.hpp"
-#include "globals.hpp"
 #include "server_object_loader.hpp"
 
 #include <iostream>
