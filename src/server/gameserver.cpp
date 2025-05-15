@@ -38,6 +38,7 @@ void GameServer::updateGameState() {
     }
     }
   }
+  game->applyPhysics();
 }
 
 void GameServer::dispatchUpdates() {

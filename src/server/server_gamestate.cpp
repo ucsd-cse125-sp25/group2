@@ -1,7 +1,9 @@
 #include "server_gamestate.hpp"
 #include "globals.hpp"
 
-ServerGameState::ServerGameState() {}
+ServerGameState::ServerGameState() : deltaTime(0.005f) {
+  physicsWorld = make_unique<Physics>();
+}
 
 bool ServerGameState::init() {
   // Initialize objects
@@ -24,8 +26,11 @@ bool ServerGameState::init() {
     auto tf = make_unique<Transform>(glm::vec3(posX, posY, posZ),
                                      glm::vec3(rotX, rotY, rotZ),
                                      glm::vec3(scaleX, scaleY, scaleZ));
-    auto obj = make_unique<GameObject>(objectId, isActive, tf);
+    auto rb = make_unique<RigidBody>();
+    auto cl = make_unique<Collider>(tf->getPosition(), glm::vec3(2,2,2));
+    auto obj = make_unique<GameObject>(objectId, isActive, tf, rb, cl);
     objectList[objectId] = move(obj);
+    physicsWorld->add(objectList[objectId].get());
   }
   return true;
 }
@@ -47,8 +52,10 @@ vector<int> ServerGameState::getLastUpdatedObjects() {
 
 void ServerGameState::updateMovement(int id, MovementType type,
                                      glm::vec3 cameraFront) {
-  auto obj = getObject(id);
-  if (obj) {
+  auto player = getObject(id);
+  if (player) {
+    // Set player movement properties
+    float speed = 10.0f;
     // Find the direction of movement based on the camera's facing direction
     glm::vec3 flatFront =
         glm::normalize(glm::vec3(cameraFront.x, 0.0f, cameraFront.z));
@@ -56,22 +63,21 @@ void ServerGameState::updateMovement(int id, MovementType type,
         glm::normalize(glm::cross(flatFront, glm::vec3(0.0f, 1.0f, 0.0f)));
     switch (type) {
     case MovementType::FORWARD:
-      obj->applyMovement(flatFront);
+      player->getRigidBody()->applyImpulse(speed * flatFront);
       break;
     case MovementType::BACKWARD:
-      obj->applyMovement(-flatFront);
+      player->getRigidBody()->applyImpulse(speed * -flatFront);
       break;
     case MovementType::LEFT:
-      obj->applyMovement(-cameraRight);
+      player->getRigidBody()->applyImpulse(speed * -cameraRight);
       break;
     case MovementType::RIGHT:
-      obj->applyMovement(cameraRight);
+      player->getRigidBody()->applyImpulse(speed * cameraRight);
       break;
     default:
       cerr << "Unknown movement type" << endl;
       break;
     }
-    updatedObjectIds.push_back(id);
   }
 }
 
@@ -80,4 +86,13 @@ void ServerGameState::updateInteraction(int id) {
   if (obj) {
     cout << "Interacting with object: " << id << endl;
   }
+}
+
+void ServerGameState::applyPhysics() {
+  physicsWorld->calculateForces();
+  physicsWorld->resolveCollisions();
+  vector<int> movedObjects = physicsWorld->moveObjects(deltaTime);
+
+  for (auto id : movedObjects)
+    updatedObjectIds.push_back(id);
 }
