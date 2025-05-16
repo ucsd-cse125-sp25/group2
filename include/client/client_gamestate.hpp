@@ -12,7 +12,7 @@ using namespace std;
 class ClientGameState {
 private:
   unordered_map<int, unique_ptr<GameObject>> objectList;
-  
+
 public:
   ClientGameState();
 

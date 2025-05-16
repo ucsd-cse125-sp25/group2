@@ -40,7 +40,8 @@ public:
   void moveObjects(float deltaTime);
 
   vector<int> getUpdatedObjects() {
-    vector<int> updatedObjectsList = vector<int>(updatedObjects.begin(), updatedObjects.end());
+    vector<int> updatedObjectsList =
+        vector<int>(updatedObjects.begin(), updatedObjects.end());
     updatedObjects.clear();
     return updatedObjectsList;
   }

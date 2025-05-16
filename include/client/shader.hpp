@@ -39,7 +39,7 @@ private:
       }
     }
   }
-  
+
 public:
   unsigned int ID;
   Shader() {}
