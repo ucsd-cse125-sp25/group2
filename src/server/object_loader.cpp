@@ -4,7 +4,7 @@
 
 #include <fstream>
 #include <iostream>
-#include <magic_enum.hpp>
+#include <magic_enum/magic_enum.hpp>
 #include <sstream>
 
 using namespace std;
