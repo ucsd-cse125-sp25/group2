@@ -1,7 +1,7 @@
 #pragma once
 
 #include "core.hpp"
-#include "transform.hpp" // maybe we dont need this and update() method
+#include "transform.hpp"
 
 #include <vector>
 
@@ -35,13 +35,6 @@ public:
     orient[1] = tf->getUp();
     orient[2] = tf->getRight();
     orientation = orient;
-
-    glm::mat4 model(1);
-    model[0] = glm::vec4(orient[0], 0);
-    model[1] = glm::vec4(orient[1], 0);
-    model[2] = glm::vec4(orient[2], 0);
-    model[3] = glm::vec4(center, 1);
-    model = glm::scale(model, halfExtents);
   }
 
   glm::vec3 getCenter() const { return center; }

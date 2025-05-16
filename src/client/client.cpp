@@ -7,7 +7,7 @@ Client::Client() {
   windowHeight = WINDOW_HEIGHT;
 
   // Initialize camera properties
-  cam = make_unique<Camera>(); // Hardcoded target for now
+  cam = make_unique<Camera>();
   mouseX = 0.0f;
   mouseY = 0.0f;
 

@@ -17,11 +17,10 @@ void GameServer::start() {
 }
 
 void GameServer::updateGameState() {
-  deque<unique_ptr<IPacket>> list_packets = network->receiveFromClients();
-  while (!list_packets.empty()) {
-    // i dont like this change it to smartvector later
-    unique_ptr<IPacket> packet = move(list_packets.front());
-    list_packets.pop_front();
+  deque<unique_ptr<IPacket>> packetsList = network->receiveFromClients();
+  while (!packetsList.empty()) {
+    unique_ptr<IPacket> packet = move(packetsList.front());
+    packetsList.pop_front();
 
     switch (packet->getType()) {
     case PacketType::MOVEMENT: {
