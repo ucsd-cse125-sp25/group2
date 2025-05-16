@@ -31,8 +31,8 @@ unordered_map<int, unique_ptr<GameObject>> ObjectLoader::loadObjects() {
 
       BaseObjectData base = createBaseGameObject(objData);
       unique_ptr<GameObject> obj;
-      
-      if (objData.contains("server")) { 
+
+      if (objData.contains("server")) {
         InteractionType interactionType;
         vec3 halfExtents;
         auto &server = objData["server"];
@@ -44,11 +44,13 @@ unordered_map<int, unique_ptr<GameObject>> ObjectLoader::loadObjects() {
         }
 
         if (server.contains("halfExtents")) {
-          halfExtents = parseVec3(server, "halfExtents", vec3(1.0f)); 
+          halfExtents = parseVec3(server, "halfExtents", vec3(1.0f));
         }
-        auto cl = make_unique<Collider>(base.transform->getPosition(), halfExtents);
+        auto cl =
+            make_unique<Collider>(base.transform->getPosition(), halfExtents);
 
-        obj = make_unique<GameObject>(objectId, base.active, base.transform, rb, cl);
+        obj = make_unique<GameObject>(objectId, base.active, base.transform, rb,
+                                      cl);
 
         if (server.contains("interaction")) {
           string interactionStr = server["interaction"].get<string>();
