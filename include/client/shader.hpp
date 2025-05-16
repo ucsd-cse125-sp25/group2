@@ -13,6 +13,33 @@ using namespace std;
 // specific shaders, easily works with the current shaders we have
 
 class Shader {
+private:
+  // utility function for checking shader compilation/linking errors.
+  // ------------------------------------------------------------------------
+  void checkCompileErrors(GLuint shader, string type) {
+    GLint success;
+    GLchar infoLog[1024];
+    if (type != "PROGRAM") {
+      glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
+      if (!success) {
+        glGetShaderInfoLog(shader, 1024, NULL, infoLog);
+        cout << "ERROR::SHADER_COMPILATION_ERROR of type: " << type << "\n"
+             << infoLog
+             << "\n -- --------------------------------------------------- -- "
+             << endl;
+      }
+    } else {
+      glGetProgramiv(shader, GL_LINK_STATUS, &success);
+      if (!success) {
+        glGetProgramInfoLog(shader, 1024, NULL, infoLog);
+        cout << "ERROR::PROGRAM_LINKING_ERROR of type: " << type << "\n"
+             << infoLog
+             << "\n -- --------------------------------------------------- -- "
+             << endl;
+      }
+    }
+  }
+  
 public:
   unsigned int ID;
   Shader() {}
@@ -146,32 +173,5 @@ public:
   void setMat4(const string &name, const glm::mat4 &mat) const {
     glUniformMatrix4fv(glGetUniformLocation(ID, name.c_str()), 1, GL_FALSE,
                        &mat[0][0]);
-  }
-
-private:
-  // utility function for checking shader compilation/linking errors.
-  // ------------------------------------------------------------------------
-  void checkCompileErrors(GLuint shader, string type) {
-    GLint success;
-    GLchar infoLog[1024];
-    if (type != "PROGRAM") {
-      glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
-      if (!success) {
-        glGetShaderInfoLog(shader, 1024, NULL, infoLog);
-        cout << "ERROR::SHADER_COMPILATION_ERROR of type: " << type << "\n"
-             << infoLog
-             << "\n -- --------------------------------------------------- -- "
-             << endl;
-      }
-    } else {
-      glGetProgramiv(shader, GL_LINK_STATUS, &success);
-      if (!success) {
-        glGetProgramInfoLog(shader, 1024, NULL, infoLog);
-        cout << "ERROR::PROGRAM_LINKING_ERROR of type: " << type << "\n"
-             << infoLog
-             << "\n -- --------------------------------------------------- -- "
-             << endl;
-      }
-    }
   }
 };

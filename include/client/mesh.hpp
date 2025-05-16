@@ -39,6 +39,10 @@ struct MaterialColor {
 };
 
 class Mesh {
+private:
+  unsigned int VAO, VBO, EBO;
+  void setupMesh();
+
 public:
   vector<Vertex> vertices;
   vector<unsigned int> indices;
@@ -50,8 +54,4 @@ public:
   Mesh(vector<Vertex> vertices, vector<unsigned int> indices,
        vector<Texture> textures, MaterialColor material);
   void draw(unique_ptr<Shader> &shader);
-
-private:
-  unsigned int VAO, VBO, EBO;
-  void setupMesh();
 };

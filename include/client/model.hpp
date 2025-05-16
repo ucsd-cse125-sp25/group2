@@ -15,12 +15,6 @@
 using namespace std;
 
 class Model {
-public:
-  Model(const char *path);
-  void draw(const glm::mat4 &viewProjMtx, unique_ptr<Shader> &shader);
-  void update(Transform *transform);
-  void changeColor(glm::vec3 col);
-
 private:
   glm::mat4 model;
   glm::vec3 color;
@@ -34,4 +28,10 @@ private:
   vector<Texture> loadMaterialTextures(aiMaterial *mat, aiTextureType type,
                                        string typeName);
   unsigned int textureFromFile(const char *path, const string &directory);
+
+public:
+  Model(const char *path);
+  void draw(const glm::mat4 &viewProjMtx, unique_ptr<Shader> &shader);
+  void update(Transform *transform);
+  void changeColor(glm::vec3 col);
 };

@@ -10,6 +10,9 @@
 using namespace std;
 
 class ClientGameState {
+private:
+  unordered_map<int, unique_ptr<GameObject>> objectList;
+  
 public:
   ClientGameState();
 
@@ -24,7 +27,4 @@ public:
   // delete later
   GameObject *player;
   GameObject *getPlayer() { return player; }
-
-private:
-  unordered_map<int, unique_ptr<GameObject>> objectList;
 };
