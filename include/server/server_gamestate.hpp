@@ -3,6 +3,7 @@
 #include "packets.hpp"
 #include "physics.hpp"
 #include "server_gameobject.hpp"
+#include "server_object_loader.hpp"
 
 #include <iostream>
 #include <memory>

@@ -1,12 +1,5 @@
 #include "server_gamestate.hpp"
-#include "globals.hpp"
-#include "server_object_loader.hpp"
 
-#include <fstream>
-#include <nlohmann/json.hpp>
-#include <string>
-
-using json = nlohmann::json;
 ServerGameState::ServerGameState() : deltaTime(0.007f) {
   physicsWorld = make_unique<Physics>();
 }

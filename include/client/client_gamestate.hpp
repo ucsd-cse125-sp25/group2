@@ -1,6 +1,7 @@
 #pragma once
 
 #include "client_gameobject.hpp"
+#include "client_object_loader.hpp"
 #include "shader.hpp"
 
 #include <memory>
