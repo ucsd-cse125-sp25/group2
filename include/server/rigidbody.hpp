@@ -17,7 +17,7 @@ public:
       : velocity(v), force(f), mass(m) {
     friction = 0.5f;
     restitution = 1.0f;
-    staticObject = false;
+    staticObject = true;
   }
 
   void setVelocity(glm::vec3 v) { velocity = v; }

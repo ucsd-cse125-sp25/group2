@@ -11,38 +11,13 @@ ServerGameState::ServerGameState() : deltaTime(0.007f) {
   physicsWorld = make_unique<Physics>();
 }
 
-// For ServerGameState
 bool ServerGameState::init() {
   ObjectLoader objectLoader = ObjectLoader();
   objectList = objectLoader.loadObjects();
-
-  // if (obj->getInteractionType() != InteractionType::NONE)
-  //     {
-  //         interactableObjects[objData.id] = objectList[objData.id].get;
-  //     }
+  for (auto &obj : objectList)
+    physicsWorld->add(obj.second.get());
 
   return true;
-}
-
-GameObject *ServerGameState::getObject(int id) {
-  auto itr = objectList.find(id);
-  if (itr != objectList.end()) {
-    return itr->second.get();
-  }
-  cerr << "Object with id " << id << " not found" << endl;
-  return nullptr;
-}
-
-void ServerGameState::updateInteraction(int id) {
-  auto obj = getObject(id);
-  if (obj) {
-    cout << "Interacting with object: " << id << endl;
-  }
-}
-vector<int> ServerGameState::getLastUpdatedObjects() {
-  auto res = move(updatedObjectIds);
-  updatedObjectIds.clear();
-  return res;
 }
 
 void ServerGameState::updateMovement(int id, MovementType type,
@@ -76,6 +51,13 @@ void ServerGameState::updateMovement(int id, MovementType type,
   }
 }
 
+void ServerGameState::updateInteraction(int id) {
+  auto obj = getObject(id);
+  if (obj) {
+    cout << "Interacting with object: " << id << endl;
+  }
+}
+
 void ServerGameState::applyPhysics() {
   physicsWorld->calculateForces();
   physicsWorld->resolveCollisions();
@@ -84,4 +66,19 @@ void ServerGameState::applyPhysics() {
   auto movedObjects = physicsWorld->getUpdatedObjects();
   for (auto id : movedObjects)
     updatedObjectIds.push_back(id);
+}
+
+GameObject *ServerGameState::getObject(int id) {
+  auto itr = objectList.find(id);
+  if (itr != objectList.end()) {
+    return itr->second.get();
+  }
+  cerr << "Object with id " << id << " not found" << endl;
+  return nullptr;
+}
+
+vector<int> ServerGameState::getLastUpdatedObjects() {
+  auto res = move(updatedObjectIds);
+  updatedObjectIds.clear();
+  return res;
 }

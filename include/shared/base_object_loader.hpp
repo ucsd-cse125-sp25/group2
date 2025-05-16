@@ -17,10 +17,9 @@ struct BaseObjectData {
 };
 
 class BaseObjectLoader {
-public:
-  BaseObjectData createBaseGameObject(const json &objData);
-
-private:
+protected:
   static vec3 parseVec3(const json &json, const string &key,
                         const vec3 &defaultValue);
+public:
+  BaseObjectData createBaseGameObject(const json &objData);
 };
