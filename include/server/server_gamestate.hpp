@@ -21,7 +21,7 @@ private:
   unique_ptr<Physics> physicsWorld;
 
 public:
-  ServerGameState();
+  ServerGameState(){};
 
   bool init();
 

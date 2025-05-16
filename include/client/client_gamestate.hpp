@@ -14,8 +14,6 @@ private:
   unordered_map<int, unique_ptr<GameObject>> objectList;
 
 public:
-  ClientGameState();
-
   bool init();
 
   // update methods

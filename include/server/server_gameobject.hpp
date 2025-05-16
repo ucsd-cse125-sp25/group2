@@ -12,17 +12,9 @@
 
 using namespace std;
 
-enum class InteractionType : uint8_t {
-  NONE,
-  PICKUP,
-  PRESS,
-  OPEN_CLOSE,
-};
-
 class GameObject : public BaseGameObject {
 protected:
-  // Server gameobject properties
-  InteractionType interactable;
+  InteractionType interactionType;
 
   // Physics properties
   bool grounded;
@@ -34,17 +26,17 @@ public:
              unique_ptr<RigidBody> &rb, unique_ptr<Collider> &cl)
       : BaseGameObject(objectId, isActive, tf), rigidbody(move(rb)),
         collider(move(cl)) {
-    interactable = InteractionType::NONE;
+    interactionType = InteractionType::NONE;
     grounded = true;
   };
 
   // server
   void activate() { active = true; };
   void deactivate() { active = false; };
-  void setInteractability(InteractionType interact) {
-    interactable = interact;
+  void setInteractability(InteractionType interactionType) {
+    interactionType = interactionType;
   };
-  InteractionType isInteractable() const { return interactable; };
+  InteractionType getInteractionType() const { return interactionType; };
 
   // physics
   void setGrounded(bool isGrounded) { grounded = isGrounded; };

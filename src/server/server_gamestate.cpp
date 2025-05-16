@@ -1,46 +1,26 @@
 #include "server_gamestate.hpp"
 #include "globals.hpp"
+#include "server_object_loader.hpp"
 
+#include <fstream>
+#include <nlohmann/json.hpp>
+#include <string>
+
+using json = nlohmann::json;
 ServerGameState::ServerGameState() : deltaTime(0.007f) {
   physicsWorld = make_unique<Physics>();
 }
 
+// For ServerGameState
 bool ServerGameState::init() {
-  // Initialize objects
-  io::CSVReader<NUM_COLUMNS_CSV> in("../resources/objects/objects.csv");
-  in.read_header(io::ignore_extra_column, "ID", "Active", "Px", "Py", "Pz",
-                 "Rx", "Ry", "Rz", "Sx", "Sy", "Sz", "ModelPath",
-                 "VertShaderPath", "FragShaderPath");
+  ObjectLoader objectLoader = ObjectLoader();
+  objectList = objectLoader.loadObjects();
 
-  int objectId;
-  int isActive;
-  float posX, posY, posZ;
-  float rotX, rotY, rotZ;
-  float scaleX, scaleY, scaleZ;
-  string modelPath;
-  string vertShaderPath, fragShaderPath;
+  // if (obj->getInteractionType() != InteractionType::NONE)
+  //     {
+  //         interactableObjects[objData.id] = objectList[objData.id].get;
+  //     }
 
-  while (in.read_row(objectId, isActive, posX, posY, posZ, rotX, rotY, rotZ,
-                     scaleX, scaleY, scaleZ, modelPath, fragShaderPath,
-                     vertShaderPath)) {
-    auto tf = make_unique<Transform>(glm::vec3(posX, posY, posZ),
-                                     glm::vec3(rotX, rotY, rotZ),
-                                     glm::vec3(scaleX, scaleY, scaleZ));
-    auto rb = make_unique<RigidBody>();
-    auto cl = make_unique<Collider>(tf->getPosition(), glm::vec3(1, 1, 1));
-    // Make floor collider larger
-    if (objectId == 2) {
-      cl = make_unique<Collider>(glm::vec3(posX, posY, posZ),
-                                 glm::vec3(10, 1, 10));
-    }
-    auto obj = make_unique<GameObject>(objectId, isActive, tf, rb, cl);
-    // Make floor collider static
-    if (objectId == 2) {
-      obj->getRigidBody()->setStatic(true);
-    }
-    objectList[objectId] = move(obj);
-    physicsWorld->add(objectList[objectId].get());
-  }
   return true;
 }
 
@@ -53,6 +33,12 @@ GameObject *ServerGameState::getObject(int id) {
   return nullptr;
 }
 
+void ServerGameState::updateInteraction(int id) {
+  auto obj = getObject(id);
+  if (obj) {
+    cout << "Interacting with object: " << id << endl;
+  }
+}
 vector<int> ServerGameState::getLastUpdatedObjects() {
   auto res = move(updatedObjectIds);
   updatedObjectIds.clear();
@@ -87,13 +73,6 @@ void ServerGameState::updateMovement(int id, MovementType type,
       cerr << "Unknown movement type" << endl;
       break;
     }
-  }
-}
-
-void ServerGameState::updateInteraction(int id) {
-  auto obj = getObject(id);
-  if (obj) {
-    cout << "Interacting with object: " << id << endl;
   }
 }
 
