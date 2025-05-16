@@ -4,7 +4,7 @@
 #include "server_gameobject.hpp"
 
 #include <algorithm>
-#include <unordered_map>
+#include <unordered_set>
 #include <vector>
 
 using namespace std;
@@ -27,6 +27,8 @@ private:
   const float drag = 1.05f;
   const float damping = 0.95f;
 
+  unordered_set<int> updatedObjects;
+
   void clampVelocities(RigidBody *rb);
 
 public:
@@ -35,5 +37,11 @@ public:
 
   void calculateForces();
   void resolveCollisions();
-  vector<int> moveObjects(float deltaTime);
+  void moveObjects(float deltaTime);
+
+  vector<int> getUpdatedObjects() {
+    vector<int> updatedObjectsList = vector<int>(updatedObjects.begin(), updatedObjects.end());
+    updatedObjects.clear();
+    return updatedObjectsList;
+  }
 };

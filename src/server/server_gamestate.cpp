@@ -100,8 +100,9 @@ void ServerGameState::updateInteraction(int id) {
 void ServerGameState::applyPhysics() {
   physicsWorld->calculateForces();
   physicsWorld->resolveCollisions();
-  vector<int> movedObjects = physicsWorld->moveObjects(deltaTime);
+  physicsWorld->moveObjects(deltaTime);
 
+  auto movedObjects = physicsWorld->getUpdatedObjects();
   for (auto id : movedObjects)
     updatedObjectIds.push_back(id);
 }

@@ -1,5 +1,4 @@
 #include "physics.hpp"
-#include <iostream>
 
 void Physics::add(GameObject *obj) { objects.push_back(obj); }
 
@@ -49,6 +48,10 @@ void Physics::resolveCollisions() {
         glm::vec3 normal;
         float penetration;
         if (aCol->intersects(*bCol, normal, penetration)) {
+          // if intersects, add both objects to the list of updated objects
+          updatedObjects.insert(a->getId());
+          updatedObjects.insert(b->getId());
+
           // Check if the object is at rest (grounded)
           bool aOnTop = glm::dot(normal, glm::vec3(0, 1, 0)) < 0.1f;
           bool bOnTop = glm::dot(normal, glm::vec3(0, -1, 0)) < 0.1f;
@@ -98,8 +101,7 @@ void Physics::resolveCollisions() {
   }
 }
 
-vector<int> Physics::moveObjects(float deltaTime) {
-  vector<int> movedObjectsID;
+void Physics::moveObjects(float deltaTime) {
   float moveSpeed = 10.0f;
 
   for (GameObject *obj : objects) {
@@ -123,11 +125,9 @@ vector<int> Physics::moveObjects(float deltaTime) {
     tf->setPosition(pos);
     cl->update(tf);
     rb->setForce(glm::vec3(0));
-    // rb->setVelocity(glm::vec3(0));
 
-    if (lastPos != pos) {
-      movedObjectsID.push_back(obj->getId());
-    }
+    // if object has moved, add it to the updated objects list
+    if (glm::length(pos - lastPos) > 0.0001f)
+      updatedObjects.insert(obj->getId());
   }
-  return movedObjectsID;
 }
