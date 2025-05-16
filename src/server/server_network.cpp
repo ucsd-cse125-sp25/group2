@@ -76,8 +76,9 @@ void ServerNetwork::sendToClient(unsigned int id, const IPacket &packet) {
  * need to send a packet that inherits IPacket
  */
 void ServerNetwork::sendToAll(const IPacket &packet) {
-  for (const auto &[id, socket] : clients) {
-    sendToClient(id, packet);
+  for (auto it = clients.begin(); it != clients.end(); ) {
+      auto current = it++;
+      sendToClient(current->first, packet);
   }
 }
 
