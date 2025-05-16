@@ -12,10 +12,10 @@
 #include <unordered_map>
 
 class ObjectLoader : public BaseObjectLoader {
+private:
+  int id = 0;
+
 public:
   ObjectLoader() : BaseObjectLoader(){};
   unordered_map<int, unique_ptr<GameObject>> loadObjects();
-
-private:
-  int id = 0;
 };
