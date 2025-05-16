@@ -36,7 +36,6 @@ add_subdirectory(dependencies/glew)
 add_subdirectory(dependencies/glfw)
 add_subdirectory(dependencies/glm)
 add_subdirectory(dependencies/stb_image)
-add_subdirectory(dependencies/csv_parser)
 add_subdirectory(dependencies/nlohmann_json)
 add_subdirectory(dependencies/magic_enum)
 
