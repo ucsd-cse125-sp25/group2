@@ -1,15 +1,15 @@
 #pragma once
 
 #include "base_object_loader.hpp"
-#include "transform.hpp"
+#include "client_gameobject.hpp"
 #include "model.hpp"
 #include "shader.hpp"
-#include "client_gameobject.hpp"
+#include "transform.hpp"
 
-#include <unordered_map>
 #include <fstream>
 #include <iostream>
 #include <sstream>
+#include <unordered_map>
 
 class ObjectLoader : public BaseObjectLoader {
 public:
