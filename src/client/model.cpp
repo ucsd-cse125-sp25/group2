@@ -1,11 +1,12 @@
 #include "model.hpp"
-#include <stb_image.h>
 
 Model::Model(const char *path) {
   model = glm::mat4(1);
   color = glm::vec3(1.0f, 0.95f, 0.1f);
   loadModel(path);
 }
+
+void Model::changeColor(glm::vec3 col) { this->color = col; }
 
 void Model::draw(const glm::mat4 &viewProjMtx, unique_ptr<Shader> &shader) {
   // Activate the shader program
@@ -67,6 +68,7 @@ Mesh Model::processMesh(aiMesh *mesh, const aiScene *scene) {
   vector<Vertex> vertices;
   vector<unsigned int> indices;
   vector<Texture> textures;
+  MaterialColor material;
 
   for (unsigned int i = 0; i < mesh->mNumVertices; i++) {
     Vertex vertex;
@@ -113,25 +115,41 @@ Mesh Model::processMesh(aiMesh *mesh, const aiScene *scene) {
     for (unsigned int j = 0; j < face.mNumIndices; j++)
       indices.push_back(face.mIndices[j]);
   }
-
   if (mesh->mMaterialIndex >= 0) {
     // Object comes with diffuse, normal, roughness, and specular maps, so we
     // can insert them as textures
-    aiMaterial *material = scene->mMaterials[mesh->mMaterialIndex];
-    vector<Texture> diffuseMaps = loadMaterialTextures(
-        material, aiTextureType_DIFFUSE, "texture_diffuse");
+
+    aiMaterial *aiMat = scene->mMaterials[mesh->mMaterialIndex];
+
+    aiColor3D diffuse(0, 0, 0);
+    aiColor3D ambient(0, 0, 0);
+    aiColor3D specular(0, 0, 0);
+    float shininess = 0;
+
+    aiMat->Get(AI_MATKEY_COLOR_DIFFUSE, diffuse);
+    aiMat->Get(AI_MATKEY_COLOR_AMBIENT, ambient);
+    aiMat->Get(AI_MATKEY_COLOR_SPECULAR, specular);
+    aiMat->Get(AI_MATKEY_SHININESS, shininess);
+
+    material.diffuse = glm::vec3(diffuse.r, diffuse.g, diffuse.b);
+    material.ambient = glm::vec3(ambient.r, ambient.g, ambient.b);
+    material.specular = glm::vec3(specular.r, specular.g, specular.b);
+    material.shininess = shininess;
+
+    vector<Texture> diffuseMaps =
+        loadMaterialTextures(aiMat, aiTextureType_DIFFUSE, "texture_diffuse");
     textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
-    vector<Texture> specularMaps = loadMaterialTextures(
-        material, aiTextureType_SPECULAR, "texture_specular");
+    vector<Texture> specularMaps =
+        loadMaterialTextures(aiMat, aiTextureType_SPECULAR, "texture_specular");
     textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
     vector<Texture> normalMaps =
-        loadMaterialTextures(material, aiTextureType_HEIGHT, "texture_normal");
+        loadMaterialTextures(aiMat, aiTextureType_HEIGHT, "texture_normal");
     textures.insert(textures.end(), normalMaps.begin(), normalMaps.end());
     vector<Texture> heightMaps =
-        loadMaterialTextures(material, aiTextureType_AMBIENT, "texture_height");
+        loadMaterialTextures(aiMat, aiTextureType_AMBIENT, "texture_height");
     textures.insert(textures.end(), heightMaps.begin(), heightMaps.end());
   }
-  return Mesh(vertices, indices, textures);
+  return Mesh(vertices, indices, textures, material);
 }
 
 vector<Texture> Model::loadMaterialTextures(aiMaterial *mat, aiTextureType type,
@@ -152,7 +170,7 @@ vector<Texture> Model::loadMaterialTextures(aiMaterial *mat, aiTextureType type,
     }
     if (!loaded) {
       Texture texture;
-      texture.id = TextureFromFile(path.C_Str(), directory);
+      texture.id = textureFromFile(path.C_Str(), directory);
       texture.type = typeName;
       texture.path = path.C_Str();
       textures.push_back(texture);
@@ -163,7 +181,7 @@ vector<Texture> Model::loadMaterialTextures(aiMaterial *mat, aiTextureType type,
 }
 
 // Generates a texture from the image provided.
-unsigned int Model::TextureFromFile(const char *path, const string &directory) {
+unsigned int Model::textureFromFile(const char *path, const string &directory) {
   string filename = string(path);
   filename = directory + '/' + filename;
 

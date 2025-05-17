@@ -9,8 +9,6 @@
 using asio::ip::tcp;
 using namespace std;
 
-#define CLIENT_ID unsigned int
-
 class ClientNetwork {
 private:
   CLIENT_ID id;

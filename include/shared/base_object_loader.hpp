@@ -8,7 +8,6 @@
 #include <unordered_map>
 
 using json = nlohmann::json;
-using vec3 = glm::vec3;
 using namespace std;
 
 struct BaseObjectData {
@@ -17,10 +16,10 @@ struct BaseObjectData {
 };
 
 class BaseObjectLoader {
+protected:
+  static glm::vec3 parseVec3(const json &json, const string &key,
+                             const glm::vec3 &defaultValue);
+
 public:
   BaseObjectData createBaseGameObject(const json &objData);
-
-private:
-  static vec3 parseVec3(const json &json, const string &key,
-                        const vec3 &defaultValue);
 };

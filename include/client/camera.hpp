@@ -3,24 +3,6 @@
 #include "core.hpp"
 #include "glm/gtx/euler_angles.hpp"
 class Camera {
-public:
-  Camera();
-
-  void update(float xpos, float ypos, glm::vec3 target);
-  void updateAspect(float width, float height);
-
-  void moveForward(float deltaTime);
-  void moveBackward(float deltaTime);
-  void moveLeft(float deltaTime);
-  void moveRight(float deltaTime);
-
-  // Getters
-  glm::vec3 getFacing() { return cameraFront; }
-  glm::vec3 getPos() { return cameraPos; }
-  glm::mat4 getProjection() { return projection; }
-  glm::mat4 getView() { return view; }
-  glm::mat4 getViewProj() { return viewProjMat; }
-
 private:
   // Perspective controls
   float fov;      // Field of View Angle (degrees)
@@ -46,4 +28,22 @@ private:
   glm::mat4 projection;
   glm::mat4 view;
   glm::mat4 viewProjMat;
+
+public:
+  Camera();
+
+  void update(float xpos, float ypos, glm::vec3 target);
+  void updateAspect(float width, float height);
+
+  void moveForward(float deltaTime);
+  void moveBackward(float deltaTime);
+  void moveLeft(float deltaTime);
+  void moveRight(float deltaTime);
+
+  // Getters
+  glm::vec3 getFacing() { return cameraFront; }
+  glm::vec3 getPos() { return cameraPos; }
+  glm::mat4 getProjection() { return projection; }
+  glm::mat4 getView() { return view; }
+  glm::mat4 getViewProj() { return viewProjMat; }
 };

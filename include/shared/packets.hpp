@@ -81,6 +81,3 @@ struct DisconnectPacket : public IPacket {
 };
 
 unique_ptr<IPacket> deserialize(PacketType type, vector<char> &payload);
-
-// Debugging Methods
-void printObjectPacket(const ObjectPacket &packet);

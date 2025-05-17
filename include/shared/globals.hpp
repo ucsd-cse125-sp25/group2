@@ -2,13 +2,10 @@
 
 #include <stdint.h>
 
-#ifndef GLOBALS_H // Include guard to prevent multiple inclusions
-#define GLOBALS_H
+#define WINDOW_WIDTH 1920
+#define WINDOW_HEIGHT 1080
 
-#define NUM_COLUMNS_CSV 15
-
-#define JSON_PATH "../resources/objects/objects.json"
-#define NUM_COLUMNS_CSV 15
+#define CLIENT_ID unsigned int
 
 #define JSON_PATH "../resources/objects/objects.json"
 
@@ -20,5 +17,3 @@ enum class InteractionType : uint8_t {
   PRESS,
   OPEN_CLOSE,
 };
-
-#endif // GLOBALS_H

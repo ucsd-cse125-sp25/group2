@@ -1,13 +1,4 @@
-#include "globals.hpp"
-#include "server_gameobject.hpp"
 #include "server_object_loader.hpp"
-
-#include <fstream>
-#include <iostream>
-#include <magic_enum.hpp>
-#include <sstream>
-
-using namespace std;
 
 unordered_map<int, unique_ptr<GameObject>> ObjectLoader::loadObjects() {
   unordered_map<int, unique_ptr<GameObject>> objects;
@@ -30,12 +21,27 @@ unordered_map<int, unique_ptr<GameObject>> ObjectLoader::loadObjects() {
       int objectId = id++;
 
       BaseObjectData base = createBaseGameObject(objData);
-      unique_ptr<GameObject> obj =
-          make_unique<GameObject>(objectId, base.active, base.transform);
+      unique_ptr<GameObject> obj;
 
       if (objData.contains("server")) {
         InteractionType interactionType;
+        glm::vec3 halfExtents;
         auto &server = objData["server"];
+
+        auto rb = make_unique<RigidBody>();
+        if (server.contains("static")) {
+          bool isStatic = server["static"].get<bool>();
+          rb->setStatic(isStatic);
+        }
+
+        if (server.contains("halfExtents")) {
+          halfExtents = parseVec3(server, "halfExtents", glm::vec3(1.0f));
+        }
+        auto cl =
+            make_unique<Collider>(base.transform->getPosition(), halfExtents);
+
+        obj = make_unique<GameObject>(objectId, base.active, base.transform, rb,
+                                      cl);
 
         if (server.contains("interaction")) {
           string interactionStr = server["interaction"].get<string>();

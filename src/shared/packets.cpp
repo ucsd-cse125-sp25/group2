@@ -15,7 +15,7 @@ InitPacket InitPacket::deserialize(const vector<char> &payload) {
 }
 
 vector<char> ObjectPacket::serialize() const {
-  vector<char> buffer(sizeof(int) + sizeof(Transform) + 2 * sizeof(bool));
+  vector<char> buffer(sizeof(int) + sizeof(Transform) + sizeof(bool));
   unsigned long size = 0;
   memcpy(buffer.data(), &objectID, sizeof(int));
   size += sizeof(int);

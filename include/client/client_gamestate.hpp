@@ -1,7 +1,7 @@
 #pragma once
 
 #include "client_gameobject.hpp"
-#include "csv.h"
+#include "client_object_loader.hpp"
 #include "shader.hpp"
 
 #include <memory>
@@ -10,6 +10,9 @@
 using namespace std;
 
 class ClientGameState {
+private:
+  unordered_map<int, unique_ptr<GameObject>> objectList;
+
 public:
   bool init();
 
@@ -22,7 +25,4 @@ public:
   // delete later
   GameObject *player;
   GameObject *getPlayer() { return player; }
-
-private:
-  unordered_map<int, unique_ptr<GameObject>> objectList;
 };
