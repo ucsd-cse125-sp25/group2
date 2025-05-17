@@ -115,8 +115,8 @@ void BaseUI::update(float mouseX, float mouseY, int winWidth, int winHeight,
 
   bool isHovering = isHovered(x_ndc, y_ndc);
   if (hoverable) {
-    //printf("x: %f y: %f \n", x_ndc, y_ndc);
-    // Hover state change detection
+    // printf("x: %f y: %f \n", x_ndc, y_ndc);
+    //  Hover state change detection
     if (isHovering && !hovered) {
       std::cout << "Hovering: True " << std::endl;
       hovered = true;
