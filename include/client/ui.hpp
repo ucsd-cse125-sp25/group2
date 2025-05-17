@@ -12,7 +12,7 @@ struct AnimationInfo {
   float frameWidth, frameHeight, frameDuration, animationTimer;
   bool startAnim;
   AnimationInfo(int cols, int rows, float frameDuration)
-  : cols(cols), rows(rows), frameDuration(frameDuration) {
+      : cols(cols), rows(rows), frameDuration(frameDuration) {
     frameHeight = 1.0f / rows;
     frameWidth = 1.0f / cols;
     startAnim = false;
@@ -20,7 +20,8 @@ struct AnimationInfo {
     animationTimer = 0;
   }
   AnimationInfo()
-  : cols(0), rows(0), frameWidth(1.0f), frameHeight(1.0f), frameDuration(0){
+      : cols(0), rows(0), frameWidth(1.0f), frameHeight(1.0f),
+        frameDuration(0) {
     startAnim = false;
     currentFrame = 0;
     animationTimer = 0;
@@ -34,8 +35,9 @@ public:
   BaseUI(float x, float y, float width, float height, int zIndex,
          bool clickable = false, bool hoverable = false);
 
-  BaseUI(float x, float y, float width, float height, int zIndex, AnimationInfo animInfo,
-         bool clickable = false, bool hoverable = false);
+  BaseUI(float x, float y, float width, float height, int zIndex,
+         AnimationInfo animInfo, bool clickable = false,
+         bool hoverable = false);
 
   virtual ~BaseUI();
 
@@ -49,7 +51,8 @@ public:
 
   void draw();
 
-  void update(float mouseX, float mouseY, int winWidth, int winHeight, float deltatime);
+  void update(float mouseX, float mouseY, int winWidth, int winHeight,
+              float deltatime);
 
   static GLuint loadTexture(const char *path);
 

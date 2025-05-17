@@ -116,16 +116,15 @@ void Client::displayCallback(GLFWwindow *window) {
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
   // Draw objects
-  switch (game->state)
-  {
+  switch (game->state) {
   case Gamestate::STARTSCREEN:
     ui->draw_start();
     ui->update_start(mouseX, mouseY, windowWidth, windowHeight, deltaTime);
-    break;  
+    break;
   case Gamestate::MAINMENU:
     ui->draw_menu();
     ui->update_menu(mouseX, mouseY, windowWidth, windowHeight, deltaTime);
-  break;
+    break;
   case Gamestate::GAME:
     game->draw(cam->getViewProj());
     break;

@@ -36,10 +36,10 @@ BaseUI::BaseUI(float x, float y, float width, float height, int zIndex,
   setupQuad();
 }
 
-BaseUI::BaseUI(float x, float y, float width, float height, int zIndex, AnimationInfo animInfo,
-              bool clickable, bool hoverable)
-              : x(x), y(y), width(width), height(height), zIndex(zIndex),
-              clickable(clickable), hoverable(hoverable), animInfo(animInfo) {
+BaseUI::BaseUI(float x, float y, float width, float height, int zIndex,
+               AnimationInfo animInfo, bool clickable, bool hoverable)
+    : x(x), y(y), width(width), height(height), zIndex(zIndex),
+      clickable(clickable), hoverable(hoverable), animInfo(animInfo) {
   hovered = false;
   isAnim = true;
   setupQuad();
@@ -75,7 +75,9 @@ void BaseUI::draw() {
   }
   shader->use();
 
-  GLuint tex = (hoverable && hovered && hoverTextureID && !animInfo.startAnim) ? hoverTextureID : textureID;
+  GLuint tex = (hoverable && hovered && hoverTextureID && !animInfo.startAnim)
+                   ? hoverTextureID
+                   : textureID;
 
   glActiveTexture(GL_TEXTURE0);
   glBindTexture(GL_TEXTURE_2D, tex);
@@ -87,9 +89,11 @@ void BaseUI::draw() {
       int flippedY = (animInfo.rows - 1) - frameY;
 
       glm::vec2 frameSize(animInfo.frameWidth, animInfo.frameHeight);
-      glm::vec2 frameOffset(frameX * animInfo.frameWidth, flippedY * animInfo.frameHeight);
+      glm::vec2 frameOffset(frameX * animInfo.frameWidth,
+                            flippedY * animInfo.frameHeight);
 
-      //std::cout << "width: " << frameX * animInfo.frameWidth << "height: " << flippedY * animInfo.frameHeight << std::endl;
+      // std::cout << "width: " << frameX * animInfo.frameWidth << "height: " <<
+      // flippedY * animInfo.frameHeight << std::endl;
       shader->setVec2("frameSize", frameSize);
       shader->setVec2("frameOffset", frameOffset);
     } else {
@@ -104,14 +108,15 @@ void BaseUI::draw() {
   glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 }
 
-void BaseUI::update(float mouseX, float mouseY, int winWidth, int winHeight, float deltaTime) {
+void BaseUI::update(float mouseX, float mouseY, int winWidth, int winHeight,
+                    float deltaTime) {
   float x_ndc = (2.0f * mouseX) / winWidth - 1.0f;
   float y_ndc = 1.0f - (2.0f * mouseY) / winHeight;
 
   bool isHovering = isHovered(x_ndc, y_ndc);
   if (hoverable) {
-    //printf("x: %f y: %f \n", x_ndc, y_ndc);
-    // Hover state change detection
+    // printf("x: %f y: %f \n", x_ndc, y_ndc);
+    //  Hover state change detection
     if (isHovering && !hovered) {
       std::cout << "Hovering: True " << std::endl;
       hovered = true;
@@ -156,13 +161,10 @@ bool BaseUI::isHovered(float x_ndc, float y_ndc) {
   float right = x + halfW;
   float bottom = y - halfH;
   float top = y + halfH;
-  return (x_ndc >= left && x_ndc <= right &&
-          y_ndc >= bottom && y_ndc <= top);
+  return (x_ndc >= left && x_ndc <= right && y_ndc >= bottom && y_ndc <= top);
 }
 
-void BaseUI::play() {
-  animInfo.startAnim = true;
-}
+void BaseUI::play() { animInfo.startAnim = true; }
 
 void BaseUI::setupQuad() {
   float halfW = width / 2.0f;

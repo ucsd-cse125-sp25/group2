@@ -14,8 +14,10 @@ public:
 
   void setStartClick(std::function<void()> callback);
 
-  void update_start(float mouseX, float mouseY, int winWidth, int winHeight, float deltatime);
-  void update_menu(float mouseX, float mouseY, int winWidth, int winHeight, float deltatime);
+  void update_start(float mouseX, float mouseY, int winWidth, int winHeight,
+                    float deltatime);
+  void update_menu(float mouseX, float mouseY, int winWidth, int winHeight,
+                   float deltatime);
 
   unique_ptr<BaseUI> startScreenUI;
   unique_ptr<BaseUI> startButton;
