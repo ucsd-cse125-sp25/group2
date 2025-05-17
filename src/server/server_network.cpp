@@ -39,7 +39,6 @@ void ServerNetwork::acceptClient() {
     } else {
       cerr << "Accept Failed: " << ec.message() << endl;
     }
-
     acceptClient();
   });
 }
@@ -65,7 +64,6 @@ void ServerNetwork::sendToClient(unsigned int id, const IPacket &packet) {
   buffer.push_back(static_cast<uint8_t>(body_size & 0xFF));
   buffer.push_back(static_cast<uint8_t>((body_size >> 8) & 0xFF));
   buffer.insert(buffer.end(), body.begin(), body.end());
-
   try {
     asio::write(*socket, asio::buffer(buffer));
   } catch (const system_error &e) {
@@ -79,8 +77,9 @@ void ServerNetwork::sendToClient(unsigned int id, const IPacket &packet) {
  * need to send a packet that inherits IPacket
  */
 void ServerNetwork::sendToAll(const IPacket &packet) {
-  for (const auto &[id, socket] : clients) {
-    sendToClient(id, packet);
+  for (auto it = clients.begin(); it != clients.end();) {
+    auto current = it++;
+    sendToClient(current->first, packet);
   }
 }
 

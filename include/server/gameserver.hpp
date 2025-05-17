@@ -6,6 +6,11 @@
 using namespace std;
 
 class GameServer {
+private:
+  // Network and GameState
+  unique_ptr<ServerNetwork> network;
+  unique_ptr<ServerGameState> game;
+
 public:
   GameServer(asio::io_context &io_context, const string &ip,
              const string &port);
@@ -15,9 +20,4 @@ public:
 
   void updateGameState();
   void dispatchUpdates();
-
-private:
-  // Network and GameState
-  unique_ptr<ServerNetwork> network;
-  unique_ptr<ServerGameState> game;
 };

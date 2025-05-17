@@ -1,15 +1,64 @@
 #include "server_gamestate.hpp"
 
+ServerGameState::ServerGameState() : deltaTime(0.007f) {
+  physicsWorld = make_unique<Physics>();
+}
+
 bool ServerGameState::init() {
   ObjectLoader objectLoader = ObjectLoader();
   objectList = objectLoader.loadObjects();
-
-  // if (obj->getInteractionType() != InteractionType::NONE)
-  //     {
-  //         interactableObjects[objData.id] = objectList[objData.id].get;
-  //     }
+  for (auto &obj : objectList)
+    physicsWorld->add(obj.second.get());
 
   return true;
+}
+
+void ServerGameState::updateMovement(int id, MovementType type,
+                                     glm::vec3 cameraFront) {
+  auto player = getObject(id);
+  if (player) {
+    // Set player movement properties
+    float speed = 10.0f;
+    // Find the direction of movement based on the camera's facing direction
+    glm::vec3 flatFront =
+        glm::normalize(glm::vec3(cameraFront.x, 0.0f, cameraFront.z));
+    glm::vec3 cameraRight =
+        glm::normalize(glm::cross(flatFront, glm::vec3(0.0f, 1.0f, 0.0f)));
+    switch (type) {
+    case MovementType::FORWARD:
+      player->getRigidBody()->applyImpulse(speed * flatFront);
+      break;
+    case MovementType::BACKWARD:
+      player->getRigidBody()->applyImpulse(speed * -flatFront);
+      break;
+    case MovementType::LEFT:
+      player->getRigidBody()->applyImpulse(speed * -cameraRight);
+      break;
+    case MovementType::RIGHT:
+      player->getRigidBody()->applyImpulse(speed * cameraRight);
+      break;
+    default:
+      cerr << "Unknown movement type" << endl;
+      break;
+    }
+  }
+}
+
+void ServerGameState::updateInteraction(int id) {
+  auto obj = getObject(id);
+  if (obj) {
+    cout << "Interacting with object: " << id << endl;
+  }
+}
+
+void ServerGameState::applyPhysics() {
+  physicsWorld->calculateForces();
+  physicsWorld->resolveCollisions();
+  physicsWorld->moveObjects(deltaTime);
+
+  auto movedObjects = physicsWorld->getUpdatedObjects();
+  for (auto id : movedObjects)
+    updatedObjectIds.push_back(id);
 }
 
 GameObject *ServerGameState::getObject(int id) {
@@ -21,44 +70,8 @@ GameObject *ServerGameState::getObject(int id) {
   return nullptr;
 }
 
-void ServerGameState::updateInteraction(int id) {
-  auto obj = getObject(id);
-  if (obj) {
-    cout << "Interacting with object: " << id << endl;
-  }
-}
 vector<int> ServerGameState::getLastUpdatedObjects() {
   auto res = move(updatedObjectIds);
   updatedObjectIds.clear();
   return res;
-}
-
-void ServerGameState::updateMovement(int id, MovementType type,
-                                     glm::vec3 cameraFront) {
-  auto obj = getObject(id);
-  if (obj) {
-    // Find the direction of movement based on the camera's facing direction
-    glm::vec3 flatFront =
-        glm::normalize(glm::vec3(cameraFront.x, 0.0f, cameraFront.z));
-    glm::vec3 cameraRight =
-        glm::normalize(glm::cross(flatFront, glm::vec3(0.0f, 1.0f, 0.0f)));
-    switch (type) {
-    case MovementType::FORWARD:
-      obj->applyMovement(flatFront);
-      break;
-    case MovementType::BACKWARD:
-      obj->applyMovement(-flatFront);
-      break;
-    case MovementType::LEFT:
-      obj->applyMovement(-cameraRight);
-      break;
-    case MovementType::RIGHT:
-      obj->applyMovement(cameraRight);
-      break;
-    default:
-      cerr << "Unknown movement type" << endl;
-      break;
-    }
-    updatedObjectIds.push_back(id);
-  }
 }

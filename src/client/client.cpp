@@ -7,7 +7,7 @@ Client::Client() {
   windowHeight = WINDOW_HEIGHT;
 
   // Initialize camera properties
-  cam = make_unique<Camera>(); // Hardcoded target for now
+  cam = make_unique<Camera>();
   mouseX = 0.0f;
   mouseY = 0.0f;
 
@@ -45,7 +45,6 @@ bool Client::init() {
   }
 
   glfwMakeContextCurrent(window);
-
   glewInit();
 
   return true;
@@ -96,6 +95,7 @@ void Client::idleCallback() {
 }
 
 void Client::displayCallback(GLFWwindow *window) {
+  // Clear the color and depth buffers.
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
   // Draw objects
@@ -103,30 +103,32 @@ void Client::displayCallback(GLFWwindow *window) {
 
   // Check events and swap buffers
   glfwPollEvents();
+
+  // Main render display callback. Rendering of objects is done here.
   glfwSwapBuffers(window);
 }
 
 void Client::processInput(float deltaTime) {
   // Process WASD Movement
   if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
-    cam->moveForward(deltaTime);
+    // cam->moveForward(deltaTime);
     MovementPacket packet(0, MovementType::FORWARD,
                           cam->getFacing()); // Hardcoded object ID for now
     // Later, we will use the ID of the player object
     network->send(packet);
   }
   if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
-    cam->moveBackward(deltaTime);
+    // cam->moveBackward(deltaTime);
     MovementPacket packet(0, MovementType::BACKWARD, cam->getFacing());
     network->send(packet);
   }
   if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
-    cam->moveLeft(deltaTime);
+    // cam->moveLeft(deltaTime);
     MovementPacket packet(0, MovementType::LEFT, cam->getFacing());
     network->send(packet);
   }
   if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
-    cam->moveRight(deltaTime);
+    // cam->moveRight(deltaTime);
     MovementPacket packet(0, MovementType::RIGHT, cam->getFacing());
     network->send(packet);
   }

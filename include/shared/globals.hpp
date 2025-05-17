@@ -2,7 +2,10 @@
 
 #include <stdint.h>
 
-#define NUM_COLUMNS_CSV 15
+#define WINDOW_WIDTH 1920
+#define WINDOW_HEIGHT 1080
+
+#define CLIENT_ID unsigned int
 
 #define JSON_PATH "../resources/objects/objects.json"
 

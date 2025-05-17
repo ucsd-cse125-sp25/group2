@@ -10,7 +10,7 @@ void error_callback(int error, const char *description) {
 }
 
 void setup_callbacks(GLFWwindow *window) {
-  // Set the error callback
+  // Set the error callback.
   glfwSetErrorCallback(error_callback);
 
   /* Set framebuffer size callback */
@@ -46,7 +46,7 @@ void setup_opengl_settings() {
   stbi_set_flip_vertically_on_load(true);
   // Enable depth buffering
   glEnable(GL_DEPTH_TEST);
-  glEnable(GL_CULL_FACE);
+  // glEnable(GL_CULL_FACE);
   // Related to shaders and z value comparisons for the depth buffer
   glDepthFunc(GL_LEQUAL);
   // Set polygon drawing mode to fill front and back of each polygon

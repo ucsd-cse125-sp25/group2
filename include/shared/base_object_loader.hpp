@@ -16,10 +16,10 @@ struct BaseObjectData {
 };
 
 class BaseObjectLoader {
-public:
-  BaseObjectData createBaseGameObject(const json &objData);
-
-private:
+protected:
   static glm::vec3 parseVec3(const json &json, const string &key,
                              const glm::vec3 &defaultValue);
+
+public:
+  BaseObjectData createBaseGameObject(const json &objData);
 };
