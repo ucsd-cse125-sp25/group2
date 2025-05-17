@@ -69,9 +69,10 @@ bool Client::initUI() {
   ui = make_unique<UIManager>();
   ui->make_StartScreen();
   ui->setStartClick([&state = game->state]() {
-    state = Gamestate::GAME;
+    state = Gamestate::MAINMENU;
     std::cout << "State changed to Playing!\n";
   });
+  ui->make_mainMenu();
   return true;
 }
 
@@ -106,16 +107,31 @@ void Client::idleCallback() {
 }
 
 void Client::displayCallback(GLFWwindow *window) {
+  static double previousTime = glfwGetTime();
+
+  double currentTime = glfwGetTime();
+  float deltaTime = static_cast<float>(currentTime - previousTime);
+  previousTime = currentTime;
+
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
   // Draw objects
-  if (game->state == Gamestate::STARTSCREEN) {
+  switch (game->state)
+  {
+  case Gamestate::STARTSCREEN:
     ui->draw_start();
-    ui->startScreenUI->update(mouseX, mouseY, windowWidth, windowHeight);
-  }
-
-  if (game->state == Gamestate::GAME) {
+    ui->update_start(mouseX, mouseY, windowWidth, windowHeight, deltaTime);
+    break;  
+  case Gamestate::MAINMENU:
+    ui->draw_menu();
+    ui->update_menu(mouseX, mouseY, windowWidth, windowHeight, deltaTime);
+  break;
+  case Gamestate::GAME:
     game->draw(cam->getViewProj());
+    break;
+  default:
+    cout << "Unhandled gamestate" << endl;
+    break;
   }
 
   // Check events and swap buffers

@@ -7,11 +7,34 @@
 #include <memory>
 #include <stb_image.h>
 
+struct AnimationInfo {
+  int cols, rows, currentFrame;
+  float frameWidth, frameHeight, frameDuration, animationTimer;
+  bool startAnim;
+  AnimationInfo(int cols, int rows, float frameDuration)
+  : cols(cols), rows(rows), frameDuration(frameDuration) {
+    frameHeight = 1.0f / rows;
+    frameWidth = 1.0f / cols;
+    startAnim = false;
+    currentFrame = 0;
+    animationTimer = 0;
+  }
+  AnimationInfo()
+  : cols(0), rows(0), frameWidth(1.0f), frameHeight(1.0f), frameDuration(0){
+    startAnim = false;
+    currentFrame = 0;
+    animationTimer = 0;
+  }
+};
+
 class BaseUI {
 public:
   int zIndex = 0;
 
   BaseUI(float x, float y, float width, float height, int zIndex,
+         bool clickable = false, bool hoverable = false);
+
+  BaseUI(float x, float y, float width, float height, int zIndex, AnimationInfo animInfo,
          bool clickable = false, bool hoverable = false);
 
   virtual ~BaseUI();
@@ -26,11 +49,13 @@ public:
 
   void draw();
 
-  void update(float mouseX, float mouseY, int winWidth, int winHeight);
+  void update(float mouseX, float mouseY, int winWidth, int winHeight, float deltatime);
 
   static GLuint loadTexture(const char *path);
 
   bool isHovered(float x_ndc, float y_ndc);
+
+  void play();
 
 private:
   // Position & size in NDC
@@ -40,7 +65,11 @@ private:
   bool clickable;
   bool hoverable;
 
+  bool isAnim;
+
   unique_ptr<Shader> shader;
+
+  AnimationInfo animInfo;
 
   // Textures
   GLuint textureID;
@@ -48,8 +77,6 @@ private:
 
   // Callbacks
   std::function<void()> onClickCallback;
-  std::function<void()> onHoverEnterCallback;
-  std::function<void()> onHoverExitCallback;
 
   // VAO, VBO, EBO
   GLuint VAO, VBO, EBO;
