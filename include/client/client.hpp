@@ -11,22 +11,6 @@
 using namespace std;
 
 class Client {
-private:
-  // Camera properties
-  unique_ptr<Camera> cam;
-  float mouseX, mouseY;
-
-  // Gamestate properties
-  unique_ptr<ClientGameState> game;
-
-  // Network
-  unique_ptr<ClientNetwork> network;
-
-  // Key
-  bool isHeldForward = false;  // W
-  bool isHeldBackward = false; // S
-  bool isHeldLeft = false;     // A
-  bool isHeldRight = false;    // D
 
 public:
   // Window properties
