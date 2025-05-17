@@ -69,9 +69,12 @@ bool Client::initUI() {
   ui->make_StartScreen();
   ui->setStartClick([&state = game->state]() {
     state = Gamestate::MAINMENU;
-    std::cout << "State changed to Playing!\n";
   });
   ui->make_mainMenu();
+  ui->setMenuClick([&state = game->state]() {
+    state = Gamestate::GAME;
+    std::cout << "State changed to Playing!\n";
+  });
   return true;
 }
 

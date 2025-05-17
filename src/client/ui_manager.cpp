@@ -48,3 +48,6 @@ void UIManager::setStartClick(std::function<void()> callback) {
   startScreenUI->setOnClick(callback);
   startButton->setOnClick([this]() { startScreenUI->play(); });
 }
+void UIManager::setMenuClick(std::function<void()> callback) {
+  mainMenuUI->setOnClick(callback);
+}

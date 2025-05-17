@@ -13,6 +13,7 @@ public:
   void draw_loading();
 
   void setStartClick(std::function<void()> callback);
+  void setMenuClick(std::function<void()> callback);
 
   void update_start(float mouseX, float mouseY, int winWidth, int winHeight,
                     float deltatime);
