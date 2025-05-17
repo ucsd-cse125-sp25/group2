@@ -30,8 +30,18 @@ GLuint BaseUI::loadTexture(const char *path) {
 BaseUI::BaseUI(float x, float y, float width, float height, int zIndex,
                bool clickable, bool hoverable)
     : x(x), y(y), width(width), height(height), zIndex(zIndex),
-      clickable(clickable), hoverable(hoverable), hovered(false) {
+      clickable(clickable), hoverable(hoverable) {
+  isAnim = false;
+  hovered = false;
+  setupQuad();
+}
 
+BaseUI::BaseUI(float x, float y, float width, float height, int zIndex, AnimationInfo animInfo,
+              bool clickable, bool hoverable)
+              : x(x), y(y), width(width), height(height), zIndex(zIndex),
+              clickable(clickable), hoverable(hoverable), animInfo(animInfo) {
+  hovered = false;
+  isAnim = true;
   setupQuad();
 }
 
@@ -65,48 +75,93 @@ void BaseUI::draw() {
   }
   shader->use();
 
-  GLuint tex =
-      (hoverable && hovered && hoverTextureID) ? hoverTextureID : textureID;
+  GLuint tex = (hoverable && hovered && hoverTextureID && !animInfo.startAnim) ? hoverTextureID : textureID;
 
   glActiveTexture(GL_TEXTURE0);
   glBindTexture(GL_TEXTURE_2D, tex);
 
-  shader->setInt("texture1", 0);
+  if (isAnim) {
+    if (!hovered || animInfo.startAnim) {
+      int frameX = animInfo.currentFrame % animInfo.cols;
+      int frameY = animInfo.currentFrame / animInfo.cols;
+      int flippedY = (animInfo.rows - 1) - frameY;
+
+      glm::vec2 frameSize(animInfo.frameWidth, animInfo.frameHeight);
+      glm::vec2 frameOffset(frameX * animInfo.frameWidth, flippedY * animInfo.frameHeight);
+
+      //std::cout << "width: " << frameX * animInfo.frameWidth << "height: " << flippedY * animInfo.frameHeight << std::endl;
+      shader->setVec2("frameSize", frameSize);
+      shader->setVec2("frameOffset", frameOffset);
+    } else {
+      shader->setVec2("frameSize", glm::vec2(1.0f, 1.0f));
+      shader->setVec2("frameOffset", glm::vec2(0.0f, 0.0f));
+    }
+  } else {
+    shader->setInt("texture1", 0);
+  }
 
   glBindVertexArray(VAO);
   glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 }
 
-void BaseUI::update(float mouseX, float mouseY, int winWidth, int winHeight) {
+void BaseUI::update(float mouseX, float mouseY, int winWidth, int winHeight, float deltaTime) {
   float x_ndc = (2.0f * mouseX) / winWidth - 1.0f;
   float y_ndc = 1.0f - (2.0f * mouseY) / winHeight;
 
   bool isHovering = isHovered(x_ndc, y_ndc);
-
-  // Hover state change detection
-  if (isHovering && !hovered) {
-    hovered = true;
-    if (onHoverEnterCallback)
-      onHoverEnterCallback();
-  } else if (!isHovering && hovered) {
-    hovered = false;
-    if (onHoverExitCallback)
-      onHoverExitCallback();
+  if (hoverable) {
+    //printf("x: %f y: %f \n", x_ndc, y_ndc);
+    // Hover state change detection
+    if (isHovering && !hovered) {
+      std::cout << "Hovering: True " << std::endl;
+      hovered = true;
+    } else if (!isHovering && hovered) {
+      std::cout << "Hovering: false " << std::endl;
+      hovered = false;
+    }
   }
 
   // Click detection
   if (clickable && isHovering) {
     if (glfwGetMouseButton(glfwGetCurrentContext(), GLFW_MOUSE_BUTTON_LEFT) ==
         GLFW_PRESS) {
-      if (onClickCallback)
+      if (!isAnim)
         onClickCallback();
+      if (isAnim) {
+        play();
+      }
+    }
+  }
+
+  if (isAnim && animInfo.startAnim) {
+    animInfo.animationTimer += deltaTime;
+
+    if (animInfo.animationTimer >= animInfo.frameDuration) {
+      animInfo.animationTimer -= animInfo.frameDuration;
+      if (animInfo.currentFrame < animInfo.rows * animInfo.cols) {
+        animInfo.currentFrame++;
+      } else {
+        onClickCallback();
+      }
     }
   }
 }
 
 bool BaseUI::isHovered(float x_ndc, float y_ndc) {
-  return (x_ndc >= x - width / 2.0f && x_ndc <= x + width / 2.0f &&
-          y_ndc >= y - height / 2.0f && y_ndc <= y + height / 2.0f);
+  float halfW = width / 2.0f;
+  float halfH = height / 2.0f;
+
+  // NDC coordinates for quad edges
+  float left = x - halfW;
+  float right = x + halfW;
+  float bottom = y - halfH;
+  float top = y + halfH;
+  return (x_ndc >= left && x_ndc <= right &&
+          y_ndc >= bottom && y_ndc <= top);
+}
+
+void BaseUI::play() {
+  animInfo.startAnim = true;
 }
 
 void BaseUI::setupQuad() {

@@ -14,7 +14,11 @@ public:
 
   void setStartClick(std::function<void()> callback);
 
+  void update_start(float mouseX, float mouseY, int winWidth, int winHeight, float deltatime);
+  void update_menu(float mouseX, float mouseY, int winWidth, int winHeight, float deltatime);
+
   unique_ptr<BaseUI> startScreenUI;
-  std::vector<std::shared_ptr<BaseUI>> mainMenuUI;
+  unique_ptr<BaseUI> startButton;
+  std::shared_ptr<BaseUI> mainMenuUI;
   unique_ptr<BaseUI> loadingScreen;
 };
