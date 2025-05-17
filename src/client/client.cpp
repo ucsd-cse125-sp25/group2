@@ -67,9 +67,7 @@ bool Client::initNetwork(asio::io_context &io_context, const string &ip,
 bool Client::initUI() {
   ui = make_unique<UIManager>();
   ui->make_StartScreen();
-  ui->setStartClick([&state = game->state]() {
-    state = Gamestate::MAINMENU;
-  });
+  ui->setStartClick([&state = game->state]() { state = Gamestate::MAINMENU; });
   ui->make_mainMenu();
   ui->setMenuClick([&state = game->state]() {
     state = Gamestate::GAME;
