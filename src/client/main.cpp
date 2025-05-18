@@ -82,11 +82,11 @@ int main(void) {
   // Delete later
   client->initObjects();
 
-  float lastFrameTime = glfwGetTime();
+  float lastFrameTime = static_cast<float>(glfwGetTime());
 
   while (!glfwWindowShouldClose(window)) {
     // Calculate Frame Time
-    float currentTime = glfwGetTime();
+    float currentTime = static_cast<float>(glfwGetTime());
     float deltaTime = currentTime - lastFrameTime;
     lastFrameTime = currentTime;
 

@@ -55,6 +55,6 @@ void Camera::update(float xOffset, float yOffset, glm::vec3 target) {
   viewProjMat = projection * view;
 }
 
-void Camera::updateAspect(float width, float height) {
-  aspect = width / height;
+void Camera::updateAspect(int width, int height) {
+  aspect = static_cast<float>(width) / height;
 }

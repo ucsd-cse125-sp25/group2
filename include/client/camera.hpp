@@ -33,7 +33,7 @@ public:
   Camera();
 
   void update(float xOffset, float yOffset, glm::vec3 target);
-  void updateAspect(float width, float height);
+  void updateAspect(int width, int height);
 
   // Getters
   glm::vec3 getFacing() { return cameraFront; }
