@@ -1,10 +1,10 @@
 #pragma once
 
+#include "globals.hpp"
 #include "packets.hpp"
 #include "physics.hpp"
 #include "server_gameobject.hpp"
 #include "server_object_loader.hpp"
-#include "globals.hpp"
 #include <iostream>
 #include <memory>
 #include <unordered_map>

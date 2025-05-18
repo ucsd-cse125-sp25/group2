@@ -104,7 +104,8 @@ vector<char> CharacterSelectPacket::serialize() const {
   return buffer;
 }
 
-CharacterSelectPacket CharacterSelectPacket::deserialize(const vector<char> &payload) {
+CharacterSelectPacket
+CharacterSelectPacket::deserialize(const vector<char> &payload) {
   Characters character;
   int clientID;
 
@@ -130,8 +131,8 @@ vector<char> CharacterResponsePacket::serialize() const {
   return buffer;
 }
 
-
-CharacterResponsePacket CharacterResponsePacket::deserialize(const vector<char> &payload) {
+CharacterResponsePacket
+CharacterResponsePacket::deserialize(const vector<char> &payload) {
   int chicken;
   int sheep;
   int pig;
@@ -178,11 +179,13 @@ unique_ptr<IPacket> deserialize(PacketType type, vector<char> &payload) {
     return make_unique<DisconnectPacket>(
         DisconnectPacket::deserialize(payload));
   case PacketType::CHARACTERSELECT:
-      return make_unique<CharacterSelectPacket>(CharacterSelectPacket::deserialize(payload));
+    return make_unique<CharacterSelectPacket>(
+        CharacterSelectPacket::deserialize(payload));
   case PacketType::CHARACTERRESPONSE:
-      return make_unique<CharacterResponsePacket>(CharacterResponsePacket::deserialize(payload)); 
+    return make_unique<CharacterResponsePacket>(
+        CharacterResponsePacket::deserialize(payload));
   case PacketType::GAMESTATE:
-      return make_unique<GameStatePacket>(GameStatePacket::deserialize(payload)); 
+    return make_unique<GameStatePacket>(GameStatePacket::deserialize(payload));
   default:
     throw runtime_error("Unknown packet type");
   }

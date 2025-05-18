@@ -82,15 +82,15 @@ bool Client::initUI() {
     net->send(packet);
   });
   UIManager::pigButton->setOnClick([net = network.get()]() {
-    CharacterSelectPacket packet(Characters::PIG,net->getId());
+    CharacterSelectPacket packet(Characters::PIG, net->getId());
     net->send(packet);
   });
   UIManager::sheepButton->setOnClick([net = network.get()]() {
-    CharacterSelectPacket packet(Characters::SHEEP,net->getId());
+    CharacterSelectPacket packet(Characters::SHEEP, net->getId());
     net->send(packet);
   });
   UIManager::cowButton->setOnClick([net = network.get()]() {
-    CharacterSelectPacket packet(Characters::COW,net->getId());
+    CharacterSelectPacket packet(Characters::COW, net->getId());
     net->send(packet);
   });
   return true;
@@ -110,27 +110,30 @@ void Client::idleCallback() {
     packets.pop_front();
 
     switch (packet->getType()) {
-      case PacketType::INIT: {
-        auto initPacket = dynamic_cast<InitPacket *>(packet.get());
-        network->setId(initPacket->clientID);
-        characterManager->setID(initPacket->clientID);
-        break;
-      }
-      case PacketType::OBJECT: {
-        auto objectPacket = dynamic_cast<ObjectPacket *>(packet.get());
-        game->update(objectPacket->objectID, &objectPacket->transform);
-        break;
-      }
-      case PacketType::CHARACTERRESPONSE: {
-        auto characterPacket = dynamic_cast<CharacterResponsePacket *>(packet.get());
-        characterManager->setCharacter(characterPacket->chicken, characterPacket->sheep, characterPacket->pig, characterPacket->cow);
-        break;
-      }
-      case PacketType::GAMESTATE: {
-        auto statePacket = dynamic_cast<GameStatePacket *>(packet.get());
-        game->state = statePacket->state;
-        break;
-      }
+    case PacketType::INIT: {
+      auto initPacket = dynamic_cast<InitPacket *>(packet.get());
+      network->setId(initPacket->clientID);
+      characterManager->setID(initPacket->clientID);
+      break;
+    }
+    case PacketType::OBJECT: {
+      auto objectPacket = dynamic_cast<ObjectPacket *>(packet.get());
+      game->update(objectPacket->objectID, &objectPacket->transform);
+      break;
+    }
+    case PacketType::CHARACTERRESPONSE: {
+      auto characterPacket =
+          dynamic_cast<CharacterResponsePacket *>(packet.get());
+      characterManager->setCharacter(
+          characterPacket->chicken, characterPacket->sheep,
+          characterPacket->pig, characterPacket->cow);
+      break;
+    }
+    case PacketType::GAMESTATE: {
+      auto statePacket = dynamic_cast<GameStatePacket *>(packet.get());
+      game->state = statePacket->state;
+      break;
+    }
     }
   }
 

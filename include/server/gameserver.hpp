@@ -1,8 +1,8 @@
 #pragma once
 
+#include "server_character_manager.hpp"
 #include "server_gamestate.hpp"
 #include "server_network.hpp"
-#include "server_character_manager.hpp"
 
 using namespace std;
 
