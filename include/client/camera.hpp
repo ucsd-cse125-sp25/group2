@@ -32,7 +32,7 @@ private:
 public:
   Camera();
 
-  void update(float xpos, float ypos, glm::vec3 target);
+  void update(float xOffset, float yOffset, glm::vec3 target);
   void updateAspect(float width, float height);
 
   // Getters

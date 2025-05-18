@@ -15,29 +15,18 @@ Camera::Camera()
   lastY = 1080.0f / 2.0f;
 
   firstMouse = true;
-  sensitivity = 0.18f;
+  sensitivity = 0.1f;
   radius = 13.0f;
 
   worldUp = cameraUp;
 }
 
-void Camera::update(float xpos, float ypos, glm::vec3 target) {
-  if (firstMouse) {
-    lastX = xpos;
-    lastY = ypos;
-    firstMouse = false;
-  }
+void Camera::update(float xOffset, float yOffset, glm::vec3 target) {
+  xOffset *= sensitivity;
+  yOffset *= sensitivity;
 
-  float xoffset = xpos - lastX;
-  float yoffset = lastY - ypos;
-  lastX = xpos;
-  lastY = ypos;
-
-  xoffset *= sensitivity;
-  yoffset *= sensitivity;
-
-  yaw += xoffset;
-  pitch += yoffset;
+  yaw += xOffset;
+  pitch += yOffset;
 
   // restrict pitch (vertical) and allow 360 degrees for yaw (horizontal)
   pitch = glm::clamp(pitch, 0.0f, 30.0f);

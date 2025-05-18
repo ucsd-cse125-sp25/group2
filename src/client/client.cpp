@@ -8,8 +8,8 @@ Client::Client() {
 
   // Initialize camera properties
   cam = make_unique<Camera>();
-  mouseX = 0.0f;
-  mouseY = 0.0f;
+  xOffset = 0.0f;
+  yOffset = 0.0f;
 
   // Initialize game state properties
   game = make_unique<ClientGameState>();
@@ -29,14 +29,16 @@ bool Client::init() {
   glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
   // Enable forward compatibility and allow a modern OpenGL context
   glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-  glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+  #ifdef __APPLE__
+    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+  #endif
   // Window settings
   glfwWindowHint(GLFW_RESIZABLE, GL_TRUE);
   glfwWindowHint(GLFW_DECORATED, GL_TRUE);
   glfwWindowHint(GLFW_MAXIMIZED, GL_TRUE);
 
   // Create the GLFW window
-  window = glfwCreateWindow(windowWidth, windowWidth, "Barnyard Breakout", NULL,
+  window = glfwCreateWindow(windowWidth, windowHeight, "Barnyard Breakout", NULL,
                             NULL);
   if (!window) {
     cerr << "Window Creation Failed" << endl;
@@ -47,8 +49,9 @@ bool Client::init() {
   glfwMakeContextCurrent(window);
   glewInit();
 
-  // Mouse settings
-  glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
+  // Hide the cursor and lock it to the center of the window
+  glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+  glfwSetInputMode(window, GLFW_RAW_MOUSE_MOTION, GLFW_TRUE);
 
   return true;
 }
@@ -93,21 +96,23 @@ void Client::idleCallback() {
     }
     }
   }
-  cam->update(mouseX, mouseY, game->getPlayer()->getPosition());
+  cam->update(xOffset, yOffset, game->getPlayer()->getPosition());
+  xOffset = 0.0f;
+  yOffset = 0.0f;
 }
 
 void Client::displayCallback(GLFWwindow *window) {
-  // Clear the color and depth buffers.
+  // Clear the color and depth buffers
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
   // Draw objects
   game->draw(cam->getViewProj());
 
+  // Main render display callback. Rendering of objects is done here
+  glfwSwapBuffers(window);
+
   // Check events and swap buffers
   glfwPollEvents();
-
-  // Main render display callback. Rendering of objects is done here.
-  glfwSwapBuffers(window);
 }
 
 void Client::processInput() {
@@ -149,10 +154,24 @@ void Client::keyCallback(GLFWwindow *window, int key, int scancode, int action,
 }
 
 void Client::mouseCallback(GLFWwindow *window, double xPos, double yPos) {
-  auto newMouseX = static_cast<float>(xPos);
-  auto newMouseY = static_cast<float>(yPos);
-  mouseX = newMouseX;
-  mouseY = newMouseY;
+  static float lastX = 0.0f;
+  static float lastY = 0.0f;
+  static bool firstMouse = true;
+
+  if (firstMouse) {
+    lastX = static_cast<float>(xPos);
+    lastY = static_cast<float>(yPos);
+    firstMouse = false;
+  }
+
+  xOffset = static_cast<float>(xPos) - lastX;
+  yOffset = lastY - static_cast<float>(yPos);
+
+  lastX = static_cast<float>(xPos);
+  lastY = static_cast<float>(yPos);
+
+  // cout << "Mouse Position: " << xPos << ", " << yPos << endl;
+  // cout << "Mouse Offset: " << xOffset << ", " << yOffset << endl;
 }
 
 void Client::mouseButtonCallback(GLFWwindow *window, int button, int action,
