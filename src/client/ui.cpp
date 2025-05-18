@@ -35,6 +35,7 @@ BaseUI::BaseUI(float x, float y, float width, float height, int zIndex,
   isClicked = false;
   isSelected = false;
   hovered = false;
+  locked = false;
   setupQuad();
 }
 
@@ -46,6 +47,7 @@ BaseUI::BaseUI(float x, float y, float width, float height, int zIndex,
   isAnim = true;
   isClicked = false;
   isSelected = false;
+  locked = false;
   setupQuad();
 }
 
@@ -55,8 +57,12 @@ BaseUI::~BaseUI() {
   glDeleteBuffers(1, &EBO);
 }
 
-void BaseUI::setOnClick(std::function<void()> callback) {
+void BaseUI::setOnClick(function<void()> callback) {
   onClickCallback = callback;
+}
+
+void BaseUI::setOnSelect(function<void()> callback) {
+  onSelectCallback = callback;
 }
 
 void BaseUI::setTexture(GLuint texture) {
@@ -83,7 +89,7 @@ void BaseUI::draw() {
   }
   shader->use();
 
-  bool hovering = (hoverable && hovered && !animInfo.startAnim);
+  bool hovering = (hovered && !animInfo.startAnim);
   GLuint tex = hovering ? hoverTextureID : textureID;
 
   glActiveTexture(GL_TEXTURE0);
@@ -132,10 +138,10 @@ void BaseUI::update(float mouseX, float mouseY, int winWidth, int winHeight,
     if (glfwGetMouseButton(glfwGetCurrentContext(), GLFW_MOUSE_BUTTON_LEFT) ==
         GLFW_PRESS) {
       isClicked = true;
-      if (!isAnim)
+      if (onClickCallback) {
         onClickCallback();
+      }
       if (isAnim) {
-        animInfo.currentFrame = 0;
         play();
         return;
       }
@@ -150,12 +156,14 @@ void BaseUI::update(float mouseX, float mouseY, int winWidth, int winHeight,
       if (animInfo.currentFrame + 1 < animInfo.rows * animInfo.cols) {
         animInfo.currentFrame++;
       } else {
-        isSelected = true;
-        onClickCallback();
+        //isSelected = true;
+        if (onSelectCallback) {
+          onSelectCallback();
+        }
       }
     }
   }
-  // printf("frame: %d \n", animInfo.currentFrame);
+  //printf("frame: %d \n", animInfo.currentFrame);
 }
 
 bool BaseUI::isHovered(float x_ndc, float y_ndc) {

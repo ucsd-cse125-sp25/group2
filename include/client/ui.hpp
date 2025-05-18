@@ -1,11 +1,10 @@
 #pragma once
-
+#include <stb_image.h>
 #include "core.hpp"
 #include "shader.hpp"
 #include <functional>
 #include <iostream>
 #include <memory>
-#include <stb_image.h>
 
 struct AnimationInfo {
   int cols, rows, currentFrame;
@@ -34,6 +33,7 @@ public:
   AnimationInfo animInfo;
   bool isClicked;
   bool isSelected;
+  bool locked;
 
   BaseUI(float x, float y, float width, float height, int zIndex,
          bool clickable = false, bool hoverable = false);
@@ -45,6 +45,8 @@ public:
   virtual ~BaseUI();
 
   void setOnClick(std::function<void()> callback);
+
+  void setOnSelect(std::function<void()> callback);
 
   void setTexture(GLuint texture);
 
@@ -80,7 +82,8 @@ private:
   GLuint hoverTextureID;
 
   // Callbacks
-  std::function<void()> onClickCallback;
+  function<void()> onClickCallback;
+  function<void()> onSelectCallback;
 
   // VAO, VBO, EBO
   GLuint VAO, VBO, EBO;

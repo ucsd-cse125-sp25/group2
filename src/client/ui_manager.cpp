@@ -103,6 +103,7 @@ void UIManager::draw_menu(Gamestate state) {
 
 void UIManager::deselectMenuButtons() {
   for (auto *button : characterButtons) {
+    if (button->locked) continue;
     button->isClicked = false;
     button->isSelected = false;
     button->animInfo.currentFrame = 0;
@@ -120,19 +121,25 @@ void UIManager::selectButton(BaseUI *button) {
       button->animInfo.rows * button->animInfo.cols - 1;
 }
 
-void UIManager::setClick(std::function<void()> callback, Gamestate state) {
-  switch (state) {
-  case Gamestate::STARTSCREEN:
-    startScreenUI->setOnClick(callback);
-    startButton->setOnClick([]() {
-      if (UIManager::startScreenUI) {
-        UIManager::startScreenUI->play();
-      }
-    });
-    break;
-  case Gamestate::MAINMENU:
+void UIManager::deselectButton(BaseUI *button) {
+  if (!button)
+    return;
+  button->isClicked = false;
+  button->isSelected = false;
+  button->animInfo.currentFrame = 0;
+  button->animInfo.startAnim = false;
+}
 
-  default:
-    break;
-  }
+void UIManager::lockButton(BaseUI *button) {
+  if (!button)
+    return;
+  button->locked = true;
+  selectButton(button);
+}
+
+void UIManager::unlockButton(BaseUI *button) {
+  if (!button) 
+    return;
+  button->locked = false;
+  deselectButton(button);
 }

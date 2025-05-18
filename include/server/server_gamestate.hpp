@@ -4,7 +4,7 @@
 #include "physics.hpp"
 #include "server_gameobject.hpp"
 #include "server_object_loader.hpp"
-
+#include "globals.hpp"
 #include <iostream>
 #include <memory>
 #include <unordered_map>
@@ -24,6 +24,7 @@ public:
   ServerGameState();
 
   bool init();
+  Gamestate state;
 
   // update methods
   void updateMovement(int id, MovementType type, glm::vec3 cameraFront);

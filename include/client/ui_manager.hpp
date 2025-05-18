@@ -10,8 +10,6 @@ public:
   static void make_menus();
   static void draw_menu(Gamestate state);
 
-  static void setClick(std::function<void()> callback, Gamestate state);
-
   static void update_menu(float mouseX, float mouseY, int winWidth,
                           int winHeight, float deltatime, Gamestate state);
 
@@ -25,6 +23,11 @@ public:
   static void deselectMenuButtons();
 
   static void selectButton(BaseUI *button);
+  static void deselectButton(BaseUI *button);
+
+  static void lockButton(BaseUI *button);
+
+  static void unlockButton(BaseUI *button);
 
   static unique_ptr<BaseUI> startScreenUI;
   static unique_ptr<BaseUI> startButton;

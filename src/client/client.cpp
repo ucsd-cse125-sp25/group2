@@ -13,6 +13,7 @@ Client::Client() {
 
   // Initialize game state properties
   game = make_unique<ClientGameState>();
+  characterManager = make_unique<CharacterManager>();
 }
 
 Client::~Client() {}
@@ -66,23 +67,25 @@ bool Client::initNetwork(asio::io_context &io_context, const string &ip,
 
 bool Client::initUI() {
   UIManager::make_menus();
-  ui->setClick([&state = game->state]() { state = Gamestate::MAINMENU; },
-               Gamestate::STARTSCREEN);
-  UIManager::chickenButton->setOnClick([&state = game->state]() {
-    UIManager::deselectMenuButtons();
-    UIManager::selectButton(UIManager::chickenButton.get());
+  UIManager::startButton->setOnSelect([&state = game->state]() { 
+    state = Gamestate::MAINMENU;  
+    UIManager::startButton->isSelected = true;
   });
-  UIManager::pigButton->setOnClick([&state = game->state]() {
-    UIManager::deselectMenuButtons();
-    UIManager::selectButton(UIManager::pigButton.get());
+  UIManager::chickenButton->setOnClick([net = network.get()]() {
+    CharacterSelectPacket packet(Characters::CHICKEN, net->getId());
+    net->send(packet);
   });
-  UIManager::sheepButton->setOnClick([&state = game->state]() {
-    UIManager::deselectMenuButtons();
-    UIManager::selectButton(UIManager::sheepButton.get());
+  UIManager::pigButton->setOnClick([net = network.get()]() {
+    CharacterSelectPacket packet(Characters::PIG,net->getId());
+    net->send(packet);
   });
-  UIManager::cowButton->setOnClick([&state = game->state]() {
-    UIManager::deselectMenuButtons();
-    UIManager::selectButton(UIManager::cowButton.get());
+  UIManager::sheepButton->setOnClick([net = network.get()]() {
+    CharacterSelectPacket packet(Characters::SHEEP,net->getId());
+    net->send(packet);
+  });
+  UIManager::cowButton->setOnClick([net = network.get()]() {
+    CharacterSelectPacket packet(Characters::COW,net->getId());
+    net->send(packet);
   });
   return true;
 }
@@ -101,16 +104,27 @@ void Client::idleCallback() {
     packets.pop_front();
 
     switch (packet->getType()) {
-    case PacketType::INIT: {
-      auto initPacket = dynamic_cast<InitPacket *>(packet.get());
-      network->setId(initPacket->clientID);
-      break;
-    }
-    case PacketType::OBJECT: {
-      auto objectPacket = dynamic_cast<ObjectPacket *>(packet.get());
-      game->update(objectPacket->objectID, &objectPacket->transform);
-      break;
-    }
+      case PacketType::INIT: {
+        auto initPacket = dynamic_cast<InitPacket *>(packet.get());
+        network->setId(initPacket->clientID);
+        characterManager->setID(initPacket->clientID);
+        break;
+      }
+      case PacketType::OBJECT: {
+        auto objectPacket = dynamic_cast<ObjectPacket *>(packet.get());
+        game->update(objectPacket->objectID, &objectPacket->transform);
+        break;
+      }
+      case PacketType::CHARACTERRESPONSE: {
+        auto characterPacket = dynamic_cast<CharacterResponsePacket *>(packet.get());
+        characterManager->setCharacter(characterPacket->chicken, characterPacket->sheep, characterPacket->pig, characterPacket->cow);
+        break;
+      }
+      case PacketType::GAMESTATE: {
+        auto statePacket = dynamic_cast<GameStatePacket *>(packet.get());
+        game->state = statePacket->state;
+        break;
+      }
     }
   }
 
@@ -131,12 +145,8 @@ void Client::displayCallback(GLFWwindow *window) {
                          game->state);
 
   // Draw objects
-  switch (game->state) {
-  case Gamestate::GAME:
+  if (game->state == Gamestate::GAME) {
     game->draw(cam->getViewProj());
-    break;
-  default:
-    break;
   }
 
   // Check events and swap buffers

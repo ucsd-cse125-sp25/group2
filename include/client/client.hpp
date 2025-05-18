@@ -7,6 +7,7 @@
 #include "model.hpp"
 #include "shader.hpp"
 #include "ui_manager.hpp"
+#include "client_character_manager.hpp"
 
 using namespace std;
 
@@ -56,10 +57,14 @@ private:
   // Gamestate properties
   unique_ptr<ClientGameState> game;
 
+  // Ui management / creation
   unique_ptr<UIManager> ui;
 
   // Network
   unique_ptr<ClientNetwork> network;
+
+  // Character Selection
+  unique_ptr<CharacterManager> characterManager;
 
   // Key
   bool isHeldForward = false;  // W

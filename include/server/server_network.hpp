@@ -1,13 +1,13 @@
 #pragma once
 
 #include "packets.hpp"
-
 #include <asio.hpp>
 #include <deque>
 #include <iostream>
 #include <map>
 #include <memory>
 #include <thread>
+#include <functional>
 
 using asio::ip::tcp;
 using namespace std;
@@ -29,4 +29,10 @@ public:
   void sendToAll(const IPacket &packet);
   void handleClientDisconnect(CLIENT_ID id);
   deque<unique_ptr<IPacket>> receiveFromClients();
+
+  void setOnJoin(function<void()> callback);
+  void setOnLeave(function<void(int)> callback);
+
+  function<void()> onClientJoin;
+  function<void(int)> onClientLeave;
 };
