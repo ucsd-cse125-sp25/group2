@@ -67,9 +67,15 @@ bool Client::initNetwork(asio::io_context &io_context, const string &ip,
 
 bool Client::initUI() {
   UIManager::make_menus();
-  UIManager::startButton->setOnSelect([&state = game->state]() { 
-    state = Gamestate::MAINMENU;  
+  UIManager::startButton->setOnClick([]() {  
+    UIManager::startScreenUI->play();
+  });
+  UIManager::startButton->setOnSelect([]() {  
     UIManager::startButton->isSelected = true;
+  });
+  UIManager::startScreenUI->setOnSelect([&state = game->state]() {
+    state = Gamestate::MAINMENU;
+    UIManager::startScreenUI->isSelected = true;
   });
   UIManager::chickenButton->setOnClick([net = network.get()]() {
     CharacterSelectPacket packet(Characters::CHICKEN, net->getId());
