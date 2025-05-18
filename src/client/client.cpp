@@ -65,15 +65,25 @@ bool Client::initNetwork(asio::io_context &io_context, const string &ip,
 }
 
 bool Client::initUI() {
-  ui = make_unique<UIManager>();
-  ui->make_StartScreen();
-  ui->setStartClick([&state = game->state]() {
+  UIManager::make_menus();
+  ui->setClick([&state = game->state]() {
     state = Gamestate::MAINMENU;
+  }, Gamestate::STARTSCREEN);
+  UIManager::chickenButton->setOnClick([&state = game->state]() {
+    UIManager::deselectMenuButtons();
+    UIManager::selectButton(UIManager::chickenButton.get());
   });
-  ui->make_mainMenu();
-  ui->setMenuClick([&state = game->state]() {
-    state = Gamestate::GAME;
-    std::cout << "State changed to Playing!\n";
+  UIManager::pigButton->setOnClick([&state = game->state]() {
+    UIManager::deselectMenuButtons();
+    UIManager::selectButton(UIManager::pigButton.get());
+  });
+  UIManager::sheepButton->setOnClick([&state = game->state]() {
+    UIManager::deselectMenuButtons();
+    UIManager::selectButton(UIManager::sheepButton.get());
+  });
+  UIManager::cowButton->setOnClick([&state = game->state]() {
+    UIManager::deselectMenuButtons();
+    UIManager::selectButton(UIManager::cowButton.get());
   });
   return true;
 }
@@ -117,22 +127,16 @@ void Client::displayCallback(GLFWwindow *window) {
 
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+  UIManager::draw_menu(game->state);
+  UIManager::update_menu(mouseX, mouseY, windowWidth, windowHeight, deltaTime, game->state);
+
   // Draw objects
   switch (game->state) {
-  case Gamestate::STARTSCREEN:
-    ui->draw_start();
-    ui->update_start(mouseX, mouseY, windowWidth, windowHeight, deltaTime);
-    break;
-  case Gamestate::MAINMENU:
-    ui->draw_menu();
-    ui->update_menu(mouseX, mouseY, windowWidth, windowHeight, deltaTime);
-    break;
-  case Gamestate::GAME:
-    game->draw(cam->getViewProj());
-    break;
-  default:
-    cout << "Unhandled gamestate" << endl;
-    break;
+    case Gamestate::GAME:
+      game->draw(cam->getViewProj());
+      break;
+    default:
+      break;
   }
 
   // Check events and swap buffers

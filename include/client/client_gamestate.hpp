@@ -9,8 +9,6 @@
 
 using namespace std;
 
-enum class Gamestate { STARTSCREEN, MAINMENU, GAME };
-
 class ClientGameState {
 private:
   unordered_map<int, unique_ptr<GameObject>> objectList;

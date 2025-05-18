@@ -31,6 +31,9 @@ struct AnimationInfo {
 class BaseUI {
 public:
   int zIndex = 0;
+  AnimationInfo animInfo;
+  bool isClicked;
+  bool isSelected;
 
   BaseUI(float x, float y, float width, float height, int zIndex,
          bool clickable = false, bool hoverable = false);
@@ -45,7 +48,7 @@ public:
 
   void setTexture(GLuint texture);
 
-  void setHoverTexture(GLuint texID);
+  void setHoverTexture(GLuint texture);
 
   void setShader(unique_ptr<Shader> shader);
 
@@ -72,11 +75,9 @@ private:
 
   unique_ptr<Shader> shader;
 
-  AnimationInfo animInfo;
-
   // Textures
   GLuint textureID;
-  GLuint hoverTextureID; // Optional hover texture
+  GLuint hoverTextureID; 
 
   // Callbacks
   std::function<void()> onClickCallback;

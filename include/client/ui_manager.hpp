@@ -1,27 +1,42 @@
 #pragma once
 #include "ui.hpp"
+#include "globals.hpp"
 #include <algorithm>
+#include <optional>
 
 class UIManager {
 public:
   UIManager();
-  void make_StartScreen();
-  void make_mainMenu();
-  void make_loadingScreen();
-  void draw_start();
-  void draw_menu();
-  void draw_loading();
+  static void make_menus();
+  static void draw_menu(Gamestate state);
 
-  void setStartClick(std::function<void()> callback);
-  void setMenuClick(std::function<void()> callback);
+  static void setClick(std::function<void()> callback, Gamestate state);
 
-  void update_start(float mouseX, float mouseY, int winWidth, int winHeight,
-                    float deltatime);
-  void update_menu(float mouseX, float mouseY, int winWidth, int winHeight,
-                   float deltatime);
+  static void update_menu(float mouseX, float mouseY, int winWidth, int winHeight,
+                   float deltatime, Gamestate state);
 
-  unique_ptr<BaseUI> startScreenUI;
-  unique_ptr<BaseUI> startButton;
-  std::shared_ptr<BaseUI> mainMenuUI;
-  unique_ptr<BaseUI> loadingScreen;
+  static unique_ptr<BaseUI> createUIElement (
+    float x, float y, float width, float height, int layer,
+    std::optional<AnimationInfo> animInfo,
+    const char* texturePath,
+    const char* hoverTexturePath = nullptr,
+    bool isClickable = false, bool isHoverable = false
+  );
+
+  static void deselectMenuButtons();
+
+  static void selectButton(BaseUI* button);
+
+  static unique_ptr<BaseUI> startScreenUI;
+  static unique_ptr<BaseUI> startButton;
+
+
+  static unique_ptr<BaseUI> mainMenuUI;
+  static vector<BaseUI*> characterButtons;
+  static unique_ptr<BaseUI> chickenButton;
+  static unique_ptr<BaseUI> pigButton;
+  static unique_ptr<BaseUI> sheepButton;
+  static unique_ptr<BaseUI> cowButton;
+
+  static unique_ptr<BaseUI> loadingScreen;
 };

@@ -32,6 +32,8 @@ BaseUI::BaseUI(float x, float y, float width, float height, int zIndex,
     : x(x), y(y), width(width), height(height), zIndex(zIndex),
       clickable(clickable), hoverable(hoverable) {
   isAnim = false;
+  isClicked = false;
+  isSelected = false;
   hovered = false;
   setupQuad();
 }
@@ -42,6 +44,8 @@ BaseUI::BaseUI(float x, float y, float width, float height, int zIndex,
       clickable(clickable), hoverable(hoverable), animInfo(animInfo) {
   hovered = false;
   isAnim = true;
+  isClicked = false;
+  isSelected = false;
   setupQuad();
 }
 
@@ -61,8 +65,12 @@ void BaseUI::setTexture(GLuint texture) {
   }
   textureID = texture;
 }
-
-void BaseUI::setHoverTexture(GLuint texID) { hoverTextureID = texID; }
+void BaseUI::setHoverTexture(GLuint texture) {
+    if (texture == 0) {
+    std::cerr << "failed to load texture into ui" << std::endl;
+  }
+  hoverTextureID = texture;
+}
 
 void BaseUI::setShader(unique_ptr<Shader> shader) {
   this->shader = std::move(shader);
@@ -75,15 +83,13 @@ void BaseUI::draw() {
   }
   shader->use();
 
-  GLuint tex = (hoverable && hovered && hoverTextureID && !animInfo.startAnim)
-                   ? hoverTextureID
-                   : textureID;
+  bool hovering = (hoverable && hovered && !animInfo.startAnim); 
+  GLuint tex =  hovering ? hoverTextureID : textureID;
 
   glActiveTexture(GL_TEXTURE0);
   glBindTexture(GL_TEXTURE_2D, tex);
 
-  if (isAnim) {
-    if (!hovered || animInfo.startAnim) {
+  if (isAnim && !hovering) {
       int frameX = animInfo.currentFrame % animInfo.cols;
       int frameY = animInfo.currentFrame / animInfo.cols;
       int flippedY = (animInfo.rows - 1) - frameY;
@@ -96,12 +102,9 @@ void BaseUI::draw() {
       // flippedY * animInfo.frameHeight << std::endl;
       shader->setVec2("frameSize", frameSize);
       shader->setVec2("frameOffset", frameOffset);
-    } else {
+  } else {
       shader->setVec2("frameSize", glm::vec2(1.0f, 1.0f));
       shader->setVec2("frameOffset", glm::vec2(0.0f, 0.0f));
-    }
-  } else {
-    shader->setInt("texture1", 0);
   }
 
   glBindVertexArray(VAO);
@@ -113,27 +116,28 @@ void BaseUI::update(float mouseX, float mouseY, int winWidth, int winHeight,
   float x_ndc = (2.0f * mouseX) / winWidth - 1.0f;
   float y_ndc = 1.0f - (2.0f * mouseY) / winHeight;
 
+  if (isSelected) {
+    return;
+  }
+
   bool isHovering = isHovered(x_ndc, y_ndc);
-  if (hoverable) {
-    // printf("x: %f y: %f \n", x_ndc, y_ndc);
-    //  Hover state change detection
-    if (isHovering && !hovered) {
-      std::cout << "Hovering: True " << std::endl;
-      hovered = true;
-    } else if (!isHovering && hovered) {
-      std::cout << "Hovering: false " << std::endl;
-      hovered = false;
-    }
+  if (hoverable && !animInfo.startAnim) {
+    hovered = isHovering;
+  } else {
+    hovered = false;
   }
 
   // Click detection
-  if (clickable && isHovering) {
+  if (clickable && isHovering && !isClicked) {
     if (glfwGetMouseButton(glfwGetCurrentContext(), GLFW_MOUSE_BUTTON_LEFT) ==
         GLFW_PRESS) {
+      isClicked = true;
       if (!isAnim)
         onClickCallback();
       if (isAnim) {
+        animInfo.currentFrame = 0;
         play();
+        return;
       }
     }
   }
@@ -143,13 +147,15 @@ void BaseUI::update(float mouseX, float mouseY, int winWidth, int winHeight,
 
     if (animInfo.animationTimer >= animInfo.frameDuration) {
       animInfo.animationTimer -= animInfo.frameDuration;
-      if (animInfo.currentFrame < animInfo.rows * animInfo.cols) {
+      if (animInfo.currentFrame + 1 < animInfo.rows * animInfo.cols) {
         animInfo.currentFrame++;
       } else {
+        isSelected = true;
         onClickCallback();
       }
     }
   }
+  //printf("frame: %d \n", animInfo.currentFrame);
 }
 
 bool BaseUI::isHovered(float x_ndc, float y_ndc) {

@@ -17,3 +17,5 @@ enum class InteractionType : uint8_t {
   PRESS,
   OPEN_CLOSE,
 };
+
+enum class Gamestate { STARTSCREEN, MAINMENU, READY, GAME };
