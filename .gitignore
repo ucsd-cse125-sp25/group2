@@ -1,4 +1,12 @@
-/build/
-/debug/
-/.vscode/
+# CMake build directory
+build/
+debug/
+
+# Visual Studio
+.vs/
+
+# MacOS system files
 .DS_Store
+
+# VS Code setting
+.vscode
