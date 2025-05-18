@@ -48,7 +48,7 @@ public:
   void displayCallback(GLFWwindow *);
 
   // process input
-  void processInput(float deltaTime);
+  void processInput();
 
   // callbacks - for interactions
   void framebufferSizeCallback(GLFWwindow *window, int width, int height);

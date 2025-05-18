@@ -12,6 +12,7 @@ using namespace std;
 class ClientGameState {
 private:
   unordered_map<int, unique_ptr<GameObject>> objectList;
+  GameObject *player;
 
 public:
   bool init();
@@ -21,8 +22,5 @@ public:
   void draw(const glm::mat4 &viewProjMtx);
 
   GameObject *getObject(int id);
-
-  // delete later
-  GameObject *player;
   GameObject *getPlayer() { return player; }
 };

@@ -10,7 +10,7 @@ void error_callback(int error, const char *description) {
 }
 
 void setup_callbacks(GLFWwindow *window) {
-  // Set the error callback.
+  // Set the error callback
   glfwSetErrorCallback(error_callback);
 
   /* Set framebuffer size callback */
@@ -91,7 +91,7 @@ int main(void) {
     float deltaTime = currentTime - lastFrameTime;
     lastFrameTime = currentTime;
 
-    client->processInput(deltaTime);
+    client->processInput();
 
     // Updating of objects
     client->idleCallback();
