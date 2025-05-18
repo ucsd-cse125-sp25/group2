@@ -1,6 +1,6 @@
 #include "client_gameobject.hpp"
 
-void GameObject::update(Transform *tf) { 
+void GameObject::update(Transform *tf) {
   // update the transform of the object
   transform->setPosition(tf->getPosition());
   transform->setRotation(tf->getRotation());

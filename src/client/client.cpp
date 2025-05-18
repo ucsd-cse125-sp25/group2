@@ -29,17 +29,17 @@ bool Client::init() {
   glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
   // Enable forward compatibility and allow a modern OpenGL context
   glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-  #ifdef __APPLE__
-    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-  #endif
+#ifdef __APPLE__
+  glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+#endif
   // Window settings
   glfwWindowHint(GLFW_RESIZABLE, GL_TRUE);
   glfwWindowHint(GLFW_DECORATED, GL_TRUE);
   glfwWindowHint(GLFW_MAXIMIZED, GL_TRUE);
 
   // Create the GLFW window
-  window = glfwCreateWindow(windowWidth, windowHeight, "Barnyard Breakout", NULL,
-                            NULL);
+  window = glfwCreateWindow(windowWidth, windowHeight, "Barnyard Breakout",
+                            NULL, NULL);
   if (!window) {
     cerr << "Window Creation Failed" << endl;
     glfwTerminate();
@@ -123,15 +123,18 @@ void Client::processInput() {
     network->send(packet);
   }
   if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
-    MovementPacket packet(game->getPlayer()->getId(), MovementType::BACKWARD, cam->getFacing());
+    MovementPacket packet(game->getPlayer()->getId(), MovementType::BACKWARD,
+                          cam->getFacing());
     network->send(packet);
   }
   if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
-    MovementPacket packet(game->getPlayer()->getId(), MovementType::LEFT, cam->getFacing());
+    MovementPacket packet(game->getPlayer()->getId(), MovementType::LEFT,
+                          cam->getFacing());
     network->send(packet);
   }
   if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
-    MovementPacket packet(game->getPlayer()->getId(), MovementType::RIGHT, cam->getFacing());
+    MovementPacket packet(game->getPlayer()->getId(), MovementType::RIGHT,
+                          cam->getFacing());
     network->send(packet);
   }
 }
