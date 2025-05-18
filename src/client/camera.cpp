@@ -15,7 +15,7 @@ Camera::Camera()
   lastY = 1080.0f / 2.0f;
 
   firstMouse = true;
-  sensitivity = 0.1f;
+  sensitivity = 0.18f;
   radius = 13.0f;
 
   worldUp = cameraUp;
@@ -39,12 +39,10 @@ void Camera::update(float xpos, float ypos, glm::vec3 target) {
   yaw += xoffset;
   pitch += yoffset;
 
-  // restrict yaw (x-dir) and allow 360 degrees for pitch (y-dir)
-  pitch = glm::clamp(pitch, 1.0f, 12.0f);
-  if (yaw > 360.0f)
-    yaw -= 360.0f;
-  if (yaw < 0.0f)
-    yaw += 360.0f;
+  // restrict pitch (vertical) and allow 360 degrees for yaw (horizontal)
+  pitch = glm::clamp(pitch, 0.0f, 30.0f);
+  if (yaw > 360.0f || yaw < -360.0f)
+    yaw = fmod(yaw, 360.0f);
 
   // Updating view projection matrix
   float camX = radius * cos(glm::radians(pitch)) * cos(glm::radians(yaw));

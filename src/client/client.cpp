@@ -33,7 +33,7 @@ bool Client::init() {
   // Window settings
   glfwWindowHint(GLFW_RESIZABLE, GL_TRUE);
   glfwWindowHint(GLFW_DECORATED, GL_TRUE);
-  // glfwWindowHint(GLFW_MAXIMIZED, GL_TRUE); Enable later
+  glfwWindowHint(GLFW_MAXIMIZED, GL_TRUE);
 
   // Create the GLFW window
   window = glfwCreateWindow(windowWidth, windowWidth, "Barnyard Breakout", NULL,
@@ -46,6 +46,9 @@ bool Client::init() {
 
   glfwMakeContextCurrent(window);
   glewInit();
+
+  // Mouse settings
+  glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 
   return true;
 }
