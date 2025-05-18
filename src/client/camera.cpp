@@ -16,7 +16,7 @@ Camera::Camera()
 
   firstMouse = true;
   sensitivity = 0.1f;
-  speed = 2.5f;
+  radius = 13.0f;
 
   worldUp = cameraUp;
 }
@@ -47,7 +47,6 @@ void Camera::update(float xpos, float ypos, glm::vec3 target) {
     yaw += 360.0f;
 
   // Updating view projection matrix
-  float radius = 13.0f;
   float camX = radius * cos(glm::radians(pitch)) * cos(glm::radians(yaw));
   float camY = radius * sin(glm::radians(pitch));
   float camZ = radius * cos(glm::radians(pitch)) * sin(glm::radians(yaw));

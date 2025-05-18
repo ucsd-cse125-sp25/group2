@@ -17,7 +17,7 @@ private:
 
   bool firstMouse;
   float sensitivity;
-  float speed;
+  float radius; // Distance from the camera to the target
 
   glm::vec3 cameraPos;
   glm::vec3 cameraFront;
