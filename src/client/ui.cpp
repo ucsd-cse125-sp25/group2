@@ -66,7 +66,7 @@ void BaseUI::setTexture(GLuint texture) {
   textureID = texture;
 }
 void BaseUI::setHoverTexture(GLuint texture) {
-    if (texture == 0) {
+  if (texture == 0) {
     std::cerr << "failed to load texture into ui" << std::endl;
   }
   hoverTextureID = texture;
@@ -83,28 +83,28 @@ void BaseUI::draw() {
   }
   shader->use();
 
-  bool hovering = (hoverable && hovered && !animInfo.startAnim); 
-  GLuint tex =  hovering ? hoverTextureID : textureID;
+  bool hovering = (hoverable && hovered && !animInfo.startAnim);
+  GLuint tex = hovering ? hoverTextureID : textureID;
 
   glActiveTexture(GL_TEXTURE0);
   glBindTexture(GL_TEXTURE_2D, tex);
 
   if (isAnim && !hovering) {
-      int frameX = animInfo.currentFrame % animInfo.cols;
-      int frameY = animInfo.currentFrame / animInfo.cols;
-      int flippedY = (animInfo.rows - 1) - frameY;
+    int frameX = animInfo.currentFrame % animInfo.cols;
+    int frameY = animInfo.currentFrame / animInfo.cols;
+    int flippedY = (animInfo.rows - 1) - frameY;
 
-      glm::vec2 frameSize(animInfo.frameWidth, animInfo.frameHeight);
-      glm::vec2 frameOffset(frameX * animInfo.frameWidth,
-                            flippedY * animInfo.frameHeight);
+    glm::vec2 frameSize(animInfo.frameWidth, animInfo.frameHeight);
+    glm::vec2 frameOffset(frameX * animInfo.frameWidth,
+                          flippedY * animInfo.frameHeight);
 
-      // std::cout << "width: " << frameX * animInfo.frameWidth << "height: " <<
-      // flippedY * animInfo.frameHeight << std::endl;
-      shader->setVec2("frameSize", frameSize);
-      shader->setVec2("frameOffset", frameOffset);
+    // std::cout << "width: " << frameX * animInfo.frameWidth << "height: " <<
+    // flippedY * animInfo.frameHeight << std::endl;
+    shader->setVec2("frameSize", frameSize);
+    shader->setVec2("frameOffset", frameOffset);
   } else {
-      shader->setVec2("frameSize", glm::vec2(1.0f, 1.0f));
-      shader->setVec2("frameOffset", glm::vec2(0.0f, 0.0f));
+    shader->setVec2("frameSize", glm::vec2(1.0f, 1.0f));
+    shader->setVec2("frameOffset", glm::vec2(0.0f, 0.0f));
   }
 
   glBindVertexArray(VAO);
@@ -155,7 +155,7 @@ void BaseUI::update(float mouseX, float mouseY, int winWidth, int winHeight,
       }
     }
   }
-  //printf("frame: %d \n", animInfo.currentFrame);
+  // printf("frame: %d \n", animInfo.currentFrame);
 }
 
 bool BaseUI::isHovered(float x_ndc, float y_ndc) {

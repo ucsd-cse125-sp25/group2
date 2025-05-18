@@ -1,6 +1,6 @@
 #pragma once
-#include "ui.hpp"
 #include "globals.hpp"
+#include "ui.hpp"
 #include <algorithm>
 #include <optional>
 
@@ -12,27 +12,25 @@ public:
 
   static void setClick(std::function<void()> callback, Gamestate state);
 
-  static void update_menu(float mouseX, float mouseY, int winWidth, int winHeight,
-                   float deltatime, Gamestate state);
+  static void update_menu(float mouseX, float mouseY, int winWidth,
+                          int winHeight, float deltatime, Gamestate state);
 
-  static unique_ptr<BaseUI> createUIElement (
-    float x, float y, float width, float height, int layer,
-    std::optional<AnimationInfo> animInfo,
-    const char* texturePath,
-    const char* hoverTexturePath = nullptr,
-    bool isClickable = false, bool isHoverable = false
-  );
+  static unique_ptr<BaseUI>
+  createUIElement(float x, float y, float width, float height, int layer,
+                  std::optional<AnimationInfo> animInfo,
+                  const char *texturePath,
+                  const char *hoverTexturePath = nullptr,
+                  bool isClickable = false, bool isHoverable = false);
 
   static void deselectMenuButtons();
 
-  static void selectButton(BaseUI* button);
+  static void selectButton(BaseUI *button);
 
   static unique_ptr<BaseUI> startScreenUI;
   static unique_ptr<BaseUI> startButton;
 
-
   static unique_ptr<BaseUI> mainMenuUI;
-  static vector<BaseUI*> characterButtons;
+  static vector<BaseUI *> characterButtons;
   static unique_ptr<BaseUI> chickenButton;
   static unique_ptr<BaseUI> pigButton;
   static unique_ptr<BaseUI> sheepButton;

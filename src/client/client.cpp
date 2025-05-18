@@ -66,9 +66,8 @@ bool Client::initNetwork(asio::io_context &io_context, const string &ip,
 
 bool Client::initUI() {
   UIManager::make_menus();
-  ui->setClick([&state = game->state]() {
-    state = Gamestate::MAINMENU;
-  }, Gamestate::STARTSCREEN);
+  ui->setClick([&state = game->state]() { state = Gamestate::MAINMENU; },
+               Gamestate::STARTSCREEN);
   UIManager::chickenButton->setOnClick([&state = game->state]() {
     UIManager::deselectMenuButtons();
     UIManager::selectButton(UIManager::chickenButton.get());
@@ -128,15 +127,16 @@ void Client::displayCallback(GLFWwindow *window) {
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
   UIManager::draw_menu(game->state);
-  UIManager::update_menu(mouseX, mouseY, windowWidth, windowHeight, deltaTime, game->state);
+  UIManager::update_menu(mouseX, mouseY, windowWidth, windowHeight, deltaTime,
+                         game->state);
 
   // Draw objects
   switch (game->state) {
-    case Gamestate::GAME:
-      game->draw(cam->getViewProj());
-      break;
-    default:
-      break;
+  case Gamestate::GAME:
+    game->draw(cam->getViewProj());
+    break;
+  default:
+    break;
   }
 
   // Check events and swap buffers

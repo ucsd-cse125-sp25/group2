@@ -77,7 +77,7 @@ private:
 
   // Textures
   GLuint textureID;
-  GLuint hoverTextureID; 
+  GLuint hoverTextureID;
 
   // Callbacks
   std::function<void()> onClickCallback;
