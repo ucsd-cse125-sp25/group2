@@ -1,10 +1,10 @@
 #pragma once
-#include <stb_image.h>
 #include "core.hpp"
 #include "shader.hpp"
 #include <functional>
 #include <iostream>
 #include <memory>
+#include <stb_image.h>
 
 struct AnimationInfo {
   int cols, rows, currentFrame;

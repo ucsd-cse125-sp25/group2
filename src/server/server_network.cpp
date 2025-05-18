@@ -134,7 +134,8 @@ unique_ptr<IPacket> ServerNetwork::processPackets(PacketType type,
     return packet;
   }
   case PacketType::CHARACTERSELECT: {
-    unique_ptr<IPacket> packet = deserialize(PacketType::CHARACTERSELECT, payload);
+    unique_ptr<IPacket> packet =
+        deserialize(PacketType::CHARACTERSELECT, payload);
     return packet;
   }
   default:

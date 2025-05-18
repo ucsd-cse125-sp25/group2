@@ -1,13 +1,13 @@
 #pragma once
 
 #include "camera.hpp"
+#include "client_character_manager.hpp"
 #include "client_gamestate.hpp"
 #include "client_network.hpp"
 #include "core.hpp"
 #include "model.hpp"
 #include "shader.hpp"
 #include "ui_manager.hpp"
-#include "client_character_manager.hpp"
 
 using namespace std;
 

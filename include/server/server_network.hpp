@@ -3,11 +3,11 @@
 #include "packets.hpp"
 #include <asio.hpp>
 #include <deque>
+#include <functional>
 #include <iostream>
 #include <map>
 #include <memory>
 #include <thread>
-#include <functional>
 
 using asio::ip::tcp;
 using namespace std;

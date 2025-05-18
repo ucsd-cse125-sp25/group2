@@ -156,14 +156,14 @@ void BaseUI::update(float mouseX, float mouseY, int winWidth, int winHeight,
       if (animInfo.currentFrame + 1 < animInfo.rows * animInfo.cols) {
         animInfo.currentFrame++;
       } else {
-        //isSelected = true;
+        // isSelected = true;
         if (onSelectCallback) {
           onSelectCallback();
         }
       }
     }
   }
-  //printf("frame: %d \n", animInfo.currentFrame);
+  // printf("frame: %d \n", animInfo.currentFrame);
 }
 
 bool BaseUI::isHovered(float x_ndc, float y_ndc) {

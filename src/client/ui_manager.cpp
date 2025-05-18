@@ -103,7 +103,8 @@ void UIManager::draw_menu(Gamestate state) {
 
 void UIManager::deselectMenuButtons() {
   for (auto *button : characterButtons) {
-    if (button->locked) continue;
+    if (button->locked)
+      continue;
     button->isClicked = false;
     button->isSelected = false;
     button->animInfo.currentFrame = 0;
@@ -138,7 +139,7 @@ void UIManager::lockButton(BaseUI *button) {
 }
 
 void UIManager::unlockButton(BaseUI *button) {
-  if (!button) 
+  if (!button)
     return;
   button->locked = false;
   deselectButton(button);
