@@ -84,19 +84,23 @@ int main(void) {
 
   float lastFrameTime = static_cast<float>(glfwGetTime());
 
-  while (!glfwWindowShouldClose(window)) {
-    // Calculate Frame Time
-    float currentTime = static_cast<float>(glfwGetTime());
-    float deltaTime = currentTime - lastFrameTime;
-    lastFrameTime = currentTime;
+  try {
+    while (!glfwWindowShouldClose(window)) {
+      // Calculate Frame Time
+      float currentTime = static_cast<float>(glfwGetTime());
+      float deltaTime = currentTime - lastFrameTime;
+      lastFrameTime = currentTime;
 
-    client->processInput();
+      client->processInput();
 
-    // Updating of objects
-    client->idleCallback();
+      // Updating of objects
+      client->idleCallback();
 
-    // Rendering call back
-    client->displayCallback(window);
+      // Rendering call back
+      client->displayCallback(window);
+    }
+  } catch (const exception &e) {
+    cerr << "Client Exception: " << e.what() << endl;
   }
 
   client->cleanUp();

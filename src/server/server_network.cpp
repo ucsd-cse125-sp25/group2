@@ -13,7 +13,7 @@ ServerNetwork::ServerNetwork(asio::io_context &io_context, const string &ip,
   cout << "Server started on " << ip << ":" << port << endl;
 }
 
-void ServerNetwork::start() { acceptClient(); }
+bool ServerNetwork::start() { return acceptClient(); }
 
 /*
  * Asynchronously accept clients
@@ -21,7 +21,7 @@ void ServerNetwork::start() { acceptClient(); }
  * All lambda function says is that socket that was created and use it to handle
  * client messages Accept_client again to keep listening for new clients
  */
-void ServerNetwork::acceptClient() {
+bool ServerNetwork::acceptClient() {
   auto socket = make_shared<asio::ip::tcp::socket>(_acceptor.get_executor());
 
   _acceptor.async_accept(*socket, [this, socket](error_code ec) {
@@ -31,16 +31,13 @@ void ServerNetwork::acceptClient() {
       this->lastMovement[clientID] = MovementType::NONE;
       InitPacket init(clientID);
       sendToClient(clientID, init);
-      /*
-      // initialize game state and send to client
-      sendToClient(clientID, game->init());
-      */
       clientID++;
     } else {
       cerr << "Accept Failed: " << ec.message() << endl;
     }
     acceptClient();
   });
+  return true;
 }
 
 /*

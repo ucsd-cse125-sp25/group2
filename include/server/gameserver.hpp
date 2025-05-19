@@ -16,7 +16,7 @@ public:
              const string &port);
   ~GameServer();
 
-  void start();
+  bool start();
 
   void updateGameState();
   void dispatchUpdates();
