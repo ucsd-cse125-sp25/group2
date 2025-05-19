@@ -135,6 +135,10 @@ unique_ptr<IPacket> ServerNetwork::processPackets(PacketType type,
       return nullptr;
     }
   }
+  case PacketType::ROTATION: {
+    unique_ptr<IPacket> packet = deserialize(PacketType::ROTATION, payload);
+    return packet;
+  }
   case PacketType::INTERACTION: {
     unique_ptr<IPacket> packet = deserialize(PacketType::INTERACTION, payload);
     return packet;

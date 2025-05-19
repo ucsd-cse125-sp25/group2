@@ -34,6 +34,11 @@ void GameServer::updateGameState() {
                            movementPacket->cameraFront);
       break;
     }
+    case PacketType::ROTATION: {
+      auto rotationPacket = static_cast<RotationPacket *>(packet.get());
+      game->updateRotation(rotationPacket->objectID, rotationPacket->rotation);
+      break;
+    }
     case PacketType::INTERACTION: {
       auto interactionPacket = static_cast<InteractionPacket *>(packet.get());
       game->updateInteraction(interactionPacket->objectID);
