@@ -21,6 +21,8 @@ private:
   // Network
   unique_ptr<ClientNetwork> network;
 
+  void updatePlayerRotation();
+
 public:
   // Window properties
   GLFWwindow *window;
@@ -29,7 +31,6 @@ public:
 
   // Constructors and desctructors
   Client();
-  ~Client();
 
   bool init();
   bool initObjects();

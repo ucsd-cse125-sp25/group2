@@ -15,8 +15,6 @@ Client::Client() {
   game = make_unique<ClientGameState>();
 }
 
-Client::~Client() {}
-
 bool Client::init() {
   // Initialize glfw
   if (!glfwInit()) {
@@ -47,7 +45,12 @@ bool Client::init() {
   }
 
   glfwMakeContextCurrent(window);
-  glewInit();
+
+  GLenum err = glewInit();
+  if (err != GLEW_OK) {
+    cerr << "GLEW initialization failed: " << glewGetErrorString(err) << endl;
+    return false;
+  }
 
   // Hide the cursor and lock it to the center of the window
   glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
@@ -99,6 +102,7 @@ void Client::idleCallback() {
   cam->update(xOffset, yOffset, game->getPlayer()->getPosition());
   xOffset = 0.0f;
   yOffset = 0.0f;
+  updatePlayerRotation();
 }
 
 void Client::displayCallback(GLFWwindow *window) {
@@ -139,6 +143,25 @@ void Client::processInput() {
   }
 }
 
+void Client::updatePlayerRotation() {
+    float cameraYaw = cam->getRotation().y;
+    float playerYaw = game->getPlayer()->getRotation().y;
+
+    float yawDiff = -(cameraYaw + playerYaw);
+
+    // Normalize to [-180, 180] to get shortest rotation direction
+    if (yawDiff > 180.0f) yawDiff -= 360.0f;
+    if (yawDiff < -180.0f) yawDiff += 360.0f;
+    
+    if (fabs(yawDiff) > 0.01f) {
+      glm::vec3 deltaRotation(0.0f, yawDiff, 0.0f);
+      game->getPlayer()->getTransform()->updateRotation(deltaRotation);
+
+      RotationPacket packet(game->getPlayer()->getId(), deltaRotation);
+      network->send(packet);
+    }
+}
+
 // callbacks - for Interaction
 void Client::framebufferSizeCallback(GLFWwindow *window, int width,
                                      int height) {
@@ -172,9 +195,6 @@ void Client::mouseCallback(GLFWwindow *window, double xPos, double yPos) {
 
   lastX = static_cast<float>(xPos);
   lastY = static_cast<float>(yPos);
-
-  // cout << "Mouse Position: " << xPos << ", " << yPos << endl;
-  // cout << "Mouse Offset: " << xOffset << ", " << yOffset << endl;
 }
 
 void Client::mouseButtonCallback(GLFWwindow *window, int button, int action,
