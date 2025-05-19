@@ -32,6 +32,7 @@ void CharacterManager::setCharacter(int ch, int s, int p, int c) {
     else if (slot.newVal == whoAmI) {
       UIManager::deselectMenuButtons();
       UIManager::selectButton(slot.button);
+      selectedCharacter = slot.characterType;
       printf("Client %d has been assigned to %u\n", whoAmI,
              (uint8_t)slot.characterType);
     }
