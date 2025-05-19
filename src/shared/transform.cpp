@@ -1,35 +1,41 @@
 #include "transform.hpp"
 
 Transform::Transform(glm::vec3 pos, glm::vec3 rot, glm::vec3 scl) {
-  this->position = pos;
-  this->rotation = rot;
-  this->scale = scl;
-  this->forward = glm::vec3(1, 0, 0);
-  this->up = glm::vec3(0, 1, 0);
-  this->right = glm::vec3(0, 0, -1);
+  position = pos;
+  rotation = rot;
+  scale = scl;
+
+  forward = glm::vec3(0, 0, -1);
+  up = glm::vec3(0, 1, 0);
+  right = glm::vec3(1, 0, 0);
 }
 
 void Transform::updatePosition(glm::vec3 moveInput) { position += moveInput; }
 
 void Transform::updateRotation(glm::vec3 rotateInput) {
-  this->rotation += rotateInput;
-  if (rotation.y > 360.0f)
-    rotation.y -= 360.0f;
-  if (rotation.y < 0.0f)
-    rotation.y += 360.0f;
+  rotation += rotateInput;
 
-  float yaw = glm::radians(-this->rotation.y - 90);
-  float pitch = glm::radians(this->rotation.x);
+  // Normalize rotation angles to be within [0, 360)
+  if (rotation.x > 360.0f || rotation.x < -360.0f)
+    rotation.x = fmod(rotation.x, 360.0f);
+  
+  if (rotation.y > 360.0f || rotation.y < -360.0f)
+    rotation.y = fmod(rotation.y, 360.0f);
+
+  if (rotation.z > 360.0f || rotation.z < -360.0f)
+    rotation.z = fmod(rotation.z, 360.0f);
+
+  float yaw = rotation.y;
+  float pitch = rotation.x;
 
   glm::vec3 fwd;
-  fwd.x = sin(yaw) * cos(pitch);
-  fwd.y = sin(pitch);
-  fwd.z = -cos(yaw) * cos(pitch);
-  this->forward = glm::normalize(fwd);
-  this->up = glm::vec3(0, 1, 0);
-  this->right = glm::normalize(glm::cross(this->forward, this->up));
+  fwd.x = cos(glm::radians(pitch)) * cos(glm::radians(yaw));
+  fwd.y = sin(glm::radians(pitch));
+  fwd.z = cos(glm::radians(pitch)) * sin(glm::radians(yaw));
+  forward = glm::normalize(fwd);
+  right = glm::normalize(glm::cross(forward, up));
 }
 
 void Transform::updateScale(float scaleInput) {
-  this->scale = glm::vec3(scaleInput);
+  scale = glm::vec3(scaleInput);
 }
