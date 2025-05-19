@@ -61,10 +61,10 @@ void GameServer::updateGameState() {
           characterManager->chicken, characterManager->sheep,
           characterManager->pig, characterManager->cow);
       network->sendToAll(responsePacket);
-      if (characterManager->allAssigned()) {
+      //if (characterManager->allAssigned()) {
         GameStatePacket statePacket(Gamestate::GAME);
         network->sendToAll(statePacket);
-      }
+      //}
       break;
     }
     }
