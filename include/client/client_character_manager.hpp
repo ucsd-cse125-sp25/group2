@@ -8,7 +8,7 @@ public:
   CharacterManager();
 
   int whoAmI;
-  
+
   Characters selectedCharacter;
 
   int chicken;
@@ -19,6 +19,4 @@ public:
   void setID(int id);
 
   void setCharacter(int ch, int s, int p, int c);
-
-  
 };
