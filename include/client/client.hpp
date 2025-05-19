@@ -42,8 +42,8 @@ public:
   void idleCallback();
   void displayCallback(GLFWwindow *);
 
-  // process input
-  void processInput();
+  // process wasd + jump input
+  void processMovementInput();
 
   // callbacks - for interactions
   void framebufferSizeCallback(GLFWwindow *window, int width, int height);

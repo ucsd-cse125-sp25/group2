@@ -91,7 +91,7 @@ int main(void) {
       float deltaTime = currentTime - lastFrameTime;
       lastFrameTime = currentTime;
 
-      client->processInput();
+      client->processMovementInput();
 
       // Updating of objects
       client->idleCallback();

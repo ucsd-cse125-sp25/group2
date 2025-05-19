@@ -119,7 +119,7 @@ void Client::displayCallback(GLFWwindow *window) {
   glfwPollEvents();
 }
 
-void Client::processInput() {
+void Client::processMovementInput() {
   // Process WASD Movement
   if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
     MovementPacket packet(game->getPlayer()->getId(), MovementType::FORWARD,
@@ -201,10 +201,28 @@ void Client::mouseCallback(GLFWwindow *window, double xPos, double yPos) {
 
 void Client::mouseButtonCallback(GLFWwindow *window, int button, int action,
                                  int mods) {
-  if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS) {
-    // Handle left mouse button press
-    InteractionPacket packet(0);
-    network->send(packet);
-    cout << "Left mouse button pressed" << endl;
+  if (action == GLFW_PRESS) {
+    if (button == GLFW_MOUSE_BUTTON_LEFT) {
+      // Handle left mouse button press
+      InteractionPacket packet(0);
+      network->send(packet);
+      cout << "Left mouse button pressed" << endl;
+    }
+    // to switch between different clients on one machine
+    if (button == GLFW_MOUSE_BUTTON_RIGHT) {
+      static bool isCursorHidden = true;
+      if (isCursorHidden) {
+        // Show the cursor
+        isCursorHidden = false;
+        glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+        glfwSetInputMode(window, GLFW_RAW_MOUSE_MOTION, GLFW_FALSE);
+      } else {
+        // Hide the cursor
+        isCursorHidden = true;
+        glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+        glfwSetInputMode(window, GLFW_RAW_MOUSE_MOTION, GLFW_TRUE);
+      }
+    }
   }
+  
 }
