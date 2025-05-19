@@ -20,7 +20,10 @@ enum class PacketType : uint8_t {
   OBJECT,
   MOVEMENT,
   INTERACTION,
-  DISCONNECT
+  DISCONNECT,
+  CHARACTERSELECT,
+  CHARACTERRESPONSE,
+  GAMESTATE,
 };
 
 struct IPacket {
@@ -78,6 +81,38 @@ struct DisconnectPacket : public IPacket {
   PacketType getType() const override { return PacketType::DISCONNECT; }
   vector<char> serialize() const override;
   static DisconnectPacket deserialize(const vector<char> &payload);
+};
+
+struct CharacterSelectPacket : public IPacket {
+  Characters character;
+  int clientID;
+
+  CharacterSelectPacket(Characters character, int clientID)
+      : character(character), clientID(clientID) {}
+  PacketType getType() const override { return PacketType::CHARACTERSELECT; }
+  vector<char> serialize() const override;
+  static CharacterSelectPacket deserialize(const vector<char> &payload);
+};
+
+struct CharacterResponsePacket : public IPacket {
+  int chicken;
+  int sheep;
+  int pig;
+  int cow;
+
+  CharacterResponsePacket(int chicken, int sheep, int pig, int cow)
+      : chicken(chicken), sheep(sheep), pig(pig), cow(cow) {}
+  PacketType getType() const override { return PacketType::CHARACTERRESPONSE; }
+  vector<char> serialize() const override;
+  static CharacterResponsePacket deserialize(const vector<char> &payload);
+};
+
+struct GameStatePacket : public IPacket {
+  Gamestate state;
+  GameStatePacket(Gamestate state) : state(state) {}
+  PacketType getType() const override { return PacketType::GAMESTATE; }
+  vector<char> serialize() const override;
+  static GameStatePacket deserialize(const vector<char> &payload);
 };
 
 unique_ptr<IPacket> deserialize(PacketType type, vector<char> &payload);

@@ -1,31 +1,17 @@
 #pragma once
 
 #include "camera.hpp"
+#include "client_character_manager.hpp"
 #include "client_gamestate.hpp"
 #include "client_network.hpp"
 #include "core.hpp"
 #include "model.hpp"
 #include "shader.hpp"
+#include "ui_manager.hpp"
 
 using namespace std;
 
 class Client {
-private:
-  // Camera properties
-  unique_ptr<Camera> cam;
-  float mouseX, mouseY;
-
-  // Gamestate properties
-  unique_ptr<ClientGameState> game;
-
-  // Network
-  unique_ptr<ClientNetwork> network;
-
-  // Key
-  bool isHeldForward = false;  // W
-  bool isHeldBackward = false; // S
-  bool isHeldLeft = false;     // A
-  bool isHeldRight = false;    // D
 
 public:
   // Window properties
@@ -41,6 +27,8 @@ public:
   bool initObjects();
   bool initNetwork(asio::io_context &io_context, const string &ip,
                    const string &port);
+  bool initUI();
+
   void cleanUp();
 
   // update and draw functions
@@ -60,4 +48,27 @@ public:
 
   // Getters
   GLFWwindow *getWindow() { return window; }
+
+private:
+  // Camera properties
+  unique_ptr<Camera> cam;
+  float mouseX, mouseY;
+
+  // Gamestate properties
+  unique_ptr<ClientGameState> game;
+
+  // Ui management / creation
+  unique_ptr<UIManager> ui;
+
+  // Network
+  unique_ptr<ClientNetwork> network;
+
+  // Character Selection
+  unique_ptr<CharacterManager> characterManager;
+
+  // Key
+  bool isHeldForward = false;  // W
+  bool isHeldBackward = false; // S
+  bool isHeldLeft = false;     // A
+  bool isHeldRight = false;    // D
 };

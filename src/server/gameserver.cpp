@@ -4,6 +4,7 @@ GameServer::GameServer(asio::io_context &io_context, const string &ip,
                        const string &port) {
   game = make_unique<ServerGameState>();
   network = make_unique<ServerNetwork>(io_context, ip, port);
+  characterManager = make_unique<CharacterManager>();
 }
 
 GameServer::~GameServer() {}
@@ -14,6 +15,23 @@ void GameServer::start() {
     cerr << "ServerGameState initialization failed" << endl;
     return;
   }
+  network->setOnJoin(
+      [game = game.get(), &select = characterManager, net = network.get()]() {
+        if (game->state != Gamestate::GAME) {
+          CharacterResponsePacket responsePacket(select->chicken, select->sheep,
+                                                 select->pig, select->cow);
+          net->sendToAll(responsePacket);
+        }
+      });
+  network->setOnLeave([game = game.get(), &select = characterManager,
+                       net = network.get()](int id) {
+    if (game->state != Gamestate::GAME) {
+      select->isAlreadyAssigned(id);
+      CharacterResponsePacket responsePacket(select->chicken, select->sheep,
+                                             select->pig, select->cow);
+      net->sendToAll(responsePacket);
+    }
+  });
 }
 
 void GameServer::updateGameState() {
@@ -33,6 +51,20 @@ void GameServer::updateGameState() {
     case PacketType::INTERACTION: {
       auto interactionPacket = static_cast<InteractionPacket *>(packet.get());
       game->updateInteraction(interactionPacket->objectID);
+      break;
+    }
+    case PacketType::CHARACTERSELECT: {
+      auto characterPacket = static_cast<CharacterSelectPacket *>(packet.get());
+      characterManager->assignCharacter(characterPacket->character,
+                                        characterPacket->clientID);
+      CharacterResponsePacket responsePacket(
+          characterManager->chicken, characterManager->sheep,
+          characterManager->pig, characterManager->cow);
+      network->sendToAll(responsePacket);
+      // if (characterManager->allAssigned()) {
+      GameStatePacket statePacket(Gamestate::GAME);
+      network->sendToAll(statePacket);
+      //}
       break;
     }
     }

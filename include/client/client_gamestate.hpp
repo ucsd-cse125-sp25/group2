@@ -21,7 +21,7 @@ public:
   void draw(const glm::mat4 &viewProjMtx);
 
   GameObject *getObject(int id);
-
+  Gamestate state;
   // delete later
   GameObject *player;
   GameObject *getPlayer() { return player; }

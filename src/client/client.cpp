@@ -13,6 +13,7 @@ Client::Client() {
 
   // Initialize game state properties
   game = make_unique<ClientGameState>();
+  characterManager = make_unique<CharacterManager>();
 }
 
 Client::~Client() {}
@@ -64,6 +65,35 @@ bool Client::initNetwork(asio::io_context &io_context, const string &ip,
   return !network->err;
 }
 
+bool Client::initUI() {
+  UIManager::make_menus();
+  UIManager::startButton->setOnClick(
+      []() { UIManager::startScreenUI->play(); });
+  UIManager::startButton->setOnSelect(
+      []() { UIManager::startButton->isSelected = true; });
+  UIManager::startScreenUI->setOnSelect([&state = game->state]() {
+    state = Gamestate::MAINMENU;
+    UIManager::startScreenUI->isSelected = true;
+  });
+  UIManager::chickenButton->setOnClick([net = network.get()]() {
+    CharacterSelectPacket packet(Characters::CHICKEN, net->getId());
+    net->send(packet);
+  });
+  UIManager::pigButton->setOnClick([net = network.get()]() {
+    CharacterSelectPacket packet(Characters::PIG, net->getId());
+    net->send(packet);
+  });
+  UIManager::sheepButton->setOnClick([net = network.get()]() {
+    CharacterSelectPacket packet(Characters::SHEEP, net->getId());
+    net->send(packet);
+  });
+  UIManager::cowButton->setOnClick([net = network.get()]() {
+    CharacterSelectPacket packet(Characters::COW, net->getId());
+    net->send(packet);
+  });
+  return true;
+}
+
 void Client::cleanUp() {
   // Destroy GLFW window
   glfwDestroyWindow(window);
@@ -81,11 +111,25 @@ void Client::idleCallback() {
     case PacketType::INIT: {
       auto initPacket = dynamic_cast<InitPacket *>(packet.get());
       network->setId(initPacket->clientID);
+      characterManager->setID(initPacket->clientID);
       break;
     }
     case PacketType::OBJECT: {
       auto objectPacket = dynamic_cast<ObjectPacket *>(packet.get());
       game->update(objectPacket->objectID, &objectPacket->transform);
+      break;
+    }
+    case PacketType::CHARACTERRESPONSE: {
+      auto characterPacket =
+          dynamic_cast<CharacterResponsePacket *>(packet.get());
+      characterManager->setCharacter(
+          characterPacket->chicken, characterPacket->sheep,
+          characterPacket->pig, characterPacket->cow);
+      break;
+    }
+    case PacketType::GAMESTATE: {
+      auto statePacket = dynamic_cast<GameStatePacket *>(packet.get());
+      game->state = statePacket->state;
       break;
     }
     }
@@ -95,11 +139,22 @@ void Client::idleCallback() {
 }
 
 void Client::displayCallback(GLFWwindow *window) {
-  // Clear the color and depth buffers.
+  static double previousTime = glfwGetTime();
+
+  double currentTime = glfwGetTime();
+  float deltaTime = static_cast<float>(currentTime - previousTime);
+  previousTime = currentTime;
+
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+  UIManager::draw_menu(game->state);
+  UIManager::update_menu(mouseX, mouseY, windowWidth, windowHeight, deltaTime,
+                         game->state);
+
   // Draw objects
-  game->draw(cam->getViewProj());
+  if (game->state == Gamestate::GAME) {
+    game->draw(cam->getViewProj());
+  }
 
   // Check events and swap buffers
   glfwPollEvents();

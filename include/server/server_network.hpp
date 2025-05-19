@@ -1,9 +1,9 @@
 #pragma once
 
 #include "packets.hpp"
-
 #include <asio.hpp>
 #include <deque>
+#include <functional>
 #include <iostream>
 #include <map>
 #include <memory>
@@ -29,4 +29,10 @@ public:
   void sendToAll(const IPacket &packet);
   void handleClientDisconnect(CLIENT_ID id);
   deque<unique_ptr<IPacket>> receiveFromClients();
+
+  void setOnJoin(function<void()> callback);
+  void setOnLeave(function<void(int)> callback);
+
+  function<void()> onClientJoin;
+  function<void(int)> onClientLeave;
 };

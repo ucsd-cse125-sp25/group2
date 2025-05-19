@@ -4,7 +4,7 @@ bool ClientGameState::init() {
   ObjectLoader objectLoader = ObjectLoader();
   objectList = objectLoader.loadObjects();
   player = objectList.begin()->second.get();
-
+  state = Gamestate::STARTSCREEN;
   return true;
 }
 
