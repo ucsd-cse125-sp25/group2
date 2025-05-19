@@ -9,13 +9,10 @@ Camera::Camera()
   nearClip = 0.1f;
   farClip = 100.0f;
 
-  yaw = -90.0f;
+  yaw = 90.0f;  // place camera in front of the target (along +Z axis), looking back toward the target
   pitch = 0.0f;
-  lastX = 1920.0f / 2.0f;
-  lastY = 1080.0f / 2.0f;
 
-  firstMouse = true;
-  sensitivity = 0.1f;
+  sensitivity = 0.02f;
   radius = 13.0f;
 
   worldUp = cameraUp;
@@ -49,7 +46,6 @@ void Camera::update(float xOffset, float yOffset, glm::vec3 target) {
   cameraUp = glm::normalize(glm::cross(cameraRight, cameraFront));
 
   projection = glm::perspective(glm::radians(fov), aspect, nearClip, farClip);
-  view = glm::lookAt(cameraPos, lookAtPoint, cameraUp);
   view = glm::lookAt(cameraPos, lookAtPoint, cameraUp);
 
   viewProjMat = projection * view;

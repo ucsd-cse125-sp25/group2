@@ -12,12 +12,9 @@ private:
 
   float yaw;
   float pitch;
-  float lastX;
-  float lastY;
 
-  bool firstMouse;
   float sensitivity;
-  float radius; // Distance from the camera to the target
+  float radius;   // Distance from the camera to the target
 
   glm::vec3 cameraPos;
   glm::vec3 cameraFront;
@@ -41,4 +38,5 @@ public:
   glm::mat4 getProjection() { return projection; }
   glm::mat4 getView() { return view; }
   glm::mat4 getViewProj() { return viewProjMat; }
+  glm::vec3 getRotation() { return glm::vec3(pitch, yaw, 0.0f); }
 };
