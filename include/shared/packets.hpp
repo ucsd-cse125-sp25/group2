@@ -16,9 +16,12 @@
 using namespace std;
 
 enum class PacketType : uint8_t {
+  // Sender: Server
   INIT,
   OBJECT,
+  // Sender: Client
   MOVEMENT,
+  ROTATION,
   INTERACTION,
   DISCONNECT
 };
@@ -60,6 +63,17 @@ struct MovementPacket : public IPacket {
   PacketType getType() const override { return PacketType::MOVEMENT; }
   vector<char> serialize() const override;
   static MovementPacket deserialize(const vector<char> &payload);
+};
+
+struct RotationPacket : public IPacket {
+  int objectID;
+  glm::vec3 rotation;
+
+  RotationPacket(int id, glm::vec3 rotation)
+      : objectID(id), rotation(rotation) {}
+  PacketType getType() const override { return PacketType::ROTATION; }
+  vector<char> serialize() const override;
+  static RotationPacket deserialize(const vector<char> &payload);
 };
 
 struct InteractionPacket : public IPacket {

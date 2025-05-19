@@ -66,6 +66,27 @@ MovementPacket MovementPacket::deserialize(const vector<char> &payload) {
   return packet;
 }
 
+vector<char> RotationPacket::serialize() const {
+  vector<char> buffer(sizeof(int) + sizeof(glm::vec3));
+  unsigned long size = 0;
+  memcpy(buffer.data(), &objectID, sizeof(int));
+  size += sizeof(int);
+  serializeVector(buffer.data(), rotation, size);
+  return buffer;
+}
+
+RotationPacket RotationPacket::deserialize(const vector<char> &payload) {
+  int objectID;
+  glm::vec3 rotation;
+
+  unsigned long size = 0;
+  memcpy(&objectID, payload.data(), sizeof(int));
+  size += sizeof(int);
+  rotation = deserializeVector(payload, rotation, size);
+  RotationPacket packet(objectID, rotation);
+  return packet;
+}
+
 vector<char> InteractionPacket::serialize() const {
   vector<char> buffer(sizeof(int));
   memcpy(buffer.data(), &objectID, sizeof(int));
@@ -102,6 +123,8 @@ unique_ptr<IPacket> deserialize(PacketType type, vector<char> &payload) {
     return make_unique<ObjectPacket>(ObjectPacket::deserialize(payload));
   case PacketType::MOVEMENT:
     return make_unique<MovementPacket>(MovementPacket::deserialize(payload));
+  case PacketType::ROTATION:
+    return make_unique<RotationPacket>(RotationPacket::deserialize(payload));
   case PacketType::INTERACTION:
     return make_unique<InteractionPacket>(
         InteractionPacket::deserialize(payload));
