@@ -144,22 +144,24 @@ void Client::processInput() {
 }
 
 void Client::updatePlayerRotation() {
-    float cameraYaw = cam->getRotation().y;
-    float playerYaw = game->getPlayer()->getRotation().y;
+  float cameraYaw = cam->getRotation().y;
+  float playerYaw = game->getPlayer()->getRotation().y;
 
-    float yawDiff = -(cameraYaw + playerYaw);
+  float yawDiff = -(cameraYaw + playerYaw);
 
-    // Normalize to [-180, 180] to get shortest rotation direction
-    if (yawDiff > 180.0f) yawDiff -= 360.0f;
-    if (yawDiff < -180.0f) yawDiff += 360.0f;
-    
-    if (fabs(yawDiff) > 0.01f) {
-      glm::vec3 deltaRotation(0.0f, yawDiff, 0.0f);
-      game->getPlayer()->getTransform()->updateRotation(deltaRotation);
+  // Normalize to [-180, 180] to get shortest rotation direction
+  if (yawDiff > 180.0f)
+    yawDiff -= 360.0f;
+  if (yawDiff < -180.0f)
+    yawDiff += 360.0f;
 
-      RotationPacket packet(game->getPlayer()->getId(), deltaRotation);
-      network->send(packet);
-    }
+  if (fabs(yawDiff) > 0.01f) {
+    glm::vec3 deltaRotation(0.0f, yawDiff, 0.0f);
+    game->getPlayer()->getTransform()->updateRotation(deltaRotation);
+
+    RotationPacket packet(game->getPlayer()->getId(), deltaRotation);
+    network->send(packet);
+  }
 }
 
 // callbacks - for Interaction

@@ -10,7 +10,8 @@ using namespace chrono;
 int main() {
   // Create context and start the server
   asio::io_context io_context;
-  unique_ptr <GameServer> server(new GameServer(io_context, "127.0.0.1", "12345"));
+  unique_ptr<GameServer> server(
+      new GameServer(io_context, "127.0.0.1", "12345"));
   if (!server->start()) {
     cerr << "Server Initialization Failed" << endl;
     exit(EXIT_FAILURE);

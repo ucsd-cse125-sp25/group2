@@ -9,7 +9,8 @@ Camera::Camera()
   nearClip = 0.1f;
   farClip = 100.0f;
 
-  yaw = 90.0f;  // place camera in front of the target (along +Z axis), looking back toward the target
+  yaw = 90.0f; // place camera in front of the target (along +Z axis), looking
+               // back toward the target
   pitch = 0.0f;
 
   sensitivity = 0.02f;

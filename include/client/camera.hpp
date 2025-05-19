@@ -14,7 +14,7 @@ private:
   float pitch;
 
   float sensitivity;
-  float radius;   // Distance from the camera to the target
+  float radius; // Distance from the camera to the target
 
   glm::vec3 cameraPos;
   glm::vec3 cameraFront;

@@ -18,7 +18,7 @@ void Transform::updateRotation(glm::vec3 rotateInput) {
   // Normalize rotation angles to be within [0, 360)
   if (rotation.x > 360.0f || rotation.x < -360.0f)
     rotation.x = fmod(rotation.x, 360.0f);
-  
+
   if (rotation.y > 360.0f || rotation.y < -360.0f)
     rotation.y = fmod(rotation.y, 360.0f);
 
@@ -36,6 +36,4 @@ void Transform::updateRotation(glm::vec3 rotateInput) {
   right = glm::normalize(glm::cross(forward, up));
 }
 
-void Transform::updateScale(float scaleInput) {
-  scale = glm::vec3(scaleInput);
-}
+void Transform::updateScale(float scaleInput) { scale = glm::vec3(scaleInput); }
