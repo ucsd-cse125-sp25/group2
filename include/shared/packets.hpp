@@ -69,7 +69,8 @@ struct InteractionPacket : public IPacket {
   glm::vec3 rayDirection;
   glm::vec3 rayOrigin;
 
-  InteractionPacket(glm::vec3 rayDirection, glm::vec3 rayOrigin) : rayDirection(rayDirection), rayOrigin(rayOrigin) {}
+  InteractionPacket(glm::vec3 rayDirection, glm::vec3 rayOrigin)
+      : rayDirection(rayDirection), rayOrigin(rayOrigin) {}
   PacketType getType() const override { return PacketType::INTERACTION; }
   vector<char> serialize() const override;
   static InteractionPacket deserialize(const vector<char> &payload);

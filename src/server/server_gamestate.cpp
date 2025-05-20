@@ -44,50 +44,47 @@ void ServerGameState::updateMovement(int id, MovementType type,
   }
 }
 
-void ServerGameState::updateInteraction(glm::vec3 rayDirection, glm::vec3 rayOrigin)
-{
+void ServerGameState::updateInteraction(glm::vec3 rayDirection,
+                                        glm::vec3 rayOrigin) {
   // Variables to track the closest intersection
   float closestDistance = std::numeric_limits<float>::max();
   GameObject *closestObject = nullptr;
 
   // Check each game object for intersection
-  for (const auto& [objectId, gameObject] : objectList)
-  {
-      // Skip inactive objects
-      if (!gameObject->isActive())
-      {
-          continue;
+  for (const auto &[objectId, gameObject] : objectList) {
+    // Skip inactive objects
+    if (!gameObject->isActive()) {
+      continue;
+    }
+
+    // Get object position (center)
+    glm::vec3 objectPos = gameObject->getPosition();
+
+    // Get object scale for rough size
+    glm::vec3 objectScale = gameObject->getScale();
+    float objectRadius = glm::length(objectScale) * 0.5f; // Approximate radius
+
+    // Calculate basic sphere intersection (can be improved for more accuracy)
+    glm::vec3 oc = rayOrigin - objectPos;
+    float a = glm::dot(rayDirection, rayDirection);
+    float b = 2.0f * glm::dot(oc, rayDirection);
+    float c = glm::dot(oc, oc) - objectRadius * objectRadius;
+    float discriminant = b * b - 4 * a * c;
+
+    if (discriminant > 0) {
+      // Calculate intersection distance
+      float dist = (-b - sqrt(discriminant)) / (2.0f * a);
+
+      // Only consider positive distances (in front of camera)
+      if (dist > 0 && dist < closestDistance) {
+        closestDistance = dist;
+        closestObject = gameObject.get();
       }
-
-      // Get object position (center)
-      glm::vec3 objectPos = gameObject->getPosition();
-
-      // Get object scale for rough size
-      glm::vec3 objectScale = gameObject->getScale();
-      float objectRadius = glm::length(objectScale) * 0.5f; // Approximate radius
-
-      // Calculate basic sphere intersection (can be improved for more accuracy)
-      glm::vec3 oc = rayOrigin - objectPos;
-      float a = glm::dot(rayDirection, rayDirection);
-      float b = 2.0f * glm::dot(oc, rayDirection);
-      float c = glm::dot(oc, oc) - objectRadius * objectRadius;
-      float discriminant = b * b - 4 * a * c;
-
-      if (discriminant > 0)
-      {
-          // Calculate intersection distance
-          float dist = (-b - sqrt(discriminant)) / (2.0f * a);
-
-          // Only consider positive distances (in front of camera)
-          if (dist > 0 && dist < closestDistance)
-          {
-              closestDistance = dist;
-              closestObject = gameObject.get();
-          }
-      }
+    }
   }
-  cout << "Closest object ID: " << (closestObject ? closestObject->getId() : -1) << endl;
-  //return closestObject;
+  cout << "Closest object ID: " << (closestObject ? closestObject->getId() : -1)
+       << endl;
+  // return closestObject;
 }
 
 void ServerGameState::applyPhysics() {

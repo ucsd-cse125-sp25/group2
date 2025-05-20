@@ -76,7 +76,7 @@ vector<char> InteractionPacket::serialize() const {
 
 InteractionPacket InteractionPacket::deserialize(const vector<char> &payload) {
   unsigned long size = 0;
-  InteractionPacket packet(deserializeVector(payload, size), 
+  InteractionPacket packet(deserializeVector(payload, size),
                            deserializeVector(payload, size));
   return packet;
 }
