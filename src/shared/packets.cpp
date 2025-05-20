@@ -191,6 +191,11 @@ unique_ptr<IPacket> deserialize(PacketType type, vector<char> &payload) {
     return make_unique<InitPacket>(InitPacket::deserialize(payload));
   case PacketType::OBJECT:
     return make_unique<ObjectPacket>(ObjectPacket::deserialize(payload));
+  case PacketType::GAMESTATE:
+    return make_unique<GameStatePacket>(GameStatePacket::deserialize(payload));
+  case PacketType::CHARACTERRESPONSE:
+    return make_unique<CharacterResponsePacket>(
+        CharacterResponsePacket::deserialize(payload));
   case PacketType::MOVEMENT:
     return make_unique<MovementPacket>(MovementPacket::deserialize(payload));
   case PacketType::ROTATION:
@@ -198,17 +203,12 @@ unique_ptr<IPacket> deserialize(PacketType type, vector<char> &payload) {
   case PacketType::INTERACTION:
     return make_unique<InteractionPacket>(
         InteractionPacket::deserialize(payload));
-  case PacketType::DISCONNECT:
-    return make_unique<DisconnectPacket>(
-        DisconnectPacket::deserialize(payload));
   case PacketType::CHARACTERSELECT:
     return make_unique<CharacterSelectPacket>(
         CharacterSelectPacket::deserialize(payload));
-  case PacketType::CHARACTERRESPONSE:
-    return make_unique<CharacterResponsePacket>(
-        CharacterResponsePacket::deserialize(payload));
-  case PacketType::GAMESTATE:
-    return make_unique<GameStatePacket>(GameStatePacket::deserialize(payload));
+  case PacketType::DISCONNECT:
+    return make_unique<DisconnectPacket>(
+        DisconnectPacket::deserialize(payload));  
   default:
     throw runtime_error("Unknown packet type");
   }
