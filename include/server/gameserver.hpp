@@ -14,7 +14,7 @@ private:
   unique_ptr<ServerGameState> game;
   unique_ptr<CharacterManager> characterManager;
 
-  static json loadConfig(const std::string& path);
+  static json loadConfig(const std::string &path);
 
 public:
   GameServer(asio::io_context &io_context);

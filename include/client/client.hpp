@@ -66,5 +66,5 @@ public:
   // Getters
   GLFWwindow *getWindow() { return window; }
 
-  static json loadConfig(const std::string& path);
+  static json loadConfig(const std::string &path);
 };

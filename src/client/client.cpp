@@ -71,18 +71,20 @@ bool Client::initObjects() {
 }
 
 bool Client::initNetwork(asio::io_context &io_context) {
-  network = make_unique<ClientNetwork>(io_context, loadConfig(CONFIG_PATH)["client-ip"], loadConfig(CONFIG_PATH)["port"]);
+  network = make_unique<ClientNetwork>(io_context,
+                                       loadConfig(CONFIG_PATH)["client-ip"],
+                                       loadConfig(CONFIG_PATH)["port"]);
   return !network->err;
 }
 
-json Client::loadConfig(const std::string& path) {
-    std::ifstream file(path);
-    if (!file.is_open()) {
-        throw std::runtime_error("Could not open config file at " + path);
-    }
-    json j;
-    file >> j;
-    return j;
+json Client::loadConfig(const std::string &path) {
+  std::ifstream file(path);
+  if (!file.is_open()) {
+    throw std::runtime_error("Could not open config file at " + path);
+  }
+  json j;
+  file >> j;
+  return j;
 }
 
 bool Client::initUI() {

@@ -74,7 +74,7 @@ int main(void) {
 
   // Create client network
   asio::io_context io_context;
-  
+
   if (!client->initNetwork(io_context)) {
     cerr << "Client Network Initialization Failed" << endl;
     exit(EXIT_FAILURE);
