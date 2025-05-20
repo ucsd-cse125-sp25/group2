@@ -147,7 +147,7 @@ void Client::updatePlayerRotation() {
   float cameraYaw = cam->getRotation().y;
   float playerYaw = game->getPlayer()->getRotation().y;
 
-  float yawDiff = -(cameraYaw + playerYaw);
+  float yawDiff = -(cameraYaw + playerYaw - 90.0f);
 
   // Normalize to [-180, 180] to get shortest rotation direction
   if (yawDiff > 180.0f)
