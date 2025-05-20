@@ -51,7 +51,7 @@ public:
 
   // update and draw functions
   void idleCallback();
-  void displayCallback(GLFWwindow *);
+  void displayCallback(GLFWwindow *window, float deltaTime);
 
   // process wasd + jump input
   void processMovementInput();

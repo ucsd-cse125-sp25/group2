@@ -151,13 +151,7 @@ void Client::idleCallback() {
   updatePlayerRotation();
 }
 
-void Client::displayCallback(GLFWwindow *window) {
-  static double previousTime = glfwGetTime();
-
-  double currentTime = glfwGetTime();
-  float deltaTime = static_cast<float>(currentTime - previousTime);
-  previousTime = currentTime;
-
+void Client::displayCallback(GLFWwindow *window, float deltaTime) {
   // Clear the color and depth buffers
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 

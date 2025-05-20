@@ -100,7 +100,7 @@ int main(void) {
       client->idleCallback();
 
       // Rendering call back
-      client->displayCallback(window);
+      client->displayCallback(window, deltaTime);
     }
   } catch (const exception &e) {
     cerr << "Client Exception: " << e.what() << endl;
