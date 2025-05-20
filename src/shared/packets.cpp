@@ -200,11 +200,14 @@ unique_ptr<IPacket> deserialize(PacketType type, vector<char> &payload) {
   case PacketType::ROTATION:
     return make_unique<RotationPacket>(RotationPacket::deserialize(payload));
   case PacketType::INTERACTION:
-    return make_unique<InteractionPacket>(InteractionPacket::deserialize(payload));
+    return make_unique<InteractionPacket>(
+        InteractionPacket::deserialize(payload));
   case PacketType::CHARACTERSELECT:
-    return make_unique<CharacterSelectPacket>(CharacterSelectPacket::deserialize(payload));
+    return make_unique<CharacterSelectPacket>(
+        CharacterSelectPacket::deserialize(payload));
   case PacketType::DISCONNECT:
-    return make_unique<DisconnectPacket>(DisconnectPacket::deserialize(payload));
+    return make_unique<DisconnectPacket>(
+        DisconnectPacket::deserialize(payload));
   default:
     throw runtime_error("Unknown packet type");
   }
