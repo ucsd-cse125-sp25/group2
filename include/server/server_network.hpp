@@ -2,6 +2,7 @@
 
 #include "globals.hpp"
 #include "packets.hpp"
+
 #include <asio.hpp>
 #include <deque>
 #include <functional>
