@@ -8,6 +8,7 @@
 #define CLIENT_ID unsigned int
 
 #define JSON_PATH "../resources/objects/objects.json"
+#define CONFIG_PATH "../resources/config.json"
 
 enum class MovementType : uint8_t { FORWARD, BACKWARD, LEFT, RIGHT, NONE };
 

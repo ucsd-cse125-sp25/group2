@@ -43,8 +43,7 @@ public:
 
   bool init();
   bool initObjects();
-  bool initNetwork(asio::io_context &io_context, const string &ip,
-                   const string &port);
+  bool initNetwork(asio::io_context &io_context);
   bool initUI();
 
   void cleanUp();
@@ -66,4 +65,6 @@ public:
 
   // Getters
   GLFWwindow *getWindow() { return window; }
+
+  static json loadConfig(const std::string& path);
 };
