@@ -134,17 +134,28 @@ RotationPacket RotationPacket::deserialize(const vector<char> &payload) {
 }
 
 vector<char> InteractionPacket::serialize() const {
-  vector<char> buffer(sizeof(glm::vec3) * 2);
+  vector<char> buffer(sizeof(int) + sizeof(glm::vec3) * 2);
   unsigned long size = 0;
+  memcpy(buffer.data(), &objectID, sizeof(int));
+  size += sizeof(int);
   serializeVector(buffer.data(), rayDirection, size);
+  size += sizeof(glm::vec3);
   serializeVector(buffer.data(), rayOrigin, size);
   return buffer;
 }
 
 InteractionPacket InteractionPacket::deserialize(const vector<char> &payload) {
+  int objectID;
+  glm::vec3 rayDirection;
+  glm::vec3 rayOrigin;
+  
   unsigned long size = 0;
-  InteractionPacket packet(deserializeVector(payload, size),
-                           deserializeVector(payload, size));
+  memcpy(&objectID, payload.data(), sizeof(int));
+  size += sizeof(int);
+  rayDirection = deserializeVector(payload, size);
+  size += sizeof(glm::vec3);
+  rayOrigin = deserializeVector(payload, size);
+  InteractionPacket packet(objectID, rayDirection, rayOrigin);
   return packet;
 }
 
