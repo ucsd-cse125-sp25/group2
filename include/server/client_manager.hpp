@@ -2,20 +2,19 @@
 
 #include "globals.hpp"
 
-class CharacterManager {
-public:
-  CharacterManager();
+class ClientManager {
+private:
+  int characterAssignments[4];
 
-  int chicken;
-  int cow;
-  int sheep;
-  int pig;
+  int characterHolding[4];
+public:
+  ClientManager();
 
   void setID(int id);
 
   void assignCharacter(Characters character, int clientID);
 
-  void isAlreadyAssigned(int clientID);
+  void unAssign(int clientID);
 
   bool allAssigned();
 };
