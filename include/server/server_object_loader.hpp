@@ -4,6 +4,7 @@
 #include "globals.hpp"
 #include "server_gameobject.hpp"
 #include "transform.hpp"
+#include "player.hpp"
 
 #include <fstream>
 #include <iostream>
