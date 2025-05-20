@@ -24,7 +24,7 @@ void Camera::update(float xOffset, float yOffset, glm::vec3 target) {
   yOffset *= sensitivity;
 
   yaw += xOffset;
-  pitch += yOffset;
+  pitch -= yOffset;
 
   // restrict pitch (vertical) and allow 360 degrees for yaw (horizontal)
   pitch = glm::clamp(pitch, 0.0f, 30.0f);
