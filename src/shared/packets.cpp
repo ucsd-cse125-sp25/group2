@@ -208,7 +208,7 @@ unique_ptr<IPacket> deserialize(PacketType type, vector<char> &payload) {
         CharacterSelectPacket::deserialize(payload));
   case PacketType::DISCONNECT:
     return make_unique<DisconnectPacket>(
-        DisconnectPacket::deserialize(payload));  
+        DisconnectPacket::deserialize(payload));
   default:
     throw runtime_error("Unknown packet type");
   }
