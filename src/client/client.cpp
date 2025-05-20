@@ -144,9 +144,9 @@ void Client::idleCallback() {
         // Hide the cursor and lock it to the center of the window when the game
         // starts
         glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-        #if !defined(__APPLE__)
-          glfwSetInputMode(window, GLFW_RAW_MOUSE_MOTION, GLFW_TRUE);
-        #endif
+#if !defined(__APPLE__)
+        glfwSetInputMode(window, GLFW_RAW_MOUSE_MOTION, GLFW_TRUE);
+#endif
       }
       break;
     }

@@ -117,10 +117,10 @@ void BaseUI::draw() {
 
 void BaseUI::update(float mouseX, float mouseY, int winWidth, int winHeight,
                     float deltaTime) {
-  #ifdef __APPLE__
-    mouseX *= 2;
-    mouseY *= 2;
-  #endif
+#ifdef __APPLE__
+  mouseX *= 2;
+  mouseY *= 2;
+#endif
   float ndcX = (2.0f * mouseX) / winWidth - 1.0f;
   float ndcY = 1.0f - (2.0f * mouseY) / winHeight;
 
