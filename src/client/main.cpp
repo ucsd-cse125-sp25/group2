@@ -75,12 +75,15 @@ int main(void) {
   // Create client network
   asio::io_context io_context;
   if (!client->initNetwork(io_context, "127.0.0.1", "12345")) {
-    cout << "Client Network Initialization Failed" << endl;
+    cerr << "Client Network Initialization Failed" << endl;
     exit(EXIT_FAILURE);
   }
 
-  // Delete later
   client->initObjects();
+
+  if (!client->initUI()) {
+    cerr << "StartSceen Failed" << endl;
+  }
 
   float lastFrameTime = static_cast<float>(glfwGetTime());
 

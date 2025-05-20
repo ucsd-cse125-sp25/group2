@@ -32,6 +32,8 @@ bool ServerNetwork::acceptClient() {
       lastRotation[clientID] = nullptr;
       InitPacket init(clientID);
       sendToClient(clientID, init);
+      if (onClientJoin)
+        onClientJoin();
       clientID++;
     } else {
       cerr << "Accept Failed: " << ec.message() << endl;
@@ -155,6 +157,11 @@ unique_ptr<IPacket> ServerNetwork::processPackets(PacketType type,
     unique_ptr<IPacket> packet = deserialize(PacketType::DISCONNECT, payload);
     return packet;
   }
+  case PacketType::CHARACTERSELECT: {
+    unique_ptr<IPacket> packet =
+        deserialize(PacketType::CHARACTERSELECT, payload);
+    return packet;
+  }
   default:
     cerr << ("Server Warning: Unknown packet type") << endl;
     return nullptr;
@@ -168,4 +175,12 @@ void ServerNetwork::handleClientDisconnect(CLIENT_ID id) {
     socket->close();
   }
   clients.erase(id);
+  onClientLeave(id);
+}
+
+void ServerNetwork::setOnJoin(function<void()> callback) {
+  onClientJoin = callback;
+}
+void ServerNetwork::setOnLeave(function<void(int)> callback) {
+  onClientLeave = callback;
 }

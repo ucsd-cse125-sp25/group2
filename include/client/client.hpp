@@ -1,11 +1,13 @@
 #pragma once
 
 #include "camera.hpp"
+#include "client_character_manager.hpp"
 #include "client_gamestate.hpp"
 #include "client_network.hpp"
 #include "core.hpp"
 #include "model.hpp"
 #include "shader.hpp"
+#include "ui_manager.hpp"
 
 using namespace std;
 
@@ -13,6 +15,7 @@ class Client {
 private:
   // Camera properties
   unique_ptr<Camera> cam;
+  float mouseX, mouseY;
   float xOffset, yOffset;
 
   // Gamestate
@@ -20,6 +23,12 @@ private:
 
   // Network
   unique_ptr<ClientNetwork> network;
+
+  // Ui management / creation
+  unique_ptr<UIManager> ui;
+
+  // Character Selection
+  unique_ptr<CharacterManager> characterManager;
 
   void updatePlayerRotation();
 
@@ -36,6 +45,8 @@ public:
   bool initObjects();
   bool initNetwork(asio::io_context &io_context, const string &ip,
                    const string &port);
+  bool initUI();
+
   void cleanUp();
 
   // update and draw functions

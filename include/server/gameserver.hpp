@@ -1,5 +1,6 @@
 #pragma once
 
+#include "server_character_manager.hpp"
 #include "server_gamestate.hpp"
 #include "server_network.hpp"
 
@@ -10,6 +11,7 @@ private:
   // Network and GameState
   unique_ptr<ServerNetwork> network;
   unique_ptr<ServerGameState> game;
+  unique_ptr<CharacterManager> characterManager;
 
 public:
   GameServer(asio::io_context &io_context, const string &ip,

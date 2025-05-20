@@ -15,6 +15,8 @@ private:
   GameObject *player;
 
 public:
+  Gamestate state;
+
   bool init();
 
   // update methods

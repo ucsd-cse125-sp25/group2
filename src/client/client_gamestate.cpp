@@ -5,7 +5,7 @@ bool ClientGameState::init() {
   objectList = objectLoader.loadObjects();
   // player kind of hardcoded for now, later with character selection
   player = getObject(0);
-
+  state = Gamestate::STARTSCREEN;
   return true;
 }
 

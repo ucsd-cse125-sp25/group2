@@ -28,4 +28,5 @@ public:
   deque<unique_ptr<IPacket>> receive();
 
   void setId(CLIENT_ID id) { this->id = id; }
+  CLIENT_ID getId() { return id; }
 };

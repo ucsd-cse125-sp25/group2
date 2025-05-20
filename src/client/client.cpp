@@ -8,11 +8,14 @@ Client::Client() {
 
   // Initialize camera properties
   cam = make_unique<Camera>();
+  mouseX = 0.0f;
+  mouseY = 0.0f;
   xOffset = 0.0f;
   yOffset = 0.0f;
 
   // Initialize game state properties
   game = make_unique<ClientGameState>();
+  characterManager = make_unique<CharacterManager>();
 }
 
 bool Client::init() {
@@ -53,8 +56,8 @@ bool Client::init() {
   }
 
   // Hide the cursor and lock it to the center of the window
-  glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-  glfwSetInputMode(window, GLFW_RAW_MOUSE_MOTION, GLFW_TRUE);
+  // glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+  // glfwSetInputMode(window, GLFW_RAW_MOUSE_MOTION, GLFW_TRUE);
 
   return true;
 }
@@ -71,6 +74,35 @@ bool Client::initNetwork(asio::io_context &io_context, const string &ip,
                          const string &port) {
   network = make_unique<ClientNetwork>(io_context, ip, port);
   return !network->err;
+}
+
+bool Client::initUI() {
+  UIManager::make_menus();
+  UIManager::startButton->setOnClick(
+      []() { UIManager::startScreenUI->play(); });
+  UIManager::startButton->setOnSelect(
+      []() { UIManager::startButton->isSelected = true; });
+  UIManager::startScreenUI->setOnSelect([&state = game->state]() {
+    state = Gamestate::MAINMENU;
+    UIManager::startScreenUI->isSelected = true;
+  });
+  UIManager::chickenButton->setOnClick([net = network.get()]() {
+    CharacterSelectPacket packet(Characters::CHICKEN, net->getId());
+    net->send(packet);
+  });
+  UIManager::pigButton->setOnClick([net = network.get()]() {
+    CharacterSelectPacket packet(Characters::PIG, net->getId());
+    net->send(packet);
+  });
+  UIManager::sheepButton->setOnClick([net = network.get()]() {
+    CharacterSelectPacket packet(Characters::SHEEP, net->getId());
+    net->send(packet);
+  });
+  UIManager::cowButton->setOnClick([net = network.get()]() {
+    CharacterSelectPacket packet(Characters::COW, net->getId());
+    net->send(packet);
+  });
+  return true;
 }
 
 void Client::cleanUp() {
@@ -90,11 +122,25 @@ void Client::idleCallback() {
     case PacketType::INIT: {
       auto initPacket = dynamic_cast<InitPacket *>(packet.get());
       network->setId(initPacket->clientID);
+      characterManager->setID(initPacket->clientID);
       break;
     }
     case PacketType::OBJECT: {
       auto objectPacket = dynamic_cast<ObjectPacket *>(packet.get());
       game->update(objectPacket->objectID, &objectPacket->transform);
+      break;
+    }
+    case PacketType::CHARACTERRESPONSE: {
+      auto characterPacket =
+          dynamic_cast<CharacterResponsePacket *>(packet.get());
+      characterManager->setCharacter(
+          characterPacket->chicken, characterPacket->sheep,
+          characterPacket->pig, characterPacket->cow);
+      break;
+    }
+    case PacketType::GAMESTATE: {
+      auto statePacket = dynamic_cast<GameStatePacket *>(packet.get());
+      game->state = statePacket->state;
       break;
     }
     }
@@ -106,13 +152,24 @@ void Client::idleCallback() {
 }
 
 void Client::displayCallback(GLFWwindow *window) {
+  static double previousTime = glfwGetTime();
+
+  double currentTime = glfwGetTime();
+  float deltaTime = static_cast<float>(currentTime - previousTime);
+  previousTime = currentTime;
+
   // Clear the color and depth buffers
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-  // Draw objects
-  game->draw(cam->getViewProj());
+  UIManager::draw_menu(game->state);
+  UIManager::update_menu(mouseX, mouseY, windowWidth, windowHeight, deltaTime,
+                         game->state);
 
-  // Main render display callback. Rendering of objects is done here
+  // Draw objects
+  if (game->state == Gamestate::GAME) {
+    game->draw(cam->getViewProj());
+  }
+
   glfwSwapBuffers(window);
 
   // Check events and swap buffers
@@ -184,6 +241,9 @@ void Client::mouseCallback(GLFWwindow *window, double xPos, double yPos) {
   static float lastX = 0.0f;
   static float lastY = 0.0f;
   static bool firstMouse = true;
+
+  mouseX = static_cast<float>(xPos);
+  mouseY = static_cast<float>(yPos);
 
   if (firstMouse) {
     lastX = static_cast<float>(xPos);
