@@ -8,19 +8,21 @@ using namespace chrono;
 #define SERVERTICKS milliseconds(30)
 
 int main() {
-  try {
-    // Create context and start the server
-    asio::io_context io_context;
-    GameServer server(io_context, "127.0.0.1", "12345");
-    server.start();
-    int count = 0;
+  // Create context and start the server
+  asio::io_context io_context;
+  unique_ptr<GameServer> server(new GameServer(io_context));
+  if (!server->start()) {
+    cerr << "Server Initialization Failed" << endl;
+    exit(EXIT_FAILURE);
+  }
 
+  try {
     // Server loop
     while (true) {
       auto start = high_resolution_clock::now();
 
-      server.updateGameState();
-      server.dispatchUpdates();
+      server->updateGameState();
+      server->dispatchUpdates();
 
       auto stop = high_resolution_clock::now();
       auto wait = duration_cast<milliseconds>(SERVERTICKS - (stop - start));
@@ -35,5 +37,5 @@ int main() {
     cerr << "Server Exception: " << e.what() << endl;
   }
 
-  return 0;
+  exit(EXIT_SUCCESS);
 }

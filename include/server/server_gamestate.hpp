@@ -8,6 +8,7 @@
 #include <iostream>
 #include <memory>
 #include <unordered_map>
+#include <unordered_set>
 #include <vector>
 
 using namespace std;
@@ -17,7 +18,7 @@ private:
   int level;
   float deltaTime;
   unordered_map<int, unique_ptr<GameObject>> objectList;
-  vector<int> updatedObjectIds;
+  unordered_set<int> updatedObjectIds;
   unique_ptr<Physics> physicsWorld;
 
 public:
@@ -28,6 +29,7 @@ public:
 
   // update methods
   void updateMovement(int id, MovementType type, glm::vec3 cameraFront);
+  void updateRotation(int id, glm::vec3 rotation);
   void updateInteraction(int id);
   void applyPhysics();
 

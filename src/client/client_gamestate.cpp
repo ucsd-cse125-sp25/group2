@@ -3,16 +3,16 @@
 bool ClientGameState::init() {
   ObjectLoader objectLoader = ObjectLoader();
   objectList = objectLoader.loadObjects();
-  player = objectList.begin()->second.get();
+  // player kind of hardcoded for now, later with character selection
+  player = getObject(0);
   state = Gamestate::STARTSCREEN;
   return true;
 }
 
 void ClientGameState::update(int id, Transform *tf) {
   auto obj = getObject(id);
-  if (obj) {
+  if (obj)
     obj->update(tf);
-  }
 }
 
 void ClientGameState::draw(const glm::mat4 &viewProjMtx) {

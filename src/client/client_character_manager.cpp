@@ -33,8 +33,8 @@ void CharacterManager::setCharacter(int ch, int s, int p, int c) {
       UIManager::deselectMenuButtons();
       UIManager::selectButton(slot.button);
       selectedCharacter = slot.characterType;
-      printf("Client %d has been assigned to %u\n", whoAmI,
-             (uint8_t)slot.characterType);
+      cout << "Client " << whoAmI << " has been assigned to "
+           << (uint8_t)slot.characterType << endl;
     }
     // Case 3: Character is assigned to someone else → lock the button
     else {

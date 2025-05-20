@@ -1,19 +1,33 @@
 #include "gameserver.hpp"
 
-GameServer::GameServer(asio::io_context &io_context, const string &ip,
-                       const string &port) {
+GameServer::GameServer(asio::io_context &io_context) {
   game = make_unique<ServerGameState>();
-  network = make_unique<ServerNetwork>(io_context, ip, port);
+  network = make_unique<ServerNetwork>(io_context,
+                                       loadConfig(CONFIG_PATH)["server-ip"],
+                                       loadConfig(CONFIG_PATH)["port"]);
   characterManager = make_unique<CharacterManager>();
+}
+
+json GameServer::loadConfig(const std::string &path) {
+  std::ifstream file(path);
+  if (!file.is_open()) {
+    throw std::runtime_error("Could not open config file at " + path);
+  }
+  json j;
+  file >> j;
+  return j;
 }
 
 GameServer::~GameServer() {}
 
-void GameServer::start() {
-  network->start();
+bool GameServer::start() {
+  if (!network->start()) {
+    cerr << "ServerNetwork initialization failed" << endl;
+    return false;
+  }
   if (!game->init()) {
     cerr << "ServerGameState initialization failed" << endl;
-    return;
+    return false;
   }
   network->setOnJoin(
       [game = game.get(), &select = characterManager, net = network.get()]() {
@@ -32,6 +46,7 @@ void GameServer::start() {
       net->sendToAll(responsePacket);
     }
   });
+  return true;
 }
 
 void GameServer::updateGameState() {
@@ -46,6 +61,11 @@ void GameServer::updateGameState() {
       game->updateMovement(movementPacket->objectID,
                            movementPacket->movementType,
                            movementPacket->cameraFront);
+      break;
+    }
+    case PacketType::ROTATION: {
+      auto rotationPacket = static_cast<RotationPacket *>(packet.get());
+      game->updateRotation(rotationPacket->objectID, rotationPacket->rotation);
       break;
     }
     case PacketType::INTERACTION: {

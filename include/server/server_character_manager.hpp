@@ -1,4 +1,5 @@
 #pragma once
+
 #include "globals.hpp"
 
 class CharacterManager {
