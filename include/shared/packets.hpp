@@ -67,7 +67,7 @@ struct CharacterResponsePacket : public IPacket {
   int characters[4];
 
   CharacterResponsePacket(const int characters_in[4]) {
-      std::memcpy(characters, characters_in, 4 * sizeof(int));
+    std::memcpy(characters, characters_in, 4 * sizeof(int));
   }
   PacketType getType() const override { return PacketType::CHARACTERRESPONSE; }
   vector<char> serialize() const override;

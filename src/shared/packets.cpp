@@ -56,14 +56,14 @@ GameStatePacket GameStatePacket::deserialize(const vector<char> &payload) {
 
 vector<char> CharacterResponsePacket::serialize() const {
   vector<char> buffer(sizeof(int) * 4);
-  memcpy(buffer.data(), characters, sizeof(int)*4);
+  memcpy(buffer.data(), characters, sizeof(int) * 4);
   return buffer;
 }
 
 CharacterResponsePacket
 CharacterResponsePacket::deserialize(const vector<char> &payload) {
   int characters[4];
-  memcpy(characters, payload.data(), sizeof(int)*4);
+  memcpy(characters, payload.data(), sizeof(int) * 4);
   CharacterResponsePacket packet(characters);
   return packet;
 }

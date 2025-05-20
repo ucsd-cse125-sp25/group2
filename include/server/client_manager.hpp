@@ -4,7 +4,6 @@
 
 class ClientManager {
 private:
-
   int characterHolding[4];
 
 public:
