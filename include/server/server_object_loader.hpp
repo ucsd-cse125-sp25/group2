@@ -2,9 +2,9 @@
 
 #include "base_object_loader.hpp"
 #include "globals.hpp"
+#include "player.hpp"
 #include "server_gameobject.hpp"
 #include "transform.hpp"
-#include "player.hpp"
 
 #include <fstream>
 #include <iostream>

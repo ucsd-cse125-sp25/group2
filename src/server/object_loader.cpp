@@ -44,8 +44,8 @@ unordered_map<int, unique_ptr<GameObject>> ObjectLoader::loadObjects() {
           string playerType = server["playerType"].get<string>();
           auto characterType = magic_enum::enum_cast<Characters>(playerType);
 
-          auto playerObj = make_unique<Player>(objectId, base.active, base.transform,
-                                              rb, cl);
+          auto playerObj = make_unique<Player>(objectId, base.active,
+                                               base.transform, rb, cl);
           playerObj->setCharacter(characterType.value());
           obj = std::move(playerObj);
         } else {
