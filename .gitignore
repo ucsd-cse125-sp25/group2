@@ -5,6 +5,7 @@ wsl/
 
 # Visual Studio
 .vs/
+/VSBuild
 
 # MacOS system files
 .DS_Store

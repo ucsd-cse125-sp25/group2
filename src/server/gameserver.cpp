@@ -1,10 +1,21 @@
 #include "gameserver.hpp"
 
-GameServer::GameServer(asio::io_context &io_context, const string &ip,
-                       const string &port) {
+GameServer::GameServer(asio::io_context &io_context) {
   game = make_unique<ServerGameState>();
-  network = make_unique<ServerNetwork>(io_context, ip, port);
+  network = make_unique<ServerNetwork>(io_context,
+                                       loadConfig(CONFIG_PATH)["server-ip"],
+                                       loadConfig(CONFIG_PATH)["port"]);
   characterManager = make_unique<CharacterManager>();
+}
+
+json GameServer::loadConfig(const std::string &path) {
+  std::ifstream file(path);
+  if (!file.is_open()) {
+    throw std::runtime_error("Could not open config file at " + path);
+  }
+  json j;
+  file >> j;
+  return j;
 }
 
 GameServer::~GameServer() {}
