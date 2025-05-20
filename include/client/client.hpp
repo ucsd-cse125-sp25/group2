@@ -49,8 +49,8 @@ public:
   void cleanUp();
 
   // update and draw functions
-  void idleCallback();
-  void displayCallback(GLFWwindow *window, float deltaTime);
+  void idleCallback(float deltaTime);
+  void displayCallback(GLFWwindow *window);
 
   // process wasd + jump input
   void processMovementInput();

@@ -118,7 +118,7 @@ void Client::cleanUp() {
 }
 
 // Perform any updates to objects, camera, etc
-void Client::idleCallback() {
+void Client::idleCallback(float deltaTime) {
   deque<unique_ptr<IPacket>> packets = network->receive();
 
   while (!packets.empty()) {
@@ -158,21 +158,26 @@ void Client::idleCallback() {
     }
     }
   }
-  cam->update(xOffset, yOffset, game->getPlayer()->getPosition());
-  xOffset = 0.0f;
-  yOffset = 0.0f;
-  updatePlayerRotation();
+  if (game->state == Gamestate::STARTSCREEN || game->state == Gamestate::MAINMENU) {
+    UIManager::update_menu(mouseX, mouseY, windowWidth, windowHeight, deltaTime,
+                           game->state);
+  }
+
+  if (game->state == Gamestate::GAME) {
+    cam->update(xOffset, yOffset, game->getPlayer()->getPosition());
+    xOffset = 0.0f;
+    yOffset = 0.0f;
+    updatePlayerRotation();
+  }
 }
 
-void Client::displayCallback(GLFWwindow *window, float deltaTime) {
+void Client::displayCallback(GLFWwindow *window) {
   // Clear the color and depth buffers
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
   if (game->state == Gamestate::STARTSCREEN ||
       game->state == Gamestate::MAINMENU) {
     UIManager::draw_menu(game->state);
-    UIManager::update_menu(mouseX, mouseY, windowWidth, windowHeight, deltaTime,
-                           game->state);
   }
 
   // Draw objects
