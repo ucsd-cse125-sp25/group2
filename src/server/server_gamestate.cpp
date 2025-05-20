@@ -48,7 +48,7 @@ void ServerGameState::updateMovement(int id, MovementType type,
 void ServerGameState::updateRotation(int id, glm::vec3 rotation) {
   auto obj = getObject(id);
   if (obj) {
-    obj->getTransform()->updateRotation(rotation);
+    obj->getTransform()->setRotation(rotation);
     updatedObjectIds.insert(id);
   }
 }

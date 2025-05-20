@@ -147,19 +147,18 @@ void Client::updatePlayerRotation() {
   float cameraYaw = cam->getRotation().y;
   float playerYaw = game->getPlayer()->getRotation().y;
 
-  float yawDiff = -(cameraYaw + playerYaw - 90.0f);
+  float targetYaw = -(cameraYaw - 90.0f);
 
-  // Normalize to [-180, 180] to get shortest rotation direction
-  if (yawDiff > 180.0f)
-    yawDiff -= 360.0f;
-  if (yawDiff < -180.0f)
-    yawDiff += 360.0f;
+  if (targetYaw > 360.0f || targetYaw < -360.0f)
+    targetYaw = fmod(targetYaw, 360.0f);
 
-  if (fabs(yawDiff) > 0.01f) {
-    glm::vec3 deltaRotation(0.0f, yawDiff, 0.0f);
-    game->getPlayer()->getTransform()->updateRotation(deltaRotation);
+  if (fabs(targetYaw - playerYaw) > 0.01f) {
+    glm::vec3 currentRotation = game->getPlayer()->getRotation();
+    glm::vec3 newRotation = glm::vec3(currentRotation.x, targetYaw,
+                              currentRotation.z);
+    game->getPlayer()->getTransform()->setRotation(newRotation);
 
-    RotationPacket packet(game->getPlayer()->getId(), deltaRotation);
+    RotationPacket packet(game->getPlayer()->getId(), newRotation);
     network->send(packet);
   }
 }
