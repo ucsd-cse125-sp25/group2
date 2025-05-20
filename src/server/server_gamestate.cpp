@@ -58,7 +58,7 @@ void ServerGameState::updateInteraction(glm::vec3 rayDirection,
   GameObject *closestObject = nullptr;
   float minDistance = std::numeric_limits<float>::max();
 
-  for (auto &obj: objectList) {
+  for (auto &obj : objectList) {
     auto object = obj.second.get();
     glm::vec3 center = object->getTransform()->getPosition();
     glm::vec3 halfExtents = object->getCollider()->getHalfExtents();
@@ -75,13 +75,19 @@ void ServerGameState::updateInteraction(glm::vec3 rayDirection,
       closestPointOnRay = rayOrigin + rayDirection;
     else
       closestPointOnRay = rayOrigin + rayDirection * t;
-      
+
     glm::vec3 closestPointOnBox;
 
-    closestPointOnBox.x = glm::clamp(closestPointOnRay.x, center.x - halfExtents.x, center.x + halfExtents.x);
-    closestPointOnBox.y = glm::clamp(closestPointOnRay.y, center.y - halfExtents.y, center.y + halfExtents.y);
-    closestPointOnBox.z = glm::clamp(closestPointOnRay.z, center.z - halfExtents.z, center.z + halfExtents.z);
-  
+    closestPointOnBox.x =
+        glm::clamp(closestPointOnRay.x, center.x - halfExtents.x,
+                   center.x + halfExtents.x);
+    closestPointOnBox.y =
+        glm::clamp(closestPointOnRay.y, center.y - halfExtents.y,
+                   center.y + halfExtents.y);
+    closestPointOnBox.z =
+        glm::clamp(closestPointOnRay.z, center.z - halfExtents.z,
+                   center.z + halfExtents.z);
+
     float distance = glm::distance(closestPointOnRay, closestPointOnBox);
 
     if (closestObject == nullptr || distance < minDistance) {
