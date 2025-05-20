@@ -217,7 +217,9 @@ void Client::mouseButtonCallback(GLFWwindow *window, int button, int action,
                                  int mods) {
   if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS) {
     // Handle left mouse button press
-    InteractionPacket packet(0);
+    glm::vec3 rayOrigin = cam->getPos();
+    glm::vec3 rayDirection = cam->getFacing();
+    InteractionPacket packet(rayDirection, rayOrigin);
     network->send(packet);
     cout << "Left mouse button pressed" << endl;
   }

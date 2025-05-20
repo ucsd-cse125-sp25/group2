@@ -28,7 +28,7 @@ public:
 
   // update methods
   void updateMovement(int id, MovementType type, glm::vec3 cameraFront);
-  void updateInteraction(int id);
+  void updateInteraction(glm::vec3 rayDirection, glm::vec3 rayOrigin);
   void applyPhysics();
 
   // getters
