@@ -55,10 +55,6 @@ bool Client::init() {
     return false;
   }
 
-  // Hide the cursor and lock it to the center of the window
-  // glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-  // glfwSetInputMode(window, GLFW_RAW_MOUSE_MOTION, GLFW_TRUE);
-
   return true;
 }
 
@@ -144,6 +140,11 @@ void Client::idleCallback() {
     case PacketType::GAMESTATE: {
       auto statePacket = dynamic_cast<GameStatePacket *>(packet.get());
       game->state = statePacket->state;
+      if (game->state == Gamestate::GAME) {
+        // Hide the cursor and lock it to the center of the window when the game starts
+        glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+        glfwSetInputMode(window, GLFW_RAW_MOUSE_MOTION, GLFW_TRUE);
+      }
       break;
     }
     case PacketType::CHARACTERRESPONSE: {
@@ -166,15 +167,18 @@ void Client::displayCallback(GLFWwindow *window, float deltaTime) {
   // Clear the color and depth buffers
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-  UIManager::draw_menu(game->state);
-  UIManager::update_menu(mouseX, mouseY, windowWidth, windowHeight, deltaTime,
+  if (game->state == Gamestate::STARTSCREEN || game->state == Gamestate::MAINMENU) {
+    UIManager::draw_menu(game->state);
+    UIManager::update_menu(mouseX, mouseY, windowWidth, windowHeight, deltaTime,
                          game->state);
+  }
 
   // Draw objects
   if (game->state == Gamestate::GAME) {
     game->draw(cam->getViewProj());
   }
 
+  // Main render display callback. Rendering of objects is done here
   glfwSwapBuffers(window);
 
   // Check events and swap buffers
