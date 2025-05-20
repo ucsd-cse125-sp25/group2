@@ -270,13 +270,12 @@ void Client::mouseCallback(GLFWwindow *window, double xPos, double yPos) {
 void Client::mouseButtonCallback(GLFWwindow *window, int button, int action,
                                  int mods) {
   if (action == GLFW_PRESS) {
-    if (button == GLFW_MOUSE_BUTTON_LEFT) {
+    if (button == GLFW_MOUSE_BUTTON_LEFT && game->state == Gamestate::GAME) {
       // Handle left mouse button press
       InteractionPacket packet(0);
       network->send(packet);
-      cout << "Left mouse button pressed" << endl;
     }
-    // to switch between different clients on one machine
+    // delete later: to switch between different clients on one machine
     if (button == GLFW_MOUSE_BUTTON_RIGHT) {
       static bool isCursorHidden = true;
       if (isCursorHidden) {
