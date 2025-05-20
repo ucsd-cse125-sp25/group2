@@ -20,11 +20,12 @@ private:
   asio::ip::tcp::acceptor _acceptor;
   map<CLIENT_ID, shared_ptr<asio::ip::tcp::socket>> clients;
 
+  unordered_map<int, MovementType> lastMovement;
+  unordered_map<int, unique_ptr<IPacket>> lastRotation;
+
   bool acceptClient();
   unique_ptr<IPacket> processPackets(PacketType type, vector<char> payload,
                                      int clientID);
-
-  unordered_map<int, MovementType> lastMovement;
 
 public:
   ServerNetwork(asio::io_context &io_context, const string &ip,

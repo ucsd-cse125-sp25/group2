@@ -27,8 +27,9 @@ bool ServerNetwork::acceptClient() {
   _acceptor.async_accept(*socket, [this, socket](error_code ec) {
     if (!ec) {
       cout << "New client connected" << endl;
-      this->clients[clientID] = socket;
-      this->lastMovement[clientID] = MovementType::NONE;
+      clients[clientID] = socket;
+      lastMovement[clientID] = MovementType::NONE;
+      lastRotation[clientID] = nullptr;
       InitPacket init(clientID);
       sendToClient(clientID, init);
       clientID++;
@@ -102,16 +103,25 @@ deque<unique_ptr<IPacket>> ServerNetwork::receiveFromClients() {
 
       unique_ptr<IPacket> packet =
           processPackets(static_cast<PacketType>(type), payload, it->first);
-      if (packet != nullptr) {
+      if (packet) {
         packets.push_back(move(packet));
       }
     }
     if (ec == asio::error::eof || ec == asio::error::connection_reset) {
       handleClientDisconnect(it->first);
     }
-    this->lastMovement[it->first] = MovementType::NONE;
+    lastMovement[it->first] = MovementType::NONE;
     it++;
   }
+
+  // add latest rotation packets for each client
+  for (auto& [clientId, packet] : lastRotation) {
+    if (packet) {
+      packets.push_back(move(packet));
+    }
+  }
+  lastRotation.clear();
+
   return packets;
 }
 
@@ -129,15 +139,13 @@ unique_ptr<IPacket> ServerNetwork::processPackets(PacketType type,
     if (lastMovement[clientID] != movementPacket->movementType) {
       lastMovement[clientID] = movementPacket->movementType;
       return packet;
-    } else {
-      cout << "Client " << clientID
-           << " sent the same movement packet, ignoring." << endl;
-      return nullptr;
     }
+    return nullptr;
   }
   case PacketType::ROTATION: {
     unique_ptr<IPacket> packet = deserialize(PacketType::ROTATION, payload);
-    return packet;
+    lastRotation[clientID] = move(packet);
+    return nullptr;
   }
   case PacketType::INTERACTION: {
     unique_ptr<IPacket> packet = deserialize(PacketType::INTERACTION, payload);
