@@ -1,6 +1,8 @@
 #pragma once
+
 #include "core.hpp"
 #include "shader.hpp"
+
 #include <functional>
 #include <iostream>
 #include <memory>
@@ -28,6 +30,33 @@ struct AnimationInfo {
 };
 
 class BaseUI {
+private:
+  // Position & size in NDC
+  float x, y;
+  float width, height;
+
+  bool clickable;
+  bool hoverable;
+
+  bool isAnim;
+
+  unique_ptr<Shader> shader;
+
+  // Textures
+  GLuint textureID;
+  GLuint hoverTextureID;
+
+  // Callbacks
+  function<void()> onClickCallback;
+  function<void()> onSelectCallback;
+
+  // VAO, VBO, EBO
+  GLuint VAO, VBO, EBO;
+
+  bool hovered;
+
+  void setupQuad();
+
 public:
   int zIndex = 0;
   AnimationInfo animInfo;
@@ -64,31 +93,4 @@ public:
   bool isHovered(float x_ndc, float y_ndc);
 
   void play();
-
-private:
-  // Position & size in NDC
-  float x, y;
-  float width, height;
-
-  bool clickable;
-  bool hoverable;
-
-  bool isAnim;
-
-  unique_ptr<Shader> shader;
-
-  // Textures
-  GLuint textureID;
-  GLuint hoverTextureID;
-
-  // Callbacks
-  function<void()> onClickCallback;
-  function<void()> onSelectCallback;
-
-  // VAO, VBO, EBO
-  GLuint VAO, VBO, EBO;
-
-  bool hovered;
-
-  void setupQuad();
 };
