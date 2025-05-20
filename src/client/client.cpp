@@ -211,8 +211,8 @@ void Client::updatePlayerRotation() {
 
   if (fabs(targetYaw - playerYaw) > 0.01f) {
     glm::vec3 currentRotation = game->getPlayer()->getRotation();
-    glm::vec3 newRotation = glm::vec3(currentRotation.x, targetYaw,
-                              currentRotation.z);
+    glm::vec3 newRotation =
+        glm::vec3(currentRotation.x, targetYaw, currentRotation.z);
     game->getPlayer()->getTransform()->setRotation(newRotation);
 
     RotationPacket packet(game->getPlayer()->getId(), newRotation);
