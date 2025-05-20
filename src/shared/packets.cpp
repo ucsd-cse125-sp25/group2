@@ -148,7 +148,7 @@ InteractionPacket InteractionPacket::deserialize(const vector<char> &payload) {
   int objectID;
   glm::vec3 rayDirection;
   glm::vec3 rayOrigin;
-  
+
   unsigned long size = 0;
   memcpy(&objectID, payload.data(), sizeof(int));
   size += sizeof(int);
