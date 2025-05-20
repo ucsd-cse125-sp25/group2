@@ -64,13 +64,11 @@ struct GameStatePacket : public IPacket {
   static GameStatePacket deserialize(const vector<char> &payload);
 };
 struct CharacterResponsePacket : public IPacket {
-  int chicken;
-  int sheep;
-  int pig;
-  int cow;
+  int characters[4];
 
-  CharacterResponsePacket(int chicken, int sheep, int pig, int cow)
-      : chicken(chicken), sheep(sheep), pig(pig), cow(cow) {}
+  CharacterResponsePacket(const int characters_in[4]) {
+      std::memcpy(characters, characters_in, 4 * sizeof(int));
+  }
   PacketType getType() const override { return PacketType::CHARACTERRESPONSE; }
   vector<char> serialize() const override;
   static CharacterResponsePacket deserialize(const vector<char> &payload);

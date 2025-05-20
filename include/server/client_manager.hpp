@@ -4,11 +4,11 @@
 
 class ClientManager {
 private:
-  int characterAssignments[4];
 
   int characterHolding[4];
 
 public:
+  int characterAssignments[4];
   ClientManager();
 
   void setID(int id);

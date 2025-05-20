@@ -32,17 +32,15 @@ bool GameServer::start() {
   network->setOnJoin(
       [game = game.get(), &select = clientManager, net = network.get()]() {
         if (game->state != Gamestate::GAME) {
-          CharacterResponsePacket responsePacket(select->chicken, select->sheep,
-                                                 select->pig, select->cow);
+          CharacterResponsePacket responsePacket(select->characterAssignments);
           net->sendToAll(responsePacket);
         }
       });
   network->setOnLeave([game = game.get(), &select = clientManager,
                        net = network.get()](int id) {
     if (game->state != Gamestate::GAME) {
-      select->isAlreadyAssigned(id);
-      CharacterResponsePacket responsePacket(select->chicken, select->sheep,
-                                             select->pig, select->cow);
+      select->unAssign(id);
+      CharacterResponsePacket responsePacket(select->characterAssignments);
       net->sendToAll(responsePacket);
     }
   });
@@ -79,8 +77,7 @@ void GameServer::updateGameState() {
       clientManager->assignCharacter(characterPacket->character,
                                      characterPacket->clientID);
       CharacterResponsePacket responsePacket(
-          clientManager->chicken, clientManager->sheep, clientManager->pig,
-          clientManager->cow);
+          clientManager->characterAssignments);
       network->sendToAll(responsePacket);
       // if (clientManager->allAssigned()) {
       GameStatePacket statePacket(Gamestate::GAME);

@@ -56,33 +56,15 @@ GameStatePacket GameStatePacket::deserialize(const vector<char> &payload) {
 
 vector<char> CharacterResponsePacket::serialize() const {
   vector<char> buffer(sizeof(int) * 4);
-  unsigned long size = 0;
-  memcpy(buffer.data(), &chicken, sizeof(int));
-  size += sizeof(int);
-  memcpy(buffer.data() + size, &sheep, sizeof(int));
-  size += sizeof(int);
-  memcpy(buffer.data() + size, &pig, sizeof(int));
-  size += sizeof(int);
-  memcpy(buffer.data() + size, &cow, sizeof(int));
+  memcpy(buffer.data(), characters, sizeof(int)*4);
   return buffer;
 }
 
 CharacterResponsePacket
 CharacterResponsePacket::deserialize(const vector<char> &payload) {
-  int chicken;
-  int sheep;
-  int pig;
-  int cow;
-
-  unsigned long size = 0;
-  memcpy(&chicken, payload.data(), sizeof(int));
-  size += sizeof(int);
-  memcpy(&sheep, payload.data() + size, sizeof(int));
-  size += sizeof(int);
-  memcpy(&pig, payload.data() + size, sizeof(int));
-  size += sizeof(int);
-  memcpy(&cow, payload.data() + size, sizeof(int));
-  CharacterResponsePacket packet(chicken, sheep, pig, cow);
+  int characters[4];
+  memcpy(characters, payload.data(), sizeof(int)*4);
+  CharacterResponsePacket packet(characters);
   return packet;
 }
 

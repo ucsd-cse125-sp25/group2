@@ -154,8 +154,8 @@ void Client::idleCallback(float deltaTime) {
       auto characterPacket =
           dynamic_cast<CharacterResponsePacket *>(packet.get());
       characterManager->setCharacter(
-          characterPacket->chicken, characterPacket->sheep,
-          characterPacket->pig, characterPacket->cow);
+          characterPacket->characters[0], characterPacket->characters[1],
+          characterPacket->characters[2], characterPacket->characters[3]);
       break;
     }
     }
