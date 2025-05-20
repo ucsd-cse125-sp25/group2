@@ -55,45 +55,42 @@ void ServerGameState::updateRotation(int id, glm::vec3 rotation) {
 
 void ServerGameState::updateInteraction(glm::vec3 rayDirection,
                                         glm::vec3 rayOrigin) {
-  // Variables to track the closest intersection
-  float closestDistance = std::numeric_limits<float>::max();
   GameObject *closestObject = nullptr;
+  float minDistance = std::numeric_limits<float>::max();
 
-  // Check each game object for intersection
-  for (const auto &[objectId, gameObject] : objectList) {
-    // Skip inactive objects
-    if (!gameObject->isActive()) {
-      continue;
-    }
+  for (auto &obj: objectList) {
+    auto object = obj.second.get();
+    glm::vec3 center = object->getTransform()->getPosition();
+    glm::vec3 halfExtents = object->getCollider()->getHalfExtents();
 
-    // Get object position (center)
-    glm::vec3 objectPos = gameObject->getPosition();
+    glm::vec3 vDirToBox = center - rayOrigin;
+    glm::vec3 vLineDir = glm::normalize(rayDirection);
+    float fLineLength = 100.0f;
+    float t = glm::dot(vDirToBox, vLineDir);
+    glm::vec3 closestPointOnRay;
 
-    // Get object scale for rough size
-    glm::vec3 objectScale = gameObject->getScale();
-    float objectRadius = glm::length(objectScale) * 0.5f; // Approximate radius
+    if (t <= 0.0f)
+      closestPointOnRay = rayOrigin;
+    else if (t >= fLineLength)
+      closestPointOnRay = rayOrigin + rayDirection;
+    else
+      closestPointOnRay = rayOrigin + rayDirection * t;
+      
+    glm::vec3 closestPointOnBox;
 
-    // Calculate basic sphere intersection (can be improved for more accuracy)
-    glm::vec3 oc = rayOrigin - objectPos;
-    float a = glm::dot(rayDirection, rayDirection);
-    float b = 2.0f * glm::dot(oc, rayDirection);
-    float c = glm::dot(oc, oc) - objectRadius * objectRadius;
-    float discriminant = b * b - 4 * a * c;
+    closestPointOnBox.x = glm::clamp(closestPointOnRay.x, center.x - halfExtents.x, center.x + halfExtents.x);
+    closestPointOnBox.y = glm::clamp(closestPointOnRay.y, center.y - halfExtents.y, center.y + halfExtents.y);
+    closestPointOnBox.z = glm::clamp(closestPointOnRay.z, center.z - halfExtents.z, center.z + halfExtents.z);
+  
+    float distance = glm::distance(closestPointOnRay, closestPointOnBox);
 
-    if (discriminant > 0) {
-      // Calculate intersection distance
-      float dist = (-b - sqrt(discriminant)) / (2.0f * a);
-
-      // Only consider positive distances (in front of camera)
-      if (dist > 0 && dist < closestDistance) {
-        closestDistance = dist;
-        closestObject = gameObject.get();
-      }
+    if (closestObject == nullptr || distance < minDistance) {
+      closestObject = object;
+      minDistance = distance;
     }
   }
-  cout << "Closest object ID: " << (closestObject ? closestObject->getId() : -1)
-       << endl;
-  // return closestObject;
+
+  cout << "Closest object: " << closestObject->getId() << endl;
 }
 
 void ServerGameState::applyPhysics() {
