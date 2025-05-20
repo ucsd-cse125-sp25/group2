@@ -274,8 +274,8 @@ void Client::mouseButtonCallback(GLFWwindow *window, int button, int action,
   if (action == GLFW_PRESS) {
     if (button == GLFW_MOUSE_BUTTON_LEFT && game->state == Gamestate::GAME) {
       // Handle left mouse button press
-    glm::vec3 rayOrigin = cam->getPos();
-    glm::vec3 rayDirection = cam->getFacing();
+      glm::vec3 rayOrigin = cam->getPos();
+      glm::vec3 rayDirection = cam->getFacing();
       InteractionPacket packet(rayDirection, rayOrigin);
       network->send(packet);
     }
