@@ -85,17 +85,13 @@ unique_ptr<IPacket> ClientNetwork::processPackets(PacketType type,
     unique_ptr<IPacket> packet = deserialize(PacketType::OBJECT, payload);
     return packet;
   }
-  case PacketType::MOVEMENT: {
-    unique_ptr<IPacket> packet = deserialize(PacketType::MOVEMENT, payload);
+  case PacketType::GAMESTATE: {
+    unique_ptr<IPacket> packet = deserialize(PacketType::GAMESTATE, payload);
     return packet;
   }
   case PacketType::CHARACTERRESPONSE: {
     unique_ptr<IPacket> packet =
         deserialize(PacketType::CHARACTERRESPONSE, payload);
-    return packet;
-  }
-  case PacketType::GAMESTATE: {
-    unique_ptr<IPacket> packet = deserialize(PacketType::GAMESTATE, payload);
     return packet;
   }
   default:

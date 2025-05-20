@@ -40,81 +40,17 @@ ObjectPacket ObjectPacket::deserialize(const vector<char> &payload) {
   return packet;
 }
 
-vector<char> MovementPacket::serialize() const {
-  vector<char> buffer(sizeof(int) + sizeof(MovementType) + sizeof(glm::vec3));
-  unsigned long size = 0;
-  memcpy(buffer.data(), &objectID, sizeof(int));
-  size += sizeof(int);
-  memcpy(buffer.data() + size, &movementType, sizeof(MovementType));
-  size += sizeof(MovementType);
-  serializeVector(buffer.data(), cameraFront, size);
+vector<char> GameStatePacket::serialize() const {
+  vector<char> buffer(sizeof(uint8_t));
+  memcpy(buffer.data(), &state, sizeof(uint8_t));
   return buffer;
 }
 
-MovementPacket MovementPacket::deserialize(const vector<char> &payload) {
-  int objectID;
-  MovementType movementType;
-  glm::vec3 cameraFront;
+GameStatePacket GameStatePacket::deserialize(const vector<char> &payload) {
+  Gamestate state;
 
-  unsigned long size = 0;
-  memcpy(&objectID, payload.data(), sizeof(int));
-  size += sizeof(int);
-  memcpy(&movementType, payload.data() + size, sizeof(MovementType));
-  size += sizeof(MovementType);
-  cameraFront = deserializeVector(payload, size);
-  MovementPacket packet(objectID, movementType, cameraFront);
-  return packet;
-}
-
-vector<char> InteractionPacket::serialize() const {
-  vector<char> buffer(sizeof(glm::vec3) * 2);
-  unsigned long size = 0;
-  serializeVector(buffer.data(), rayDirection, size);
-  serializeVector(buffer.data(), rayOrigin, size);
-  return buffer;
-}
-
-InteractionPacket InteractionPacket::deserialize(const vector<char> &payload) {
-  unsigned long size = 0;
-  InteractionPacket packet(deserializeVector(payload, size),
-                           deserializeVector(payload, size));
-  return packet;
-}
-
-vector<char> DisconnectPacket::serialize() const {
-  vector<char> buffer(sizeof(int));
-  memcpy(buffer.data(), &clientID, sizeof(int));
-  return buffer;
-}
-
-DisconnectPacket DisconnectPacket::deserialize(const vector<char> &payload) {
-  int clientID;
-
-  memcpy(&clientID, payload.data(), sizeof(int));
-  DisconnectPacket packet(clientID);
-  return packet;
-}
-
-vector<char> CharacterSelectPacket::serialize() const {
-  vector<char> buffer(sizeof(uint8_t) + sizeof(int));
-
-  unsigned long size = 0;
-  memcpy(buffer.data(), &character, sizeof(uint8_t));
-  size += sizeof(uint8_t);
-  memcpy(buffer.data() + size, &clientID, sizeof(int));
-  return buffer;
-}
-
-CharacterSelectPacket
-CharacterSelectPacket::deserialize(const vector<char> &payload) {
-  Characters character;
-  int clientID;
-
-  unsigned long size = 0;
-  memcpy(&character, payload.data(), sizeof(uint8_t));
-  size += sizeof(uint8_t);
-  memcpy(&clientID, payload.data() + size, sizeof(int));
-  CharacterSelectPacket packet(character, clientID);
+  memcpy(&state, payload.data(), sizeof(uint8_t));
+  GameStatePacket packet(state);
   return packet;
 }
 
@@ -151,17 +87,102 @@ CharacterResponsePacket::deserialize(const vector<char> &payload) {
   return packet;
 }
 
-vector<char> GameStatePacket::serialize() const {
-  vector<char> buffer(sizeof(uint8_t));
-  memcpy(buffer.data(), &state, sizeof(uint8_t));
+vector<char> MovementPacket::serialize() const {
+  vector<char> buffer(sizeof(int) + sizeof(MovementType) + sizeof(glm::vec3));
+  unsigned long size = 0;
+  memcpy(buffer.data(), &objectID, sizeof(int));
+  size += sizeof(int);
+  memcpy(buffer.data() + size, &movementType, sizeof(MovementType));
+  size += sizeof(MovementType);
+  serializeVector(buffer.data(), cameraFront, size);
   return buffer;
 }
 
-GameStatePacket GameStatePacket::deserialize(const vector<char> &payload) {
-  Gamestate state;
+MovementPacket MovementPacket::deserialize(const vector<char> &payload) {
+  int objectID;
+  MovementType movementType;
+  glm::vec3 cameraFront;
 
-  memcpy(&state, payload.data(), sizeof(uint8_t));
-  GameStatePacket packet(state);
+  unsigned long size = 0;
+  memcpy(&objectID, payload.data(), sizeof(int));
+  size += sizeof(int);
+  memcpy(&movementType, payload.data() + size, sizeof(MovementType));
+  size += sizeof(MovementType);
+  cameraFront = deserializeVector(payload, size);
+  MovementPacket packet(objectID, movementType, cameraFront);
+  return packet;
+}
+
+vector<char> RotationPacket::serialize() const {
+  vector<char> buffer(sizeof(int) + sizeof(glm::vec3));
+  unsigned long size = 0;
+  memcpy(buffer.data(), &objectID, sizeof(int));
+  size += sizeof(int);
+  serializeVector(buffer.data(), rotation, size);
+  return buffer;
+}
+
+RotationPacket RotationPacket::deserialize(const vector<char> &payload) {
+  int objectID;
+  glm::vec3 rotation;
+
+  unsigned long size = 0;
+  memcpy(&objectID, payload.data(), sizeof(int));
+  size += sizeof(int);
+  rotation = deserializeVector(payload, size);
+  RotationPacket packet(objectID, rotation);
+  return packet;
+}
+
+vector<char> InteractionPacket::serialize() const {
+  vector<char> buffer(sizeof(glm::vec3) * 2);
+  unsigned long size = 0;
+  serializeVector(buffer.data(), rayDirection, size);
+  serializeVector(buffer.data(), rayOrigin, size);
+  return buffer;
+}
+
+InteractionPacket InteractionPacket::deserialize(const vector<char> &payload) {
+  unsigned long size = 0;
+  InteractionPacket packet(deserializeVector(payload, size),
+                           deserializeVector(payload, size));
+  return packet;
+}
+
+vector<char> CharacterSelectPacket::serialize() const {
+  vector<char> buffer(sizeof(uint8_t) + sizeof(int));
+
+  unsigned long size = 0;
+  memcpy(buffer.data(), &character, sizeof(uint8_t));
+  size += sizeof(uint8_t);
+  memcpy(buffer.data() + size, &clientID, sizeof(int));
+  return buffer;
+}
+
+CharacterSelectPacket
+CharacterSelectPacket::deserialize(const vector<char> &payload) {
+  Characters character;
+  int clientID;
+
+  unsigned long size = 0;
+  memcpy(&character, payload.data(), sizeof(uint8_t));
+  size += sizeof(uint8_t);
+  memcpy(&clientID, payload.data() + size, sizeof(int));
+  CharacterSelectPacket packet(character, clientID);
+  return packet;
+}
+
+vector<char> DisconnectPacket::serialize() const {
+  vector<char> buffer(sizeof(int));
+  memcpy(buffer.data(), &clientID, sizeof(int));
+  return buffer;
+}
+
+DisconnectPacket DisconnectPacket::deserialize(const vector<char> &payload) {
+  int clientID;
+
+  memcpy(&clientID, payload.data(), sizeof(int));
+  DisconnectPacket packet(clientID);
   return packet;
 }
 

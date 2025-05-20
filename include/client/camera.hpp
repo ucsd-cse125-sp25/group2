@@ -12,12 +12,9 @@ private:
 
   float yaw;
   float pitch;
-  float lastX;
-  float lastY;
 
-  bool firstMouse;
   float sensitivity;
-  float speed;
+  float radius; // Distance from the camera to the target
 
   glm::vec3 cameraPos;
   glm::vec3 cameraFront;
@@ -32,13 +29,8 @@ private:
 public:
   Camera();
 
-  void update(float xpos, float ypos, glm::vec3 target);
-  void updateAspect(float width, float height);
-
-  void moveForward(float deltaTime);
-  void moveBackward(float deltaTime);
-  void moveLeft(float deltaTime);
-  void moveRight(float deltaTime);
+  void update(float xOffset, float yOffset, glm::vec3 target);
+  void updateAspect(int width, int height);
 
   // Getters
   glm::vec3 getFacing() { return cameraFront; }
@@ -46,4 +38,5 @@ public:
   glm::mat4 getProjection() { return projection; }
   glm::mat4 getView() { return view; }
   glm::mat4 getViewProj() { return viewProjMat; }
+  glm::vec3 getRotation() { return glm::vec3(pitch, yaw, 0.0f); }
 };

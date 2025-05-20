@@ -1,6 +1,8 @@
 #pragma once
+
 #include "globals.hpp"
 #include "ui_manager.hpp"
+
 #include <vector>
 
 class CharacterManager {

@@ -1,7 +1,7 @@
 {
   "objects": [
     {
-      "name": "Cube 1",
+      "name": "Player",
       "active": true,
       "transform": {
         "position": { "x": -2.5, "y": 0.0, "z": 0.0 },
@@ -9,9 +9,9 @@
         "scale": { "x": 1.0, "y": 1.0, "z": 1.0 }
       },
       "client": {
-        "modelPath": "../resources/objects/cube/Cube.obj",
-        "vertShaderPath": "../resources/shaders/shader.vert",
-        "fragShaderPath": "../resources/shaders/shader.frag"
+        "modelPath": "../resources/objects/chicken/Chicken.obj",
+        "vertShaderPath": "../resources/shaders/material.vert",
+        "fragShaderPath": "../resources/shaders/material.frag"
       },
       "server": {
         "static": false,
@@ -20,7 +20,7 @@
       }
     },
     {
-      "name": "Cube 2",
+      "name": "Cube",
       "active": true,
       "transform": {
         "position": { "x": 2.5, "y": 0.0, "z": 0.0 },

@@ -41,6 +41,15 @@ void ServerGameState::updateMovement(int id, MovementType type,
       cerr << "Unknown movement type" << endl;
       break;
     }
+    updatedObjectIds.insert(id);
+  }
+}
+
+void ServerGameState::updateRotation(int id, glm::vec3 rotation) {
+  auto obj = getObject(id);
+  if (obj) {
+    obj->getTransform()->setRotation(rotation);
+    updatedObjectIds.insert(id);
   }
 }
 
@@ -94,7 +103,7 @@ void ServerGameState::applyPhysics() {
 
   auto movedObjects = physicsWorld->getUpdatedObjects();
   for (auto id : movedObjects)
-    updatedObjectIds.push_back(id);
+    updatedObjectIds.insert(id);
 }
 
 GameObject *ServerGameState::getObject(int id) {
@@ -106,8 +115,8 @@ GameObject *ServerGameState::getObject(int id) {
   return nullptr;
 }
 
-vector<int> ServerGameState::getLastUpdatedObjects() {
-  auto res = move(updatedObjectIds);
+std::vector<int> ServerGameState::getLastUpdatedObjects() {
+  std::vector<int> list(updatedObjectIds.begin(), updatedObjectIds.end());
   updatedObjectIds.clear();
-  return res;
+  return list;
 }

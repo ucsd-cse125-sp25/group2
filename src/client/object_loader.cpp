@@ -1,4 +1,3 @@
-
 #include "client_object_loader.hpp"
 
 unordered_map<int, unique_ptr<GameObject>> ObjectLoader::loadObjects() {

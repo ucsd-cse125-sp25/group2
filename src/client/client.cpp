@@ -10,13 +10,13 @@ Client::Client() {
   cam = make_unique<Camera>();
   mouseX = 0.0f;
   mouseY = 0.0f;
+  xOffset = 0.0f;
+  yOffset = 0.0f;
 
   // Initialize game state properties
   game = make_unique<ClientGameState>();
   characterManager = make_unique<CharacterManager>();
 }
-
-Client::~Client() {}
 
 bool Client::init() {
   // Initialize glfw
@@ -30,15 +30,17 @@ bool Client::init() {
   glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
   // Enable forward compatibility and allow a modern OpenGL context
   glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+#ifdef __APPLE__
   glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+#endif
   // Window settings
   glfwWindowHint(GLFW_RESIZABLE, GL_TRUE);
   glfwWindowHint(GLFW_DECORATED, GL_TRUE);
-  // glfwWindowHint(GLFW_MAXIMIZED, GL_TRUE); Enable later
+  glfwWindowHint(GLFW_MAXIMIZED, GL_TRUE);
 
   // Create the GLFW window
-  window = glfwCreateWindow(windowWidth, windowWidth, "Barnyard Breakout", NULL,
-                            NULL);
+  window = glfwCreateWindow(windowWidth, windowHeight, "Barnyard Breakout",
+                            NULL, NULL);
   if (!window) {
     cerr << "Window Creation Failed" << endl;
     glfwTerminate();
@@ -46,7 +48,12 @@ bool Client::init() {
   }
 
   glfwMakeContextCurrent(window);
-  glewInit();
+
+  GLenum err = glewInit();
+  if (err != GLEW_OK) {
+    cerr << "GLEW initialization failed: " << glewGetErrorString(err) << endl;
+    return false;
+  }
 
   return true;
 }
@@ -59,10 +66,21 @@ bool Client::initObjects() {
   return true;
 }
 
-bool Client::initNetwork(asio::io_context &io_context, const string &ip,
-                         const string &port) {
-  network = make_unique<ClientNetwork>(io_context, ip, port);
+bool Client::initNetwork(asio::io_context &io_context) {
+  network = make_unique<ClientNetwork>(io_context,
+                                       loadConfig(CONFIG_PATH)["client-ip"],
+                                       loadConfig(CONFIG_PATH)["port"]);
   return !network->err;
+}
+
+json Client::loadConfig(const std::string &path) {
+  std::ifstream file(path);
+  if (!file.is_open()) {
+    throw std::runtime_error("Could not open config file at " + path);
+  }
+  json j;
+  file >> j;
+  return j;
 }
 
 bool Client::initUI() {
@@ -119,6 +137,17 @@ void Client::idleCallback() {
       game->update(objectPacket->objectID, &objectPacket->transform);
       break;
     }
+    case PacketType::GAMESTATE: {
+      auto statePacket = dynamic_cast<GameStatePacket *>(packet.get());
+      game->state = statePacket->state;
+      if (game->state == Gamestate::GAME) {
+        // Hide the cursor and lock it to the center of the window when the game
+        // starts
+        glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+        glfwSetInputMode(window, GLFW_RAW_MOUSE_MOTION, GLFW_TRUE);
+      }
+      break;
+    }
     case PacketType::CHARACTERRESPONSE: {
       auto characterPacket =
           dynamic_cast<CharacterResponsePacket *>(packet.get());
@@ -127,64 +156,77 @@ void Client::idleCallback() {
           characterPacket->pig, characterPacket->cow);
       break;
     }
-    case PacketType::GAMESTATE: {
-      auto statePacket = dynamic_cast<GameStatePacket *>(packet.get());
-      game->state = statePacket->state;
-      break;
-    }
     }
   }
-
-  cam->update(mouseX, mouseY, glm::vec3(0.0f, 0.0f, 0.0f));
+  cam->update(xOffset, yOffset, game->getPlayer()->getPosition());
+  xOffset = 0.0f;
+  yOffset = 0.0f;
+  updatePlayerRotation();
 }
 
-void Client::displayCallback(GLFWwindow *window) {
-  static double previousTime = glfwGetTime();
-
-  double currentTime = glfwGetTime();
-  float deltaTime = static_cast<float>(currentTime - previousTime);
-  previousTime = currentTime;
-
+void Client::displayCallback(GLFWwindow *window, float deltaTime) {
+  // Clear the color and depth buffers
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-  UIManager::draw_menu(game->state);
-  UIManager::update_menu(mouseX, mouseY, windowWidth, windowHeight, deltaTime,
-                         game->state);
+  if (game->state == Gamestate::STARTSCREEN ||
+      game->state == Gamestate::MAINMENU) {
+    UIManager::draw_menu(game->state);
+    UIManager::update_menu(mouseX, mouseY, windowWidth, windowHeight, deltaTime,
+                           game->state);
+  }
 
   // Draw objects
   if (game->state == Gamestate::GAME) {
     game->draw(cam->getViewProj());
   }
 
+  // Main render display callback. Rendering of objects is done here
+  glfwSwapBuffers(window);
+
   // Check events and swap buffers
   glfwPollEvents();
-
-  // Main render display callback. Rendering of objects is done here.
-  glfwSwapBuffers(window);
 }
 
-void Client::processInput(float deltaTime) {
+void Client::processMovementInput() {
   // Process WASD Movement
   if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
-    // cam->moveForward(deltaTime);
-    MovementPacket packet(0, MovementType::FORWARD,
-                          cam->getFacing()); // Hardcoded object ID for now
-    // Later, we will use the ID of the player object
+    MovementPacket packet(game->getPlayer()->getId(), MovementType::FORWARD,
+                          cam->getFacing());
     network->send(packet);
   }
   if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
-    // cam->moveBackward(deltaTime);
-    MovementPacket packet(0, MovementType::BACKWARD, cam->getFacing());
+    MovementPacket packet(game->getPlayer()->getId(), MovementType::BACKWARD,
+                          cam->getFacing());
     network->send(packet);
   }
   if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
-    // cam->moveLeft(deltaTime);
-    MovementPacket packet(0, MovementType::LEFT, cam->getFacing());
+    MovementPacket packet(game->getPlayer()->getId(), MovementType::LEFT,
+                          cam->getFacing());
     network->send(packet);
   }
   if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
-    // cam->moveRight(deltaTime);
-    MovementPacket packet(0, MovementType::RIGHT, cam->getFacing());
+    MovementPacket packet(game->getPlayer()->getId(), MovementType::RIGHT,
+                          cam->getFacing());
+    network->send(packet);
+  }
+}
+
+void Client::updatePlayerRotation() {
+  float cameraYaw = cam->getRotation().y;
+  float playerYaw = game->getPlayer()->getRotation().y;
+
+  float targetYaw = -(cameraYaw - 90.0f);
+
+  if (targetYaw > 360.0f || targetYaw < -360.0f)
+    targetYaw = fmod(targetYaw, 360.0f);
+
+  if (fabs(targetYaw - playerYaw) > 0.01f) {
+    glm::vec3 currentRotation = game->getPlayer()->getRotation();
+    glm::vec3 newRotation =
+        glm::vec3(currentRotation.x, targetYaw, currentRotation.z);
+    game->getPlayer()->getTransform()->setRotation(newRotation);
+
+    RotationPacket packet(game->getPlayer()->getId(), newRotation);
     network->send(packet);
   }
 }
@@ -207,20 +249,50 @@ void Client::keyCallback(GLFWwindow *window, int key, int scancode, int action,
 }
 
 void Client::mouseCallback(GLFWwindow *window, double xPos, double yPos) {
-  auto newMouseX = static_cast<float>(xPos);
-  auto newMouseY = static_cast<float>(yPos);
-  mouseX = newMouseX;
-  mouseY = newMouseY;
+  static float lastX = 0.0f;
+  static float lastY = 0.0f;
+  static bool firstMouse = true;
+
+  mouseX = static_cast<float>(xPos);
+  mouseY = static_cast<float>(yPos);
+
+  if (firstMouse) {
+    lastX = static_cast<float>(xPos);
+    lastY = static_cast<float>(yPos);
+    firstMouse = false;
+  }
+
+  xOffset = static_cast<float>(xPos) - lastX;
+  yOffset = lastY - static_cast<float>(yPos);
+
+  lastX = static_cast<float>(xPos);
+  lastY = static_cast<float>(yPos);
 }
 
 void Client::mouseButtonCallback(GLFWwindow *window, int button, int action,
                                  int mods) {
-  if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS) {
-    // Handle left mouse button press
+  if (action == GLFW_PRESS) {
+    if (button == GLFW_MOUSE_BUTTON_LEFT && game->state == Gamestate::GAME) {
+      // Handle left mouse button press
     glm::vec3 rayOrigin = cam->getPos();
     glm::vec3 rayDirection = cam->getFacing();
-    InteractionPacket packet(rayDirection, rayOrigin);
-    network->send(packet);
-    cout << "Left mouse button pressed" << endl;
+      InteractionPacket packet(rayDirection, rayOrigin);
+      network->send(packet);
+    }
+    // delete later: to switch between different clients on one machine
+    if (button == GLFW_MOUSE_BUTTON_RIGHT) {
+      static bool isCursorHidden = true;
+      if (isCursorHidden) {
+        // Show the cursor
+        isCursorHidden = false;
+        glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+        glfwSetInputMode(window, GLFW_RAW_MOUSE_MOTION, GLFW_FALSE);
+      } else {
+        // Hide the cursor
+        isCursorHidden = true;
+        glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+        glfwSetInputMode(window, GLFW_RAW_MOUSE_MOTION, GLFW_TRUE);
+      }
+    }
   }
 }
