@@ -117,7 +117,7 @@ deque<unique_ptr<IPacket>> ServerNetwork::receiveFromClients() {
   }
 
   // add latest rotation packets for each client
-  for (auto& [clientId, packet] : lastRotation) {
+  for (auto &[clientId, packet] : lastRotation) {
     if (packet) {
       packets.push_back(move(packet));
     }
