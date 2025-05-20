@@ -283,5 +283,4 @@ void Client::mouseButtonCallback(GLFWwindow *window, int button, int action,
       }
     }
   }
-  
 }
