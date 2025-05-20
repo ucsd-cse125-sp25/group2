@@ -7,6 +7,7 @@ private:
   int characterAssignments[4];
 
   int characterHolding[4];
+
 public:
   ClientManager();
 

@@ -77,10 +77,10 @@ void GameServer::updateGameState() {
     case PacketType::CHARACTERSELECT: {
       auto characterPacket = static_cast<CharacterSelectPacket *>(packet.get());
       clientManager->assignCharacter(characterPacket->character,
-                                        characterPacket->clientID);
+                                     characterPacket->clientID);
       CharacterResponsePacket responsePacket(
-          clientManager->chicken, clientManager->sheep,
-          clientManager->pig, clientManager->cow);
+          clientManager->chicken, clientManager->sheep, clientManager->pig,
+          clientManager->cow);
       network->sendToAll(responsePacket);
       // if (clientManager->allAssigned()) {
       GameStatePacket statePacket(Gamestate::GAME);
