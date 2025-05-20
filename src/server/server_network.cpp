@@ -153,13 +153,13 @@ unique_ptr<IPacket> ServerNetwork::processPackets(PacketType type,
     unique_ptr<IPacket> packet = deserialize(PacketType::INTERACTION, payload);
     return packet;
   }
-  case PacketType::DISCONNECT: {
-    unique_ptr<IPacket> packet = deserialize(PacketType::DISCONNECT, payload);
-    return packet;
-  }
   case PacketType::CHARACTERSELECT: {
     unique_ptr<IPacket> packet =
         deserialize(PacketType::CHARACTERSELECT, payload);
+    return packet;
+  }
+  case PacketType::DISCONNECT: {
+    unique_ptr<IPacket> packet = deserialize(PacketType::DISCONNECT, payload);
     return packet;
   }
   default:

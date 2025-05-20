@@ -56,6 +56,26 @@ struct ObjectPacket : public IPacket {
   static ObjectPacket deserialize(const vector<char> &payload);
 };
 
+struct GameStatePacket : public IPacket {
+  Gamestate state;
+  GameStatePacket(Gamestate state) : state(state) {}
+  PacketType getType() const override { return PacketType::GAMESTATE; }
+  vector<char> serialize() const override;
+  static GameStatePacket deserialize(const vector<char> &payload);
+};
+struct CharacterResponsePacket : public IPacket {
+  int chicken;
+  int sheep;
+  int pig;
+  int cow;
+
+  CharacterResponsePacket(int chicken, int sheep, int pig, int cow)
+      : chicken(chicken), sheep(sheep), pig(pig), cow(cow) {}
+  PacketType getType() const override { return PacketType::CHARACTERRESPONSE; }
+  vector<char> serialize() const override;
+  static CharacterResponsePacket deserialize(const vector<char> &payload);
+};
+
 struct MovementPacket : public IPacket {
   int objectID;
   MovementType movementType;
@@ -88,15 +108,6 @@ struct InteractionPacket : public IPacket {
   static InteractionPacket deserialize(const vector<char> &payload);
 };
 
-struct DisconnectPacket : public IPacket {
-  int clientID;
-
-  DisconnectPacket(int id) : clientID(id) {}
-  PacketType getType() const override { return PacketType::DISCONNECT; }
-  vector<char> serialize() const override;
-  static DisconnectPacket deserialize(const vector<char> &payload);
-};
-
 struct CharacterSelectPacket : public IPacket {
   Characters character;
   int clientID;
@@ -108,25 +119,13 @@ struct CharacterSelectPacket : public IPacket {
   static CharacterSelectPacket deserialize(const vector<char> &payload);
 };
 
-struct CharacterResponsePacket : public IPacket {
-  int chicken;
-  int sheep;
-  int pig;
-  int cow;
+struct DisconnectPacket : public IPacket {
+  int clientID;
 
-  CharacterResponsePacket(int chicken, int sheep, int pig, int cow)
-      : chicken(chicken), sheep(sheep), pig(pig), cow(cow) {}
-  PacketType getType() const override { return PacketType::CHARACTERRESPONSE; }
+  DisconnectPacket(int id) : clientID(id) {}
+  PacketType getType() const override { return PacketType::DISCONNECT; }
   vector<char> serialize() const override;
-  static CharacterResponsePacket deserialize(const vector<char> &payload);
-};
-
-struct GameStatePacket : public IPacket {
-  Gamestate state;
-  GameStatePacket(Gamestate state) : state(state) {}
-  PacketType getType() const override { return PacketType::GAMESTATE; }
-  vector<char> serialize() const override;
-  static GameStatePacket deserialize(const vector<char> &payload);
+  static DisconnectPacket deserialize(const vector<char> &payload);
 };
 
 unique_ptr<IPacket> deserialize(PacketType type, vector<char> &payload);
