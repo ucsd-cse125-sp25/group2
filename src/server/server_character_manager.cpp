@@ -1,5 +1,4 @@
 #include "server_character_manager.hpp"
-#include <stdio.h>
 
 CharacterManager::CharacterManager() {
   chicken = -1;

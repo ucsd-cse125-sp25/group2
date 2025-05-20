@@ -139,17 +139,17 @@ void Client::idleCallback() {
       game->update(objectPacket->objectID, &objectPacket->transform);
       break;
     }
+    case PacketType::GAMESTATE: {
+      auto statePacket = dynamic_cast<GameStatePacket *>(packet.get());
+      game->state = statePacket->state;
+      break;
+    }
     case PacketType::CHARACTERRESPONSE: {
       auto characterPacket =
           dynamic_cast<CharacterResponsePacket *>(packet.get());
       characterManager->setCharacter(
           characterPacket->chicken, characterPacket->sheep,
           characterPacket->pig, characterPacket->cow);
-      break;
-    }
-    case PacketType::GAMESTATE: {
-      auto statePacket = dynamic_cast<GameStatePacket *>(packet.get());
-      game->state = statePacket->state;
       break;
     }
     }

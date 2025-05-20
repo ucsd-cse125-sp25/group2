@@ -1,6 +1,8 @@
 #pragma once
+
 #include "globals.hpp"
 #include "ui.hpp"
+
 #include <algorithm>
 #include <optional>
 
