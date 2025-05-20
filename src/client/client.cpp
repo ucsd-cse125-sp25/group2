@@ -141,7 +141,8 @@ void Client::idleCallback() {
       auto statePacket = dynamic_cast<GameStatePacket *>(packet.get());
       game->state = statePacket->state;
       if (game->state == Gamestate::GAME) {
-        // Hide the cursor and lock it to the center of the window when the game starts
+        // Hide the cursor and lock it to the center of the window when the game
+        // starts
         glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
         glfwSetInputMode(window, GLFW_RAW_MOUSE_MOTION, GLFW_TRUE);
       }
@@ -167,10 +168,11 @@ void Client::displayCallback(GLFWwindow *window, float deltaTime) {
   // Clear the color and depth buffers
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-  if (game->state == Gamestate::STARTSCREEN || game->state == Gamestate::MAINMENU) {
+  if (game->state == Gamestate::STARTSCREEN ||
+      game->state == Gamestate::MAINMENU) {
     UIManager::draw_menu(game->state);
     UIManager::update_menu(mouseX, mouseY, windowWidth, windowHeight, deltaTime,
-                         game->state);
+                           game->state);
   }
 
   // Draw objects
