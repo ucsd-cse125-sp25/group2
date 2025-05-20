@@ -162,7 +162,7 @@ void BaseUI::update(float mouseX, float mouseY, int winWidth, int winHeight,
   }
 }
 
-bool BaseUI::isHovered(float x_ndc, float y_ndc) {
+bool BaseUI::isHovered(float ndcX, float ndcY) {
   float halfW = width / 2.0f;
   float halfH = height / 2.0f;
 
@@ -171,7 +171,7 @@ bool BaseUI::isHovered(float x_ndc, float y_ndc) {
   float right = x + halfW;
   float bottom = y - halfH;
   float top = y + halfH;
-  return (x_ndc >= left && x_ndc <= right && y_ndc >= bottom && y_ndc <= top);
+  return (ndcX >= left && ndcX <= right && ndcY >= bottom && ndcY <= top);
 }
 
 void BaseUI::play() { animInfo.startAnim = true; }

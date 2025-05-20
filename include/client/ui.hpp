@@ -90,7 +90,7 @@ public:
 
   static GLuint loadTexture(const char *path);
 
-  bool isHovered(float x_ndc, float y_ndc);
+  bool isHovered(float ndcX, float ndcY);
 
   void play();
 };
