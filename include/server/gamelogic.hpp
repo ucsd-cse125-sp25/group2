@@ -23,21 +23,17 @@ public:
     heldObjects[character] = objectID;
   };
 
-    // Getters
-    int getHeldObject(Characters character) {
-        return heldObjects[character];
-    };
+  // Getters
+  int getHeldObject(Characters character) { return heldObjects[character]; };
 
-    // Movement functions
-    void moveObject(GameObject *object, glm::vec3 direction);
-    void jump();
+  // Movement functions
+  void moveObject(GameObject *object, glm::vec3 direction);
+  void jump();
 
-    // Ability functions
-    void glide();
-    
-    // Interaction functions
-    void pickupObject(GameObject *player,
-                      GameObject *object);
-    void dropObject(GameObject *player,
-                    GameObject *object);
+  // Ability functions
+  void glide();
+
+  // Interaction functions
+  void pickupObject(GameObject *player, GameObject *object);
+  void dropObject(GameObject *player, GameObject *object);
 };

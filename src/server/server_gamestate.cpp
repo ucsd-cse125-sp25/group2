@@ -25,16 +25,16 @@ void ServerGameState::updateMovement(int id, MovementType type,
         glm::normalize(glm::cross(flatFront, glm::vec3(0.0f, 1.0f, 0.0f)));
     switch (type) {
     case MovementType::FORWARD:
-      logicSolver->moveObject(player,flatFront);
+      logicSolver->moveObject(player, flatFront);
       break;
     case MovementType::BACKWARD:
-      logicSolver->moveObject(player,-flatFront);
+      logicSolver->moveObject(player, -flatFront);
       break;
     case MovementType::LEFT:
-      logicSolver->moveObject(player,-cameraRight);
+      logicSolver->moveObject(player, -cameraRight);
       break;
     case MovementType::RIGHT:
-      logicSolver->moveObject(player,cameraRight);
+      logicSolver->moveObject(player, cameraRight);
       break;
     default:
       cerr << "Unknown movement type" << endl;
@@ -117,7 +117,7 @@ void ServerGameState::updateInteraction(ClientManager *clientManager,
   Characters character = clientManager->getCharacter(clientID);
 
   if (closestObject->getInteractionType() == InteractionType::PICKUP ||
-      closestObjectID == 1) { // delete the OR later
+      closestObjectID == 1) {             // delete the OR later
     cout << "Pickup interaction" << endl; // delete later
     cout << "Held object id: " << logicSolver->getHeldObject(character)
          << endl; // delete later
