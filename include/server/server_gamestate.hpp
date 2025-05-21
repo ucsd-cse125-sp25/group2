@@ -1,7 +1,6 @@
 #pragma once
 
-#include "client_manager.hpp"
-#include "gamelogic.hpp"
+#include "player_logic.hpp"
 #include "globals.hpp"
 #include "packets.hpp"
 #include "physics.hpp"
@@ -23,7 +22,7 @@ private:
   unordered_map<int, unique_ptr<GameObject>> objectList;
   unordered_set<int> updatedObjectIds;
   unique_ptr<Physics> physicsWorld;
-  unique_ptr<GameLogic> logicSolver;
+  unique_ptr<PlayerLogic> playerLogic;
 
 public:
   ServerGameState();
@@ -32,14 +31,15 @@ public:
   Gamestate state;
 
   // update methods
+  CLIENT_ID *updateCharacters(PLAYER_ID character, CLIENT_ID id);
   void updateMovement(int id, MovementType type, glm::vec3 cameraFront);
   void updateRotation(int id, glm::vec3 rotation);
-  void updateInteraction(ClientManager *clientManager, int clientID,
-                         int objectID, glm::vec3 rayDirection,
+  void updateInteraction(PLAYER_ID character, glm::vec3 rayDirection,
                          glm::vec3 rayOrigin);
   void applyPhysics();
 
   // getters
   GameObject *getObject(int id);
   vector<int> getLastUpdatedObjects();
+  PlayerLogic *getPlayerLogic() { return playerLogic.get(); }
 };

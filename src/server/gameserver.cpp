@@ -5,7 +5,6 @@ GameServer::GameServer(asio::io_context &io_context) {
   network = make_unique<ServerNetwork>(io_context,
                                        loadConfig(CONFIG_PATH)["server-ip"],
                                        loadConfig(CONFIG_PATH)["port"]);
-  clientManager = make_unique<ClientManager>();
 }
 
 json GameServer::loadConfig(const std::string &path) {
@@ -29,18 +28,17 @@ bool GameServer::start() {
     cerr << "ServerGameState initialization failed" << endl;
     return false;
   }
-  network->setOnJoin([game = game.get(), &select = clientManager,
-                      net = network.get()]() {
+  network->setOnJoin([game = game.get(), net = network.get()]() {
     if (game->state != Gamestate::GAME) {
-      CharacterResponsePacket responsePacket(select->getCharacterAssignments());
+      CharacterResponsePacket responsePacket(game->playerLogic->getCharacterAssignments());
       net->sendToAll(responsePacket);
     }
   });
-  network->setOnLeave([game = game.get(), &select = clientManager,
-                       net = network.get()](int id) {
+  network->setOnLeave([game = game.get(), net = network.get()](
+      CLIENT_ID id) {
     if (game->state != Gamestate::GAME) {
-      select->unAssign(id);
-      CharacterResponsePacket responsePacket(select->getCharacterAssignments());
+      game->getPlayerLogic()->unAssignCharacter(id);
+      CharacterResponsePacket responsePacket(game->getPlayerLogic()->getCharacterAssignments());
       net->sendToAll(responsePacket);
     }
   });
@@ -56,31 +54,29 @@ void GameServer::updateGameState() {
     switch (packet->getType()) {
     case PacketType::MOVEMENT: {
       auto movementPacket = static_cast<MovementPacket *>(packet.get());
-      game->updateMovement(movementPacket->objectID,
+      game->updateMovement(movementPacket->id,
                            movementPacket->movementType,
                            movementPacket->cameraFront);
       break;
     }
     case PacketType::ROTATION: {
       auto rotationPacket = static_cast<RotationPacket *>(packet.get());
-      game->updateRotation(rotationPacket->objectID, rotationPacket->rotation);
+      game->updateRotation(rotationPacket->id, rotationPacket->rotation);
       break;
     }
     case PacketType::INTERACTION: {
       auto interactionPacket = static_cast<InteractionPacket *>(packet.get());
-      game->updateInteraction(clientManager.get(), interactionPacket->clientID,
-                              interactionPacket->objectID,
+      game->updateInteraction(interactionPacket->character,
                               interactionPacket->rayDirection,
                               interactionPacket->rayOrigin);
       break;
     }
     case PacketType::CHARACTERSELECT: {
       auto characterPacket = static_cast<CharacterSelectPacket *>(packet.get());
-      clientManager->assignCharacter(characterPacket->character,
-                                     characterPacket->clientID);
-      CharacterResponsePacket responsePacket(
-          clientManager->getCharacterAssignments());
-      network->sendToAll(responsePacket);
+      auto characterAssignments = game->updateCharacters(characterPacket->character,
+                                  characterPacket->id);
+      CharacterResponsePacket packet(characterAssignments);
+      network->sendToAll(packet);
       // if (clientManager->allAssigned()) {
       GameStatePacket statePacket(Gamestate::GAME);
       network->sendToAll(statePacket);

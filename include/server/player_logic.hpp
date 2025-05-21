@@ -27,14 +27,14 @@ public:
   void setHeldObject(PLAYER_ID character, OBJECT_ID objectID) {
     heldObjects[character] = objectID;
   };
-  void setID(int id);
 
   // Getters
-  int getHeldObject(PLAYER_ID character) { return heldObjects[character]; };
+  OBJECT_ID getHeldObject(PLAYER_ID character) { return heldObjects[character]; };
   CLIENT_ID getClient(PLAYER_ID character) {
     return characterToClient[character];
   };
   PLAYER_ID getCharacter(CLIENT_ID id) { return clientToCharacter[id]; };
+  CLIENT_ID *getCharacterAssignments() { return characterToClient; }
 
   // Movement functions
   void moveObject(GameObject *object, glm::vec3 direction);
