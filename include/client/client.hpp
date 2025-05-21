@@ -1,8 +1,8 @@
 #pragma once
 
 #include "camera.hpp"
-#include "client_gamestate.hpp"
 #include "character_manager.hpp"
+#include "client_gamestate.hpp"
 #include "client_network.hpp"
 #include "core.hpp"
 #include "model.hpp"

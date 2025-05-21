@@ -9,7 +9,6 @@
 #define OBJECT_ID unsigned int
 #define PLAYER_ID unsigned int
 
-
 #define JSON_PATH "../resources/objects/objects.json"
 #define CONFIG_PATH "../resources/config.json"
 

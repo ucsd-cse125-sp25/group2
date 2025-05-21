@@ -88,7 +88,8 @@ CharacterResponsePacket::deserialize(const vector<char> &payload) {
 }
 
 vector<char> MovementPacket::serialize() const {
-  vector<char> buffer(sizeof(OBJECT_ID) + sizeof(MovementType) + sizeof(glm::vec3));
+  vector<char> buffer(sizeof(OBJECT_ID) + sizeof(MovementType) +
+                      sizeof(glm::vec3));
   unsigned long size = 0;
   memcpy(buffer.data(), &id, sizeof(OBJECT_ID));
   size += sizeof(OBJECT_ID);
@@ -135,7 +136,8 @@ RotationPacket RotationPacket::deserialize(const vector<char> &payload) {
 }
 
 vector<char> InteractionPacket::serialize() const {
-  vector<char> buffer(sizeof(PLAYER_ID) + sizeof(glm::vec3) * 2);;
+  vector<char> buffer(sizeof(PLAYER_ID) + sizeof(glm::vec3) * 2);
+  ;
   unsigned long size = 0;
 
   memcpy(buffer.data(), &character, sizeof(PLAYER_ID));

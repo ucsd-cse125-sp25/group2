@@ -9,7 +9,8 @@ CharacterManager::CharacterManager() {
 
 void CharacterManager::setID(CLIENT_ID id) { whoAmI = id; }
 
-void CharacterManager::setCharacter(PLAYER_ID ch, PLAYER_ID s, PLAYER_ID p, PLAYER_ID c) {
+void CharacterManager::setCharacter(PLAYER_ID ch, PLAYER_ID s, PLAYER_ID p,
+                                    PLAYER_ID c) {
   struct CharacterSlot {
     int &current;
     int newVal;

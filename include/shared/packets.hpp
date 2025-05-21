@@ -70,7 +70,8 @@ struct CharacterResponsePacket : public IPacket {
   PLAYER_ID pig;
   PLAYER_ID cow;
 
-  CharacterResponsePacket(PLAYER_ID chicken, PLAYER_ID sheep, PLAYER_ID pig, PLAYER_ID cow)
+  CharacterResponsePacket(PLAYER_ID chicken, PLAYER_ID sheep, PLAYER_ID pig,
+                          PLAYER_ID cow)
       : chicken(chicken), sheep(sheep), pig(pig), cow(cow) {}
   PacketType getType() const override { return PacketType::CHARACTERRESPONSE; }
   vector<char> serialize() const override;
@@ -107,8 +108,8 @@ struct InteractionPacket : public IPacket {
 
   InteractionPacket(PLAYER_ID character, glm::vec3 rayDirection,
                     glm::vec3 rayOrigin)
-      : character(character), rayDirection(rayDirection),
-        rayOrigin(rayOrigin) {}
+      : character(character), rayDirection(rayDirection), rayOrigin(rayOrigin) {
+  }
   PacketType getType() const override { return PacketType::INTERACTION; }
   vector<char> serialize() const override;
   static InteractionPacket deserialize(const vector<char> &payload);
