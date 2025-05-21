@@ -55,7 +55,8 @@ void ServerGameState::updateRotation(int id, glm::vec3 rotation) {
 }
 
 void ServerGameState::updateInteraction(ClientManager *clientManager,
-                                        int clientID, int id, glm::vec3 rayDirection,
+                                        int clientID, int id,
+                                        glm::vec3 rayDirection,
                                         glm::vec3 rayOrigin) {
   GameObject *closestObject = nullptr;
   int closestObjectID;
@@ -64,7 +65,8 @@ void ServerGameState::updateInteraction(ClientManager *clientManager,
   for (auto &obj : objectList) {
     auto object = obj.second.get();
     cout << "interaction type: "
-         << static_cast<int>(object->getInteractionType()) << endl; // delete later
+         << static_cast<int>(object->getInteractionType())
+         << endl; // delete later
     glm::vec3 center = object->getTransform()->getPosition();
     glm::vec3 halfExtents = object->getCollider()->getHalfExtents();
 
@@ -104,7 +106,8 @@ void ServerGameState::updateInteraction(ClientManager *clientManager,
 
   cout << "Closest object: " << closestObjectID << endl; // delete later
   cout << "Interaction type: "
-       << static_cast<int>(closestObject->getInteractionType()) << endl; // delete later
+       << static_cast<int>(closestObject->getInteractionType())
+       << endl; // delete later
 
   // if (closestObject->getInteractionType() == InteractionType::NONE) {
   //   cout << "No interaction available" << endl; // delete later
@@ -115,9 +118,11 @@ void ServerGameState::updateInteraction(ClientManager *clientManager,
   auto player = getObject(id);
   Characters character = clientManager->getCharacter(clientID);
 
-  if (closestObject->getInteractionType() == InteractionType::PICKUP || closestObjectID == 1) {
+  if (closestObject->getInteractionType() == InteractionType::PICKUP ||
+      closestObjectID == 1) {
     cout << "Pickup interaction" << endl; // delete later
-    cout << "Held object id: " << logicSolver->getHeldObject(character) << endl; // delete later
+    cout << "Held object id: " << logicSolver->getHeldObject(character)
+         << endl; // delete later
     // If the character is already holding an object, drop it
     if (logicSolver->getHeldObject(character) == closestObjectID) {
       logicSolver->dropObject(player, closestObject);

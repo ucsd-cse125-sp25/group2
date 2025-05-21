@@ -1,12 +1,12 @@
 #pragma once
 
 #include "client_manager.hpp"
+#include "gamelogic.hpp"
 #include "globals.hpp"
 #include "packets.hpp"
 #include "physics.hpp"
 #include "server_gameobject.hpp"
 #include "server_object_loader.hpp"
-#include "gamelogic.hpp"
 
 #include <iostream>
 #include <memory>
@@ -34,8 +34,9 @@ public:
   // update methods
   void updateMovement(int id, MovementType type, glm::vec3 cameraFront);
   void updateRotation(int id, glm::vec3 rotation);
-  void updateInteraction(ClientManager *clientManager, int clientID, int objectID,
-                         glm::vec3 rayDirection, glm::vec3 rayOrigin);
+  void updateInteraction(ClientManager *clientManager, int clientID,
+                         int objectID, glm::vec3 rayDirection,
+                         glm::vec3 rayOrigin);
   void applyPhysics();
 
   // getters

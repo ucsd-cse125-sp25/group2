@@ -12,21 +12,17 @@ private:
   unordered_map<Characters, int> heldObjects;
 
 public:
-    GameLogic();
-    
-    void setHeldObject(Characters character, int objectID) {
-        heldObjects[character] = objectID;
-    };
+  GameLogic();
 
-    // Getters
-    int getHeldObject(Characters character) {
-        return heldObjects[character];
-    };
-    
-    // Interaction functions
-    // InteractionType: PICKUP
-    void pickupObject(GameObject *player,
-                      GameObject *object);
-    void dropObject(GameObject *player,
-                    GameObject *object);
+  void setHeldObject(Characters character, int objectID) {
+    heldObjects[character] = objectID;
+  };
+
+  // Getters
+  int getHeldObject(Characters character) { return heldObjects[character]; };
+
+  // Interaction functions
+  // InteractionType: PICKUP
+  void pickupObject(GameObject *player, GameObject *object);
+  void dropObject(GameObject *player, GameObject *object);
 };
