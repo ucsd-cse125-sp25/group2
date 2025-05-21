@@ -6,6 +6,7 @@
 #include "physics.hpp"
 #include "server_gameobject.hpp"
 #include "server_object_loader.hpp"
+#include "gamelogic.hpp"
 
 #include <iostream>
 #include <memory>
@@ -22,6 +23,7 @@ private:
   unordered_map<int, unique_ptr<GameObject>> objectList;
   unordered_set<int> updatedObjectIds;
   unique_ptr<Physics> physicsWorld;
+  unique_ptr<GameLogic> logicSolver;
 
 public:
   ServerGameState();
@@ -32,7 +34,7 @@ public:
   // update methods
   void updateMovement(int id, MovementType type, glm::vec3 cameraFront);
   void updateRotation(int id, glm::vec3 rotation);
-  void updateInteraction(ClientManager *clientManager, int clientID,
+  void updateInteraction(ClientManager *clientManager, int clientID, int objectID,
                          glm::vec3 rayDirection, glm::vec3 rayOrigin);
   void applyPhysics();
 
