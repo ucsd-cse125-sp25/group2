@@ -2,7 +2,7 @@
 
 #include "camera.hpp"
 #include "client_gamestate.hpp"
-#include "client_manager.hpp"
+#include "character_manager.hpp"
 #include "client_network.hpp"
 #include "core.hpp"
 #include "model.hpp"
@@ -28,7 +28,7 @@ private:
   unique_ptr<UIManager> ui;
 
   // Character Selection
-  unique_ptr<ClientManager> clientManager;
+  unique_ptr<CharacterManager> characterManager;
 
   void updatePlayerRotation();
 

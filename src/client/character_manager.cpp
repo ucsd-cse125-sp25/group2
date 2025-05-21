@@ -1,27 +1,27 @@
-#include "client_manager.hpp"
+#include "character_manager.hpp"
 
-ClientManager::ClientManager() {
+CharacterManager::CharacterManager() {
   chicken = -1;
   pig = -1;
   cow = -1;
   sheep = -1;
 }
 
-void ClientManager::setID(int id) { whoAmI = id; }
+void CharacterManager::setID(CLIENT_ID id) { whoAmI = id; }
 
-void ClientManager::setCharacter(int ch, int s, int p, int c) {
+void CharacterManager::setCharacter(PLAYER_ID ch, PLAYER_ID s, PLAYER_ID p, PLAYER_ID c) {
   struct CharacterSlot {
     int &current;
     int newVal;
     BaseUI *button;
-    Characters characterType;
+    int characterType;
   };
 
   std::vector<CharacterSlot> slots = {
-      {chicken, ch, UIManager::chickenButton.get(), Characters::CHICKEN},
-      {sheep, s, UIManager::sheepButton.get(), Characters::SHEEP},
-      {pig, p, UIManager::pigButton.get(), Characters::PIG},
-      {cow, c, UIManager::cowButton.get(), Characters::COW}};
+      {chicken, ch, UIManager::chickenButton.get(), CHICKEN},
+      {sheep, s, UIManager::sheepButton.get(), SHEEP},
+      {pig, p, UIManager::pigButton.get(), PIG},
+      {cow, c, UIManager::cowButton.get(), COW}};
 
   for (auto &slot : slots) {
     // Case 1: Character is now unassigned → unlock the button

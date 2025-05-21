@@ -21,6 +21,7 @@ enum class PacketType : uint8_t {
   OBJECT,
   GAMESTATE,
   CHARACTERRESPONSE,
+
   // Sender: Client
   MOVEMENT,
   ROTATION,
@@ -36,21 +37,21 @@ struct IPacket {
 };
 
 struct InitPacket : public IPacket {
-  int clientID;
+  CLIENT_ID id;
 
-  InitPacket(int id) : clientID(id) {}
+  InitPacket(CLIENT_ID id) : id(id) {}
   PacketType getType() const override { return PacketType::INIT; }
   vector<char> serialize() const override;
   static InitPacket deserialize(const vector<char> &payload);
 };
 
 struct ObjectPacket : public IPacket {
-  int objectID;
+  OBJECT_ID id;
   Transform transform;
   bool active;
 
-  ObjectPacket(int id, Transform transform, bool active)
-      : objectID(id), transform(transform), active(active) {}
+  ObjectPacket(OBJECT_ID id, Transform transform, bool active)
+      : id(id), transform(transform), active(active) {}
   PacketType getType() const override { return PacketType::OBJECT; }
   vector<char> serialize() const override;
   static ObjectPacket deserialize(const vector<char> &payload);
@@ -64,48 +65,49 @@ struct GameStatePacket : public IPacket {
   static GameStatePacket deserialize(const vector<char> &payload);
 };
 struct CharacterResponsePacket : public IPacket {
-  int characters[4];
+  PLAYER_ID chicken;
+  PLAYER_ID sheep;
+  PLAYER_ID pig;
+  PLAYER_ID cow;
 
-  CharacterResponsePacket(const int characters_in[4]) {
-    std::memcpy(characters, characters_in, 4 * sizeof(int));
-  }
+  CharacterResponsePacket(PLAYER_ID chicken, PLAYER_ID sheep, PLAYER_ID pig, PLAYER_ID cow)
+      : chicken(chicken), sheep(sheep), pig(pig), cow(cow) {}
   PacketType getType() const override { return PacketType::CHARACTERRESPONSE; }
   vector<char> serialize() const override;
   static CharacterResponsePacket deserialize(const vector<char> &payload);
 };
 
 struct MovementPacket : public IPacket {
-  int objectID;
+  OBJECT_ID id;
   MovementType movementType;
   glm::vec3 cameraFront;
 
-  MovementPacket(int id, MovementType type, glm::vec3 cameraFront)
-      : objectID(id), movementType(type), cameraFront(cameraFront) {}
+  MovementPacket(OBJECT_ID id, MovementType type, glm::vec3 cameraFront)
+      : id(id), movementType(type), cameraFront(cameraFront) {}
   PacketType getType() const override { return PacketType::MOVEMENT; }
   vector<char> serialize() const override;
   static MovementPacket deserialize(const vector<char> &payload);
 };
 
 struct RotationPacket : public IPacket {
-  int objectID;
+  OBJECT_ID id;
   glm::vec3 rotation;
 
-  RotationPacket(int id, glm::vec3 rotation)
-      : objectID(id), rotation(rotation) {}
+  RotationPacket(OBJECT_ID id, glm::vec3 rotation)
+      : id(id), rotation(rotation) {}
   PacketType getType() const override { return PacketType::ROTATION; }
   vector<char> serialize() const override;
   static RotationPacket deserialize(const vector<char> &payload);
 };
 
 struct InteractionPacket : public IPacket {
-  int clientID;
-  int objectID;
+  PLAYER_ID character;
   glm::vec3 rayDirection;
   glm::vec3 rayOrigin;
 
-  InteractionPacket(int clientID, int objectID, glm::vec3 rayDirection,
+  InteractionPacket(PLAYER_ID character, glm::vec3 rayDirection,
                     glm::vec3 rayOrigin)
-      : clientID(clientID), objectID(objectID), rayDirection(rayDirection),
+      : character(character), rayDirection(rayDirection),
         rayOrigin(rayOrigin) {}
   PacketType getType() const override { return PacketType::INTERACTION; }
   vector<char> serialize() const override;
@@ -113,20 +115,20 @@ struct InteractionPacket : public IPacket {
 };
 
 struct CharacterSelectPacket : public IPacket {
-  Characters character;
-  int clientID;
+  PLAYER_ID character;
+  CLIENT_ID id;
 
-  CharacterSelectPacket(Characters character, int clientID)
-      : character(character), clientID(clientID) {}
+  CharacterSelectPacket(PLAYER_ID character, CLIENT_ID id)
+      : character(character), id(id) {}
   PacketType getType() const override { return PacketType::CHARACTERSELECT; }
   vector<char> serialize() const override;
   static CharacterSelectPacket deserialize(const vector<char> &payload);
 };
 
 struct DisconnectPacket : public IPacket {
-  int clientID;
+  CLIENT_ID id;
 
-  DisconnectPacket(int id) : clientID(id) {}
+  DisconnectPacket(CLIENT_ID id) : id(id) {}
   PacketType getType() const override { return PacketType::DISCONNECT; }
   vector<char> serialize() const override;
   static DisconnectPacket deserialize(const vector<char> &payload);
