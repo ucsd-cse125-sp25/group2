@@ -18,8 +18,6 @@ void ServerGameState::updateMovement(int id, MovementType type,
                                      glm::vec3 cameraFront) {
   auto player = getObject(id);
   if (player) {
-    // Set player movement properties
-    float speed = 10.0f;
     // Find the direction of movement based on the camera's facing direction
     glm::vec3 flatFront =
         glm::normalize(glm::vec3(cameraFront.x, 0.0f, cameraFront.z));
@@ -27,16 +25,16 @@ void ServerGameState::updateMovement(int id, MovementType type,
         glm::normalize(glm::cross(flatFront, glm::vec3(0.0f, 1.0f, 0.0f)));
     switch (type) {
     case MovementType::FORWARD:
-      player->getRigidBody()->applyImpulse(speed * flatFront);
+      logicSolver->moveObject(player,flatFront);
       break;
     case MovementType::BACKWARD:
-      player->getRigidBody()->applyImpulse(speed * -flatFront);
+      logicSolver->moveObject(player,-flatFront);
       break;
     case MovementType::LEFT:
-      player->getRigidBody()->applyImpulse(speed * -cameraRight);
+      logicSolver->moveObject(player,-cameraRight);
       break;
     case MovementType::RIGHT:
-      player->getRigidBody()->applyImpulse(speed * cameraRight);
+      logicSolver->moveObject(player,cameraRight);
       break;
     default:
       cerr << "Unknown movement type" << endl;
@@ -119,13 +117,14 @@ void ServerGameState::updateInteraction(ClientManager *clientManager,
   Characters character = clientManager->getCharacter(clientID);
 
   if (closestObject->getInteractionType() == InteractionType::PICKUP ||
-      closestObjectID == 1) {
+      closestObjectID == 1) { // delete the OR later
     cout << "Pickup interaction" << endl; // delete later
     cout << "Held object id: " << logicSolver->getHeldObject(character)
          << endl; // delete later
     // If the character is already holding an object, drop it
     if (logicSolver->getHeldObject(character) == closestObjectID) {
       logicSolver->dropObject(player, closestObject);
+      logicSolver->setHeldObject(character, -1);
       cout << "Dropped object: " << closestObject->getId() << endl;
     }
     // Chatecter is not holding an object, pick it up

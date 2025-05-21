@@ -1,11 +1,21 @@
 #include "gamelogic.hpp"
 
 GameLogic::GameLogic() {
+    speed = 10.0f;
+    jumpForce = 10.0f;
+
   // Initialize the held objects for each character
   heldObjects[Characters::CHICKEN] = -1;
   heldObjects[Characters::SHEEP] = -1;
   heldObjects[Characters::PIG] = -1;
   heldObjects[Characters::COW] = -1;
+}
+
+void GameLogic::moveObject(GameObject *object, glm::vec3 direction) {
+    auto rigidBody = object->getRigidBody();
+    if (rigidBody) {
+        rigidBody->applyImpulse(speed * direction);
+    }
 }
 
 void GameLogic::pickupObject(GameObject *playerObject, GameObject *object) {
