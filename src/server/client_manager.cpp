@@ -14,9 +14,9 @@ void ClientManager::assignCharacter(Characters character, int clientID) {
     clientToCharacter[clientID] = character;
   }
 }
-  
+
 void ClientManager::unAssign(int clientID) {
-  characterToClient[(int) clientToCharacter[clientID]] = -1;
+  characterToClient[(int)clientToCharacter[clientID]] = -1;
   clientToCharacter[clientID] = Characters::NONE;
 }
 

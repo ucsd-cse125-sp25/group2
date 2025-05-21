@@ -53,7 +53,8 @@ void ServerGameState::updateRotation(int id, glm::vec3 rotation) {
   }
 }
 
-void ServerGameState::updateInteraction(ClientManager *clientManager, int clientID, glm::vec3 rayDirection,
+void ServerGameState::updateInteraction(ClientManager *clientManager,
+                                        int clientID, glm::vec3 rayDirection,
                                         glm::vec3 rayOrigin) {
   GameObject *closestObject = nullptr;
   int closestObjectID;
@@ -100,8 +101,10 @@ void ServerGameState::updateInteraction(ClientManager *clientManager, int client
 
   if (closestObject->getInteractionType() == InteractionType::PICKUP) {
     Characters character = clientManager->getCharacter(clientID);
-    int droppedObjectID = clientManager->pickupObject(character, closestObjectID);
-    cout << "dropped object:" << droppedObjectID << "picked up:" << closestObjectID << endl;
+    int droppedObjectID =
+        clientManager->pickupObject(character, closestObjectID);
+    cout << "dropped object:" << droppedObjectID
+         << "picked up:" << closestObjectID << endl;
   }
 
   cout << "Closest object: " << closestObject->getId() << endl;

@@ -29,13 +29,13 @@ bool GameServer::start() {
     cerr << "ServerGameState initialization failed" << endl;
     return false;
   }
-  network->setOnJoin(
-      [game = game.get(), &select = clientManager, net = network.get()]() {
-        if (game->state != Gamestate::GAME) {
-          CharacterResponsePacket responsePacket(select->getCharacterAssignments());
-          net->sendToAll(responsePacket);
-        }
-      });
+  network->setOnJoin([game = game.get(), &select = clientManager,
+                      net = network.get()]() {
+    if (game->state != Gamestate::GAME) {
+      CharacterResponsePacket responsePacket(select->getCharacterAssignments());
+      net->sendToAll(responsePacket);
+    }
+  });
   network->setOnLeave([game = game.get(), &select = clientManager,
                        net = network.get()](int id) {
     if (game->state != Gamestate::GAME) {
@@ -68,7 +68,8 @@ void GameServer::updateGameState() {
     }
     case PacketType::INTERACTION: {
       auto interactionPacket = static_cast<InteractionPacket *>(packet.get());
-      game->updateInteraction(clientManager.get(), interactionPacket->clientID, interactionPacket->rayDirection,
+      game->updateInteraction(clientManager.get(), interactionPacket->clientID,
+                              interactionPacket->rayDirection,
                               interactionPacket->rayOrigin);
       break;
     }

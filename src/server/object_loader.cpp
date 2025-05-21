@@ -40,7 +40,8 @@ unordered_map<int, unique_ptr<GameObject>> ObjectLoader::loadObjects() {
         auto cl =
             make_unique<Collider>(base.transform->getPosition(), halfExtents);
 
-        obj = make_unique<GameObject>(objectId, base.active, base.transform, rb, cl);
+        obj = make_unique<GameObject>(objectId, base.active, base.transform, rb,
+                                      cl);
 
         if (server.contains("interaction")) {
           string interactionStr = server["interaction"].get<string>();

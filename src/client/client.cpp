@@ -284,7 +284,8 @@ void Client::mouseButtonCallback(GLFWwindow *window, int button, int action,
       // Handle left mouse button press
       glm::vec3 rayOrigin = cam->getPos();
       glm::vec3 rayDirection = cam->getFacing();
-      InteractionPacket packet(characterManager->whoAmI, rayDirection, rayOrigin);
+      InteractionPacket packet(characterManager->whoAmI, rayDirection,
+                               rayOrigin);
       network->send(packet);
     }
     // delete later: to switch between different clients on one machine
