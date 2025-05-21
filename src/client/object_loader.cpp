@@ -19,7 +19,7 @@ unordered_map<int, unique_ptr<GameObject>> ObjectLoader::loadObjects() {
   if (objectsData.contains("objects") && objectsData["objects"].is_array()) {
 
     for (const auto &objData : objectsData["objects"]) {
-      int objectId = id++;
+      OBJECT_ID objectId = id++;
 
       BaseObjectData base = createBaseGameObject(objData);
       unique_ptr<GameObject> obj =

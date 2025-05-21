@@ -8,6 +8,8 @@ void Physics::remove(GameObject *obj) {
 
 void Physics::calculateForces() {
   for (GameObject *obj : objects) {
+    if (obj->isDisabled())
+      continue;
     glm::vec3 vel = obj->getRigidBody()->getVelocity();
     glm::vec3 force = glm::vec3(0);
     if (!obj->isGrounded()) {
@@ -37,6 +39,8 @@ void Physics::resolveCollisions() {
   for (int i = 0; i < solverIterations; ++i) {
     for (GameObject *a : objects) {
       for (GameObject *b : objects) {
+        if (a->isDisabled() || b->isDisabled())
+          continue;
         if (a == b)
           continue;
 
@@ -105,6 +109,8 @@ void Physics::moveObjects(float deltaTime) {
   float moveSpeed = 10.0f;
 
   for (GameObject *obj : objects) {
+    if (obj->isDisabled())
+      continue;
     if (obj->getRigidBody()->isStatic())
       continue;
     Transform *tf = obj->getTransform();

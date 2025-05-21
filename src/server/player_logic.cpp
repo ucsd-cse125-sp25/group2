@@ -22,11 +22,13 @@ void PlayerLogic::pickupObject(GameObject *playerObject, GameObject *object) {
   auto playerTransform = playerObject->getTransform();
   glm::vec3 offset = glm::vec3(0.0f, 5.0f, 0.0f);
   object->getTransform()->setPosition(playerTransform->getPosition() + offset);
+  object->setDisable(true);
 }
 
 void PlayerLogic::dropObject(GameObject *playerObject, GameObject *object) {
   auto playerTransform = playerObject->getTransform();
   object->getTransform()->setPosition(playerTransform->getPosition());
+  object->setDisable(false);
 }
 
 void PlayerLogic::assignCharacter(PLAYER_ID character, CLIENT_ID id) {

@@ -94,19 +94,19 @@ bool Client::initUI() {
     UIManager::startScreenUI->isSelected = true;
   });
   UIManager::chickenButton->setOnClick([net = network.get()]() {
-    CharacterSelectPacket packet(Characters::CHICKEN, net->getId());
+    CharacterSelectPacket packet(CHICKEN, net->getId());
     net->send(packet);
   });
   UIManager::pigButton->setOnClick([net = network.get()]() {
-    CharacterSelectPacket packet(Characters::PIG, net->getId());
+    CharacterSelectPacket packet(PIG, net->getId());
     net->send(packet);
   });
   UIManager::sheepButton->setOnClick([net = network.get()]() {
-    CharacterSelectPacket packet(Characters::SHEEP, net->getId());
+    CharacterSelectPacket packet(SHEEP, net->getId());
     net->send(packet);
   });
   UIManager::cowButton->setOnClick([net = network.get()]() {
-    CharacterSelectPacket packet(Characters::COW, net->getId());
+    CharacterSelectPacket packet(COW, net->getId());
     net->send(packet);
   });
   return true;
@@ -128,13 +128,13 @@ void Client::idleCallback(float deltaTime) {
     switch (packet->getType()) {
     case PacketType::INIT: {
       auto initPacket = dynamic_cast<InitPacket *>(packet.get());
-      network->setId(initPacket->clientID);
-      characterManager->setID(initPacket->clientID);
+      network->setId(initPacket->id);
+      characterManager->setID(initPacket->id);
       break;
     }
     case PacketType::OBJECT: {
       auto objectPacket = dynamic_cast<ObjectPacket *>(packet.get());
-      game->update(objectPacket->objectID, &objectPacket->transform);
+      game->update(objectPacket->id, &objectPacket->transform);
       break;
     }
     case PacketType::GAMESTATE: {
@@ -153,9 +153,7 @@ void Client::idleCallback(float deltaTime) {
     case PacketType::CHARACTERRESPONSE: {
       auto characterPacket =
           dynamic_cast<CharacterResponsePacket *>(packet.get());
-      characterManager->setCharacter(
-          characterPacket->characters[0], characterPacket->characters[1],
-          characterPacket->characters[2], characterPacket->characters[3]);
+      characterManager->setCharacters(characterPacket->characterAssignments);
       break;
     }
     }
@@ -284,9 +282,7 @@ void Client::mouseButtonCallback(GLFWwindow *window, int button, int action,
       // Handle left mouse button press
       glm::vec3 rayOrigin = cam->getPos();
       glm::vec3 rayDirection = cam->getFacing();
-      InteractionPacket packet(characterManager->whoAmI,
-                               game->getPlayer()->getId(), rayDirection,
-                               rayOrigin);
+      InteractionPacket packet(characterManager->selectedCharacter, rayDirection, rayOrigin);
       network->send(packet);
     }
     // delete later: to switch between different clients on one machine

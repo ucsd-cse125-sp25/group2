@@ -47,7 +47,7 @@ bool ServerNetwork::acceptClient() {
  * Core communication to client
  * need to send a packet that inherits IPacket
  */
-void ServerNetwork::sendToClient(unsigned int id, const IPacket &packet) {
+void ServerNetwork::sendToClient(CLIENT_ID id, const IPacket &packet) {
   auto socket = clients[id];
   if (!socket->is_open()) {
     handleClientDisconnect(id);
@@ -129,7 +129,7 @@ deque<unique_ptr<IPacket>> ServerNetwork::receiveFromClients() {
 
 unique_ptr<IPacket> ServerNetwork::processPackets(PacketType type,
                                                   vector<char> payload,
-                                                  int clientID) {
+                                                  CLIENT_ID id) {
   switch (type) {
   case PacketType::INIT: {
     unique_ptr<IPacket> packet = deserialize(PacketType::INIT, payload);

@@ -32,14 +32,14 @@ public:
 
   // update methods
   CLIENT_ID *updateCharacters(PLAYER_ID character, CLIENT_ID id);
-  void updateMovement(int id, MovementType type, glm::vec3 cameraFront);
-  void updateRotation(int id, glm::vec3 rotation);
+  void updateMovement(OBJECT_ID id, MovementType type, glm::vec3 cameraFront);
+  void updateRotation(OBJECT_ID id, glm::vec3 rotation);
   void updateInteraction(PLAYER_ID character, glm::vec3 rayDirection,
                          glm::vec3 rayOrigin);
   void applyPhysics();
 
   // getters
-  GameObject *getObject(int id);
+  GameObject *getObject(OBJECT_ID id);
   vector<int> getLastUpdatedObjects();
   PlayerLogic *getPlayerLogic() { return playerLogic.get(); }
 };

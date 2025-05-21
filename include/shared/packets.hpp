@@ -65,14 +65,11 @@ struct GameStatePacket : public IPacket {
   static GameStatePacket deserialize(const vector<char> &payload);
 };
 struct CharacterResponsePacket : public IPacket {
-  PLAYER_ID chicken;
-  PLAYER_ID sheep;
-  PLAYER_ID pig;
-  PLAYER_ID cow;
+  CLIENT_ID characterAssignments[NUM_PLAYERS];
 
-  CharacterResponsePacket(PLAYER_ID chicken, PLAYER_ID sheep, PLAYER_ID pig,
-                          PLAYER_ID cow)
-      : chicken(chicken), sheep(sheep), pig(pig), cow(cow) {}
+  CharacterResponsePacket(CLIENT_ID *charAssignments) {
+    copy(charAssignments, charAssignments + NUM_PLAYERS, characterAssignments);
+  }
   PacketType getType() const override { return PacketType::CHARACTERRESPONSE; }
   vector<char> serialize() const override;
   static CharacterResponsePacket deserialize(const vector<char> &payload);

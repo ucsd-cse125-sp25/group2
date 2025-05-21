@@ -2,7 +2,7 @@
 
 ServerGameState::ServerGameState() : deltaTime(0.007f) {
   physicsWorld = make_unique<Physics>();
-  logicSolver = make_unique<GameLogic>();
+  playerLogic = make_unique<GameLogic>();
 }
 
 bool ServerGameState::init() {
@@ -14,7 +14,13 @@ bool ServerGameState::init() {
   return true;
 }
 
-void ServerGameState::updateMovement(int id, MovementType type,
+CLIENT_ID *ServerGameState::updateCharacters(PLAYER_ID character,
+                                     CLIENT_ID id) {
+  playerLogic->assignCharacter(character, id);
+  return playerLogic->getCharacterAssignments();
+}
+
+void ServerGameState::updateMovement(OBJECT_ID id, MovementType type,
                                      glm::vec3 cameraFront) {
   auto player = getObject(id);
   if (player) {
@@ -25,16 +31,16 @@ void ServerGameState::updateMovement(int id, MovementType type,
         glm::normalize(glm::cross(flatFront, glm::vec3(0.0f, 1.0f, 0.0f)));
     switch (type) {
     case MovementType::FORWARD:
-      logicSolver->moveObject(player, flatFront);
+      playerLogic->moveObject(player, flatFront);
       break;
     case MovementType::BACKWARD:
-      logicSolver->moveObject(player, -flatFront);
+      playerLogic->moveObject(player, -flatFront);
       break;
     case MovementType::LEFT:
-      logicSolver->moveObject(player, -cameraRight);
+      playerLogic->moveObject(player, -cameraRight);
       break;
     case MovementType::RIGHT:
-      logicSolver->moveObject(player, cameraRight);
+      playerLogic->moveObject(player, cameraRight);
       break;
     default:
       cerr << "Unknown movement type" << endl;
@@ -44,7 +50,7 @@ void ServerGameState::updateMovement(int id, MovementType type,
   }
 }
 
-void ServerGameState::updateRotation(int id, glm::vec3 rotation) {
+void ServerGameState::updateRotation(OBJECT_ID id, glm::vec3 rotation) {
   auto obj = getObject(id);
   if (obj) {
     obj->getTransform()->setRotation(rotation);
@@ -52,12 +58,11 @@ void ServerGameState::updateRotation(int id, glm::vec3 rotation) {
   }
 }
 
-void ServerGameState::updateInteraction(ClientManager *clientManager,
-                                        int clientID, int id,
+void ServerGameState::updateInteraction(PLAYER_ID character,
                                         glm::vec3 rayDirection,
                                         glm::vec3 rayOrigin) {
   GameObject *closestObject = nullptr;
-  int closestObjectID;
+  OBJECT_ID closestObjectID;
   float minDistance = std::numeric_limits<float>::max();
 
   for (auto &obj : objectList) {
@@ -119,18 +124,18 @@ void ServerGameState::updateInteraction(ClientManager *clientManager,
   if (closestObject->getInteractionType() == InteractionType::PICKUP ||
       closestObjectID == 1) {             // delete the OR later
     cout << "Pickup interaction" << endl; // delete later
-    cout << "Held object id: " << logicSolver->getHeldObject(character)
+    cout << "Held object id: " << playerLogic->getHeldObject(character)
          << endl; // delete later
     // If the character is already holding an object, drop it
-    if (logicSolver->getHeldObject(character) == closestObjectID) {
-      logicSolver->dropObject(player, closestObject);
-      logicSolver->setHeldObject(character, -1);
+    if (playerLogic->getHeldObject(character) == closestObjectID) {
+      playerLogic->dropObject(player, closestObject);
+      playerLogic->setHeldObject(character, -1);
       cout << "Dropped object: " << closestObject->getId() << endl;
     }
     // Chatecter is not holding an object, pick it up
-    if (logicSolver->getHeldObject(character) == -1) {
-      logicSolver->setHeldObject(character, closestObjectID);
-      logicSolver->pickupObject(player, closestObject);
+    if (playerLogic->getHeldObject(character) == -1) {
+      playerLogic->setHeldObject(character, closestObjectID);
+      playerLogic->pickupObject(player, closestObject);
       cout << "Picked up object: " << closestObject->getId() << endl;
     }
   }
@@ -147,7 +152,7 @@ void ServerGameState::applyPhysics() {
     updatedObjectIds.insert(id);
 }
 
-GameObject *ServerGameState::getObject(int id) {
+GameObject *ServerGameState::getObject(OBJECT_ID id) {
   auto itr = objectList.find(id);
   if (itr != objectList.end()) {
     return itr->second.get();

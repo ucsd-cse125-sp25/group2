@@ -161,36 +161,25 @@ InteractionPacket InteractionPacket::deserialize(const vector<char> &payload) {
   return packet;
 }
 
-vector<char> CharacterResponsePacket::serialize() const {
-  vector<char> buffer(sizeof(int) * NUM_PLAYERS);
-
+vector<char> CharacterSelectPacket::serialize() const {
+  vector<char> buffer(sizeof(PLAYER_ID) + sizeof(CLIENT_ID));
   unsigned long size = 0;
-  memcpy(buffer.data(), &chicken, sizeof(PLAYER_ID));
-  size += sizeof(PLAYER_ID);
-  memcpy(buffer.data() + size, &sheep, sizeof(PLAYER_ID));
-  size += sizeof(PLAYER_ID);
-  memcpy(buffer.data() + size, &pig, sizeof(PLAYER_ID));
-  size += sizeof(PLAYER_ID);
-  memcpy(buffer.data() + size, &cow, sizeof(PLAYER_ID));
+  memcpy(buffer.data(), &character, sizeof(PLAYER_ID));
+  size += sizeof(uint8_t);
+  memcpy(buffer.data() + size, &id, sizeof(CLIENT_ID));
   return buffer;
 }
 
-CharacterResponsePacket
-CharacterResponsePacket::deserialize(const vector<char> &payload) {
-  PLAYER_ID chicken;
-  PLAYER_ID sheep;
-  PLAYER_ID pig;
-  PLAYER_ID cow;
+CharacterSelectPacket
+CharacterSelectPacket::deserialize(const vector<char> &payload) {
+  PLAYER_ID character;
+  CLIENT_ID id;
 
   unsigned long size = 0;
-  memcpy(&chicken, payload.data(), sizeof(PLAYER_ID));
+  memcpy(&character, payload.data(), sizeof(PLAYER_ID));
   size += sizeof(PLAYER_ID);
-  memcpy(&sheep, payload.data() + size, sizeof(PLAYER_ID));
-  size += sizeof(PLAYER_ID);
-  memcpy(&pig, payload.data() + size, sizeof(PLAYER_ID));
-  size += sizeof(PLAYER_ID);
-  memcpy(&cow, payload.data() + size, sizeof(PLAYER_ID));
-  CharacterResponsePacket packet(chicken, sheep, pig, cow);
+  memcpy(&id, payload.data() + size, sizeof(CLIENT_ID));
+  CharacterSelectPacket packet(character, id);
   return packet;
 }
 

@@ -13,7 +13,7 @@
 
 class ObjectLoader : public BaseObjectLoader {
 private:
-  int id = 0;
+  OBJECT_ID id = 0;
 
 public:
   unordered_map<int, unique_ptr<GameObject>> loadObjects();
