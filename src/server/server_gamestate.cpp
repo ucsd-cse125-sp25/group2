@@ -15,7 +15,7 @@ bool ServerGameState::init() {
 }
 
 CLIENT_ID *ServerGameState::updateCharacters(PLAYER_ID character,
-                                     CLIENT_ID id) {
+                                             CLIENT_ID id) {
   playerLogic->assignCharacter(character, id);
   return playerLogic->getCharacterAssignments();
 }
