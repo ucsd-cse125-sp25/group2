@@ -1,9 +1,9 @@
 #pragma once
 
-#include "player_logic.hpp"
 #include "globals.hpp"
 #include "packets.hpp"
 #include "physics.hpp"
+#include "player_logic.hpp"
 #include "server_gameobject.hpp"
 #include "server_object_loader.hpp"
 

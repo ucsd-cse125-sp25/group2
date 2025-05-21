@@ -29,7 +29,9 @@ public:
   };
 
   // Getters
-  OBJECT_ID getHeldObject(PLAYER_ID character) { return heldObjects[character]; };
+  OBJECT_ID getHeldObject(PLAYER_ID character) {
+    return heldObjects[character];
+  };
   CLIENT_ID getClient(PLAYER_ID character) {
     return characterToClient[character];
   };

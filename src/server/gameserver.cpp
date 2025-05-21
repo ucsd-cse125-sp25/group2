@@ -30,15 +30,16 @@ bool GameServer::start() {
   }
   network->setOnJoin([game = game.get(), net = network.get()]() {
     if (game->state != Gamestate::GAME) {
-      CharacterResponsePacket responsePacket(game->playerLogic->getCharacterAssignments());
+      CharacterResponsePacket responsePacket(
+          game->playerLogic->getCharacterAssignments());
       net->sendToAll(responsePacket);
     }
   });
-  network->setOnLeave([game = game.get(), net = network.get()](
-      CLIENT_ID id) {
+  network->setOnLeave([game = game.get(), net = network.get()](CLIENT_ID id) {
     if (game->state != Gamestate::GAME) {
       game->getPlayerLogic()->unAssignCharacter(id);
-      CharacterResponsePacket responsePacket(game->getPlayerLogic()->getCharacterAssignments());
+      CharacterResponsePacket responsePacket(
+          game->getPlayerLogic()->getCharacterAssignments());
       net->sendToAll(responsePacket);
     }
   });
@@ -54,8 +55,7 @@ void GameServer::updateGameState() {
     switch (packet->getType()) {
     case PacketType::MOVEMENT: {
       auto movementPacket = static_cast<MovementPacket *>(packet.get());
-      game->updateMovement(movementPacket->id,
-                           movementPacket->movementType,
+      game->updateMovement(movementPacket->id, movementPacket->movementType,
                            movementPacket->cameraFront);
       break;
     }
@@ -73,8 +73,8 @@ void GameServer::updateGameState() {
     }
     case PacketType::CHARACTERSELECT: {
       auto characterPacket = static_cast<CharacterSelectPacket *>(packet.get());
-      auto characterAssignments = game->updateCharacters(characterPacket->character,
-                                  characterPacket->id);
+      auto characterAssignments = game->updateCharacters(
+          characterPacket->character, characterPacket->id);
       CharacterResponsePacket packet(characterAssignments);
       network->sendToAll(packet);
       // if (clientManager->allAssigned()) {
