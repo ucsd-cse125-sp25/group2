@@ -2,7 +2,7 @@
 
 ServerGameState::ServerGameState() : deltaTime(0.007f) {
   physicsWorld = make_unique<Physics>();
-  playerLogic = make_unique<GameLogic>();
+  playerLogic = make_unique<PlayerLogic>();
 }
 
 bool ServerGameState::init() {
@@ -118,8 +118,7 @@ void ServerGameState::updateInteraction(PLAYER_ID character,
   // }
 
   // get player object and character
-  auto player = getObject(id);
-  Characters character = clientManager->getCharacter(clientID);
+  auto player = getObject(character);
 
   if (closestObject->getInteractionType() == InteractionType::PICKUP ||
       closestObjectID == 1) {             // delete the OR later

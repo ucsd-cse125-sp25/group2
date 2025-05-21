@@ -64,6 +64,7 @@ struct GameStatePacket : public IPacket {
   vector<char> serialize() const override;
   static GameStatePacket deserialize(const vector<char> &payload);
 };
+
 struct CharacterResponsePacket : public IPacket {
   CLIENT_ID characterAssignments[NUM_PLAYERS];
 

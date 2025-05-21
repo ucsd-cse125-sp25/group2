@@ -31,7 +31,7 @@ bool GameServer::start() {
   network->setOnJoin([game = game.get(), net = network.get()]() {
     if (game->state != Gamestate::GAME) {
       CharacterResponsePacket responsePacket(
-          game->playerLogic->getCharacterAssignments());
+          game->getPlayerLogic()->getCharacterAssignments());
       net->sendToAll(responsePacket);
     }
   });
