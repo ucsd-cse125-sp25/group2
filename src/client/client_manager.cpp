@@ -1,15 +1,15 @@
-#include "client_character_manager.hpp"
+#include "client_manager.hpp"
 
-CharacterManager::CharacterManager() {
+ClientManager::ClientManager() {
   chicken = -1;
   pig = -1;
   cow = -1;
   sheep = -1;
 }
 
-void CharacterManager::setID(int id) { whoAmI = id; }
+void ClientManager::setID(int id) { whoAmI = id; }
 
-void CharacterManager::setCharacter(int ch, int s, int p, int c) {
+void ClientManager::setCharacter(int ch, int s, int p, int c) {
   struct CharacterSlot {
     int &current;
     int newVal;

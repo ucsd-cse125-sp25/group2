@@ -5,9 +5,9 @@
 
 #include <vector>
 
-class CharacterManager {
+class ClientManager {
 public:
-  CharacterManager();
+  ClientManager();
 
   int whoAmI;
 
