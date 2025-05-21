@@ -15,7 +15,7 @@ Client::Client() {
 
   // Initialize game state properties
   game = make_unique<ClientGameState>();
-  characterManager = make_unique<CharacterManager>();
+  clientManager = make_unique<ClientManager>();
 }
 
 bool Client::init() {
@@ -129,7 +129,7 @@ void Client::idleCallback(float deltaTime) {
     case PacketType::INIT: {
       auto initPacket = dynamic_cast<InitPacket *>(packet.get());
       network->setId(initPacket->clientID);
-      characterManager->setID(initPacket->clientID);
+      clientManager->setID(initPacket->clientID);
       break;
     }
     case PacketType::OBJECT: {
@@ -153,7 +153,7 @@ void Client::idleCallback(float deltaTime) {
     case PacketType::CHARACTERRESPONSE: {
       auto characterPacket =
           dynamic_cast<CharacterResponsePacket *>(packet.get());
-      characterManager->setCharacter(
+      clientManager->setCharacter(
           characterPacket->characters[0], characterPacket->characters[1],
           characterPacket->characters[2], characterPacket->characters[3]);
       break;
@@ -284,8 +284,7 @@ void Client::mouseButtonCallback(GLFWwindow *window, int button, int action,
       // Handle left mouse button press
       glm::vec3 rayOrigin = cam->getPos();
       glm::vec3 rayDirection = cam->getFacing();
-      InteractionPacket packet(characterManager->whoAmI, rayDirection,
-                               rayOrigin);
+      InteractionPacket packet(clientManager->whoAmI, game->getPlayer()->getId(), rayDirection, rayOrigin);
       network->send(packet);
     }
     // delete later: to switch between different clients on one machine

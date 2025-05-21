@@ -1,7 +1,7 @@
 #pragma once
 
 #include "camera.hpp"
-#include "client_character_manager.hpp"
+#include "client_manager.hpp"
 #include "client_gamestate.hpp"
 #include "client_network.hpp"
 #include "core.hpp"
@@ -28,7 +28,7 @@ private:
   unique_ptr<UIManager> ui;
 
   // Character Selection
-  unique_ptr<CharacterManager> characterManager;
+  unique_ptr<ClientManager> clientManager;
 
   void updatePlayerRotation();
 

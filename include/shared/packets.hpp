@@ -99,11 +99,14 @@ struct RotationPacket : public IPacket {
 
 struct InteractionPacket : public IPacket {
   int clientID;
+  int objectID;
   glm::vec3 rayDirection;
   glm::vec3 rayOrigin;
 
-  InteractionPacket(int clientID, glm::vec3 rayDirection, glm::vec3 rayOrigin)
-      : clientID(clientID), rayDirection(rayDirection), rayOrigin(rayOrigin) {}
+  InteractionPacket(int clientID, int objectID, glm::vec3 rayDirection,
+                    glm::vec3 rayOrigin)
+      : clientID(clientID), objectID(objectID), rayDirection(rayDirection),
+        rayOrigin(rayOrigin) {}
   PacketType getType() const override { return PacketType::INTERACTION; }
   vector<char> serialize() const override;
   static InteractionPacket deserialize(const vector<char> &payload);
