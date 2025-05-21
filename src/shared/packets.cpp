@@ -66,7 +66,7 @@ CharacterResponsePacket::deserialize(const vector<char> &payload) {
   CLIENT_ID *characterAssignments;
 
   unsigned long size = 0;
-  
+
   memcpy(characterAssignments, payload.data(), sizeof(CLIENT_ID) * NUM_PLAYERS);
   CharacterResponsePacket packet(characterAssignments);
   return packet;
