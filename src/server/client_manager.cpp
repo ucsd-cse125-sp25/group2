@@ -2,29 +2,27 @@
 
 ClientManager::ClientManager() {
   for (int i = 0; i < 4; i++) {
-    characterAssignments[i] = -1;
+    characterToClient[i] = -1;
+    clientToCharacter[i] = Characters::NONE;
   }
 }
 
 void ClientManager::assignCharacter(Characters character, int clientID) {
   unAssign(clientID);
-  if (characterAssignments[static_cast<int>(character)] == -1) {
-    characterAssignments[static_cast<int>(character)] = clientID;
+  if (characterToClient[(int)character] == -1) {
+    characterToClient[(int)character] = clientID;
+    clientToCharacter[clientID] = character;
   }
 }
-
+  
 void ClientManager::unAssign(int clientID) {
-  for (int i = 0; i < 4; i++) {
-    if (characterAssignments[i] == clientID) {
-      characterAssignments[i] = -1;
-      return;
-    }
-  }
+  characterToClient[(int) clientToCharacter[clientID]] = -1;
+  clientToCharacter[clientID] = Characters::NONE;
 }
 
-bool ClientManager::allAssigned() {
+bool ClientManager::allCharactersAssigned() {
   for (int i = 0; i < 4; i++) {
-    if (characterAssignments[i] == -1) {
+    if (characterToClient[i] == -1) {
       return false;
     }
   }

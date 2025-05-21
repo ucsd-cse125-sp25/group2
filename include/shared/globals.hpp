@@ -21,4 +21,4 @@ enum class InteractionType : uint8_t {
 
 enum class Gamestate : uint8_t { STARTSCREEN, MAINMENU, READY, GAME };
 
-enum class Characters : uint8_t { CHICKEN, SHEEP, PIG, COW };
+enum class Characters : uint8_t { CHICKEN, SHEEP, PIG, COW, NONE };

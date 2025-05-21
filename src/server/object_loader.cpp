@@ -40,18 +40,7 @@ unordered_map<int, unique_ptr<GameObject>> ObjectLoader::loadObjects() {
         auto cl =
             make_unique<Collider>(base.transform->getPosition(), halfExtents);
 
-        if (server.contains("player")) {
-          string playerType = server["playerType"].get<string>();
-          auto characterType = magic_enum::enum_cast<Characters>(playerType);
-
-          auto playerObj = make_unique<Player>(objectId, base.active,
-                                               base.transform, rb, cl);
-          playerObj->setCharacter(characterType.value());
-          obj = std::move(playerObj);
-        } else {
-          obj = make_unique<GameObject>(objectId, base.active, base.transform,
-                                        rb, cl);
-        }
+        obj = make_unique<GameObject>(objectId, base.active, base.transform, rb, cl);
 
         if (server.contains("interaction")) {
           string interactionStr = server["interaction"].get<string>();

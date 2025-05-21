@@ -32,7 +32,7 @@ bool GameServer::start() {
   network->setOnJoin(
       [game = game.get(), &select = clientManager, net = network.get()]() {
         if (game->state != Gamestate::GAME) {
-          CharacterResponsePacket responsePacket(select->characterAssignments);
+          CharacterResponsePacket responsePacket(select->getCharacterAssignments());
           net->sendToAll(responsePacket);
         }
       });
@@ -40,7 +40,7 @@ bool GameServer::start() {
                        net = network.get()](int id) {
     if (game->state != Gamestate::GAME) {
       select->unAssign(id);
-      CharacterResponsePacket responsePacket(select->characterAssignments);
+      CharacterResponsePacket responsePacket(select->getCharacterAssignments());
       net->sendToAll(responsePacket);
     }
   });
@@ -68,7 +68,7 @@ void GameServer::updateGameState() {
     }
     case PacketType::INTERACTION: {
       auto interactionPacket = static_cast<InteractionPacket *>(packet.get());
-      game->updateInteraction(interactionPacket->rayDirection,
+      game->updateInteraction(clientManager.get(), interactionPacket->clientID, interactionPacket->rayDirection,
                               interactionPacket->rayOrigin);
       break;
     }
@@ -77,7 +77,7 @@ void GameServer::updateGameState() {
       clientManager->assignCharacter(characterPacket->character,
                                      characterPacket->clientID);
       CharacterResponsePacket responsePacket(
-          clientManager->characterAssignments);
+          clientManager->getCharacterAssignments());
       network->sendToAll(responsePacket);
       // if (clientManager->allAssigned()) {
       GameStatePacket statePacket(Gamestate::GAME);
