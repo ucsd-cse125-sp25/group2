@@ -11,10 +11,10 @@ unique_ptr<BaseUI> UIManager::sheepButton = nullptr;
 unique_ptr<BaseUI> UIManager::cowButton = nullptr;
 vector<BaseUI *> UIManager::characterButtons;
 
-void UIManager::make_menus() {
+void UIManager::makeMenus() {
   // Start Screen + button
   startScreenUI = createUIElement(
-      0.0f, 0.0f, 2.0f, 2.0f, 0, AnimationInfo(3, 6, 0.06f),
+      0.0f, 0.0f, 2.0f, 2.0f, 0, AnimationInfo(3, 6, 0.03f),
       "../resources/ui/TitleScreenAnim.png", nullptr, false, false);
   startButton =
       createUIElement(0.0f, -0.5f, 0.5f, 0.5f, 0, AnimationInfo(1, 3, 0.1f),
@@ -69,8 +69,8 @@ unique_ptr<BaseUI> UIManager::createUIElement(
   return ui;
 }
 
-void UIManager::update_menu(float mouseX, float mouseY, int winWidth,
-                            int winHeight, float deltatime, Gamestate state) {
+void UIManager::updateMenu(float mouseX, float mouseY, int winWidth,
+                           int winHeight, float deltatime, Gamestate state) {
   switch (state) {
   case Gamestate::STARTSCREEN:
     startScreenUI->update(mouseX, mouseY, winWidth, winHeight, deltatime);
@@ -85,7 +85,7 @@ void UIManager::update_menu(float mouseX, float mouseY, int winWidth,
   }
 }
 
-void UIManager::draw_menu(Gamestate state) {
+void UIManager::drawMenu(Gamestate state) {
   switch (state) {
   case Gamestate::STARTSCREEN:
     startScreenUI->draw();

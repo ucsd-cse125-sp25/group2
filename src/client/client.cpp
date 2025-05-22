@@ -84,7 +84,7 @@ json Client::loadConfig(const std::string &path) {
 }
 
 bool Client::initUI() {
-  UIManager::make_menus();
+  UIManager::makeMenus();
   UIManager::startButton->setOnClick(
       []() { UIManager::startScreenUI->play(); });
   UIManager::startButton->setOnSelect(
@@ -160,8 +160,8 @@ void Client::idleCallback(float deltaTime) {
   }
   if (game->state == Gamestate::STARTSCREEN ||
       game->state == Gamestate::MAINMENU) {
-    UIManager::update_menu(mouseX, mouseY, windowWidth, windowHeight, deltaTime,
-                           game->state);
+    UIManager::updateMenu(mouseX, mouseY, windowWidth, windowHeight, deltaTime,
+                          game->state);
   }
 
   if (game->state == Gamestate::GAME) {
@@ -178,7 +178,7 @@ void Client::displayCallback(GLFWwindow *window) {
 
   if (game->state == Gamestate::STARTSCREEN ||
       game->state == Gamestate::MAINMENU) {
-    UIManager::draw_menu(game->state);
+    UIManager::drawMenu(game->state);
   }
 
   // Draw objects
@@ -195,6 +195,8 @@ void Client::displayCallback(GLFWwindow *window) {
 
 void Client::processMovementInput() {
   // Process WASD Movement
+  if (game->state != Gamestate::GAME)
+    return;
   if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
     MovementPacket packet(game->getPlayer()->getId(), MovementType::FORWARD,
                           cam->getFacing());
@@ -277,8 +279,10 @@ void Client::mouseCallback(GLFWwindow *window, double xPos, double yPos) {
 
 void Client::mouseButtonCallback(GLFWwindow *window, int button, int action,
                                  int mods) {
+  if (game->state != Gamestate::GAME)
+    return;
   if (action == GLFW_PRESS) {
-    if (button == GLFW_MOUSE_BUTTON_LEFT && game->state == Gamestate::GAME) {
+    if (button == GLFW_MOUSE_BUTTON_LEFT) {
       // Handle left mouse button press
       glm::vec3 rayOrigin = cam->getPos();
       glm::vec3 rayDirection = cam->getFacing();

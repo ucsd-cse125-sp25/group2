@@ -3,6 +3,7 @@
 #include "globals.hpp"
 #include "server_gameobject.hpp"
 
+#include <iostream>
 #include <unordered_map>
 
 using namespace std;
@@ -14,9 +15,10 @@ private:
   float jumpForce;
 
   // Interaction properties
-  unordered_map<PLAYER_ID, OBJECT_ID> heldObjects;
+  unordered_map<PLAYER_ID, GameObject *>
+      heldObjects; // map from player ID to the object they are holding
 
-  // Client to character mapping
+  // Client-to-Character mappings
   CLIENT_ID characterToClient[NUM_PLAYERS];
   PLAYER_ID clientToCharacter[NUM_PLAYERS];
 
@@ -24,19 +26,21 @@ public:
   PlayerLogic();
 
   // Setters
-  void setHeldObject(PLAYER_ID playerID, OBJECT_ID objectID) {
-    heldObjects[playerID] = objectID;
+  void setHeldObject(PLAYER_ID id, GameObject *object) {
+    heldObjects[id] = object;
   };
 
   // Getters
-  OBJECT_ID getHeldObject(PLAYER_ID id) { return heldObjects[id]; };
+  GameObject *getHeldObject(PLAYER_ID id) { return heldObjects[id]; };
   CLIENT_ID getClient(PLAYER_ID id) { return characterToClient[id]; };
   PLAYER_ID getCharacter(CLIENT_ID id) { return clientToCharacter[id]; };
   CLIENT_ID *getCharacterAssignments() { return characterToClient; }
 
   // Movement functions
-  void move(PLAYER_ID id, GameObject *player, glm::vec3 direction);
+  vector<OBJECT_ID> move(PLAYER_ID id, GameObject *player, glm::vec3 direction);
   void jump();
+  vector<OBJECT_ID> rotate(PLAYER_ID id, GameObject *player,
+                           glm::vec3 rotation);
 
   // Ability functions
   void glide();

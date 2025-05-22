@@ -23,6 +23,7 @@ CLIENT_ID *ServerGameState::updateCharacters(PLAYER_ID playerID,
 void ServerGameState::updateMovement(PLAYER_ID id, MovementType type,
                                      glm::vec3 cameraFront) {
   auto player = getObject(id);
+  vector<OBJECT_ID> movedObjects;
   if (player) {
     // Find the direction of movement based on the camera's facing direction
     glm::vec3 flatFront =
@@ -31,30 +32,33 @@ void ServerGameState::updateMovement(PLAYER_ID id, MovementType type,
         glm::normalize(glm::cross(flatFront, glm::vec3(0.0f, 1.0f, 0.0f)));
     switch (type) {
     case MovementType::FORWARD:
-      playerLogic->move(id, player, flatFront);
+      movedObjects = playerLogic->move(id, player, flatFront);
       break;
     case MovementType::BACKWARD:
-      playerLogic->move(id, player, -flatFront);
+      movedObjects = playerLogic->move(id, player, -flatFront);
       break;
     case MovementType::LEFT:
-      playerLogic->move(id, player, -cameraRight);
+      movedObjects = playerLogic->move(id, player, -cameraRight);
       break;
     case MovementType::RIGHT:
-      playerLogic->move(id, player, cameraRight);
+      movedObjects = playerLogic->move(id, player, cameraRight);
       break;
     default:
       cerr << "Unknown movement type" << endl;
       break;
     }
-    updatedObjectIds.insert(id);
+    for (auto id : movedObjects)
+      updatedObjectIds.insert(id);
   }
 }
 
 void ServerGameState::updateRotation(PLAYER_ID id, glm::vec3 rotation) {
-  auto obj = getObject(id);
-  if (obj) {
-    obj->getTransform()->setRotation(rotation);
-    updatedObjectIds.insert(id);
+  auto player = getObject(id);
+  vector<OBJECT_ID> rotatedObjects;
+  if (player) {
+    rotatedObjects = playerLogic->rotate(id, player, rotation);
+    for (auto id : rotatedObjects)
+      updatedObjectIds.insert(id);
   }
 }
 
@@ -66,9 +70,6 @@ void ServerGameState::updateInteraction(PLAYER_ID id, glm::vec3 rayDirection,
 
   for (auto &obj : objectList) {
     auto object = obj.second.get();
-    cout << "interaction type: "
-         << static_cast<int>(object->getInteractionType())
-         << endl; // delete later
     glm::vec3 center = object->getTransform()->getPosition();
     glm::vec3 halfExtents = object->getCollider()->getHalfExtents();
 
@@ -106,37 +107,24 @@ void ServerGameState::updateInteraction(PLAYER_ID id, glm::vec3 rayDirection,
     }
   }
 
-  cout << "Closest object: " << closestObjectID << endl; // delete later
-  cout << "Interaction type: "
-       << static_cast<int>(closestObject->getInteractionType())
-       << endl; // delete later
-
-  // if (closestObject->getInteractionType() == InteractionType::NONE) {
-  //   cout << "No interaction available" << endl; // delete later
-  //   return;
-  // }
-
-  // get player object and character
   auto player = getObject(id);
 
-  if (closestObject->getInteractionType() == InteractionType::PICKUP ||
-      closestObjectID == 1) {             // delete the OR later
-    cout << "Pickup interaction" << endl; // delete later
-    cout << "Held object id: " << playerLogic->getHeldObject(id)
-         << endl; // delete later
-    // If the character is already holding an object, drop it
-    if (playerLogic->getHeldObject(id) == closestObjectID) {
-      playerLogic->dropObject(player, closestObject);
-      playerLogic->setHeldObject(id, -1);
-      cout << "Dropped object: " << closestObject->getId() << endl;
-    }
-    // Chatecter is not holding an object, pick it up
-    if (playerLogic->getHeldObject(id) == -1) {
-      playerLogic->setHeldObject(id, closestObjectID);
-      playerLogic->pickupObject(player, closestObject);
-      cout << "Picked up object: " << closestObject->getId() << endl;
-    }
+  // PICKUP Interaction
+  // If the character is already holding an object, drop it
+  if (playerLogic->getHeldObject(id) != nullptr) {
+    playerLogic->dropObject(player, closestObject);
+    playerLogic->setHeldObject(id, nullptr);
+    cout << "Dropped object: " << closestObject->getId() << endl;
   }
+  // Otherwise, pick up closest object if it's interactable
+  if (closestObject->getInteractionType() == InteractionType::PICKUP &&
+          playerLogic->getHeldObject(id) == nullptr ||
+      closestObject->getId() == 1) {
+    playerLogic->setHeldObject(id, closestObject);
+    playerLogic->pickupObject(player, closestObject);
+    cout << "Picked up object: " << closestObject->getId() << endl;
+  }
+
   updatedObjectIds.insert(closestObjectID);
 }
 
