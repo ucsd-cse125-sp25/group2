@@ -9,10 +9,10 @@
 class UIManager {
 public:
   UIManager();
-  static void make_menus();
-  static void draw_menu(Gamestate state);
+  static void makeMenus();
+  static void drawMenu(Gamestate state);
 
-  static void update_menu(float mouseX, float mouseY, int winWidth,
+  static void updateMenu(float mouseX, float mouseY, int winWidth,
                           int winHeight, float deltatime, Gamestate state);
 
   static unique_ptr<BaseUI>
