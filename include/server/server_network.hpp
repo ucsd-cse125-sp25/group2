@@ -23,6 +23,7 @@ private:
 
   unordered_map<CLIENT_ID, MovementType> lastMovement;
   unordered_map<CLIENT_ID, unique_ptr<IPacket>> lastRotation;
+  unordered_map<CLIENT_ID, unique_ptr<IPacket>> lastInteraction;
 
   bool acceptClient();
   unique_ptr<IPacket> processPackets(PacketType type, vector<char> payload,

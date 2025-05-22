@@ -36,7 +36,7 @@
       "server": {
         "static": false,
         "halfExtents": { "x": 1.0, "y": 1.0, "z": 1.0 },
-        "interaction": "NONE"
+        "interaction": "PICKUP"
       }
     },
     {

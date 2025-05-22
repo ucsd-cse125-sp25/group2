@@ -117,14 +117,11 @@ void ServerGameState::updateInteraction(PLAYER_ID id, glm::vec3 rayDirection,
     cout << "Dropped object: " << closestObject->getId() << endl;
   }
   // Otherwise, pick up closest object if it's interactable
-  if (closestObject->getInteractionType() == InteractionType::PICKUP &&
-          playerLogic->getHeldObject(id) == nullptr ||
-      closestObject->getId() == 1) {
+  else if (closestObject->getInteractionType() == InteractionType::PICKUP && playerLogic->getHeldObject(id) == nullptr || closestObjectID == 1) {
     playerLogic->setHeldObject(id, closestObject);
     playerLogic->pickupObject(player, closestObject);
     cout << "Picked up object: " << closestObject->getId() << endl;
   }
-
   updatedObjectIds.insert(closestObjectID);
 }
 
