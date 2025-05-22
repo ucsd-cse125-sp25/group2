@@ -39,7 +39,7 @@ void UIManager::make_menus() {
       createUIElement(0.6f, -0.8f, 0.4f, 0.4f, 0, AnimationInfo(1, 3, 0.1f),
                       "../resources/ui/CowButton.png",
                       "../resources/ui/CowButtonHover.png", true, true);
-  characterButtons = {chickenButton.get(), sheepButton.get(), pigButton.get(), 
+  characterButtons = {chickenButton.get(), sheepButton.get(), pigButton.get(),
                       cowButton.get()};
 }
 

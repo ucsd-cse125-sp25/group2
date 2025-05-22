@@ -69,7 +69,8 @@ struct CharacterResponsePacket : public IPacket {
   CLIENT_ID characterAssignments[NUM_PLAYERS];
 
   CharacterResponsePacket(const CLIENT_ID characters_in[NUM_PLAYERS]) {
-    memcpy(characterAssignments, characters_in, NUM_PLAYERS * sizeof(CLIENT_ID));
+    memcpy(characterAssignments, characters_in,
+           NUM_PLAYERS * sizeof(CLIENT_ID));
   }
 
   PacketType getType() const override { return PacketType::CHARACTERRESPONSE; }
