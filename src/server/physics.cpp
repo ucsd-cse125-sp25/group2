@@ -40,9 +40,9 @@ void Physics::solveCollision(GameObject *a, GameObject *b, Contact contact) {
   glm::vec3 normal = contact.normal;
   float groundThreshold = 0.7f;
   if (normal.y > groundThreshold) {
-      a->setGrounded(true);
+    a->setGrounded(true);
   } else if (normal.y < -groundThreshold) {
-      b->setGrounded(true);
+    b->setGrounded(true);
   }
 
   clampVelocities(a_rb);
@@ -51,7 +51,7 @@ void Physics::solveCollision(GameObject *a, GameObject *b, Contact contact) {
   glm::vec3 a_vel = a_rb->getVelocity();
   glm::vec3 b_vel = b_rb->getVelocity();
   float restitution = 0.1f;
-      // min(a_rb->getRestitution(), b_rb->getRestitution());
+  // min(a_rb->getRestitution(), b_rb->getRestitution());
   float invMassA = a_rb->isStatic() ? 0.0f : 1.0f / a_rb->getMass();
   float invMassB = b_rb->isStatic() ? 0.0f : 1.0f / b_rb->getMass();
   float massSum = invMassA + invMassB;
@@ -69,8 +69,8 @@ void Physics::solveCollision(GameObject *a, GameObject *b, Contact contact) {
   // Push objects out of each other
   const float percent = 1.0f;
   const float slop = 0;
-  glm::vec3 correction = 
-    max(contact.penetration - slop, 0.0f) / massSum * percent * normal;
+  glm::vec3 correction =
+      max(contact.penetration - slop, 0.0f) / massSum * percent * normal;
   if (!a_rb->isStatic()) {
     a->getTransform()->updatePosition(-correction);
   }
@@ -98,7 +98,7 @@ void Physics::resolveCollisions() {
           updatedObjects.insert(b->getId());
           solveCollision(a, b, contact);
         }
-      }        
+      }
       //   Collider *aCol = a->getCollider()[0];
       //   Collider *bCol = b->getCollider()[0];
       //   if (!aCol || !bCol)
@@ -134,8 +134,8 @@ void Physics::resolveCollisions() {
       //     // Apply impulse based on mass and velocity of object's colliding.
       //     float v_close = glm::dot(a_vel - b_vel, normal);
       //     if (v_close < 0 && massSum > 0) {
-      //       glm::vec3 impulse = -(1 + restitution) * v_close / massSum * normal;
-      //       if (!a_rb->isStatic())
+      //       glm::vec3 impulse = -(1 + restitution) * v_close / massSum *
+      //       normal; if (!a_rb->isStatic())
       //         a_rb->applyImpulse(-impulse * invMassA);
       //       if (!b_rb->isStatic())
       //         b_rb->applyImpulse(impulse * invMassB);

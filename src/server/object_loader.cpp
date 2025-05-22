@@ -33,14 +33,18 @@ unordered_map<int, unique_ptr<GameObject>> ObjectLoader::loadObjects() {
           bool isStatic = server["static"].get<bool>();
           rb->setStatic(isStatic);
         }
-        auto mcl = make_unique<MeshCollider>(server.value("meshcollider", "").c_str(), base.transform.get());
-        auto cl = std::vector<Collider*>();
+        auto mcl = make_unique<MeshCollider>(
+            server.value("meshcollider", "").c_str(), base.transform.get());
+        auto cl = std::vector<Collider *>();
         if (server.contains("collider")) {
-          cl = loadCollider(base.transform->getPosition(), server.value("collider", "").c_str());
-          // std::cout << cl[0]->getCenter().x << " " << cl[0]->getCenter().y << " " << cl[0]->getCenter().z << std::endl;
-          // std::cout << cl[0]->getHalfExtents().x << " " << cl[0]->getHalfExtents().y << " " << cl[0]->getHalfExtents().z << std::endl;
+          cl = loadCollider(base.transform->getPosition(),
+                            server.value("collider", "").c_str());
+          // std::cout << cl[0]->getCenter().x << " " << cl[0]->getCenter().y <<
+          // " " << cl[0]->getCenter().z << std::endl; std::cout <<
+          // cl[0]->getHalfExtents().x << " " << cl[0]->getHalfExtents().y << "
+          // " << cl[0]->getHalfExtents().z << std::endl;
         }
-        
+
         obj = make_unique<GameObject>(objectId, base.active, base.transform, rb,
                                       cl, mcl);
 
@@ -60,8 +64,9 @@ unordered_map<int, unique_ptr<GameObject>> ObjectLoader::loadObjects() {
   return objects;
 };
 
-std::vector<Collider*> ObjectLoader::loadCollider(glm::vec3 objCenter, string path) {
-  std::vector<Collider*> colliders;
+std::vector<Collider *> ObjectLoader::loadCollider(glm::vec3 objCenter,
+                                                   string path) {
+  std::vector<Collider *> colliders;
   ifstream colliderFile(path);
   if (!colliderFile.is_open()) {
     cerr << "Failed to open collider file: " << path << endl;
@@ -75,7 +80,8 @@ std::vector<Collider*> ObjectLoader::loadCollider(glm::vec3 objCenter, string pa
     return colliders;
   }
 
-  if (colliderData.contains("colliders") && colliderData["colliders"].is_array()) {
+  if (colliderData.contains("colliders") &&
+      colliderData["colliders"].is_array()) {
     for (const auto &clData : colliderData["colliders"]) {
       glm::vec3 center, halfExtents;
       if (clData.contains("center")) {

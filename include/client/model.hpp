@@ -16,7 +16,6 @@ using namespace std;
 
 class Model {
 private:
-  
   glm::vec3 color;
   vector<Mesh> meshes;
   vector<Texture> textures_loaded;
