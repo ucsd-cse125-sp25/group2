@@ -12,7 +12,7 @@ void print(const char *str) { cout << str << endl; }
 // Debugging
 void printObjectPacket(const ObjectPacket &packet) {
   cout << "ObjectPacket: " << endl;
-  cout << "id: " << packet.objectID << endl;
+  cout << "id: " << packet.id << endl;
   cout << "position: (" << packet.transform.getPosition().x << ", "
        << packet.transform.getPosition().y << ", "
        << packet.transform.getPosition().z << ")" << endl;

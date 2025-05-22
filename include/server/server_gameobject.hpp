@@ -32,11 +32,8 @@ public:
     grounded = true;
   };
 
-  // server
-  void activate() { active = true; };
-  void deactivate() { active = false; };
-  void setInteractability(InteractionType interactionType) {
-    interactionType = interactionType;
+  void setInteractability(InteractionType interact) {
+    interactionType = interact;
   };
   InteractionType getInteractionType() const { return interactionType; };
 

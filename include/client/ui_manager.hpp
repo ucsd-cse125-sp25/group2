@@ -5,10 +5,11 @@
 
 #include <algorithm>
 #include <optional>
+#include <vector>
 
 class UIManager {
 public:
-  UIManager();
+  UIManager(){};
   static void make_menus();
   static void draw_menu(Gamestate state);
 
@@ -37,8 +38,8 @@ public:
   static unique_ptr<BaseUI> mainMenuUI;
   static vector<BaseUI *> characterButtons;
   static unique_ptr<BaseUI> chickenButton;
-  static unique_ptr<BaseUI> sheepButton;
   static unique_ptr<BaseUI> pigButton;
+  static unique_ptr<BaseUI> sheepButton;
   static unique_ptr<BaseUI> cowButton;
 
   static unique_ptr<BaseUI> loadingScreen;

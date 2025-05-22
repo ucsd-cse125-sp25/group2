@@ -16,8 +16,8 @@ using namespace std;
 
 class Model {
 private:
-  glm::mat4 model;
-  glm::vec3 color;
+  mat4 model;
+  vec3 color;
   vector<Mesh> meshes;
   vector<Texture> textures_loaded;
   string directory;
@@ -31,7 +31,7 @@ private:
 
 public:
   Model(const char *path);
-  void draw(const glm::mat4 &viewProjMtx, unique_ptr<Shader> &shader);
+  void draw(const mat4 &viewProjMtx, unique_ptr<Shader> &shader);
   void update(Transform *transform);
-  void changeColor(glm::vec3 col);
+  void changeColor(vec3 col);
 };

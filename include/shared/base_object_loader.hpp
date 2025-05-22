@@ -2,6 +2,7 @@
 
 #include "core.hpp"
 #include "transform.hpp"
+#include "globals.hpp"
 
 #include <nlohmann/json.hpp>
 #include <string>
@@ -17,8 +18,9 @@ struct BaseObjectData {
 
 class BaseObjectLoader {
 protected:
-  static glm::vec3 parseVec3(const json &json, const string &key,
-                             const glm::vec3 &defaultValue);
+  OBJECT_ID id = 0;
+  static vec3 parseVec3(const json &json, const string &key,
+                        const vec3 &defaultValue);
 
 public:
   BaseObjectData createBaseGameObject(const json &objData);

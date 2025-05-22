@@ -27,12 +27,25 @@ unordered_map<int, unique_ptr<GameObject>> ObjectLoader::loadObjects() {
 
       if (objData.contains("client")) {
         auto &client = objData["client"];
+        auto modelPath = client.value("modelPath", "");
+        auto vertShaderPath = client.value("vertShaderPath", "");
+        auto fragShaderPath = client.value("fragShaderPath", "");
 
-        obj->setModel(
-            make_unique<Model>(client.value("modelPath", "").c_str()));
+        // If MacOS - turn everything into cube
+        #ifdef __APPLE__
+          modelPath = "../resources/objects/cube/Cube.obj";
+          vertShaderPath = "../resources/shaders/shader.vert";
+          fragShaderPath = "../resources/shaders/shader.frag";
+          cout << "Using cube model for MacOS" << endl;
+        #endif
+
+        cout << "Loading model: " << modelPath << endl;
+        cout << "Loading vertex shader: " << vertShaderPath << endl;
+        cout << "Loading fragment shader: " << fragShaderPath << endl;
+
+        obj->setModel(make_unique<Model>(modelPath.c_str()));
         obj->setShader(
-            make_unique<Shader>(client.value("vertShaderPath", "").c_str(),
-                                client.value("fragShaderPath", "").c_str()));
+            make_unique<Shader>(vertShaderPath.c_str(), fragShaderPath.c_str()));
       }
 
       objects[objectId] = move(obj);
