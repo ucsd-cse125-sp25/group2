@@ -17,7 +17,7 @@ protected:
   InteractionType interactionType;
 
   // Physics properties
-  bool disablePhysics;
+  bool usesGravity;
   bool grounded;
   unique_ptr<RigidBody> rigidbody;
   unique_ptr<Collider> collider;
@@ -28,7 +28,7 @@ public:
       : BaseGameObject(id, isActive, tf), rigidbody(move(rb)),
         collider(move(cl)) {
     interactionType = InteractionType::NONE;
-    disablePhysics = false;
+    usesGravity = true;
     grounded = true;
   };
 
@@ -41,11 +41,11 @@ public:
   InteractionType getInteractionType() const { return interactionType; };
 
   // physics
-  void setDisable(bool isDisabled) { disablePhysics = isDisabled; };
   void setGrounded(bool isGrounded) { grounded = isGrounded; };
+  void setUsesGravity(bool isAffected) { usesGravity = isAffected; };
   void setArea(float a) { getRigidBody()->setArea(a); };
   bool isGrounded() const { return grounded; };
-  bool isDisabled() const { return disablePhysics; };
+  bool hasGravity() const { return usesGravity; };
   const float getArea() const { return getRigidBody()->getArea(); };
   RigidBody *getRigidBody() const { return rigidbody.get(); }
   Collider *getCollider() const { return collider.get(); }

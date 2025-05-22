@@ -1,5 +1,5 @@
 #include "physics.hpp"
-
+#include <iostream>
 void Physics::add(GameObject *obj) { objects.push_back(obj); }
 
 void Physics::remove(GameObject *obj) {
@@ -8,12 +8,15 @@ void Physics::remove(GameObject *obj) {
 
 void Physics::calculateForces() {
   for (GameObject *obj : objects) {
-    if (obj->isDisabled())
+    if (obj->getRigidBody()->isStatic())
       continue;
+
     glm::vec3 vel = obj->getRigidBody()->getVelocity();
     glm::vec3 force = glm::vec3(0);
+
     if (!obj->isGrounded()) {
-      force = obj->getRigidBody()->getMass() * gravity;
+      if (obj->hasGravity())
+        force += obj->getRigidBody()->getMass() * gravity;
       if (glm::dot(vel, vel) > 0.001f)
         force += 0.5f * density * glm::dot(vel, vel) * drag *
                  obj->getRigidBody()->getArea() * -1.0f * glm::normalize(vel);
@@ -39,8 +42,6 @@ void Physics::resolveCollisions() {
   for (int i = 0; i < solverIterations; ++i) {
     for (GameObject *a : objects) {
       for (GameObject *b : objects) {
-        if (a->isDisabled() || b->isDisabled())
-          continue;
         if (a == b)
           continue;
 
@@ -109,8 +110,6 @@ void Physics::moveObjects(float deltaTime) {
   float moveSpeed = 10.0f;
 
   for (GameObject *obj : objects) {
-    if (obj->isDisabled())
-      continue;
     if (obj->getRigidBody()->isStatic())
       continue;
     Transform *tf = obj->getTransform();
@@ -130,7 +129,7 @@ void Physics::moveObjects(float deltaTime) {
     glm::vec3 pos = tf->getPosition() + rb->getVelocity() * deltaTime;
     tf->setPosition(pos);
     cl->update(tf);
-    rb->setForce(glm::vec3(0));
+    rb->setForce(glm::vec3(0.0f));
 
     // if object has moved, add it to the updated objects list
     if (glm::length(pos - lastPos) > 0.0001f)
