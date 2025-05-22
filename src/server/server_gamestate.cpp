@@ -20,9 +20,9 @@ CLIENT_ID *ServerGameState::updateCharacters(PLAYER_ID character,
   return playerLogic->getCharacterAssignments();
 }
 
-void ServerGameState::updateMovement(OBJECT_ID id, MovementType type,
+void ServerGameState::updateMovement(PLAYER_ID character, MovementType type,
                                      glm::vec3 cameraFront) {
-  auto player = getObject(id);
+  auto player = getObject(character);
   if (player) {
     // Find the direction of movement based on the camera's facing direction
     glm::vec3 flatFront =
@@ -46,15 +46,15 @@ void ServerGameState::updateMovement(OBJECT_ID id, MovementType type,
       cerr << "Unknown movement type" << endl;
       break;
     }
-    updatedObjectIds.insert(id);
+    updatedObjectIds.insert(character);
   }
 }
 
-void ServerGameState::updateRotation(OBJECT_ID id, glm::vec3 rotation) {
-  auto obj = getObject(id);
+void ServerGameState::updateRotation(PLAYER_ID character, glm::vec3 rotation) {
+  auto obj = getObject(character);
   if (obj) {
     obj->getTransform()->setRotation(rotation);
-    updatedObjectIds.insert(id);
+    updatedObjectIds.insert(character);
   }
 }
 

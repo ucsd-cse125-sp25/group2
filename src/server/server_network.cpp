@@ -138,15 +138,15 @@ unique_ptr<IPacket> ServerNetwork::processPackets(PacketType type,
   case PacketType::MOVEMENT: {
     unique_ptr<IPacket> packet = deserialize(PacketType::MOVEMENT, payload);
     auto movementPacket = static_cast<MovementPacket *>(packet.get());
-    if (lastMovement[clientID] != movementPacket->movementType) {
-      lastMovement[clientID] = movementPacket->movementType;
+    if (lastMovement[id] != movementPacket->movementType) {
+      lastMovement[id] = movementPacket->movementType;
       return packet;
     }
     return nullptr;
   }
   case PacketType::ROTATION: {
     unique_ptr<IPacket> packet = deserialize(PacketType::ROTATION, payload);
-    lastRotation[clientID] = move(packet);
+    lastRotation[id] = move(packet);
     return nullptr;
   }
   case PacketType::INTERACTION: {

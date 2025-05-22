@@ -79,23 +79,23 @@ struct CharacterResponsePacket : public IPacket {
 };
 
 struct MovementPacket : public IPacket {
-  OBJECT_ID id;
+  PLAYER_ID character;
   MovementType movementType;
   glm::vec3 cameraFront;
 
-  MovementPacket(OBJECT_ID id, MovementType type, glm::vec3 cameraFront)
-      : id(id), movementType(type), cameraFront(cameraFront) {}
+  MovementPacket(PLAYER_ID character, MovementType type, glm::vec3 cameraFront)
+      : character(character), movementType(type), cameraFront(cameraFront) {}
   PacketType getType() const override { return PacketType::MOVEMENT; }
   vector<char> serialize() const override;
   static MovementPacket deserialize(const vector<char> &payload);
 };
 
 struct RotationPacket : public IPacket {
-  OBJECT_ID id;
+  PLAYER_ID character;
   glm::vec3 rotation;
 
-  RotationPacket(OBJECT_ID id, glm::vec3 rotation)
-      : id(id), rotation(rotation) {}
+  RotationPacket(PLAYER_ID character, glm::vec3 rotation)
+      : character(character), rotation(rotation) {}
   PacketType getType() const override { return PacketType::ROTATION; }
   vector<char> serialize() const override;
   static RotationPacket deserialize(const vector<char> &payload);

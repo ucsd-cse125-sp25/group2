@@ -21,8 +21,8 @@ private:
   asio::ip::tcp::acceptor _acceptor;
   map<CLIENT_ID, shared_ptr<asio::ip::tcp::socket>> clients;
 
-  unordered_map<int, MovementType> lastMovement;
-  unordered_map<int, unique_ptr<IPacket>> lastRotation;
+  unordered_map<CLIENT_ID, MovementType> lastMovement;
+  unordered_map<CLIENT_ID, unique_ptr<IPacket>> lastRotation;
 
   bool acceptClient();
   unique_ptr<IPacket> processPackets(PacketType type, vector<char> payload,
