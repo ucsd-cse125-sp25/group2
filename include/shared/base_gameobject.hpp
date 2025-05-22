@@ -22,6 +22,11 @@ public:
 
   virtual ~BaseGameObject(){};
 
+  // setters
+  void activate() { active = true; };
+  void deactivate() { active = false; };
+
+  // getters
   const OBJECT_ID getId() const { return id; };
   bool isActive() const { return active; };
   Transform *getTransform() { return transform.get(); };

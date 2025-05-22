@@ -13,9 +13,9 @@ struct Collision {
   GameObject *a;
   GameObject *b;
 
-  Collision(GameObject *a, GameObject *b) {
-    this->a = a;
-    this->b = b;
+  Collision(GameObject *objA, GameObject *objB) {
+    a = objA;
+    b = objB;
   }
 };
 
