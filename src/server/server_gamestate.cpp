@@ -58,8 +58,7 @@ void ServerGameState::updateRotation(PLAYER_ID id, glm::vec3 rotation) {
   }
 }
 
-void ServerGameState::updateInteraction(PLAYER_ID id,
-                                        glm::vec3 rayDirection,
+void ServerGameState::updateInteraction(PLAYER_ID id, glm::vec3 rayDirection,
                                         glm::vec3 rayOrigin) {
   GameObject *closestObject = nullptr;
   OBJECT_ID closestObjectID;

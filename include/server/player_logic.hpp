@@ -29,12 +29,8 @@ public:
   };
 
   // Getters
-  OBJECT_ID getHeldObject(PLAYER_ID id) {
-    return heldObjects[id];
-  };
-  CLIENT_ID getClient(PLAYER_ID id) {
-    return characterToClient[id];
-  };
+  OBJECT_ID getHeldObject(PLAYER_ID id) { return heldObjects[id]; };
+  CLIENT_ID getClient(PLAYER_ID id) { return characterToClient[id]; };
   PLAYER_ID getCharacter(CLIENT_ID id) { return clientToCharacter[id]; };
   CLIENT_ID *getCharacterAssignments() { return characterToClient; }
 
