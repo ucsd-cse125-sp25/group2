@@ -47,7 +47,7 @@ private:
   GLuint hoverTextureID;
 
   // Callbacks
-  //function<void()> onClickCallback;
+  // function<void()> onClickCallback;
   function<void()> onSelectCallback;
 
   // VAO, VBO, EBO
