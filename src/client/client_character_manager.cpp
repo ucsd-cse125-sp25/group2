@@ -5,6 +5,7 @@ CharacterManager::CharacterManager() {
   pig = -1;
   cow = -1;
   sheep = -1;
+  selectedCharacter = Characters::NONE;
 }
 
 void CharacterManager::setID(int id) { whoAmI = id; }

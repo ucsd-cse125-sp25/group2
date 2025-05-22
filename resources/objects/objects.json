@@ -1,12 +1,13 @@
 {
+  "_comment": "DO NOT CHANGE THE ORDER OF CHARACTERS. ANIMALS MUST REMAIN AT TOP OF JSON AND IN ORDER",
   "objects": [
     {
-      "name": "Player",
+      "name": "Chicken",
       "active": true,
       "transform": {
-        "position": { "x": -2.5, "y": 0.0, "z": 0.0 },
-        "rotation": { "x": 0.0, "y": 0.0, "z": 0.0 },
-        "scale": { "x": 1.0, "y": 1.0, "z": 1.0 }
+        "position": { "x": 5, "y": 2.0, "z":-10 },
+        "rotation": { "x": 0.0, "y": 90.0, "z": 0.0 },
+        "scale": { "x": 2, "y": 2, "z": 2 }
       },
       "client": {
         "modelPath": "../resources/objects/chicken/Chicken.obj",
@@ -15,15 +16,110 @@
       },
       "server": {
         "static": false,
-        "halfExtents": {"x": 1.0, "y": 1.0, "z": 1.0},
+        "halfExtents": {"x": 0.8, "y": 0.1, "z": 0.8},
+        "interaction": "PRESS"
+      }
+    },
+        {
+      "name": "Sheep",
+      "active": true,
+      "transform": {
+        "position": { "x": 5, "y": 2.0, "z": -20 },
+        "rotation": { "x": 0.0, "y": 90.0, "z": 0.0 },
+        "scale": { "x": 2, "y": 2, "z": 2 }
+      },
+      "client": {
+        "modelPath": "../resources/objects/Sheep/Sheep.obj",
+        "vertShaderPath": "../resources/shaders/material.vert",
+        "fragShaderPath": "../resources/shaders/material.frag"
+      },
+      "server": {
+        "static": false,
+        "halfExtents": {"x": 0.8, "y": 1.0, "z": 0.8},
+        "interaction": "PRESS"
+      }
+    },
+        {
+      "name": "Pig",
+      "active": true,
+      "transform": {
+        "position": { "x": -5, "y": 2.0, "z": -20 },
+        "rotation": { "x": 0.0, "y": -90.0, "z": 0.0 },
+        "scale": { "x": 2, "y": 2, "z": 2 }
+      },
+      "client": {
+        "modelPath": "../resources/objects/Pig/Pig.obj",
+        "vertShaderPath": "../resources/shaders/material.vert",
+        "fragShaderPath": "../resources/shaders/material.frag"
+      },
+      "server": {
+        "static": false,
+        "halfExtents": {"x": 0.8, "y": 0.8, "z": 0.8},
+        "interaction": "PRESS"
+      }
+    },
+        {
+      "name": "Cow",
+      "active": true,
+      "transform": {
+        "position": { "x": -5, "y": 3.0, "z": -10 },
+        "rotation": { "x": 0.0, "y": -90.0, "z": 0.0 },
+        "scale": { "x": 2, "y": 2, "z": 2 }
+      },
+      "client": {
+        "modelPath": "../resources/objects/cow/Cow.obj",
+        "vertShaderPath": "../resources/shaders/material.vert",
+        "fragShaderPath": "../resources/shaders/material.frag"
+      },
+      "server": {
+        "static": false,
+        "halfExtents": {"x": 0.8, "y": 0.8, "z": 0.8},
         "interaction": "PRESS"
       }
     },
     {
-      "name": "Cube",
+      "name": "Cube1",
       "active": true,
       "transform": {
-        "position": { "x": 2.5, "y": 0.0, "z": 0.0 },
+        "position": { "x": 0, "y": 4.0, "z": -5 },
+        "rotation": { "x": 0.0, "y": 0.0, "z": 0.0 },
+        "scale": { "x": 1.0, "y": 1.0, "z": 1.0 }
+      },
+      "client": {
+        "modelPath": "../resources/objects/cube/Cube.obj",
+        "vertShaderPath": "../resources/shaders/shader.vert",
+        "fragShaderPath": "../resources/shaders/shader.frag"
+      },
+      "server": {
+        "static": false,
+        "halfExtents": {"x": 1.0, "y": 1.0, "z": 1.0},
+        "interaction": "PRESS"
+      }
+    },
+        {
+      "name": "Cube2",
+      "active": true,
+      "transform": {
+        "position": { "x": 0, "y": 4.0, "z": -10 },
+        "rotation": { "x": 0.0, "y": 0.0, "z": 0.0 },
+        "scale": { "x": 1.0, "y": 1.0, "z": 1.0 }
+      },
+      "client": {
+        "modelPath": "../resources/objects/cube/Cube.obj",
+        "vertShaderPath": "../resources/shaders/shader.vert",
+        "fragShaderPath": "../resources/shaders/shader.frag"
+      },
+      "server": {
+        "static": false,
+        "halfExtents": {"x": 1.0, "y": 1.0, "z": 1.0},
+        "interaction": "PRESS"
+      }
+    },
+        {
+      "name": "Cube3",
+      "active": true,
+      "transform": {
+        "position": { "x": 0, "y": 4.0, "z": -15 },
         "rotation": { "x": 0.0, "y": 0.0, "z": 0.0 },
         "scale": { "x": 1.0, "y": 1.0, "z": 1.0 }
       },
@@ -39,12 +135,31 @@
       }
     },
     {
-      "name": "Floor",
+      "name": "Cube4",
       "active": true,
       "transform": {
-        "position": { "x": 0.0, "y": -2.0, "z": 0.0 },
+        "position": { "x": 0, "y": 4.0, "z": -20 },
         "rotation": { "x": 0.0, "y": 0.0, "z": 0.0 },
-        "scale": { "x": 10.0, "y": 0.1, "z": 10.0 }
+        "scale": { "x": 1.0, "y": 1.0, "z": 1.0 }
+      },
+      "client": {
+        "modelPath": "../resources/objects/cube/Cube.obj",
+        "vertShaderPath": "../resources/shaders/shader.vert",
+        "fragShaderPath": "../resources/shaders/shader.frag"
+      },
+      "server": {
+        "static": false,
+        "halfExtents": {"x": 1.0, "y": 1.0, "z": 1.0},
+        "interaction": "PRESS"
+      }
+    },
+    {
+      "name": "Stable1",
+      "active": true,
+      "transform": {
+        "position": { "x": -14.5, "y": 15.0, "z": -25 },
+        "rotation": { "x": 0.0, "y": 0.0, "z": 0.0 },
+        "scale": { "x": 2.5, "y": 5.0, "z": 4 }
       },
       "client": {
         "modelPath": "../resources/objects/cube/Cube.obj",
@@ -53,7 +168,102 @@
       },
       "server": {
         "static": true,
-        "halfExtents": {"x": 10.0, "y": 1.0, "z": 10.0},
+        "halfExtents": {"x": 1.0, "y": 1.0, "z": 1.0},
+        "interaction": "PRESS"
+      }
+    },
+    {
+      "name": "Stable2",
+      "active": true,
+      "transform": {
+        "position": { "x": -14.5, "y": 15.0, "z": -15 },
+        "rotation": { "x": 0.0, "y": 0.0, "z": 0.0 },
+        "scale": { "x": 2.5, "y": 5.0, "z": 4 }
+      },
+      "client": {
+        "modelPath": "../resources/objects/cube/Cube.obj",
+        "vertShaderPath": "../resources/shaders/shader.vert",
+        "fragShaderPath": "../resources/shaders/shader.frag"
+      },
+      "server": {
+        "static": true,
+        "halfExtents": {"x": 1.0, "y": 1.0, "z": 1.0},
+        "interaction": "PRESS"
+      }
+    },
+    {
+      "name": "Stable3",
+      "active": true,
+      "transform": {
+        "position": { "x": 14.5, "y": 15.0, "z": -25 },
+        "rotation": { "x": 0.0, "y": 0.0, "z": 0.0 },
+        "scale": {"x": 2.5, "y": 5.0, "z": 4 }
+      },
+      "client": {
+        "modelPath": "../resources/objects/cube/Cube.obj",
+        "vertShaderPath": "../resources/shaders/shader.vert",
+        "fragShaderPath": "../resources/shaders/shader.frag"
+      },
+      "server": {
+        "static": true,
+        "halfExtents": {"x": 1.0, "y": 1.0, "z": 1.0},
+        "interaction": "PRESS"
+      }
+    },
+    {
+      "name": "Stable4",
+      "active": true,
+      "transform": {
+        "position": { "x": 14, "y": 10.0, "z": -20 },
+        "rotation": { "x": 0.0, "y": 0.0, "z": 0.0 },
+        "scale": {"x": 3, "y": 4.0, "z": 3  }
+      },
+      "client": {
+        "modelPath": "../resources/objects/cube/Cube.obj",
+        "vertShaderPath": "../resources/shaders/shader.vert",
+        "fragShaderPath": "../resources/shaders/shader.frag"
+      },
+      "server": {
+        "static": true,
+        "halfExtents": {"x": 3.0, "y": 4.0, "z": 3.0},
+        "interaction": "PRESS"
+      }
+    },
+    {
+      "name": "Floor",
+      "active": true,
+      "transform": {
+        "position": { "x": 0.0, "y": 0.75, "z": 0.0 },
+        "rotation": { "x": 0.0, "y": 0.0, "z": 0.0 },
+        "scale": { "x": 100.0, "y": 0.1, "z": 100.0 }
+      },
+      "client": {
+        "modelPath": "../resources/objects/cube/Cube.obj",
+        "vertShaderPath": "../resources/shaders/shader.vert",
+        "fragShaderPath": "../resources/shaders/shader.frag"
+      },
+      "server": {
+        "static": true,
+        "halfExtents": {"x": 100.0, "y": 0.05, "z": 100.0},
+        "interaction": "PRESS"
+      }
+    },
+    {
+      "name": "Barn",
+      "active": true,
+      "transform": {
+        "position": { "x": 0.0, "y": -2.0, "z": 0.0 },
+        "rotation": { "x": 0.0, "y": 0.0, "z": 0.0 },
+        "scale": { "x": 1, "y": 1, "z": 1 }
+      },
+      "client": {
+        "modelPath": "../resources/objects/Barn/Barn.obj",
+        "vertShaderPath": "../resources/shaders/material.vert",
+        "fragShaderPath": "../resources/shaders/material.frag"
+      },
+      "server": {
+        "static": true,
+        "halfExtents": {"x": 0.0, "y": 0.0, "z": 0.0},
         "interaction": "PRESS"
       }
     }

@@ -47,7 +47,7 @@ private:
   GLuint hoverTextureID;
 
   // Callbacks
-  function<void()> onClickCallback;
+  //function<void()> onClickCallback;
   function<void()> onSelectCallback;
 
   // VAO, VBO, EBO
@@ -58,6 +58,7 @@ private:
   void setupQuad();
 
 public:
+  function<void()> onClickCallback;
   int zIndex = 0;
   AnimationInfo animInfo;
   bool isClicked;

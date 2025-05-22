@@ -90,7 +90,7 @@ struct MovementPacket : public IPacket {
 
 struct RotationPacket : public IPacket {
   int objectID;
-  glm::vec3 rotation;
+  glm::vec3 rotation = glm::vec3(0);
 
   RotationPacket(int id, glm::vec3 rotation)
       : objectID(id), rotation(rotation) {}

@@ -124,7 +124,7 @@ vector<char> RotationPacket::serialize() const {
 
 RotationPacket RotationPacket::deserialize(const vector<char> &payload) {
   int objectID;
-  glm::vec3 rotation;
+  glm::vec3 rotation = glm::vec3(0);
 
   unsigned long size = 0;
   memcpy(&objectID, payload.data(), sizeof(int));

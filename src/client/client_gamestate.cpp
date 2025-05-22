@@ -3,8 +3,6 @@
 bool ClientGameState::init() {
   ObjectLoader objectLoader = ObjectLoader();
   objectList = objectLoader.loadObjects();
-  // player kind of hardcoded for now, later with character selection
-  player = getObject(0);
   state = Gamestate::STARTSCREEN;
   return true;
 }
@@ -30,4 +28,10 @@ GameObject *ClientGameState::getObject(int id) {
   }
   cerr << "Object with id " << id << " not found" << endl;
   return nullptr;
+}
+
+void ClientGameState::setPlayer(int animal) {
+  if (animal == 99)
+    return;
+  player = getObject(animal);
 }

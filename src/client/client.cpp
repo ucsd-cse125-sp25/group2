@@ -91,6 +91,7 @@ bool Client::initUI() {
       []() { UIManager::startButton->isSelected = true; });
   UIManager::startScreenUI->setOnSelect([&state = game->state]() {
     state = Gamestate::MAINMENU;
+    UIManager::chickenButton->onClickCallback();
     UIManager::startScreenUI->isSelected = true;
   });
   UIManager::chickenButton->setOnClick([net = network.get()]() {
@@ -154,14 +155,17 @@ void Client::idleCallback() {
       characterManager->setCharacter(
           characterPacket->chicken, characterPacket->sheep,
           characterPacket->pig, characterPacket->cow);
+      game->setPlayer((uint8_t)characterManager->selectedCharacter);
       break;
     }
     }
   }
-  cam->update(xOffset, yOffset, game->getPlayer()->getPosition());
-  xOffset = 0.0f;
-  yOffset = 0.0f;
-  updatePlayerRotation();
+  if (game->state == Gamestate::GAME) {
+    cam->update(xOffset, yOffset, game->getPlayer()->getPosition());
+    xOffset = 0.0f;
+    yOffset = 0.0f;
+    updatePlayerRotation();
+  }
 }
 
 void Client::displayCallback(GLFWwindow *window, float deltaTime) {

@@ -13,6 +13,7 @@ void Model::draw(const glm::mat4 &viewProjMtx, unique_ptr<Shader> &shader) {
   shader->use();
   // Send camera view projection matrix to vertex shader file
   shader->setMat4("viewProj", viewProjMtx);
+  shader->setVec3("lightPos", glm::vec3(0.0f, 20.0f, 0.0f));
   // Send model matrix to vertex shader file
   shader->setMat4("model", model);
   shader->setVec3("DiffuseColor", color);

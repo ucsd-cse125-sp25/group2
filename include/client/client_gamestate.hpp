@@ -25,4 +25,5 @@ public:
 
   GameObject *getObject(int id);
   GameObject *getPlayer() { return player; }
+  void setPlayer(int id);
 };
