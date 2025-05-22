@@ -2,6 +2,7 @@
 
 #include "base_gameobject.hpp"
 #include "collider.hpp"
+#include "meshcollider.hpp"
 #include "core.hpp"
 #include "globals.hpp"
 #include "rigidbody.hpp"
@@ -19,13 +20,14 @@ protected:
   // Physics properties
   bool grounded;
   unique_ptr<RigidBody> rigidbody;
-  unique_ptr<Collider> collider;
+  std::vector<Collider*> colliders;
+  unique_ptr<MeshCollider> meshcollider;
 
 public:
   GameObject(const int objectId, const bool isActive, unique_ptr<Transform> &tf,
-             unique_ptr<RigidBody> &rb, unique_ptr<Collider> &cl)
+             unique_ptr<RigidBody> &rb, std::vector<Collider*>& cl, unique_ptr<MeshCollider> &mcl)
       : BaseGameObject(objectId, isActive, tf), rigidbody(move(rb)),
-        collider(move(cl)) {
+        colliders(move(cl)), meshcollider(move(mcl)) {
     interactionType = InteractionType::NONE;
     grounded = true;
   };
@@ -44,5 +46,7 @@ public:
   bool isGrounded() const { return grounded; };
   const float getArea() const { return getRigidBody()->getArea(); };
   RigidBody *getRigidBody() const { return rigidbody.get(); }
-  Collider *getCollider() const { return collider.get(); }
+  std::vector<Collider*> getCollider() const { return colliders; }
+  MeshCollider *getMeshCollider() const { return meshcollider.get(); }
+
 };

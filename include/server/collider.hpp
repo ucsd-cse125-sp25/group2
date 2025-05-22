@@ -12,6 +12,7 @@ private:
   glm::vec3 center;
   glm::vec3 halfExtents;
   glm::mat3 orientation;
+  // glm::vec3 scale;
 
   void projectOntoAxis(const glm::vec3 &axis, float &outMin,
                        float &outMax) const {
@@ -31,10 +32,12 @@ public:
   void update(Transform *tf) {
     center = tf->getPosition();
     glm::mat3 orient;
-    orient[0] = tf->getForward();
+    orient[0] = tf->getRight();
     orient[1] = tf->getUp();
-    orient[2] = tf->getRight();
+    orient[2] = tf->getForward();
     orientation = orient;
+
+    // scale = tf->getScale();
   }
 
   glm::vec3 getCenter() const { return center; }

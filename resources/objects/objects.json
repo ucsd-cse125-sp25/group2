@@ -4,37 +4,37 @@
       "name": "Cube 1",
       "active": true,
       "transform": {
-        "position": { "x": -2.5, "y": 0.0, "z": 0.0 },
+        "position": { "x": -2.5, "y": 4.0, "z": 0.0 },
         "rotation": { "x": 0.0, "y": 0.0, "z": 0.0 },
-        "scale": { "x": 1.0, "y": 1.0, "z": 1.0 }
+        "scale": { "x": 1, "y": 1, "z": 1 }
       },
       "client": {
-        "modelPath": "../resources/objects/cube/Cube.obj",
-        "vertShaderPath": "../resources/shaders/shader.vert",
-        "fragShaderPath": "../resources/shaders/shader.frag"
+        "modelPath": "../resources/objects/chicken/Chicken.obj",
+        "vertShaderPath": "../resources/shaders/material.vert",
+        "fragShaderPath": "../resources/shaders/material.frag"
       },
       "server": {
         "static": false,
-        "halfExtents": {"x": 1.0, "y": 1.0, "z": 1.0},
+        "meshcollider": "../resources/objects/cube/Cube.obj",
         "interaction": "PRESS"
       }
     },
     {
-      "name": "Cube 2",
+      "name": "Coop",
       "active": true,
       "transform": {
-        "position": { "x": 2.5, "y": 0.0, "z": 0.0 },
+        "position": { "x": 2.5, "y": 4.0, "z": 0.0 },
         "rotation": { "x": 0.0, "y": 0.0, "z": 0.0 },
-        "scale": { "x": 1.0, "y": 1.0, "z": 1.0 }
+        "scale": { "x": 0.07, "y": 0.07, "z": 0.07 }
       },
       "client": {
-        "modelPath": "../resources/objects/cube/Cube.obj",
-        "vertShaderPath": "../resources/shaders/shader.vert",
-        "fragShaderPath": "../resources/shaders/shader.frag"
+        "modelPath": "../resources/objects/coop/ChickenCoopOrigin.obj",
+        "vertShaderPath": "../resources/shaders/material.vert",
+        "fragShaderPath": "../resources/shaders/material.frag"
       },
       "server": {
         "static": false,
-        "halfExtents": {"x": 1.0, "y": 1.0, "z": 1.0},
+        "meshcollider": "../resources/objects/coop/ChickenCoopOrigin.obj",
         "interaction": "PRESS"
       }
     },
@@ -42,9 +42,9 @@
       "name": "Floor",
       "active": true,
       "transform": {
-        "position": { "x": 0.0, "y": -2.0, "z": 0.0 },
+        "position": { "x": 0.0, "y": 0.0, "z": 0.0 },
         "rotation": { "x": 0.0, "y": 0.0, "z": 0.0 },
-        "scale": { "x": 10.0, "y": 0.1, "z": 10.0 }
+        "scale": { "x": 100.0, "y": 1.0, "z": 100.0 }
       },
       "client": {
         "modelPath": "../resources/objects/cube/Cube.obj",
@@ -53,7 +53,7 @@
       },
       "server": {
         "static": true,
-        "halfExtents": {"x": 10.0, "y": 1.0, "z": 10.0},
+        "meshcollider": "../resources/objects/cube/Cube.obj",
         "interaction": "PRESS"
       }
     }

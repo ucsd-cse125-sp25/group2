@@ -4,9 +4,9 @@ Transform::Transform(glm::vec3 pos, glm::vec3 rot, glm::vec3 scl) {
   this->position = pos;
   this->rotation = rot;
   this->scale = scl;
-  this->forward = glm::vec3(1, 0, 0);
+  this->forward = glm::vec3(0, 0, 1);
   this->up = glm::vec3(0, 1, 0);
-  this->right = glm::vec3(0, 0, -1);
+  this->right = glm::vec3(1, 0, 0);
 }
 
 void Transform::updatePosition(glm::vec3 moveInput) { position += moveInput; }

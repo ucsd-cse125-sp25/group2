@@ -53,8 +53,8 @@ void ServerGameState::updateInteraction(int id) {
 
 void ServerGameState::applyPhysics() {
   physicsWorld->calculateForces();
-  physicsWorld->resolveCollisions();
   physicsWorld->moveObjects(deltaTime);
+  physicsWorld->resolveCollisions();
 
   auto movedObjects = physicsWorld->getUpdatedObjects();
   for (auto id : movedObjects)

@@ -28,7 +28,6 @@ unordered_map<int, unique_ptr<GameObject>> ObjectLoader::loadObjects() {
 
       if (objData.contains("client")) {
         auto &client = objData["client"];
-
         obj->setModel(
             make_unique<Model>(client.value("modelPath", "").c_str()));
         obj->setShader(

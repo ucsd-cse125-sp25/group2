@@ -22,10 +22,10 @@ struct Collision {
 class Physics {
 private:
   vector<GameObject *> objects;
-  const glm::vec3 gravity = glm::vec3(0, -9.81, 0);
+  const glm::vec3 gravity = glm::vec3(0, -1, 0);
   const float density = 1.225f;
   const float drag = 1.05f;
-  const float damping = 0.95f;
+  const float damping = 0.98f;
 
   unordered_set<int> updatedObjects;
 
@@ -37,6 +37,7 @@ public:
 
   void calculateForces();
   void resolveCollisions();
+  void solveCollision(GameObject *a, GameObject *b, Contact contact);
   void moveObjects(float deltaTime);
 
   vector<int> getUpdatedObjects() {
