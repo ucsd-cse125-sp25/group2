@@ -40,6 +40,8 @@ void PlayerLogic::assignCharacter(PLAYER_ID character, CLIENT_ID id) {
 }
 
 void PlayerLogic::unAssignCharacter(CLIENT_ID id) {
+  if (clientToCharacter[id] == -1)
+    return;
   characterToClient[clientToCharacter[id]] = -1;
   clientToCharacter[id] = -1;
 }

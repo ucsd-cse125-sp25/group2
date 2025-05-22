@@ -147,7 +147,7 @@ vector<char> CharacterSelectPacket::serialize() const {
   vector<char> buffer(sizeof(PLAYER_ID) + sizeof(CLIENT_ID));
   unsigned long size = 0;
   memcpy(buffer.data(), &character, sizeof(PLAYER_ID));
-  size += sizeof(uint8_t);
+  size += sizeof(PLAYER_ID);
   memcpy(buffer.data() + size, &id, sizeof(CLIENT_ID));
   return buffer;
 }
