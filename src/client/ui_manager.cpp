@@ -14,7 +14,7 @@ vector<BaseUI *> UIManager::characterButtons;
 void UIManager::makeMenus() {
   // Start Screen + button
   startScreenUI = createUIElement(
-      0.0f, 0.0f, 2.0f, 2.0f, 0, AnimationInfo(3, 6, 0.06f),
+      0.0f, 0.0f, 2.0f, 2.0f, 0, AnimationInfo(3, 6, 0.03f),
       "../resources/ui/TitleScreenAnim.png", nullptr, false, false);
   startButton =
       createUIElement(0.0f, -0.5f, 0.5f, 0.5f, 0, AnimationInfo(1, 3, 0.1f),
