@@ -37,8 +37,8 @@ public:
   static unique_ptr<BaseUI> mainMenuUI;
   static vector<BaseUI *> characterButtons;
   static unique_ptr<BaseUI> chickenButton;
-  static unique_ptr<BaseUI> pigButton;
   static unique_ptr<BaseUI> sheepButton;
+  static unique_ptr<BaseUI> pigButton;
   static unique_ptr<BaseUI> cowButton;
 
   static unique_ptr<BaseUI> loadingScreen;

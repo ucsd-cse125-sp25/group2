@@ -68,9 +68,10 @@ struct GameStatePacket : public IPacket {
 struct CharacterResponsePacket : public IPacket {
   CLIENT_ID characterAssignments[NUM_PLAYERS];
 
-  CharacterResponsePacket(CLIENT_ID *charAssignments) {
-    copy(charAssignments, charAssignments + NUM_PLAYERS, characterAssignments);
+  CharacterResponsePacket(const CLIENT_ID characters_in[NUM_PLAYERS]) {
+    memcpy(characterAssignments, characters_in, NUM_PLAYERS * sizeof(CLIENT_ID));
   }
+
   PacketType getType() const override { return PacketType::CHARACTERRESPONSE; }
   vector<char> serialize() const override;
   static CharacterResponsePacket deserialize(const vector<char> &payload);

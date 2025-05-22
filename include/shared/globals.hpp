@@ -5,9 +5,9 @@
 #define WINDOW_WIDTH 1920
 #define WINDOW_HEIGHT 1080
 
-#define CLIENT_ID unsigned int
-#define OBJECT_ID unsigned int
-#define PLAYER_ID unsigned int
+#define CLIENT_ID int
+#define OBJECT_ID int
+#define PLAYER_ID int
 
 #define NUM_PLAYERS 4
 

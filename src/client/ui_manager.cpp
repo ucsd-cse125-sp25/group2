@@ -27,19 +27,19 @@ void UIManager::make_menus() {
       createUIElement(-0.6f, -0.8f, 0.4f, 0.4f, 0, AnimationInfo(1, 3, 0.1f),
                       "../resources/ui/ChickenButton.png",
                       "../resources/ui/ChickenButtonHover.png", true, true);
-  pigButton =
-      createUIElement(-0.2f, -0.8f, 0.4f, 0.4f, 0, AnimationInfo(1, 3, 0.1f),
-                      "../resources/ui/PigButton.png",
-                      "../resources/ui/PigButtonHover.png", true, true);
   sheepButton =
       createUIElement(0.2f, -0.8f, 0.4f, 0.4f, 0, AnimationInfo(1, 3, 0.1f),
                       "../resources/ui/SheepButton.png",
                       "../resources/ui/SheepButtonHover.png", true, true);
+  pigButton =
+      createUIElement(-0.2f, -0.8f, 0.4f, 0.4f, 0, AnimationInfo(1, 3, 0.1f),
+                      "../resources/ui/PigButton.png",
+                      "../resources/ui/PigButtonHover.png", true, true);
   cowButton =
       createUIElement(0.6f, -0.8f, 0.4f, 0.4f, 0, AnimationInfo(1, 3, 0.1f),
                       "../resources/ui/CowButton.png",
                       "../resources/ui/CowButtonHover.png", true, true);
-  characterButtons = {chickenButton.get(), pigButton.get(), sheepButton.get(),
+  characterButtons = {chickenButton.get(), sheepButton.get(), pigButton.get(), 
                       cowButton.get()};
 }
 
@@ -94,8 +94,8 @@ void UIManager::draw_menu(Gamestate state) {
   case Gamestate::MAINMENU:
     mainMenuUI->draw();
     chickenButton->draw();
-    pigButton->draw();
     sheepButton->draw();
+    pigButton->draw();
     cowButton->draw();
   default:
     break;
