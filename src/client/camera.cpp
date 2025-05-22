@@ -1,8 +1,7 @@
 #include "camera.hpp"
 
 Camera::Camera()
-    : cameraPos(vec3(0.0f, 2.0f, 5.0f)),
-      cameraFront(vec3(0.0f, 0.0f, -1.0f)),
+    : cameraPos(vec3(0.0f, 2.0f, 5.0f)), cameraFront(vec3(0.0f, 0.0f, -1.0f)),
       cameraUp(vec3(0.0f, 1.0f, 0.0f)), viewProjMat(mat4(1.0f)) {
   fov = 60.0f;
   aspect = 1.33f;

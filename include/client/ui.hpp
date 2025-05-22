@@ -12,8 +12,7 @@ struct AnimationInfo {
   int cols, rows, currentFrame;
   float frameWidth, frameHeight, frameDuration, animationTimer;
   bool startAnim;
-  AnimationInfo(int c, int r, float fD)
-      : cols(c), rows(r), frameDuration(fD) {
+  AnimationInfo(int c, int r, float fD) : cols(c), rows(r), frameDuration(fD) {
     frameHeight = 1.0f / rows;
     frameWidth = 1.0f / cols;
     startAnim = false;

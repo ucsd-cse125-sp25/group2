@@ -47,7 +47,7 @@ unordered_map<int, unique_ptr<GameObject>> ObjectLoader::loadObjects() {
           string interactionStr = server["interaction"].get<string>();
           auto interactionType =
               magic_enum::enum_cast<InteractionType>(interactionStr);
-              
+
           if (interactionType.has_value()) {
             obj->setInteractability(interactionType.value());
           }

@@ -1,8 +1,8 @@
 #pragma once
 
 #include "core.hpp"
-#include "transform.hpp"
 #include "globals.hpp"
+#include "transform.hpp"
 
 #include <nlohmann/json.hpp>
 #include <string>

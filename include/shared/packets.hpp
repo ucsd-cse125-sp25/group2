@@ -94,8 +94,7 @@ struct RotationPacket : public IPacket {
   PLAYER_ID id;
   vec3 rotation;
 
-  RotationPacket(PLAYER_ID playerID, vec3 r)
-      : id(playerID), rotation(r) {}
+  RotationPacket(PLAYER_ID playerID, vec3 r) : id(playerID), rotation(r) {}
   PacketType getType() const override { return PacketType::ROTATION; }
   vector<char> serialize() const override;
   static RotationPacket deserialize(const vector<char> &payload);

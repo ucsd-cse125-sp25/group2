@@ -13,8 +13,7 @@ private:
   vec3 right;
 
 public:
-  Transform(vec3 pos = vec3(0), vec3 rot = vec3(0),
-            vec3 scl = vec3(1, 1, 1));
+  Transform(vec3 pos = vec3(0), vec3 rot = vec3(0), vec3 scl = vec3(1, 1, 1));
 
   vec3 getPosition() const { return position; }
   vec3 getRotation() const { return rotation; };
