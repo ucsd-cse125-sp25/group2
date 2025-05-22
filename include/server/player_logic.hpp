@@ -24,22 +24,22 @@ public:
   PlayerLogic();
 
   // Setters
-  void setHeldObject(PLAYER_ID character, OBJECT_ID objectID) {
-    heldObjects[character] = objectID;
+  void setHeldObject(PLAYER_ID playerID, OBJECT_ID objectID) {
+    heldObjects[playerID] = objectID;
   };
 
   // Getters
-  OBJECT_ID getHeldObject(PLAYER_ID character) {
-    return heldObjects[character];
+  OBJECT_ID getHeldObject(PLAYER_ID id) {
+    return heldObjects[id];
   };
-  CLIENT_ID getClient(PLAYER_ID character) {
-    return characterToClient[character];
+  CLIENT_ID getClient(PLAYER_ID id) {
+    return characterToClient[id];
   };
   PLAYER_ID getCharacter(CLIENT_ID id) { return clientToCharacter[id]; };
   CLIENT_ID *getCharacterAssignments() { return characterToClient; }
 
   // Movement functions
-  void moveObject(GameObject *object, glm::vec3 direction);
+  void move(PLAYER_ID id, GameObject *player, glm::vec3 direction);
   void jump();
 
   // Ability functions
@@ -50,7 +50,7 @@ public:
   void dropObject(GameObject *player, GameObject *object);
 
   // Character assignment functions
-  void assignCharacter(PLAYER_ID character, CLIENT_ID clientID);
+  void assignCharacter(PLAYER_ID id, CLIENT_ID clientID);
   void unAssignCharacter(CLIENT_ID id);
   bool allCharactersAssigned();
 };

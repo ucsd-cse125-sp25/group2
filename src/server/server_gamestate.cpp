@@ -14,15 +14,15 @@ bool ServerGameState::init() {
   return true;
 }
 
-CLIENT_ID *ServerGameState::updateCharacters(PLAYER_ID character,
-                                             CLIENT_ID id) {
-  playerLogic->assignCharacter(character, id);
+CLIENT_ID *ServerGameState::updateCharacters(PLAYER_ID playerID,
+                                             CLIENT_ID clientID) {
+  playerLogic->assignCharacter(playerID, clientID);
   return playerLogic->getCharacterAssignments();
 }
 
-void ServerGameState::updateMovement(PLAYER_ID character, MovementType type,
+void ServerGameState::updateMovement(PLAYER_ID id, MovementType type,
                                      glm::vec3 cameraFront) {
-  auto player = getObject(character);
+  auto player = getObject(id);
   if (player) {
     // Find the direction of movement based on the camera's facing direction
     glm::vec3 flatFront =
@@ -31,34 +31,34 @@ void ServerGameState::updateMovement(PLAYER_ID character, MovementType type,
         glm::normalize(glm::cross(flatFront, glm::vec3(0.0f, 1.0f, 0.0f)));
     switch (type) {
     case MovementType::FORWARD:
-      playerLogic->moveObject(player, flatFront);
+      playerLogic->move(id, player, flatFront);
       break;
     case MovementType::BACKWARD:
-      playerLogic->moveObject(player, -flatFront);
+      playerLogic->move(id, player, -flatFront);
       break;
     case MovementType::LEFT:
-      playerLogic->moveObject(player, -cameraRight);
+      playerLogic->move(id, player, -cameraRight);
       break;
     case MovementType::RIGHT:
-      playerLogic->moveObject(player, cameraRight);
+      playerLogic->move(id, player, cameraRight);
       break;
     default:
       cerr << "Unknown movement type" << endl;
       break;
     }
-    updatedObjectIds.insert(character);
+    updatedObjectIds.insert(id);
   }
 }
 
-void ServerGameState::updateRotation(PLAYER_ID character, glm::vec3 rotation) {
-  auto obj = getObject(character);
+void ServerGameState::updateRotation(PLAYER_ID id, glm::vec3 rotation) {
+  auto obj = getObject(id);
   if (obj) {
     obj->getTransform()->setRotation(rotation);
-    updatedObjectIds.insert(character);
+    updatedObjectIds.insert(id);
   }
 }
 
-void ServerGameState::updateInteraction(PLAYER_ID character,
+void ServerGameState::updateInteraction(PLAYER_ID id,
                                         glm::vec3 rayDirection,
                                         glm::vec3 rayOrigin) {
   GameObject *closestObject = nullptr;
@@ -118,22 +118,22 @@ void ServerGameState::updateInteraction(PLAYER_ID character,
   // }
 
   // get player object and character
-  auto player = getObject(character);
+  auto player = getObject(id);
 
   if (closestObject->getInteractionType() == InteractionType::PICKUP ||
       closestObjectID == 1) {             // delete the OR later
     cout << "Pickup interaction" << endl; // delete later
-    cout << "Held object id: " << playerLogic->getHeldObject(character)
+    cout << "Held object id: " << playerLogic->getHeldObject(id)
          << endl; // delete later
     // If the character is already holding an object, drop it
-    if (playerLogic->getHeldObject(character) == closestObjectID) {
+    if (playerLogic->getHeldObject(id) == closestObjectID) {
       playerLogic->dropObject(player, closestObject);
-      playerLogic->setHeldObject(character, -1);
+      playerLogic->setHeldObject(id, -1);
       cout << "Dropped object: " << closestObject->getId() << endl;
     }
     // Chatecter is not holding an object, pick it up
-    if (playerLogic->getHeldObject(character) == -1) {
-      playerLogic->setHeldObject(character, closestObjectID);
+    if (playerLogic->getHeldObject(id) == -1) {
+      playerLogic->setHeldObject(id, closestObjectID);
       playerLogic->pickupObject(player, closestObject);
       cout << "Picked up object: " << closestObject->getId() << endl;
     }

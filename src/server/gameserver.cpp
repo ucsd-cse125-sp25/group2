@@ -55,18 +55,18 @@ void GameServer::updateGameState() {
     switch (packet->getType()) {
     case PacketType::MOVEMENT: {
       auto movementPacket = static_cast<MovementPacket *>(packet.get());
-      game->updateMovement(movementPacket->character, movementPacket->movementType,
+      game->updateMovement(movementPacket->id, movementPacket->movementType,
                            movementPacket->cameraFront);
       break;
     }
     case PacketType::ROTATION: {
       auto rotationPacket = static_cast<RotationPacket *>(packet.get());
-      game->updateRotation(rotationPacket->character, rotationPacket->rotation);
+      game->updateRotation(rotationPacket->id, rotationPacket->rotation);
       break;
     }
     case PacketType::INTERACTION: {
       auto interactionPacket = static_cast<InteractionPacket *>(packet.get());
-      game->updateInteraction(interactionPacket->character,
+      game->updateInteraction(interactionPacket->id,
                               interactionPacket->rayDirection,
                               interactionPacket->rayOrigin);
       break;
@@ -74,7 +74,7 @@ void GameServer::updateGameState() {
     case PacketType::CHARACTERSELECT: {
       auto characterPacket = static_cast<CharacterSelectPacket *>(packet.get());
       auto characterAssignments = game->updateCharacters(
-          characterPacket->character, characterPacket->id);
+          characterPacket->playerID, characterPacket->clientID);
       CharacterResponsePacket packet(characterAssignments);
       network->sendToAll(packet);
       // if (clientManager->allAssigned()) {

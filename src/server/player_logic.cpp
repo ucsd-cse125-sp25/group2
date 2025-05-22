@@ -11,8 +11,8 @@ PlayerLogic::PlayerLogic() {
   }
 }
 
-void PlayerLogic::moveObject(GameObject *object, glm::vec3 direction) {
-  auto rigidBody = object->getRigidBody();
+void PlayerLogic::move(PLAYER_ID id, GameObject *player, glm::vec3 direction) {
+  auto rigidBody = player->getRigidBody();
   if (rigidBody) {
     rigidBody->applyImpulse(speed * direction);
   }
@@ -31,11 +31,11 @@ void PlayerLogic::dropObject(GameObject *playerObject, GameObject *object) {
   object->setDisable(false);
 }
 
-void PlayerLogic::assignCharacter(PLAYER_ID character, CLIENT_ID id) {
-  unAssignCharacter(id);
-  if (characterToClient[character] == -1) {
-    characterToClient[character] = id;
-    clientToCharacter[id] = character;
+void PlayerLogic::assignCharacter(PLAYER_ID playerID, CLIENT_ID clientID) {
+  unAssignCharacter(clientID);
+  if (characterToClient[playerID] == -1) {
+    characterToClient[playerID] = clientID;
+    clientToCharacter[clientID] = playerID;
   }
 }
 

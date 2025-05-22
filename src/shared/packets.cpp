@@ -73,7 +73,7 @@ vector<char> MovementPacket::serialize() const {
   vector<char> buffer(sizeof(PLAYER_ID) + sizeof(MovementType) +
                       sizeof(glm::vec3));
   unsigned long size = 0;
-  memcpy(buffer.data(), &character, sizeof(PLAYER_ID));
+  memcpy(buffer.data(), &id, sizeof(PLAYER_ID));
   size += sizeof(PLAYER_ID);
   memcpy(buffer.data() + size, &movementType, sizeof(MovementType));
   size += sizeof(MovementType);
@@ -82,45 +82,45 @@ vector<char> MovementPacket::serialize() const {
 }
 
 MovementPacket MovementPacket::deserialize(const vector<char> &payload) {
-  PLAYER_ID character;
+  PLAYER_ID id;
   MovementType movementType;
   glm::vec3 cameraFront;
 
   unsigned long size = 0;
-  memcpy(&character, payload.data(), sizeof(PLAYER_ID));
+  memcpy(&id, payload.data(), sizeof(PLAYER_ID));
   size += sizeof(PLAYER_ID);
   memcpy(&movementType, payload.data() + size, sizeof(MovementType));
   size += sizeof(MovementType);
   cameraFront = deserializeVector(payload, size);
-  MovementPacket packet(character, movementType, cameraFront);
+  MovementPacket packet(id, movementType, cameraFront);
   return packet;
 }
 
 vector<char> RotationPacket::serialize() const {
   vector<char> buffer(sizeof(PLAYER_ID) + sizeof(glm::vec3));
   unsigned long size = 0;
-  memcpy(buffer.data(), &character, sizeof(PLAYER_ID));
+  memcpy(buffer.data(), &id, sizeof(PLAYER_ID));
   size += sizeof(PLAYER_ID);
   serializeVector(buffer.data(), rotation, size);
   return buffer;
 }
 
 RotationPacket RotationPacket::deserialize(const vector<char> &payload) {
-  PLAYER_ID character;
+  PLAYER_ID id;
   glm::vec3 rotation;
 
   unsigned long size = 0;
-  memcpy(&character, payload.data(), sizeof(PLAYER_ID));
+  memcpy(&id, payload.data(), sizeof(PLAYER_ID));
   size += sizeof(PLAYER_ID);
   rotation = deserializeVector(payload, size);
-  RotationPacket packet(character, rotation);
+  RotationPacket packet(id, rotation);
   return packet;
 }
 
 vector<char> InteractionPacket::serialize() const {
   vector<char> buffer(sizeof(PLAYER_ID) + sizeof(glm::vec3) * 2);
   unsigned long size = 0;
-  memcpy(buffer.data(), &character, sizeof(PLAYER_ID));
+  memcpy(buffer.data(), &id, sizeof(PLAYER_ID));
   size += sizeof(PLAYER_ID);
   serializeVector(buffer.data(), rayDirection, size);
   serializeVector(buffer.data(), rayOrigin, size);
@@ -128,44 +128,44 @@ vector<char> InteractionPacket::serialize() const {
 }
 
 InteractionPacket InteractionPacket::deserialize(const vector<char> &payload) {
-  PLAYER_ID character;
+  PLAYER_ID id;
   glm::vec3 rayDirection;
   glm::vec3 rayOrigin;
 
   unsigned long size = 0;
-  memcpy(&character, payload.data(), sizeof(PLAYER_ID));
+  memcpy(&id, payload.data(), sizeof(PLAYER_ID));
   size += sizeof(PLAYER_ID);
   rayDirection = deserializeVector(payload, size);
   rayOrigin = deserializeVector(payload, size);
-  InteractionPacket packet(character, rayDirection, rayOrigin);
+  InteractionPacket packet(id, rayDirection, rayOrigin);
   return packet;
 }
 
 vector<char> CharacterSelectPacket::serialize() const {
   vector<char> buffer(sizeof(PLAYER_ID) + sizeof(CLIENT_ID));
   unsigned long size = 0;
-  memcpy(buffer.data(), &character, sizeof(PLAYER_ID));
+  memcpy(buffer.data(), &playerID, sizeof(PLAYER_ID));
   size += sizeof(PLAYER_ID);
-  memcpy(buffer.data() + size, &id, sizeof(CLIENT_ID));
+  memcpy(buffer.data() + size, &clientID, sizeof(CLIENT_ID));
   return buffer;
 }
 
 CharacterSelectPacket
 CharacterSelectPacket::deserialize(const vector<char> &payload) {
-  PLAYER_ID character;
-  CLIENT_ID id;
+  PLAYER_ID playerID;
+  CLIENT_ID clientID;
 
   unsigned long size = 0;
-  memcpy(&character, payload.data(), sizeof(PLAYER_ID));
+  memcpy(&playerID, payload.data(), sizeof(PLAYER_ID));
   size += sizeof(PLAYER_ID);
-  memcpy(&id, payload.data() + size, sizeof(CLIENT_ID));
-  CharacterSelectPacket packet(character, id);
+  memcpy(&clientID, payload.data() + size, sizeof(CLIENT_ID));
+  CharacterSelectPacket packet(playerID, clientID);
   return packet;
 }
 
 vector<char> DisconnectPacket::serialize() const {
-  vector<char> buffer(sizeof(int));
-  memcpy(buffer.data(), &id, sizeof(int));
+  vector<char> buffer(sizeof(CLIENT_ID));
+  memcpy(buffer.data(), &id, sizeof(CLIENT_ID));
   return buffer;
 }
 
