@@ -55,7 +55,8 @@ void GameServer::updateGameState() {
     switch (packet->getType()) {
     case PacketType::MOVEMENT: {
       auto movementPacket = static_cast<MovementPacket *>(packet.get());
-      game->updateMovement(movementPacket->character, movementPacket->movementType,
+      game->updateMovement(movementPacket->character,
+                           movementPacket->movementType,
                            movementPacket->cameraFront);
       break;
     }
