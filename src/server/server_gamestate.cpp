@@ -47,7 +47,7 @@ void ServerGameState::updateMovement(PLAYER_ID id, MovementType type,
       cerr << "Unknown movement type" << endl;
       break;
     }
-    for (auto id: movedObjects)
+    for (auto id : movedObjects)
       updatedObjectIds.insert(id);
   }
 }
@@ -57,7 +57,7 @@ void ServerGameState::updateRotation(PLAYER_ID id, glm::vec3 rotation) {
   vector<OBJECT_ID> rotatedObjects;
   if (player) {
     rotatedObjects = playerLogic->rotate(id, player, rotation);
-    for (auto id: rotatedObjects)
+    for (auto id : rotatedObjects)
       updatedObjectIds.insert(id);
   }
 }
@@ -117,7 +117,9 @@ void ServerGameState::updateInteraction(PLAYER_ID id, glm::vec3 rayDirection,
     cout << "Dropped object: " << closestObject->getId() << endl;
   }
   // Otherwise, pick up closest object if it's interactable
-  if (closestObject->getInteractionType() == InteractionType::PICKUP && playerLogic->getHeldObject(id) == nullptr  || closestObject->getId() == 1) {
+  if (closestObject->getInteractionType() == InteractionType::PICKUP &&
+          playerLogic->getHeldObject(id) == nullptr ||
+      closestObject->getId() == 1) {
     playerLogic->setHeldObject(id, closestObject);
     playerLogic->pickupObject(player, closestObject);
     cout << "Picked up object: " << closestObject->getId() << endl;

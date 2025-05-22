@@ -14,7 +14,7 @@ public:
   static void drawMenu(Gamestate state);
 
   static void updateMenu(float mouseX, float mouseY, int winWidth,
-                          int winHeight, float deltatime, Gamestate state);
+                         int winHeight, float deltatime, Gamestate state);
 
   static unique_ptr<BaseUI>
   createUIElement(float x, float y, float width, float height, int layer,

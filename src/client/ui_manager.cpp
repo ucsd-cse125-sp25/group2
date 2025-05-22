@@ -70,7 +70,7 @@ unique_ptr<BaseUI> UIManager::createUIElement(
 }
 
 void UIManager::updateMenu(float mouseX, float mouseY, int winWidth,
-                            int winHeight, float deltatime, Gamestate state) {
+                           int winHeight, float deltatime, Gamestate state) {
   switch (state) {
   case Gamestate::STARTSCREEN:
     startScreenUI->update(mouseX, mouseY, winWidth, winHeight, deltatime);

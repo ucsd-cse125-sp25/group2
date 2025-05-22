@@ -3,8 +3,8 @@
 #include "globals.hpp"
 #include "server_gameobject.hpp"
 
-#include <unordered_map>
 #include <iostream>
+#include <unordered_map>
 
 using namespace std;
 
@@ -15,7 +15,8 @@ private:
   float jumpForce;
 
   // Interaction properties
-  unordered_map<PLAYER_ID, GameObject *> heldObjects; // map from player ID to the object they are holding
+  unordered_map<PLAYER_ID, GameObject *>
+      heldObjects; // map from player ID to the object they are holding
 
   // Client-to-Character mappings
   CLIENT_ID characterToClient[NUM_PLAYERS];
@@ -38,7 +39,8 @@ public:
   // Movement functions
   vector<OBJECT_ID> move(PLAYER_ID id, GameObject *player, glm::vec3 direction);
   void jump();
-  vector<OBJECT_ID> rotate(PLAYER_ID id, GameObject *player, glm::vec3 rotation);
+  vector<OBJECT_ID> rotate(PLAYER_ID id, GameObject *player,
+                           glm::vec3 rotation);
 
   // Ability functions
   void glide();

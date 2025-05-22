@@ -161,7 +161,7 @@ void Client::idleCallback(float deltaTime) {
   if (game->state == Gamestate::STARTSCREEN ||
       game->state == Gamestate::MAINMENU) {
     UIManager::updateMenu(mouseX, mouseY, windowWidth, windowHeight, deltaTime,
-                           game->state);
+                          game->state);
   }
 
   if (game->state == Gamestate::GAME) {

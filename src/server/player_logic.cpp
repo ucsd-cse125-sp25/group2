@@ -11,7 +11,8 @@ PlayerLogic::PlayerLogic() {
   }
 }
 
-vector<OBJECT_ID> PlayerLogic::move(PLAYER_ID id, GameObject *player, glm::vec3 direction) {
+vector<OBJECT_ID> PlayerLogic::move(PLAYER_ID id, GameObject *player,
+                                    glm::vec3 direction) {
   vector<OBJECT_ID> movedObjects;
 
   // move the player
@@ -30,7 +31,8 @@ vector<OBJECT_ID> PlayerLogic::move(PLAYER_ID id, GameObject *player, glm::vec3 
   return movedObjects;
 }
 
-vector<OBJECT_ID> PlayerLogic::rotate(PLAYER_ID id, GameObject *player, glm::vec3 rotation) {
+vector<OBJECT_ID> PlayerLogic::rotate(PLAYER_ID id, GameObject *player,
+                                      glm::vec3 rotation) {
   vector<OBJECT_ID> rotatedObjects;
 
   // rotate the player
