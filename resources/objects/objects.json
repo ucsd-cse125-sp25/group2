@@ -4,9 +4,9 @@
       "name": "Cube 1",
       "active": true,
       "transform": {
-        "position": { "x": -2.5, "y": 4.0, "z": 0.0 },
+        "position": { "x": 0.0, "y": 2.0, "z": 0.0 },
         "rotation": { "x": 0.0, "y": 0.0, "z": 0.0 },
-        "scale": { "x": 1, "y": 1, "z": 1 }
+        "scale": { "x": 2, "y": 2, "z": 2 }
       },
       "client": {
         "modelPath": "../resources/objects/chicken/Chicken.obj",
@@ -15,26 +15,27 @@
       },
       "server": {
         "static": false,
-        "meshcollider": "../resources/objects/cube/Cube.obj",
+        "collider": "../resources/objects/chicken/collider.json",
         "interaction": "PRESS"
       }
     },
     {
-      "name": "Coop",
+      "name": "Cube 2",
       "active": true,
       "transform": {
-        "position": { "x": 2.5, "y": 4.0, "z": 0.0 },
+        "position": { "x": 0.0, "y": 0.0, "z": 0.0 },
         "rotation": { "x": 0.0, "y": 0.0, "z": 0.0 },
-        "scale": { "x": 0.07, "y": 0.07, "z": 0.07 }
+        "scale": { "x": 1, "y": 1, "z": 1 }
       },
       "client": {
-        "modelPath": "../resources/objects/coop/ChickenCoopOrigin.obj",
+        "modelPath": "../resources/objects/cube/Cube.obj",
         "vertShaderPath": "../resources/shaders/material.vert",
         "fragShaderPath": "../resources/shaders/material.frag"
       },
       "server": {
-        "static": false,
-        "meshcollider": "../resources/objects/coop/ChickenCoopOrigin.obj",
+        "static": true,
+        "isTrigger": true,
+        "collider": "../resources/objects/cube/collider.json",
         "interaction": "PRESS"
       }
     },
@@ -53,7 +54,8 @@
       },
       "server": {
         "static": true,
-        "meshcollider": "../resources/objects/cube/Cube.obj",
+        "canActivate": false,
+        "collider": "../resources/objects/cube/collider.json",
         "interaction": "PRESS"
       }
     }

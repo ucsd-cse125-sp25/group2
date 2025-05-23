@@ -2,7 +2,6 @@
 
 #include "base_object_loader.hpp"
 #include "globals.hpp"
-#include "meshcollider.hpp"
 #include "server_gameobject.hpp"
 #include "transform.hpp"
 
@@ -18,5 +17,5 @@ private:
 
 public:
   unordered_map<int, unique_ptr<GameObject>> loadObjects();
-  std::vector<Collider *> loadCollider(glm::vec3 objCenter, string path);
+  std::vector<Collider *> loadCollider(string path);
 };

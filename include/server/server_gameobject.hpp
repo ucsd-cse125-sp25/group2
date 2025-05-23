@@ -4,7 +4,6 @@
 #include "collider.hpp"
 #include "core.hpp"
 #include "globals.hpp"
-#include "meshcollider.hpp"
 #include "rigidbody.hpp"
 #include "transform.hpp"
 
@@ -21,14 +20,12 @@ protected:
   bool grounded;
   unique_ptr<RigidBody> rigidbody;
   std::vector<Collider *> colliders;
-  unique_ptr<MeshCollider> meshcollider;
 
 public:
   GameObject(const int objectId, const bool isActive, unique_ptr<Transform> &tf,
-             unique_ptr<RigidBody> &rb, std::vector<Collider *> &cl,
-             unique_ptr<MeshCollider> &mcl)
+             unique_ptr<RigidBody> &rb, std::vector<Collider *> &cl)
       : BaseGameObject(objectId, isActive, tf), rigidbody(move(rb)),
-        colliders(move(cl)), meshcollider(move(mcl)) {
+        colliders(cl) {
     interactionType = InteractionType::NONE;
     grounded = true;
   };
@@ -48,5 +45,4 @@ public:
   const float getArea() const { return getRigidBody()->getArea(); };
   RigidBody *getRigidBody() const { return rigidbody.get(); }
   std::vector<Collider *> getCollider() const { return colliders; }
-  MeshCollider *getMeshCollider() const { return meshcollider.get(); }
 };

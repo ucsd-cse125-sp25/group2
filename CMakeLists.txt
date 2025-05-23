@@ -38,7 +38,6 @@ add_subdirectory(dependencies/glm)
 add_subdirectory(dependencies/stb_image)
 add_subdirectory(dependencies/nlohmann_json)
 add_subdirectory(dependencies/magic_enum)
-add_subdirectory(dependencies/tinyobjloader)
 
 # Client/Server build
 add_subdirectory(src/shared)

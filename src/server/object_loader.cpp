@@ -33,20 +33,19 @@ unordered_map<int, unique_ptr<GameObject>> ObjectLoader::loadObjects() {
           bool isStatic = server["static"].get<bool>();
           rb->setStatic(isStatic);
         }
-        auto mcl = make_unique<MeshCollider>(
-            server.value("meshcollider", "").c_str(), base.transform.get());
         auto cl = std::vector<Collider *>();
         if (server.contains("collider")) {
-          cl = loadCollider(base.transform->getPosition(),
-                            server.value("collider", "").c_str());
-          // std::cout << cl[0]->getCenter().x << " " << cl[0]->getCenter().y <<
-          // " " << cl[0]->getCenter().z << std::endl; std::cout <<
-          // cl[0]->getHalfExtents().x << " " << cl[0]->getHalfExtents().y << "
-          // " << cl[0]->getHalfExtents().z << std::endl;
+          cl = loadCollider(server.value("collider", "").c_str());
         }
-
+        for (Collider* c : cl) {
+          if (server.contains("isTrigger"))
+            c->setTrigger(server["isTrigger"].get<bool>());
+          if (server.contains("canActivate"))
+            c->setCanActivate(server["canActivate"].get<bool>());
+          c->update(base.transform.get());
+        }
         obj = make_unique<GameObject>(objectId, base.active, base.transform, rb,
-                                      cl, mcl);
+                                      cl);
 
         if (server.contains("interaction")) {
           string interactionStr = server["interaction"].get<string>();
@@ -64,8 +63,7 @@ unordered_map<int, unique_ptr<GameObject>> ObjectLoader::loadObjects() {
   return objects;
 };
 
-std::vector<Collider *> ObjectLoader::loadCollider(glm::vec3 objCenter,
-                                                   string path) {
+std::vector<Collider *> ObjectLoader::loadCollider(string path) {
   std::vector<Collider *> colliders;
   ifstream colliderFile(path);
   if (!colliderFile.is_open()) {
@@ -83,14 +81,21 @@ std::vector<Collider *> ObjectLoader::loadCollider(glm::vec3 objCenter,
   if (colliderData.contains("colliders") &&
       colliderData["colliders"].is_array()) {
     for (const auto &clData : colliderData["colliders"]) {
-      glm::vec3 center, halfExtents;
+      glm::vec3 center = glm::vec3(0), halfExtents = glm::vec3(1);
+      glm::mat3 orientation = glm::mat3(1);
       if (clData.contains("center")) {
-        center = objCenter + parseVec3(clData, "center", glm::vec3(0.0f));
+        center = parseVec3(clData, "center", glm::vec3(0.0f));
       }
       if (clData.contains("halfExtents")) {
         halfExtents = parseVec3(clData, "halfExtents", glm::vec3(1.0f));
       }
-      auto cl = new Collider(center, halfExtents);
+      if (clData.contains("orientation")) {
+        auto &t = clData["orientation"];
+        orientation[0] = parseVec3(t, "right", glm::vec3(1, 0, 0));
+        orientation[1] = parseVec3(t, "up", glm::vec3(0, 1, 0));
+        orientation[2] = parseVec3(t, "forward", glm::vec3(0, 0, 1));
+      }
+      auto cl = new Collider(center, halfExtents, orientation);
       colliders.push_back(cl);
     }
   }
