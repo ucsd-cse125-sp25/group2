@@ -2,7 +2,9 @@
 
 PlayerLogic::PlayerLogic() {
   speed = 10.0f;
-  jumpForce = 10.0f;
+  jumpForce = 0.1f;
+  jumpTime = 0.0f;
+  maxJumpTime = 0.5f;
 
   for (int i = 0; i < NUM_PLAYERS; i++) {
     heldObjects[i] = nullptr;
@@ -31,6 +33,26 @@ vector<OBJECT_ID> PlayerLogic::move(PLAYER_ID id, GameObject *player,
   return movedObjects;
 }
 
+vector<OBJECT_ID> PlayerLogic::jump(PLAYER_ID id, GameObject *player, float deltaTime) {
+  vector<OBJECT_ID> jumpedObjects;
+
+  // jump the player
+  cout << "jumptime: " << jumpTime << endl;
+  cout << "maxjumptime: " << maxJumpTime << endl;
+
+  if (jumpTime < maxJumpTime) {
+    player->setGrounded(false);
+    auto rigidBody = player->getRigidBody();
+    rigidBody->applyImpulse(jumpForce * glm::vec3(0.0f, 1.0f, 0.0f));
+    jumpTime += deltaTime;
+    jumpedObjects.push_back(id);
+  }
+  if (player->isGrounded()) {
+    jumpTime = 0;
+  }
+  return jumpedObjects;
+}
+
 vector<OBJECT_ID> PlayerLogic::rotate(PLAYER_ID id, GameObject *player,
                                       glm::vec3 rotation) {
   vector<OBJECT_ID> rotatedObjects;
@@ -50,14 +72,12 @@ vector<OBJECT_ID> PlayerLogic::rotate(PLAYER_ID id, GameObject *player,
 void PlayerLogic::pickupObject(GameObject *playerObject, GameObject *object) {
   auto playerTransform = playerObject->getTransform();
   auto tf = object->getTransform();
-  glm::vec3 offset = glm::vec3(0.0f, 3.0f, 0.0f);
+  glm::vec3 offset = glm::vec3(1.0f, 3.0f, 1.0f);
   tf->setPosition(playerTransform->getPosition() + offset);
   object->setUsesGravity(false);
 }
 
 void PlayerLogic::dropObject(GameObject *playerObject, GameObject *object) {
-  auto playerTransform = playerObject->getTransform();
-  object->getTransform()->setPosition(playerTransform->getPosition());
   object->setUsesGravity(true);
 }
 

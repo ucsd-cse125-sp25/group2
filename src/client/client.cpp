@@ -165,6 +165,9 @@ void Client::idleCallback(float deltaTime) {
   }
 
   if (game->state == Gamestate::GAME) {
+    cout << "Player position " << game->getPlayer()->getPosition().x << ", "
+         << game->getPlayer()->getPosition().y << ", "
+         << game->getPlayer()->getPosition().z << endl;
     cam->update(xOffset, yOffset, game->getPlayer()->getPosition());
     xOffset = 0.0f;
     yOffset = 0.0f;
@@ -253,6 +256,10 @@ void Client::keyCallback(GLFWwindow *window, int key, int scancode, int action,
   if (action == GLFW_PRESS) {
     if (key == GLFW_KEY_ESCAPE)
       glfwSetWindowShouldClose(window, true);
+    if (key == GLFW_KEY_SPACE) {
+      MovementPacket packet(game->getPlayer()->getId(), MovementType::JUMP, vec3(0.0f));
+      network->send(packet);
+    }
   }
 }
 

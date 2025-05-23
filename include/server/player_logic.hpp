@@ -13,6 +13,8 @@ private:
   // Movement properties
   float speed;
   float jumpForce;
+  float jumpTime;
+  float maxJumpTime;
 
   // Interaction properties
   unordered_map<PLAYER_ID, GameObject *>
@@ -38,7 +40,7 @@ public:
 
   // Movement functions
   vector<OBJECT_ID> move(PLAYER_ID id, GameObject *player, glm::vec3 direction);
-  void jump();
+  vector<OBJECT_ID> jump(PLAYER_ID id, GameObject *player, float deltaTime);
   vector<OBJECT_ID> rotate(PLAYER_ID id, GameObject *player,
                            glm::vec3 rotation);
 

@@ -43,6 +43,9 @@ void ServerGameState::updateMovement(PLAYER_ID id, MovementType type,
     case MovementType::RIGHT:
       movedObjects = playerLogic->move(id, player, cameraRight);
       break;
+    case MovementType::JUMP:
+      movedObjects = playerLogic->jump(id, player, deltaTime);
+      break;
     default:
       cerr << "Unknown movement type" << endl;
       break;
