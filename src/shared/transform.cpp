@@ -36,4 +36,4 @@ void Transform::updateRotation(glm::vec3 rotateInput) {
   right = glm::normalize(glm::cross(forward, up));
 }
 
-void Transform::updateScale(float scaleInput) { scale = glm::vec3(scaleInput); }
+void Transform::updateScale(float scaleInput) { scale *= scaleInput; }

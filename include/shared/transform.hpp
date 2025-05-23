@@ -23,7 +23,17 @@ public:
   vec3 getRight() const { return right; };
 
   void setPosition(vec3 pos) { position = pos; }
-  void setRotation(vec3 rot) { rotation = rot; }
+  void setRotation(vec3 rot) { 
+  rotation = rot; 
+  float yaw = rotation.y;
+  float pitch = rotation.x;
+
+  glm::vec3 fwd;
+  fwd.x = cos(glm::radians(pitch)) * cos(glm::radians(yaw));
+  fwd.y = sin(glm::radians(pitch));
+  fwd.z = cos(glm::radians(pitch)) * sin(glm::radians(yaw));
+  forward = glm::normalize(fwd);
+  right = glm::normalize(glm::cross(forward, up));}
   void setScale(vec3 scl) { scale = scl; }
 
   void updatePosition(vec3 moveInput);

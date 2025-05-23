@@ -28,7 +28,6 @@ CLIENT_ID *ServerGameState::updateCharacters(PLAYER_ID playerID,
 void ServerGameState::updateMovement(PLAYER_ID id, MovementType type,
                                      glm::vec3 cameraFront) {
   auto player = getObject(id);
-  vector<OBJECT_ID> movedObjects;
   if (player) {
     // Find the direction of movement based on the camera's facing direction
     glm::vec3 flatFront =
@@ -37,22 +36,22 @@ void ServerGameState::updateMovement(PLAYER_ID id, MovementType type,
         glm::normalize(glm::cross(flatFront, glm::vec3(0.0f, 1.0f, 0.0f)));
     switch (type) {
     case MovementType::FORWARD:
-      movedObjects = playerLogic->move(id, player, flatFront);
+      playerLogic->move(player, flatFront);
       break;
     case MovementType::BACKWARD:
-      movedObjects = playerLogic->move(id, player, -flatFront);
+      playerLogic->move(player, -flatFront);
       break;
     case MovementType::LEFT:
-      movedObjects = playerLogic->move(id, player, -cameraRight);
+      playerLogic->move(player, -cameraRight);
       break;
     case MovementType::RIGHT:
-      movedObjects = playerLogic->move(id, player, cameraRight);
+      playerLogic->move(player, cameraRight);
       break;
     default:
       cerr << "Unknown movement type" << endl;
       break;
     }
-    updatedObjectIds.insert(movedObjects.begin(), movedObjects.end());
+    updatedObjectIds.insert(id);
   }
 }
 
@@ -69,7 +68,7 @@ void ServerGameState::updateInteraction(PLAYER_ID id, glm::vec3 rayDirection,
                                         glm::vec3 rayOrigin) {
   GameObject *closestObject = nullptr;
   OBJECT_ID closestObjectID;
-  float minDistance = std::numeric_limits<float>::max();
+  float minDistance = numeric_limits<float>::max();
 
   // Only need to iterate through the interactable objects
   for (auto &obj : interactableObjects) {
@@ -123,7 +122,6 @@ void ServerGameState::updateInteraction(PLAYER_ID id, glm::vec3 rayDirection,
   if (playerLogic->getHeldObject(id) != nullptr) {
     playerLogic->dropObject(player, closestObject);
     playerLogic->setHeldObject(id, nullptr);
-    cout << "Dropped object: " << closestObject->getId() << endl;
   }
   // Otherwise, pick up closest object if it's interactable
   else if (closestObject != nullptr &&
@@ -131,7 +129,6 @@ void ServerGameState::updateInteraction(PLAYER_ID id, glm::vec3 rayDirection,
            playerLogic->getHeldObject(id) == nullptr) {
     playerLogic->setHeldObject(id, closestObject);
     playerLogic->pickupObject(player, closestObject);
-    cout << "Picked up object: " << closestObject->getId() << endl;
   }
   updatedObjectIds.insert(closestObjectID);
 }
@@ -142,12 +139,12 @@ void ServerGameState::applyPhysics() {
   physicsWorld->moveObjects(deltaTime);
 
   auto movedObjects = physicsWorld->getUpdatedObjects();
+  // if the object is held by a player, move it with the player
   for (auto id : movedObjects) {
     if (id < NUM_PLAYERS) {
       OBJECT_ID heldObjectId = playerLogic->moveHeldObject(id, getObject(id));
-      if (heldObjectId != -1) {
+      if (heldObjectId != -1)
         updatedObjectIds.insert(heldObjectId);
-      }
     }
     updatedObjectIds.insert(id);
   }
@@ -158,7 +155,7 @@ GameObject *ServerGameState::getObject(OBJECT_ID id) {
   if (itr != objectList.end()) {
     return itr->second.get();
   }
-  cerr << "Object with id " << id << " not found" << endl;
+  cerr << "Object with ID " << id << " not found" << endl;
   return nullptr;
 }
 

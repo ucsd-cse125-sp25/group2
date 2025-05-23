@@ -11,16 +11,24 @@ PlayerLogic::PlayerLogic() {
   }
 }
 
-vector<OBJECT_ID> PlayerLogic::move(PLAYER_ID id, GameObject *player,
+void PlayerLogic::move(GameObject *player,
                                     glm::vec3 direction) {
-  vector<OBJECT_ID> movedObjects;
-
   // move the player
   auto rigidBody = player->getRigidBody();
   rigidBody->applyImpulse(speed * direction);
-  movedObjects.push_back(id);
+}
 
-  return movedObjects;
+OBJECT_ID PlayerLogic::moveHeldObject(PLAYER_ID id, GameObject *player) {
+  // If the player is holding an object, move it with the player and return its ID
+  // Otherwise, return -1
+  if (getHeldObject(id) != nullptr) {
+    auto heldObject = getHeldObject(id);
+    auto tf = heldObject->getTransform();
+    glm::vec3 offset = glm::vec3(0.0f, 2.0f, 0.0f);
+    tf->setPosition(player->getTransform()->getPosition() + offset);
+    return heldObject->getId();
+  }
+  return -1;
 }
 
 vector<OBJECT_ID> PlayerLogic::rotate(PLAYER_ID id, GameObject *player,
@@ -29,6 +37,7 @@ vector<OBJECT_ID> PlayerLogic::rotate(PLAYER_ID id, GameObject *player,
 
   // rotate the player
   player->getTransform()->setRotation(rotation);
+  rotatedObjects.push_back(id);
 
   // if the player is holding an object, apply the rotation to the object
   if (getHeldObject(id) != nullptr) {
@@ -39,29 +48,18 @@ vector<OBJECT_ID> PlayerLogic::rotate(PLAYER_ID id, GameObject *player,
   return rotatedObjects;
 }
 
-// Returns the ID of the held object if it exists, otherwise -1
-OBJECT_ID PlayerLogic::moveHeldObject(PLAYER_ID id, GameObject *player) {
-  if (getHeldObject(id) != nullptr) {
-    auto heldObject = getHeldObject(id);
-    auto tf = heldObject->getTransform();
-    glm::vec3 offset = glm::vec3(0.0f, 3.0f, 0.0f);
-    tf->setPosition(player->getTransform()->getPosition() + offset);
-    return heldObject->getId();
-  }
-  return -1;
-}
-
 void PlayerLogic::pickupObject(GameObject *playerObject, GameObject *object) {
   auto playerTransform = playerObject->getTransform();
   auto tf = object->getTransform();
-  glm::vec3 offset = glm::vec3(0.0f, 3.0f, 0.0f);
+  glm::vec3 offset = glm::vec3(0.0f, 2.0f, 0.0f);
   tf->setPosition(playerTransform->getPosition() + offset);
   object->setUsesGravity(false);
 }
 
 void PlayerLogic::dropObject(GameObject *playerObject, GameObject *object) {
-  auto playerTransform = playerObject->getTransform();
-  object->getTransform()->setPosition(playerTransform->getPosition());
+  auto tf = object->getTransform();
+  glm::vec3 offset = playerObject->getTransform()->getForward() * 2.0f + glm::vec3(0.0f, 2.0f, 0.0f);
+  tf->setPosition(offset);
   object->setUsesGravity(true);
 }
 
