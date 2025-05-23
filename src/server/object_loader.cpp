@@ -26,6 +26,8 @@ unordered_map<int, unique_ptr<GameObject>> ObjectLoader::loadObjects() {
       if (objData.contains("server")) {
         InteractionType interactionType;
         glm::vec3 halfExtents;
+        glm::vec3 position;
+
         auto &server = objData["server"];
 
         auto rb = make_unique<RigidBody>();
@@ -37,8 +39,11 @@ unordered_map<int, unique_ptr<GameObject>> ObjectLoader::loadObjects() {
         if (server.contains("halfExtents")) {
           halfExtents = parseVec3(server, "halfExtents", glm::vec3(1.0f));
         }
+        if (server.contains("position")) {
+          position = parseVec3(server, "position", glm::vec3(0.0f));
+        }
         auto cl =
-            make_unique<Collider>(base.transform->getPosition(), halfExtents);
+            make_unique<Collider>(base.transform->getPosition(), position, halfExtents);
 
         obj = make_unique<GameObject>(objectId, base.active, base.transform, rb,
                                       cl);

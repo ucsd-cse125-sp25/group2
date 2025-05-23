@@ -12,8 +12,8 @@ Camera::Camera()
                // back toward the target
   pitch = 0.0f;
 
-  sensitivity = 0.02f;
-  radius = 13.0f;
+  sensitivity = 0.1f;
+  radius = 8.0f;
 
   worldUp = cameraUp;
 }
@@ -26,7 +26,7 @@ void Camera::update(float xOffset, float yOffset, vec3 target) {
   pitch -= yOffset;
 
   // restrict pitch (vertical) and allow 360 degrees for yaw (horizontal)
-  pitch = glm::clamp(pitch, 0.0f, 30.0f);
+  pitch = glm::clamp(pitch, -30.0f, 50.0f);
   if (yaw > 360.0f || yaw < -360.0f)
     yaw = fmod(yaw, 360.0f);
 

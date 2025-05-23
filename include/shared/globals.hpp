@@ -12,8 +12,8 @@
 #define NUM_PLAYERS 4
 
 #define CHICKEN 0
-#define PIG 1
-#define SHEEP 2
+#define SHEEP 1
+#define PIG 2
 #define COW 3
 
 #define JSON_PATH "../resources/objects/objects.json"

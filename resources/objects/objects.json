@@ -1,66 +1,4 @@
 {
-<<<<<<< Updated upstream
-  "objects": [
-    {
-      "name": "Chicken",
-      "active": true,
-      "transform": {
-        "position": { "x": -2.5, "y": 0.0, "z": 0.0 },
-        "rotation": { "x": 0.0, "y": 0.0, "z": 0.0 },
-        "scale": { "x": 1.0, "y": 1.0, "z": 1.0 }
-      },
-      "client": {
-        "modelPath": "../resources/objects/chicken/Chicken.obj",
-        "vertShaderPath": "../resources/shaders/material.vert",
-        "fragShaderPath": "../resources/shaders/material.frag"
-      },
-      "server": {
-        "static": false,
-        "halfExtents": { "x": 1.0, "y": 1.0, "z": 1.0 },
-        "interaction": "NONE"
-      }
-    },
-    {
-      "name": "Cube",
-      "active": true,
-      "transform": {
-        "position": { "x": 2.5, "y": 0.0, "z": 0.0 },
-        "rotation": { "x": 0.0, "y": 0.0, "z": 0.0 },
-        "scale": { "x": 1.0, "y": 1.0, "z": 1.0 }
-      },
-      "client": {
-        "modelPath": "../resources/objects/cube/Cube.obj",
-        "vertShaderPath": "../resources/shaders/shader.vert",
-        "fragShaderPath": "../resources/shaders/shader.frag"
-      },
-      "server": {
-        "static": false,
-        "halfExtents": { "x": 1.0, "y": 1.0, "z": 1.0 },
-        "interaction": "NONE"
-      }
-    },
-    {
-      "name": "Floor",
-      "active": true,
-      "transform": {
-        "position": { "x": 0.0, "y": -2.0, "z": 0.0 },
-        "rotation": { "x": 0.0, "y": 0.0, "z": 0.0 },
-        "scale": { "x": 10.0, "y": 0.1, "z": 10.0 }
-      },
-      "client": {
-        "modelPath": "../resources/objects/cube/Cube.obj",
-        "vertShaderPath": "../resources/shaders/shader.vert",
-        "fragShaderPath": "../resources/shaders/shader.frag"
-      },
-      "server": {
-        "static": true,
-        "halfExtents": { "x": 10.0, "y": 1.0, "z": 10.0 },
-        "interaction": "NONE"
-      }
-    }
-  ]
-}
-=======
 	"_comment": "DO NOT CHANGE THE ORDER OF CHARACTERS. ANIMALS MUST REMAIN AT TOP OF JSON AND IN ORDER",
 	"objects": [
 		{
@@ -80,7 +18,7 @@
 				"interaction": "NONE",
 				"position": {
 					"x": 0,
-					"y": 0.246,
+					"y": 0.738,
 					"z": 0
 				},
 				"static": false
@@ -89,7 +27,7 @@
 				"position": {
 					"x": 8,
 					"y": 0.9,
-					"z": 0
+					"z": -3
 				},
 				"rotation": {
 					"x": -0,
@@ -120,8 +58,8 @@
 				"interaction": "NONE",
 				"position": {
 					"x": 0,
-					"y": 0.615,
-					"z": 0.053
+					"y": 1.538,
+					"z": 0.132
 				},
 				"static": false
 			},
@@ -129,7 +67,7 @@
 				"position": {
 					"x": 3,
 					"y": 0.9,
-					"z": 0
+					"z": -3
 				},
 				"rotation": {
 					"x": -0,
@@ -160,8 +98,8 @@
 				"interaction": "NONE",
 				"position": {
 					"x": 0,
-					"y": 0.5,
-					"z": -0.005
+					"y": 1.25,
+					"z": -0.012
 				},
 				"static": false
 			},
@@ -169,7 +107,7 @@
 				"position": {
 					"x": -3,
 					"y": 0.9,
-					"z": 0
+					"z": -3
 				},
 				"rotation": {
 					"x": -0,
@@ -200,8 +138,8 @@
 				"interaction": "NONE",
 				"position": {
 					"x": 0,
-					"y": 0.682,
-					"z": -0.082
+					"y": 1.705,
+					"z": -0.205
 				},
 				"static": false
 			},
@@ -209,7 +147,7 @@
 				"position": {
 					"x": -8,
 					"y": 0.9,
-					"z": 0
+					"z": -3
 				},
 				"rotation": {
 					"x": -0,
@@ -266,38 +204,122 @@
 		{
 			"active": true,
 			"client": {
-				"fragShaderPath": "../resources/shaders/shader.frag",
+				"fragShaderPath": "../resources/shaders/material.frag",
 				"modelPath": "../resources/objects/cube/Cube.obj",
-				"vertShaderPath": "../resources/shaders/shader.vert"
+				"vertShaderPath": "../resources/shaders/material.vert"
+			},
+			"name": "Cube",
+			"server": {
+				"halfExtents": {
+					"x": 1,
+					"y": 1,
+					"z": 1
+				},
+				"interaction": "PRESS",
+				"position": {
+					"x": 0,
+					"y": 0,
+					"z": 0
+				},
+				"static": false
+			},
+			"transform": {
+				"position": {
+					"x": 10.438,
+					"y": 2.281,
+					"z": -6.766
+				},
+				"rotation": {
+					"x": -0,
+					"y": 0,
+					"z": 0
+				},
+				"scale": {
+					"x": 1,
+					"y": 1,
+					"z": 1
+				}
+			}
+		},
+		{
+			"active": true,
+			"client": {
+				"fragShaderPath": "../resources/shaders/material.frag",
+				"modelPath": "../resources/objects/cube/Cube.obj",
+				"vertShaderPath": "../resources/shaders/material.vert"
+			},
+			"name": "Cube2",
+			"server": {
+				"halfExtents": {
+					"x": 1,
+					"y": 1,
+					"z": 1
+				},
+				"interaction": "PRESS",
+				"position": {
+					"x": 0,
+					"y": 0,
+					"z": 0
+				},
+				"static": false
+			},
+			"transform": {
+				"position": {
+					"x": 10.438,
+					"y": 4.281,
+					"z": -6.766
+				},
+				"rotation": {
+					"x": -0,
+					"y": 0,
+					"z": 0
+				},
+				"scale": {
+					"x": 1,
+					"y": 1,
+					"z": 1
+				}
+			}
+		},
+		{
+			"active": true,
+			"client": {
+				"fragShaderPath": "../resources/shaders/material.frag",
+				"modelPath": "../resources/objects/cube/Cube.obj",
+				"vertShaderPath": "../resources/shaders/material.vert"
 			},
 			"name": "Floor",
 			"server": {
 				"halfExtents": {
 					"x": 100,
-					"y": 0.05,
+					"y": 0.01,
 					"z": 100
 				},
 				"interaction": "PRESS",
+				"position": {
+					"x": 0,
+					"y": 0,
+					"z": 0
+				},
 				"static": true
 			},
 			"transform": {
 				"position": {
 					"x": 0,
-					"y": 0.75,
+					"y": 0.88,
 					"z": 0
 				},
 				"rotation": {
-					"x": 0,
+					"x": -0,
 					"y": 0,
 					"z": 0
 				},
 				"scale": {
 					"x": 100,
-					"y": 0.1,
+					"y": 0.01,
 					"z": 100
 				}
 			}
 		}
 	]
 }
->>>>>>> Stashed changes

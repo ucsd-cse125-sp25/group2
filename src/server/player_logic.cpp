@@ -36,7 +36,9 @@ vector<OBJECT_ID> PlayerLogic::rotate(PLAYER_ID id, GameObject *player,
   vector<OBJECT_ID> rotatedObjects;
 
   // rotate the player
-  player->getTransform()->setRotation(rotation);
+  auto tf = player->getTransform();
+  tf->setRotation(rotation);
+  player->getCollider()->update(tf);
 
   // if the player is holding an object, apply the rotation to the object
   if (getHeldObject(id) != nullptr) {

@@ -12,6 +12,7 @@ private:
   glm::vec3 center;
   glm::vec3 halfExtents;
   glm::mat3 orientation;
+  glm::vec3 offset;
 
   void projectOntoAxis(const glm::vec3 &axis, float &outMin,
                        float &outMax) const {
@@ -25,15 +26,18 @@ private:
   }
 
 public:
-  Collider(glm::vec3 ctr = glm::vec3(0), glm::vec3 ext = glm::vec3(1.0f))
-      : center(ctr), halfExtents(ext), orientation(glm::mat3(1)) {}
+  Collider(glm::vec3 ctr = glm::vec3(0), glm::vec3 off = glm::vec3(0), glm::vec3 ext = glm::vec3(1.0f))
+      : center(ctr), offset(off), halfExtents(ext), orientation(glm::mat3(1)) {}
 
   void update(Transform *tf) {
-    center = tf->getPosition();
+    center = tf->getPosition() + offset;
     glm::mat3 orient;
     orient[0] = tf->getForward();
     orient[1] = tf->getUp();
     orient[2] = tf->getRight();
+    // orient[0] = tf->getRight();
+    // orient[1] = tf->getUp();
+    // orient[2] = tf->getForward();
     orientation = orient;
   }
 
@@ -92,5 +96,30 @@ public:
     outNormal = bestAxis;
     outPenetration = minPenetration;
     return true;
+  }
+  void drawWireframe() const {
+    std::vector<glm::vec3> corners = getCorners();
+
+    // Define the 12 edges of the box using indices into the corners vector
+    static const int edges[12][2] = {
+        {0, 1}, {1, 3}, {3, 2}, {2, 0}, // bottom face
+        {4, 5}, {5, 7}, {7, 6}, {6, 4}, // top face
+        {0, 4}, {1, 5}, {2, 6}, {3, 7}  // vertical edges
+    };
+
+    glDisable(GL_LIGHTING);            // Disable lighting for clean line rendering
+    glColor3f(1.0f, 0.0f, 0.0f);       // Red color for the wireframe (you can customize)
+    glLineWidth(1.5f);                 // Optional: set line thickness
+
+    glBegin(GL_LINES);
+    for (int i = 0; i < 12; ++i) {
+        const glm::vec3& a = corners[edges[i][0]];
+        const glm::vec3& b = corners[edges[i][1]];
+        glVertex3f(a.x, a.y, a.z);
+        glVertex3f(b.x, b.y, b.z);
+    }
+    glEnd();
+
+    glEnable(GL_LIGHTING); // Re-enable lighting if you disabled it
   }
 };

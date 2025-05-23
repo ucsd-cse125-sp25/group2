@@ -154,6 +154,7 @@ void Client::idleCallback(float deltaTime) {
       auto characterPacket =
           dynamic_cast<CharacterResponsePacket *>(packet.get());
       characterManager->setCharacters(characterPacket->characterAssignments);
+      game->setPlayer(characterManager->selectedCharacter);
       break;
     }
     }
