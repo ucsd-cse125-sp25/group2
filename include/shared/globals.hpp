@@ -19,7 +19,15 @@
 #define JSON_PATH "../resources/objects/objects.json"
 #define CONFIG_PATH "../resources/config.json"
 
-enum class MovementType : uint8_t { NONE, FORWARD, BACKWARD, LEFT, RIGHT, JUMP, GLIDE };
+enum class MovementType : uint8_t {
+  NONE,
+  FORWARD,
+  BACKWARD,
+  LEFT,
+  RIGHT,
+  JUMP,
+  GLIDE
+};
 
 enum class InteractionType : uint8_t {
   NONE,

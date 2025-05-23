@@ -33,7 +33,8 @@ vector<OBJECT_ID> PlayerLogic::move(PLAYER_ID id, GameObject *player,
   return movedObjects;
 }
 
-vector<OBJECT_ID> PlayerLogic::jump(PLAYER_ID id, GameObject *player, float deltaTime) {
+vector<OBJECT_ID> PlayerLogic::jump(PLAYER_ID id, GameObject *player,
+                                    float deltaTime) {
   vector<OBJECT_ID> jumpedObjects;
 
   // jump the player

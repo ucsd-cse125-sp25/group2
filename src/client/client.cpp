@@ -257,7 +257,8 @@ void Client::keyCallback(GLFWwindow *window, int key, int scancode, int action,
     if (key == GLFW_KEY_ESCAPE)
       glfwSetWindowShouldClose(window, true);
     if (key == GLFW_KEY_SPACE) {
-      MovementPacket packet(game->getPlayer()->getId(), MovementType::JUMP, vec3(0.0f));
+      MovementPacket packet(game->getPlayer()->getId(), MovementType::JUMP,
+                            vec3(0.0f));
       network->send(packet);
     }
   }
