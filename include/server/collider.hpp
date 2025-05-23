@@ -26,7 +26,8 @@ private:
   }
 
 public:
-  Collider(glm::vec3 ctr = glm::vec3(0), glm::vec3 off = glm::vec3(0), glm::vec3 ext = glm::vec3(1.0f))
+  Collider(glm::vec3 ctr = glm::vec3(0), glm::vec3 off = glm::vec3(0),
+           glm::vec3 ext = glm::vec3(1.0f))
       : center(ctr), offset(off), halfExtents(ext), orientation(glm::mat3(1)) {}
 
   void update(Transform *tf) {
@@ -107,16 +108,17 @@ public:
         {0, 4}, {1, 5}, {2, 6}, {3, 7}  // vertical edges
     };
 
-    glDisable(GL_LIGHTING);            // Disable lighting for clean line rendering
-    glColor3f(1.0f, 0.0f, 0.0f);       // Red color for the wireframe (you can customize)
-    glLineWidth(1.5f);                 // Optional: set line thickness
+    glDisable(GL_LIGHTING); // Disable lighting for clean line rendering
+    glColor3f(1.0f, 0.0f,
+              0.0f);   // Red color for the wireframe (you can customize)
+    glLineWidth(1.5f); // Optional: set line thickness
 
     glBegin(GL_LINES);
     for (int i = 0; i < 12; ++i) {
-        const glm::vec3& a = corners[edges[i][0]];
-        const glm::vec3& b = corners[edges[i][1]];
-        glVertex3f(a.x, a.y, a.z);
-        glVertex3f(b.x, b.y, b.z);
+      const glm::vec3 &a = corners[edges[i][0]];
+      const glm::vec3 &b = corners[edges[i][1]];
+      glVertex3f(a.x, a.y, a.z);
+      glVertex3f(b.x, b.y, b.z);
     }
     glEnd();
 

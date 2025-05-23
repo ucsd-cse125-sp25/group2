@@ -42,8 +42,8 @@ unordered_map<int, unique_ptr<GameObject>> ObjectLoader::loadObjects() {
         if (server.contains("position")) {
           position = parseVec3(server, "position", glm::vec3(0.0f));
         }
-        auto cl =
-            make_unique<Collider>(base.transform->getPosition(), position, halfExtents);
+        auto cl = make_unique<Collider>(base.transform->getPosition(), position,
+                                        halfExtents);
 
         obj = make_unique<GameObject>(objectId, base.active, base.transform, rb,
                                       cl);
