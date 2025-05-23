@@ -16,27 +16,27 @@ private:
   float sensitivity;
   float radius; // Distance from the camera to the target
 
-  vec3 cameraPos;
-  vec3 cameraFront;
-  vec3 cameraUp;
-  vec3 cameraRight;
-  vec3 worldUp;
+  glm::vec3 cameraPos;
+  glm::vec3 cameraFront;
+  glm::vec3 cameraUp;
+  glm::vec3 cameraRight;
+  glm::vec3 worldUp;
 
-  mat4 projection;
-  mat4 view;
-  mat4 viewProjMat;
+  glm::mat4 projection;
+  glm::mat4 view;
+  glm::mat4 viewProjMat;
 
 public:
   Camera();
 
-  void update(float xOffset, float yOffset, vec3 target);
+  void update(float xOffset, float yOffset, glm::vec3 target);
   void updateAspect(int width, int height);
 
   // Getters
-  vec3 getFacing() { return cameraFront; }
-  vec3 getPos() { return cameraPos; }
-  mat4 getProjection() { return projection; }
-  mat4 getView() { return view; }
-  mat4 getViewProj() { return viewProjMat; }
-  vec3 getRotation() { return vec3(pitch, yaw, 0.0f); }
+  glm::vec3 getFacing() { return cameraFront; }
+  glm::vec3 getPos() { return cameraPos; }
+  glm::mat4 getProjection() { return projection; }
+  glm::mat4 getView() { return view; }
+  glm::mat4 getViewProj() { return viewProjMat; }
+  glm::vec3 getRotation() { return glm::vec3(pitch, yaw, 0.0f); }
 };
