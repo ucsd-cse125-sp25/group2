@@ -37,7 +37,7 @@ unordered_map<int, unique_ptr<GameObject>> ObjectLoader::loadObjects() {
         if (server.contains("collider")) {
           cl = loadCollider(server.value("collider", "").c_str());
         }
-        for (Collider* c : cl) {
+        for (Collider *c : cl) {
           if (server.contains("isTrigger"))
             c->setTrigger(server["isTrigger"].get<bool>());
           if (server.contains("canActivate"))

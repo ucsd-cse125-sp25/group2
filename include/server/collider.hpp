@@ -33,9 +33,10 @@ private:
   }
 
 public:
-  Collider(glm::vec3 ctr = glm::vec3(0), glm::vec3 ext = glm::vec3(1.0f), glm::mat3 ort = glm::mat3(1))
-      : originalCenter(ctr), center(ctr), originalHalfExtents(ext), halfExtents(ext), 
-      originalOrientation(ort),  orientation(ort) {}
+  Collider(glm::vec3 ctr = glm::vec3(0), glm::vec3 ext = glm::vec3(1.0f),
+           glm::mat3 ort = glm::mat3(1))
+      : originalCenter(ctr), center(ctr), originalHalfExtents(ext),
+        halfExtents(ext), originalOrientation(ort), orientation(ort) {}
 
   void update(Transform *tf) {
     center = originalCenter + tf->getPosition();
@@ -45,9 +46,9 @@ public:
     orient[2] = tf->getForward();
     orientation = orient * originalOrientation;
     halfExtents = tf->getScale() * originalHalfExtents;
-      
-    // std::cout << halfExtents.x << " " << halfExtents.y << " " << halfExtents.z << std::endl;
 
+    // std::cout << halfExtents.x << " " << halfExtents.y << " " <<
+    // halfExtents.z << std::endl;
   }
 
   glm::vec3 getCenter() const { return center; }

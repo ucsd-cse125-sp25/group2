@@ -38,7 +38,8 @@ void Physics::resolveCollisions() {
       for (int j = i + 1; j < objects.size(); ++j) {
         GameObject *a = objects[i];
         GameObject *b = objects[j];
-        // Using the first collider in the list, let's always set this to be the overall bounding box of the object
+        // Using the first collider in the list, let's always set this to be the
+        // overall bounding box of the object
         Collider *aCol = a->getCollider()[0];
         Collider *bCol = b->getCollider()[0];
         if (!aCol || !bCol)
@@ -54,7 +55,7 @@ void Physics::resolveCollisions() {
               bCol->setWithinTrigger(true);
             continue;
           }
-          
+
           // if intersects, add both objects to the list of updated objects
           updatedObjects.insert(a->getId());
           updatedObjects.insert(b->getId());
@@ -82,8 +83,8 @@ void Physics::resolveCollisions() {
           // Apply impulse based on mass and velocity of object's colliding.
           float v_close = glm::dot(a_vel - b_vel, normal);
           if (v_close < 0 && massSum > 0) {
-            glm::vec3 impulse = -(1 + restitution) * v_close / massSum *
-            normal; if (!a_rb->isStatic())
+            glm::vec3 impulse = -(1 + restitution) * v_close / massSum * normal;
+            if (!a_rb->isStatic())
               a_rb->applyImpulse(-impulse * invMassA);
             if (!b_rb->isStatic())
               b_rb->applyImpulse(impulse * invMassB);
