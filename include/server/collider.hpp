@@ -76,7 +76,7 @@ public:
                   float &outPenetration) const {
     const float epsilon = 1e-5f;
     float minPenetration = numeric_limits<float>::infinity();
-    glm::vec3 bestAxis;
+    glm::vec3 bestAxis = glm::vec3(0.0f);
 
     vector<glm::vec3> axes;
     for (int i = 0; i < 3; ++i)

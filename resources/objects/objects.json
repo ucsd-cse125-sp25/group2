@@ -1,7 +1,7 @@
 {
   "objects": [
     {
-      "name": "Cube 1",
+      "name": "Player",
       "active": true,
       "transform": {
         "position": { "x": 0.0, "y": 2.0, "z": 0.0 },
@@ -20,7 +20,7 @@
       }
     },
     {
-      "name": "Cube 2",
+      "name": "Cube",
       "active": true,
       "transform": {
         "position": { "x": 0.0, "y": 0.0, "z": 0.0 },

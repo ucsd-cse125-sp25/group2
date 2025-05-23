@@ -12,6 +12,25 @@
 using namespace std;
 
 class Client {
+private:
+  // Camera properties
+  unique_ptr<Camera> cam;
+  float mouseX, mouseY;
+  float xOffset, yOffset;
+
+  // Gamestate
+  unique_ptr<ClientGameState> game;
+
+  // Network
+  unique_ptr<ClientNetwork> network;
+
+  // Ui management / creation
+  unique_ptr<UIManager> ui;
+
+  // Character Selection
+  unique_ptr<CharacterManager> characterManager;
+
+  void updatePlayerRotation();
 
 public:
   // Window properties
@@ -21,22 +40,20 @@ public:
 
   // Constructors and desctructors
   Client();
-  ~Client();
 
   bool init();
   bool initObjects();
-  bool initNetwork(asio::io_context &io_context, const string &ip,
-                   const string &port);
+  bool initNetwork(asio::io_context &io_context);
   bool initUI();
 
   void cleanUp();
 
   // update and draw functions
   void idleCallback();
-  void displayCallback(GLFWwindow *);
+  void displayCallback(GLFWwindow *window, float deltaTime);
 
-  // process input
-  void processInput(float deltaTime);
+  // process wasd + jump input
+  void processMovementInput();
 
   // callbacks - for interactions
   void framebufferSizeCallback(GLFWwindow *window, int width, int height);
@@ -49,26 +66,5 @@ public:
   // Getters
   GLFWwindow *getWindow() { return window; }
 
-private:
-  // Camera properties
-  unique_ptr<Camera> cam;
-  float mouseX, mouseY;
-
-  // Gamestate properties
-  unique_ptr<ClientGameState> game;
-
-  // Ui management / creation
-  unique_ptr<UIManager> ui;
-
-  // Network
-  unique_ptr<ClientNetwork> network;
-
-  // Character Selection
-  unique_ptr<CharacterManager> characterManager;
-
-  // Key
-  bool isHeldForward = false;  // W
-  bool isHeldBackward = false; // S
-  bool isHeldLeft = false;     // A
-  bool isHeldRight = false;    // D
+  static json loadConfig(const std::string &path);
 };

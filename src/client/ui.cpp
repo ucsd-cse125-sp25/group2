@@ -4,7 +4,7 @@ GLuint BaseUI::loadTexture(const char *path) {
   int width, height, nrChannels;
   unsigned char *data = stbi_load(path, &width, &height, &nrChannels, 0);
   if (!data) {
-    std::cerr << "Failed to load texture" << std::endl;
+    cerr << "Failed to load texture" << endl;
     return 0;
   }
 
@@ -67,24 +67,24 @@ void BaseUI::setOnSelect(function<void()> callback) {
 
 void BaseUI::setTexture(GLuint texture) {
   if (texture == 0) {
-    std::cerr << "failed to load texture into ui" << std::endl;
+    cerr << "failed to load texture into ui" << endl;
   }
   textureID = texture;
 }
 void BaseUI::setHoverTexture(GLuint texture) {
   if (texture == 0) {
-    std::cerr << "failed to load texture into ui" << std::endl;
+    cerr << "failed to load texture into ui" << endl;
   }
   hoverTextureID = texture;
 }
 
 void BaseUI::setShader(unique_ptr<Shader> shader) {
-  this->shader = std::move(shader);
+  this->shader = move(shader);
 }
 
 void BaseUI::draw() {
   if (!shader) {
-    std::cerr << "Warning: Shader not set, skipping render\n";
+    cerr << "Warning: Shader not set, skipping render\n";
     return;
   }
   shader->use();
@@ -104,8 +104,6 @@ void BaseUI::draw() {
     glm::vec2 frameOffset(frameX * animInfo.frameWidth,
                           flippedY * animInfo.frameHeight);
 
-    // std::cout << "width: " << frameX * animInfo.frameWidth << "height: " <<
-    // flippedY * animInfo.frameHeight << std::endl;
     shader->setVec2("frameSize", frameSize);
     shader->setVec2("frameOffset", frameOffset);
   } else {
@@ -119,14 +117,14 @@ void BaseUI::draw() {
 
 void BaseUI::update(float mouseX, float mouseY, int winWidth, int winHeight,
                     float deltaTime) {
-  float x_ndc = (2.0f * mouseX) / winWidth - 1.0f;
-  float y_ndc = 1.0f - (2.0f * mouseY) / winHeight;
+  float ndcX = (2.0f * mouseX) / winWidth - 1.0f;
+  float ndcY = 1.0f - (2.0f * mouseY) / winHeight;
 
   if (isSelected) {
     return;
   }
 
-  bool isHovering = isHovered(x_ndc, y_ndc);
+  bool isHovering = isHovered(ndcX, ndcY);
   if (hoverable && !animInfo.startAnim) {
     hovered = isHovering;
   } else {
@@ -156,14 +154,12 @@ void BaseUI::update(float mouseX, float mouseY, int winWidth, int winHeight,
       if (animInfo.currentFrame + 1 < animInfo.rows * animInfo.cols) {
         animInfo.currentFrame++;
       } else {
-        // isSelected = true;
         if (onSelectCallback) {
           onSelectCallback();
         }
       }
     }
   }
-  // printf("frame: %d \n", animInfo.currentFrame);
 }
 
 bool BaseUI::isHovered(float x_ndc, float y_ndc) {

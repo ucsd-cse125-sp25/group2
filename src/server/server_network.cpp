@@ -13,7 +13,7 @@ ServerNetwork::ServerNetwork(asio::io_context &io_context, const string &ip,
   cout << "Server started on " << ip << ":" << port << endl;
 }
 
-void ServerNetwork::start() { acceptClient(); }
+bool ServerNetwork::start() { return acceptClient(); }
 
 /*
  * Asynchronously accept clients
@@ -21,27 +21,26 @@ void ServerNetwork::start() { acceptClient(); }
  * All lambda function says is that socket that was created and use it to handle
  * client messages Accept_client again to keep listening for new clients
  */
-void ServerNetwork::acceptClient() {
+bool ServerNetwork::acceptClient() {
   auto socket = make_shared<asio::ip::tcp::socket>(_acceptor.get_executor());
 
   _acceptor.async_accept(*socket, [this, socket](error_code ec) {
     if (!ec) {
       cout << "New client connected" << endl;
-      this->clients[clientID] = socket;
+      clients[clientID] = socket;
+      lastMovement[clientID] = MovementType::NONE;
+      lastRotation[clientID] = nullptr;
       InitPacket init(clientID);
       sendToClient(clientID, init);
       if (onClientJoin)
         onClientJoin();
-      /*
-      // initialize game state and send to client
-      sendToClient(clientID, game->init());
-      */
       clientID++;
     } else {
       cerr << "Accept Failed: " << ec.message() << endl;
     }
     acceptClient();
   });
+  return true;
 }
 
 /*
@@ -104,18 +103,33 @@ deque<unique_ptr<IPacket>> ServerNetwork::receiveFromClients() {
       if (socket->read_some(asio::buffer(payload, size), ec) <= 0 || ec)
         break;
 
-      packets.push_back(processPackets(static_cast<PacketType>(type), payload));
+      unique_ptr<IPacket> packet =
+          processPackets(static_cast<PacketType>(type), payload, it->first);
+      if (packet) {
+        packets.push_back(move(packet));
+      }
     }
     if (ec == asio::error::eof || ec == asio::error::connection_reset) {
       handleClientDisconnect(it->first);
     }
-    ++it;
+    lastMovement[it->first] = MovementType::NONE;
+    it++;
   }
+
+  // add latest rotation packets for each client
+  for (auto &[clientId, packet] : lastRotation) {
+    if (packet) {
+      packets.push_back(move(packet));
+    }
+  }
+  lastRotation.clear();
+
   return packets;
 }
 
 unique_ptr<IPacket> ServerNetwork::processPackets(PacketType type,
-                                                  vector<char> payload) {
+                                                  vector<char> payload,
+                                                  int clientID) {
   switch (type) {
   case PacketType::INIT: {
     unique_ptr<IPacket> packet = deserialize(PacketType::INIT, payload);
@@ -123,19 +137,29 @@ unique_ptr<IPacket> ServerNetwork::processPackets(PacketType type,
   }
   case PacketType::MOVEMENT: {
     unique_ptr<IPacket> packet = deserialize(PacketType::MOVEMENT, payload);
-    return packet;
+    auto movementPacket = static_cast<MovementPacket *>(packet.get());
+    if (lastMovement[clientID] != movementPacket->movementType) {
+      lastMovement[clientID] = movementPacket->movementType;
+      return packet;
+    }
+    return nullptr;
+  }
+  case PacketType::ROTATION: {
+    unique_ptr<IPacket> packet = deserialize(PacketType::ROTATION, payload);
+    lastRotation[clientID] = move(packet);
+    return nullptr;
   }
   case PacketType::INTERACTION: {
     unique_ptr<IPacket> packet = deserialize(PacketType::INTERACTION, payload);
     return packet;
   }
-  case PacketType::DISCONNECT: {
-    unique_ptr<IPacket> packet = deserialize(PacketType::DISCONNECT, payload);
-    return packet;
-  }
   case PacketType::CHARACTERSELECT: {
     unique_ptr<IPacket> packet =
         deserialize(PacketType::CHARACTERSELECT, payload);
+    return packet;
+  }
+  case PacketType::DISCONNECT: {
+    unique_ptr<IPacket> packet = deserialize(PacketType::DISCONNECT, payload);
     return packet;
   }
   default:

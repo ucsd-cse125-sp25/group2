@@ -10,7 +10,7 @@ void error_callback(int error, const char *description) {
 }
 
 void setup_callbacks(GLFWwindow *window) {
-  // Set the error callback.
+  // Set the error callback
   glfwSetErrorCallback(error_callback);
 
   /* Set framebuffer size callback */
@@ -46,7 +46,6 @@ void setup_opengl_settings() {
   stbi_set_flip_vertically_on_load(true);
   // Enable depth buffering
   glEnable(GL_DEPTH_TEST);
-  // glEnable(GL_CULL_FACE);
   // Related to shaders and z value comparisons for the depth buffer
   glDepthFunc(GL_LEQUAL);
   // Set polygon drawing mode to fill front and back of each polygon
@@ -75,33 +74,37 @@ int main(void) {
 
   // Create client network
   asio::io_context io_context;
-  if (!client->initNetwork(io_context, "127.0.0.1", "12345")) {
-    cout << "Client Network Initialization Failed" << endl;
+
+  if (!client->initNetwork(io_context)) {
+    cerr << "Client Network Initialization Failed" << endl;
     exit(EXIT_FAILURE);
   }
 
-  // Delete later
   client->initObjects();
 
   if (!client->initUI()) {
-    cout << "StartSceen Failed" << endl;
+    cerr << "StartSceen Failed" << endl;
   }
 
-  float lastFrameTime = glfwGetTime();
+  float lastFrameTime = static_cast<float>(glfwGetTime());
 
-  while (!glfwWindowShouldClose(window)) {
-    // Calculate Frame Time
-    float currentTime = glfwGetTime();
-    float deltaTime = currentTime - lastFrameTime;
-    lastFrameTime = currentTime;
+  try {
+    while (!glfwWindowShouldClose(window)) {
+      // Calculate Frame Time
+      float currentTime = static_cast<float>(glfwGetTime());
+      float deltaTime = currentTime - lastFrameTime;
+      lastFrameTime = currentTime;
 
-    client->processInput(deltaTime);
+      client->processMovementInput();
 
-    // Updating of objects
-    client->idleCallback();
+      // Updating of objects
+      client->idleCallback();
 
-    // Rendering call back
-    client->displayCallback(window);
+      // Rendering call back
+      client->displayCallback(window, deltaTime);
+    }
+  } catch (const exception &e) {
+    cerr << "Client Exception: " << e.what() << endl;
   }
 
   client->cleanUp();
