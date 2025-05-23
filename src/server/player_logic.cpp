@@ -19,13 +19,7 @@ vector<OBJECT_ID> PlayerLogic::move(PLAYER_ID id, GameObject *player,
   auto rigidBody = player->getRigidBody();
   rigidBody->applyImpulse(speed * direction);
   movedObjects.push_back(id);
-
-  // if the player is holding an object, move the object with the player
-  OBJECT_ID heldObjectId = moveHeldObject(id, player);
-  if (heldObjectId != -1) {
-    movedObjects.push_back(heldObjectId);
-  }
-
+  
   return movedObjects;
 }
 

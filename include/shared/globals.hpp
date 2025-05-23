@@ -25,7 +25,6 @@ enum class InteractionType : uint8_t {
   NONE,
   PICKUP,
   PRESS,
-  OPEN_CLOSE,
 };
 
 enum class Gamestate : uint8_t { STARTSCREEN, MAINMENU, READY, GAME };

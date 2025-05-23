@@ -8,8 +8,13 @@ ServerGameState::ServerGameState() : deltaTime(0.007f) {
 bool ServerGameState::init() {
   ObjectLoader objectLoader = ObjectLoader();
   objectList = objectLoader.loadObjects();
-  for (auto &obj : objectList)
-    physicsWorld->add(obj.second.get());
+  for (auto &obj : objectList) {
+    auto object = obj.second.get();
+    if (object->getInteractionType() != InteractionType::NONE) {
+      interactableObjects[obj.first] = object;
+    }
+    physicsWorld->add(object);
+  }
 
   return true;
 }
@@ -47,11 +52,8 @@ void ServerGameState::updateMovement(PLAYER_ID id, MovementType type,
       cerr << "Unknown movement type" << endl;
       break;
     }
-    // TODO: TEST
-    // updatedObjectIds.insert(movedObjects.begin(),
-    //                         movedObjects.end());
-    for (auto id : movedObjects)
-      updatedObjectIds.insert(id);
+    updatedObjectIds.insert(movedObjects.begin(),
+                            movedObjects.end());
   }
 }
 
@@ -60,9 +62,8 @@ void ServerGameState::updateRotation(PLAYER_ID id, glm::vec3 rotation) {
   vector<OBJECT_ID> rotatedObjects;
   if (player) {
     rotatedObjects = playerLogic->rotate(id, player, rotation);
-    // TODO INSERT
-    for (auto id : rotatedObjects)
-      updatedObjectIds.insert(id);
+    updatedObjectIds.insert(rotatedObjects.begin(),
+                            rotatedObjects.end());
   }
 }
 
@@ -72,9 +73,14 @@ void ServerGameState::updateInteraction(PLAYER_ID id, glm::vec3 rayDirection,
   OBJECT_ID closestObjectID;
   float minDistance = std::numeric_limits<float>::max();
 
-  // TODO: iterate through interactable objects
-  for (auto &obj : objectList) {
-    auto object = obj.second.get();
+  // Only need to iterate through the interactable objects
+  for (auto &obj : interactableObjects) {
+    auto object = obj.second;
+
+    // If object is not active, it cannot be clicked on
+    if (!object->isActive()) {
+      continue;
+    }
     glm::vec3 center = object->getTransform()->getPosition();
     glm::vec3 halfExtents = object->getCollider()->getHalfExtents();
 
@@ -122,7 +128,7 @@ void ServerGameState::updateInteraction(PLAYER_ID id, glm::vec3 rayDirection,
     cout << "Dropped object: " << closestObject->getId() << endl;
   }
   // Otherwise, pick up closest object if it's interactable
-  else if (closestObject->getInteractionType() == InteractionType::PICKUP &&
+  else if (closestObject != nullptr && closestObject->getInteractionType() == InteractionType::PICKUP &&
            playerLogic->getHeldObject(id) == nullptr) {
     playerLogic->setHeldObject(id, closestObject);
     playerLogic->pickupObject(player, closestObject);
@@ -137,7 +143,6 @@ void ServerGameState::applyPhysics() {
   physicsWorld->moveObjects(deltaTime);
 
   auto movedObjects = physicsWorld->getUpdatedObjects();
-  // TODO: INSERT
   for (auto id : movedObjects) {
     if (id < NUM_PLAYERS) {
       OBJECT_ID heldObjectId = playerLogic->moveHeldObject(id, getObject(id));
