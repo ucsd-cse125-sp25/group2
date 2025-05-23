@@ -20,7 +20,7 @@ private:
   int level;
   float deltaTime;
   unordered_map<int, unique_ptr<GameObject>> objectList;
-  unordered_map<int, GameObject*> interactableObjects;
+  unordered_map<int, GameObject *> interactableObjects;
   unordered_set<int> updatedObjectIds;
   unique_ptr<Physics> physicsWorld;
   unique_ptr<PlayerLogic> playerLogic;

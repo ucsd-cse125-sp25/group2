@@ -19,7 +19,7 @@ vector<OBJECT_ID> PlayerLogic::move(PLAYER_ID id, GameObject *player,
   auto rigidBody = player->getRigidBody();
   rigidBody->applyImpulse(speed * direction);
   movedObjects.push_back(id);
-  
+
   return movedObjects;
 }
 
