@@ -123,7 +123,7 @@ void ServerGameState::updateInteraction(PLAYER_ID id, glm::vec3 rayDirection,
   }
   // Otherwise, pick up closest object if it's interactable
   else if (closestObject->getInteractionType() == InteractionType::PICKUP &&
-               playerLogic->getHeldObject(id) == nullptr) {
+           playerLogic->getHeldObject(id) == nullptr) {
     playerLogic->setHeldObject(id, closestObject);
     playerLogic->pickupObject(player, closestObject);
     cout << "Picked up object: " << closestObject->getId() << endl;

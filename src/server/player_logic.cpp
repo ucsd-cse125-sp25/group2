@@ -25,7 +25,7 @@ vector<OBJECT_ID> PlayerLogic::move(PLAYER_ID id, GameObject *player,
   if (heldObjectId != -1) {
     movedObjects.push_back(heldObjectId);
   }
-  
+
   return movedObjects;
 }
 
