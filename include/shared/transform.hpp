@@ -23,8 +23,8 @@ public:
   vec3 getRight() const { return right; };
 
   void setPosition(vec3 pos) { position = pos; }
-  void setRotation(vec3 rot) { 
-    rotation = rot;  
+  void setRotation(vec3 rot) {
+    rotation = rot;
     float yaw = rotation.y;
     float pitch = rotation.x;
 
