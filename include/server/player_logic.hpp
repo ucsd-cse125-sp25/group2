@@ -38,6 +38,7 @@ public:
 
   // Movement functions
   vector<OBJECT_ID> move(PLAYER_ID id, GameObject *player, glm::vec3 direction);
+  OBJECT_ID moveHeldObject(PLAYER_ID id, GameObject *player);
   void jump();
   vector<OBJECT_ID> rotate(PLAYER_ID id, GameObject *player,
                            glm::vec3 rotation);

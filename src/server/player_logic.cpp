@@ -21,13 +21,11 @@ vector<OBJECT_ID> PlayerLogic::move(PLAYER_ID id, GameObject *player,
   movedObjects.push_back(id);
 
   // if the player is holding an object, move the object with the player
-  if (getHeldObject(id) != nullptr) {
-    auto heldObject = getHeldObject(id);
-    auto tf = heldObject->getTransform();
-    glm::vec3 offset = glm::vec3(0.0f, 3.0f, 0.0f);
-    tf->setPosition(player->getTransform()->getPosition() + offset);
-    movedObjects.push_back(heldObject->getId());
+  OBJECT_ID heldObjectId = moveHeldObject(id, player);
+  if (heldObjectId != -1) {
+    movedObjects.push_back(heldObjectId);
   }
+  
   return movedObjects;
 }
 
@@ -45,6 +43,18 @@ vector<OBJECT_ID> PlayerLogic::rotate(PLAYER_ID id, GameObject *player,
     rotatedObjects.push_back(heldObject->getId());
   }
   return rotatedObjects;
+}
+
+// Returns the ID of the held object if it exists, otherwise -1
+OBJECT_ID PlayerLogic::moveHeldObject(PLAYER_ID id, GameObject *player) {
+  if (getHeldObject(id) != nullptr) {
+    auto heldObject = getHeldObject(id);
+    auto tf = heldObject->getTransform();
+    glm::vec3 offset = glm::vec3(0.0f, 3.0f, 0.0f);
+    tf->setPosition(player->getTransform()->getPosition() + offset);
+    return heldObject->getId();
+  }
+  return -1;
 }
 
 void PlayerLogic::pickupObject(GameObject *playerObject, GameObject *object) {
