@@ -13,7 +13,8 @@ private:
   glm::vec3 right;
 
 public:
-  Transform(glm::vec3 pos = glm::vec3(0), glm::vec3 rot = glm::vec3(0), glm::vec3 scl = glm::vec3(1, 1, 1));
+  Transform(glm::vec3 pos = glm::vec3(0), glm::vec3 rot = glm::vec3(0),
+            glm::vec3 scl = glm::vec3(1, 1, 1));
 
   glm::vec3 getPosition() const { return position; }
   glm::vec3 getRotation() const { return rotation; };
@@ -23,17 +24,18 @@ public:
   glm::vec3 getRight() const { return right; };
 
   void setPosition(glm::vec3 pos) { position = pos; }
-  void setRotation(glm::vec3 rot) { 
-  rotation = rot; 
-  float yaw = rotation.y;
-  float pitch = rotation.x;
+  void setRotation(glm::vec3 rot) {
+    rotation = rot;
+    float yaw = rotation.y;
+    float pitch = rotation.x;
 
-  glm::vec3 fwd;
-  fwd.x = cos(glm::radians(pitch)) * cos(glm::radians(yaw));
-  fwd.y = sin(glm::radians(pitch));
-  fwd.z = cos(glm::radians(pitch)) * sin(glm::radians(yaw));
-  forward = glm::normalize(fwd);
-  right = glm::normalize(glm::cross(forward, up));}
+    glm::vec3 fwd;
+    fwd.x = cos(glm::radians(pitch)) * cos(glm::radians(yaw));
+    fwd.y = sin(glm::radians(pitch));
+    fwd.z = cos(glm::radians(pitch)) * sin(glm::radians(yaw));
+    forward = glm::normalize(fwd);
+    right = glm::normalize(glm::cross(forward, up));
+  }
   void setScale(glm::vec3 scl) { scale = scl; }
 
   void updatePosition(glm::vec3 moveInput);

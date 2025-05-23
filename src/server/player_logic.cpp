@@ -11,16 +11,15 @@ PlayerLogic::PlayerLogic() {
   }
 }
 
-void PlayerLogic::move(GameObject *player,
-                                    glm::vec3 direction) {
+void PlayerLogic::move(GameObject *player, glm::vec3 direction) {
   // move the player
   auto rigidBody = player->getRigidBody();
   rigidBody->applyImpulse(speed * direction);
 }
 
 OBJECT_ID PlayerLogic::moveHeldObject(PLAYER_ID id, GameObject *player) {
-  // If the player is holding an object, move it with the player and return its ID
-  // Otherwise, return -1
+  // If the player is holding an object, move it with the player and return its
+  // ID Otherwise, return -1
   if (getHeldObject(id) != nullptr) {
     auto heldObject = getHeldObject(id);
     auto tf = heldObject->getTransform();
@@ -58,7 +57,8 @@ void PlayerLogic::pickupObject(GameObject *playerObject, GameObject *object) {
 
 void PlayerLogic::dropObject(GameObject *playerObject, GameObject *object) {
   auto tf = object->getTransform();
-  glm::vec3 offset = playerObject->getTransform()->getForward() * 2.0f + glm::vec3(0.0f, 2.0f, 0.0f);
+  glm::vec3 offset = playerObject->getTransform()->getForward() * 2.0f +
+                     glm::vec3(0.0f, 2.0f, 0.0f);
   tf->setPosition(offset);
   object->setUsesGravity(true);
 }
