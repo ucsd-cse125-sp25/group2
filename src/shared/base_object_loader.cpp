@@ -1,4 +1,5 @@
 #include "base_object_loader.hpp"
+#include <iostream>
 
 BaseObjectData BaseObjectLoader::createBaseGameObject(const json &objData) {
   BaseObjectData baseObjectData;

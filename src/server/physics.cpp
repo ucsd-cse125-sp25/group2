@@ -27,7 +27,6 @@ void Physics::clampVelocities(RigidBody *rb) {
     rb->setVelocity(glm::vec3(0.0f));
     return;
   }
-
   rb->setVelocity(v * damping);
 }
 
@@ -35,31 +34,38 @@ void Physics::resolveCollisions() {
   // Multiple iterations smooths out collision resolution fixes
   const int solverIterations = 3;
   for (int i = 0; i < solverIterations; ++i) {
-    for (GameObject *a : objects) {
-      for (GameObject *b : objects) {
-        if (a == b)
-          continue;
-
-        Collider *aCol = a->getCollider();
-        Collider *bCol = b->getCollider();
+    for (int i = 0; i < objects.size(); ++i) {
+      for (int j = i + 1; j < objects.size(); ++j) {
+        GameObject *a = objects[i];
+        GameObject *b = objects[j];
+        // Using the first collider in the list, let's always set this to be the
+        // overall bounding box of the object
+        Collider *aCol = a->getCollider()[0];
+        Collider *bCol = b->getCollider()[0];
         if (!aCol || !bCol)
           continue;
 
         glm::vec3 normal;
         float penetration;
         if (aCol->intersects(*bCol, normal, penetration)) {
+          if (aCol->isTrigger() || bCol->isTrigger()) {
+            if (aCol->isTrigger() && bCol->canActivateTrigger())
+              aCol->setWithinTrigger(true);
+            if (bCol->isTrigger() && aCol->canActivateTrigger())
+              bCol->setWithinTrigger(true);
+            continue;
+          }
+
           // if intersects, add both objects to the list of updated objects
           updatedObjects.insert(a->getId());
           updatedObjects.insert(b->getId());
 
           // Check if the object is at rest (grounded)
-          bool aOnTop = glm::dot(normal, glm::vec3(0, 1, 0)) < 0.1f;
-          bool bOnTop = glm::dot(normal, glm::vec3(0, -1, 0)) < 0.1f;
-          if (aOnTop || bOnTop) {
-            if (aOnTop)
-              a->setGrounded(true);
-            if (bOnTop)
-              b->setGrounded(true);
+          float groundThreshold = 0.7f;
+          if (normal.y > groundThreshold) {
+            a->setGrounded(true);
+          } else if (normal.y < -groundThreshold) {
+            b->setGrounded(true);
           }
           // Get physics properties/variables
           RigidBody *a_rb = a->getRigidBody();
@@ -105,11 +111,15 @@ void Physics::moveObjects(float deltaTime) {
   float moveSpeed = 10.0f;
 
   for (GameObject *obj : objects) {
-    if (obj->getRigidBody()->isStatic())
+    RigidBody *rb = obj->getRigidBody();
+    std::vector<Collider *> cl = obj->getCollider();
+    if (cl[0]->isTrigger()) {
+      std::cout << cl[0]->isWithinTrigger() << std::endl;
+      cl[0]->setWithinTrigger(false);
+    }
+    if (rb->isStatic())
       continue;
     Transform *tf = obj->getTransform();
-    RigidBody *rb = obj->getRigidBody();
-    Collider *cl = obj->getCollider();
     glm::vec3 lastPos = tf->getPosition();
 
     glm::vec3 vel =
@@ -123,7 +133,9 @@ void Physics::moveObjects(float deltaTime) {
     rb->setVelocity(vel);
     glm::vec3 pos = tf->getPosition() + rb->getVelocity() * deltaTime;
     tf->setPosition(pos);
-    cl->update(tf);
+    for (Collider *c : cl) {
+      c->update(tf);
+    }
     rb->setForce(glm::vec3(0));
 
     // if object has moved, add it to the updated objects list

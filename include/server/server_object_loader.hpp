@@ -17,4 +17,5 @@ private:
 
 public:
   unordered_map<int, unique_ptr<GameObject>> loadObjects();
+  std::vector<Collider *> loadCollider(string path);
 };
