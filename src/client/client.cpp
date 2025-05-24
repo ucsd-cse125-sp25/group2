@@ -198,23 +198,19 @@ void Client::processMovementInput() {
   if (game->state != Gamestate::GAME)
     return;
   if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
-    MovementPacket packet(game->getPlayer()->getId(), MovementType::FORWARD,
-                          cam->getFacing());
+    MovementPacket packet(game->getPlayer()->getId(), MovementType::FORWARD);
     network->send(packet);
   }
   if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
-    MovementPacket packet(game->getPlayer()->getId(), MovementType::BACKWARD,
-                          cam->getFacing());
+    MovementPacket packet(game->getPlayer()->getId(), MovementType::BACKWARD);
     network->send(packet);
   }
   if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
-    MovementPacket packet(game->getPlayer()->getId(), MovementType::LEFT,
-                          cam->getFacing());
+    MovementPacket packet(game->getPlayer()->getId(), MovementType::LEFT);
     network->send(packet);
   }
   if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
-    MovementPacket packet(game->getPlayer()->getId(), MovementType::RIGHT,
-                          cam->getFacing());
+    MovementPacket packet(game->getPlayer()->getId(), MovementType::RIGHT);
     network->send(packet);
   }
 }

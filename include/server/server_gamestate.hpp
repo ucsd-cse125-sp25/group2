@@ -33,7 +33,7 @@ public:
 
   // update methods
   CLIENT_ID *updateCharacters(PLAYER_ID playerID, CLIENT_ID clientID);
-  void updateMovement(PLAYER_ID id, MovementType type, glm::vec3 cameraFront);
+  void updateMovement(PLAYER_ID id, MovementType type);
   void updateRotation(PLAYER_ID id, glm::vec3 rotation);
   void updateInteraction(PLAYER_ID id, glm::vec3 rayDirection,
                          glm::vec3 rayOrigin);

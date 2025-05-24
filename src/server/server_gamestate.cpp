@@ -25,14 +25,14 @@ CLIENT_ID *ServerGameState::updateCharacters(PLAYER_ID playerID,
   return playerLogic->getCharacterAssignments();
 }
 
-void ServerGameState::updateMovement(PLAYER_ID id, MovementType type,
-                                     glm::vec3 cameraFront) {
+void ServerGameState::updateMovement(PLAYER_ID id, MovementType type) {
   auto player = getObject(id);
   if (player) {
-    // Find the direction of movement based on the camera's facing direction
+    // Find the direction of movement based on the player's facing direction
+    glm::vec3 playerFront = player->getTransform()->getForward();
     glm::vec3 flatFront =
-        glm::normalize(glm::vec3(cameraFront.x, 0.0f, cameraFront.z));
-    glm::vec3 cameraRight =
+        glm::normalize(glm::vec3(playerFront.x, 0.0f, playerFront.z));
+    glm::vec3 playerRight =
         glm::normalize(glm::cross(flatFront, glm::vec3(0.0f, 1.0f, 0.0f)));
     switch (type) {
     case MovementType::FORWARD:
@@ -42,10 +42,10 @@ void ServerGameState::updateMovement(PLAYER_ID id, MovementType type,
       playerLogic->move(player, -flatFront);
       break;
     case MovementType::LEFT:
-      playerLogic->move(player, -cameraRight);
+      playerLogic->move(player, -playerRight);
       break;
     case MovementType::RIGHT:
-      playerLogic->move(player, cameraRight);
+      playerLogic->move(player, playerRight);
       break;
     default:
       cerr << "Unknown movement type" << endl;

@@ -81,10 +81,9 @@ struct CharacterResponsePacket : public IPacket {
 struct MovementPacket : public IPacket {
   PLAYER_ID id;
   MovementType movementType;
-  glm::vec3 cameraFront;
 
-  MovementPacket(PLAYER_ID playerID, MovementType type, glm::vec3 camFront)
-      : id(playerID), movementType(type), cameraFront(camFront) {}
+  MovementPacket(PLAYER_ID playerID, MovementType type)
+      : id(playerID), movementType(type) {}
   PacketType getType() const override { return PacketType::MOVEMENT; }
   vector<char> serialize() const override;
   static MovementPacket deserialize(const vector<char> &payload);
