@@ -57,9 +57,8 @@ void PlayerLogic::pickupObject(GameObject *playerObject, GameObject *object) {
 
 void PlayerLogic::dropObject(GameObject *playerObject, GameObject *object) {
   auto tf = object->getTransform();
-  glm::vec3 offset = playerObject->getTransform()->getForward() * 2.0f +
-                     glm::vec3(0.0f, 2.0f, 0.0f);
-  tf->setPosition(offset);
+  glm::vec3 offset = playerObject->getTransform()->getForward() * 3.0f + glm::vec3(0.0f, 2.0f, 0.0f);
+  tf->setPosition(playerObject->getTransform()->getPosition() + offset);
   object->setUsesGravity(true);
 }
 

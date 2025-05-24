@@ -26,16 +26,18 @@ public:
   void setPosition(glm::vec3 pos) { position = pos; }
   void setRotation(glm::vec3 rot) {
     rotation = rot;
-    float yaw = rotation.y;
-    float pitch = rotation.x;
+    float pitch = glm::radians(rot.x);
+    float yaw   = glm::radians(rot.y);
+    float roll  = glm::radians(rot.z);
 
-    glm::vec3 fwd;
-    fwd.x = cos(glm::radians(pitch)) * cos(glm::radians(yaw));
-    fwd.y = sin(glm::radians(pitch));
-    fwd.z = cos(glm::radians(pitch)) * sin(glm::radians(yaw));
-    forward = glm::normalize(fwd);
-    right = glm::normalize(glm::cross(forward, up));
-  }
+    // construct a rotation matrix from yaw, pitch, roll
+    glm::mat4 rotMatrix = glm::yawPitchRoll(yaw, pitch, roll);
+
+    // update forward, right, and up vectors
+    forward = glm::normalize(glm::vec3(rotMatrix * glm::vec4(0, 0, -1, 0)));
+    right = glm::normalize(glm::vec3(rotMatrix * glm::vec4(1, 0, 0, 0)));
+    up = glm::normalize(glm::vec3(rotMatrix * glm::vec4(0, 1, 0, 0)));
+}
   void setScale(glm::vec3 scl) { scale = scl; }
 
   void updatePosition(glm::vec3 moveInput);
