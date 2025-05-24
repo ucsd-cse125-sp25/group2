@@ -26,7 +26,8 @@ void Camera::update(float xOffset, float yOffset, glm::vec3 target) {
   pitch -= yOffset;
 
   yaw = fmod(yaw, 360.0f);
-  if (yaw < 0.0f) yaw += 360.0f;
+  if (yaw < 0.0f)
+    yaw += 360.0f;
 
   // restrict pitch (vertical)
   pitch = glm::clamp(pitch, 0.0f, 30.0f);

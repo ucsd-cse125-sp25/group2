@@ -17,17 +17,20 @@ void Transform::updateRotation(glm::vec3 rotateInput) {
 
   // Normalize rotation angles to be within [0, 360)
   rotation.x = fmod(rotation.x, 360.0f);
-  if (rotation.x < 0) rotation.x += 360.0f;
+  if (rotation.x < 0)
+    rotation.x += 360.0f;
 
   rotation.y = fmod(rotation.y, 360.0f);
-  if (rotation.y < 0) rotation.y += 360.0f;
+  if (rotation.y < 0)
+    rotation.y += 360.0f;
 
   rotation.z = fmod(rotation.z, 360.0f);
-  if (rotation.z < 0) rotation.z += 360.0f;
+  if (rotation.z < 0)
+    rotation.z += 360.0f;
 
   float pitch = glm::radians(rotation.x);
-  float yaw   = glm::radians(rotation.y);
-  float roll  = glm::radians(rotation.z);
+  float yaw = glm::radians(rotation.y);
+  float roll = glm::radians(rotation.z);
 
   // construct a rotation matrix from yaw, pitch, roll
   glm::mat4 rotMatrix = glm::yawPitchRoll(yaw, pitch, roll);
