@@ -68,7 +68,7 @@ void ServerGameState::updateInteraction(PLAYER_ID id, glm::vec3 rayDirection,
                                         glm::vec3 rayOrigin) {
   GameObject *closestObject = nullptr;
   OBJECT_ID closestObjectID = -1;
-  float minDistance = std::numeric_limits<float>::max();
+  float minDistance = numeric_limits<float>::max();
 
   // Only need to iterate through the interactable objects
   for (auto &obj : interactableObjects) {

@@ -1,5 +1,4 @@
-#ifndef PRESS_FUNCTIONS_HPP
-#define PRESS_FUNCTIONS_HPP
+#pragma once
 
 #include <functional>
 #include <iostream>
@@ -13,5 +12,3 @@ void cube2Press();
 // Name of object to press function
 inline map<string, function<void()>> pressFunctionMap = {
     {"Cube 2", cube2Press}};
-
-#endif // PRESS_FUNCTIONS_HPP
