@@ -67,8 +67,8 @@ void ServerGameState::updateRotation(PLAYER_ID id, glm::vec3 rotation) {
 void ServerGameState::updateInteraction(PLAYER_ID id, glm::vec3 rayDirection,
                                         glm::vec3 rayOrigin) {
   GameObject *closestObject = nullptr;
-  OBJECT_ID closestObjectID;
-  float minDistance = numeric_limits<float>::max();
+  OBJECT_ID closestObjectID = -1;
+  float minDistance = std::numeric_limits<float>::max();
 
   // Only need to iterate through the interactable objects
   for (auto &obj : interactableObjects) {
@@ -115,22 +115,32 @@ void ServerGameState::updateInteraction(PLAYER_ID id, glm::vec3 rayDirection,
     }
   }
 
+  cout << "Closest object: " << closestObjectID << endl;
+  
   auto player = getObject(id);
 
-  // PICKUP Interaction
-  // If the character is already holding an object, drop it
+  // If the character is holding an object, drop it
   if (playerLogic->getHeldObject(id) != nullptr) {
     playerLogic->dropObject(player, closestObject);
     playerLogic->setHeldObject(id, nullptr);
   }
-  // Otherwise, pick up closest object if it's interactable
-  else if (closestObject != nullptr &&
-           closestObject->getInteractionType() == InteractionType::PICKUP &&
-           playerLogic->getHeldObject(id) == nullptr) {
-    playerLogic->setHeldObject(id, closestObject);
-    playerLogic->pickupObject(player, closestObject);
+
+  // If an interactable object was clicked
+  if (closestObjectID != -1) {
+    // If interaction type is pickup and player is not holding an object
+    if (closestObject->getInteractionType() ==
+               InteractionType::PICKUP && playerLogic->getHeldObject(id) == nullptr) {
+      playerLogic->setHeldObject(id, closestObject);
+      playerLogic->pickupObject(player, closestObject);
+      cout << "Picked up object: " << closestObject->getId() << endl;
+      updatedObjectIds.insert(closestObjectID);
+    // If interaction type is press
+    } else if (closestObject->getInteractionType() == InteractionType::PRESS) {
+      closestObject->press();
+      cout << "Pressed object: " << closestObjectID << endl;
+    } 
   }
-  updatedObjectIds.insert(closestObjectID);
+  
 }
 
 void ServerGameState::applyPhysics() {

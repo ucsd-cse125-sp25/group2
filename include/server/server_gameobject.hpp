@@ -6,15 +6,18 @@
 #include "globals.hpp"
 #include "rigidbody.hpp"
 #include "transform.hpp"
+#include "press_functions.hpp"
 
 #include <memory>
 #include <string>
+#include <iostream>
 
 using namespace std;
 
 class GameObject : public BaseGameObject {
 protected:
   InteractionType interactionType;
+  function<void()> pressFunc;
 
   // Physics properties
   bool usesGravity;
@@ -36,6 +39,18 @@ public:
     interactionType = interact;
   };
   InteractionType getInteractionType() const { return interactionType; };
+
+  // if object is pressable
+  void setPressFunction(function<void()> func) {
+    pressFunc = func;
+  };
+  void press() {
+    if (pressFunc) {
+      pressFunc();
+    } else {
+      cerr << "No press function set for object ID: " << id << endl;
+    }
+  };
 
   // physics
   void setGrounded(bool isGrounded) { grounded = isGrounded; };
