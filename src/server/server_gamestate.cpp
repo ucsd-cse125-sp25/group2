@@ -116,7 +116,7 @@ void ServerGameState::updateInteraction(PLAYER_ID id, glm::vec3 rayDirection,
   }
 
   cout << "Closest object: " << closestObjectID << endl;
-  
+
   auto player = getObject(id);
 
   // If the character is holding an object, drop it
@@ -128,19 +128,18 @@ void ServerGameState::updateInteraction(PLAYER_ID id, glm::vec3 rayDirection,
   // If an interactable object was clicked
   if (closestObjectID != -1) {
     // If interaction type is pickup and player is not holding an object
-    if (closestObject->getInteractionType() ==
-               InteractionType::PICKUP && playerLogic->getHeldObject(id) == nullptr) {
+    if (closestObject->getInteractionType() == InteractionType::PICKUP &&
+        playerLogic->getHeldObject(id) == nullptr) {
       playerLogic->setHeldObject(id, closestObject);
       playerLogic->pickupObject(player, closestObject);
       cout << "Picked up object: " << closestObject->getId() << endl;
       updatedObjectIds.insert(closestObjectID);
-    // If interaction type is press
+      // If interaction type is press
     } else if (closestObject->getInteractionType() == InteractionType::PRESS) {
       closestObject->press();
       cout << "Pressed object: " << closestObjectID << endl;
-    } 
+    }
   }
-  
 }
 
 void ServerGameState::applyPhysics() {

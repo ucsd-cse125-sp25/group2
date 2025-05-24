@@ -4,13 +4,13 @@
 #include "collider.hpp"
 #include "core.hpp"
 #include "globals.hpp"
+#include "press_functions.hpp"
 #include "rigidbody.hpp"
 #include "transform.hpp"
-#include "press_functions.hpp"
 
+#include <iostream>
 #include <memory>
 #include <string>
-#include <iostream>
 
 using namespace std;
 
@@ -41,9 +41,7 @@ public:
   InteractionType getInteractionType() const { return interactionType; };
 
   // if object is pressable
-  void setPressFunction(function<void()> func) {
-    pressFunc = func;
-  };
+  void setPressFunction(function<void()> func) { pressFunc = func; };
   void press() {
     if (pressFunc) {
       pressFunc();

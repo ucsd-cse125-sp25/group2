@@ -57,8 +57,7 @@ unordered_map<int, unique_ptr<GameObject>> ObjectLoader::loadObjects() {
             if (pressFunc != pressFunctionMap.end()) {
               obj->setPressFunction(pressFunc->second);
             } else {
-              cerr << "No press function found for object: " << objName
-                   << endl;
+              cerr << "No press function found for object: " << objName << endl;
             }
           }
         }
