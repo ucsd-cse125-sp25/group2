@@ -41,7 +41,9 @@ unordered_map<int, unique_ptr<GameObject>> ObjectLoader::loadObjects() {
         obj->setShader(make_unique<Shader>(vertShaderPath.c_str(),
                                            fragShaderPath.c_str()));
       }
-      obj->getModel()->update(obj->getTransform()); // Update model with the transform for initial rendering
+      obj->getModel()->update(
+          obj->getTransform()); // Update model with the transform for initial
+                                // rendering
       objects[objectId] = move(obj);
     }
   }

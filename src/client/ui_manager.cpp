@@ -65,7 +65,7 @@ unique_ptr<BaseUI> UIManager::createUIElement(
   }
 
   ui->setShader(make_unique<Shader>("../resources/shaders/animUi.vert",
-                                         "../resources/shaders/animUi.frag"));
+                                    "../resources/shaders/animUi.frag"));
 
   return ui;
 }

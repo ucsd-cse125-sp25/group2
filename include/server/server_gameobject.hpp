@@ -28,8 +28,7 @@ protected:
 public:
   GameObject(const OBJECT_ID id, const bool isActive, unique_ptr<Transform> &tf,
              unique_ptr<RigidBody> &rb, vector<Collider *> &cl)
-      : BaseGameObject(id, isActive, tf), rigidbody(move(rb)),
-        colliders(cl) {
+      : BaseGameObject(id, isActive, tf), rigidbody(move(rb)), colliders(cl) {
     interactionType = InteractionType::NONE;
     usesGravity = true;
     grounded = true;
