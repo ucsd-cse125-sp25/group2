@@ -73,10 +73,10 @@ bool Client::initNetwork(asio::io_context &io_context) {
   return !network->err;
 }
 
-json Client::loadConfig(const std::string &path) {
-  std::ifstream file(path);
+json Client::loadConfig(const string &path) {
+  ifstream file(path);
   if (!file.is_open()) {
-    throw std::runtime_error("Could not open config file at " + path);
+    throw runtime_error("Could not open config file at " + path);
   }
   json j;
   file >> j;

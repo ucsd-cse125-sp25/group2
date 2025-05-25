@@ -23,13 +23,13 @@ protected:
   bool usesGravity;
   bool grounded;
   unique_ptr<RigidBody> rigidbody;
-  unique_ptr<Collider> collider;
+  vector<Collider *> colliders;
 
 public:
   GameObject(const OBJECT_ID id, const bool isActive, unique_ptr<Transform> &tf,
-             unique_ptr<RigidBody> &rb, unique_ptr<Collider> &cl)
+             unique_ptr<RigidBody> &rb, vector<Collider *> &cl)
       : BaseGameObject(id, isActive, tf), rigidbody(move(rb)),
-        collider(move(cl)) {
+        colliders(cl) {
     interactionType = InteractionType::NONE;
     usesGravity = true;
     grounded = true;
@@ -58,5 +58,5 @@ public:
   bool hasGravity() const { return usesGravity; };
   const float getArea() const { return getRigidBody()->getArea(); };
   RigidBody *getRigidBody() const { return rigidbody.get(); }
-  Collider *getCollider() const { return collider.get(); }
+  vector<Collider *> getCollider() const { return colliders; }
 };

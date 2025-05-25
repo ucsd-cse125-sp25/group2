@@ -18,7 +18,7 @@ public:
 
   static unique_ptr<BaseUI>
   createUIElement(float x, float y, float width, float height, int layer,
-                  std::optional<AnimationInfo> animInfo,
+                  optional<AnimationInfo> animInfo,
                   const char *texturePath,
                   const char *hoverTexturePath = nullptr,
                   bool isClickable = false, bool isHoverable = false);

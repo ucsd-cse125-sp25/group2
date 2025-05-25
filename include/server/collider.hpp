@@ -2,16 +2,23 @@
 
 #include "core.hpp"
 #include "transform.hpp"
-
 #include <vector>
 
 using namespace std;
 
 class Collider {
 private:
+  glm::vec3 originalCenter;
+  glm::vec3 originalHalfExtents;
+  glm::mat3 originalOrientation;
+
   glm::vec3 center;
   glm::vec3 halfExtents;
   glm::mat3 orientation;
+
+  bool trigger = false;
+  bool withinTrigger = false;
+  bool activateTrigger = true;
 
   void projectOntoAxis(const glm::vec3 &axis, float &outMin,
                        float &outMax) const {
@@ -25,16 +32,19 @@ private:
   }
 
 public:
-  Collider(glm::vec3 ctr = glm::vec3(0), glm::vec3 ext = glm::vec3(1.0f))
-      : center(ctr), halfExtents(ext), orientation(glm::mat3(1)) {}
+  Collider(glm::vec3 ctr = glm::vec3(0), glm::vec3 ext = glm::vec3(1.0f),
+           glm::mat3 ort = glm::mat3(1))
+      : originalCenter(ctr), center(ctr), originalHalfExtents(ext),
+        halfExtents(ext), originalOrientation(ort), orientation(ort) {}
 
   void update(Transform *tf) {
-    center = tf->getPosition();
+    center = originalCenter + tf->getPosition();
     glm::mat3 orient;
-    orient[0] = tf->getForward();
+    orient[0] = tf->getRight();
     orient[1] = tf->getUp();
-    orient[2] = tf->getRight();
-    orientation = orient;
+    orient[2] = tf->getForward();
+    orientation = orient * originalOrientation;
+    halfExtents = tf->getScale() * originalHalfExtents;
   }
 
   glm::vec3 getCenter() const { return center; }
@@ -49,6 +59,14 @@ public:
                             orientation * (halfExtents * glm::vec3(x, y, z)));
     return corners;
   }
+  bool isTrigger() { return trigger; }
+  void setTrigger(bool isTrigger) { trigger = isTrigger; }
+
+  bool isWithinTrigger() { return withinTrigger; }
+  void setWithinTrigger(bool insideTrigger) { withinTrigger = insideTrigger; }
+
+  bool canActivateTrigger() { return activateTrigger; }
+  void setCanActivate(bool activate) { activateTrigger = activate; }
 
   bool intersects(const Collider &other, glm::vec3 &outNormal,
                   float &outPenetration) const {

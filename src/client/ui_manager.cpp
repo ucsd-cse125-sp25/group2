@@ -46,7 +46,7 @@ void UIManager::makeMenus() {
 
 unique_ptr<BaseUI> UIManager::createUIElement(
     float x, float y, float width, float height, int layer,
-    std::optional<AnimationInfo> animInfo, const char *texturePath,
+    optional<AnimationInfo> animInfo, const char *texturePath,
     const char *hoverTexturePath, bool isClickable, bool isHoverable) {
   unique_ptr<BaseUI> ui;
 
@@ -64,7 +64,7 @@ unique_ptr<BaseUI> UIManager::createUIElement(
     ui->setHoverTexture(BaseUI::loadTexture(hoverTexturePath));
   }
 
-  ui->setShader(std::make_unique<Shader>("../resources/shaders/animUi.vert",
+  ui->setShader(make_unique<Shader>("../resources/shaders/animUi.vert",
                                          "../resources/shaders/animUi.frag"));
 
   return ui;
