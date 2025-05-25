@@ -1,10 +1,10 @@
-{  
+{
   "objects": [
     {
       "name": "Chicken",
       "active": true,
       "transform": {
-        "position": { "x": -2.5, "y": 0.0, "z": 0.0 },
+        "position": { "x": 0.0, "y": 0.0, "z": 0.0 },
         "rotation": { "x": 0.0, "y": 0.0, "z": 0.0 },
         "scale": { "x": 1.0, "y": 1.0, "z": 1.0 }
       },
@@ -23,7 +23,7 @@
       "name": "Cube",
       "active": true,
       "transform": {
-        "position": { "x": 2.5, "y": 0.0, "z": 0.0 },
+        "position": { "x": 0.0, "y": 0.0, "z": -3.0 },
         "rotation": { "x": 0.0, "y": 0.0, "z": 0.0 },
         "scale": { "x": 1.0, "y": 1.0, "z": 1.0 }
       },
@@ -36,6 +36,25 @@
         "static": false,
         "halfExtents": { "x": 1.0, "y": 1.0, "z": 1.0 },
         "interaction": "PICKUP"
+      }
+    },
+    {
+      "name": "Cube 2",
+      "active": true,
+      "transform": {
+        "position": { "x": 2.5, "y": 3.0, "z": 4.0 },
+        "rotation": { "x": 0.0, "y": 0.0, "z": 0.0 },
+        "scale": { "x": 1.0, "y": 1.0, "z": 1.0 }
+      },
+      "client": {
+        "modelPath": "../resources/objects/cube/Cube.obj",
+        "vertShaderPath": "../resources/shaders/shader.vert",
+        "fragShaderPath": "../resources/shaders/shader.frag"
+      },
+      "server": {
+        "static": false,
+        "halfExtents": { "x": 1.0, "y": 1.0, "z": 1.0 },
+        "interaction": "PRESS"
       }
     },
     {

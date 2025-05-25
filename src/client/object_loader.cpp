@@ -36,13 +36,7 @@ unordered_map<int, unique_ptr<GameObject>> ObjectLoader::loadObjects() {
         modelPath = "../resources/objects/cube/Cube.obj";
         vertShaderPath = "../resources/shaders/shader.vert";
         fragShaderPath = "../resources/shaders/shader.frag";
-        cout << "Using cube model for MacOS" << endl;
 #endif
-
-        cout << "Loading model: " << modelPath << endl;
-        cout << "Loading vertex shader: " << vertShaderPath << endl;
-        cout << "Loading fragment shader: " << fragShaderPath << endl;
-
         obj->setModel(make_unique<Model>(modelPath.c_str()));
         obj->setShader(make_unique<Shader>(vertShaderPath.c_str(),
                                            fragShaderPath.c_str()));

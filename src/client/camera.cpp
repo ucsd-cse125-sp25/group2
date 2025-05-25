@@ -1,44 +1,46 @@
 #include "camera.hpp"
 
 Camera::Camera()
-    : cameraPos(vec3(0.0f, 2.0f, 5.0f)), cameraFront(vec3(0.0f, 0.0f, -1.0f)),
-      cameraUp(vec3(0.0f, 1.0f, 0.0f)), viewProjMat(mat4(1.0f)) {
+    : cameraPos(glm::vec3(0.0f, 2.0f, 5.0f)),
+      cameraFront(glm::vec3(0.0f, 0.0f, -1.0f)),
+      cameraUp(glm::vec3(0.0f, 1.0f, 0.0f)), viewProjMat(glm::mat4(1.0f)) {
   fov = 60.0f;
   aspect = 1.33f;
   nearClip = 0.1f;
   farClip = 100.0f;
 
-  yaw = 90.0f; // place camera in front of the target (along +Z axis), looking
-               // back toward the target
+  yaw = 90.0f; // place camera along +Z axis to see behind the target
   pitch = 0.0f;
 
-  sensitivity = 0.02f;
+  sensitivity = 0.1f;
   radius = 13.0f;
 
   worldUp = cameraUp;
 }
 
-void Camera::update(float xOffset, float yOffset, vec3 target) {
+void Camera::update(float xOffset, float yOffset, glm::vec3 target) {
   xOffset *= sensitivity;
   yOffset *= sensitivity;
 
   yaw += xOffset;
   pitch -= yOffset;
 
-  // restrict pitch (vertical) and allow 360 degrees for yaw (horizontal)
+  yaw = fmod(yaw, 360.0f);
+  if (yaw < 0.0f)
+    yaw += 360.0f;
+
+  // restrict pitch (vertical)
   pitch = glm::clamp(pitch, 0.0f, 30.0f);
-  if (yaw > 360.0f || yaw < -360.0f)
-    yaw = fmod(yaw, 360.0f);
 
   // Updating view projection matrix
-  float camX = radius * cos(glm::radians(pitch)) * cos(glm::radians(yaw));
+  float camX = radius * cos(glm::radians(yaw)) * cos(glm::radians(pitch));
   float camY = radius * sin(glm::radians(pitch));
-  float camZ = radius * cos(glm::radians(pitch)) * sin(glm::radians(yaw));
+  float camZ = radius * sin(glm::radians(yaw)) * cos(glm::radians(pitch));
 
-  cameraPos = target + vec3(camX, camY, camZ);
+  cameraPos = target + glm::vec3(camX, camY, camZ);
 
-  vec3 lookOffset(0.0f, 3.0f, 0.0f); // look a bit higher than the target
-  vec3 lookAtPoint = target + lookOffset;
+  glm::vec3 lookOffset(0.0f, 3.0f, 0.0f); // look a bit higher than the target
+  glm::vec3 lookAtPoint = target + lookOffset;
 
   cameraFront = glm::normalize(lookAtPoint - cameraPos);
 

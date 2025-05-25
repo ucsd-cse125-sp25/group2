@@ -8,8 +8,13 @@ ServerGameState::ServerGameState() : deltaTime(0.007f) {
 bool ServerGameState::init() {
   ObjectLoader objectLoader = ObjectLoader();
   objectList = objectLoader.loadObjects();
-  for (auto &obj : objectList)
-    physicsWorld->add(obj.second.get());
+  for (auto &obj : objectList) {
+    auto object = obj.second.get();
+    if (object->getInteractionType() != InteractionType::NONE) {
+      interactableObjects[obj.first] = object;
+    }
+    physicsWorld->add(object);
+  }
 
   return true;
 }
@@ -20,28 +25,27 @@ CLIENT_ID *ServerGameState::updateCharacters(PLAYER_ID playerID,
   return playerLogic->getCharacterAssignments();
 }
 
-void ServerGameState::updateMovement(PLAYER_ID id, MovementType type,
-                                     glm::vec3 cameraFront) {
+void ServerGameState::updateMovement(PLAYER_ID id, MovementType type) {
   auto player = getObject(id);
-  vector<OBJECT_ID> movedObjects;
   if (player) {
-    // Find the direction of movement based on the camera's facing direction
+    // Find the direction of movement based on the player's facing direction
+    glm::vec3 playerFront = player->getTransform()->getForward();
     glm::vec3 flatFront =
-        glm::normalize(glm::vec3(cameraFront.x, 0.0f, cameraFront.z));
-    glm::vec3 cameraRight =
+        glm::normalize(glm::vec3(playerFront.x, 0.0f, playerFront.z));
+    glm::vec3 playerRight =
         glm::normalize(glm::cross(flatFront, glm::vec3(0.0f, 1.0f, 0.0f)));
     switch (type) {
     case MovementType::FORWARD:
-      movedObjects = playerLogic->move(id, player, flatFront);
+      playerLogic->move(player, flatFront);
       break;
     case MovementType::BACKWARD:
-      movedObjects = playerLogic->move(id, player, -flatFront);
+      playerLogic->move(player, -flatFront);
       break;
     case MovementType::LEFT:
-      movedObjects = playerLogic->move(id, player, -cameraRight);
+      playerLogic->move(player, -playerRight);
       break;
     case MovementType::RIGHT:
-      movedObjects = playerLogic->move(id, player, cameraRight);
+      playerLogic->move(player, playerRight);
       break;
     case MovementType::JUMP:
       movedObjects = playerLogic->jump(id, player, deltaTime);
@@ -50,8 +54,7 @@ void ServerGameState::updateMovement(PLAYER_ID id, MovementType type,
       cerr << "Unknown movement type" << endl;
       break;
     }
-    for (auto id : movedObjects)
-      updatedObjectIds.insert(id);
+    updatedObjectIds.insert(id);
   }
 }
 
@@ -60,19 +63,24 @@ void ServerGameState::updateRotation(PLAYER_ID id, glm::vec3 rotation) {
   vector<OBJECT_ID> rotatedObjects;
   if (player) {
     rotatedObjects = playerLogic->rotate(id, player, rotation);
-    for (auto id : rotatedObjects)
-      updatedObjectIds.insert(id);
+    updatedObjectIds.insert(rotatedObjects.begin(), rotatedObjects.end());
   }
 }
 
 void ServerGameState::updateInteraction(PLAYER_ID id, glm::vec3 rayDirection,
                                         glm::vec3 rayOrigin) {
   GameObject *closestObject = nullptr;
-  OBJECT_ID closestObjectID;
-  float minDistance = std::numeric_limits<float>::max();
+  OBJECT_ID closestObjectID = -1;
+  float minDistance = numeric_limits<float>::max();
 
-  for (auto &obj : objectList) {
-    auto object = obj.second.get();
+  // Only need to iterate through the interactable objects
+  for (auto &obj : interactableObjects) {
+    auto object = obj.second;
+
+    // If object is not active, it cannot be clicked on
+    if (!object->isActive()) {
+      continue;
+    }
     glm::vec3 center = object->getTransform()->getPosition();
     glm::vec3 halfExtents = object->getCollider()->getHalfExtents();
 
@@ -110,24 +118,31 @@ void ServerGameState::updateInteraction(PLAYER_ID id, glm::vec3 rayDirection,
     }
   }
 
+  cout << "Closest object: " << closestObjectID << endl;
+
   auto player = getObject(id);
 
-  // PICKUP Interaction
-  // If the character is already holding an object, drop it
+  // If the character is holding an object, drop it
   if (playerLogic->getHeldObject(id) != nullptr) {
     playerLogic->dropObject(player, closestObject);
     playerLogic->setHeldObject(id, nullptr);
-    cout << "Dropped object: " << closestObject->getId() << endl;
   }
-  // Otherwise, pick up closest object if it's interactable
-  else if (closestObject->getInteractionType() == InteractionType::PICKUP &&
-               playerLogic->getHeldObject(id) == nullptr ||
-           closestObjectID == 1) {
-    playerLogic->setHeldObject(id, closestObject);
-    playerLogic->pickupObject(player, closestObject);
-    cout << "Picked up object: " << closestObject->getId() << endl;
+
+  // If an interactable object was clicked
+  if (closestObjectID != -1) {
+    // If interaction type is pickup and player is not holding an object
+    if (closestObject->getInteractionType() == InteractionType::PICKUP &&
+        playerLogic->getHeldObject(id) == nullptr) {
+      playerLogic->setHeldObject(id, closestObject);
+      playerLogic->pickupObject(player, closestObject);
+      cout << "Picked up object: " << closestObject->getId() << endl;
+      updatedObjectIds.insert(closestObjectID);
+      // If interaction type is press
+    } else if (closestObject->getInteractionType() == InteractionType::PRESS) {
+      closestObject->press();
+      cout << "Pressed object: " << closestObjectID << endl;
+    }
   }
-  updatedObjectIds.insert(closestObjectID);
 }
 
 void ServerGameState::applyPhysics() {
@@ -136,8 +151,15 @@ void ServerGameState::applyPhysics() {
   physicsWorld->moveObjects(deltaTime);
 
   auto movedObjects = physicsWorld->getUpdatedObjects();
-  for (auto id : movedObjects)
+  // if the object is held by a player, move it with the player
+  for (auto id : movedObjects) {
+    if (id < NUM_PLAYERS) {
+      OBJECT_ID heldObjectId = playerLogic->moveHeldObject(id, getObject(id));
+      if (heldObjectId != -1)
+        updatedObjectIds.insert(heldObjectId);
+    }
     updatedObjectIds.insert(id);
+  }
 }
 
 GameObject *ServerGameState::getObject(OBJECT_ID id) {
@@ -145,7 +167,7 @@ GameObject *ServerGameState::getObject(OBJECT_ID id) {
   if (itr != objectList.end()) {
     return itr->second.get();
   }
-  cerr << "Object with id " << id << " not found" << endl;
+  cerr << "Object with ID " << id << " not found" << endl;
   return nullptr;
 }
 

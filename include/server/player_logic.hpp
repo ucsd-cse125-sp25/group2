@@ -39,8 +39,9 @@ public:
   CLIENT_ID *getCharacterAssignments() { return characterToClient; }
 
   // Movement functions
-  vector<OBJECT_ID> move(PLAYER_ID id, GameObject *player, glm::vec3 direction);
   vector<OBJECT_ID> jump(PLAYER_ID id, GameObject *player, float deltaTime);
+  void move(GameObject *player, glm::vec3 direction);
+  OBJECT_ID moveHeldObject(PLAYER_ID id, GameObject *player);
   vector<OBJECT_ID> rotate(PLAYER_ID id, GameObject *player,
                            glm::vec3 rotation);
 
