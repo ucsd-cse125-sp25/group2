@@ -42,7 +42,7 @@ public:
   Client();
 
   bool init();
-  bool initObjects();
+  bool initGameState();
   bool initNetwork(asio::io_context &io_context);
   bool initUI();
 

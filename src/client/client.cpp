@@ -58,7 +58,7 @@ bool Client::init() {
   return true;
 }
 
-bool Client::initObjects() {
+bool Client::initGameState() {
   if (!game->init()) {
     cerr << "ClientGameState Initialization Failed" << endl;
     return false;
