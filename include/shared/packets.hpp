@@ -102,8 +102,7 @@ struct RotationPacket : public IPacket {
 struct InteractionPacket : public IPacket {
   PLAYER_ID id;
 
-  InteractionPacket(PLAYER_ID playerID)
-      : id(playerID) {}
+  InteractionPacket(PLAYER_ID playerID) : id(playerID) {}
   PacketType getType() const override { return PacketType::INTERACTION; }
   vector<char> serialize() const override;
   static InteractionPacket deserialize(const vector<char> &payload);
