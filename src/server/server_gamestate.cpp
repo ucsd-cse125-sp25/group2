@@ -1,6 +1,6 @@
 #include "server_gamestate.hpp"
 
-ServerGameState::ServerGameState() : deltaTime(0.03f) {
+ServerGameState::ServerGameState() : deltaTime(0.01f) {
   physicsWorld = make_unique<Physics>();
   playerLogic = make_unique<PlayerLogic>();
 }

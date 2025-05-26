@@ -115,7 +115,7 @@ void Physics::solveCollision(GameObject *a, GameObject *b, int aIndex,
 
     // Push objects out of each other
     const float percent = 0.1f;
-    const float slop = 0.01f;
+    const float slop = 0.005f;
     if (massSum > 0) {
       glm::vec3 correction =
           max(penetration - slop, 0.0f) / massSum * percent * normal;
