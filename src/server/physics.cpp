@@ -58,19 +58,15 @@ void Physics::resolveCollisions() {
           updatedObjects.insert(b->getId());
 
           // Check if the object is at rest (grounded)
-          bool aOnTop = glm::dot(normal, glm::vec3(0, 1, 0)) < 0.1f;
-          bool bOnTop = glm::dot(normal, glm::vec3(0, -1, 0)) < 0.1f;
-          if (aOnTop || bOnTop) {
-            if (aOnTop)
-              a->setGrounded(true);
-            if (bOnTop)
-              b->setGrounded(true);
+          float groundThreshold = 0.7f;
+          if (normal.y < groundThreshold) {
+            a->setGrounded(true);
+          } else if (normal.y > -groundThreshold) {
+            b->setGrounded(true);
           }
           // Get physics properties/variables
           RigidBody *a_rb = a->getRigidBody();
           RigidBody *b_rb = b->getRigidBody();
-          clampVelocities(a_rb);
-          clampVelocities(b_rb);
           glm::vec3 a_vel = a_rb->getVelocity();
           glm::vec3 b_vel = b_rb->getVelocity();
           float restitution =
@@ -80,7 +76,7 @@ void Physics::resolveCollisions() {
           float massSum = invMassA + invMassB;
 
           // Apply impulse based on mass and velocity of object's colliding.
-          float v_close = glm::dot(a_vel - b_vel, normal);
+          float v_close = glm::dot(b_vel - a_vel, normal);
           if (v_close < 0 && massSum > 0) {
             glm::vec3 impulse = -(1 + restitution) * v_close / massSum * normal;
             if (!a_rb->isStatic())
@@ -130,6 +126,7 @@ void Physics::moveObjects(float deltaTime) {
     tf->setPosition(pos);
     cl->update(tf);
     rb->setForce(glm::vec3(0.0f));
+    rb->setVelocity(glm::vec3(0, vel.y, 0));
 
     // if object has moved, add it to the updated objects list
     if (glm::length(pos - lastPos) > 0.0001f)
