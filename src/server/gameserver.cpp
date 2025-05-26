@@ -5,13 +5,12 @@ GameServer::GameServer(asio::io_context &io_context) {
   network = make_unique<ServerNetwork>(io_context,
                                        loadConfig(CONFIG_PATH)["server-ip"],
                                        loadConfig(CONFIG_PATH)["port"]);
-  characterManager = make_unique<CharacterManager>();
 }
 
-json GameServer::loadConfig(const std::string &path) {
-  std::ifstream file(path);
+json GameServer::loadConfig(const string &path) {
+  ifstream file(path);
   if (!file.is_open()) {
-    throw std::runtime_error("Could not open config file at " + path);
+    throw runtime_error("Could not open config file at " + path);
   }
   json j;
   file >> j;
@@ -29,20 +28,18 @@ bool GameServer::start() {
     cerr << "ServerGameState initialization failed" << endl;
     return false;
   }
-  network->setOnJoin(
-      [game = game.get(), &select = characterManager, net = network.get()]() {
-        if (game->state != Gamestate::GAME) {
-          CharacterResponsePacket responsePacket(select->chicken, select->sheep,
-                                                 select->pig, select->cow);
-          net->sendToAll(responsePacket);
-        }
-      });
-  network->setOnLeave([game = game.get(), &select = characterManager,
-                       net = network.get()](int id) {
+  network->setOnJoin([game = game.get(), net = network.get()]() {
     if (game->state != Gamestate::GAME) {
-      select->isAlreadyAssigned(id);
-      CharacterResponsePacket responsePacket(select->chicken, select->sheep,
-                                             select->pig, select->cow);
+      CharacterResponsePacket responsePacket(
+          game->getPlayerLogic()->getCharacterAssignments());
+      net->sendToAll(responsePacket);
+    }
+  });
+  network->setOnLeave([game = game.get(), net = network.get()](CLIENT_ID id) {
+    if (game->state != Gamestate::GAME) {
+      game->getPlayerLogic()->unAssignCharacter(id);
+      CharacterResponsePacket responsePacket(
+          game->getPlayerLogic()->getCharacterAssignments());
       net->sendToAll(responsePacket);
     }
   });
@@ -58,33 +55,31 @@ void GameServer::updateGameState() {
     switch (packet->getType()) {
     case PacketType::MOVEMENT: {
       auto movementPacket = static_cast<MovementPacket *>(packet.get());
-      game->updateMovement(movementPacket->objectID,
-                           movementPacket->movementType,
-                           movementPacket->cameraFront);
+      game->updateMovement(movementPacket->id, movementPacket->movementType);
       break;
     }
     case PacketType::ROTATION: {
       auto rotationPacket = static_cast<RotationPacket *>(packet.get());
-      game->updateRotation(rotationPacket->objectID, rotationPacket->rotation);
+      game->updateRotation(rotationPacket->id, rotationPacket->rotation);
       break;
     }
     case PacketType::INTERACTION: {
       auto interactionPacket = static_cast<InteractionPacket *>(packet.get());
-      game->updateInteraction(interactionPacket->objectID);
+      game->updateInteraction(interactionPacket->id,
+                              interactionPacket->rayDirection,
+                              interactionPacket->rayOrigin);
       break;
     }
     case PacketType::CHARACTERSELECT: {
       auto characterPacket = static_cast<CharacterSelectPacket *>(packet.get());
-      characterManager->assignCharacter(characterPacket->character,
-                                        characterPacket->clientID);
-      CharacterResponsePacket responsePacket(
-          characterManager->chicken, characterManager->sheep,
-          characterManager->pig, characterManager->cow);
-      network->sendToAll(responsePacket);
-      // if (characterManager->allAssigned()) {
+      auto characterAssignments = game->updateCharacters(
+          characterPacket->playerID, characterPacket->clientID);
+      CharacterResponsePacket packet(characterAssignments);
+      network->sendToAll(packet);
+      // if (game->getPlayerLogic()->allCharactersAssigned()) {
       GameStatePacket statePacket(Gamestate::GAME);
       network->sendToAll(statePacket);
-      //}
+      // }
       break;
     }
     }

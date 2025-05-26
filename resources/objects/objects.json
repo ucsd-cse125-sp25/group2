@@ -1,10 +1,10 @@
 {
   "objects": [
     {
-      "name": "Player",
+      "name": "Chicken",
       "active": true,
       "transform": {
-        "position": { "x": 0.0, "y": 2.0, "z": 0.0 },
+        "position": { "x": 0.0, "y": 0.0, "z": 0.0 },
         "rotation": { "x": 0.0, "y": 0.0, "z": 0.0 },
         "scale": { "x": 2, "y": 2, "z": 2 }
       },
@@ -16,14 +16,33 @@
       "server": {
         "static": false,
         "collider": "../resources/objects/chicken/collider.json",
-        "interaction": "PRESS"
+        "interaction": "NONE"
       }
     },
     {
-      "name": "Cube",
+      "name": "Cube 1",
       "active": true,
       "transform": {
-        "position": { "x": 0.0, "y": 0.0, "z": 0.0 },
+        "position": { "x": 0.0, "y": 0.0, "z": -5.0 },
+        "rotation": { "x": 0.0, "y": 0.0, "z": 0.0 },
+        "scale": { "x": 1, "y": 1, "z": 1 }
+      },
+      "client": {
+        "modelPath": "../resources/objects/cube/Cube.obj",
+        "vertShaderPath": "../resources/shaders/shader.vert",
+        "fragShaderPath": "../resources/shaders/shader.frag"
+      },
+      "server": {
+        "static": false,
+        "collider": "../resources/objects/cube/collider.json",
+        "interaction": "PICKUP"
+      }
+    },
+    {
+      "name": "Cube 2",
+      "active": true,
+      "transform": {
+        "position": { "x": -5.0, "y": 0.0, "z": 0.0 },
         "rotation": { "x": 0.0, "y": 0.0, "z": 0.0 },
         "scale": { "x": 1, "y": 1, "z": 1 }
       },
@@ -36,7 +55,7 @@
         "static": true,
         "isTrigger": true,
         "collider": "../resources/objects/cube/collider.json",
-        "interaction": "PRESS"
+        "interaction": "NONE"
       }
     },
     {
@@ -45,7 +64,7 @@
       "transform": {
         "position": { "x": 0.0, "y": 0.0, "z": 0.0 },
         "rotation": { "x": 0.0, "y": 0.0, "z": 0.0 },
-        "scale": { "x": 100.0, "y": 1.0, "z": 100.0 }
+        "scale": { "x": 10.0, "y": 0.1, "z": 10.0 }
       },
       "client": {
         "modelPath": "../resources/objects/cube/Cube.obj",
@@ -56,7 +75,7 @@
         "static": true,
         "canActivate": false,
         "collider": "../resources/objects/cube/collider.json",
-        "interaction": "PRESS"
+        "interaction": "NONE"
       }
     }
   ]

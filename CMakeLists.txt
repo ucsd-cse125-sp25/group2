@@ -13,6 +13,32 @@ if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE Release CACHE STRING "Choose the type of build." FORCE)
 endif()
 
+# Add ASan support
+option(USE_SANITIZER "Build with Address Sanitizer" OFF)
+# Add to your existing CMakeLists.txt, in the USE_SANITIZER section
+if(USE_SANITIZER)
+    if(APPLE)
+        # macOS specific settings with better debug support
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=address -fno-omit-frame-pointer -g3 -O0")
+        set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fsanitize=address -fno-omit-frame-pointer -g3 -O0")
+        set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -fsanitize=address")
+        set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -fsanitize=address")
+        
+        # Ensure DWARF format for Apple Silicon
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -gdwarf-4")
+        set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -gdwarf-4")
+    else()
+        # Similar updates for other platforms
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=address -fno-omit-frame-pointer -g3 -O0")
+        set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fsanitize=address -fno-omit-frame-pointer -g3 -O0")
+        set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -fsanitize=address")
+    endif()
+    
+    # Force debug build when using sanitizers
+    set(CMAKE_BUILD_TYPE Debug CACHE STRING "Choose the type of build." FORCE)
+    message(STATUS "Building with Address Sanitizer in Debug mode")
+endif()
+
 # Required for dependencies
 include(FetchContent)
 

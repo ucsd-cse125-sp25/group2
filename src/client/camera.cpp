@@ -9,11 +9,10 @@ Camera::Camera()
   nearClip = 0.1f;
   farClip = 100.0f;
 
-  yaw = 90.0f; // place camera in front of the target (along +Z axis), looking
-               // back toward the target
+  yaw = 90.0f; // place camera along +Z axis to see behind the target
   pitch = 0.0f;
 
-  sensitivity = 0.02f;
+  sensitivity = 0.1f;
   radius = 13.0f;
 
   worldUp = cameraUp;
@@ -26,15 +25,17 @@ void Camera::update(float xOffset, float yOffset, glm::vec3 target) {
   yaw += xOffset;
   pitch -= yOffset;
 
-  // restrict pitch (vertical) and allow 360 degrees for yaw (horizontal)
+  yaw = fmod(yaw, 360.0f);
+  if (yaw < 0.0f)
+    yaw += 360.0f;
+
+  // restrict pitch (vertical)
   pitch = glm::clamp(pitch, 0.0f, 30.0f);
-  if (yaw > 360.0f || yaw < -360.0f)
-    yaw = fmod(yaw, 360.0f);
 
   // Updating view projection matrix
-  float camX = radius * cos(glm::radians(pitch)) * cos(glm::radians(yaw));
+  float camX = radius * cos(glm::radians(yaw)) * cos(glm::radians(pitch));
   float camY = radius * sin(glm::radians(pitch));
-  float camZ = radius * cos(glm::radians(pitch)) * sin(glm::radians(yaw));
+  float camZ = radius * sin(glm::radians(yaw)) * cos(glm::radians(pitch));
 
   cameraPos = target + glm::vec3(camX, camY, camZ);
 

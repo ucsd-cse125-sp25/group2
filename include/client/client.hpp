@@ -1,7 +1,7 @@
 #pragma once
 
 #include "camera.hpp"
-#include "client_character_manager.hpp"
+#include "character_manager.hpp"
 #include "client_gamestate.hpp"
 #include "client_network.hpp"
 #include "core.hpp"
@@ -42,15 +42,15 @@ public:
   Client();
 
   bool init();
-  bool initObjects();
+  bool initGameState();
   bool initNetwork(asio::io_context &io_context);
   bool initUI();
 
   void cleanUp();
 
   // update and draw functions
-  void idleCallback();
-  void displayCallback(GLFWwindow *window, float deltaTime);
+  void idleCallback(float deltaTime);
+  void displayCallback(GLFWwindow *window);
 
   // process wasd + jump input
   void processMovementInput();
@@ -66,5 +66,5 @@ public:
   // Getters
   GLFWwindow *getWindow() { return window; }
 
-  static json loadConfig(const std::string &path);
+  static json loadConfig(const string &path);
 };

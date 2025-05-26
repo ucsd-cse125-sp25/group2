@@ -19,7 +19,7 @@ unordered_map<int, unique_ptr<GameObject>> ObjectLoader::loadObjects() {
   if (objectsData.contains("objects") && objectsData["objects"].is_array()) {
 
     for (const auto &objData : objectsData["objects"]) {
-      int objectId = id++;
+      OBJECT_ID objectId = id++;
 
       BaseObjectData base = createBaseGameObject(objData);
       unique_ptr<GameObject> obj =
@@ -27,13 +27,23 @@ unordered_map<int, unique_ptr<GameObject>> ObjectLoader::loadObjects() {
 
       if (objData.contains("client")) {
         auto &client = objData["client"];
-        obj->setModel(
-            make_unique<Model>(client.value("modelPath", "").c_str()));
-        obj->setShader(
-            make_unique<Shader>(client.value("vertShaderPath", "").c_str(),
-                                client.value("fragShaderPath", "").c_str()));
-      }
+        auto modelPath = client.value("modelPath", "");
+        auto vertShaderPath = client.value("vertShaderPath", "");
+        auto fragShaderPath = client.value("fragShaderPath", "");
 
+// If MacOS - turn everything into cube
+#ifdef __APPLE__
+        modelPath = "../resources/objects/cube/Cube.obj";
+        vertShaderPath = "../resources/shaders/shader.vert";
+        fragShaderPath = "../resources/shaders/shader.frag";
+#endif
+        obj->setModel(make_unique<Model>(modelPath.c_str()));
+        obj->setShader(make_unique<Shader>(vertShaderPath.c_str(),
+                                           fragShaderPath.c_str()));
+      }
+      obj->getModel()->update(
+          obj->getTransform()); // Update model with the transform for initial
+                                // rendering
       objects[objectId] = move(obj);
     }
   }

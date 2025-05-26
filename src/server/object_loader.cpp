@@ -18,7 +18,7 @@ unordered_map<int, unique_ptr<GameObject>> ObjectLoader::loadObjects() {
 
   if (objectsData.contains("objects") && objectsData["objects"].is_array()) {
     for (const auto &objData : objectsData["objects"]) {
-      int objectId = id++;
+      OBJECT_ID objectId = id++;
 
       BaseObjectData base = createBaseGameObject(objData);
       unique_ptr<GameObject> obj;
@@ -33,7 +33,7 @@ unordered_map<int, unique_ptr<GameObject>> ObjectLoader::loadObjects() {
           bool isStatic = server["static"].get<bool>();
           rb->setStatic(isStatic);
         }
-        auto cl = std::vector<Collider *>();
+        auto cl = vector<Collider *>();
         if (server.contains("collider")) {
           cl = loadCollider(server.value("collider", "").c_str());
         }
@@ -51,8 +51,18 @@ unordered_map<int, unique_ptr<GameObject>> ObjectLoader::loadObjects() {
           string interactionStr = server["interaction"].get<string>();
           auto interactionType =
               magic_enum::enum_cast<InteractionType>(interactionStr);
+
           if (interactionType.has_value()) {
             obj->setInteractability(interactionType.value());
+          }
+          if (interactionType == InteractionType::PRESS) {
+            string objName = objData["name"].get<string>();
+            auto pressFunc = pressFunctionMap.find(objName);
+            if (pressFunc != pressFunctionMap.end()) {
+              obj->setPressFunction(pressFunc->second);
+            } else {
+              cerr << "No press function found for object: " << objName << endl;
+            }
           }
         }
       }
@@ -63,8 +73,8 @@ unordered_map<int, unique_ptr<GameObject>> ObjectLoader::loadObjects() {
   return objects;
 };
 
-std::vector<Collider *> ObjectLoader::loadCollider(string path) {
-  std::vector<Collider *> colliders;
+vector<Collider *> ObjectLoader::loadCollider(string path) {
+  vector<Collider *> colliders;
   ifstream colliderFile(path);
   if (!colliderFile.is_open()) {
     cerr << "Failed to open collider file: " << path << endl;
@@ -93,7 +103,7 @@ std::vector<Collider *> ObjectLoader::loadCollider(string path) {
         auto &t = clData["orientation"];
         orientation[0] = parseVec3(t, "right", glm::vec3(1, 0, 0));
         orientation[1] = parseVec3(t, "up", glm::vec3(0, 1, 0));
-        orientation[2] = parseVec3(t, "forward", glm::vec3(0, 0, 1));
+        orientation[2] = parseVec3(t, "forward", glm::vec3(0, 0, -1));
       }
       auto cl = new Collider(center, halfExtents, orientation);
       colliders.push_back(cl);

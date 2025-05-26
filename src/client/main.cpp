@@ -80,7 +80,7 @@ int main(void) {
     exit(EXIT_FAILURE);
   }
 
-  client->initObjects();
+  client->initGameState();
 
   if (!client->initUI()) {
     cerr << "StartSceen Failed" << endl;
@@ -98,10 +98,10 @@ int main(void) {
       client->processMovementInput();
 
       // Updating of objects
-      client->idleCallback();
+      client->idleCallback(deltaTime);
 
       // Rendering call back
-      client->displayCallback(window, deltaTime);
+      client->displayCallback(window);
     }
   } catch (const exception &e) {
     cerr << "Client Exception: " << e.what() << endl;

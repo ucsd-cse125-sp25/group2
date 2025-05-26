@@ -1,7 +1,7 @@
 #pragma once
 
 #include "core.hpp"
-#include "glm/gtx/euler_angles.hpp"
+
 class Camera {
 private:
   // Perspective controls

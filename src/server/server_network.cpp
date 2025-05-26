@@ -47,7 +47,7 @@ bool ServerNetwork::acceptClient() {
  * Core communication to client
  * need to send a packet that inherits IPacket
  */
-void ServerNetwork::sendToClient(unsigned int id, const IPacket &packet) {
+void ServerNetwork::sendToClient(CLIENT_ID id, const IPacket &packet) {
   auto socket = clients[id];
   if (!socket->is_open()) {
     handleClientDisconnect(id);
@@ -124,12 +124,20 @@ deque<unique_ptr<IPacket>> ServerNetwork::receiveFromClients() {
   }
   lastRotation.clear();
 
+  // add latest interaction packets for each client
+  for (auto &[clientId, packet] : lastInteraction) {
+    if (packet) {
+      packets.push_back(move(packet));
+    }
+  }
+  lastInteraction.clear();
+
   return packets;
 }
 
 unique_ptr<IPacket> ServerNetwork::processPackets(PacketType type,
                                                   vector<char> payload,
-                                                  int clientID) {
+                                                  CLIENT_ID id) {
   switch (type) {
   case PacketType::INIT: {
     unique_ptr<IPacket> packet = deserialize(PacketType::INIT, payload);
@@ -138,19 +146,20 @@ unique_ptr<IPacket> ServerNetwork::processPackets(PacketType type,
   case PacketType::MOVEMENT: {
     unique_ptr<IPacket> packet = deserialize(PacketType::MOVEMENT, payload);
     auto movementPacket = static_cast<MovementPacket *>(packet.get());
-    if (lastMovement[clientID] != movementPacket->movementType) {
-      lastMovement[clientID] = movementPacket->movementType;
+    if (lastMovement[id] != movementPacket->movementType) {
+      lastMovement[id] = movementPacket->movementType;
       return packet;
     }
     return nullptr;
   }
   case PacketType::ROTATION: {
     unique_ptr<IPacket> packet = deserialize(PacketType::ROTATION, payload);
-    lastRotation[clientID] = move(packet);
+    lastRotation[id] = move(packet);
     return nullptr;
   }
   case PacketType::INTERACTION: {
     unique_ptr<IPacket> packet = deserialize(PacketType::INTERACTION, payload);
+    lastInteraction[id] = move(packet);
     return packet;
   }
   case PacketType::CHARACTERSELECT: {

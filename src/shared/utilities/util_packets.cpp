@@ -10,8 +10,8 @@ void serializeVector(char *dest, const glm::vec3 &vec3, unsigned long &size) {
   return;
 }
 
-glm::vec3 deserializeVector(const vector<char> &payload, glm::vec3 vec,
-                            unsigned long &size) {
+glm::vec3 deserializeVector(const vector<char> &payload, unsigned long &size) {
+  glm::vec3 vec;
   memcpy(&vec.x, payload.data() + size, sizeof(float));
   size += sizeof(float);
   memcpy(&vec.y, payload.data() + size, sizeof(float));
@@ -31,10 +31,8 @@ void serializeTransform(char *dest, const Transform &transform,
 
 void deserializeTransform(const vector<char> &payload, Transform &transform,
                           unsigned long &size) {
-  transform.setPosition(
-      deserializeVector(payload, transform.getPosition(), size));
-  transform.setRotation(
-      deserializeVector(payload, transform.getRotation(), size));
-  transform.setScale(deserializeVector(payload, transform.getScale(), size));
+  transform.setPosition(deserializeVector(payload, size));
+  transform.setRotation(deserializeVector(payload, size));
+  transform.setScale(deserializeVector(payload, size));
   return;
 }

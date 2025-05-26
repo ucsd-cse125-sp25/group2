@@ -9,7 +9,7 @@ bool ClientGameState::init() {
   return true;
 }
 
-void ClientGameState::update(int id, Transform *tf) {
+void ClientGameState::update(OBJECT_ID id, Transform *tf) {
   auto obj = getObject(id);
   if (obj)
     obj->update(tf);
@@ -23,7 +23,7 @@ void ClientGameState::draw(const glm::mat4 &viewProjMtx) {
   }
 }
 
-GameObject *ClientGameState::getObject(int id) {
+GameObject *ClientGameState::getObject(OBJECT_ID id) {
   auto itr = objectList.find(id);
   if (itr != objectList.end()) {
     return itr->second.get();

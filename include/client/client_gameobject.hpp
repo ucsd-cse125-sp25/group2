@@ -17,8 +17,8 @@ protected:
   unique_ptr<Shader> shader;
 
 public:
-  GameObject(const int objectId, const bool isActive, unique_ptr<Transform> &tf)
-      : BaseGameObject(objectId, isActive, tf) {
+  GameObject(const OBJECT_ID id, const bool isActive, unique_ptr<Transform> &tf)
+      : BaseGameObject(id, isActive, tf) {
     model = nullptr;
     shader = nullptr;
   };

@@ -20,9 +20,9 @@ public:
   bool init();
 
   // update methods
-  void update(int id, Transform *tf);
+  void update(OBJECT_ID id, Transform *tf);
   void draw(const glm::mat4 &viewProjMtx);
 
-  GameObject *getObject(int id);
+  GameObject *getObject(OBJECT_ID id);
   GameObject *getPlayer() { return player; }
 };

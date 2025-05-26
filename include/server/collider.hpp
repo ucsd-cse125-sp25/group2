@@ -2,7 +2,6 @@
 
 #include "core.hpp"
 #include "transform.hpp"
-#include <iostream>
 #include <vector>
 
 using namespace std;
@@ -46,9 +45,6 @@ public:
     orient[2] = tf->getForward();
     orientation = orient * originalOrientation;
     halfExtents = tf->getScale() * originalHalfExtents;
-
-    // std::cout << halfExtents.x << " " << halfExtents.y << " " <<
-    // halfExtents.z << std::endl;
   }
 
   glm::vec3 getCenter() const { return center; }

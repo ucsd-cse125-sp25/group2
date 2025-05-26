@@ -12,8 +12,7 @@ struct AnimationInfo {
   int cols, rows, currentFrame;
   float frameWidth, frameHeight, frameDuration, animationTimer;
   bool startAnim;
-  AnimationInfo(int cols, int rows, float frameDuration)
-      : cols(cols), rows(rows), frameDuration(frameDuration) {
+  AnimationInfo(int c, int r, float fD) : cols(c), rows(r), frameDuration(fD) {
     frameHeight = 1.0f / rows;
     frameWidth = 1.0f / cols;
     startAnim = false;
@@ -73,9 +72,9 @@ public:
 
   virtual ~BaseUI();
 
-  void setOnClick(std::function<void()> callback);
+  void setOnClick(function<void()> callback);
 
-  void setOnSelect(std::function<void()> callback);
+  void setOnSelect(function<void()> callback);
 
   void setTexture(GLuint texture);
 
@@ -90,7 +89,7 @@ public:
 
   static GLuint loadTexture(const char *path);
 
-  bool isHovered(float x_ndc, float y_ndc);
+  bool isHovered(float ndcX, float ndcY);
 
   void play();
 };

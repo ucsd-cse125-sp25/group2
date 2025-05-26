@@ -11,18 +11,23 @@ using namespace std;
 
 class BaseGameObject {
 protected:
-  int id;
+  OBJECT_ID id;
   bool active;
   unique_ptr<Transform> transform;
 
 public:
-  BaseGameObject(const int objectId, const bool isActive,
+  BaseGameObject(const OBJECT_ID id, const bool isActive,
                  unique_ptr<Transform> &tf)
-      : id(objectId), active(isActive), transform(move(tf)){};
+      : id(id), active(isActive), transform(move(tf)){};
 
   virtual ~BaseGameObject(){};
 
-  const int getId() const { return id; };
+  // setters
+  void activate() { active = true; };
+  void deactivate() { active = false; };
+
+  // getters
+  const OBJECT_ID getId() const { return id; };
   bool isActive() const { return active; };
   Transform *getTransform() { return transform.get(); };
   glm::vec3 getPosition() { return transform->getPosition(); };

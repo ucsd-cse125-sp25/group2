@@ -58,7 +58,7 @@ bool Client::init() {
   return true;
 }
 
-bool Client::initObjects() {
+bool Client::initGameState() {
   if (!game->init()) {
     cerr << "ClientGameState Initialization Failed" << endl;
     return false;
@@ -73,10 +73,10 @@ bool Client::initNetwork(asio::io_context &io_context) {
   return !network->err;
 }
 
-json Client::loadConfig(const std::string &path) {
-  std::ifstream file(path);
+json Client::loadConfig(const string &path) {
+  ifstream file(path);
   if (!file.is_open()) {
-    throw std::runtime_error("Could not open config file at " + path);
+    throw runtime_error("Could not open config file at " + path);
   }
   json j;
   file >> j;
@@ -84,7 +84,7 @@ json Client::loadConfig(const std::string &path) {
 }
 
 bool Client::initUI() {
-  UIManager::make_menus();
+  UIManager::makeMenus();
   UIManager::startButton->setOnClick(
       []() { UIManager::startScreenUI->play(); });
   UIManager::startButton->setOnSelect(
@@ -94,19 +94,19 @@ bool Client::initUI() {
     UIManager::startScreenUI->isSelected = true;
   });
   UIManager::chickenButton->setOnClick([net = network.get()]() {
-    CharacterSelectPacket packet(Characters::CHICKEN, net->getId());
+    CharacterSelectPacket packet(CHICKEN, net->getId());
     net->send(packet);
   });
   UIManager::pigButton->setOnClick([net = network.get()]() {
-    CharacterSelectPacket packet(Characters::PIG, net->getId());
+    CharacterSelectPacket packet(PIG, net->getId());
     net->send(packet);
   });
   UIManager::sheepButton->setOnClick([net = network.get()]() {
-    CharacterSelectPacket packet(Characters::SHEEP, net->getId());
+    CharacterSelectPacket packet(SHEEP, net->getId());
     net->send(packet);
   });
   UIManager::cowButton->setOnClick([net = network.get()]() {
-    CharacterSelectPacket packet(Characters::COW, net->getId());
+    CharacterSelectPacket packet(COW, net->getId());
     net->send(packet);
   });
   return true;
@@ -118,7 +118,7 @@ void Client::cleanUp() {
 }
 
 // Perform any updates to objects, camera, etc
-void Client::idleCallback() {
+void Client::idleCallback(float deltaTime) {
   deque<unique_ptr<IPacket>> packets = network->receive();
 
   while (!packets.empty()) {
@@ -128,13 +128,13 @@ void Client::idleCallback() {
     switch (packet->getType()) {
     case PacketType::INIT: {
       auto initPacket = dynamic_cast<InitPacket *>(packet.get());
-      network->setId(initPacket->clientID);
-      characterManager->setID(initPacket->clientID);
+      network->setId(initPacket->id);
+      characterManager->setID(initPacket->id);
       break;
     }
     case PacketType::OBJECT: {
       auto objectPacket = dynamic_cast<ObjectPacket *>(packet.get());
-      game->update(objectPacket->objectID, &objectPacket->transform);
+      game->update(objectPacket->id, &objectPacket->transform);
       break;
     }
     case PacketType::GAMESTATE: {
@@ -144,35 +144,41 @@ void Client::idleCallback() {
         // Hide the cursor and lock it to the center of the window when the game
         // starts
         glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+#if !defined(__APPLE__)
         glfwSetInputMode(window, GLFW_RAW_MOUSE_MOTION, GLFW_TRUE);
+#endif
       }
       break;
     }
     case PacketType::CHARACTERRESPONSE: {
       auto characterPacket =
           dynamic_cast<CharacterResponsePacket *>(packet.get());
-      characterManager->setCharacter(
-          characterPacket->chicken, characterPacket->sheep,
-          characterPacket->pig, characterPacket->cow);
+      characterManager->setCharacters(characterPacket->characterAssignments);
       break;
     }
     }
   }
-  cam->update(xOffset, yOffset, game->getPlayer()->getPosition());
-  xOffset = 0.0f;
-  yOffset = 0.0f;
-  updatePlayerRotation();
+  if (game->state == Gamestate::STARTSCREEN ||
+      game->state == Gamestate::MAINMENU) {
+    UIManager::updateMenu(mouseX, mouseY, windowWidth, windowHeight, deltaTime,
+                          game->state);
+  }
+
+  if (game->state == Gamestate::GAME) {
+    cam->update(xOffset, yOffset, game->getPlayer()->getPosition());
+    xOffset = 0.0f;
+    yOffset = 0.0f;
+    updatePlayerRotation();
+  }
 }
 
-void Client::displayCallback(GLFWwindow *window, float deltaTime) {
+void Client::displayCallback(GLFWwindow *window) {
   // Clear the color and depth buffers
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
   if (game->state == Gamestate::STARTSCREEN ||
       game->state == Gamestate::MAINMENU) {
-    UIManager::draw_menu(game->state);
-    UIManager::update_menu(mouseX, mouseY, windowWidth, windowHeight, deltaTime,
-                           game->state);
+    UIManager::drawMenu(game->state);
   }
 
   // Draw objects
@@ -189,24 +195,22 @@ void Client::displayCallback(GLFWwindow *window, float deltaTime) {
 
 void Client::processMovementInput() {
   // Process WASD Movement
+  if (game->state != Gamestate::GAME)
+    return;
   if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
-    MovementPacket packet(game->getPlayer()->getId(), MovementType::FORWARD,
-                          cam->getFacing());
+    MovementPacket packet(game->getPlayer()->getId(), MovementType::FORWARD);
     network->send(packet);
   }
   if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
-    MovementPacket packet(game->getPlayer()->getId(), MovementType::BACKWARD,
-                          cam->getFacing());
+    MovementPacket packet(game->getPlayer()->getId(), MovementType::BACKWARD);
     network->send(packet);
   }
   if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
-    MovementPacket packet(game->getPlayer()->getId(), MovementType::LEFT,
-                          cam->getFacing());
+    MovementPacket packet(game->getPlayer()->getId(), MovementType::LEFT);
     network->send(packet);
   }
   if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
-    MovementPacket packet(game->getPlayer()->getId(), MovementType::RIGHT,
-                          cam->getFacing());
+    MovementPacket packet(game->getPlayer()->getId(), MovementType::RIGHT);
     network->send(packet);
   }
 }
@@ -217,10 +221,17 @@ void Client::updatePlayerRotation() {
 
   float targetYaw = -(cameraYaw - 90.0f);
 
-  if (targetYaw > 360.0f || targetYaw < -360.0f)
-    targetYaw = fmod(targetYaw, 360.0f);
+  targetYaw = fmod(targetYaw, 360.0f);
+  if (targetYaw < 0.0f)
+    targetYaw += 360.0f;
 
-  if (fabs(targetYaw - playerYaw) > 0.01f) {
+  float angleDiff = targetYaw - playerYaw;
+  if (angleDiff > 180.0f)
+    angleDiff -= 360.0f;
+  if (angleDiff < -180.0f)
+    angleDiff += 360.0f;
+
+  if (fabs(angleDiff) > 0.01f) {
     glm::vec3 currentRotation = game->getPlayer()->getRotation();
     glm::vec3 newRotation =
         glm::vec3(currentRotation.x, targetYaw, currentRotation.z);
@@ -271,10 +282,15 @@ void Client::mouseCallback(GLFWwindow *window, double xPos, double yPos) {
 
 void Client::mouseButtonCallback(GLFWwindow *window, int button, int action,
                                  int mods) {
+  if (game->state != Gamestate::GAME)
+    return;
   if (action == GLFW_PRESS) {
-    if (button == GLFW_MOUSE_BUTTON_LEFT && game->state == Gamestate::GAME) {
+    if (button == GLFW_MOUSE_BUTTON_LEFT) {
       // Handle left mouse button press
-      InteractionPacket packet(0);
+      glm::vec3 rayOrigin = cam->getPos();
+      glm::vec3 rayDirection = cam->getFacing();
+      InteractionPacket packet(characterManager->selectedCharacter,
+                               rayDirection, rayOrigin);
       network->send(packet);
     }
     // delete later: to switch between different clients on one machine

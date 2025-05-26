@@ -1,6 +1,7 @@
 #pragma once
 
 #include "core.hpp"
+#include "globals.hpp"
 #include "transform.hpp"
 
 #include <nlohmann/json.hpp>
@@ -17,6 +18,7 @@ struct BaseObjectData {
 
 class BaseObjectLoader {
 protected:
+  OBJECT_ID id = 0;
   static glm::vec3 parseVec3(const json &json, const string &key,
                              const glm::vec3 &defaultValue);
 

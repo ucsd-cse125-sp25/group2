@@ -8,10 +8,15 @@ void Physics::remove(GameObject *obj) {
 
 void Physics::calculateForces() {
   for (GameObject *obj : objects) {
+    if (obj->getRigidBody()->isStatic())
+      continue;
+
     glm::vec3 vel = obj->getRigidBody()->getVelocity();
     glm::vec3 force = glm::vec3(0);
+
     if (!obj->isGrounded()) {
-      force = obj->getRigidBody()->getMass() * gravity;
+      if (obj->hasGravity())
+        force += obj->getRigidBody()->getMass() * gravity;
       if (glm::dot(vel, vel) > 0.001f)
         force += 0.5f * density * glm::dot(vel, vel) * drag *
                  obj->getRigidBody()->getArea() * -1.0f * glm::normalize(vel);
@@ -112,9 +117,8 @@ void Physics::moveObjects(float deltaTime) {
 
   for (GameObject *obj : objects) {
     RigidBody *rb = obj->getRigidBody();
-    std::vector<Collider *> cl = obj->getCollider();
+    vector<Collider *> cl = obj->getCollider();
     if (cl[0]->isTrigger()) {
-      std::cout << cl[0]->isWithinTrigger() << std::endl;
       cl[0]->setWithinTrigger(false);
     }
     if (rb->isStatic())
@@ -136,7 +140,8 @@ void Physics::moveObjects(float deltaTime) {
     for (Collider *c : cl) {
       c->update(tf);
     }
-    rb->setForce(glm::vec3(0));
+    rb->setForce(glm::vec3(0.0f));
+    rb->setVelocity(glm::vec3(0.0f, vel.y, 0.0f));
 
     // if object has moved, add it to the updated objects list
     if (glm::length(pos - lastPos) > 0.0001f)
