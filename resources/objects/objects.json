@@ -74,7 +74,7 @@
       "server": {
         "static": true,
         "canActivate": false,
-        "collider": "../resources/objects/cube/collider.json",
+        "collider": "../resources/objects/floor/collider.json",
         "interaction": "NONE"
       }
     }
