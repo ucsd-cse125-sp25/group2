@@ -80,7 +80,7 @@ int main(void) {
     exit(EXIT_FAILURE);
   }
 
-  client->initObjects();
+  client->initGameState();
 
   if (!client->initUI()) {
     cerr << "StartSceen Failed" << endl;

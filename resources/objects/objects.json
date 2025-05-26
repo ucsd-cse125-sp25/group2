@@ -6,7 +6,7 @@
       "transform": {
         "position": { "x": 0.0, "y": 0.0, "z": 0.0 },
         "rotation": { "x": 0.0, "y": 0.0, "z": 0.0 },
-        "scale": { "x": 1.0, "y": 1.0, "z": 1.0 }
+        "scale": { "x": 2, "y": 2, "z": 2 }
       },
       "client": {
         "modelPath": "../resources/objects/chicken/Chicken.obj",
@@ -15,17 +15,17 @@
       },
       "server": {
         "static": false,
-        "halfExtents": { "x": 1.0, "y": 1.0, "z": 1.0 },
+        "collider": "../resources/objects/chicken/collider.json",
         "interaction": "NONE"
       }
     },
     {
-      "name": "Cube",
+      "name": "Cube 1",
       "active": true,
       "transform": {
-        "position": { "x": 0.0, "y": 0.0, "z": -3.0 },
+        "position": { "x": 0.0, "y": 0.0, "z": -5.0 },
         "rotation": { "x": 0.0, "y": 0.0, "z": 0.0 },
-        "scale": { "x": 1.0, "y": 1.0, "z": 1.0 }
+        "scale": { "x": 1, "y": 1, "z": 1 }
       },
       "client": {
         "modelPath": "../resources/objects/cube/Cube.obj",
@@ -34,7 +34,7 @@
       },
       "server": {
         "static": false,
-        "halfExtents": { "x": 1.0, "y": 1.0, "z": 1.0 },
+        "collider": "../resources/objects/cube/collider.json",
         "interaction": "PICKUP"
       }
     },
@@ -42,26 +42,27 @@
       "name": "Cube 2",
       "active": true,
       "transform": {
-        "position": { "x": 2.5, "y": 3.0, "z": 4.0 },
+        "position": { "x": -5.0, "y": 0.0, "z": 0.0 },
         "rotation": { "x": 0.0, "y": 0.0, "z": 0.0 },
-        "scale": { "x": 1.0, "y": 1.0, "z": 1.0 }
+        "scale": { "x": 1, "y": 1, "z": 1 }
       },
       "client": {
         "modelPath": "../resources/objects/cube/Cube.obj",
-        "vertShaderPath": "../resources/shaders/shader.vert",
-        "fragShaderPath": "../resources/shaders/shader.frag"
+        "vertShaderPath": "../resources/shaders/material.vert",
+        "fragShaderPath": "../resources/shaders/material.frag"
       },
       "server": {
-        "static": false,
-        "halfExtents": { "x": 1.0, "y": 1.0, "z": 1.0 },
-        "interaction": "PRESS"
+        "static": true,
+        "isTrigger": true,
+        "collider": "../resources/objects/cube/collider.json",
+        "interaction": "NONE"
       }
     },
     {
       "name": "Floor",
       "active": true,
       "transform": {
-        "position": { "x": 0.0, "y": -2.0, "z": 0.0 },
+        "position": { "x": 0.0, "y": 0.0, "z": 0.0 },
         "rotation": { "x": 0.0, "y": 0.0, "z": 0.0 },
         "scale": { "x": 10.0, "y": 0.1, "z": 10.0 }
       },
@@ -72,7 +73,8 @@
       },
       "server": {
         "static": true,
-        "halfExtents": { "x": 10.0, "y": 1.0, "z": 10.0 },
+        "canActivate": false,
+        "collider": "../resources/objects/cube/collider.json",
         "interaction": "NONE"
       }
     }

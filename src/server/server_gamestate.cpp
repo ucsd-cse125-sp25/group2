@@ -85,7 +85,7 @@ void ServerGameState::updateInteraction(PLAYER_ID id, glm::vec3 rayDirection,
       continue;
     }
     glm::vec3 center = object->getTransform()->getPosition();
-    glm::vec3 halfExtents = object->getCollider()->getHalfExtents();
+    glm::vec3 halfExtents = object->getCollider()[0]->getHalfExtents();
 
     glm::vec3 vDirToBox = center - rayOrigin;
     glm::vec3 vLineDir = glm::normalize(rayDirection);
@@ -128,11 +128,13 @@ void ServerGameState::updateInteraction(PLAYER_ID id, glm::vec3 rayDirection,
   // If the character is holding an object, drop it
   if (playerLogic->getHeldObject(id) != nullptr) {
     playerLogic->dropObject(player, closestObject);
+    cout << "Dropped object: " << playerLogic->getHeldObject(id)->getId()
+         << endl;
     playerLogic->setHeldObject(id, nullptr);
   }
 
   // If an interactable object was clicked
-  if (closestObjectID != -1) {
+  else if (closestObjectID != -1) {
     // If interaction type is pickup and player is not holding an object
     if (closestObject->getInteractionType() == InteractionType::PICKUP &&
         playerLogic->getHeldObject(id) == nullptr) {
@@ -150,8 +152,8 @@ void ServerGameState::updateInteraction(PLAYER_ID id, glm::vec3 rayDirection,
 
 void ServerGameState::applyPhysics() {
   physicsWorld->calculateForces();
-  physicsWorld->resolveCollisions();
   physicsWorld->moveObjects(deltaTime);
+  physicsWorld->resolveCollisions();
 
   auto movedObjects = physicsWorld->getUpdatedObjects();
   // if the object is held by a player, move it with the player
@@ -174,8 +176,8 @@ GameObject *ServerGameState::getObject(OBJECT_ID id) {
   return nullptr;
 }
 
-std::vector<int> ServerGameState::getLastUpdatedObjects() {
-  std::vector<int> list(updatedObjectIds.begin(), updatedObjectIds.end());
+vector<int> ServerGameState::getLastUpdatedObjects() {
+  vector<int> list(updatedObjectIds.begin(), updatedObjectIds.end());
   updatedObjectIds.clear();
   return list;
 }

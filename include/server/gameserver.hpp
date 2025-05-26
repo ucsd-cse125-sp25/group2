@@ -13,7 +13,7 @@ private:
   unique_ptr<ServerNetwork> network;
   unique_ptr<ServerGameState> game;
 
-  static json loadConfig(const std::string &path);
+  static json loadConfig(const string &path);
 
 public:
   GameServer(asio::io_context &io_context);

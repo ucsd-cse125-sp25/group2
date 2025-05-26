@@ -58,7 +58,7 @@ bool Client::init() {
   return true;
 }
 
-bool Client::initObjects() {
+bool Client::initGameState() {
   if (!game->init()) {
     cerr << "ClientGameState Initialization Failed" << endl;
     return false;
@@ -73,10 +73,10 @@ bool Client::initNetwork(asio::io_context &io_context) {
   return !network->err;
 }
 
-json Client::loadConfig(const std::string &path) {
-  std::ifstream file(path);
+json Client::loadConfig(const string &path) {
+  ifstream file(path);
   if (!file.is_open()) {
-    throw std::runtime_error("Could not open config file at " + path);
+    throw runtime_error("Could not open config file at " + path);
   }
   json j;
   file >> j;
@@ -165,9 +165,6 @@ void Client::idleCallback(float deltaTime) {
   }
 
   if (game->state == Gamestate::GAME) {
-    // cout << "Player position " << game->getPlayer()->getPosition().x << ", "
-    //      << game->getPlayer()->getPosition().y << ", "
-    //      << game->getPlayer()->getPosition().z << endl;
     cam->update(xOffset, yOffset, game->getPlayer()->getPosition());
     xOffset = 0.0f;
     yOffset = 0.0f;

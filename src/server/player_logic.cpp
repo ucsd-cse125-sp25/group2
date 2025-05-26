@@ -33,18 +33,6 @@ OBJECT_ID PlayerLogic::moveHeldObject(PLAYER_ID id, GameObject *player) {
   return -1;
 }
 
-void PlayerLogic::glide(GameObject *chicken) {
-  // glide the chicken
-  if (!chicken->isGrounded()) {
-    auto rigidBody = chicken->getRigidBody();
-    if (rigidBody->getVelocity().y < 0) {
-      rigidBody->setForce(glm::vec3(0.0f));
-      rigidBody->applyForce(rigidBody->getMass() *
-                            glm::vec3(0, glideGravityModifier * 9.81f, 0));
-    }
-  }
-}
-
 void PlayerLogic::jump(GameObject *player) {
   // jump the player
   if (player->isGrounded()) {
@@ -69,6 +57,18 @@ vector<OBJECT_ID> PlayerLogic::rotate(PLAYER_ID id, GameObject *player,
     rotatedObjects.push_back(heldObject->getId());
   }
   return rotatedObjects;
+}
+
+void PlayerLogic::glide(GameObject *chicken) {
+  // glide the chicken
+  if (!chicken->isGrounded()) {
+    auto rigidBody = chicken->getRigidBody();
+    if (rigidBody->getVelocity().y < 0) {
+      rigidBody->setForce(glm::vec3(0.0f));
+      rigidBody->applyForce(rigidBody->getMass() *
+                            glm::vec3(0, glideGravityModifier * 9.81f, 0));
+    }
+  }
 }
 
 void PlayerLogic::pickupObject(GameObject *playerObject, GameObject *object) {

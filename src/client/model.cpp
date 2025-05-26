@@ -29,7 +29,7 @@ void Model::update(Transform *transform) {
   rotMat = glm::rotate(rotMat, glm::radians(transform->getRotation().y),
                        glm::vec3(0, 1, 0));
   rotMat = glm::rotate(rotMat, glm::radians(transform->getRotation().z),
-                       glm::vec3(0, 0, 1));
+                       glm::vec3(0, 0, -1));
   glm::mat4 transMat =
       glm::translate(glm::mat4(1.0f), transform->getPosition());
 
