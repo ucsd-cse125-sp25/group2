@@ -4,9 +4,9 @@
       "name": "Chicken",
       "active": true,
       "transform": {
-        "position": { "x": 0.0, "y": 5.0, "z": 0.0 },
+        "position": { "x": 0.0, "y": 0.0, "z": 0.0 },
         "rotation": { "x": 0.0, "y": 0.0, "z": 0.0 },
-        "scale": { "x": 1, "y": 1, "z": 1 }
+        "scale": { "x": 2, "y": 2, "z": 2 }
       },
       "client": {
         "modelPath": "../resources/objects/chicken/Chicken.obj",
@@ -17,6 +17,25 @@
         "static": false,
         "collider": "../resources/objects/chicken/collider.json",
         "interaction": "NONE"
+      }
+    },
+    {
+      "name": "Cube 1",
+      "active": true,
+      "transform": {
+        "position": { "x": 0.0, "y": 0.0, "z": -5.0 },
+        "rotation": { "x": 0.0, "y": 0.0, "z": 0.0 },
+        "scale": { "x": 1, "y": 1, "z": 1 }
+      },
+      "client": {
+        "modelPath": "../resources/objects/cube/Cube.obj",
+        "vertShaderPath": "../resources/shaders/shader.vert",
+        "fragShaderPath": "../resources/shaders/shader.frag"
+      },
+      "server": {
+        "static": false,
+        "collider": "../resources/objects/cube/collider.json",
+        "interaction": "PICKUP"
       }
     },
     {

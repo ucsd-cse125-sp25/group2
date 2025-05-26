@@ -141,7 +141,7 @@ void Physics::moveObjects(float deltaTime) {
       c->update(tf);
     }
     rb->setForce(glm::vec3(0.0f));
-    rb->setVelocity(glm::vec3(0.0f));
+    rb->setVelocity(glm::vec3(0.0f, vel.y, 0.0f));
 
     // if object has moved, add it to the updated objects list
     if (glm::length(pos - lastPos) > 0.0001f)
