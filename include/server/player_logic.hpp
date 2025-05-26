@@ -13,6 +13,7 @@ private:
   // Movement properties
   float speed;
   float jumpForce;
+  float glideGravityModifier;
 
   // Interaction properties
   unordered_map<PLAYER_ID, GameObject *>
@@ -39,12 +40,12 @@ public:
   // Movement functions
   void move(GameObject *player, glm::vec3 direction);
   OBJECT_ID moveHeldObject(PLAYER_ID id, GameObject *player);
-  void jump();
+  void jump(GameObject *player);
   vector<OBJECT_ID> rotate(PLAYER_ID id, GameObject *player,
                            glm::vec3 rotation);
 
   // Ability functions
-  void glide();
+  void glide(GameObject *chicken);
 
   // Interaction functions
   void pickupObject(GameObject *player, GameObject *object);

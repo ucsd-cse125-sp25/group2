@@ -67,16 +67,14 @@ void Physics::resolveCollisions() {
 
           // Check if the object is at rest (grounded)
           float groundThreshold = 0.7f;
-          if (normal.y > groundThreshold) {
+          if (normal.y < groundThreshold) {
             a->setGrounded(true);
-          } else if (normal.y < -groundThreshold) {
+          } else if (normal.y > -groundThreshold) {
             b->setGrounded(true);
           }
           // Get physics properties/variables
           RigidBody *a_rb = a->getRigidBody();
           RigidBody *b_rb = b->getRigidBody();
-          clampVelocities(a_rb);
-          clampVelocities(b_rb);
           glm::vec3 a_vel = a_rb->getVelocity();
           glm::vec3 b_vel = b_rb->getVelocity();
           float restitution =
@@ -86,7 +84,7 @@ void Physics::resolveCollisions() {
           float massSum = invMassA + invMassB;
 
           // Apply impulse based on mass and velocity of object's colliding.
-          float v_close = glm::dot(a_vel - b_vel, normal);
+          float v_close = glm::dot(b_vel - a_vel, normal);
           if (v_close < 0 && massSum > 0) {
             glm::vec3 impulse = -(1 + restitution) * v_close / massSum * normal;
             if (!a_rb->isStatic())

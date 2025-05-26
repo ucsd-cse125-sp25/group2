@@ -16,7 +16,7 @@ public:
   RigidBody(glm::vec3 v = glm::vec3(0), glm::vec3 f = glm::vec3(0), float m = 1)
       : velocity(v), force(f), mass(m) {
     friction = 0.5f;
-    restitution = 1.0f;
+    restitution = 0.1f;
     staticObject = true;
   }
 

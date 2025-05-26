@@ -1,6 +1,6 @@
 #include "server_gamestate.hpp"
 
-ServerGameState::ServerGameState() : deltaTime(0.007f) {
+ServerGameState::ServerGameState() : deltaTime(0.03f) {
   physicsWorld = make_unique<Physics>();
   playerLogic = make_unique<PlayerLogic>();
 }
@@ -46,6 +46,12 @@ void ServerGameState::updateMovement(PLAYER_ID id, MovementType type) {
       break;
     case MovementType::RIGHT:
       playerLogic->move(player, playerRight);
+      break;
+    case MovementType::JUMP:
+      playerLogic->jump(player);
+      break;
+    case MovementType::GLIDE:
+      playerLogic->glide(player);
       break;
     default:
       cerr << "Unknown movement type" << endl;

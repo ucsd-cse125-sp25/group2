@@ -213,6 +213,12 @@ void Client::processMovementInput() {
     MovementPacket packet(game->getPlayer()->getId(), MovementType::RIGHT);
     network->send(packet);
   }
+  if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS) {
+    if (characterManager->selectedCharacter == CHICKEN) {
+      MovementPacket packet(game->getPlayer()->getId(), MovementType::GLIDE);
+      network->send(packet);
+    }
+  }
 }
 
 void Client::updatePlayerRotation() {
@@ -256,6 +262,10 @@ void Client::keyCallback(GLFWwindow *window, int key, int scancode, int action,
   if (action == GLFW_PRESS) {
     if (key == GLFW_KEY_ESCAPE)
       glfwSetWindowShouldClose(window, true);
+    if (key == GLFW_KEY_SPACE) {
+      MovementPacket packet(game->getPlayer()->getId(), MovementType::JUMP);
+      network->send(packet);
+    }
   }
 }
 
