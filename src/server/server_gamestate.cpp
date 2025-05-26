@@ -122,7 +122,8 @@ void ServerGameState::updateInteraction(PLAYER_ID id, glm::vec3 rayDirection,
   // If the character is holding an object, drop it
   if (playerLogic->getHeldObject(id) != nullptr) {
     playerLogic->dropObject(player, closestObject);
-    cout << "Dropped object: " << playerLogic->getHeldObject(id)->getId() << endl;
+    cout << "Dropped object: " << playerLogic->getHeldObject(id)->getId()
+         << endl;
     playerLogic->setHeldObject(id, nullptr);
   }
 
