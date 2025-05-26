@@ -58,8 +58,6 @@ void Physics::resolveCollisions() {
           updatedObjects.insert(b->getId());
           for (int i = 0; i < a->getCollider().size(); i++) {
             for (int j = 0; j < b->getCollider().size(); j++) {
-              cout << i << endl;
-              cout << j << endl;
               solveCollision(a, b, i, j);
             }
           }
