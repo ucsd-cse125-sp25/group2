@@ -32,10 +32,11 @@ OBJECT_ID PlayerLogic::moveHeldObject(PLAYER_ID id, GameObject *player) {
   return -1;
 }
 
-vector<OBJECT_ID> PlayerLogic::jump(PLAYER_ID id, GameObject *player,
-                                    float deltaTime) {
-  vector<OBJECT_ID> jumpedObjects;
+void PlayerLogic::glide(GameObject *chicken, float deltaTime) {
+  // glide the chicken
+}
 
+void PlayerLogic::jump(GameObject *player, float deltaTime) {
   // jump the player
   cout << "jumptime: " << jumpTime << endl;
   cout << "maxjumptime: " << maxJumpTime << endl;
@@ -45,12 +46,10 @@ vector<OBJECT_ID> PlayerLogic::jump(PLAYER_ID id, GameObject *player,
     auto rigidBody = player->getRigidBody();
     rigidBody->applyImpulse(jumpForce * glm::vec3(0.0f, 1.0f, 0.0f));
     jumpTime += deltaTime;
-    jumpedObjects.push_back(id);
   }
   if (player->isGrounded()) {
     jumpTime = 0;
   }
-  return jumpedObjects;
 }
 
 vector<OBJECT_ID> PlayerLogic::rotate(PLAYER_ID id, GameObject *player,

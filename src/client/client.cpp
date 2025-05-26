@@ -165,9 +165,9 @@ void Client::idleCallback(float deltaTime) {
   }
 
   if (game->state == Gamestate::GAME) {
-    cout << "Player position " << game->getPlayer()->getPosition().x << ", "
-         << game->getPlayer()->getPosition().y << ", "
-         << game->getPlayer()->getPosition().z << endl;
+    // cout << "Player position " << game->getPlayer()->getPosition().x << ", "
+    //      << game->getPlayer()->getPosition().y << ", "
+    //      << game->getPlayer()->getPosition().z << endl;
     cam->update(xOffset, yOffset, game->getPlayer()->getPosition());
     xOffset = 0.0f;
     yOffset = 0.0f;
@@ -216,6 +216,12 @@ void Client::processMovementInput() {
     MovementPacket packet(game->getPlayer()->getId(), MovementType::RIGHT);
     network->send(packet);
   }
+  if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS) {
+    if (characterManager->selectedCharacter == CHICKEN) {
+      MovementPacket packet(game->getPlayer()->getId(), MovementType::GLIDE);
+      network->send(packet);
+    }
+  }
 }
 
 void Client::updatePlayerRotation() {
@@ -260,8 +266,7 @@ void Client::keyCallback(GLFWwindow *window, int key, int scancode, int action,
     if (key == GLFW_KEY_ESCAPE)
       glfwSetWindowShouldClose(window, true);
     if (key == GLFW_KEY_SPACE) {
-      MovementPacket packet(game->getPlayer()->getId(), MovementType::JUMP,
-                            vec3(0.0f));
+      MovementPacket packet(game->getPlayer()->getId(), MovementType::JUMP);
       network->send(packet);
     }
   }
