@@ -16,8 +16,7 @@ using namespace std;
 
 class Model {
 private:
-  mat4 model;
-  vec3 color;
+  glm::vec3 color;
   vector<Mesh> meshes;
   vector<Texture> textures_loaded;
   string directory;
@@ -30,6 +29,7 @@ private:
   unsigned int textureFromFile(const char *path, const string &directory);
 
 public:
+  glm::mat4 model;
   Model(const char *path);
   void draw(const mat4 &viewProjMtx, unique_ptr<Shader> &shader);
   void update(Transform *transform);

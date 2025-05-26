@@ -124,6 +124,14 @@ deque<unique_ptr<IPacket>> ServerNetwork::receiveFromClients() {
   }
   lastRotation.clear();
 
+  // add latest interaction packets for each client
+  for (auto &[clientId, packet] : lastInteraction) {
+    if (packet) {
+      packets.push_back(move(packet));
+    }
+  }
+  lastInteraction.clear();
+
   return packets;
 }
 
@@ -151,6 +159,7 @@ unique_ptr<IPacket> ServerNetwork::processPackets(PacketType type,
   }
   case PacketType::INTERACTION: {
     unique_ptr<IPacket> packet = deserialize(PacketType::INTERACTION, payload);
+    lastInteraction[id] = move(packet);
     return packet;
   }
   case PacketType::CHARACTERSELECT: {

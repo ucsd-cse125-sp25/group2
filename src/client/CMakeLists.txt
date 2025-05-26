@@ -13,8 +13,6 @@ target_include_directories(${TARGET_NAME} PRIVATE
 # Compile Definitions
 # Build in standalone mode to not include Boost
 target_compile_definitions(${TARGET_NAME} PRIVATE ASIO_STANDALONE)
-# GLM Experimental
-target_compile_definitions(${TARGET_NAME} PRIVATE GLM_ENABLE_EXPERIMENTAL)
 
 target_link_libraries(${TARGET_NAME} PRIVATE
     shared_lib

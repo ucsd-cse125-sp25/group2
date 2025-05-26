@@ -42,7 +42,7 @@ public:
   Client();
 
   bool init();
-  bool initObjects();
+  bool initGameState();
   bool initNetwork(asio::io_context &io_context);
   bool initUI();
 
@@ -66,5 +66,5 @@ public:
   // Getters
   GLFWwindow *getWindow() { return window; }
 
-  static json loadConfig(const std::string &path);
+  static json loadConfig(const string &path);
 };

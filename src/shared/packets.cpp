@@ -76,23 +76,18 @@ vector<char> MovementPacket::serialize() const {
   memcpy(buffer.data(), &id, sizeof(PLAYER_ID));
   size += sizeof(PLAYER_ID);
   memcpy(buffer.data() + size, &movementType, sizeof(MovementType));
-  size += sizeof(MovementType);
-  serializeVector(buffer.data(), cameraFront, size);
   return buffer;
 }
 
 MovementPacket MovementPacket::deserialize(const vector<char> &payload) {
   PLAYER_ID id;
   MovementType movementType;
-  glm::vec3 cameraFront;
 
   unsigned long size = 0;
   memcpy(&id, payload.data(), sizeof(PLAYER_ID));
   size += sizeof(PLAYER_ID);
   memcpy(&movementType, payload.data() + size, sizeof(MovementType));
-  size += sizeof(MovementType);
-  cameraFront = deserializeVector(payload, size);
-  MovementPacket packet(id, movementType, cameraFront);
+  MovementPacket packet(id, movementType);
   return packet;
 }
 

@@ -7,10 +7,10 @@ GameServer::GameServer(asio::io_context &io_context) {
                                        loadConfig(CONFIG_PATH)["port"]);
 }
 
-json GameServer::loadConfig(const std::string &path) {
-  std::ifstream file(path);
+json GameServer::loadConfig(const string &path) {
+  ifstream file(path);
   if (!file.is_open()) {
-    throw std::runtime_error("Could not open config file at " + path);
+    throw runtime_error("Could not open config file at " + path);
   }
   json j;
   file >> j;
@@ -55,8 +55,7 @@ void GameServer::updateGameState() {
     switch (packet->getType()) {
     case PacketType::MOVEMENT: {
       auto movementPacket = static_cast<MovementPacket *>(packet.get());
-      game->updateMovement(movementPacket->id, movementPacket->movementType,
-                           movementPacket->cameraFront);
+      game->updateMovement(movementPacket->id, movementPacket->movementType);
       break;
     }
     case PacketType::ROTATION: {

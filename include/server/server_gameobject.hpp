@@ -4,9 +4,11 @@
 #include "collider.hpp"
 #include "core.hpp"
 #include "globals.hpp"
+#include "press_functions.hpp"
 #include "rigidbody.hpp"
 #include "transform.hpp"
 
+#include <iostream>
 #include <memory>
 #include <string>
 
@@ -15,18 +17,18 @@ using namespace std;
 class GameObject : public BaseGameObject {
 protected:
   InteractionType interactionType;
+  function<void()> pressFunc;
 
   // Physics properties
   bool usesGravity;
   bool grounded;
   unique_ptr<RigidBody> rigidbody;
-  unique_ptr<Collider> collider;
+  vector<Collider *> colliders;
 
 public:
   GameObject(const OBJECT_ID id, const bool isActive, unique_ptr<Transform> &tf,
-             unique_ptr<RigidBody> &rb, unique_ptr<Collider> &cl)
-      : BaseGameObject(id, isActive, tf), rigidbody(move(rb)),
-        collider(move(cl)) {
+             unique_ptr<RigidBody> &rb, vector<Collider *> &cl)
+      : BaseGameObject(id, isActive, tf), rigidbody(move(rb)), colliders(cl) {
     interactionType = InteractionType::NONE;
     usesGravity = true;
     grounded = true;
@@ -37,6 +39,16 @@ public:
   };
   InteractionType getInteractionType() const { return interactionType; };
 
+  // if object is pressable
+  void setPressFunction(function<void()> func) { pressFunc = func; };
+  void press() {
+    if (pressFunc) {
+      pressFunc();
+    } else {
+      cerr << "No press function set for object ID: " << id << endl;
+    }
+  };
+
   // physics
   void setGrounded(bool isGrounded) { grounded = isGrounded; };
   void setUsesGravity(bool isAffected) { usesGravity = isAffected; };
@@ -45,5 +57,5 @@ public:
   bool hasGravity() const { return usesGravity; };
   const float getArea() const { return getRigidBody()->getArea(); };
   RigidBody *getRigidBody() const { return rigidbody.get(); }
-  Collider *getCollider() const { return collider.get(); }
+  vector<Collider *> getCollider() const { return colliders; }
 };

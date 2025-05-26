@@ -1,4 +1,5 @@
 #include "ui_manager.hpp"
+
 #include <vector>
 
 unique_ptr<BaseUI> UIManager::startScreenUI = nullptr;
@@ -14,7 +15,7 @@ vector<BaseUI *> UIManager::characterButtons;
 void UIManager::makeMenus() {
   // Start Screen + button
   startScreenUI = createUIElement(
-      0.0f, 0.0f, 2.0f, 2.0f, 0, AnimationInfo(3, 6, 0.03f),
+      0.0f, 0.0f, 2.0f, 2.0f, 0, AnimationInfo(3, 6, 0.04f),
       "../resources/ui/TitleScreenAnim.png", nullptr, false, false);
   startButton =
       createUIElement(0.0f, -0.5f, 0.5f, 0.5f, 0, AnimationInfo(1, 3, 0.1f),
@@ -45,7 +46,7 @@ void UIManager::makeMenus() {
 
 unique_ptr<BaseUI> UIManager::createUIElement(
     float x, float y, float width, float height, int layer,
-    std::optional<AnimationInfo> animInfo, const char *texturePath,
+    optional<AnimationInfo> animInfo, const char *texturePath,
     const char *hoverTexturePath, bool isClickable, bool isHoverable) {
   unique_ptr<BaseUI> ui;
 
@@ -63,8 +64,8 @@ unique_ptr<BaseUI> UIManager::createUIElement(
     ui->setHoverTexture(BaseUI::loadTexture(hoverTexturePath));
   }
 
-  ui->setShader(std::make_unique<Shader>("../resources/shaders/animUi.vert",
-                                         "../resources/shaders/animUi.frag"));
+  ui->setShader(make_unique<Shader>("../resources/shaders/animUi.vert",
+                                    "../resources/shaders/animUi.frag"));
 
   return ui;
 }
