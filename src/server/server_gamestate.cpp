@@ -70,11 +70,14 @@ void ServerGameState::updateRotation(PLAYER_ID id, glm::vec3 rotation) {
   }
 }
 
-void ServerGameState::updateInteraction(PLAYER_ID id, glm::vec3 rayDirection,
-                                        glm::vec3 rayOrigin) {
+void ServerGameState::updateInteraction(PLAYER_ID id) {
   GameObject *closestObject = nullptr;
   OBJECT_ID closestObjectID = -1;
   float minDistance = numeric_limits<float>::max();
+
+  auto player = getObject(id);
+  glm::vec3 rayOrigin = player->getTransform()->getPosition();
+  glm::vec3 rayDirection = glm::normalize(player->getTransform()->getForward());
 
   // Only need to iterate through the interactable objects
   for (auto &obj : interactableObjects) {
@@ -122,8 +125,6 @@ void ServerGameState::updateInteraction(PLAYER_ID id, glm::vec3 rayDirection,
   }
 
   cout << "Closest object: " << closestObjectID << endl;
-
-  auto player = getObject(id);
 
   // If the character is holding an object, drop it
   if (playerLogic->getHeldObject(id) != nullptr) {

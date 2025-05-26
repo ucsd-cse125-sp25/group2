@@ -65,9 +65,7 @@ void GameServer::updateGameState() {
     }
     case PacketType::INTERACTION: {
       auto interactionPacket = static_cast<InteractionPacket *>(packet.get());
-      game->updateInteraction(interactionPacket->id,
-                              interactionPacket->rayDirection,
-                              interactionPacket->rayOrigin);
+      game->updateInteraction(interactionPacket->id);
       break;
     }
     case PacketType::CHARACTERSELECT: {
