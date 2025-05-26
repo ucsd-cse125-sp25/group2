@@ -2,7 +2,10 @@
 
 PlayerLogic::PlayerLogic() {
   speed = 10.0f;
-  jumpForce = 10.0f;
+  jumpForce = 8.0f;
+  // Percentage, increase to strengthen glide gravity negation, decrease to make
+  // it fall faster (0 - 1)
+  glideGravityModifier = 0.9f;
 
   for (int i = 0; i < NUM_PLAYERS; i++) {
     heldObjects[i] = nullptr;
@@ -30,6 +33,15 @@ OBJECT_ID PlayerLogic::moveHeldObject(PLAYER_ID id, GameObject *player) {
   return -1;
 }
 
+void PlayerLogic::jump(GameObject *player) {
+  // jump the player
+  if (player->isGrounded()) {
+    player->setGrounded(false);
+    auto rigidBody = player->getRigidBody();
+    rigidBody->applyImpulse(glm::vec3(0.0f, jumpForce, 0.0f));
+  }
+}
+
 vector<OBJECT_ID> PlayerLogic::rotate(PLAYER_ID id, GameObject *player,
                                       glm::vec3 rotation) {
   vector<OBJECT_ID> rotatedObjects;
@@ -45,6 +57,18 @@ vector<OBJECT_ID> PlayerLogic::rotate(PLAYER_ID id, GameObject *player,
     rotatedObjects.push_back(heldObject->getId());
   }
   return rotatedObjects;
+}
+
+void PlayerLogic::glide(GameObject *chicken) {
+  // glide the chicken
+  if (!chicken->isGrounded()) {
+    auto rigidBody = chicken->getRigidBody();
+    if (rigidBody->getVelocity().y < 0) {
+      rigidBody->setForce(glm::vec3(0.0f));
+      rigidBody->applyForce(rigidBody->getMass() *
+                            glm::vec3(0, glideGravityModifier * 9.81f, 0));
+    }
+  }
 }
 
 void PlayerLogic::pickupObject(GameObject *playerObject, GameObject *object) {
