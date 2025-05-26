@@ -3,7 +3,8 @@
 PlayerLogic::PlayerLogic() {
   speed = 10.0f;
   jumpForce = 8.0f;
-  // Percentage, increase to strengthen glide gravity negation, decrease to make it fall faster (0 - 1)
+  // Percentage, increase to strengthen glide gravity negation, decrease to make
+  // it fall faster (0 - 1)
   glideGravityModifier = 0.9f;
 
   for (int i = 0; i < NUM_PLAYERS; i++) {
@@ -38,7 +39,8 @@ void PlayerLogic::glide(GameObject *chicken) {
     auto rigidBody = chicken->getRigidBody();
     if (rigidBody->getVelocity().y < 0) {
       rigidBody->setForce(glm::vec3(0.0f));
-      rigidBody->applyForce(rigidBody->getMass() * glm::vec3(0, glideGravityModifier * 9.81f, 0));
+      rigidBody->applyForce(rigidBody->getMass() *
+                            glm::vec3(0, glideGravityModifier * 9.81f, 0));
     }
   }
 }
