@@ -69,7 +69,8 @@ void Physics::resolveCollisions() {
   }
 }
 
-void Physics::solveCollision(GameObject *a, GameObject *b, int aIndex, int bIndex) {
+void Physics::solveCollision(GameObject *a, GameObject *b, int aIndex,
+                             int bIndex) {
   Collider *aCol = a->getCollider()[aIndex];
   Collider *bCol = b->getCollider()[bIndex];
 
@@ -99,8 +100,7 @@ void Physics::solveCollision(GameObject *a, GameObject *b, int aIndex, int bInde
     RigidBody *b_rb = b->getRigidBody();
     glm::vec3 a_vel = a_rb->getVelocity();
     glm::vec3 b_vel = b_rb->getVelocity();
-    float restitution =
-        min(a_rb->getRestitution(), b_rb->getRestitution());
+    float restitution = min(a_rb->getRestitution(), b_rb->getRestitution());
     float invMassA = a_rb->isStatic() ? 0.0f : 1.0f / a_rb->getMass();
     float invMassB = b_rb->isStatic() ? 0.0f : 1.0f / b_rb->getMass();
     float massSum = invMassA + invMassB;
