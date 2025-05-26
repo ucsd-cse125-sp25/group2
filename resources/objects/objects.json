@@ -55,7 +55,7 @@
         "static": true,
         "isTrigger": true,
         "collider": "../resources/objects/cube/collider.json",
-        "interaction": "NONE"
+        "interaction": "PRESS"
       }
     },
     {
@@ -74,7 +74,7 @@
       "server": {
         "static": true,
         "canActivate": false,
-        "collider": "../resources/objects/cube/collider.json",
+        "collider": "../resources/objects/floor/collider.json",
         "interaction": "NONE"
       }
     }

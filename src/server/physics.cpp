@@ -47,65 +47,82 @@ void Physics::resolveCollisions() {
         // overall bounding box of the object
         Collider *aCol = a->getCollider()[0];
         Collider *bCol = b->getCollider()[0];
-        if (!aCol || !bCol)
-          continue;
 
+        if (!aCol || !bCol)
+          return;
         glm::vec3 normal;
         float penetration;
         if (aCol->intersects(*bCol, normal, penetration)) {
-          if (aCol->isTrigger() || bCol->isTrigger()) {
-            if (aCol->isTrigger() && bCol->canActivateTrigger())
-              aCol->setWithinTrigger(true);
-            if (bCol->isTrigger() && aCol->canActivateTrigger())
-              bCol->setWithinTrigger(true);
-            continue;
-          }
-
           // if intersects, add both objects to the list of updated objects
           updatedObjects.insert(a->getId());
           updatedObjects.insert(b->getId());
-
-          // Check if the object is at rest (grounded)
-          float groundThreshold = 0.7f;
-          if (normal.y < groundThreshold) {
-            a->setGrounded(true);
-          } else if (normal.y > -groundThreshold) {
-            b->setGrounded(true);
-          }
-          // Get physics properties/variables
-          RigidBody *a_rb = a->getRigidBody();
-          RigidBody *b_rb = b->getRigidBody();
-          glm::vec3 a_vel = a_rb->getVelocity();
-          glm::vec3 b_vel = b_rb->getVelocity();
-          float restitution =
-              min(a_rb->getRestitution(), b_rb->getRestitution());
-          float invMassA = a_rb->isStatic() ? 0.0f : 1.0f / a_rb->getMass();
-          float invMassB = b_rb->isStatic() ? 0.0f : 1.0f / b_rb->getMass();
-          float massSum = invMassA + invMassB;
-
-          // Apply impulse based on mass and velocity of object's colliding.
-          float v_close = glm::dot(b_vel - a_vel, normal);
-          if (v_close < 0 && massSum > 0) {
-            glm::vec3 impulse = -(1 + restitution) * v_close / massSum * normal;
-            if (!a_rb->isStatic())
-              a_rb->applyImpulse(-impulse * invMassA);
-            if (!b_rb->isStatic())
-              b_rb->applyImpulse(impulse * invMassB);
-          }
-
-          // Push objects out of each other
-          const float percent = 0.1f;
-          const float slop = 0.01f;
-          if (massSum > 0) {
-            glm::vec3 correction =
-                max(penetration - slop, 0.0f) / massSum * percent * normal;
-            if (!a_rb->isStatic())
-              a->getTransform()->updatePosition(-correction * invMassA);
-            if (!b_rb->isStatic())
-              b->getTransform()->updatePosition(correction * invMassB);
+          for (int i = 0; i < a->getCollider().size(); i++) {
+            for (int j = 0; j < b->getCollider().size(); j++) {
+              solveCollision(a, b, i, j);
+            }
           }
         }
       }
+    }
+  }
+}
+
+void Physics::solveCollision(GameObject *a, GameObject *b, int aIndex,
+                             int bIndex) {
+  Collider *aCol = a->getCollider()[aIndex];
+  Collider *bCol = b->getCollider()[bIndex];
+
+  if (!aCol || !bCol)
+    return;
+
+  glm::vec3 normal;
+  float penetration;
+  if (aCol->intersects(*bCol, normal, penetration)) {
+    if (aCol->isTrigger() || bCol->isTrigger()) {
+      if (aCol->isTrigger() && bCol->canActivateTrigger())
+        aCol->setWithinTrigger(true);
+      if (bCol->isTrigger() && aCol->canActivateTrigger())
+        bCol->setWithinTrigger(true);
+      return;
+    }
+    // Check if the object is at rest (grounded)
+    float groundThreshold = 0.7f;
+    if (normal.y > groundThreshold) {
+      a->setGrounded(true);
+    } else if (normal.y < -groundThreshold) {
+      b->setGrounded(true);
+    }
+
+    // Get physics properties/variables
+    RigidBody *a_rb = a->getRigidBody();
+    RigidBody *b_rb = b->getRigidBody();
+    glm::vec3 a_vel = a_rb->getVelocity();
+    glm::vec3 b_vel = b_rb->getVelocity();
+    float restitution = min(a_rb->getRestitution(), b_rb->getRestitution());
+    float invMassA = a_rb->isStatic() ? 0.0f : 1.0f / a_rb->getMass();
+    float invMassB = b_rb->isStatic() ? 0.0f : 1.0f / b_rb->getMass();
+    float massSum = invMassA + invMassB;
+
+    // Apply impulse based on mass and velocity of object's colliding.
+    float v_close = glm::dot(b_vel - a_vel, normal);
+    if (v_close < 0 && massSum > 0) {
+      glm::vec3 impulse = -(1 + restitution) * v_close / massSum * normal;
+      if (!a_rb->isStatic())
+        a_rb->applyImpulse(-impulse * invMassA);
+      if (!b_rb->isStatic())
+        b_rb->applyImpulse(impulse * invMassB);
+    }
+
+    // Push objects out of each other
+    const float percent = 0.1f;
+    const float slop = 0.005f;
+    if (massSum > 0) {
+      glm::vec3 correction =
+          max(penetration - slop, 0.0f) / massSum * percent * normal;
+      if (!a_rb->isStatic())
+        a->getTransform()->updatePosition(-correction * invMassA);
+      if (!b_rb->isStatic())
+        b->getTransform()->updatePosition(correction * invMassB);
     }
   }
 }

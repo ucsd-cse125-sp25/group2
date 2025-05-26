@@ -38,7 +38,7 @@ public:
         halfExtents(ext), originalOrientation(ort), orientation(ort) {}
 
   void update(Transform *tf) {
-    center = originalCenter + tf->getPosition();
+    center = tf->getScale() * originalCenter + tf->getPosition();
     glm::mat3 orient;
     orient[0] = tf->getRight();
     orient[1] = tf->getUp();
