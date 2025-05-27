@@ -17,6 +17,7 @@
 #define COW 3
 
 #define JSON_PATH "../resources/objects/objects.json"
+#define PUZZLE_PATH "../resources/puzzles/puzzles.json"
 #define CONFIG_PATH "../resources/config.json"
 
 enum class MovementType : uint8_t {

@@ -1,16 +1,21 @@
 #pragma once
 
 #include "puzzle.hpp"
+#include "globals.hpp"
 
+#include <nlohmann/json.hpp>
 #include <unordered_map>
 #include <vector>
+#include <string>
+#include <iostream>
+#include <fstream>
 
+using json = nlohmann::json;
 using namespace std;
 
 #define PUZZLE_ID int
 #define LEVEL_ID int
 #define NUM_PUZZLE int
-#define NUM_LEVELS int
 
 class Level {
 private:
@@ -29,12 +34,11 @@ public:
 class LevelManager {
 private:
   Level *currentLevel = nullptr;
-  LEVEL_ID level_id = 0;
-  NUM_LEVELS numLevels = 0;
+  LEVEL_ID current_level_id = 0;
   unordered_map<LEVEL_ID, unique_ptr<Level>> levels;
 
 public:
-  LevelManager(){};
+  LevelManager();
 
   void loadLevel(LEVEL_ID id);
   void update();
