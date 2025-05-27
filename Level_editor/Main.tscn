@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cb220gddhst8m"]
+[gd_scene load_steps=16 format=3 uid="uid://cb220gddhst8m"]
 
 [ext_resource type="Script" path="res://Scripts/metadata.gd" id="2_eh0nf"]
 [ext_resource type="PackedScene" uid="uid://cgwfirulao1f2" path="res://Cow.glb" id="2_fpmh6"]
@@ -32,6 +32,9 @@ size = Vector3(1, 30, 85)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_bu4un"]
 size = Vector3(40, 1, 40)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_86bu3"]
+size = Vector3(90, 100, 1)
 
 [node name="Node3D" type="Node3D"]
 
@@ -124,3 +127,7 @@ shape = SubResource("BoxShape3D_0h0vi")
 [node name="CollisionShape3D3" type="CollisionShape3D" parent="BarnNew"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00763512, 41.586, -51.394)
 shape = SubResource("BoxShape3D_bu4un")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="BarnNew"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 18.0866, 11.7531)
+shape = SubResource("BoxShape3D_86bu3")

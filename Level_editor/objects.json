@@ -364,6 +364,19 @@
 							"z": 20
 						},
 						"isTrigger": false
+					},
+					{
+						"center": {
+							"x": 0,
+							"y": 18.087,
+							"z": 11.753
+						},
+						"halfExtents": {
+							"x": 45,
+							"y": 50,
+							"z": 0.5
+						},
+						"isTrigger": false
 					}
 				],
 				"interaction": "NONE",
