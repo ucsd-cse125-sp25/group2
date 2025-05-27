@@ -154,6 +154,9 @@ void Client::idleCallback(float deltaTime) {
       auto characterPacket =
           dynamic_cast<CharacterResponsePacket *>(packet.get());
       characterManager->setCharacters(characterPacket->characterAssignments);
+      PLAYER_ID character = characterManager->selectedCharacter;
+      cam->setRadius(
+          cam->getCameraRadius(character)); // Set camera radius based on character
       break;
     }
     }

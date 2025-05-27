@@ -13,9 +13,14 @@ Camera::Camera()
   pitch = 0.0f;
 
   sensitivity = 0.1f;
-  radius = 13.0f;
+  radius = 10.0f; // default distance from the target
 
   worldUp = cameraUp;
+
+  characterCamRadius[CHICKEN] = 7.0f;
+  characterCamRadius[PIG] = 9.0f;
+  characterCamRadius[SHEEP] = 9.0f;
+  characterCamRadius[COW] = 11.0f;
 }
 
 void Camera::update(float xOffset, float yOffset, glm::vec3 target) {
