@@ -1,5 +1,5 @@
 extends Node3D
-class_name MetaData
+class_name MetaDATA
 
 @export var is_static: bool = false
 @export var interaction: String = ""

@@ -205,7 +205,15 @@
 						"isTrigger": false
 					}
 				],
-				"interaction": "NONE",
+				"interaction": "KEYPAD",
+				"keypad": {
+					"correctSequence": [
+						0,
+						1,
+						2,
+						3
+					]
+				},
 				"static": true
 			},
 			"transform": {

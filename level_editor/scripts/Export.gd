@@ -42,6 +42,18 @@ func _run():
 	print("Export completed to objects.json")
 
 func _process_node(node: Node3D) -> Dictionary:
+	var server_data := {
+		"static": is_node_static(node),
+		"interaction": get_interaction(node),
+		"colliders": get_all_colliders(node),
+	}
+	if node is MetaDATA:
+		var meta: MetaDATA = node
+		if meta.is_keyPad:
+			server_data["keypad"] = {
+				"correctSequence": meta.correctSequence
+			}
+			
 	var data := {
 		"name": node.name,
 		"active": node.visible,
@@ -51,23 +63,12 @@ func _process_node(node: Node3D) -> Dictionary:
 			"scale": _vec3_to_json(node.scale),
 		},
 		"client": {
-			"modelPath": get_model_path(node),  # Replace or infer if needed
-			"vertShaderPath": "../resources/shaders/material.vert",  # Replace if needed
+			"modelPath": get_model_path(node),
+			"vertShaderPath": "../resources/shaders/material.vert",
 			"fragShaderPath": "../resources/shaders/material.frag"
 		},
-		"server": {
-			"static": is_node_static(node),  # You can set this based on node metadata
-			"interaction": get_interaction(node),
-			"colliders": get_all_colliders(node),
-		}
+		"server": server_data
 	}
-	if node.get_script() is MetaData:
-		var meta: MetaData = node
-		if meta.is_keyPad:
-			data["server"]["keypad"] = {
-				"correctSequence": meta.correctSequence
-			}
-
 
 	return data
 
@@ -112,16 +113,16 @@ func _vec3_to_json(vec: Vector3) -> Dictionary:
 		"z": round_decimal(vec.z)
 	}
 func is_node_static(node: Node) -> bool:
-	if node is MetaData:
+	if node is MetaDATA:
 		return node.is_static
 	return true
 	
 func get_interaction(node: Node) -> String:
-	if node is MetaData:
+	if node is MetaDATA:
 		return node.interaction
 	return "NONE"
 func get_model_path(node: Node) -> String:
-	if node is MetaData:
+	if node is MetaDATA:
 		return node.model_path
 	return "TODO"
 	
