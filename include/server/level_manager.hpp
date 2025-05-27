@@ -2,8 +2,8 @@
 
 #include "puzzle.hpp"
 
-#include <vector>
 #include <unordered_map>
+#include <vector>
 
 using namespace std;
 
@@ -12,26 +12,26 @@ using namespace std;
 
 class Level {
 private:
-    LEVEL_ID level;
-    PUZZLE_ID currentPuzzle;
-    unordered_map<PUZZLE_ID, unique_ptr<Puzzle>> puzzles;
+  LEVEL_ID level;
+  PUZZLE_ID currentPuzzle;
+  unordered_map<PUZZLE_ID, unique_ptr<Puzzle>> puzzles;
 
 public:
-    Level(LEVEL_ID id) : level(id), currentPuzzle(0) {};
-    void addPuzzle(unique_ptr<Puzzle> puzzle);
-    void removePuzzle(int id);
-    bool isLevelComplete() const;
+  Level(LEVEL_ID id) : level(id), currentPuzzle(0){};
+  void addPuzzle(unique_ptr<Puzzle> puzzle);
+  void removePuzzle(int id);
+  bool isLevelComplete() const;
 };
 
 class LevelManager {
 private:
-    Level* currentLevel;
-    unordered_map<LEVEL_ID, unique_ptr<Level>> levels;
+  Level *currentLevel;
+  unordered_map<LEVEL_ID, unique_ptr<Level>> levels;
 
 public:
-    LevelManager(){};
+  LevelManager(){};
 
-    void loadLevel(LEVEL_ID id);
-    void update();
-    void advanceLevel();
+  void loadLevel(LEVEL_ID id);
+  void update();
+  void advanceLevel();
 };
