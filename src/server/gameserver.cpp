@@ -67,9 +67,7 @@ void GameServer::updateGameState() {
     }
     case PacketType::INTERACTION: {
       auto interactionPacket = static_cast<InteractionPacket *>(packet.get());
-      game->updateInteraction(interactionPacket->id,
-                              interactionPacket->rayDirection,
-                              interactionPacket->rayOrigin);
+      game->updateInteraction(interactionPacket->id);
       break;
     }
     case PacketType::CHARACTERSELECT: {
@@ -88,11 +86,11 @@ void GameServer::updateGameState() {
       cout << "Received KeypadInputPacket" << endl;
       auto keypadPacket = static_cast<KeypadInputPacket *>(packet.get());
       bool unlocked = game->updateKeypadInput(
-          keypadPacket->id, keypadPacket->inputSequence, keypadPacket->close);
+          keypadPacket->objectID, keypadPacket->inputSequence, keypadPacket->close);
       if (!keypadPacket->close) {
         network->sendToClient(
-            keypadPacket->client,
-            KeypadPacket(keypadPacket->id, !unlocked, unlocked));
+            keypadPacket->clientID,
+            KeypadPacket(keypadPacket->objectID, !unlocked, unlocked));
       }
       break;
     }

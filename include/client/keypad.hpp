@@ -7,17 +7,19 @@
 #define CENTER_X 0.0f
 #define CENTER_Y 0.0f
 
+using namespace std;
+
 class KeypadUI {
 private:
-  std::array<std::unique_ptr<BaseUI>, 4> buttons;
-  std::function<void(int index, OBJECT_ID id)> onInputCallback;
+  array<unique_ptr<BaseUI>, 4> buttons;
+  function<void(int index, OBJECT_ID id)> onInputCallback;
 
   float buttonSize = 0.25f;
 
-  std::vector<std::unique_ptr<BaseUI>> shapeDisplays;
-  std::array<GLuint, 4> buttonTextures;
-  std::array<GLuint, 4> buttonHoverTextures;
-  std::array<GLuint, 4> shapeTextures;
+  vector<unique_ptr<BaseUI>> shapeDisplays;
+  array<GLuint, 4> buttonTextures;
+  array<GLuint, 4> buttonHoverTextures;
+  array<GLuint, 4> shapeTextures;
 
   void addInput(int index);
   void updateShapes();
@@ -36,8 +38,8 @@ public:
   void setObjectID(OBJECT_ID objectId);
 
   void
-  setOnInputCallback(std::function<void(OBJECT_ID id, int index)> callback);
-  std::vector<int> inputSequence;
+  setOnInputCallback(function<void(OBJECT_ID id, int index)> callback);
+  vector<int> inputSequence;
 
   void setUnlocked(bool isUnlocked);
 

@@ -160,7 +160,10 @@ void Client::idleCallback(float deltaTime) {
       auto characterPacket =
           dynamic_cast<CharacterResponsePacket *>(packet.get());
       characterManager->setCharacters(characterPacket->characterAssignments);
-      game->setPlayer(characterManager->selectedCharacter);
+      PLAYER_ID character = characterManager->selectedCharacter;
+      game->setPlayer(character);
+      cam->setRadius(
+          cam->getCameraRadius(character)); // Set camera radius based on character
       break;
     }
     case PacketType::KEYPAD: {
@@ -314,10 +317,7 @@ void Client::mouseButtonCallback(GLFWwindow *window, int button, int action,
   if (action == GLFW_PRESS) {
     if (button == GLFW_MOUSE_BUTTON_LEFT) {
       // Handle left mouse button press
-      glm::vec3 rayOrigin = cam->getPos();
-      glm::vec3 rayDirection = cam->getFacing();
-      InteractionPacket packet(characterManager->selectedCharacter,
-                               rayDirection, rayOrigin);
+      InteractionPacket packet(characterManager->selectedCharacter);
       network->send(packet);
     }
     // delete later: to switch between different clients on one machine

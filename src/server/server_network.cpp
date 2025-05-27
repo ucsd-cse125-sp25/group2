@@ -171,12 +171,12 @@ unique_ptr<IPacket> ServerNetwork::processPackets(PacketType type,
         deserialize(PacketType::CHARACTERSELECT, payload);
     return packet;
   }
-  case PacketType::DISCONNECT: {
-    unique_ptr<IPacket> packet = deserialize(PacketType::DISCONNECT, payload);
-    return packet;
-  }
   case PacketType::KEYPADINPUT: {
     unique_ptr<IPacket> packet = deserialize(PacketType::KEYPADINPUT, payload);
+    return packet;
+  }
+  case PacketType::DISCONNECT: {
+    unique_ptr<IPacket> packet = deserialize(PacketType::DISCONNECT, payload);
     return packet;
   }
   default:
