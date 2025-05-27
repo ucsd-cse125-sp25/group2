@@ -92,45 +92,39 @@ void ServerGameState::updateInteraction(PLAYER_ID id) {
 
     glm::vec3 vDirToBox = center - rayOrigin;
     glm::vec3 vLineDir = glm::normalize(rayDirection);
-    float fLineLength = 100.0f;
     float t = glm::dot(vDirToBox, vLineDir);
     glm::vec3 closestPointOnRay;
 
     if (t <= 0.0f)
       closestPointOnRay = rayOrigin;
-    else if (t >= fLineLength)
-      closestPointOnRay = rayOrigin + rayDirection;
     else
       closestPointOnRay = rayOrigin + rayDirection * t;
 
-    glm::vec3 closestPointOnBox;
+    bool xInBox = (closestPointOnRay.x >= center.x - halfExtents.x &&
+                   closestPointOnRay.x <= center.x + halfExtents.x);
+    bool yInBox = (closestPointOnRay.y >= center.y - halfExtents.y &&
+                   closestPointOnRay.y <= center.y + halfExtents.y);
+    bool zInBox = (closestPointOnRay.z >= center.z - halfExtents.z &&
+                   closestPointOnRay.z <= center.z + halfExtents.z);
 
-    closestPointOnBox.x =
-        glm::clamp(closestPointOnRay.x, center.x - halfExtents.x,
-                   center.x + halfExtents.x);
-    closestPointOnBox.y =
-        glm::clamp(closestPointOnRay.y, center.y - halfExtents.y,
-                   center.y + halfExtents.y);
-    closestPointOnBox.z =
-        glm::clamp(closestPointOnRay.z, center.z - halfExtents.z,
-                   center.z + halfExtents.z);
+    if (xInBox && yInBox && zInBox) {
+      float distance = glm::distance(rayOrigin, closestPointOnRay);
 
-    float distance = glm::distance(closestPointOnRay, closestPointOnBox);
-
-    if (closestObject == nullptr || distance < minDistance) {
-      closestObject = object;
-      closestObjectID = obj.first;
-      minDistance = distance;
+      if (distance < minDistance) {
+        closestObject = object;
+        closestObjectID = obj.first;
+        minDistance = distance;
+      }
     }
   }
 
   cout << "Closest object: " << closestObjectID << endl;
 
   // If the character is holding an object, drop it
-  if (playerLogic->getHeldObject(id) != nullptr) {
-    playerLogic->dropObject(player, closestObject);
-    cout << "Dropped object: " << playerLogic->getHeldObject(id)->getId()
-         << endl;
+  GameObject *heldObject = playerLogic->getHeldObject(id);
+  if (heldObject != nullptr) {
+    playerLogic->dropObject(player, heldObject);
+    cout << "Dropped object: " << heldObject->getId() << endl;
     playerLogic->setHeldObject(id, nullptr);
   }
 
@@ -138,7 +132,7 @@ void ServerGameState::updateInteraction(PLAYER_ID id) {
   else if (closestObjectID != -1) {
     // If interaction type is pickup and player is not holding an object
     if (closestObject->getInteractionType() == InteractionType::PICKUP &&
-        playerLogic->getHeldObject(id) == nullptr) {
+        heldObject == nullptr) {
       playerLogic->setHeldObject(id, closestObject);
       playerLogic->pickupObject(player, closestObject);
       cout << "Picked up object: " << closestObject->getId() << endl;
