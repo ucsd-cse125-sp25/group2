@@ -5,8 +5,8 @@
 
 #include <fstream>
 #include <iostream>
-#include <nlohmann/json.hpp>
 #include <magic_enum/magic_enum.hpp>
+#include <nlohmann/json.hpp>
 #include <string>
 #include <unordered_map>
 #include <vector>
