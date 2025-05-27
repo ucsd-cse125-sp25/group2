@@ -56,11 +56,18 @@ void Physics::resolveCollisions() {
         glm::vec3 normal;
         float penetration;
         if (aCol->intersects(*bCol, normal, penetration)) {
+          if (aCol->isTrigger() || bCol->isTrigger()) {
+            if (aCol->isTrigger() && bCol->canActivateTrigger())
+              aCol->setWithinTrigger(true);
+            if (bCol->isTrigger() && aCol->canActivateTrigger())
+              bCol->setWithinTrigger(true);
+            continue;
+          }
           // if intersects, add both objects to the list of updated objects
           updatedObjects.insert(a->getId());
           updatedObjects.insert(b->getId());
-          for (int i = 0; i < a->getCollider().size(); i++) {
-            for (int j = 0; j < b->getCollider().size(); j++) {
+          for (int i = 1; i < a->getCollider().size(); i++) {
+            for (int j = 1; j < b->getCollider().size(); j++) {
               solveCollision(a, b, i, j, groundedStates[a], groundedStates[b]);
             }
           }
@@ -122,7 +129,7 @@ void Physics::solveCollision(GameObject *a, GameObject *b, int aIndex,
 
     // Push objects out of each other
     const float percent = 0.1f;
-    const float slop = 0.005f;
+    const float slop = 0.01f;
     if (massSum > 0) {
       glm::vec3 correction =
           max(penetration - slop, 0.0f) / massSum * percent * normal;
