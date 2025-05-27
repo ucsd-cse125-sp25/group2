@@ -17,19 +17,18 @@ LevelManager::LevelManager() {
     cerr << "Failed to open JSON file: " << PUZZLE_PATH << endl;
   }
 
-  json objectsData;
+  json levelsData;
   try {
-    file >> objectsData;
+    file >> levelsData;
   } catch (const exception &e) {
     cerr << "JSON parsing error: " << e.what() << endl;
     return;
   }
 
-  if (objectsData.contains("levels") && objectsData["levels"].is_array()) {
-    for (const auto &levelData : objectsData["levels"]) {
-      LEVEL_ID level_id =
-          stoi(objData['level_id']) unique_ptr<Level> new_level =
-              make_unique(Level(level_id));
+  if (levelsData.contains("levels") && levelsData["levels"].is_array()) {
+    for (const auto &levelData : levelsData["levels"]) {
+      LEVEL_ID level_id = levelData["level_id"].get<int>();
+      unique_ptr<Level> new_level = make_unique<Level>(level_id);
     }
   }
 }
