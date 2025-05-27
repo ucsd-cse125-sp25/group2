@@ -36,7 +36,6 @@ bool Client::init() {
   // Window settings
   glfwWindowHint(GLFW_RESIZABLE, GL_TRUE);
   glfwWindowHint(GLFW_DECORATED, GL_TRUE);
-  glfwWindowHint(GLFW_MAXIMIZED, GL_TRUE);
 
   // Create the GLFW window
   window = glfwCreateWindow(windowWidth, windowHeight, "Barnyard Breakout",

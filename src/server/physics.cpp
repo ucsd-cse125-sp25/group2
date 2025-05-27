@@ -1,5 +1,5 @@
 #include "physics.hpp"
-#include <iostream>
+
 void Physics::add(GameObject *obj) { objects.push_back(obj); }
 
 void Physics::remove(GameObject *obj) {
