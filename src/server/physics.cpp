@@ -22,7 +22,6 @@ void Physics::calculateForces() {
                  obj->getRigidBody()->getArea() * -1.0f * glm::normalize(vel);
     }
     obj->getRigidBody()->applyForce(force);
-    obj->setGrounded(false);
   }
 }
 
@@ -38,10 +37,14 @@ void Physics::clampVelocities(RigidBody *rb) {
 void Physics::resolveCollisions() {
   // Multiple iterations smooths out collision resolution fixes
   const int solverIterations = 3;
-  for (int i = 0; i < solverIterations; ++i) {
+  std::unordered_map<GameObject *, bool> groundedStates;
+  for (auto obj : objects) {
+    groundedStates[obj] = false;
+  }
+  for (int s = 0; s < solverIterations; ++s) {
     for (int i = 0; i < objects.size(); ++i) {
+      GameObject *a = objects[i];
       for (int j = i + 1; j < objects.size(); ++j) {
-        GameObject *a = objects[i];
         GameObject *b = objects[j];
         // Using the first collider in the list, let's always set this to be the
         // overall bounding box of the object
@@ -49,26 +52,36 @@ void Physics::resolveCollisions() {
         Collider *bCol = b->getCollider()[0];
 
         if (!aCol || !bCol)
-          return;
+          continue;
         glm::vec3 normal;
         float penetration;
         if (aCol->intersects(*bCol, normal, penetration)) {
+          if (aCol->isTrigger() || bCol->isTrigger()) {
+            if (aCol->isTrigger() && bCol->canActivateTrigger())
+              aCol->setWithinTrigger(true);
+            if (bCol->isTrigger() && aCol->canActivateTrigger())
+              bCol->setWithinTrigger(true);
+            continue;
+          }
           // if intersects, add both objects to the list of updated objects
           updatedObjects.insert(a->getId());
           updatedObjects.insert(b->getId());
-          for (int i = 0; i < a->getCollider().size(); i++) {
-            for (int j = 0; j < b->getCollider().size(); j++) {
-              solveCollision(a, b, i, j);
+          for (int i = 1; i < a->getCollider().size(); i++) {
+            for (int j = 1; j < b->getCollider().size(); j++) {
+              solveCollision(a, b, i, j, groundedStates[a], groundedStates[b]);
             }
           }
         }
       }
     }
   }
+  for (auto &[obj, isGrounded] : groundedStates) {
+    obj->setGrounded(isGrounded);
+  }
 }
 
 void Physics::solveCollision(GameObject *a, GameObject *b, int aIndex,
-                             int bIndex) {
+                             int bIndex, bool &aGrounded, bool &bGrounded) {
   Collider *aCol = a->getCollider()[aIndex];
   Collider *bCol = b->getCollider()[bIndex];
 
@@ -85,12 +98,13 @@ void Physics::solveCollision(GameObject *a, GameObject *b, int aIndex,
         bCol->setWithinTrigger(true);
       return;
     }
+
     // Check if the object is at rest (grounded)
     float groundThreshold = 0.7f;
     if (normal.y > groundThreshold) {
-      a->setGrounded(true);
+      bGrounded = true;
     } else if (normal.y < -groundThreshold) {
-      b->setGrounded(true);
+      aGrounded = true;
     }
 
     // Get physics properties/variables
@@ -115,7 +129,7 @@ void Physics::solveCollision(GameObject *a, GameObject *b, int aIndex,
 
     // Push objects out of each other
     const float percent = 0.1f;
-    const float slop = 0.005f;
+    const float slop = 0.01f;
     if (massSum > 0) {
       glm::vec3 correction =
           max(penetration - slop, 0.0f) / massSum * percent * normal;
