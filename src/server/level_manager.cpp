@@ -1,14 +1,15 @@
 #include "level_manager.hpp"
 
 void Level::addPuzzle(unique_ptr<Puzzle> puzzle) {
-  puzzles.push_back(move(puzzle));
+  puzzles[numPuzzle] = move(puzzle);
+  numPuzzle++;
 }
 
-bool Level::isLevelComplete() const {
-  for (const auto &puzzle : puzzles) {
-    if (!puzzle->isPuzzleComplete()) {
-      return false;
-    }
-  }
-  return true;
+bool Level::isLevelComplete() {
+  auto puzzle = puzzles[currentPuzzle].get();
+  return puzzle->isPuzzleComplete();
+}
+
+LevelManager::LevelManager() {
+
 }

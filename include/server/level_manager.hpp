@@ -9,23 +9,28 @@ using namespace std;
 
 #define PUZZLE_ID int
 #define LEVEL_ID int
+#define NUM_PUZZLE int
+#define NUM_LEVELS int
 
 class Level {
 private:
   LEVEL_ID level;
   PUZZLE_ID currentPuzzle;
+  NUM_PUZZLE numPuzzle;
   unordered_map<PUZZLE_ID, unique_ptr<Puzzle>> puzzles;
 
 public:
-  Level(LEVEL_ID id) : level(id), currentPuzzle(0){};
+  Level(LEVEL_ID id) : level(id), currentPuzzle(0), numPuzzle(0){};
   void addPuzzle(unique_ptr<Puzzle> puzzle);
   void removePuzzle(int id);
-  bool isLevelComplete() const;
+  bool isLevelComplete();
 };
 
 class LevelManager {
 private:
-  Level *currentLevel;
+  Level *currentLevel = nullptr;
+  LEVEL_ID level_id = 0;
+  NUM_LEVELS numLevels = 0;
   unordered_map<LEVEL_ID, unique_ptr<Level>> levels;
 
 public:

@@ -6,7 +6,7 @@ void Puzzle::addCondition(unique_ptr<PuzzleCondition> condition) {
 
 bool Puzzle::isPuzzleComplete() const {
   for (const auto &condition : conditions) {
-    if (!condition->isSatified()) {
+    if (!condition->isSatisfied()) {
       return false;
     }
   }
