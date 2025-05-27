@@ -1,439 +1,412 @@
 {
-  "_comment": "DO NOT CHANGE THE ORDER OF CHARACTERS. ANIMALS MUST REMAIN AT TOP OF JSON AND IN ORDER",
-  "objects": [
-    {
-      "active": true,
-      "client": {
-        "fragShaderPath": "../resources/shaders/material.frag",
-        "modelPath": "../resources/objects/chicken/Chicken.obj",
-        "vertShaderPath": "../resources/shaders/material.vert"
-      },
-      "name": "Chicken",
-      "server": {
-        "colliders": [
-          {
-            "center": {
-              "x": 0,
-              "y": 0.738,
-              "z": 0
-            },
-            "halfExtents": {
-              "x": 0.1,
-              "y": 0.25,
-              "z": 0.15
-            },
-            "isTrigger": false
-          }
-        ],
-        "interaction": "NONE",
-        "static": false
-      },
-      "transform": {
-        "position": {
-          "x": 8,
-          "y": 2.5,
-          "z": -3
-        },
-        "rotation": {
-          "x": -0,
-          "y": 0,
-          "z": 0
-        },
-        "scale": {
-          "x": 3,
-          "y": 3,
-          "z": 3
-        }
-      }
-    },
-    {
-      "active": true,
-      "client": {
-        "fragShaderPath": "../resources/shaders/material.frag",
-        "modelPath": "../resources/objects/pig/Pig.obj",
-        "vertShaderPath": "../resources/shaders/material.vert"
-      },
-      "name": "Pig",
-      "server": {
-        "colliders": [
-          {
-            "center": {
-              "x": 0,
-              "y": 1.25,
-              "z": -0.012
-            },
-            "halfExtents": {
-              "x": 0.308,
-              "y": 0.5,
-              "z": 0.576
-            },
-            "isTrigger": false
-          }
-        ],
-        "interaction": "NONE",
-        "static": false
-      },
-      "transform": {
-        "position": {
-          "x": -3,
-          "y": 1.5,
-          "z": -3
-        },
-        "rotation": {
-          "x": -0,
-          "y": 0,
-          "z": 0
-        },
-        "scale": {
-          "x": 2.5,
-          "y": 2.5,
-          "z": 2.5
-        }
-      }
-    },
-    {
-      "active": true,
-      "client": {
-        "fragShaderPath": "../resources/shaders/material.frag",
-        "modelPath": "../resources/objects/sheep/Sheep.obj",
-        "vertShaderPath": "../resources/shaders/material.vert"
-      },
-      "name": "Sheep",
-      "server": {
-        "colliders": [
-          {
-            "center": {
-              "x": 0,
-              "y": 1.538,
-              "z": 0.132
-            },
-            "halfExtents": {
-              "x": 0.52,
-              "y": 0.615,
-              "z": 0.67
-            },
-            "isTrigger": false
-          }
-        ],
-        "interaction": "NONE",
-        "static": false
-      },
-      "transform": {
-        "position": {
-          "x": 3,
-          "y": 2.5,
-          "z": -3
-        },
-        "rotation": {
-          "x": -0,
-          "y": 0,
-          "z": 0
-        },
-        "scale": {
-          "x": 2.5,
-          "y": 2.5,
-          "z": 2.5
-        }
-      }
-    },
-    {
-      "active": true,
-      "client": {
-        "fragShaderPath": "../resources/shaders/material.frag",
-        "modelPath": "../resources/objects/cow/Cow.obj",
-        "vertShaderPath": "../resources/shaders/material.vert"
-      },
-      "name": "Cow",
-      "server": {
-        "colliders": [
-          {
-            "center": {
-              "x": 0,
-              "y": 1.705,
-              "z": -0.205
-            },
-            "halfExtents": {
-              "x": 0.361,
-              "y": 0.682,
-              "z": 0.806
-            },
-            "isTrigger": false
-          }
-        ],
-        "interaction": "NONE",
-        "static": false
-      },
-      "transform": {
-        "position": {
-          "x": -8,
-          "y": 2.5,
-          "z": -3
-        },
-        "rotation": {
-          "x": -0,
-          "y": 0,
-          "z": 0
-        },
-        "scale": {
-          "x": 2.5,
-          "y": 2.5,
-          "z": 2.5
-        }
-      }
-    },
-    {
-      "active": true,
-      "client": {
-        "fragShaderPath": "../resources/shaders/material.frag",
-        "modelPath": "../resources/objects/cube/Cube.obj",
-        "vertShaderPath": "../resources/shaders/material.vert"
-      },
-      "name": "Keypad",
-      "server": {
-        "keypad": {
-          "correctSequence": [1, 2, 3, 4]
-        },
-        "colliders": [
-          {
-            "center": {
-              "x": 0,
-              "y": 0,
-              "z": 0
-            },
-            "halfExtents": {
-              "x": 1,
-              "y": 1,
-              "z": 1
-            },
-            "isTrigger": false
-          }
-        ],
-        "interaction": "KEYPAD",
-        "static": true
-      },
-      "transform": {
-        "position": {
-          "x": 10.438,
-          "y": 2.281,
-          "z": -6.766
-        },
-        "rotation": {
-          "x": -0,
-          "y": 0,
-          "z": 0
-        },
-        "scale": {
-          "x": 1,
-          "y": 1,
-          "z": 1
-        }
-      }
-    },
-    {
-      "active": true,
-      "client": {
-        "fragShaderPath": "../resources/shaders/material.frag",
-        "modelPath": "../resources/objects/cube/Cube.obj",
-        "vertShaderPath": "../resources/shaders/material.vert"
-      },
-      "name": "Cube PICKUP",
-      "server": {
-        "colliders": [
-          {
-            "center": {
-              "x": 0,
-              "y": 0,
-              "z": 0
-            },
-            "halfExtents": {
-              "x": 1,
-              "y": 1,
-              "z": 1
-            },
-            "isTrigger": false
-          }
-        ],
-        "interaction": "PICKUP",
-        "static": false
-      },
-      "transform": {
-        "position": {
-          "x": 7.438,
-          "y": 4.281,
-          "z": -6.766
-        },
-        "rotation": {
-          "x": -0,
-          "y": 0,
-          "z": 0
-        },
-        "scale": {
-          "x": 1,
-          "y": 1,
-          "z": 1
-        }
-      }
-    },
-    {
-      "active": true,
-      "client": {
-        "fragShaderPath": "../resources/shaders/material.frag",
-        "modelPath": "../resources/objects/cube/Cube.obj",
-        "vertShaderPath": "../resources/shaders/material.vert"
-      },
-      "name": "Cube PRESS",
-      "server": {
-        "colliders": [
-          {
-            "center": {
-              "x": 0,
-              "y": 0,
-              "z": 0
-            },
-            "halfExtents": {
-              "x": 1,
-              "y": 1,
-              "z": 1
-            },
-            "isTrigger": false
-          }
-        ],
-        "interaction": "PRESS",
-        "static": false
-      },
-      "transform": {
-        "position": {
-          "x": -5,
-          "y": 4.281,
-          "z": -6.766
-        },
-        "rotation": {
-          "x": -0,
-          "y": 0,
-          "z": 0
-        },
-        "scale": {
-          "x": 1,
-          "y": 1,
-          "z": 1
-        }
-      }
-    },
-    {
-      "active": true,
-      "client": {
-        "fragShaderPath": "../resources/shaders/material.frag",
-        "modelPath": "../resources/objects/cube/Cube.obj",
-        "vertShaderPath": "../resources/shaders/material.vert"
-      },
-      "name": "Floor",
-      "server": {
-        "colliders": [
-          {
-            "center": {
-              "x": 0,
-              "y": 0,
-              "z": 0
-            },
-            "halfExtents": {
-              "x": 1,
-              "y": 1,
-              "z": 1
-            },
-            "isTrigger": false
-          }
-        ],
-        "interaction": "NONE",
-        "static": true
-      },
-      "transform": {
-        "position": {
-          "x": 0,
-          "y": 5,
-          "z": 0
-        },
-        "rotation": {
-          "x": -0,
-          "y": 0,
-          "z": 0
-        },
-        "scale": {
-          "x": 100,
-          "y": 0.01,
-          "z": 100
-        }
-      }
-    },
-    {
-      "active": true,
-      "client": {
-        "fragShaderPath": "../resources/shaders/material.frag",
-        "modelPath": "../resources/objects/barn/BarnNew.obj",
-        "vertShaderPath": "../resources/shaders/material.vert"
-      },
-      "name": "BarnNew",
-      "server": {
-        "colliders": [
-          {
-            "center": {
-              "x": 33.057,
-              "y": 16,
-              "z": -30
-            },
-            "halfExtents": {
-              "x": 0.5,
-              "y": 15,
-              "z": 42.5
-            },
-            "isTrigger": false
-          },
-          {
-            "center": {
-              "x": -32.66,
-              "y": 16,
-              "z": -30
-            },
-            "halfExtents": {
-              "x": 0.5,
-              "y": 15,
-              "z": 42.5
-            },
-            "isTrigger": false
-          },
-          {
-            "center": {
-              "x": -0.008,
-              "y": 41.586,
-              "z": -51.394
-            },
-            "halfExtents": {
-              "x": 20,
-              "y": 0.5,
-              "z": 20
-            },
-            "isTrigger": false
-          }
-        ],
-        "interaction": "NONE",
-        "static": true
-      },
-      "transform": {
-        "position": {
-          "x": 0,
-          "y": -0.8,
-          "z": 0
-        },
-        "rotation": {
-          "x": -0,
-          "y": 0,
-          "z": 0
-        },
-        "scale": {
-          "x": 1,
-          "y": 1,
-          "z": 1
-        }
-      }
-    }
-  ]
+	"_comment": "DO NOT CHANGE THE ORDER OF CHARACTERS. ANIMALS MUST REMAIN AT TOP OF JSON AND IN ORDER",
+	"objects": [
+		{
+			"active": true,
+			"client": {
+				"fragShaderPath": "../resources/shaders/material.frag",
+				"modelPath": "../resources/objects/chicken/Chicken.obj",
+				"vertShaderPath": "../resources/shaders/material.vert"
+			},
+			"name": "Chicken",
+			"server": {
+				"colliders": [
+					{
+						"center": {
+							"x": 0,
+							"y": 0.738,
+							"z": 0
+						},
+						"halfExtents": {
+							"x": 0.1,
+							"y": 0.25,
+							"z": 0.15
+						},
+						"isTrigger": false
+					}
+				],
+				"interaction": "NONE",
+				"static": false
+			},
+			"transform": {
+				"position": {
+					"x": 8,
+					"y": 0.9,
+					"z": -3
+				},
+				"rotation": {
+					"x": -0,
+					"y": 0,
+					"z": 0
+				},
+				"scale": {
+					"x": 3,
+					"y": 3,
+					"z": 3
+				}
+			}
+		},
+		{
+			"active": true,
+			"client": {
+				"fragShaderPath": "../resources/shaders/material.frag",
+				"modelPath": "../resources/objects/Sheep/Sheep.obj",
+				"vertShaderPath": "../resources/shaders/material.vert"
+			},
+			"name": "Sheep",
+			"server": {
+				"colliders": [
+					{
+						"center": {
+							"x": 0,
+							"y": 1.538,
+							"z": 0.132
+						},
+						"halfExtents": {
+							"x": 0.52,
+							"y": 0.615,
+							"z": 0.67
+						},
+						"isTrigger": false
+					}
+				],
+				"interaction": "NONE",
+				"static": false
+			},
+			"transform": {
+				"position": {
+					"x": 3,
+					"y": 0.9,
+					"z": -3
+				},
+				"rotation": {
+					"x": -0,
+					"y": 0,
+					"z": 0
+				},
+				"scale": {
+					"x": 2.5,
+					"y": 2.5,
+					"z": 2.5
+				}
+			}
+		},
+		{
+			"active": true,
+			"client": {
+				"fragShaderPath": "../resources/shaders/material.frag",
+				"modelPath": "../resources/objects/Pig/Pig.obj",
+				"vertShaderPath": "../resources/shaders/material.vert"
+			},
+			"name": "Pig",
+			"server": {
+				"colliders": [
+					{
+						"center": {
+							"x": 0,
+							"y": 1.25,
+							"z": -0.012
+						},
+						"halfExtents": {
+							"x": 0.308,
+							"y": 0.5,
+							"z": 0.576
+						},
+						"isTrigger": false
+					}
+				],
+				"interaction": "NONE",
+				"static": false
+			},
+			"transform": {
+				"position": {
+					"x": -3,
+					"y": 0.9,
+					"z": -3
+				},
+				"rotation": {
+					"x": -0,
+					"y": 0,
+					"z": 0
+				},
+				"scale": {
+					"x": 2.5,
+					"y": 2.5,
+					"z": 2.5
+				}
+			}
+		},
+		{
+			"active": true,
+			"client": {
+				"fragShaderPath": "../resources/shaders/material.frag",
+				"modelPath": "../resources/objects/cow/Cow.obj",
+				"vertShaderPath": "../resources/shaders/material.vert"
+			},
+			"name": "Cow",
+			"server": {
+				"colliders": [
+					{
+						"center": {
+							"x": 0,
+							"y": 1.705,
+							"z": -0.205
+						},
+						"halfExtents": {
+							"x": 0.361,
+							"y": 0.682,
+							"z": 0.806
+						},
+						"isTrigger": false
+					}
+				],
+				"interaction": "NONE",
+				"static": false
+			},
+			"transform": {
+				"position": {
+					"x": -8,
+					"y": 0.9,
+					"z": -3
+				},
+				"rotation": {
+					"x": -0,
+					"y": 0,
+					"z": 0
+				},
+				"scale": {
+					"x": 2.5,
+					"y": 2.5,
+					"z": 2.5
+				}
+			}
+		},
+		{
+			"active": true,
+			"client": {
+				"fragShaderPath": "../resources/shaders/material.frag",
+				"modelPath": "../resources/objects/cube/Cube.obj",
+				"vertShaderPath": "../resources/shaders/material.vert"
+			},
+			"name": "Keypad",
+			"server": {
+				"colliders": [
+					{
+						"center": {
+							"x": 0,
+							"y": 0,
+							"z": 0
+						},
+						"halfExtents": {
+							"x": 1,
+							"y": 1,
+							"z": 1
+						},
+						"isTrigger": false
+					}
+				],
+				"interaction": "KEYPAD",
+				"keypad": {
+					"correctSequence": [
+						0,
+						1,
+						2,
+						3
+					]
+				},
+				"static": true
+			},
+			"transform": {
+				"position": {
+					"x": 10.438,
+					"y": 2.281,
+					"z": -6.766
+				},
+				"rotation": {
+					"x": -0,
+					"y": 0,
+					"z": 0
+				},
+				"scale": {
+					"x": 1,
+					"y": 1,
+					"z": 1
+				}
+			}
+		},
+		{
+			"active": true,
+			"client": {
+				"fragShaderPath": "../resources/shaders/material.frag",
+				"modelPath": "../resources/objects/cube/Cube.obj",
+				"vertShaderPath": "../resources/shaders/material.vert"
+			},
+			"name": "Cube2",
+			"server": {
+				"colliders": [
+					{
+						"center": {
+							"x": 0,
+							"y": 0,
+							"z": 0
+						},
+						"halfExtents": {
+							"x": 1,
+							"y": 1,
+							"z": 1
+						},
+						"isTrigger": false
+					}
+				],
+				"interaction": "NONE",
+				"static": false
+			},
+			"transform": {
+				"position": {
+					"x": 10.438,
+					"y": 4.281,
+					"z": -6.766
+				},
+				"rotation": {
+					"x": -0,
+					"y": 0,
+					"z": 0
+				},
+				"scale": {
+					"x": 1,
+					"y": 1,
+					"z": 1
+				}
+			}
+		},
+		{
+			"active": true,
+			"client": {
+				"fragShaderPath": "../resources/shaders/material.frag",
+				"modelPath": "../resources/objects/cube/Cube.obj",
+				"vertShaderPath": "../resources/shaders/material.vert"
+			},
+			"name": "Floor",
+			"server": {
+				"colliders": [
+					{
+						"center": {
+							"x": 0,
+							"y": 0,
+							"z": 0
+						},
+						"halfExtents": {
+							"x": 1,
+							"y": 1,
+							"z": 1
+						},
+						"isTrigger": false
+					}
+				],
+				"interaction": "NONE",
+				"static": true
+			},
+			"transform": {
+				"position": {
+					"x": 0,
+					"y": 0.88,
+					"z": 0
+				},
+				"rotation": {
+					"x": -0,
+					"y": 0,
+					"z": 0
+				},
+				"scale": {
+					"x": 100,
+					"y": 0.01,
+					"z": 100
+				}
+			}
+		},
+		{
+			"active": true,
+			"client": {
+				"fragShaderPath": "../resources/shaders/material.frag",
+				"modelPath": "../resources/objects/Barn/BarnNew.obj",
+				"vertShaderPath": "../resources/shaders/material.vert"
+			},
+			"name": "BarnNew",
+			"server": {
+				"colliders": [
+					{
+						"center": {
+							"x": 33.057,
+							"y": 16,
+							"z": -30
+						},
+						"halfExtents": {
+							"x": 0.5,
+							"y": 15,
+							"z": 42.5
+						},
+						"isTrigger": false
+					},
+					{
+						"center": {
+							"x": -32.66,
+							"y": 16,
+							"z": -30
+						},
+						"halfExtents": {
+							"x": 0.5,
+							"y": 15,
+							"z": 42.5
+						},
+						"isTrigger": false
+					},
+					{
+						"center": {
+							"x": -0.008,
+							"y": 41.586,
+							"z": -51.394
+						},
+						"halfExtents": {
+							"x": 20,
+							"y": 0.5,
+							"z": 20
+						},
+						"isTrigger": false
+					},
+					{
+						"center": {
+							"x": 0,
+							"y": 18.087,
+							"z": 11.753
+						},
+						"halfExtents": {
+							"x": 45,
+							"y": 50,
+							"z": 0.5
+						},
+						"isTrigger": false
+					}
+				],
+				"interaction": "NONE",
+				"static": true
+			},
+			"transform": {
+				"position": {
+					"x": 0,
+					"y": -0.8,
+					"z": 0
+				},
+				"rotation": {
+					"x": -0,
+					"y": 0,
+					"z": 0
+				},
+				"scale": {
+					"x": 1,
+					"y": 1,
+					"z": 1
+				}
+			}
+		}
+	]
 }
