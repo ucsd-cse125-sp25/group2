@@ -1,35 +1,35 @@
 #include "Keypad.hpp"
 
-KeypadUI::KeypadUI()
-    : inputSequence(4) {
+KeypadUI::KeypadUI() : inputSequence(4) {
   loadTextures();
   unlocked = false;
   display = false;
   inputSequence.clear();
-  
+
   float spacing = 0.25f;
   for (int i = 0; i < 4; ++i) {
     float x = CENTER_X + (i - 1.5f) * spacing;
     float y = CENTER_Y;
     buttons[i] =
-        std::make_unique<BaseUI>(x, y, buttonSize, buttonSize, 1, true, true);
+        make_unique<BaseUI>(x, y, buttonSize, buttonSize, 1, true, true);
     buttons[i]->setTexture(buttonTextures[i]);
     buttons[i]->setHoverTexture(buttonHoverTextures[i]);
 
     int index = i;
     buttons[i]->setOnClick([this, index]() { addInput(index); });
-    buttons[i]->setShader(std::make_unique<Shader>("../resources/shaders/animUi.vert",
-                                         "../resources/shaders/animUi.frag"));
+    buttons[i]->setShader(
+        make_unique<Shader>("../resources/shaders/animUi.vert",
+                            "../resources/shaders/animUi.frag"));
   }
 
   for (int i = 0; i < 4; ++i) {
     float x = CENTER_X + (i - 1.5f) * spacing;
     float y = CENTER_Y + 0.4f;
-    auto shape = std::make_unique<BaseUI>(x, y, 0.25f, 0.25f, 0);
+    auto shape = make_unique<BaseUI>(x, y, 0.25f, 0.25f, 0);
     shape->setTexture(0);
-    shape->setShader(std::make_unique<Shader>("../resources/shaders/animUi.vert",
+    shape->setShader(make_unique<Shader>("../resources/shaders/animUi.vert",
                                          "../resources/shaders/animUi.frag"));
-    shapeDisplays.push_back(std::move(shape));
+    shapeDisplays.push_back(move(shape));
   }
 }
 
@@ -94,13 +94,11 @@ void KeypadUI::update(float mouseX, float mouseY, int winWidth, int winHeight,
   updateShapes();
 }
 
-void KeypadUI::setObjectID(OBJECT_ID objectId) {
-  id = objectId;
-}
+void KeypadUI::setObjectID(OBJECT_ID objectId) { id = objectId; }
 
 void KeypadUI::setOnInputCallback(
-    std::function<void(int index, OBJECT_ID id)> callback) {
-  onInputCallback = std::move(callback);
+    function<void(int index, OBJECT_ID id)> callback) {
+  onInputCallback = move(callback);
 }
 
 void KeypadUI::setUnlocked(bool isUnlocked) {

@@ -1,12 +1,12 @@
 #pragma once
 
 #include "globals.hpp"
+#include "keypad_object.hpp"
 #include "packets.hpp"
 #include "physics.hpp"
 #include "player_logic.hpp"
 #include "server_gameobject.hpp"
 #include "server_object_loader.hpp"
-#include "keypad_object.hpp"
 
 #include <iostream>
 #include <memory>
@@ -36,8 +36,7 @@ public:
   CLIENT_ID *updateCharacters(PLAYER_ID playerID, CLIENT_ID clientID);
   void updateMovement(PLAYER_ID id, MovementType type);
   void updateRotation(PLAYER_ID id, glm::vec3 rotation);
-  void updateInteraction(PLAYER_ID id, glm::vec3 rayDirection,
-                         glm::vec3 rayOrigin);
+  void updateInteraction(PLAYER_ID id);
   void applyPhysics();
   bool updateKeypadInput(OBJECT_ID id, vector<int> inputSequence, bool close);
 

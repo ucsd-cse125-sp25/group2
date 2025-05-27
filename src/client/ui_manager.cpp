@@ -1,6 +1,5 @@
 #include "ui_manager.hpp"
 
-
 unique_ptr<BaseUI> UIManager::startScreenUI = nullptr;
 unique_ptr<BaseUI> UIManager::startButton = nullptr;
 unique_ptr<BaseUI> UIManager::mainMenuUI = nullptr;

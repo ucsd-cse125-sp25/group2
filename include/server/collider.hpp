@@ -38,7 +38,7 @@ public:
         halfExtents(ext), originalOrientation(ort), orientation(ort) {}
 
   void update(Transform *tf) {
-    center = originalCenter + tf->getPosition();
+    center = tf->getScale() * originalCenter + tf->getPosition();
     glm::mat3 orient;
     orient[0] = tf->getRight();
     orient[1] = tf->getUp();
@@ -112,7 +112,7 @@ public:
     return true;
   }
   void drawWireframe() const {
-    std::vector<glm::vec3> corners = getCorners();
+    vector<glm::vec3> corners = getCorners();
 
     // Define the 12 edges of the box using indices into the corners vector
     static const int edges[12][2] = {

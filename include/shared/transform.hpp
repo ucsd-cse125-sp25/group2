@@ -13,7 +13,8 @@ private:
   glm::vec3 right;
 
 public:
-  Transform(glm::vec3 pos = glm::vec3(0), glm::vec3 rot = glm::vec3(0), glm::vec3 scl = glm::vec3(1, 1, 1));
+  Transform(glm::vec3 pos = glm::vec3(0), glm::vec3 rot = glm::vec3(0),
+            glm::vec3 scl = glm::vec3(1, 1, 1));
 
   glm::vec3 getPosition() const { return position; }
   glm::vec3 getRotation() const { return rotation; }

@@ -1,6 +1,6 @@
 #include "server_gamestate.hpp"
 
-ServerGameState::ServerGameState() : deltaTime(0.03f) {
+ServerGameState::ServerGameState() : deltaTime(0.01f) {
   physicsWorld = make_unique<Physics>();
   playerLogic = make_unique<PlayerLogic>();
 }
@@ -9,6 +9,7 @@ bool ServerGameState::init() {
   ObjectLoader objectLoader = ObjectLoader();
   objectList = objectLoader.loadObjects();
   for (auto &obj : objectList) {
+    cout << "Object ID: " << obj.second->getId() << endl;
     auto object = obj.second.get();
     if (object->getInteractionType() != InteractionType::NONE) {
       interactableObjects[obj.first] = object;
@@ -72,11 +73,14 @@ void ServerGameState::updateRotation(PLAYER_ID id, glm::vec3 rotation) {
   }
 }
 
-void ServerGameState::updateInteraction(PLAYER_ID id, glm::vec3 rayDirection,
-                                        glm::vec3 rayOrigin) {
+void ServerGameState::updateInteraction(PLAYER_ID id) {
   GameObject *closestObject = nullptr;
   OBJECT_ID closestObjectID = -1;
   float minDistance = numeric_limits<float>::max();
+
+  auto player = getObject(id);
+  glm::vec3 rayOrigin = player->getTransform()->getPosition();
+  glm::vec3 rayDirection = glm::normalize(player->getTransform()->getForward());
 
   // Only need to iterate through the interactable objects
   for (auto &obj : interactableObjects) {
@@ -91,45 +95,39 @@ void ServerGameState::updateInteraction(PLAYER_ID id, glm::vec3 rayDirection,
 
     glm::vec3 vDirToBox = center - rayOrigin;
     glm::vec3 vLineDir = glm::normalize(rayDirection);
-    float fLineLength = 100.0f;
     float t = glm::dot(vDirToBox, vLineDir);
     glm::vec3 closestPointOnRay;
 
     if (t <= 0.0f)
       closestPointOnRay = rayOrigin;
-    else if (t >= fLineLength)
-      closestPointOnRay = rayOrigin + rayDirection;
     else
       closestPointOnRay = rayOrigin + rayDirection * t;
 
-    glm::vec3 closestPointOnBox;
+    bool xInBox = (closestPointOnRay.x >= center.x - halfExtents.x &&
+                   closestPointOnRay.x <= center.x + halfExtents.x);
+    bool yInBox = (closestPointOnRay.y >= center.y - halfExtents.y &&
+                   closestPointOnRay.y <= center.y + halfExtents.y);
+    bool zInBox = (closestPointOnRay.z >= center.z - halfExtents.z &&
+                   closestPointOnRay.z <= center.z + halfExtents.z);
 
-    closestPointOnBox.x =
-        glm::clamp(closestPointOnRay.x, center.x - halfExtents.x,
-                   center.x + halfExtents.x);
-    closestPointOnBox.y =
-        glm::clamp(closestPointOnRay.y, center.y - halfExtents.y,
-                   center.y + halfExtents.y);
-    closestPointOnBox.z =
-        glm::clamp(closestPointOnRay.z, center.z - halfExtents.z,
-                   center.z + halfExtents.z);
+    if (xInBox && yInBox && zInBox) {
+      float distance = glm::distance(rayOrigin, closestPointOnRay);
 
-    float distance = glm::distance(closestPointOnRay, closestPointOnBox);
-
-    if (closestObject == nullptr || distance < minDistance) {
-      closestObject = object;
-      closestObjectID = obj.first;
-      minDistance = distance;
+      if (distance < minDistance) {
+        closestObject = object;
+        closestObjectID = obj.first;
+        minDistance = distance;
+      }
     }
   }
 
   cout << "Closest object: " << closestObjectID << endl;
 
-  auto player = getObject(id);
-
   // If the character is holding an object, drop it
-  if (playerLogic->getHeldObject(id) != nullptr) {
-    playerLogic->dropObject(player, closestObject);
+  GameObject *heldObject = playerLogic->getHeldObject(id);
+  if (heldObject != nullptr) {
+    playerLogic->dropObject(player, heldObject);
+    cout << "Dropped object: " << heldObject->getId() << endl;
     playerLogic->setHeldObject(id, nullptr);
     cout << "Dropped object: " << closestObject->getId() << endl;
     updatedObjectIds.insert(closestObjectID);
@@ -138,7 +136,7 @@ void ServerGameState::updateInteraction(PLAYER_ID id, glm::vec3 rayDirection,
 
     // If interaction type is pickup and player is not holding an object
     if (closestObject->getInteractionType() == InteractionType::PICKUP &&
-        playerLogic->getHeldObject(id) == nullptr) {
+        heldObject == nullptr) {
       playerLogic->setHeldObject(id, closestObject);
       playerLogic->pickupObject(player, closestObject);
       cout << "Picked up object: " << closestObject->getId() << endl;
@@ -151,17 +149,17 @@ void ServerGameState::updateInteraction(PLAYER_ID id, glm::vec3 rayDirection,
 
     if (closestObject->getInteractionType() == InteractionType::KEYPAD) {
       auto keypadObject = dynamic_cast<KeypadObject *>(closestObject);
-      cout << "Interacting with KeypadObject: " << keypadObject->getId() << endl;
+      cout << "Interacting with KeypadObject: " << keypadObject->getId()
+           << endl;
       if (keypadObject && !keypadObject->locked) {
         keypadObject->locked = true;
         keypadObject->clientUsing = playerLogic->getClient(id);
         updatedObjectIds.insert(closestObjectID);
-        cout << "client: " << keypadObject->clientUsing << " is now using keypad" << endl;
+        cout << "client: " << keypadObject->clientUsing
+             << " is now using keypad" << endl;
       }
     }
-
   }
-  
 }
 
 void ServerGameState::applyPhysics() {
@@ -196,12 +194,13 @@ vector<int> ServerGameState::getLastUpdatedObjects() {
   return list;
 }
 
-bool ServerGameState::updateKeypadInput(OBJECT_ID id, vector<int> inputSequence, bool close) {
+bool ServerGameState::updateKeypadInput(OBJECT_ID id, vector<int> inputSequence,
+                                        bool close) {
   auto keypadObject = dynamic_cast<KeypadObject *>(getObject(id));
   if (keypadObject) {
     if (close) {
       keypadObject->locked = false;
-      keypadObject->clientUsing = -1; 
+      keypadObject->clientUsing = -1;
       return true; // Doesn't matter the return type
     }
     if (keypadObject->checkSequence(inputSequence)) {
