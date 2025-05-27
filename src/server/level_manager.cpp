@@ -10,6 +10,4 @@ bool Level::isLevelComplete() {
   return puzzle->isPuzzleComplete();
 }
 
-LevelManager::LevelManager() {
-
-}
+LevelManager::LevelManager() {}
