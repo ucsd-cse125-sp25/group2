@@ -1,11 +1,12 @@
 #include "Keypad.hpp"
 
-KeypadUI::KeypadUI(const std::vector<int> &correctSequence)
-    : correctSequence(correctSequence) {
+KeypadUI::KeypadUI()
+    : inputSequence(4) {
   loadTextures();
   unlocked = false;
   display = false;
-
+  inputSequence.clear();
+  
   float spacing = 0.25f;
   for (int i = 0; i < 4; ++i) {
     float x = CENTER_X + (i - 1.5f) * spacing;
@@ -17,13 +18,17 @@ KeypadUI::KeypadUI(const std::vector<int> &correctSequence)
 
     int index = i;
     buttons[i]->setOnClick([this, index]() { addInput(index); });
+    buttons[i]->setShader(std::make_unique<Shader>("../resources/shaders/animUi.vert",
+                                         "../resources/shaders/animUi.frag"));
   }
 
   for (int i = 0; i < 4; ++i) {
     float x = CENTER_X + (i - 1.5f) * spacing;
-    float y = CENTER_Y - 0.4f;
-    auto shape = std::make_unique<BaseUI>(x, y, 0.15f, 0.15f, 0);
+    float y = CENTER_Y + 0.4f;
+    auto shape = std::make_unique<BaseUI>(x, y, 0.25f, 0.25f, 0);
     shape->setTexture(0);
+    shape->setShader(std::make_unique<Shader>("../resources/shaders/animUi.vert",
+                                         "../resources/shaders/animUi.frag"));
     shapeDisplays.push_back(std::move(shape));
   }
 }
@@ -31,9 +36,9 @@ KeypadUI::KeypadUI(const std::vector<int> &correctSequence)
 void KeypadUI::loadTextures() {
   buttonTextures = {
       BaseUI::loadTexture("../resources/ui/Buttons/sprite_00.png"),
-      BaseUI::loadTexture("a../resources/ui/Buttons/sprite_02.png"),
+      BaseUI::loadTexture("../resources/ui/Buttons/sprite_02.png"),
       BaseUI::loadTexture("../resources/ui/Buttons/sprite_04.png"),
-      BaseUI::loadTexture("a../resources/ui/Buttons/sprite_06.png")};
+      BaseUI::loadTexture("../resources/ui/Buttons/sprite_06.png")};
   buttonHoverTextures = {
       BaseUI::loadTexture("../resources/ui/Buttons/sprite_01.png"),
       BaseUI::loadTexture("../resources/ui/Buttons/sprite_03.png"),
@@ -47,15 +52,17 @@ void KeypadUI::loadTextures() {
 }
 
 void KeypadUI::addInput(int index) {
-  if (inputSequence.size() >= correctSequence.size())
-    return;
-
+  cout << "Keypad Input: " << index << endl;
+  if (inputSequence.size() >= 4) {
+    inputSequence.clear();
+    updateShapes();
+  }
   inputSequence.push_back(index);
-  updateShapes();
-
-  if (inputSequence == correctSequence && onUnlockCallback) {
-    onUnlockCallback();
-    unlocked = true;
+  if (inputSequence.size() == 4) {
+    if (onInputCallback) {
+      cout << "sending input callback" << endl;
+      onInputCallback(id, index);
+    }
   }
 }
 
@@ -84,8 +91,19 @@ void KeypadUI::update(float mouseX, float mouseY, int winWidth, int winHeight,
   for (auto &btn : buttons) {
     btn->update(mouseX, mouseY, winWidth, winHeight, dt);
   }
+  updateShapes();
 }
 
-void KeypadUI::setOnUnlock(std::function<void()> callback) {
-  onUnlockCallback = callback;
+void KeypadUI::setObjectID(OBJECT_ID objectId) {
+  id = objectId;
+}
+
+void KeypadUI::setOnInputCallback(
+    std::function<void(int index, OBJECT_ID id)> callback) {
+  onInputCallback = std::move(callback);
+}
+
+void KeypadUI::setUnlocked(bool isUnlocked) {
+  unlocked = isUnlocked;
+  // play animation or change UI state based on unlocked status
 }

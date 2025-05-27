@@ -1,5 +1,5 @@
 #include "ui_manager.hpp"
-#include <vector>
+
 
 unique_ptr<BaseUI> UIManager::startScreenUI = nullptr;
 unique_ptr<BaseUI> UIManager::startButton = nullptr;
@@ -9,6 +9,7 @@ unique_ptr<BaseUI> UIManager::chickenButton = nullptr;
 unique_ptr<BaseUI> UIManager::pigButton = nullptr;
 unique_ptr<BaseUI> UIManager::sheepButton = nullptr;
 unique_ptr<BaseUI> UIManager::cowButton = nullptr;
+unique_ptr<KeypadUI> UIManager::keypad = nullptr;
 vector<BaseUI *> UIManager::characterButtons;
 
 void UIManager::makeMenus() {
@@ -41,6 +42,7 @@ void UIManager::makeMenus() {
                       "../resources/ui/CowButtonHover.png", true, true);
   characterButtons = {chickenButton.get(), pigButton.get(), sheepButton.get(),
                       cowButton.get()};
+  keypad = make_unique<KeypadUI>();
 }
 
 unique_ptr<BaseUI> UIManager::createUIElement(
@@ -80,6 +82,11 @@ void UIManager::updateMenu(float mouseX, float mouseY, int winWidth,
     for (auto *button : characterButtons) {
       button->update(mouseX, mouseY, winWidth, winHeight, deltatime);
     }
+  case Gamestate::GAME:
+    if (keypad && keypad->display) {
+      keypad->update(mouseX, mouseY, winWidth, winHeight, deltatime);
+    }
+    break;
   default:
     break;
   }
@@ -97,6 +104,11 @@ void UIManager::drawMenu(Gamestate state) {
     pigButton->draw();
     sheepButton->draw();
     cowButton->draw();
+  case Gamestate::GAME:
+    if (keypad && keypad->display) {
+      keypad->draw();
+    }
+    break;
   default:
     break;
   }

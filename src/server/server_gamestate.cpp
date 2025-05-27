@@ -115,6 +115,7 @@ void ServerGameState::updateInteraction(PLAYER_ID id, glm::vec3 rayDirection,
     playerLogic->dropObject(player, closestObject);
     playerLogic->setHeldObject(id, nullptr);
     cout << "Dropped object: " << closestObject->getId() << endl;
+    updatedObjectIds.insert(closestObjectID);
   }
   // Otherwise, pick up closest object if it's interactable
   if (closestObject->getInteractionType() == InteractionType::PICKUP &&
@@ -123,9 +124,19 @@ void ServerGameState::updateInteraction(PLAYER_ID id, glm::vec3 rayDirection,
     playerLogic->setHeldObject(id, closestObject);
     playerLogic->pickupObject(player, closestObject);
     cout << "Picked up object: " << closestObject->getId() << endl;
+    updatedObjectIds.insert(closestObjectID);
   }
 
-  updatedObjectIds.insert(closestObjectID);
+  if (closestObject->getInteractionType() == InteractionType::KEYPAD) {
+    auto keypadObject = dynamic_cast<KeypadObject *>(closestObject);
+    cout << "Interacting with KeypadObject: " << keypadObject->getId() << endl;
+    if (keypadObject && !keypadObject->locked) {
+      keypadObject->locked = true;
+      keypadObject->clientUsing = playerLogic->getClient(id);
+      updatedObjectIds.insert(closestObjectID);
+      cout << "client: " << keypadObject->clientUsing << " is now using keypad" << endl;
+    }
+  }
 }
 
 void ServerGameState::applyPhysics() {
@@ -151,4 +162,29 @@ std::vector<int> ServerGameState::getLastUpdatedObjects() {
   std::vector<int> list(updatedObjectIds.begin(), updatedObjectIds.end());
   updatedObjectIds.clear();
   return list;
+}
+
+bool ServerGameState::updateKeypadInput(OBJECT_ID id, vector<int> inputSequence, bool close) {
+  auto keypadObject = dynamic_cast<KeypadObject *>(getObject(id));
+  if (keypadObject) {
+    if (close) {
+      keypadObject->locked = false;
+      keypadObject->clientUsing = -1; 
+      return true; // Doesn't matter the return type
+    }
+    if (keypadObject->checkSequence(inputSequence)) {
+      cout << "Keypad ID: " << id << " unlocked!" << endl;
+      return true;
+    } else {
+      cout << "Keypad ID: " << id << " Input: ";
+      for (int i = 0; i < inputSequence.size(); ++i) {
+        cout << inputSequence[i];
+        cout << " ";
+      }
+      cout << " is incorrect." << endl;
+    }
+  } else {
+    cerr << "KeypadObject with id " << id << " not found" << endl;
+  }
+  return false;
 }

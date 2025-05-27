@@ -6,6 +6,7 @@
 #include "player_logic.hpp"
 #include "server_gameobject.hpp"
 #include "server_object_loader.hpp"
+#include "keypad_object.hpp"
 
 #include <iostream>
 #include <memory>
@@ -37,6 +38,7 @@ public:
   void updateInteraction(PLAYER_ID id, glm::vec3 rayDirection,
                          glm::vec3 rayOrigin);
   void applyPhysics();
+  bool updateKeypadInput(OBJECT_ID id, vector<int> inputSequence, bool close);
 
   // getters
   GameObject *getObject(OBJECT_ID id);

@@ -53,36 +53,45 @@ void GameServer::updateGameState() {
     packetsList.pop_front();
 
     switch (packet->getType()) {
-    case PacketType::MOVEMENT: {
-      auto movementPacket = static_cast<MovementPacket *>(packet.get());
-      game->updateMovement(movementPacket->id, movementPacket->movementType,
-                           movementPacket->cameraFront);
-      break;
-    }
-    case PacketType::ROTATION: {
-      auto rotationPacket = static_cast<RotationPacket *>(packet.get());
-      game->updateRotation(rotationPacket->id, rotationPacket->rotation);
-      break;
-    }
-    case PacketType::INTERACTION: {
-      auto interactionPacket = static_cast<InteractionPacket *>(packet.get());
-      game->updateInteraction(interactionPacket->id,
-                              interactionPacket->rayDirection,
-                              interactionPacket->rayOrigin);
-      break;
-    }
-    case PacketType::CHARACTERSELECT: {
-      auto characterPacket = static_cast<CharacterSelectPacket *>(packet.get());
-      auto characterAssignments = game->updateCharacters(
-          characterPacket->playerID, characterPacket->clientID);
-      CharacterResponsePacket packet(characterAssignments);
-      network->sendToAll(packet);
-      // if (game->getPlayerLogic()->allCharactersAssigned()) {
-      GameStatePacket statePacket(Gamestate::GAME);
-      network->sendToAll(statePacket);
-      // }
-      break;
-    }
+      case PacketType::MOVEMENT: {
+        auto movementPacket = static_cast<MovementPacket *>(packet.get());
+        game->updateMovement(movementPacket->id, movementPacket->movementType,
+                            movementPacket->cameraFront);
+        break;
+      }
+      case PacketType::ROTATION: {
+        auto rotationPacket = static_cast<RotationPacket *>(packet.get());
+        game->updateRotation(rotationPacket->id, rotationPacket->rotation);
+        break;
+      }
+      case PacketType::INTERACTION: {
+        auto interactionPacket = static_cast<InteractionPacket *>(packet.get());
+        game->updateInteraction(interactionPacket->id,
+                                interactionPacket->rayDirection,
+                                interactionPacket->rayOrigin);
+        break;
+      }
+      case PacketType::CHARACTERSELECT: {
+        auto characterPacket = static_cast<CharacterSelectPacket *>(packet.get());
+        auto characterAssignments = game->updateCharacters(
+            characterPacket->playerID, characterPacket->clientID);
+        CharacterResponsePacket packet(characterAssignments);
+        network->sendToAll(packet);
+        // if (game->getPlayerLogic()->allCharactersAssigned()) {
+        GameStatePacket statePacket(Gamestate::GAME);
+        network->sendToAll(statePacket);
+        // }
+        break;
+      }
+      case PacketType::KEYPADINPUT: {
+        cout << "Received KeypadInputPacket" << endl;
+        auto keypadPacket = static_cast<KeypadInputPacket *>(packet.get());
+        bool unlocked = game->updateKeypadInput(keypadPacket->id, keypadPacket->inputSequence, keypadPacket->close);
+        if (!keypadPacket->close) {
+          network->sendToClient(keypadPacket->client, KeypadPacket(keypadPacket->id, !unlocked, unlocked));
+        }
+        break;
+      }
     }
   }
   game->applyPhysics();
@@ -92,10 +101,18 @@ void GameServer::dispatchUpdates() {
   vector<int> updatedObjects = game->getLastUpdatedObjects();
   for (int i = 0; i < updatedObjects.size(); i++) {
     GameObject *obj = game->getObject(updatedObjects[i]);
-    ObjectPacket objPacket = ObjectPacket(
-        obj->getId(),
-        Transform(obj->getPosition(), obj->getRotation(), obj->getScale()),
-        obj->isActive());
-    network->sendToAll(objPacket);
+
+    auto keypadObject = dynamic_cast<KeypadObject *>(obj);
+
+    if (keypadObject && keypadObject->clientUsing != -1 && !keypadObject->opened) {
+      network->sendToClient(keypadObject->clientUsing,KeypadPacket(keypadObject->getId(), true, false));
+      keypadObject->opened = true; 
+    } else {
+      ObjectPacket objPacket = ObjectPacket(
+          obj->getId(),
+          Transform(obj->getPosition(), obj->getRotation(), obj->getScale()),
+          obj->isActive());
+      network->sendToAll(objPacket);
+    }
   }
 }

@@ -4,7 +4,7 @@ GLuint BaseUI::loadTexture(const char *path) {
   int width, height, nrChannels;
   unsigned char *data = stbi_load(path, &width, &height, &nrChannels, 0);
   if (!data) {
-    cerr << "Failed to load texture" << endl;
+    cerr << "Failed to load texture: " << path  << endl;
     return 0;
   }
 
@@ -66,9 +66,9 @@ void BaseUI::setOnSelect(function<void()> callback) {
 }
 
 void BaseUI::setTexture(GLuint texture) {
-  if (texture == 0) {
-    cerr << "failed to load texture into ui" << endl;
-  }
+  // if (texture == 0) {
+  //   cerr << "failed to load texture into ui" << endl;
+  // }
   textureID = texture;
 }
 void BaseUI::setHoverTexture(GLuint texture) {
@@ -148,6 +148,10 @@ void BaseUI::update(float mouseX, float mouseY, int winWidth, int winHeight,
         return;
       }
     }
+  }
+  if (clickable && glfwGetMouseButton(glfwGetCurrentContext(),
+                        GLFW_MOUSE_BUTTON_LEFT) == GLFW_RELEASE && isClicked) {
+    isClicked = false;
   }
 
   if (isAnim && animInfo.startAnim) {

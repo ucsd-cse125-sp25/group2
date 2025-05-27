@@ -208,20 +208,23 @@
 				"modelPath": "../resources/objects/cube/Cube.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
-			"name": "Cube",
+			"name": "Keypad",
 			"server": {
 				"halfExtents": {
 					"x": 1,
 					"y": 1,
 					"z": 1
 				},
-				"interaction": "PRESS",
+				"interaction": "KEYPAD",
 				"position": {
 					"x": 0,
 					"y": 0,
 					"z": 0
 				},
-				"static": false
+				"static": true,
+				"keypad" : {
+					"correctSequence": [0,1,2,3]
+				}
 			},
 			"transform": {
 				"position": {

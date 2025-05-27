@@ -45,8 +45,21 @@ unordered_map<int, unique_ptr<GameObject>> ObjectLoader::loadObjects() {
         auto cl = make_unique<Collider>(base.transform->getPosition(), position,
                                         halfExtents);
 
-        obj = make_unique<GameObject>(objectId, base.active, base.transform, rb,
-                                      cl);
+        if (server.contains("keypad")) {
+          vector<int> correctSequence;
+          if (server["keypad"].contains("correctSequence") &&
+              server["keypad"]["correctSequence"].is_array()) {
+            for (const auto &seq : server["keypad"]["correctSequence"]) {
+              correctSequence.push_back(seq.get<int>());
+            }
+          }
+          obj = make_unique<KeypadObject>(objectId, base.active,
+                                          base.transform, rb, cl,
+                                          correctSequence);
+        } else {
+          obj = make_unique<GameObject>(objectId, base.active, base.transform,
+                                        rb, cl);
+        }
 
         if (server.contains("interaction")) {
           string interactionStr = server["interaction"].get<string>();
