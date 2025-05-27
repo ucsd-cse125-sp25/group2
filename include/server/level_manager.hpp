@@ -6,6 +6,7 @@
 #include <fstream>
 #include <iostream>
 #include <nlohmann/json.hpp>
+#include <magic_enum/magic_enum.hpp>
 #include <string>
 #include <unordered_map>
 #include <vector>
@@ -34,7 +35,7 @@ public:
 class LevelManager {
 private:
   Level *currentLevel = nullptr;
-  LEVEL_ID current_level_id = 0;
+  LEVEL_ID currentLevelID = 0;
   unordered_map<LEVEL_ID, unique_ptr<Level>> levels;
 
 public:

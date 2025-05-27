@@ -5,6 +5,12 @@
 
 using namespace std;
 
+enum class ConditionType {
+  PRESSURE_PLATE,
+  BUTTON,
+  PIN
+};
+
 class PuzzleCondition {
 public:
   virtual bool isSatisfied() const = 0;

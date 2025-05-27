@@ -27,8 +27,8 @@ LevelManager::LevelManager() {
 
   if (levelsData.contains("levels") && levelsData["levels"].is_array()) {
     for (const auto &levelData : levelsData["levels"]) {
-      LEVEL_ID level_id = levelData["level_id"].get<int>();
-      unique_ptr<Level> new_level = make_unique<Level>(level_id);
+      LEVEL_ID id = levelData["levelID"].get<int>();
+      unique_ptr<Level> newLevel = make_unique<Level>(id);
     }
   }
 }

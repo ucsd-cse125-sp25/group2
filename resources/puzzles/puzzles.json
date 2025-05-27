@@ -1,14 +1,14 @@
 {
     "levels": [
         {
-            "level_id": 1,
+            "levelID": 1,
             "puzzles": [
                 {
-                    "puzzle_id": 0,
+                    "puzzleID": 0,
                     "conditions": [
                         {
-                            "condition_type": 0,
-                            "object_id": 2
+                            "conditionType": "PRESSURE_PLATE",
+                            "objectID": 2
                         }
                     ]
                 }
