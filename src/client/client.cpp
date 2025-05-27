@@ -162,8 +162,8 @@ void Client::idleCallback(float deltaTime) {
       characterManager->setCharacters(characterPacket->characterAssignments);
       PLAYER_ID character = characterManager->selectedCharacter;
       game->setPlayer(character);
-      cam->setRadius(
-          cam->getCameraRadius(character)); // Set camera radius based on character
+      cam->setRadius(cam->getCameraRadius(
+          character)); // Set camera radius based on character
       break;
     }
     case PacketType::KEYPAD: {

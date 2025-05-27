@@ -37,8 +37,7 @@ public:
 
   void setObjectID(OBJECT_ID objectId);
 
-  void
-  setOnInputCallback(function<void(OBJECT_ID id, int index)> callback);
+  void setOnInputCallback(function<void(OBJECT_ID id, int index)> callback);
   vector<int> inputSequence;
 
   void setUnlocked(bool isUnlocked);
