@@ -57,11 +57,17 @@ func _process_node(node: Node3D) -> Dictionary:
 		},
 		"server": {
 			"static": is_node_static(node),  # You can set this based on node metadata
-			"halfExtents": _get_half_extents(node),
-			"position": get_collider_position(node),
-			"interaction": get_interaction(node)
+			"interaction": get_interaction(node),
+			"colliders": get_all_colliders(node),
 		}
 	}
+	if node.get_script() is MetaData:
+		var meta: MetaData = node
+		if meta.is_keyPad:
+			data["server"]["keypad"] = {
+				"correctSequence": meta.correctSequence
+			}
+
 
 	return data
 
@@ -74,12 +80,26 @@ func _get_half_extents(node: Node3D) -> Dictionary:
 				return _vec3_to_json(extents)
 	return {"x": 0.0, "y": 0.0, "z": 0.0}  # Default
 
-func get_collider_position(node: Node3D) -> Dictionary:
+func get_all_colliders(node: Node3D) -> Array:
+	var colliders := []
 	for child in node.get_children():
 		if child is CollisionShape3D:
-			var transform = child.transform.origin * node.scale;
-			return _vec3_to_json(transform)
-	return {"x": 0.0, "y": 0.0, "z": 0.0}  # Default
+			var shape: Shape3D = child.shape
+			if shape is BoxShape3D:
+				var is_trigger := false
+				if child.has_meta("isTrigger"):
+					is_trigger = child.get_meta("isTrigger")
+					
+				var extents = shape.size * 0.5
+				
+				var collider_data := {
+					"center": _vec3_to_json(child.transform.origin * node.scale),
+					"halfExtents": _vec3_to_json(extents),
+					#"orientation": _basis_to_json(child.global_transform.basis),
+					"isTrigger": is_trigger
+				}
+				colliders.append(collider_data)
+	return colliders
 
 func round_decimal(value: float, decimals: int = 3) -> float:
 	var factor = pow(10, decimals)
@@ -110,3 +130,10 @@ func _sort_animals(a, b) -> bool:
 	var index_a = animals.find(a["name"])
 	var index_b = animals.find(b["name"])
 	return index_a < index_b
+	
+func _basis_to_json(basis: Basis) -> Dictionary:
+	return {
+		"right": _vec3_to_json(basis.x),
+		"up": _vec3_to_json(basis.y),
+		"forward": _vec3_to_json(-basis.z)  # Negate Z to match right-handed forward
+	}

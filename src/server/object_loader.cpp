@@ -36,18 +36,39 @@ unordered_map<int, unique_ptr<GameObject>> ObjectLoader::loadObjects() {
           rb->setStatic(isStatic);
         }
         auto cl = vector<Collider *>();
-        if (server.contains("collider")) {
-          cl = loadCollider(server.value("collider", "").c_str());
+        if (server.contains("colliders") &&
+            server["colliders"].is_array()) {
+          for (const auto &clData : server["colliders"]) {
+            glm::vec3 center = glm::vec3(0), halfExtents = glm::vec3(1);
+            glm::mat3 orientation = glm::mat3(1);
+            if (clData.contains("center")) {
+              center = parseVec3(clData, "center", glm::vec3(0.0f));
+            }
+            if (clData.contains("halfExtents")) {
+              halfExtents = parseVec3(clData, "halfExtents", glm::vec3(1.0f));
+            }
+            if (clData.contains("orientation")) {
+              auto &t = clData["orientation"];
+              orientation[0] = parseVec3(t, "right", glm::vec3(1, 0, 0));
+              orientation[1] = parseVec3(t, "up", glm::vec3(0, 1, 0));
+              orientation[2] = parseVec3(t, "forward", glm::vec3(0, 0, -1));
+            }
+            auto collider = new Collider(center, halfExtents, orientation);
+            if (clData.contains("isTrigger")) {
+              collider->setTrigger(clData["isTrigger"].get<bool>());
+            }
+            cl.push_back(collider);
+          }
         }
+
         for (Collider *c : cl) {
-          if (server.contains("isTrigger"))
-            c->setTrigger(server["isTrigger"].get<bool>());
-          if (server.contains("canActivate"))
-            c->setCanActivate(server["canActivate"].get<bool>());
+          // if (server.contains("canActivate"))
+          //   c->setCanActivate(server["canActivate"].get<bool>());
           c->update(base.transform.get());
         }
-        auto cl = make_unique<Collider>(base.transform->getPosition(), position,
-                                        halfExtents);
+
+
+        //auto cl = make_unique<Collider>(base.transform->getPosition(), position, halfExtents);
 
         if (server.contains("keypad")) {
           vector<int> correctSequence;
@@ -91,41 +112,41 @@ unordered_map<int, unique_ptr<GameObject>> ObjectLoader::loadObjects() {
   return objects;
 };
 
-vector<Collider *> ObjectLoader::loadCollider(string path) {
-  vector<Collider *> colliders;
-  ifstream colliderFile(path);
-  if (!colliderFile.is_open()) {
-    cerr << "Failed to open collider file: " << path << endl;
-  }
+// vector<Collider *> ObjectLoader::loadCollider(string path) {
+//   vector<Collider *> colliders;
+//   ifstream colliderFile(path);
+//   if (!colliderFile.is_open()) {
+//     cerr << "Failed to open collider file: " << path << endl;
+//   }
 
-  json colliderData;
-  try {
-    colliderFile >> colliderData;
-  } catch (const exception &e) {
-    cerr << "Collider file parsing error: " << e.what() << endl;
-    return colliders;
-  }
+//   json colliderData;
+//   try {
+//     colliderFile >> colliderData;
+//   } catch (const exception &e) {
+//     cerr << "Collider file parsing error: " << e.what() << endl;
+//     return colliders;
+//   }
 
-  if (colliderData.contains("colliders") &&
-      colliderData["colliders"].is_array()) {
-    for (const auto &clData : colliderData["colliders"]) {
-      glm::vec3 center = glm::vec3(0), halfExtents = glm::vec3(1);
-      glm::mat3 orientation = glm::mat3(1);
-      if (clData.contains("center")) {
-        center = parseVec3(clData, "center", glm::vec3(0.0f));
-      }
-      if (clData.contains("halfExtents")) {
-        halfExtents = parseVec3(clData, "halfExtents", glm::vec3(1.0f));
-      }
-      if (clData.contains("orientation")) {
-        auto &t = clData["orientation"];
-        orientation[0] = parseVec3(t, "right", glm::vec3(1, 0, 0));
-        orientation[1] = parseVec3(t, "up", glm::vec3(0, 1, 0));
-        orientation[2] = parseVec3(t, "forward", glm::vec3(0, 0, -1));
-      }
-      auto cl = new Collider(center, halfExtents, orientation);
-      colliders.push_back(cl);
-    }
-  }
-  return colliders;
-}
+//   if (colliderData.contains("colliders") &&
+//       colliderData["colliders"].is_array()) {
+//     for (const auto &clData : colliderData["colliders"]) {
+//       glm::vec3 center = glm::vec3(0), halfExtents = glm::vec3(1);
+//       glm::mat3 orientation = glm::mat3(1);
+//       if (clData.contains("center")) {
+//         center = parseVec3(clData, "center", glm::vec3(0.0f));
+//       }
+//       if (clData.contains("halfExtents")) {
+//         halfExtents = parseVec3(clData, "halfExtents", glm::vec3(1.0f));
+//       }
+//       if (clData.contains("orientation")) {
+//         auto &t = clData["orientation"];
+//         orientation[0] = parseVec3(t, "right", glm::vec3(1, 0, 0));
+//         orientation[1] = parseVec3(t, "up", glm::vec3(0, 1, 0));
+//         orientation[2] = parseVec3(t, "forward", glm::vec3(0, 0, -1));
+//       }
+//       auto cl = new Collider(center, halfExtents, orientation);
+//       colliders.push_back(cl);
+//     }
+//   }
+//   return colliders;
+// }

@@ -130,15 +130,12 @@ void ServerGameState::updateInteraction(PLAYER_ID id, glm::vec3 rayDirection,
   // If the character is holding an object, drop it
   if (playerLogic->getHeldObject(id) != nullptr) {
     playerLogic->dropObject(player, closestObject);
-    cout << "Dropped object: " << playerLogic->getHeldObject(id)->getId()
-         << endl;
     playerLogic->setHeldObject(id, nullptr);
     cout << "Dropped object: " << closestObject->getId() << endl;
     updatedObjectIds.insert(closestObjectID);
-  }
 
-  // If an interactable object was clicked
-  else if (closestObjectID != -1) {
+  } else if (closestObjectID != -1) {
+
     // If interaction type is pickup and player is not holding an object
     if (closestObject->getInteractionType() == InteractionType::PICKUP &&
         playerLogic->getHeldObject(id) == nullptr) {
@@ -151,17 +148,20 @@ void ServerGameState::updateInteraction(PLAYER_ID id, glm::vec3 rayDirection,
       closestObject->press();
       cout << "Pressed object: " << closestObjectID << endl;
     }
-  }
+
     if (closestObject->getInteractionType() == InteractionType::KEYPAD) {
-    auto keypadObject = dynamic_cast<KeypadObject *>(closestObject);
-    cout << "Interacting with KeypadObject: " << keypadObject->getId() << endl;
-    if (keypadObject && !keypadObject->locked) {
-      keypadObject->locked = true;
-      keypadObject->clientUsing = playerLogic->getClient(id);
-      updatedObjectIds.insert(closestObjectID);
-      cout << "client: " << keypadObject->clientUsing << " is now using keypad" << endl;
+      auto keypadObject = dynamic_cast<KeypadObject *>(closestObject);
+      cout << "Interacting with KeypadObject: " << keypadObject->getId() << endl;
+      if (keypadObject && !keypadObject->locked) {
+        keypadObject->locked = true;
+        keypadObject->clientUsing = playerLogic->getClient(id);
+        updatedObjectIds.insert(closestObjectID);
+        cout << "client: " << keypadObject->clientUsing << " is now using keypad" << endl;
+      }
     }
+
   }
+  
 }
 
 void ServerGameState::applyPhysics() {

@@ -12,12 +12,12 @@ using namespace std;
 #define MAX_BONE_INFLUENCE 4
 
 struct Vertex {
-  vec3 position;
-  vec3 normal;
-  vec2 texCoords;
+  glm::vec3 position;
+  glm::vec3 normal;
+  glm::vec2 texCoords;
   // Unneeded for now
-  vec3 tangent;
-  vec3 bitangent;
+  glm::vec3 tangent;
+  glm::vec3 bitangent;
   int m_boneIDs[MAX_BONE_INFLUENCE];
   float m_weights[MAX_BONE_INFLUENCE];
 };
@@ -29,9 +29,9 @@ struct Texture {
 };
 
 struct MaterialColor {
-  vec3 ambient;
-  vec3 diffuse;
-  vec3 specular;
+  glm::vec3 ambient;
+  glm::vec3 diffuse;
+  glm::vec3 specular;
   float shininess;
   MaterialColor()
       : ambient(0.2f, 0.2f, 0.2f), diffuse(0.8f, 0.8f, 0.8f),
