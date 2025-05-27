@@ -50,7 +50,7 @@
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
-				"modelPath": "../resources/objects/Sheep/Sheep.obj",
+				"modelPath": "../resources/objects/sheep/Sheep.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
 			"name": "Sheep",
@@ -95,7 +95,7 @@
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
-				"modelPath": "../resources/objects/Pig/Pig.obj",
+				"modelPath": "../resources/objects/pig/Pig.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
 			"name": "Pig",
@@ -320,7 +320,7 @@
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
-				"modelPath": "../resources/objects/Barn/BarnNew.obj",
+				"modelPath": "../resources/objects/barn/BarnNew.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
 			"name": "BarnNew",
