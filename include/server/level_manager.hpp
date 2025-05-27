@@ -1,14 +1,14 @@
 #pragma once
 
-#include "puzzle.hpp"
 #include "globals.hpp"
+#include "puzzle.hpp"
 
+#include <fstream>
+#include <iostream>
 #include <nlohmann/json.hpp>
+#include <string>
 #include <unordered_map>
 #include <vector>
-#include <string>
-#include <iostream>
-#include <fstream>
 
 using json = nlohmann::json;
 using namespace std;

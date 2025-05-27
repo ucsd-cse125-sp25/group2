@@ -26,10 +26,10 @@ LevelManager::LevelManager() {
   }
 
   if (objectsData.contains("levels") && objectsData["levels"].is_array()) {
-    for (const auto &levelData: objectsData["levels"]) {
-      LEVEL_ID level_id = stoi(objData['level_id'])
-      unique_ptr<Level> new_level = make_unique(Level(level_id));
-
+    for (const auto &levelData : objectsData["levels"]) {
+      LEVEL_ID level_id =
+          stoi(objData['level_id']) unique_ptr<Level> new_level =
+              make_unique(Level(level_id));
     }
   }
 }
