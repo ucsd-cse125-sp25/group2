@@ -9,7 +9,6 @@ bool ServerGameState::init() {
   ObjectLoader objectLoader = ObjectLoader();
   objectList = objectLoader.loadObjects();
   for (auto &obj : objectList) {
-    cout << "Object ID: " << obj.second->getId() << endl;
     auto object = obj.second.get();
     if (object->getInteractionType() != InteractionType::NONE) {
       interactableObjects[obj.first] = object;
