@@ -139,8 +139,10 @@ struct KeypadInputPacket : public IPacket {
   vector<int> inputSequence;
   bool close;
 
-  KeypadInputPacket(OBJECT_ID objectId, CLIENT_ID clientId ,const vector<int> &sequence, bool isClose)
-      : id(objectId), inputSequence(sequence), client(clientId), close(isClose) {}
+  KeypadInputPacket(OBJECT_ID objectId, CLIENT_ID clientId,
+                    const vector<int> &sequence, bool isClose)
+      : id(objectId), inputSequence(sequence), client(clientId),
+        close(isClose) {}
   PacketType getType() const override { return PacketType::KEYPADINPUT; }
   vector<char> serialize() const override;
   static KeypadInputPacket deserialize(const vector<char> &payload);

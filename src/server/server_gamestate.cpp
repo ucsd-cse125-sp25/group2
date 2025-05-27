@@ -151,17 +151,17 @@ void ServerGameState::updateInteraction(PLAYER_ID id, glm::vec3 rayDirection,
 
     if (closestObject->getInteractionType() == InteractionType::KEYPAD) {
       auto keypadObject = dynamic_cast<KeypadObject *>(closestObject);
-      cout << "Interacting with KeypadObject: " << keypadObject->getId() << endl;
+      cout << "Interacting with KeypadObject: " << keypadObject->getId()
+           << endl;
       if (keypadObject && !keypadObject->locked) {
         keypadObject->locked = true;
         keypadObject->clientUsing = playerLogic->getClient(id);
         updatedObjectIds.insert(closestObjectID);
-        cout << "client: " << keypadObject->clientUsing << " is now using keypad" << endl;
+        cout << "client: " << keypadObject->clientUsing
+             << " is now using keypad" << endl;
       }
     }
-
   }
-  
 }
 
 void ServerGameState::applyPhysics() {
@@ -196,12 +196,13 @@ vector<int> ServerGameState::getLastUpdatedObjects() {
   return list;
 }
 
-bool ServerGameState::updateKeypadInput(OBJECT_ID id, vector<int> inputSequence, bool close) {
+bool ServerGameState::updateKeypadInput(OBJECT_ID id, vector<int> inputSequence,
+                                        bool close) {
   auto keypadObject = dynamic_cast<KeypadObject *>(getObject(id));
   if (keypadObject) {
     if (close) {
       keypadObject->locked = false;
-      keypadObject->clientUsing = -1; 
+      keypadObject->clientUsing = -1;
       return true; // Doesn't matter the return type
     }
     if (keypadObject->checkSequence(inputSequence)) {

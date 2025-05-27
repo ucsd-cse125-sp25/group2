@@ -4,7 +4,7 @@ GLuint BaseUI::loadTexture(const char *path) {
   int width, height, nrChannels;
   unsigned char *data = stbi_load(path, &width, &height, &nrChannels, 0);
   if (!data) {
-    cerr << "Failed to load texture: " << path  << endl;
+    cerr << "Failed to load texture: " << path << endl;
     return 0;
   }
 
@@ -149,8 +149,10 @@ void BaseUI::update(float mouseX, float mouseY, int winWidth, int winHeight,
       }
     }
   }
-  if (clickable && glfwGetMouseButton(glfwGetCurrentContext(),
-                        GLFW_MOUSE_BUTTON_LEFT) == GLFW_RELEASE && isClicked) {
+  if (clickable &&
+      glfwGetMouseButton(glfwGetCurrentContext(), GLFW_MOUSE_BUTTON_LEFT) ==
+          GLFW_RELEASE &&
+      isClicked) {
     isClicked = false;
   }
 

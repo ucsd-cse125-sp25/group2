@@ -173,7 +173,8 @@ DisconnectPacket DisconnectPacket::deserialize(const vector<char> &payload) {
 }
 
 vector<char> KeypadInputPacket::serialize() const {
-  vector<char> buffer(sizeof(OBJECT_ID) + sizeof(CLIENT_ID) + inputSequence.size() * sizeof(int) + sizeof(bool));
+  vector<char> buffer(sizeof(OBJECT_ID) + sizeof(CLIENT_ID) +
+                      inputSequence.size() * sizeof(int) + sizeof(bool));
   unsigned long size = 0;
   memcpy(buffer.data(), &id, sizeof(OBJECT_ID));
   size += sizeof(OBJECT_ID);
@@ -186,7 +187,7 @@ vector<char> KeypadInputPacket::serialize() const {
     size += sizeof(int);
   }
   memcpy(buffer.data() + size, &close, sizeof(bool));
-  
+
   return buffer;
 }
 
@@ -201,8 +202,8 @@ KeypadInputPacket KeypadInputPacket::deserialize(const vector<char> &payload) {
   size += sizeof(OBJECT_ID);
   memcpy(&client, payload.data() + size, sizeof(CLIENT_ID));
   size += sizeof(CLIENT_ID);
-  
-  for (int i  = 0; i < 4; ++i) {
+
+  for (int i = 0; i < 4; ++i) {
     int input;
     memcpy(&input, payload.data() + size, sizeof(int));
     inputSequence.push_back(input);
@@ -211,13 +212,12 @@ KeypadInputPacket KeypadInputPacket::deserialize(const vector<char> &payload) {
 
   memcpy(&close, payload.data() + size, sizeof(bool));
 
-
-  KeypadInputPacket packet(id,client, inputSequence, close);
+  KeypadInputPacket packet(id, client, inputSequence, close);
   return packet;
 }
 
 vector<char> KeypadPacket::serialize() const {
-  vector<char> buffer(sizeof(OBJECT_ID) + 2* sizeof(bool));
+  vector<char> buffer(sizeof(OBJECT_ID) + 2 * sizeof(bool));
   unsigned long size = 0;
   memcpy(buffer.data(), &id, sizeof(OBJECT_ID));
   size += sizeof(OBJECT_ID);
@@ -238,7 +238,7 @@ KeypadPacket KeypadPacket::deserialize(const vector<char> &payload) {
   memcpy(&display, payload.data() + size, sizeof(bool));
   size += sizeof(bool);
   memcpy(&unlocked, payload.data() + size, sizeof(bool));
-  
+
   KeypadPacket packet(id, display, unlocked);
   return packet;
 }

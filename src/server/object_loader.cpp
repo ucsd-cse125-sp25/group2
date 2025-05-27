@@ -36,8 +36,7 @@ unordered_map<int, unique_ptr<GameObject>> ObjectLoader::loadObjects() {
           rb->setStatic(isStatic);
         }
         auto cl = vector<Collider *>();
-        if (server.contains("colliders") &&
-            server["colliders"].is_array()) {
+        if (server.contains("colliders") && server["colliders"].is_array()) {
           for (const auto &clData : server["colliders"]) {
             glm::vec3 center = glm::vec3(0), halfExtents = glm::vec3(1);
             glm::mat3 orientation = glm::mat3(1);
@@ -67,8 +66,8 @@ unordered_map<int, unique_ptr<GameObject>> ObjectLoader::loadObjects() {
           c->update(base.transform.get());
         }
 
-
-        //auto cl = make_unique<Collider>(base.transform->getPosition(), position, halfExtents);
+        // auto cl = make_unique<Collider>(base.transform->getPosition(),
+        // position, halfExtents);
 
         if (server.contains("keypad")) {
           vector<int> correctSequence;
@@ -78,9 +77,8 @@ unordered_map<int, unique_ptr<GameObject>> ObjectLoader::loadObjects() {
               correctSequence.push_back(seq.get<int>());
             }
           }
-          obj = make_unique<KeypadObject>(objectId, base.active,
-                                          base.transform, rb, cl,
-                                          correctSequence);
+          obj = make_unique<KeypadObject>(objectId, base.active, base.transform,
+                                          rb, cl, correctSequence);
         } else {
           obj = make_unique<GameObject>(objectId, base.active, base.transform,
                                         rb, cl);
