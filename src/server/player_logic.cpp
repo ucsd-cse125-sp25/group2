@@ -62,7 +62,9 @@ void PlayerLogic::glide(GameObject *chicken) {
   if (!chicken->isGrounded()) {
     auto rigidBody = chicken->getRigidBody();
     if (rigidBody->getVelocity().y < 0) {
-      rigidBody->setVelocity(glm::vec3(rigidBody->getVelocity().x, -glideFallSpeed, rigidBody->getVelocity().z));
+      rigidBody->setVelocity(glm::vec3(rigidBody->getVelocity().x,
+                                       -glideFallSpeed,
+                                       rigidBody->getVelocity().z));
       rigidBody->setForce(glm::vec3(0.0f));
     }
   }

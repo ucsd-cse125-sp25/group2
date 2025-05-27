@@ -37,8 +37,8 @@ public:
 
   void calculateForces();
   void resolveCollisions();
-  void solveCollision(GameObject *a, GameObject *b, int aIndex,
-    int bIndex, bool &aGrounded, bool &bGrounded);
+  void solveCollision(GameObject *a, GameObject *b, int aIndex, int bIndex,
+                      bool &aGrounded, bool &bGrounded);
   void moveObjects(float deltaTime);
 
   vector<int> getUpdatedObjects() {
