@@ -104,15 +104,16 @@ void GameServer::dispatchUpdates() {
   vector<int> updatedObjects = game->getLastUpdatedObjects();
   for (int i = 0; i < updatedObjects.size(); i++) {
     GameObject *obj = game->getObject(updatedObjects[i]);
-
-    auto keypadObject = dynamic_cast<KeypadObject *>(obj);
-
-    if (keypadObject && keypadObject->clientUsing != -1 &&
+    if (obj->getInteractionType() == InteractionType::KEYPAD) {
+      auto keypadObject = dynamic_cast<KeypadObject *>(obj);
+      if (keypadObject && keypadObject->clientUsing != -1 &&
         !keypadObject->opened) {
-      network->sendToClient(keypadObject->clientUsing,
-                            KeypadPacket(keypadObject->getId(), true, false));
-      keypadObject->opened = true;
-    } else {
+        network->sendToClient(keypadObject->clientUsing,
+                              KeypadPacket(keypadObject->getId(), true, false));
+        keypadObject->opened = true;
+      } 
+    }
+    else {
       ObjectPacket objPacket = ObjectPacket(
           obj->getId(),
           Transform(obj->getPosition(), obj->getRotation(), obj->getScale()),
