@@ -107,13 +107,12 @@ void GameServer::dispatchUpdates() {
     if (obj->getInteractionType() == InteractionType::KEYPAD) {
       auto keypadObject = dynamic_cast<KeypadObject *>(obj);
       if (keypadObject && keypadObject->clientUsing != -1 &&
-        !keypadObject->opened) {
+          !keypadObject->opened) {
         network->sendToClient(keypadObject->clientUsing,
                               KeypadPacket(keypadObject->getId(), true, false));
         keypadObject->opened = true;
-      } 
-    }
-    else {
+      }
+    } else {
       ObjectPacket objPacket = ObjectPacket(
           obj->getId(),
           Transform(obj->getPosition(), obj->getRotation(), obj->getScale()),
