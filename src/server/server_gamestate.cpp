@@ -103,7 +103,7 @@ void ServerGameState::updateInteraction(PLAYER_ID id) {
     bool xInBox = (closestPointOnRay.x >= center.x - halfExtents.x &&
                    closestPointOnRay.x <= center.x + halfExtents.x);
     bool yInBox = (closestPointOnRay.y >= center.y - halfExtents.y &&
-                    closestPointOnRay.y <= center.y + halfExtents.y);
+                   closestPointOnRay.y <= center.y + halfExtents.y);
     bool zInBox = (closestPointOnRay.z >= center.z - halfExtents.z &&
                    closestPointOnRay.z <= center.z + halfExtents.z);
 
