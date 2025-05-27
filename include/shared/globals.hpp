@@ -12,14 +12,22 @@
 #define NUM_PLAYERS 4
 
 #define CHICKEN 0
-#define SHEEP 1
-#define PIG 2
+#define PIG 1
+#define SHEEP 2
 #define COW 3
 
 #define JSON_PATH "../resources/objects/objects.json"
 #define CONFIG_PATH "../resources/config.json"
 
-enum class MovementType : uint8_t { FORWARD, BACKWARD, LEFT, RIGHT, NONE };
+enum class MovementType : uint8_t {
+  NONE,
+  FORWARD,
+  BACKWARD,
+  LEFT,
+  RIGHT,
+  JUMP,
+  GLIDE
+};
 
 enum class InteractionType : uint8_t {
   NONE,

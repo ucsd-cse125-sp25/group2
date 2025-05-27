@@ -58,7 +58,7 @@ bool Client::init() {
   return true;
 }
 
-bool Client::initObjects() {
+bool Client::initGameState() {
   if (!game->init()) {
     cerr << "ClientGameState Initialization Failed" << endl;
     return false;
@@ -73,10 +73,10 @@ bool Client::initNetwork(asio::io_context &io_context) {
   return !network->err;
 }
 
-json Client::loadConfig(const std::string &path) {
-  std::ifstream file(path);
+json Client::loadConfig(const string &path) {
+  ifstream file(path);
   if (!file.is_open()) {
-    throw std::runtime_error("Could not open config file at " + path);
+    throw runtime_error("Could not open config file at " + path);
   }
   json j;
   file >> j;
@@ -214,24 +214,26 @@ void Client::processMovementInput() {
   if (game->state != Gamestate::GAME)
     return;
   if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
-    MovementPacket packet(game->getPlayer()->getId(), MovementType::FORWARD,
-                          cam->getFacing());
+    MovementPacket packet(game->getPlayer()->getId(), MovementType::FORWARD);
     network->send(packet);
   }
   if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
-    MovementPacket packet(game->getPlayer()->getId(), MovementType::BACKWARD,
-                          cam->getFacing());
+    MovementPacket packet(game->getPlayer()->getId(), MovementType::BACKWARD);
     network->send(packet);
   }
   if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
-    MovementPacket packet(game->getPlayer()->getId(), MovementType::LEFT,
-                          cam->getFacing());
+    MovementPacket packet(game->getPlayer()->getId(), MovementType::LEFT);
     network->send(packet);
   }
   if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
-    MovementPacket packet(game->getPlayer()->getId(), MovementType::RIGHT,
-                          cam->getFacing());
+    MovementPacket packet(game->getPlayer()->getId(), MovementType::RIGHT);
     network->send(packet);
+  }
+  if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS) {
+    if (characterManager->selectedCharacter == CHICKEN) {
+      MovementPacket packet(game->getPlayer()->getId(), MovementType::GLIDE);
+      network->send(packet);
+    }
   }
 }
 
@@ -241,10 +243,17 @@ void Client::updatePlayerRotation() {
 
   float targetYaw = -(cameraYaw - 90.0f);
 
-  if (targetYaw > 360.0f || targetYaw < -360.0f)
-    targetYaw = fmod(targetYaw, 360.0f);
+  targetYaw = fmod(targetYaw, 360.0f);
+  if (targetYaw < 0.0f)
+    targetYaw += 360.0f;
 
-  if (fabs(targetYaw - playerYaw) > 0.01f) {
+  float angleDiff = targetYaw - playerYaw;
+  if (angleDiff > 180.0f)
+    angleDiff -= 360.0f;
+  if (angleDiff < -180.0f)
+    angleDiff += 360.0f;
+
+  if (fabs(angleDiff) > 0.01f) {
     glm::vec3 currentRotation = game->getPlayer()->getRotation();
     glm::vec3 newRotation =
         glm::vec3(currentRotation.x, targetYaw, currentRotation.z);
@@ -269,6 +278,10 @@ void Client::keyCallback(GLFWwindow *window, int key, int scancode, int action,
   if (action == GLFW_PRESS) {
     if (key == GLFW_KEY_ESCAPE)
       glfwSetWindowShouldClose(window, true);
+    if (key == GLFW_KEY_SPACE) {
+      MovementPacket packet(game->getPlayer()->getId(), MovementType::JUMP);
+      network->send(packet);
+    }
   }
 }
 

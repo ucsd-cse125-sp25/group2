@@ -2,7 +2,10 @@
 
 PlayerLogic::PlayerLogic() {
   speed = 10.0f;
-  jumpForce = 10.0f;
+  jumpForce = 8.0f;
+  // Percentage, increase to strengthen glide gravity negation, decrease to make
+  // it fall faster (0 - 1)
+  glideGravityModifier = 0.9f;
 
   for (int i = 0; i < NUM_PLAYERS; i++) {
     heldObjects[i] = nullptr;
@@ -11,24 +14,32 @@ PlayerLogic::PlayerLogic() {
   }
 }
 
-vector<OBJECT_ID> PlayerLogic::move(PLAYER_ID id, GameObject *player,
-                                    glm::vec3 direction) {
-  vector<OBJECT_ID> movedObjects;
-
+void PlayerLogic::move(GameObject *player, glm::vec3 direction) {
   // move the player
   auto rigidBody = player->getRigidBody();
   rigidBody->applyImpulse(speed * direction);
-  movedObjects.push_back(id);
+}
 
-  // if the player is holding an object, move the object with the player
+OBJECT_ID PlayerLogic::moveHeldObject(PLAYER_ID id, GameObject *player) {
+  // If the player is holding an object, move it with the player and return its
+  // ID Otherwise, return -1
   if (getHeldObject(id) != nullptr) {
     auto heldObject = getHeldObject(id);
     auto tf = heldObject->getTransform();
-    glm::vec3 offset = glm::vec3(0.0f, 3.0f, 0.0f);
+    glm::vec3 offset = glm::vec3(0.0f, 2.0f, 0.0f);
     tf->setPosition(player->getTransform()->getPosition() + offset);
-    movedObjects.push_back(heldObject->getId());
+    return heldObject->getId();
   }
-  return movedObjects;
+  return -1;
+}
+
+void PlayerLogic::jump(GameObject *player) {
+  // jump the player
+  if (player->isGrounded()) {
+    player->setGrounded(false);
+    auto rigidBody = player->getRigidBody();
+    rigidBody->applyImpulse(glm::vec3(0.0f, jumpForce, 0.0f));
+  }
 }
 
 vector<OBJECT_ID> PlayerLogic::rotate(PLAYER_ID id, GameObject *player,
@@ -36,9 +47,8 @@ vector<OBJECT_ID> PlayerLogic::rotate(PLAYER_ID id, GameObject *player,
   vector<OBJECT_ID> rotatedObjects;
 
   // rotate the player
-  auto tf = player->getTransform();
-  tf->setRotation(rotation);
-  player->getCollider()->update(tf);
+  player->getTransform()->setRotation(rotation);
+  rotatedObjects.push_back(id);
 
   // if the player is holding an object, apply the rotation to the object
   if (getHeldObject(id) != nullptr) {
@@ -49,17 +59,31 @@ vector<OBJECT_ID> PlayerLogic::rotate(PLAYER_ID id, GameObject *player,
   return rotatedObjects;
 }
 
+void PlayerLogic::glide(GameObject *chicken) {
+  // glide the chicken
+  if (!chicken->isGrounded()) {
+    auto rigidBody = chicken->getRigidBody();
+    if (rigidBody->getVelocity().y < 0) {
+      rigidBody->setForce(glm::vec3(0.0f));
+      rigidBody->applyForce(rigidBody->getMass() *
+                            glm::vec3(0, glideGravityModifier * 9.81f, 0));
+    }
+  }
+}
+
 void PlayerLogic::pickupObject(GameObject *playerObject, GameObject *object) {
   auto playerTransform = playerObject->getTransform();
   auto tf = object->getTransform();
-  glm::vec3 offset = glm::vec3(0.0f, 3.0f, 0.0f);
+  glm::vec3 offset = glm::vec3(0.0f, 2.0f, 0.0f);
   tf->setPosition(playerTransform->getPosition() + offset);
   object->setUsesGravity(false);
 }
 
 void PlayerLogic::dropObject(GameObject *playerObject, GameObject *object) {
-  auto playerTransform = playerObject->getTransform();
-  object->getTransform()->setPosition(playerTransform->getPosition());
+  auto tf = object->getTransform();
+  glm::vec3 offset = playerObject->getTransform()->getForward() * 3.0f +
+                     glm::vec3(0.0f, 2.0f, 0.0f);
+  tf->setPosition(playerObject->getTransform()->getPosition() + offset);
   object->setUsesGravity(true);
 }
 

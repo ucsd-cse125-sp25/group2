@@ -2,6 +2,7 @@
 
 #include "base_object_loader.hpp"
 #include "globals.hpp"
+#include "press_functions.hpp"
 #include "server_gameobject.hpp"
 #include "keypad_object.hpp"
 #include "transform.hpp"
@@ -16,4 +17,5 @@ class ObjectLoader : public BaseObjectLoader {
 public:
   ObjectLoader() : BaseObjectLoader(){};
   unordered_map<int, unique_ptr<GameObject>> loadObjects();
+  vector<Collider *> loadCollider(string path);
 };

@@ -83,10 +83,9 @@ struct CharacterResponsePacket : public IPacket {
 struct MovementPacket : public IPacket {
   PLAYER_ID id;
   MovementType movementType;
-  vec3 cameraFront;
 
-  MovementPacket(PLAYER_ID playerID, MovementType type, vec3 camFront)
-      : id(playerID), movementType(type), cameraFront(camFront) {}
+  MovementPacket(PLAYER_ID playerID, MovementType type)
+      : id(playerID), movementType(type) {}
   PacketType getType() const override { return PacketType::MOVEMENT; }
   vector<char> serialize() const override;
   static MovementPacket deserialize(const vector<char> &payload);
@@ -94,9 +93,9 @@ struct MovementPacket : public IPacket {
 
 struct RotationPacket : public IPacket {
   PLAYER_ID id;
-  vec3 rotation;
+  glm::vec3 rotation;
 
-  RotationPacket(PLAYER_ID playerID, vec3 r) : id(playerID), rotation(r) {}
+  RotationPacket(PLAYER_ID playerID, glm::vec3 r) : id(playerID), rotation(r) {}
   PacketType getType() const override { return PacketType::ROTATION; }
   vector<char> serialize() const override;
   static RotationPacket deserialize(const vector<char> &payload);
@@ -104,10 +103,10 @@ struct RotationPacket : public IPacket {
 
 struct InteractionPacket : public IPacket {
   PLAYER_ID id;
-  vec3 rayDirection;
-  vec3 rayOrigin;
+  glm::vec3 rayDirection;
+  glm::vec3 rayOrigin;
 
-  InteractionPacket(PLAYER_ID playerID, vec3 rD, vec3 rO)
+  InteractionPacket(PLAYER_ID playerID, glm::vec3 rD, glm::vec3 rO)
       : id(playerID), rayDirection(rD), rayOrigin(rO) {}
   PacketType getType() const override { return PacketType::INTERACTION; }
   vector<char> serialize() const override;

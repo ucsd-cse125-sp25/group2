@@ -21,6 +21,7 @@ private:
   int level;
   float deltaTime;
   unordered_map<int, unique_ptr<GameObject>> objectList;
+  unordered_map<int, GameObject *> interactableObjects;
   unordered_set<int> updatedObjectIds;
   unique_ptr<Physics> physicsWorld;
   unique_ptr<PlayerLogic> playerLogic;
@@ -33,7 +34,7 @@ public:
 
   // update methods
   CLIENT_ID *updateCharacters(PLAYER_ID playerID, CLIENT_ID clientID);
-  void updateMovement(PLAYER_ID id, MovementType type, glm::vec3 cameraFront);
+  void updateMovement(PLAYER_ID id, MovementType type);
   void updateRotation(PLAYER_ID id, glm::vec3 rotation);
   void updateInteraction(PLAYER_ID id, glm::vec3 rayDirection,
                          glm::vec3 rayOrigin);

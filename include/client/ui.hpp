@@ -72,9 +72,9 @@ public:
 
   virtual ~BaseUI();
 
-  void setOnClick(std::function<void()> callback);
+  void setOnClick(function<void()> callback);
 
-  void setOnSelect(std::function<void()> callback);
+  void setOnSelect(function<void()> callback);
 
   void setTexture(GLuint texture);
 
