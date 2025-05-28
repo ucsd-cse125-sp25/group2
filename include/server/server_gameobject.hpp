@@ -26,9 +26,9 @@ protected:
   vector<Collider *> colliders;
 
 public:
-  GameObject(const OBJECT_ID id, const bool isActive, unique_ptr<Transform> &tf,
+  GameObject(const OBJECT_ID id, const LEVEL_ID levelNum, const bool isActive, unique_ptr<Transform> &tf,
              unique_ptr<RigidBody> &rb, vector<Collider *> &cl)
-      : BaseGameObject(id, isActive, tf), rigidbody(move(rb)), colliders(cl) {
+      : BaseGameObject(id, levelNum, isActive, tf), rigidbody(move(rb)), colliders(cl) {
     interactionType = InteractionType::NONE;
     usesGravity = true;
     grounded = true;

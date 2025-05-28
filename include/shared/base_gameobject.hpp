@@ -12,13 +12,14 @@ using namespace std;
 class BaseGameObject {
 protected:
   OBJECT_ID id;
+  LEVEL_ID level;
   bool active;
   unique_ptr<Transform> transform;
 
 public:
-  BaseGameObject(const OBJECT_ID id, const bool isActive,
+  BaseGameObject(const OBJECT_ID id, const int levelNum, const bool isActive,
                  unique_ptr<Transform> &tf)
-      : id(id), active(isActive), transform(move(tf)){};
+      : id(id), level(levelNum), active(isActive), transform(move(tf)){};
 
   virtual ~BaseGameObject(){};
 

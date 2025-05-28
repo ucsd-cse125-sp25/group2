@@ -4,6 +4,16 @@ BaseObjectData BaseObjectLoader::createBaseGameObject(const json &objData) {
   BaseObjectData baseObjectData;
   glm::vec3 position, rotation, scale;
 
+  if (objData.contains("level")) {
+    if (objData["level"].is_number()) {
+      baseObjectData.level = objData["level"].get<LEVEL_ID>();
+    } else {
+      baseObjectData.level = 0; // Default
+    }
+  } else {
+    baseObjectData.level = 0; // Default
+  }
+
   if (objData.contains("active")) {
     if (objData["active"].is_boolean()) {
       baseObjectData.active = objData["active"].get<bool>();

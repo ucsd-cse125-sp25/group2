@@ -8,6 +8,7 @@
 #define CLIENT_ID int
 #define OBJECT_ID int
 #define PLAYER_ID int
+#define LEVEL_ID int
 
 #define NUM_PLAYERS 4
 

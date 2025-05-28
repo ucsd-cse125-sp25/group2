@@ -2,6 +2,7 @@
   "objects": [
     {
       "name": "Chicken",
+      "level": 0,
       "active": true,
       "transform": {
         "position": { "x": 0.0, "y": 0.0, "z": 0.0 },
@@ -20,26 +21,8 @@
       }
     },
     {
-      "name": "Cube 1",
-      "active": true,
-      "transform": {
-        "position": { "x": 0.0, "y": 0.0, "z": -5.0 },
-        "rotation": { "x": 0.0, "y": 0.0, "z": 0.0 },
-        "scale": { "x": 1, "y": 1, "z": 1 }
-      },
-      "client": {
-        "modelPath": "../resources/objects/cube/Cube.obj",
-        "vertShaderPath": "../resources/shaders/shader.vert",
-        "fragShaderPath": "../resources/shaders/shader.frag"
-      },
-      "server": {
-        "static": false,
-        "collider": "../resources/objects/cube/collider.json",
-        "interaction": "PICKUP"
-      }
-    },
-    {
-      "name": "Cube 2",
+      "name": "Cube",
+      "level": 0,
       "active": true,
       "transform": {
         "position": { "x": -5.0, "y": 0.0, "z": 0.0 },
@@ -60,6 +43,7 @@
     },
     {
       "name": "Floor",
+      "level":0,
       "active": true,
       "transform": {
         "position": { "x": 0.0, "y": 0.0, "z": 0.0 },
