@@ -69,6 +69,20 @@ CharacterResponsePacket::deserialize(const vector<char> &payload) {
   return packet;
 }
 
+vector<char> LevelChangePacket::serialize() const {
+  vector<char> buffer(sizeof(LEVEL_ID));
+  memcpy(buffer.data(), &level, sizeof(LEVEL_ID));
+  return buffer;  
+}
+
+LevelChangePacket LevelChangePacket::deserialize(const vector<char> &payload) {
+  LEVEL_ID level;
+
+  memcpy(&level, payload.data(), sizeof(LEVEL_ID));
+  LevelChangePacket packet(level);
+  return packet;
+}
+
 vector<char> MovementPacket::serialize() const {
   vector<char> buffer(sizeof(PLAYER_ID) + sizeof(MovementType) +
                       sizeof(glm::vec3));
