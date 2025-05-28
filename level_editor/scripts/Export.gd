@@ -96,7 +96,7 @@ func get_all_colliders(node: Node3D) -> Array:
 				var collider_data := {
 					"center": _vec3_to_json(child.transform.origin * node.scale),
 					"halfExtents": _vec3_to_json(extents),
-					#"orientation": _basis_to_json(child.global_transform.basis),
+					"orientation": _basis_to_json(child.global_transform.basis),
 					"isTrigger": is_trigger
 				}
 				colliders.append(collider_data)
