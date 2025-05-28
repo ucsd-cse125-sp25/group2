@@ -2,6 +2,8 @@
 
 PlayerLogic::PlayerLogic() {
   speed = 10.0f;
+  maxJumps = 2;
+  currJumps = 2;
   jumpForce = 8.0f;
   glideFallSpeed = 1.0f;
 
@@ -34,6 +36,10 @@ OBJECT_ID PlayerLogic::moveHeldObject(PLAYER_ID id, GameObject *player) {
 void PlayerLogic::jump(GameObject *player) {
   // jump the player
   if (player->isGrounded()) {
+    currJumps = maxJumps;
+  }
+  if (currJumps > 0) {
+    currJumps--;
     player->setGrounded(false);
     auto rigidBody = player->getRigidBody();
     rigidBody->applyImpulse(glm::vec3(0.0f, jumpForce, 0.0f));

@@ -12,6 +12,8 @@ class PlayerLogic {
 private:
   // Movement properties
   float speed;
+  int maxJumps;
+  int currJumps;
   float jumpForce;
   float glideFallSpeed;
 
