@@ -73,6 +73,4 @@ void LevelManager::loadJSON() {
   currentLevel = levels[currentLevelID].get();
 }
 
-void LevelManager::loadLevel() {}
-
 void LevelManager::update() {}

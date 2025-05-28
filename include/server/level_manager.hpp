@@ -35,16 +35,14 @@ class LevelManager {
 private:
   Level *currentLevel = nullptr;
   LEVEL_ID currentLevelID = 0;
-  unordered_map<LEVEL_ID, vector<GameObject *>> levelObjects;
-  ;
-  unordered_map<LEVEL_ID, unique_ptr<Level>> levels;
   unordered_map<LEVEL_ID, unordered_map<OBJECT_ID, GameObject *>> levelObjects;
+  unordered_map<LEVEL_ID, unique_ptr<Level>> levels;
 
 public:
   LevelManager();
 
-  void add(LEVEL_ID id, GameObject *object) {
-    levelObjects[id].push_back(object);
+  void addObject(LEVEL_ID level, OBJECT_ID id, GameObject *object) {
+    levelObjects[level][id] = object;
   }
   void loadJSON();
   void addLevel(LEVEL_ID id, unique_ptr<Level> level);
