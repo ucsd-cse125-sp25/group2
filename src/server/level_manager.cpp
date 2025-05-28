@@ -6,12 +6,19 @@ void Level::addPuzzle(unique_ptr<Puzzle> puzzle) {
 }
 
 bool Level::isLevelComplete() {
-  for (const auto &puzzlePair : puzzles) {
-    if (!puzzlePair.second->isPuzzleComplete()) {
-      return false;
-    }
+  Puzzle *puzzle = puzzles[currentPuzzle].get();
+  if (puzzle->isPuzzleComplete()) {
+    updatedObjectIds.push_back(puzzle->dispatchReward());
+    currentPuzzle++;
   }
-  return true;
+
+  return (currentPuzzle >= numPuzzles);
+}
+
+vector<OBJECT_ID> Level::getUpdatedObjects() {
+  vector<OBJECT_ID> list(updatedObjectIds.begin(), updatedObjectIds.end());
+  updatedObjectIds.clear();
+  return list;
 }
 
 void LevelManager::addLevel(LEVEL_ID id, unique_ptr<Level> level) {}
@@ -37,13 +44,15 @@ void LevelManager::loadJSON() {
       unique_ptr<Level> newLevel = make_unique<Level>(id);
       if (levelData.contains("puzzles") && levelData["puzzles"].is_array()) {
         for (const auto &puzzleData : levelData["puzzles"]) {
-          unique_ptr<Puzzle> newPuzzle = make_unique<Puzzle>();
+          OBJECT_ID puzzleObjId = puzzleData["objectID"].get<int>();
+          GameObject *puzzleObject = currentLevelObjects[puzzleObjId];
+          unique_ptr<Puzzle> newPuzzle = make_unique<Puzzle>(puzzleObject);
           if (puzzleData.contains("conditions") &&
               puzzleData["conditions"].is_array()) {
             for (const auto &conditionData : puzzleData["conditions"]) {
               unique_ptr<PuzzleCondition> condition;
               OBJECT_ID objId = conditionData["objectID"].get<int>();
-              auto object = currentLevelObjects[objId];
+              GameObject *object = currentLevelObjects[objId];
               string conditionStr =
                   conditionData["conditionType"].get<string>();
               auto conditionVal =

@@ -23,12 +23,14 @@ private:
   LEVEL_ID level;
   PUZZLE_ID currentPuzzle;
   NUM_PUZZLE numPuzzles;
+  vector<OBJECT_ID> updatedObjectIds;
   unordered_map<PUZZLE_ID, unique_ptr<Puzzle>> puzzles;
 
 public:
   Level(LEVEL_ID id) : level(id), currentPuzzle(0), numPuzzles(0){};
   void addPuzzle(unique_ptr<Puzzle> puzzle);
   bool isLevelComplete();
+  vector<OBJECT_ID> getUpdatedObjects();
 };
 
 class LevelManager {

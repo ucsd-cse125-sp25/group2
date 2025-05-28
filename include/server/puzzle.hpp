@@ -8,10 +8,13 @@
 using namespace std;
 
 class Puzzle {
-public:
+private:
+  GameObject *rewardObject;
   vector<unique_ptr<PuzzleCondition>> conditions;
 
+public:
+  Puzzle(GameObject *obj) : rewardObject(obj){};
   void addCondition(unique_ptr<PuzzleCondition> condition);
   bool isPuzzleComplete() const;
-  void dispatchReward(GameObject *rewardObject);
+  OBJECT_ID dispatchReward();
 };
