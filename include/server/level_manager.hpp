@@ -35,7 +35,8 @@ class LevelManager {
 private:
   Level *currentLevel = nullptr;
   LEVEL_ID currentLevelID = 0;
-  unordered_map<LEVEL_ID, vector<GameObject *>> levelObjects;;
+  unordered_map<LEVEL_ID, vector<GameObject *>> levelObjects;
+  ;
   unordered_map<LEVEL_ID, unique_ptr<Level>> levels;
   unordered_map<LEVEL_ID, unordered_map<OBJECT_ID, GameObject *>> levelObjects;
 
