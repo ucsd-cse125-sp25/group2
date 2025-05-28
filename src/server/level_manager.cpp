@@ -6,18 +6,13 @@ void Level::addPuzzle(unique_ptr<Puzzle> puzzle) {
 }
 
 bool Level::isLevelComplete() {
-  while (currentPuzzle < numPuzzles) {
-    Puzzle* puzzle = puzzles[currentPuzzle].get();
-    if (puzzle->isPuzzleComplete()){
-      updatedObjectIds.push_back(puzzle->dispatchReward());
-      currentPuzzle++;
-    }
-    else  {
-      break;
-    }
+  Puzzle* puzzle = puzzles[currentPuzzle].get();
+  if (puzzle->isPuzzleComplete()){
+    updatedObjectIds.push_back(puzzle->dispatchReward());
+    currentPuzzle++;
   }
 
-  return (currentPuzzle < numPuzzles);
+  return (currentPuzzle >= numPuzzles);
 }
 
 vector<OBJECT_ID> Level::getUpdatedObjects() {
