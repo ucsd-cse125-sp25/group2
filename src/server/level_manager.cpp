@@ -31,18 +31,21 @@ void LevelManager::loadJSON() {
   if (levelsData.contains("levels") && levelsData["levels"].is_array()) {
     for (const auto &levelData : levelsData["levels"]) {
       LEVEL_ID id = levelData["levelID"].get<int>();
-      auto currentLevelObjects = levelObjects[id]; 
+      auto currentLevelObjects = levelObjects[id];
       unique_ptr<Level> newLevel = make_unique<Level>(id);
       if (levelData.contains("puzzles") && levelData["puzzles"].is_array()) {
         for (const auto &puzzleData : levelData["puzzles"]) {
           unique_ptr<Puzzle> newPuzzle = make_unique<Puzzle>();
-          if (puzzleData.contains("conditions") && puzzleData["conditions"].is_array()) {
+          if (puzzleData.contains("conditions") &&
+              puzzleData["conditions"].is_array()) {
             for (const auto &conditionData : puzzleData["conditions"]) {
               unique_ptr<PuzzleCondition> condition;
               OBJECT_ID objId = conditionData["objectID"].get<int>();
               auto object = currentLevelObjects[objId];
-              string conditionStr = conditionData["conditionType"].get<string>();
-              auto conditionVal = magic_enum::enum_cast<ConditionType>(conditionStr);
+              string conditionStr =
+                  conditionData["conditionType"].get<string>();
+              auto conditionVal =
+                  magic_enum::enum_cast<ConditionType>(conditionStr);
               if (conditionVal.has_value()) {
                 ConditionType conditionType = conditionVal.value();
                 switch (conditionType) {
