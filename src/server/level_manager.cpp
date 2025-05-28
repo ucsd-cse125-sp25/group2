@@ -6,12 +6,16 @@ void Level::addPuzzle(unique_ptr<Puzzle> puzzle) {
 }
 
 bool Level::isLevelComplete() {
-  auto puzzle = puzzles[currentPuzzle].get();
-  return puzzle->isPuzzleComplete();
+  for (const auto &puzzlePair : puzzles) {
+    if (!puzzlePair.second->isPuzzleComplete()) {
+      return false;
+    }
+  }
+  return true;
 }
 
 void LevelManager::addLevel(LEVEL_ID id, unique_ptr<Level> level) {
-  levels[id] = move(level);
+  
 }
 
 void LevelManager::loadJSON() {
@@ -74,3 +78,5 @@ void LevelManager::loadJSON() {
 }
 
 void LevelManager::update() {}
+
+void LevelManager::advanceLevel() {}
