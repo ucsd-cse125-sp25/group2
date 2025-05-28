@@ -3,9 +3,9 @@
 unordered_map<int, unique_ptr<GameObject>> ObjectLoader::loadObjects() {
   unordered_map<int, unique_ptr<GameObject>> objects;
 
-  ifstream file(JSON_PATH);
+  ifstream file(OBJECT_PATH);
   if (!file.is_open()) {
-    cerr << "Failed to open JSON file: " << JSON_PATH << endl;
+    cerr << "Failed to open JSON file: " << OBJECT_PATH << endl;
   }
 
   json objectsData;
