@@ -5,6 +5,7 @@
             "puzzles": [
                 {
                     "puzzleID": 0,
+                    "objectID": 1,
                     "conditions": [
                         {
                             "conditionType": "PRESSURE_PLATE",

@@ -12,3 +12,7 @@ bool Puzzle::isPuzzleComplete() const {
   }
   return true;
 }
+
+OBJECT_ID Puzzle::dispatchReward() {
+  return rewardObject->getId();
+}
