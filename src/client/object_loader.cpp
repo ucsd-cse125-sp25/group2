@@ -22,8 +22,8 @@ unordered_map<int, unique_ptr<GameObject>> ObjectLoader::loadObjects() {
       OBJECT_ID objectId = id++;
 
       BaseObjectData base = createBaseGameObject(objData);
-      unique_ptr<GameObject> obj =
-          make_unique<GameObject>(objectId, base.level, base.active, base.transform);
+      unique_ptr<GameObject> obj = make_unique<GameObject>(
+          objectId, base.level, base.active, base.transform);
 
       if (objData.contains("client")) {
         auto &client = objData["client"];
