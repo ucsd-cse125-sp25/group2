@@ -13,4 +13,5 @@ public:
 
   void addCondition(unique_ptr<PuzzleCondition> condition);
   bool isPuzzleComplete() const;
+  void dispatchReward(GameObject *rewardObject);
 };

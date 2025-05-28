@@ -14,6 +14,7 @@ bool ServerGameState::init() {
       interactableObjects[obj.first] = object;
     }
     physicsWorld->add(object);
+    // levelManger.add(level, object);
   }
 
   return true;
