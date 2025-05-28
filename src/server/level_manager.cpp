@@ -26,9 +26,7 @@ vector<OBJECT_ID> Level::getUpdatedObjects() {
   return list;  
 }
 
-void LevelManager::addLevel(LEVEL_ID id, unique_ptr<Level> level) {
-  levels[id] = move(level);
-}
+void LevelManager::addLevel(LEVEL_ID id, unique_ptr<Level> level) {}
 
 void LevelManager::loadJSON() {
   ifstream file(PUZZLE_PATH);
@@ -92,3 +90,5 @@ void LevelManager::loadJSON() {
 }
 
 void LevelManager::update() {}
+
+void LevelManager::advanceLevel() {}

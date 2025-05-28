@@ -43,11 +43,13 @@ private:
 public:
   LevelManager();
 
-  void addObject(LEVEL_ID level, OBJECT_ID id, GameObject *object) {
-    levelObjects[level][id] = object;
+  void addObject(LEVEL_ID levelID, OBJECT_ID objectID, GameObject *object) {
+    levelObjects[levelID][objectID] = object;
+  }
+  void addLevel(LEVEL_ID id, unique_ptr<Level> level) {
+    levels[id] = move(level);
   }
   void loadJSON();
-  void addLevel(LEVEL_ID id, unique_ptr<Level> level);
   void update();
   void advanceLevel();
 };

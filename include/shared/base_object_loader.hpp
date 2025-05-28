@@ -12,6 +12,7 @@ using json = nlohmann::json;
 using namespace std;
 
 struct BaseObjectData {
+  LEVEL_ID level;
   bool active;
   unique_ptr<Transform> transform;
 };

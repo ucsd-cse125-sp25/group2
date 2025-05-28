@@ -44,8 +44,8 @@ unordered_map<int, unique_ptr<GameObject>> ObjectLoader::loadObjects() {
             c->setCanActivate(server["canActivate"].get<bool>());
           c->update(base.transform.get());
         }
-        obj = make_unique<GameObject>(objectId, base.active, base.transform, rb,
-                                      cl);
+        obj = make_unique<GameObject>(objectId, base.level, base.active,
+                                      base.transform, rb, cl);
 
         if (server.contains("interaction")) {
           string interactionStr = server["interaction"].get<string>();
