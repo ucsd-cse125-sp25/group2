@@ -13,7 +13,7 @@ private:
   // Movement properties
   float speed;
   float jumpForce;
-  float glideGravityModifier;
+  float glideFallSpeed;
 
   // Interaction properties
   unordered_map<PLAYER_ID, GameObject *>
