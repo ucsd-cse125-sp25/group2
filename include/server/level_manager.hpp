@@ -22,11 +22,11 @@ class Level {
 private:
   LEVEL_ID level;
   PUZZLE_ID currentPuzzle;
-  NUM_PUZZLE numPuzzle;
+  NUM_PUZZLE numPuzzles;
   unordered_map<PUZZLE_ID, unique_ptr<Puzzle>> puzzles;
 
 public:
-  Level(LEVEL_ID id) : level(id), currentPuzzle(0), numPuzzle(0){};
+  Level(LEVEL_ID id) : level(id), currentPuzzle(0), numPuzzles(0){};
   void addPuzzle(unique_ptr<Puzzle> puzzle);
   void removePuzzle(int id);
   bool isLevelComplete();
@@ -37,11 +37,13 @@ private:
   Level *currentLevel = nullptr;
   LEVEL_ID currentLevelID = 0;
   unordered_map<LEVEL_ID, unique_ptr<Level>> levels;
+  unordered_map<LEVEL_ID, unordered_map<OBJECT_ID, GameObject *>> levelObjects;
 
 public:
   LevelManager();
 
-  void loadLevel(LEVEL_ID id);
+  void loadJSON();
+  void addLevel(LEVEL_ID id, unique_ptr<Level> level);
   void update();
   void advanceLevel();
 };
