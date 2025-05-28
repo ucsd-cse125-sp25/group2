@@ -14,9 +14,7 @@ bool Level::isLevelComplete() {
   return true;
 }
 
-void LevelManager::addLevel(LEVEL_ID id, unique_ptr<Level> level) {
-  
-}
+void LevelManager::addLevel(LEVEL_ID id, unique_ptr<Level> level) {}
 
 void LevelManager::loadJSON() {
   ifstream file(PUZZLE_PATH);
