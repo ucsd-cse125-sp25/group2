@@ -50,7 +50,6 @@ void PlayerLogic::jump(GameObject *player) {
   player->setGrounded(false);
   auto rigidBody = player->getRigidBody();
   rigidBody->applyImpulse(glm::vec3(0.0f, jumpForce, 0.0f));
-  
 }
 
 vector<OBJECT_ID> PlayerLogic::rotate(PLAYER_ID id, GameObject *player,
