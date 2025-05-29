@@ -10,18 +10,39 @@ target_include_directories(${TARGET_NAME} PRIVATE
     ${CLIENT_INCLUDE_DIRECTORY} ${SHARED_INCLUDE_DIRECTORY}
 )
 
-# Compile Definitions
-# Build in standalone mode to not include Boost
-target_compile_definitions(${TARGET_NAME} PRIVATE ASIO_STANDALONE)
+# Platform-specific configurations
+if(APPLE)
+    # Mac-specific settings
+    target_compile_definitions(${TARGET_NAME} PRIVATE 
+        GL_SILENCE_DEPRECATION
+        ASIO_STANDALONE
+    )
+    
+    # Link Mac frameworks
+    target_link_libraries(${TARGET_NAME} PRIVATE
+        "-framework OpenGL"
+        "-framework Cocoa" 
+        "-framework IOKit"
+        "-framework CoreVideo"
+    )
+else()
+    target_compile_definitions(${TARGET_NAME} PRIVATE ASIO_STANDALONE)
+endif()
 
 target_link_libraries(${TARGET_NAME} PRIVATE
     shared_lib
-    glm
     glfw
-    libglew_static 
+    libglew_static
+    glm
     asio
     assimp
     stb_image
     nlohmann_json::nlohmann_json
     magic_enum::magic_enum
+)
+
+# Set C++ standard
+set_target_properties(${TARGET_NAME} PROPERTIES
+    CXX_STANDARD 17
+    CXX_STANDARD_REQUIRED ON
 )

@@ -17,7 +17,7 @@ Camera::Camera()
 
   worldUp = cameraUp;
 
-  characterCamRadius[CHICKEN] = 8.0f;
+  characterCamRadius[CHICKEN] = 7.0f;
   characterCamRadius[PIG] = 9.0f;
   characterCamRadius[SHEEP] = 9.0f;
   characterCamRadius[COW] = 11.0f;

@@ -17,9 +17,6 @@ void Physics::calculateForces() {
     if (!obj->isGrounded()) {
       if (obj->hasGravity())
         force += obj->getRigidBody()->getMass() * gravity;
-      if (glm::dot(vel, vel) > 0.001f)
-        force += 0.5f * density * glm::dot(vel, vel) * drag *
-                 obj->getRigidBody()->getArea() * -1.0f * glm::normalize(vel);
     }
     obj->getRigidBody()->applyForce(force);
   }
@@ -37,46 +34,31 @@ void Physics::clampVelocities(RigidBody *rb) {
 void Physics::resolveCollisions() {
   // Multiple iterations smooths out collision resolution fixes
   const int solverIterations = 3;
-  std::unordered_map<GameObject *, bool> groundedStates;
+  unordered_map<GameObject *, bool> groundedStates;
   for (auto obj : objects) {
     groundedStates[obj] = false;
   }
   for (int s = 0; s < solverIterations; ++s) {
-    for (int i = 0; i < objects.size(); ++i) {
-      GameObject *a = objects[i];
-      for (int j = i + 1; j < objects.size(); ++j) {
-        GameObject *b = objects[j];
-        // Using the first collider in the list, let's always set this to be the
-        // overall bounding box of the object
-        Collider *aCol = a->getCollider()[0];
-        Collider *bCol = b->getCollider()[0];
-
-        if (!aCol || !bCol)
-          continue;
-        glm::vec3 normal;
-        float penetration;
-        if (aCol->intersects(*bCol, normal, penetration)) {
-          if (aCol->isTrigger() || bCol->isTrigger()) {
-            if (aCol->isTrigger() && bCol->canActivateTrigger())
-              aCol->setWithinTrigger(true);
-            if (bCol->isTrigger() && aCol->canActivateTrigger())
-              bCol->setWithinTrigger(true);
-            continue;
-          }
-          // if intersects, add both objects to the list of updated objects
-          updatedObjects.insert(a->getId());
-          updatedObjects.insert(b->getId());
-          for (int i = 1; i < a->getCollider().size(); i++) {
-            for (int j = 1; j < b->getCollider().size(); j++) {
+    unordered_map<GameObject *, bool> groundedStates;
+    for (auto obj : objects) {
+      groundedStates[obj] = false;
+    }
+    for (int s = 0; s < solverIterations; ++s) {
+      for (int i = 0; i < objects.size(); ++i) {
+        GameObject *a = objects[i];
+        for (int j = i + 1; j < objects.size(); ++j) {
+          GameObject *b = objects[j];
+          for (int i = 0; i < a->getCollider().size(); i++) {
+            for (int j = 0; j < b->getCollider().size(); j++) {
               solveCollision(a, b, i, j, groundedStates[a], groundedStates[b]);
             }
           }
         }
       }
     }
-  }
-  for (auto &[obj, isGrounded] : groundedStates) {
-    obj->setGrounded(isGrounded);
+    for (auto &[obj, isGrounded] : groundedStates) {
+      obj->setGrounded(isGrounded);
+    }
   }
 }
 
@@ -98,6 +80,9 @@ void Physics::solveCollision(GameObject *a, GameObject *b, int aIndex,
         bCol->setWithinTrigger(true);
       return;
     }
+
+    updatedObjects.insert(a->getId());
+    updatedObjects.insert(b->getId());
 
     // Check if the object is at rest (grounded)
     float groundThreshold = 0.7f;
@@ -133,10 +118,18 @@ void Physics::solveCollision(GameObject *a, GameObject *b, int aIndex,
     if (massSum > 0) {
       glm::vec3 correction =
           max(penetration - slop, 0.0f) / massSum * percent * normal;
-      if (!a_rb->isStatic())
+      if (!a_rb->isStatic()) {
         a->getTransform()->updatePosition(-correction * invMassA);
-      if (!b_rb->isStatic())
+        for (Collider *c : a->getCollider()) {
+          c->update(a->getTransform());
+        }
+      }
+      if (!b_rb->isStatic()) {
         b->getTransform()->updatePosition(correction * invMassB);
+        for (Collider *c : b->getCollider()) {
+          c->update(b->getTransform());
+        }
+      }
     }
   }
 }
@@ -170,7 +163,7 @@ void Physics::moveObjects(float deltaTime) {
       c->update(tf);
     }
     rb->setForce(glm::vec3(0.0f));
-    rb->setVelocity(glm::vec3(0.0f, vel.y, 0.0f));
+    rb->setVelocity(glm::vec3(0, vel.y, 0));
 
     // if object has moved, add it to the updated objects list
     if (glm::length(pos - lastPos) > 0.0001f)
