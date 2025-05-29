@@ -16,6 +16,7 @@ using namespace std;
 
 #define PUZZLE_ID int
 #define NUM_PUZZLE int
+#define NUM_LEVEL int
 
 class Level {
 private:
@@ -36,17 +37,19 @@ class LevelManager {
 private:
   Level *currentLevel = nullptr;
   LEVEL_ID currentLevelID = 0;
+  NUM_LEVEL numLevels = 0;
   unordered_map<LEVEL_ID, unordered_map<OBJECT_ID, GameObject *>> levelObjects;
   unordered_map<LEVEL_ID, unique_ptr<Level>> levels;
 
 public:
-  LevelManager();
+  LevelManager(){};
 
   void addObject(LEVEL_ID levelID, OBJECT_ID objectID, GameObject *object) {
     levelObjects[levelID][objectID] = object;
   }
   void addLevel(LEVEL_ID id, unique_ptr<Level> level) {
     levels[id] = move(level);
+    numLevels++;
   }
   void loadJSON();
   bool updateLevels();
