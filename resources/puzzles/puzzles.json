@@ -1,7 +1,7 @@
 {
     "levels": [
         {
-            "levelID": 1,
+            "levelID": 0,
             "puzzles": [
                 {
                     "puzzleID": 0,
@@ -9,7 +9,7 @@
                     "conditions": [
                         {
                             "conditionType": "PRESSURE_PLATE",
-                            "objectID": 2
+                            "objectID": 1
                         }
                     ]
                 }

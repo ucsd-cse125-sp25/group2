@@ -1,6 +1,7 @@
 #pragma once
 
 #include "globals.hpp"
+#include "level_manager.hpp"
 #include "packets.hpp"
 #include "physics.hpp"
 #include "player_logic.hpp"
@@ -19,11 +20,12 @@ class ServerGameState {
 private:
   int level;
   float deltaTime;
-  unordered_map<int, unique_ptr<GameObject>> objectList;
-  unordered_map<int, GameObject *> interactableObjects;
-  unordered_set<int> updatedObjectIds;
+  unordered_map<OBJECT_ID, unique_ptr<GameObject>> objectList;
+  unordered_map<OBJECT_ID, GameObject *> interactableObjects;
+  unordered_set<OBJECT_ID> updatedObjectIds;
   unique_ptr<Physics> physicsWorld;
   unique_ptr<PlayerLogic> playerLogic;
+  unique_ptr<LevelManager> levelManager;
 
 public:
   ServerGameState();
@@ -36,6 +38,7 @@ public:
   void updateMovement(PLAYER_ID id, MovementType type);
   void updateRotation(PLAYER_ID id, glm::vec3 rotation);
   void updateInteraction(PLAYER_ID id);
+  bool updateLevelManager();
   void applyPhysics();
 
   // getters

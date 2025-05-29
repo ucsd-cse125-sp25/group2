@@ -14,7 +14,6 @@
 using json = nlohmann::json;
 using namespace std;
 
-#define LEVEL_ID int
 #define PUZZLE_ID int
 #define NUM_PUZZLE int
 
@@ -23,14 +22,14 @@ private:
   LEVEL_ID level;
   PUZZLE_ID currentPuzzle;
   NUM_PUZZLE numPuzzles;
-  vector<OBJECT_ID> updatedObjectIds;
+  OBJECT_ID lastUpdatedObjectId = -1;
   unordered_map<PUZZLE_ID, unique_ptr<Puzzle>> puzzles;
 
 public:
   Level(LEVEL_ID id) : level(id), currentPuzzle(0), numPuzzles(0){};
   void addPuzzle(unique_ptr<Puzzle> puzzle);
   bool isLevelComplete();
-  vector<OBJECT_ID> getUpdatedObjects();
+  OBJECT_ID getUpdatedObjectId();
 };
 
 class LevelManager {
@@ -50,6 +49,7 @@ public:
     levels[id] = move(level);
   }
   void loadJSON();
-  void update();
+  bool updateLevels();
   void advanceLevel();
+  OBJECT_ID LevelManager::getLastUpdatedObjectID();
 };

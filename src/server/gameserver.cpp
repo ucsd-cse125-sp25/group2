@@ -83,6 +83,7 @@ void GameServer::updateGameState() {
     }
   }
   game->applyPhysics();
+  game->updateLevelManager();
 }
 
 void GameServer::dispatchUpdates() {
