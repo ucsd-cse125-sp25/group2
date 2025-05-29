@@ -6,8 +6,8 @@ void Level::addPuzzle(unique_ptr<Puzzle> puzzle) {
 }
 
 bool Level::isLevelComplete() {
-  Puzzle* puzzle = puzzles[currentPuzzle].get();
-  if (puzzle->isPuzzleComplete()){
+  Puzzle *puzzle = puzzles[currentPuzzle].get();
+  if (puzzle->isPuzzleComplete()) {
     lastUpdatedObjectId = puzzle->dispatchReward();
     currentPuzzle++;
   }
@@ -15,9 +15,7 @@ bool Level::isLevelComplete() {
   return (currentPuzzle >= numPuzzles);
 }
 
-OBJECT_ID Level::getUpdatedObjectId() {
-  return lastUpdatedObjectId;  
-}
+OBJECT_ID Level::getUpdatedObjectId() { return lastUpdatedObjectId; }
 
 void LevelManager::loadJSON() {
   ifstream file(PUZZLE_PATH);
@@ -80,9 +78,7 @@ void LevelManager::loadJSON() {
   currentLevel = levels[currentLevelID].get();
 }
 
-bool LevelManager::updateLevels() {
-  return currentLevel->isLevelComplete();
-}
+bool LevelManager::updateLevels() { return currentLevel->isLevelComplete(); }
 
 void LevelManager::advanceLevel() {
   currentLevelID++;
