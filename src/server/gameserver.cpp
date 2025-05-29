@@ -83,7 +83,7 @@ void GameServer::updateGameState() {
     }
   }
   game->applyPhysics();
-  game->updateLevelManager();
+  triggerLevelChange = game->updateLevelManager();
 }
 
 void GameServer::dispatchUpdates() {
@@ -103,5 +103,11 @@ void GameServer::dispatchUpdates() {
     game->getObject(rewardObjectID)->activate();
     ActivatePacket rewardPacket(rewardObjectID);
     network->sendToAll(rewardPacket);
+  }
+
+  if (triggerLevelChange) {
+    triggerLevelChange = false;
+    LevelChangePacket levelChangePacket(game->level);
+    network->sendToAll(levelChangePacket);
   }
 }

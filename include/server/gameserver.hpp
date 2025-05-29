@@ -13,7 +13,10 @@ private:
   unique_ptr<ServerNetwork> network;
   unique_ptr<ServerGameState> game;
 
+  bool triggerLevelChange = false;
+
   static json loadConfig(const string &path);
+
 
 public:
   GameServer(asio::io_context &io_context);

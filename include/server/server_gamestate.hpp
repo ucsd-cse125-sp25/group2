@@ -18,17 +18,20 @@ using namespace std;
 
 class ServerGameState {
 private:
-  int level;
+  OBJECT_ID rewardObjectID = -1;
   float deltaTime;
+
   unordered_map<OBJECT_ID, unique_ptr<GameObject>> objectList;
   unordered_map<OBJECT_ID, GameObject *> interactableObjects;
   unordered_set<OBJECT_ID> updatedObjectIds;
-  OBJECT_ID rewardObjectID = -1;
+
   unique_ptr<Physics> physicsWorld;
   unique_ptr<PlayerLogic> playerLogic;
   unique_ptr<LevelManager> levelManager;
 
 public:
+  LEVEL_ID level = 0;
+
   ServerGameState();
 
   bool init();

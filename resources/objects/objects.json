@@ -44,7 +44,7 @@
     {
       "name": "Reward",
       "level": 0,
-      "active": true,
+      "active": false,
       "transform": {
         "position": { "x": 0.0, "y": 0.0, "z": -5.0 },
         "rotation": { "x": 0.0, "y": 0.0, "z": 0.0 },

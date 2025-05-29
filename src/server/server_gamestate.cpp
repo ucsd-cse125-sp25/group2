@@ -150,7 +150,9 @@ void ServerGameState::updateInteraction(PLAYER_ID id) {
 
 bool ServerGameState::updateLevelManager() {
   if (levelManager->updateLevels()) {
+    level++;
     levelManager->advanceLevel();
+    cout << "Level completed!" << endl;
     return true;
   }
   OBJECT_ID updatedID = levelManager->getRewardObjectID();
