@@ -51,5 +51,5 @@ public:
   void loadJSON();
   bool updateLevels();
   void advanceLevel();
-  OBJECT_ID LevelManager::getLastUpdatedObjectID();
+  OBJECT_ID getLastUpdatedObjectID();
 };
