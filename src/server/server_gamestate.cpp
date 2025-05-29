@@ -3,6 +3,7 @@
 ServerGameState::ServerGameState() : deltaTime(0.01f) {
   physicsWorld = make_unique<Physics>();
   playerLogic = make_unique<PlayerLogic>();
+  levelManager = make_unique<LevelManager>();
 }
 
 bool ServerGameState::init() {
@@ -16,6 +17,7 @@ bool ServerGameState::init() {
     physicsWorld->add(object);
     levelManager->addObject(object->getLevelID(), object->getId(), object);
   }
+  levelManager->loadJSON();
 
   return true;
 }
@@ -151,7 +153,10 @@ bool ServerGameState::updateLevelManager() {
     levelManager->advanceLevel();
     return true;
   }
-  updatedObjectIds.insert(levelManager->getLastUpdatedObjectID());
+  OBJECT_ID updatedID = levelManager->getLastUpdatedObjectID();
+  if (updatedID != -1) {
+    updatedObjectIds.insert(updatedID);
+  }
   return false;
 }
 
