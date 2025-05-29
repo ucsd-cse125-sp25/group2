@@ -2,7 +2,9 @@
 
 #include "globals.hpp"
 #include "ui.hpp"
+
 #include <array>
+#include <vector>
 
 #define CENTER_X 0.0f
 #define CENTER_Y 0.0f

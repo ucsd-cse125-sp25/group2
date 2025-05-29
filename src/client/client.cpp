@@ -48,11 +48,14 @@ bool Client::init() {
 
   glfwMakeContextCurrent(window);
 
+    // Only initialize GLEW on non-Apple platforms
+#ifndef __APPLE__
   GLenum err = glewInit();
   if (err != GLEW_OK) {
     cerr << "GLEW initialization failed: " << glewGetErrorString(err) << endl;
     return false;
   }
+#endif
 
   return true;
 }
@@ -326,12 +329,16 @@ void Client::mouseButtonCallback(GLFWwindow *window, int button, int action,
         // Show the cursor
         isCursorHidden = false;
         glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+        #ifndef __APPLE__
         glfwSetInputMode(window, GLFW_RAW_MOUSE_MOTION, GLFW_FALSE);
+        #endif
       } else {
         // Hide the cursor
         isCursorHidden = true;
         glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+        #ifndef __APPLE__
         glfwSetInputMode(window, GLFW_RAW_MOUSE_MOTION, GLFW_TRUE);
+        #endif
       }
     }
   }

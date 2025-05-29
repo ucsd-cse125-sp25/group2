@@ -52,6 +52,7 @@ unordered_map<int, unique_ptr<GameObject>> ObjectLoader::loadObjects() {
               orientation[1] = parseVec3(t, "up", glm::vec3(0, 1, 0));
               orientation[2] = parseVec3(t, "forward", glm::vec3(0, 0, -1));
             }
+            halfExtents *= base.transform->getScale();
             auto collider = new Collider(center, halfExtents, orientation);
             if (clData.contains("isTrigger")) {
               collider->setTrigger(clData["isTrigger"].get<bool>());

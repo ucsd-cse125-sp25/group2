@@ -44,7 +44,6 @@ public:
     orient[1] = tf->getUp();
     orient[2] = tf->getForward();
     orientation = orient * originalOrientation;
-    halfExtents = tf->getScale() * originalHalfExtents;
   }
 
   glm::vec3 getCenter() const { return center; }
