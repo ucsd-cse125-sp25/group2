@@ -13,6 +13,7 @@ bool Puzzle::isPuzzleComplete() const {
   return true;
 }
 
-OBJECT_ID Puzzle::dispatchReward() { 
+OBJECT_ID Puzzle::dispatchReward() {
   cout << "WE DID IT JOE" << endl;
-  return rewardObject->getId(); }
+  return rewardObject->getId();
+}

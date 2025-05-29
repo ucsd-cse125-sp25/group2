@@ -1,12 +1,12 @@
 #pragma once
 
 #include "globals.hpp"
+#include "level_manager.hpp"
 #include "packets.hpp"
 #include "physics.hpp"
 #include "player_logic.hpp"
 #include "server_gameobject.hpp"
 #include "server_object_loader.hpp"
-#include "level_manager.hpp"
 
 #include <iostream>
 #include <memory>
