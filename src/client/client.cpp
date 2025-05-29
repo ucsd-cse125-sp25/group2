@@ -166,8 +166,7 @@ void Client::idleCallback(float deltaTime) {
       OBJECT_ID id = activatePacket->id;
       game->getObject(id)->activate();
       break;
-    }
-      break;
+    } break;
     }
   }
   if (game->state == Gamestate::STARTSCREEN ||

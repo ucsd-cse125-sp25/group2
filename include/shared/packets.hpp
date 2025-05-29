@@ -91,7 +91,7 @@ struct LevelChangePacket : public IPacket {
 
 struct ActivatePacket : public IPacket {
   OBJECT_ID id;
-  
+
   ActivatePacket(OBJECT_ID objectID) : id(objectID) {}
   PacketType getType() const override { return PacketType::ACTIVATE; }
   vector<char> serialize() const override;

@@ -96,7 +96,7 @@ void GameServer::dispatchUpdates() {
         obj->isActive());
     network->sendToAll(objPacket);
   }
-  
+
   // If a puzzle is completed, send reward object
   OBJECT_ID rewardObjectID = game->getRewardObjectID();
   if (rewardObjectID != -1) {

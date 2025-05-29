@@ -204,7 +204,8 @@ unique_ptr<IPacket> deserialize(PacketType type, vector<char> &payload) {
     return make_unique<CharacterResponsePacket>(
         CharacterResponsePacket::deserialize(payload));
   case PacketType::LEVELCHANGE:
-    return make_unique<LevelChangePacket>(LevelChangePacket::deserialize(payload));
+    return make_unique<LevelChangePacket>(
+        LevelChangePacket::deserialize(payload));
   case PacketType::ACTIVATE:
     return make_unique<ActivatePacket>(ActivatePacket::deserialize(payload));
   case PacketType::MOVEMENT:

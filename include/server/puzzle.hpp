@@ -13,7 +13,7 @@ private:
   vector<unique_ptr<PuzzleCondition>> conditions;
 
 public:
-  Puzzle(OBJECT_ID id) : rewardObjectID(id) {};
+  Puzzle(OBJECT_ID id) : rewardObjectID(id){};
   void addCondition(unique_ptr<PuzzleCondition> condition);
   bool isPuzzleComplete() const;
   OBJECT_ID dispatchReward();
