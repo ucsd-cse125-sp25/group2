@@ -39,27 +39,27 @@ void Physics::resolveCollisions() {
     groundedStates[obj] = false;
   }
   for (int s = 0; s < solverIterations; ++s) {
-  unordered_map<GameObject *, bool> groundedStates;
-  for (auto obj : objects) {
-    groundedStates[obj] = false;
-  }
-  for (int s = 0; s < solverIterations; ++s) {
-    for (int i = 0; i < objects.size(); ++i) {
-      GameObject *a = objects[i];
-      for (int j = i + 1; j < objects.size(); ++j) {
-        GameObject *b = objects[j];
-        for (int i = 0; i < a->getCollider().size(); i++) {
-          for (int j = 0; j < b->getCollider().size(); j++) {
-            solveCollision(a, b, i, j, groundedStates[a], groundedStates[b]);
+    unordered_map<GameObject *, bool> groundedStates;
+    for (auto obj : objects) {
+      groundedStates[obj] = false;
+    }
+    for (int s = 0; s < solverIterations; ++s) {
+      for (int i = 0; i < objects.size(); ++i) {
+        GameObject *a = objects[i];
+        for (int j = i + 1; j < objects.size(); ++j) {
+          GameObject *b = objects[j];
+          for (int i = 0; i < a->getCollider().size(); i++) {
+            for (int j = 0; j < b->getCollider().size(); j++) {
+              solveCollision(a, b, i, j, groundedStates[a], groundedStates[b]);
+            }
           }
         }
       }
     }
+    for (auto &[obj, isGrounded] : groundedStates) {
+      obj->setGrounded(isGrounded);
+    }
   }
-  for (auto &[obj, isGrounded] : groundedStates) {
-    obj->setGrounded(isGrounded);
-  }
-}
 }
 
 void Physics::solveCollision(GameObject *a, GameObject *b, int aIndex,
