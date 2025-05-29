@@ -43,30 +43,9 @@ void Physics::resolveCollisions() {
       GameObject *a = objects[i];
       for (int j = i + 1; j < objects.size(); ++j) {
         GameObject *b = objects[j];
-        // Using the first collider in the list, let's always set this to be the
-        // overall bounding box of the object
-        Collider *aCol = a->getCollider()[0];
-        Collider *bCol = b->getCollider()[0];
-
-        if (!aCol || !bCol)
-          continue;
-        glm::vec3 normal;
-        float penetration;
-        if (aCol->intersects(*bCol, normal, penetration)) {
-          if (aCol->isTrigger() || bCol->isTrigger()) {
-            if (aCol->isTrigger() && bCol->canActivateTrigger())
-              aCol->setWithinTrigger(true);
-            if (bCol->isTrigger() && aCol->canActivateTrigger())
-              bCol->setWithinTrigger(true);
-            continue;
-          }
-          // if intersects, add both objects to the list of updated objects
-          updatedObjects.insert(a->getId());
-          updatedObjects.insert(b->getId());
-          for (int i = 0; i < a->getCollider().size(); i++) {
-            for (int j = 0; j < b->getCollider().size(); j++) {
-              solveCollision(a, b, i, j, groundedStates[a], groundedStates[b]);
-            }
+        for (int i = 0; i < a->getCollider().size(); i++) {
+          for (int j = 0; j < b->getCollider().size(); j++) {
+            solveCollision(a, b, i, j, groundedStates[a], groundedStates[b]);
           }
         }
       }
@@ -95,6 +74,9 @@ void Physics::solveCollision(GameObject *a, GameObject *b, int aIndex,
         bCol->setWithinTrigger(true);
       return;
     }
+
+    updatedObjects.insert(a->getId());
+    updatedObjects.insert(b->getId());
 
     // Check if the object is at rest (grounded)
     float groundThreshold = 0.7f;
@@ -175,14 +157,7 @@ void Physics::moveObjects(float deltaTime) {
       c->update(tf);
     }
     rb->setForce(glm::vec3(0.0f));
-
-    // Apply friction only when grounded, preserve movement when airborne
-    if (obj->isGrounded()) {
-      rb->setVelocity(
-          glm::vec3(vel.x * 0.8f, 0.0f, vel.z * 0.8f)); // Ground friction
-    } else {
-      rb->setVelocity(vel); // Keep velocity when airborne
-    }
+    rb->setVelocity(glm::vec3(0, vel.y, 0));
 
     // if object has moved, add it to the updated objects list
     if (glm::length(pos - lastPos) > 0.0001f)

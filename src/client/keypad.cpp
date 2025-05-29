@@ -1,4 +1,4 @@
-#include "Keypad.hpp"
+#include "keypad.hpp"
 
 KeypadUI::KeypadUI() : inputSequence(4) {
   loadTextures();
