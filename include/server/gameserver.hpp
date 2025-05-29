@@ -17,7 +17,6 @@ private:
 
   static json loadConfig(const string &path);
 
-
 public:
   GameServer(asio::io_context &io_context);
   ~GameServer();
