@@ -14,7 +14,7 @@ bool ServerGameState::init() {
       interactableObjects[obj.first] = object;
     }
     physicsWorld->add(object);
-    // levelManger.add(level, object);
+    levelManager->addObject(object->getLevelID(), object->getId(), object);
   }
 
   return true;
@@ -144,6 +144,15 @@ void ServerGameState::updateInteraction(PLAYER_ID id) {
       cout << "Pressed object: " << closestObjectID << endl;
     }
   }
+}
+
+bool ServerGameState::updateLevelManager() {
+  if (levelManager->updateLevels()) {
+    levelManager->advanceLevel();
+    return true;
+  }
+  updatedObjectIds.insert(levelManager->getLastUpdatedObjectID());
+  return false;
 }
 
 void ServerGameState::applyPhysics() {

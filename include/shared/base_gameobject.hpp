@@ -30,6 +30,7 @@ public:
   // getters
   const OBJECT_ID getId() const { return id; };
   bool isActive() const { return active; };
+  LEVEL_ID getLevelID() const { return level; };
   Transform *getTransform() { return transform.get(); };
   glm::vec3 getPosition() { return transform->getPosition(); };
   glm::vec3 getRotation() { return transform->getRotation(); };

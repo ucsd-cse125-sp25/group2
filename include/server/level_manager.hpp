@@ -14,7 +14,6 @@
 using json = nlohmann::json;
 using namespace std;
 
-#define LEVEL_ID int
 #define PUZZLE_ID int
 #define NUM_PUZZLE int
 
