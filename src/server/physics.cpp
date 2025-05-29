@@ -34,7 +34,12 @@ void Physics::clampVelocities(RigidBody *rb) {
 void Physics::resolveCollisions() {
   // Multiple iterations smooths out collision resolution fixes
   const int solverIterations = 3;
-  std::unordered_map<GameObject *, bool> groundedStates;
+  unordered_map<GameObject *, bool> groundedStates;
+  for (auto obj : objects) {
+    groundedStates[obj] = false;
+  }
+  for (int s = 0; s < solverIterations; ++s) {
+  unordered_map<GameObject *, bool> groundedStates;
   for (auto obj : objects) {
     groundedStates[obj] = false;
   }
@@ -54,6 +59,7 @@ void Physics::resolveCollisions() {
   for (auto &[obj, isGrounded] : groundedStates) {
     obj->setGrounded(isGrounded);
   }
+}
 }
 
 void Physics::solveCollision(GameObject *a, GameObject *b, int aIndex,
