@@ -72,7 +72,7 @@ CharacterResponsePacket::deserialize(const vector<char> &payload) {
 vector<char> LevelChangePacket::serialize() const {
   vector<char> buffer(sizeof(LEVEL_ID));
   memcpy(buffer.data(), &level, sizeof(LEVEL_ID));
-  return buffer;  
+  return buffer;
 }
 
 LevelChangePacket LevelChangePacket::deserialize(const vector<char> &payload) {
