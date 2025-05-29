@@ -1,11 +1,11 @@
 #define GLM_ENABLE_EXPERIMENTAL
 
 #ifdef __APPLE__
-    #include <OpenGL/gl3.h>
-    #include <OpenGL/gl3ext.h>
-    #include <OpenGL/gl.h>
+#include <OpenGL/gl.h>
+#include <OpenGL/gl3.h>
+#include <OpenGL/gl3ext.h>
 #else
-    #include <GL/glew.h>
+#include <GL/glew.h>
 #endif
 
 #include <GLFW/glfw3.h>

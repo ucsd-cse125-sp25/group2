@@ -175,10 +175,11 @@ void Physics::moveObjects(float deltaTime) {
       c->update(tf);
     }
     rb->setForce(glm::vec3(0.0f));
-    
+
     // Apply friction only when grounded, preserve movement when airborne
     if (obj->isGrounded()) {
-      rb->setVelocity(glm::vec3(vel.x * 0.8f, 0.0f, vel.z * 0.8f)); // Ground friction
+      rb->setVelocity(
+          glm::vec3(vel.x * 0.8f, 0.0f, vel.z * 0.8f)); // Ground friction
     } else {
       rb->setVelocity(vel); // Keep velocity when airborne
     }
