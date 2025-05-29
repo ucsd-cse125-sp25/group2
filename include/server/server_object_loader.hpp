@@ -2,6 +2,7 @@
 
 #include "base_object_loader.hpp"
 #include "globals.hpp"
+#include "keypad_object.hpp"
 #include "press_functions.hpp"
 #include "server_gameobject.hpp"
 #include "transform.hpp"

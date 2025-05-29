@@ -48,6 +48,10 @@ bool ServerNetwork::acceptClient() {
  * need to send a packet that inherits IPacket
  */
 void ServerNetwork::sendToClient(CLIENT_ID id, const IPacket &packet) {
+  if (clients.find(id) == clients.end()) {
+    cerr << "Client ID " << id << " not found" << endl;
+    return;
+  }
   auto socket = clients[id];
   if (!socket->is_open()) {
     handleClientDisconnect(id);
@@ -165,6 +169,10 @@ unique_ptr<IPacket> ServerNetwork::processPackets(PacketType type,
   case PacketType::CHARACTERSELECT: {
     unique_ptr<IPacket> packet =
         deserialize(PacketType::CHARACTERSELECT, payload);
+    return packet;
+  }
+  case PacketType::KEYPADINPUT: {
+    unique_ptr<IPacket> packet = deserialize(PacketType::KEYPADINPUT, payload);
     return packet;
   }
   case PacketType::DISCONNECT: {

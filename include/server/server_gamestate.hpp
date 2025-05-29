@@ -1,6 +1,7 @@
 #pragma once
 
 #include "globals.hpp"
+#include "keypad_object.hpp"
 #include "packets.hpp"
 #include "physics.hpp"
 #include "player_logic.hpp"
@@ -37,6 +38,7 @@ public:
   void updateRotation(PLAYER_ID id, glm::vec3 rotation);
   void updateInteraction(PLAYER_ID id);
   void applyPhysics();
+  bool updateKeypadInput(OBJECT_ID id, vector<int> inputSequence, bool close);
 
   // getters
   GameObject *getObject(OBJECT_ID id);

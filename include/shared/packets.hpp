@@ -21,13 +21,15 @@ enum class PacketType : uint8_t {
   OBJECT,
   GAMESTATE,
   CHARACTERRESPONSE,
+  KEYPAD,
 
   // Sender: Client
   MOVEMENT,
   ROTATION,
   INTERACTION,
   CHARACTERSELECT,
-  DISCONNECT
+  KEYPADINPUT,
+  DISCONNECT,
 };
 
 struct IPacket {
@@ -78,6 +80,18 @@ struct CharacterResponsePacket : public IPacket {
   static CharacterResponsePacket deserialize(const vector<char> &payload);
 };
 
+struct KeypadPacket : public IPacket {
+  OBJECT_ID id;
+  bool display;
+  bool unlocked;
+
+  KeypadPacket(OBJECT_ID objectId, bool disp, bool unlock)
+      : id(objectId), display(disp), unlocked(unlock) {}
+  PacketType getType() const override { return PacketType::KEYPAD; }
+  vector<char> serialize() const override;
+  static KeypadPacket deserialize(const vector<char> &payload);
+};
+
 struct MovementPacket : public IPacket {
   PLAYER_ID id;
   MovementType movementType;
@@ -117,6 +131,20 @@ struct CharacterSelectPacket : public IPacket {
   PacketType getType() const override { return PacketType::CHARACTERSELECT; }
   vector<char> serialize() const override;
   static CharacterSelectPacket deserialize(const vector<char> &payload);
+};
+
+struct KeypadInputPacket : public IPacket {
+  OBJECT_ID objectID;
+  CLIENT_ID clientID;
+  vector<int> inputSequence;
+  bool close;
+
+  KeypadInputPacket(OBJECT_ID oID, CLIENT_ID cID, const vector<int> &sequence,
+                    bool isClose)
+      : objectID(oID), clientID(cID), inputSequence(sequence), close(isClose) {}
+  PacketType getType() const override { return PacketType::KEYPADINPUT; }
+  vector<char> serialize() const override;
+  static KeypadInputPacket deserialize(const vector<char> &payload);
 };
 
 struct DisconnectPacket : public IPacket {
