@@ -3,10 +3,27 @@
 bool ClientGameState::init() {
   ObjectLoader objectLoader = ObjectLoader();
   objectList = objectLoader.loadObjects();
+  for (auto &obj : objectList) {
+    auto id = obj.first;
+    auto object = obj.second.get();
+    levelObjects[object->getLevelID()][id] = object;
+  }
   // player kind of hardcoded for now, later with character selection
   player = getObject(0);
   state = Gamestate::STARTSCREEN;
   return true;
+}
+
+void ClientGameState::changeLevel(LEVEL_ID levelNum) {
+  // Deactivate all objects in the current level
+  for (auto &obj : levelObjects[level]) {
+    obj.second->deactivate();
+  }
+  level = levelNum;
+  // Activate all objects in the new level
+  for (auto &obj : levelObjects[level]) {
+    obj.second->activate();
+  }
 }
 
 void ClientGameState::update(OBJECT_ID id, Transform *tf) {

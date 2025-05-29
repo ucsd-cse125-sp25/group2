@@ -11,6 +11,7 @@
 #define LEVEL_ID int
 
 #define NUM_PLAYERS 4
+#define NUM_LEVELS 2
 
 #define CHICKEN 0
 #define PIG 1
