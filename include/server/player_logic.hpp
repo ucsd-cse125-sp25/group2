@@ -8,12 +8,13 @@
 
 using namespace std;
 
+#define SHEEP_MAX_JUMPS 2
+
 class PlayerLogic {
 private:
   // Movement properties
   float speed;
-  int maxJumps;
-  int currJumps;
+  int sheepJumps;
   float jumpForce;
   float glideFallSpeed;
 

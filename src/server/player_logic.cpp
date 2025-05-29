@@ -2,8 +2,7 @@
 
 PlayerLogic::PlayerLogic() {
   speed = 10.0f;
-  maxJumps = 2;
-  currJumps = 2;
+  sheepJumps = SHEEP_MAX_JUMPS;
   jumpForce = 8.0f;
   glideFallSpeed = 1.0f;
 
@@ -34,16 +33,24 @@ OBJECT_ID PlayerLogic::moveHeldObject(PLAYER_ID id, GameObject *player) {
 }
 
 void PlayerLogic::jump(GameObject *player) {
+
+  if (!player->isGrounded() && player->getId() != SHEEP) {
+    return; // only sheep can jump in air
+  }
+
   // jump the player
-  if (player->isGrounded()) {
-    currJumps = maxJumps;
+  if (player->getId() == SHEEP) {
+    if (player->isGrounded()) {
+      sheepJumps = SHEEP_MAX_JUMPS;
+    } else if (sheepJumps <= 0) {
+      return; // no jumps left
+    }
+    sheepJumps--;
   }
-  if (currJumps > 0) {
-    currJumps--;
-    player->setGrounded(false);
-    auto rigidBody = player->getRigidBody();
-    rigidBody->applyImpulse(glm::vec3(0.0f, jumpForce, 0.0f));
-  }
+  player->setGrounded(false);
+  auto rigidBody = player->getRigidBody();
+  rigidBody->applyImpulse(glm::vec3(0.0f, jumpForce, 0.0f));
+  
 }
 
 vector<OBJECT_ID> PlayerLogic::rotate(PLAYER_ID id, GameObject *player,
