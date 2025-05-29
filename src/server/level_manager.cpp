@@ -41,14 +41,14 @@ void LevelManager::loadJSON() {
       if (levelData.contains("puzzles") && levelData["puzzles"].is_array()) {
         for (const auto &puzzleData : levelData["puzzles"]) {
           OBJECT_ID puzzleObjId = puzzleData["objectID"].get<int>();
-          GameObject* puzzleObject = currentLevelObjects[puzzleObjId];
+          GameObject *puzzleObject = currentLevelObjects[puzzleObjId];
           unique_ptr<Puzzle> newPuzzle = make_unique<Puzzle>(puzzleObject);
           if (puzzleData.contains("conditions") &&
               puzzleData["conditions"].is_array()) {
             for (const auto &conditionData : puzzleData["conditions"]) {
               unique_ptr<PuzzleCondition> condition;
               OBJECT_ID objId = conditionData["objectID"].get<int>();
-              GameObject* object = currentLevelObjects[objId];
+              GameObject *object = currentLevelObjects[objId];
               string conditionStr =
                   conditionData["conditionType"].get<string>();
               auto conditionVal =
