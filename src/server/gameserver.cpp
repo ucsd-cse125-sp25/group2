@@ -87,7 +87,7 @@ void GameServer::updateGameState() {
 }
 
 void GameServer::dispatchUpdates() {
-  vector<int> updatedObjects = game->getLastUpdatedObjects();
+  vector<OBJECT_ID> updatedObjects = game->getLastUpdatedObjects();
   for (int i = 0; i < updatedObjects.size(); i++) {
     GameObject *obj = game->getObject(updatedObjects[i]);
     ObjectPacket objPacket = ObjectPacket(
@@ -95,5 +95,13 @@ void GameServer::dispatchUpdates() {
         Transform(obj->getPosition(), obj->getRotation(), obj->getScale()),
         obj->isActive());
     network->sendToAll(objPacket);
+  }
+  
+  // If a puzzle is completed, send reward object
+  OBJECT_ID rewardObjectID = game->getRewardObjectID();
+  if (rewardObjectID != -1) {
+    game->getObject(rewardObjectID)->activate();
+    ActivatePacket rewardPacket(rewardObjectID);
+    network->sendToAll(rewardPacket);
   }
 }

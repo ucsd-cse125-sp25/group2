@@ -23,14 +23,14 @@ private:
   LEVEL_ID level;
   PUZZLE_ID currentPuzzle;
   NUM_PUZZLE numPuzzles;
-  OBJECT_ID lastUpdatedObjectId = -1;
+  OBJECT_ID rewardObjectID = -1;
   unordered_map<PUZZLE_ID, unique_ptr<Puzzle>> puzzles;
 
 public:
   Level(LEVEL_ID id) : level(id), currentPuzzle(0), numPuzzles(0){};
   void addPuzzle(unique_ptr<Puzzle> puzzle);
   bool isLevelComplete();
-  OBJECT_ID getUpdatedObjectId();
+  OBJECT_ID getReward();
 };
 
 class LevelManager {
@@ -54,5 +54,5 @@ public:
   void loadJSON();
   bool updateLevels();
   void advanceLevel();
-  OBJECT_ID getLastUpdatedObjectID();
+  OBJECT_ID getRewardObjectID();
 };

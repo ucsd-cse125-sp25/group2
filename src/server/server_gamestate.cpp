@@ -153,9 +153,9 @@ bool ServerGameState::updateLevelManager() {
     levelManager->advanceLevel();
     return true;
   }
-  OBJECT_ID updatedID = levelManager->getLastUpdatedObjectID();
+  OBJECT_ID updatedID = levelManager->getRewardObjectID();
   if (updatedID != -1) {
-    updatedObjectIds.insert(updatedID);
+    rewardObjectID = updatedID;
   }
   return false;
 }
@@ -186,8 +186,14 @@ GameObject *ServerGameState::getObject(OBJECT_ID id) {
   return nullptr;
 }
 
-vector<int> ServerGameState::getLastUpdatedObjects() {
-  vector<int> list(updatedObjectIds.begin(), updatedObjectIds.end());
+vector<OBJECT_ID> ServerGameState::getLastUpdatedObjects() {
+  vector<OBJECT_ID> list(updatedObjectIds.begin(), updatedObjectIds.end());
   updatedObjectIds.clear();
   return list;
+}
+
+OBJECT_ID ServerGameState::getRewardObjectID() {
+  OBJECT_ID id = rewardObjectID;
+  rewardObjectID = -1;
+  return id;
 }

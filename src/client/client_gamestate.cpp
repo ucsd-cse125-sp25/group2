@@ -11,7 +11,7 @@ bool ClientGameState::init() {
 
 void ClientGameState::update(OBJECT_ID id, Transform *tf) {
   auto obj = getObject(id);
-  if (obj)
+  if (obj && obj->isActive())
     obj->update(tf);
 }
 
@@ -19,7 +19,9 @@ void ClientGameState::draw(const glm::mat4 &viewProjMtx) {
   // Draw all objects
   for (auto it = objectList.begin(); it != objectList.end(); it++) {
     auto &object = it->second;
-    object->draw(viewProjMtx);
+    if (object->isActive()) {
+      object->draw(viewProjMtx);
+    }
   }
 }
 

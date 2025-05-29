@@ -1,7 +1,6 @@
 #include "condition.hpp"
 
 bool PressurePlateCondition::isSatisfied() const {
-  // cout << object << endl;
   return object->getCollider()[0]->isWithinTrigger();
 }
 

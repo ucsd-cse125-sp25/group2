@@ -83,6 +83,20 @@ LevelChangePacket LevelChangePacket::deserialize(const vector<char> &payload) {
   return packet;
 }
 
+vector<char> ActivatePacket::serialize() const {
+  vector<char> buffer(sizeof(OBJECT_ID));
+  memcpy(buffer.data(), &id, sizeof(OBJECT_ID));
+  return buffer;
+}
+
+ActivatePacket ActivatePacket::deserialize(const vector<char> &payload) {
+  OBJECT_ID id;
+
+  memcpy(&id, payload.data(), sizeof(OBJECT_ID));
+  ActivatePacket packet(id);
+  return packet;
+}
+
 vector<char> MovementPacket::serialize() const {
   vector<char> buffer(sizeof(PLAYER_ID) + sizeof(MovementType) +
                       sizeof(glm::vec3));
@@ -189,6 +203,10 @@ unique_ptr<IPacket> deserialize(PacketType type, vector<char> &payload) {
   case PacketType::CHARACTERRESPONSE:
     return make_unique<CharacterResponsePacket>(
         CharacterResponsePacket::deserialize(payload));
+  case PacketType::LEVELCHANGE:
+    return make_unique<LevelChangePacket>(LevelChangePacket::deserialize(payload));
+  case PacketType::ACTIVATE:
+    return make_unique<ActivatePacket>(ActivatePacket::deserialize(payload));
   case PacketType::MOVEMENT:
     return make_unique<MovementPacket>(MovementPacket::deserialize(payload));
   case PacketType::ROTATION:

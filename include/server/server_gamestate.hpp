@@ -23,6 +23,7 @@ private:
   unordered_map<OBJECT_ID, unique_ptr<GameObject>> objectList;
   unordered_map<OBJECT_ID, GameObject *> interactableObjects;
   unordered_set<OBJECT_ID> updatedObjectIds;
+  OBJECT_ID rewardObjectID = -1;
   unique_ptr<Physics> physicsWorld;
   unique_ptr<PlayerLogic> playerLogic;
   unique_ptr<LevelManager> levelManager;
@@ -44,5 +45,6 @@ public:
   // getters
   GameObject *getObject(OBJECT_ID id);
   vector<int> getLastUpdatedObjects();
+  OBJECT_ID getRewardObjectID();
   PlayerLogic *getPlayerLogic() { return playerLogic.get(); }
 };

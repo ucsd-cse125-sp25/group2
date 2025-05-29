@@ -10,7 +10,7 @@ bool Level::isLevelComplete() {
   if (currentPuzzle < numPuzzles) {
     puzzle = puzzles[currentPuzzle].get();
     if (puzzle->isPuzzleComplete()) {
-      lastUpdatedObjectId = puzzle->dispatchReward();
+      rewardObjectID = puzzle->dispatchReward();
       currentPuzzle++;
     }
   }
@@ -18,9 +18,9 @@ bool Level::isLevelComplete() {
   return (currentPuzzle >= numPuzzles);
 }
 
-OBJECT_ID Level::getUpdatedObjectId() {
-  OBJECT_ID val = lastUpdatedObjectId;
-  lastUpdatedObjectId = -1;
+OBJECT_ID Level::getReward() {
+  OBJECT_ID val = rewardObjectID;
+  rewardObjectID = -1;
   return val;
 }
 
@@ -43,17 +43,18 @@ void LevelManager::loadJSON() {
       LEVEL_ID id = levelData["levelID"].get<int>();
       auto currentLevelObjects = levelObjects[id];
       unique_ptr<Level> newLevel = make_unique<Level>(id);
+
       if (levelData.contains("puzzles") && levelData["puzzles"].is_array()) {
         for (const auto &puzzleData : levelData["puzzles"]) {
-          OBJECT_ID puzzleObjId = puzzleData["objectID"].get<int>();
-          GameObject *puzzleObject = currentLevelObjects[puzzleObjId];
-          unique_ptr<Puzzle> newPuzzle = make_unique<Puzzle>(puzzleObject);
+          OBJECT_ID rewardObjID = puzzleData["rewardID"].get<int>();
+          unique_ptr<Puzzle> newPuzzle = make_unique<Puzzle>(rewardObjID);
+
           if (puzzleData.contains("conditions") &&
               puzzleData["conditions"].is_array()) {
             for (const auto &conditionData : puzzleData["conditions"]) {
               unique_ptr<PuzzleCondition> condition;
-              OBJECT_ID objId = conditionData["objectID"].get<int>();
-              GameObject *object = currentLevelObjects[objId];
+              OBJECT_ID objID = conditionData["objectID"].get<int>();
+              GameObject *object = currentLevelObjects[objID];
               string conditionStr =
                   conditionData["conditionType"].get<string>();
               auto conditionVal =
@@ -99,6 +100,6 @@ void LevelManager::advanceLevel() {
   }
 }
 
-OBJECT_ID LevelManager::getLastUpdatedObjectID() {
-  return currentLevel->getUpdatedObjectId();
+OBJECT_ID LevelManager::getRewardObjectID() {
+  return currentLevel->getReward();
 }

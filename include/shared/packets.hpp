@@ -22,6 +22,7 @@ enum class PacketType : uint8_t {
   GAMESTATE,
   CHARACTERRESPONSE,
   LEVELCHANGE,
+  ACTIVATE,
 
   // Sender: Client
   MOVEMENT,
@@ -86,6 +87,15 @@ struct LevelChangePacket : public IPacket {
   PacketType getType() const override { return PacketType::LEVELCHANGE; }
   vector<char> serialize() const override;
   static LevelChangePacket deserialize(const vector<char> &payload);
+};
+
+struct ActivatePacket : public IPacket {
+  OBJECT_ID id;
+  
+  ActivatePacket(OBJECT_ID objectID) : id(objectID) {}
+  PacketType getType() const override { return PacketType::ACTIVATE; }
+  vector<char> serialize() const override;
+  static ActivatePacket deserialize(const vector<char> &payload);
 };
 
 struct MovementPacket : public IPacket {

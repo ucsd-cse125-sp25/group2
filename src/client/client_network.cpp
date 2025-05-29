@@ -98,6 +98,10 @@ unique_ptr<IPacket> ClientNetwork::processPackets(PacketType type,
     unique_ptr<IPacket> packet = deserialize(PacketType::LEVELCHANGE, payload);
     return packet;
   }
+  case PacketType::ACTIVATE: {
+    unique_ptr<IPacket> packet = deserialize(PacketType::ACTIVATE, payload);
+    return packet;
+  }
   default:
     cerr << ("Client Warning: Unknown packet type") << endl;
     return nullptr;

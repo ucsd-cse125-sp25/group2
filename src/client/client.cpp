@@ -36,7 +36,6 @@ bool Client::init() {
   // Window settings
   glfwWindowHint(GLFW_RESIZABLE, GL_TRUE);
   glfwWindowHint(GLFW_DECORATED, GL_TRUE);
-  glfwWindowHint(GLFW_MAXIMIZED, GL_TRUE);
 
   // Create the GLFW window
   window = glfwCreateWindow(windowWidth, windowHeight, "Barnyard Breakout",
@@ -159,6 +158,16 @@ void Client::idleCallback(float deltaTime) {
           character)); // Set camera radius based on character
       break;
     }
+    case PacketType::LEVELCHANGE: {
+      break;
+    }
+    case PacketType::ACTIVATE: {
+      auto activatePacket = dynamic_cast<ActivatePacket *>(packet.get());
+      OBJECT_ID id = activatePacket->id;
+      game->getObject(id)->activate();
+      break;
+    }
+      break;
     }
   }
   if (game->state == Gamestate::STARTSCREEN ||

@@ -14,6 +14,5 @@ bool Puzzle::isPuzzleComplete() const {
 }
 
 OBJECT_ID Puzzle::dispatchReward() {
-  cout << "WE DID IT JOE" << endl;
-  return rewardObject->getId();
+  return rewardObjectID;
 }
