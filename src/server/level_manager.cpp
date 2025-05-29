@@ -18,24 +18,22 @@ bool Level::isLevelComplete() {
   return (currentPuzzle >= numPuzzles);
 }
 
-OBJECT_ID Level::getUpdatedObjectId() { 
+OBJECT_ID Level::getUpdatedObjectId() {
   OBJECT_ID val = lastUpdatedObjectId;
-  lastUpdatedObjectId = -1;  
-  return val; }
+  lastUpdatedObjectId = -1;
+  return val;
+}
 
-void LevelManager::loadJSON()
-{
-    ifstream file(PUZZLE_PATH);
-    if (!file.is_open())
-    {
-        cerr << "Failed to open JSON file: " << PUZZLE_PATH << endl;
-    }
+void LevelManager::loadJSON() {
+  ifstream file(PUZZLE_PATH);
+  if (!file.is_open()) {
+    cerr << "Failed to open JSON file: " << PUZZLE_PATH << endl;
+  }
 
-    json levelsData;
-    try
-    {
-        file >> levelsData;
-    } catch (const exception &e) {
+  json levelsData;
+  try {
+    file >> levelsData;
+  } catch (const exception &e) {
     cerr << "JSON parsing error: " << e.what() << endl;
     return;
   }
@@ -87,9 +85,9 @@ void LevelManager::loadJSON()
   currentLevel = levels[currentLevelID].get();
 }
 
-bool LevelManager::updateLevels() { 
+bool LevelManager::updateLevels() {
   if (currentLevelID < numLevels) {
-    return currentLevel->isLevelComplete(); 
+    return currentLevel->isLevelComplete();
   }
   return false;
 }
