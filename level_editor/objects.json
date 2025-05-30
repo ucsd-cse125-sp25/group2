@@ -2,12 +2,14 @@
 	"_comment": "DO NOT CHANGE THE ORDER OF CHARACTERS. ANIMALS MUST REMAIN AT TOP OF JSON AND IN ORDER",
 	"objects": [
 		{
+			"_id": 0,
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
 				"modelPath": "../resources/objects/chicken/Chicken.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
+			"level": 0,
 			"name": "Chicken",
 			"server": {
 				"colliders": [
@@ -64,12 +66,14 @@
 			}
 		},
 		{
+			"_id": 1,
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
 				"modelPath": "../resources/objects/Sheep/Sheep.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
+			"level": 0,
 			"name": "Sheep",
 			"server": {
 				"colliders": [
@@ -126,12 +130,14 @@
 			}
 		},
 		{
+			"_id": 2,
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
 				"modelPath": "../resources/objects/Pig/Pig.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
+			"level": 0,
 			"name": "Pig",
 			"server": {
 				"colliders": [
@@ -188,12 +194,14 @@
 			}
 		},
 		{
+			"_id": 3,
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
 				"modelPath": "../resources/objects/cow/Cow.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
+			"level": 0,
 			"name": "Cow",
 			"server": {
 				"colliders": [
@@ -250,12 +258,14 @@
 			}
 		},
 		{
+			"_id": 4,
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
 				"modelPath": "../resources/objects/cube/Cube.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
+			"level": 0,
 			"name": "Keypad",
 			"server": {
 				"colliders": [
@@ -320,12 +330,14 @@
 			}
 		},
 		{
+			"_id": 5,
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
 				"modelPath": "../resources/objects/cube/Cube.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
+			"level": 0,
 			"name": "Cube2",
 			"server": {
 				"colliders": [
@@ -382,12 +394,14 @@
 			}
 		},
 		{
+			"_id": 6,
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
 				"modelPath": "../resources/objects/cube/Cube.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
+			"level": 0,
 			"name": "Floor",
 			"server": {
 				"colliders": [
@@ -444,12 +458,14 @@
 			}
 		},
 		{
+			"_id": 7,
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
 				"modelPath": "../resources/objects/Barn/BarnNew.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
+			"level": 0,
 			"name": "BarnNew",
 			"server": {
 				"colliders": [
@@ -815,7 +831,7 @@
 					},
 					{
 						"center": {
-							"x": 12.166,
+							"x": 12.167,
 							"y": 2.249,
 							"z": -28.564
 						},
@@ -905,7 +921,7 @@
 					},
 					{
 						"center": {
-							"x": 18.551,
+							"x": 18.552,
 							"y": 14.536,
 							"z": -29.605
 						},
@@ -936,7 +952,7 @@
 					{
 						"center": {
 							"x": 27.311,
-							"y": 28.016,
+							"y": 28.015,
 							"z": -30.129
 						},
 						"halfExtents": {
