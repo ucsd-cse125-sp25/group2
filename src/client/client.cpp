@@ -37,6 +37,10 @@ bool Client::init() {
   glfwWindowHint(GLFW_RESIZABLE, GL_TRUE);
   glfwWindowHint(GLFW_DECORATED, GL_TRUE);
 
+#ifdef __APPLE__
+  glfwWindowHint(GLFW_MAXIMIZED, GLFW_TRUE);
+#endif
+
   // Create the GLFW window
   window = glfwCreateWindow(windowWidth, windowHeight, "Barnyard Breakout",
                             NULL, NULL);

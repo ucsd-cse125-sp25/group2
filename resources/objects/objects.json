@@ -2,6 +2,7 @@
 	"_comment": "DO NOT CHANGE THE ORDER OF CHARACTERS. ANIMALS MUST REMAIN AT TOP OF JSON AND IN ORDER",
 	"objects": [
 		{
+			"_id": 0,
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
@@ -64,6 +65,69 @@
 			}
 		},
 		{
+			"_id": 1,
+			"active": true,
+			"client": {
+				"fragShaderPath": "../resources/shaders/material.frag",
+				"modelPath": "../resources/objects/Pig/Pig.obj",
+				"vertShaderPath": "../resources/shaders/material.vert"
+			},
+			"name": "Pig",
+			"server": {
+				"colliders": [
+					{
+						"center": {
+							"x": 0,
+							"y": 1.25,
+							"z": -0.012
+						},
+						"halfExtents": {
+							"x": 0.308,
+							"y": 0.5,
+							"z": 0.576
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": -0,
+								"y": -0,
+								"z": -2.5
+							},
+							"right": {
+								"x": 2.5,
+								"y": 0,
+								"z": 0
+							},
+							"up": {
+								"x": 0,
+								"y": 2.5,
+								"z": 0
+							}
+						}
+					}
+				],
+				"interaction": "NONE",
+				"static": false
+			},
+			"transform": {
+				"position": {
+					"x": -3,
+					"y": 0.9,
+					"z": -3
+				},
+				"rotation": {
+					"x": -0,
+					"y": 0,
+					"z": 0
+				},
+				"scale": {
+					"x": 2.5,
+					"y": 2.5,
+					"z": 2.5
+				}
+			}
+		},{
+			"_id": 2,
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
@@ -126,68 +190,7 @@
 			}
 		},
 		{
-			"active": true,
-			"client": {
-				"fragShaderPath": "../resources/shaders/material.frag",
-				"modelPath": "../resources/objects/Pig/Pig.obj",
-				"vertShaderPath": "../resources/shaders/material.vert"
-			},
-			"name": "Pig",
-			"server": {
-				"colliders": [
-					{
-						"center": {
-							"x": 0,
-							"y": 1.25,
-							"z": -0.012
-						},
-						"halfExtents": {
-							"x": 0.308,
-							"y": 0.5,
-							"z": 0.576
-						},
-						"isTrigger": false,
-						"orientation": {
-							"forward": {
-								"x": -0,
-								"y": -0,
-								"z": -2.5
-							},
-							"right": {
-								"x": 2.5,
-								"y": 0,
-								"z": 0
-							},
-							"up": {
-								"x": 0,
-								"y": 2.5,
-								"z": 0
-							}
-						}
-					}
-				],
-				"interaction": "NONE",
-				"static": false
-			},
-			"transform": {
-				"position": {
-					"x": -3,
-					"y": 0.9,
-					"z": -3
-				},
-				"rotation": {
-					"x": -0,
-					"y": 0,
-					"z": 0
-				},
-				"scale": {
-					"x": 2.5,
-					"y": 2.5,
-					"z": 2.5
-				}
-			}
-		},
-		{
+			"_id": 3,
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
@@ -250,6 +253,7 @@
 			}
 		},
 		{
+			"_id": 4,
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
@@ -320,6 +324,7 @@
 			}
 		},
 		{
+			"_id": 5,
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
@@ -382,6 +387,7 @@
 			}
 		},
 		{
+			"_id": 6,
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
@@ -444,6 +450,7 @@
 			}
 		},
 		{
+			"_id": 7,
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
