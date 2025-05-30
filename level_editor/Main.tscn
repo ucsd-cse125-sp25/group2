@@ -72,7 +72,7 @@ size = Vector3(69, 62, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_y48i7"]
 size = Vector3(20.7266, 1, 84.0742)
 
-[node name="Node3D" type="Node3D"]
+[node name="Level 0" type="Node3D"]
 
 [node name="Chicken" parent="." instance=ExtResource("5_8cb1q")]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 8, 0.9, -3)

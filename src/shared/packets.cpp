@@ -182,7 +182,7 @@ vector<char> KeypadInputPacket::serialize() const {
   unsigned long size = 0;
   memcpy(buffer.data(), &objectID, sizeof(OBJECT_ID));
   size += sizeof(OBJECT_ID);
-  memcpy(buffer.data(), &clientID, sizeof(CLIENT_ID));
+  memcpy(buffer.data() + size, &clientID, sizeof(CLIENT_ID));
   size += sizeof(CLIENT_ID);
   for (int input : inputSequence) {
     memcpy(buffer.data() + size, &input, sizeof(int));

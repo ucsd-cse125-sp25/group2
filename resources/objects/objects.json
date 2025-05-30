@@ -9,6 +9,7 @@
 				"modelPath": "../resources/objects/chicken/Chicken.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
+			"level": 0,
 			"name": "Chicken",
 			"server": {
 				"colliders": [
@@ -72,6 +73,7 @@
 				"modelPath": "../resources/objects/Pig/Pig.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
+			"level": 0,
 			"name": "Pig",
 			"server": {
 				"colliders": [
@@ -126,7 +128,8 @@
 					"z": 2.5
 				}
 			}
-		},{
+		},
+		{
 			"_id": 2,
 			"active": true,
 			"client": {
@@ -134,6 +137,7 @@
 				"modelPath": "../resources/objects/Sheep/Sheep.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
+			"level": 0,
 			"name": "Sheep",
 			"server": {
 				"colliders": [
@@ -197,6 +201,7 @@
 				"modelPath": "../resources/objects/cow/Cow.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
+			"level": 0,
 			"name": "Cow",
 			"server": {
 				"colliders": [
@@ -260,6 +265,7 @@
 				"modelPath": "../resources/objects/cube/Cube.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
+			"level": 0,
 			"name": "Keypad",
 			"server": {
 				"colliders": [
@@ -331,6 +337,7 @@
 				"modelPath": "../resources/objects/cube/Cube.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
+			"level": 0,
 			"name": "Cube2",
 			"server": {
 				"colliders": [
@@ -394,6 +401,7 @@
 				"modelPath": "../resources/objects/cube/Cube.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
+			"level": 0,
 			"name": "Floor",
 			"server": {
 				"colliders": [
@@ -457,6 +465,7 @@
 				"modelPath": "../resources/objects/Barn/BarnNew.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
+			"level": 0,
 			"name": "BarnNew",
 			"server": {
 				"colliders": [
@@ -822,7 +831,7 @@
 					},
 					{
 						"center": {
-							"x": 12.166,
+							"x": 12.167,
 							"y": 2.249,
 							"z": -28.564
 						},
@@ -912,7 +921,7 @@
 					},
 					{
 						"center": {
-							"x": 18.551,
+							"x": 18.552,
 							"y": 14.536,
 							"z": -29.605
 						},
@@ -943,7 +952,7 @@
 					{
 						"center": {
 							"x": 27.311,
-							"y": 28.016,
+							"y": 28.015,
 							"z": -30.129
 						},
 						"halfExtents": {

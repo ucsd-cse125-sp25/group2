@@ -117,7 +117,7 @@ bool Client::initUI() {
   });
   UIManager::keypad->setOnInputCallback(
       [net = network.get()](OBJECT_ID id, int index) {
-        KeypadInputPacket packet(id, UIManager::keypad->id,
+        KeypadInputPacket packet(id, net->getId(),
                                  UIManager::keypad->inputSequence, false);
         net->send(packet);
       });
@@ -140,6 +140,7 @@ void Client::idleCallback(float deltaTime) {
     switch (packet->getType()) {
     case PacketType::INIT: {
       auto initPacket = dynamic_cast<InitPacket *>(packet.get());
+      cout << "Received INIT packet with ID: " << initPacket->id << endl;
       network->setId(initPacket->id);
       characterManager->setID(initPacket->id);
       break;
