@@ -25,7 +25,7 @@ func _run():
 				object_nodes.append(object_json)
 
 	# Sort animals to top if needed, based on their names
-	var animals = ["Chicken", "Sheep", "Pig", "Cow"]
+	var animals = ["Chicken", "Pig", "Sheep", "Cow"]
 	#var animals = ["Cow", "Pig", "Sheep", "Chicken"]
 	var animal_objects = []
 	var other_objects = []
@@ -136,7 +136,7 @@ func get_model_path(node: Node) -> String:
 	return "TODO"
 	
 func _sort_animals(a, b) -> bool:
-	var animals = ["Chicken", "Sheep", "Pig", "Cow"]
+	var animals = ["Chicken", "Pig", "Sheep", "Cow"]
 	var index_a = animals.find(a["name"])
 	var index_b = animals.find(b["name"])
 	return index_a < index_b

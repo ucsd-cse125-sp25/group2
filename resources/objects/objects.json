@@ -70,70 +70,6 @@
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
-				"modelPath": "../resources/objects/Sheep/Sheep.obj",
-				"vertShaderPath": "../resources/shaders/material.vert"
-			},
-			"level": 0,
-			"name": "Sheep",
-			"server": {
-				"colliders": [
-					{
-						"center": {
-							"x": 0,
-							"y": 1.538,
-							"z": 0.132
-						},
-						"halfExtents": {
-							"x": 0.52,
-							"y": 0.615,
-							"z": 0.67
-						},
-						"isTrigger": false,
-						"orientation": {
-							"forward": {
-								"x": -0,
-								"y": -0,
-								"z": -2.5
-							},
-							"right": {
-								"x": 2.5,
-								"y": 0,
-								"z": 0
-							},
-							"up": {
-								"x": 0,
-								"y": 2.5,
-								"z": 0
-							}
-						}
-					}
-				],
-				"interaction": "NONE",
-				"static": false
-			},
-			"transform": {
-				"position": {
-					"x": 3,
-					"y": 0.9,
-					"z": -3
-				},
-				"rotation": {
-					"x": -0,
-					"y": 0,
-					"z": 0
-				},
-				"scale": {
-					"x": 2.5,
-					"y": 2.5,
-					"z": 2.5
-				}
-			}
-		},
-		{
-			"_id": 2,
-			"active": true,
-			"client": {
-				"fragShaderPath": "../resources/shaders/material.frag",
 				"modelPath": "../resources/objects/Pig/Pig.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
@@ -178,6 +114,70 @@
 			"transform": {
 				"position": {
 					"x": -3,
+					"y": 0.9,
+					"z": -3
+				},
+				"rotation": {
+					"x": -0,
+					"y": 0,
+					"z": 0
+				},
+				"scale": {
+					"x": 2.5,
+					"y": 2.5,
+					"z": 2.5
+				}
+			}
+		},
+		{
+			"_id": 2,
+			"active": true,
+			"client": {
+				"fragShaderPath": "../resources/shaders/material.frag",
+				"modelPath": "../resources/objects/Sheep/Sheep.obj",
+				"vertShaderPath": "../resources/shaders/material.vert"
+			},
+			"level": 0,
+			"name": "Sheep",
+			"server": {
+				"colliders": [
+					{
+						"center": {
+							"x": 0,
+							"y": 1.538,
+							"z": 0.132
+						},
+						"halfExtents": {
+							"x": 0.52,
+							"y": 0.615,
+							"z": 0.67
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": -0,
+								"y": -0,
+								"z": -2.5
+							},
+							"right": {
+								"x": 2.5,
+								"y": 0,
+								"z": 0
+							},
+							"up": {
+								"x": 0,
+								"y": 2.5,
+								"z": 0
+							}
+						}
+					}
+				],
+				"interaction": "NONE",
+				"static": false
+			},
+			"transform": {
+				"position": {
+					"x": 3,
 					"y": 0.9,
 					"z": -3
 				},
