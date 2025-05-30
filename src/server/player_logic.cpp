@@ -3,7 +3,7 @@
 PlayerLogic::PlayerLogic() {
   speed = 10.0f;
   sheepJumps = SHEEP_MAX_JUMPS;
-  jumpForce = 8.0f;
+  jumpForce = 15.0f;
   glideFallSpeed = 1.0f;
 
   for (int i = 0; i < NUM_PLAYERS; i++) {

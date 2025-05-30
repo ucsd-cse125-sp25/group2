@@ -118,14 +118,21 @@ void Physics::solveCollision(GameObject *a, GameObject *b, int aIndex,
     if (massSum > 0) {
       glm::vec3 correction =
           max(penetration - slop, 0.0f) / massSum * percent * normal;
+      
       if (!a_rb->isStatic()) {
         a->getTransform()->updatePosition(-correction * invMassA);
+        if(b->getId() == 1 && normal.y < -0.7) {
+          a_rb->applyImpulse(2.0f * glm::vec3(0, 1, 0));
+        }
         for (Collider *c : a->getCollider()) {
           c->update(a->getTransform());
         }
       }
       if (!b_rb->isStatic()) {
         b->getTransform()->updatePosition(correction * invMassB);
+        if(a->getId() == 1 && normal.y > 0.7) {
+          b_rb->applyImpulse(2.0f * glm::vec3(0, 1, 0));
+        }
         for (Collider *c : b->getCollider()) {
           c->update(b->getTransform());
         }
