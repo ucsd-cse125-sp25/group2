@@ -2,7 +2,7 @@
 
 PlayerLogic::PlayerLogic() {
   speed = 10.0f;
-  jumpForce = 8.0f;
+  jumpForce = 13.0f;
   glideFallSpeed = 1.0f;
 
   for (int i = 0; i < NUM_PLAYERS; i++) {
@@ -37,6 +37,13 @@ void PlayerLogic::jump(GameObject *player) {
     player->setGrounded(false);
     auto rigidBody = player->getRigidBody();
     rigidBody->applyImpulse(glm::vec3(0.0f, jumpForce, 0.0f));
+
+    // If sheep is jumping from the ground, reset double jump
+    sheepDoubleJump = player->getId() == SHEEP ? false : sheepDoubleJump;
+  } else if (player->getId() == SHEEP && !sheepDoubleJump) {
+    sheepDoubleJump = true;
+    auto rigidBody = player->getRigidBody();
+    rigidBody->applyImpulse(glm::vec3(0.0f, jumpForce * 1.5, 0.0f));
   }
 }
 
