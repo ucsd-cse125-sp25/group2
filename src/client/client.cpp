@@ -121,6 +121,11 @@ bool Client::initUI() {
                                  UIManager::keypad->inputSequence, false);
         net->send(packet);
       });
+  UIManager::keypad->setCloseCallback([net = network.get()](OBJECT_ID id) {
+    KeypadInputPacket packet(id, net->getId(), UIManager::keypad->inputSequence,
+                             true);
+    net->send(packet);
+  });
   return true;
 }
 

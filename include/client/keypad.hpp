@@ -13,15 +13,16 @@ using namespace std;
 
 class KeypadUI {
 private:
-  array<unique_ptr<BaseUI>, 4> buttons;
+  array<unique_ptr<BaseUI>, 5> buttons;
   function<void(int index, OBJECT_ID id)> onInputCallback;
+  function<void(OBJECT_ID id)> onCloseCallback;
 
   float buttonSize = 0.25f;
 
   vector<unique_ptr<BaseUI>> shapeDisplays;
-  array<GLuint, 4> buttonTextures;
-  array<GLuint, 4> buttonHoverTextures;
-  array<GLuint, 4> shapeTextures;
+  array<GLuint, 5> buttonTextures;
+  array<GLuint, 5> buttonHoverTextures;
+  array<GLuint, 5> shapeTextures;
 
   void addInput(int index);
   void updateShapes();
@@ -40,6 +41,8 @@ public:
   void setObjectID(OBJECT_ID objectId);
 
   void setOnInputCallback(function<void(OBJECT_ID id, int index)> callback);
+  void setCloseCallback(function<void(OBJECT_ID id)> callback);
+
   vector<int> inputSequence;
 
   void setUnlocked(bool isUnlocked);

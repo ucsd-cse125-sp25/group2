@@ -107,8 +107,9 @@ void GameServer::dispatchUpdates() {
       auto keypadObject = dynamic_cast<KeypadObject *>(obj);
       if (keypadObject && keypadObject->clientUsing != -1 &&
           !keypadObject->opened) {
-        network->sendToClient(keypadObject->clientUsing,
-                              KeypadPacket(keypadObject->getId(), true, false));
+        network->sendToClient(
+            keypadObject->clientUsing,
+            KeypadPacket(keypadObject->getId(), true, keypadObject->unlocked));
         keypadObject->opened = true;
       }
     } else {
