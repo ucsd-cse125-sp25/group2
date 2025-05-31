@@ -21,13 +21,13 @@ KeypadUI::KeypadUI() : inputSequence(4) {
         make_unique<Shader>("../resources/shaders/animUi.vert",
                             "../resources/shaders/animUi.frag"));
   }
-  
-  buttons[4] = make_unique<BaseUI>(CENTER_X, CENTER_Y - 0.6f, buttonSize, buttonSize, 1, true, true);
+
+  buttons[4] = make_unique<BaseUI>(CENTER_X, CENTER_Y - 0.6f, buttonSize,
+                                   buttonSize, 1, true, true);
   buttons[4]->setTexture(buttonTextures[4]);
   buttons[4]->setHoverTexture(buttonHoverTextures[4]);
-  buttons[4]->setShader(
-        make_unique<Shader>("../resources/shaders/animUi.vert",
-                            "../resources/shaders/animUi.frag"));
+  buttons[4]->setShader(make_unique<Shader>(
+      "../resources/shaders/animUi.vert", "../resources/shaders/animUi.frag"));
   buttons[4]->setOnClick([this]() {
     onCloseCallback(id);
     display = false;
@@ -52,8 +52,7 @@ void KeypadUI::loadTextures() {
       BaseUI::loadTexture("../resources/ui/Buttons/sprite_02.png"),
       BaseUI::loadTexture("../resources/ui/Buttons/sprite_04.png"),
       BaseUI::loadTexture("../resources/ui/Buttons/sprite_06.png"),
-      BaseUI::loadTexture("../resources/ui/Buttons/sprite_08.png")
-    };
+      BaseUI::loadTexture("../resources/ui/Buttons/sprite_08.png")};
 
   buttonHoverTextures = {
       BaseUI::loadTexture("../resources/ui/Buttons/sprite_01.png"),
