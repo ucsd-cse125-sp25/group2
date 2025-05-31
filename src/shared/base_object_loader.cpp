@@ -30,9 +30,11 @@ BaseObjectData BaseObjectLoader::createBaseGameObject(const json &objData) {
   if (objData.contains("transform")) {
     auto &t = objData["transform"];
     position = parseVec3(t, "position", glm::vec3(0.0f));
+    baseObjectData.originalPosition = position;
     rotation = parseVec3(t, "rotation", glm::vec3(0.0f));
     scale = parseVec3(t, "scale", glm::vec3(1.0f));
   } else {
+    baseObjectData.originalPosition = glm::vec3(0.0f);
     position = glm::vec3(0.0f);
     rotation = glm::vec3(0.0f);
     scale = glm::vec3(1.0f);

@@ -14,6 +14,7 @@ using namespace std;
 struct BaseObjectData {
   LEVEL_ID level;
   bool active;
+  glm::vec3 originalPosition;
   unique_ptr<Transform> transform;
 };
 

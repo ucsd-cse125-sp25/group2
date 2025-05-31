@@ -33,6 +33,12 @@ unordered_map<int, unique_ptr<GameObject>> ObjectLoader::loadObjects() {
           bool isStatic = server["static"].get<bool>();
           rb->setStatic(isStatic);
         }
+
+        if (server.contains("mass")) {
+          float m = server["mass"].get<float>();
+          rb->setMass(m);
+        }
+
         auto cl = vector<Collider *>();
         if (server.contains("collider")) {
           cl = loadCollider(server.value("collider", "").c_str());
@@ -44,7 +50,7 @@ unordered_map<int, unique_ptr<GameObject>> ObjectLoader::loadObjects() {
             c->setCanActivate(server["canActivate"].get<bool>());
           c->update(base.transform.get());
         }
-        obj = make_unique<GameObject>(objectId, base.level, base.active,
+        obj = make_unique<GameObject>(objectId, base.level, base.active, base.originalPosition,
                                       base.transform, rb, cl);
 
         if (server.contains("interaction")) {
