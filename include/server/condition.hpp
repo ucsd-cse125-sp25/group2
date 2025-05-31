@@ -15,9 +15,10 @@ public:
 class PressurePlateCondition : public PuzzleCondition {
 private:
   GameObject *object;
+  OBJECT_ID id;
 
 public:
-  PressurePlateCondition(GameObject *obj) : object(obj) {}
+  PressurePlateCondition(GameObject *obj, OBJECT_ID objID) : object(obj), id(objID) {}
   bool isSatisfied() const override;
 };
 

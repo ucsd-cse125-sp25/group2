@@ -1,7 +1,9 @@
 #include "condition.hpp"
 
 bool PressurePlateCondition::isSatisfied() const {
-  return object->getCollider()[0]->isWithinTrigger();
+  auto cl = object->getCollider()[0];
+  if (cl->isWithinTrigger())
+    return cl->getTriggerObject() == id;
 }
 
 bool ButtonCondition::isSatisfied() const { return object->isActive(); }

@@ -89,5 +89,5 @@ void main()
     // Gamma correction for better visual appearance
     result = pow(result, vec3(1.0/2.2));
     
-    FragColor = vec4(result, 1.0);
+    FragColor = vec4(diffuseColor, 1.0);
 }

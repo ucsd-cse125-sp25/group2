@@ -9,7 +9,8 @@
                     "conditions": [
                         {
                             "conditionType": "PRESSURE_PLATE",
-                            "objectID": 1
+                            "objectID": 1,
+                            "triggeringObjectID": 0
                         }
                     ]
                 }

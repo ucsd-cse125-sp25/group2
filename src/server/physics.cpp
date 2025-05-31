@@ -8,7 +8,7 @@ void Physics::remove(GameObject *obj) {
 
 void Physics::calculateForces() {
   for (GameObject *obj : objects) {
-    if (obj->getRigidBody()->isStatic())
+    if (obj->getRigidBody()->isStatic() || !obj->isActive())
       continue;
 
     glm::vec3 vel = obj->getRigidBody()->getVelocity();
@@ -48,7 +48,8 @@ void Physics::resolveCollisions() {
         GameObject *b = objects[j];
         // Using the first collider in the list, let's always set this to be the
         // overall bounding box of the object
-
+        if (!a->isActive() || !b->isActive())
+          continue;
         Collider *aCol = a->getCollider()[0];
         Collider *bCol = b->getCollider()[0];
 
@@ -150,6 +151,8 @@ void Physics::moveObjects(float deltaTime) {
   float moveSpeed = 10.0f;
 
   for (GameObject *obj : objects) {
+    if (!obj->isActive())
+      continue;
     RigidBody *rb = obj->getRigidBody();
     vector<Collider *> cl = obj->getCollider();
     if (cl[0]->isTrigger()) {

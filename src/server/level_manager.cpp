@@ -59,11 +59,15 @@ void LevelManager::loadJSON() {
                   conditionData["conditionType"].get<string>();
               auto conditionVal =
                   magic_enum::enum_cast<ConditionType>(conditionStr);
+              
+              // Pressure plate requires a triggering object ID
+              OBJECT_ID triggeringObjectID = conditionData["triggeringObjectID"].get<int>();
+
               if (conditionVal.has_value()) {
                 ConditionType conditionType = conditionVal.value();
                 switch (conditionType) {
                 case ConditionType::PRESSURE_PLATE:
-                  condition = make_unique<PressurePlateCondition>(object);
+                  condition = make_unique<PressurePlateCondition>(object, triggeringObjectID);
                   break;
                 case ConditionType::BUTTON:
                   condition = make_unique<ButtonCondition>(object);
