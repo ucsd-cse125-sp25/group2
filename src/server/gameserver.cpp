@@ -108,7 +108,7 @@ void GameServer::dispatchUpdates() {
       if (keypadObject && keypadObject->clientUsing != -1 &&
           !keypadObject->opened) {
         network->sendToClient(keypadObject->clientUsing,
-                              KeypadPacket(keypadObject->getId(), true, false));
+                              KeypadPacket(keypadObject->getId(), true, keypadObject->unlocked));
         keypadObject->opened = true;
       }
     } else {

@@ -6,7 +6,7 @@ KeypadUI::KeypadUI() : inputSequence(4) {
   display = false;
   inputSequence.clear();
 
-  float spacing = 0.25f;
+  float spacing = 0.35f;
   for (int i = 0; i < 4; ++i) {
     float x = CENTER_X + (i - 1.5f) * spacing;
     float y = CENTER_Y;
@@ -21,12 +21,25 @@ KeypadUI::KeypadUI() : inputSequence(4) {
         make_unique<Shader>("../resources/shaders/animUi.vert",
                             "../resources/shaders/animUi.frag"));
   }
+  
+  buttons[4] = make_unique<BaseUI>(CENTER_X, CENTER_Y - 0.6f, buttonSize, buttonSize, 1, true, true);
+  buttons[4]->setTexture(buttonTextures[4]);
+  buttons[4]->setHoverTexture(buttonHoverTextures[4]);
+  buttons[4]->setShader(
+        make_unique<Shader>("../resources/shaders/animUi.vert",
+                            "../resources/shaders/animUi.frag"));
+  buttons[4]->setOnClick([this]() {
+    onCloseCallback(id);
+    display = false;
+    inputSequence.clear();
+    updateShapes();
+  });
 
   for (int i = 0; i < 4; ++i) {
     float x = CENTER_X + (i - 1.5f) * spacing;
     float y = CENTER_Y + 0.4f;
-    auto shape = make_unique<BaseUI>(x, y, 0.25f, 0.25f, 0);
-    shape->setTexture(0);
+    auto shape = make_unique<BaseUI>(x, y, 0.30f, 0.30f, 0);
+    shape->setTexture(shapeTextures[4]);
     shape->setShader(make_unique<Shader>("../resources/shaders/animUi.vert",
                                          "../resources/shaders/animUi.frag"));
     shapeDisplays.push_back(move(shape));
@@ -38,17 +51,23 @@ void KeypadUI::loadTextures() {
       BaseUI::loadTexture("../resources/ui/Buttons/sprite_00.png"),
       BaseUI::loadTexture("../resources/ui/Buttons/sprite_02.png"),
       BaseUI::loadTexture("../resources/ui/Buttons/sprite_04.png"),
-      BaseUI::loadTexture("../resources/ui/Buttons/sprite_06.png")};
+      BaseUI::loadTexture("../resources/ui/Buttons/sprite_06.png"),
+      BaseUI::loadTexture("../resources/ui/Buttons/sprite_08.png")
+    };
+
   buttonHoverTextures = {
       BaseUI::loadTexture("../resources/ui/Buttons/sprite_01.png"),
       BaseUI::loadTexture("../resources/ui/Buttons/sprite_03.png"),
       BaseUI::loadTexture("../resources/ui/Buttons/sprite_05.png"),
-      BaseUI::loadTexture("../resources/ui/Buttons/sprite_07.png")};
+      BaseUI::loadTexture("../resources/ui/Buttons/sprite_07.png"),
+      BaseUI::loadTexture("../resources/ui/Buttons/sprite_09.png")};
+
   shapeTextures = {
-      BaseUI::loadTexture("../resources/ui/Buttons/sprite_08.png"),
-      BaseUI::loadTexture("../resources/ui/Buttons/sprite_09.png"),
       BaseUI::loadTexture("../resources/ui/Buttons/sprite_10.png"),
-      BaseUI::loadTexture("../resources/ui/Buttons/sprite_11.png")};
+      BaseUI::loadTexture("../resources/ui/Buttons/sprite_11.png"),
+      BaseUI::loadTexture("../resources/ui/Buttons/sprite_12.png"),
+      BaseUI::loadTexture("../resources/ui/Buttons/sprite_13.png"),
+      BaseUI::loadTexture("../resources/ui/Buttons/sprite_14.png")};
 }
 
 void KeypadUI::addInput(int index) {
@@ -72,7 +91,7 @@ void KeypadUI::updateShapes() {
       int shapeIdx = inputSequence[i];
       shapeDisplays[i]->setTexture(shapeTextures[shapeIdx]);
     } else {
-      shapeDisplays[i]->setTexture(0);
+      shapeDisplays[i]->setTexture(shapeTextures[4]);
     }
   }
 }
@@ -102,6 +121,11 @@ void KeypadUI::setOnInputCallback(
 }
 
 void KeypadUI::setUnlocked(bool isUnlocked) {
-  unlocked = isUnlocked;
+  if (!unlocked) {
+    unlocked = isUnlocked;
+  }
   // play animation or change UI state based on unlocked status
+}
+void KeypadUI::setCloseCallback(function<void(OBJECT_ID id)> callback) {
+  onCloseCallback = move(callback);
 }

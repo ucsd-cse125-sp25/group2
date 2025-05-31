@@ -154,8 +154,7 @@ void ServerGameState::updateInteraction(PLAYER_ID id) {
       auto keypadObject = dynamic_cast<KeypadObject *>(closestObject);
       cout << "Interacting with KeypadObject: " << keypadObject->getId()
            << endl;
-      if (keypadObject && !keypadObject->locked) {
-        keypadObject->locked = true;
+      if (keypadObject) {
         keypadObject->clientUsing = playerLogic->getClient(id);
         updatedObjectIds.insert(closestObjectID);
         cout << "client: " << keypadObject->clientUsing
@@ -202,8 +201,8 @@ bool ServerGameState::updateKeypadInput(OBJECT_ID id, vector<int> inputSequence,
   auto keypadObject = dynamic_cast<KeypadObject *>(getObject(id));
   if (keypadObject) {
     if (close) {
-      keypadObject->locked = false;
       keypadObject->clientUsing = -1;
+      keypadObject->opened = false;
       return true; // Doesn't matter the return type
     }
     if (keypadObject->checkSequence(inputSequence)) {
