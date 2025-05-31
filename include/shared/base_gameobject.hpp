@@ -18,9 +18,10 @@ protected:
   unique_ptr<Transform> transform;
 
 public:
-  BaseGameObject(const OBJECT_ID id, const int levelNum, const bool isActive, glm::vec3 originalPos,
-                 unique_ptr<Transform> &tf)
-      : id(id), level(levelNum), active(isActive), originalPosition(originalPos), transform(move(tf)){};
+  BaseGameObject(const OBJECT_ID id, const int levelNum, const bool isActive,
+                 glm::vec3 originalPos, unique_ptr<Transform> &tf)
+      : id(id), level(levelNum), active(isActive),
+        originalPosition(originalPos), transform(move(tf)){};
 
   virtual ~BaseGameObject(){};
 

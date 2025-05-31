@@ -48,7 +48,7 @@ void Physics::resolveCollisions() {
         GameObject *b = objects[j];
         // Using the first collider in the list, let's always set this to be the
         // overall bounding box of the object
-        
+
         Collider *aCol = a->getCollider()[0];
         Collider *bCol = b->getCollider()[0];
 
