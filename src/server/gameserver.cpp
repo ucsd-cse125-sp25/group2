@@ -83,7 +83,6 @@ void GameServer::updateGameState() {
       break;
     }
     case PacketType::KEYPADINPUT: {
-      cout << "Received KeypadInputPacket" << endl;
       auto keypadPacket = static_cast<KeypadInputPacket *>(packet.get());
       bool unlocked = game->updateKeypadInput(keypadPacket->objectID,
                                               keypadPacket->inputSequence,

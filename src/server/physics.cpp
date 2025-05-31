@@ -11,7 +11,6 @@ void Physics::calculateForces() {
     if (obj->getRigidBody()->isStatic())
       continue;
 
-    glm::vec3 vel = obj->getRigidBody()->getVelocity();
     glm::vec3 force = glm::vec3(0);
 
     if (!obj->isGrounded()) {

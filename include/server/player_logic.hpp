@@ -17,6 +17,7 @@ private:
   int sheepJumps;
   float jumpForce;
   float glideFallSpeed;
+  bool sheepDoubleJump = false;
 
   // Interaction properties
   unordered_map<PLAYER_ID, GameObject *>

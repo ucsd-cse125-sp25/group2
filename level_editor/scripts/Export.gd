@@ -1,6 +1,8 @@
 @tool
 extends EditorScript
 
+var level_number: int = 0;
+
 func _run():
 	var export_data := {
 		"_comment": "DO NOT CHANGE THE ORDER OF CHARACTERS. ANIMALS MUST REMAIN AT TOP OF JSON AND IN ORDER",
@@ -11,6 +13,8 @@ func _run():
 	if not root:
 		printerr("No scene root!")
 		return
+		
+	level_number = get_level_number(root.name)
 
 	var object_nodes := []
 
@@ -21,7 +25,7 @@ func _run():
 				object_nodes.append(object_json)
 
 	# Sort animals to top if needed, based on their names
-	var animals = ["Chicken", "Sheep", "Pig", "Cow"]
+	var animals = ["Chicken", "Pig", "Sheep", "Cow"]
 	#var animals = ["Cow", "Pig", "Sheep", "Chicken"]
 	var animal_objects = []
 	var other_objects = []
@@ -33,8 +37,19 @@ func _run():
 			other_objects.append(obj)
 
 	animal_objects.sort_custom(_sort_animals)
-	export_data["objects"] = animal_objects + other_objects
-
+	
+	for animal in animal_objects:
+		animal["level"] = 0
+		
+	var all_objects = animal_objects + other_objects
+	
+	var id_counter := 0
+	for obj in all_objects:
+		obj["_id"] = id_counter
+		id_counter += 1
+		
+	export_data["objects"] = all_objects
+		
 	var file = FileAccess.open("res://objects.json", FileAccess.WRITE)
 	file.store_string(JSON.stringify(export_data, "\t")) # Pretty print with tab
 	file.close()
@@ -55,6 +70,7 @@ func _process_node(node: Node3D) -> Dictionary:
 			}
 			
 	var data := {
+		"level": level_number,
 		"name": node.name,
 		"active": node.visible,
 		"transform": {
@@ -72,14 +88,6 @@ func _process_node(node: Node3D) -> Dictionary:
 
 	return data
 
-func _get_half_extents(node: Node3D) -> Dictionary:
-	for child in node.get_children():
-		if child is CollisionShape3D:
-			var shape = child.shape
-			if shape is BoxShape3D:
-				var extents = shape.size * 0.5 * node.scale
-				return _vec3_to_json(extents)
-	return {"x": 0.0, "y": 0.0, "z": 0.0}  # Default
 
 func get_all_colliders(node: Node3D) -> Array:
 	var colliders := []
@@ -121,13 +129,14 @@ func get_interaction(node: Node) -> String:
 	if node is MetaDATA:
 		return node.interaction
 	return "NONE"
+	
 func get_model_path(node: Node) -> String:
 	if node is MetaDATA:
 		return node.model_path
 	return "TODO"
 	
 func _sort_animals(a, b) -> bool:
-	var animals = ["Chicken", "Sheep", "Pig", "Cow"]
+	var animals = ["Chicken", "Pig", "Sheep", "Cow"]
 	var index_a = animals.find(a["name"])
 	var index_b = animals.find(b["name"])
 	return index_a < index_b
@@ -136,5 +145,17 @@ func _basis_to_json(basis: Basis) -> Dictionary:
 	return {
 		"right": _vec3_to_json(basis.x),
 		"up": _vec3_to_json(basis.y),
-		"forward": _vec3_to_json(-basis.z)  # Negate Z to match right-handed forward
+		"forward": _vec3_to_json(-basis.z) 
 	}
+	
+#func _basis_to_json(basis: Basis) -> Dictionary:
+	#return {
+		#"right": _vec3_to_json(Vector3(basis.x.x, basis.y.x, basis.z.x)),
+		#"up": _vec3_to_json(Vector3(basis.x.y, basis.y.y, basis.z.y)),
+		#"forward": _vec3_to_json(Vector3(-basis.x.z, -basis.y.z, -basis.z.z))  # Negated Z to flip to right-handed
+	#}
+	
+func get_level_number(name: String) -> int:
+	if name.begins_with("Level "):
+		return int(name.get_slice(" ", 1))
+	return -1

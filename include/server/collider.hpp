@@ -2,6 +2,8 @@
 
 #include "core.hpp"
 #include "transform.hpp"
+
+#include <iostream>
 #include <vector>
 
 using namespace std;

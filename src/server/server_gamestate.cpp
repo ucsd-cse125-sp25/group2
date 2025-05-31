@@ -149,7 +149,8 @@ void ServerGameState::updateInteraction(PLAYER_ID id) {
       cout << "Pressed object: " << closestObjectID << endl;
     }
 
-    if (closestObject->getInteractionType() == InteractionType::KEYPAD) {
+    if (closestObject->getInteractionType() == InteractionType::KEYPAD &&
+        id == PIG) {
       auto keypadObject = dynamic_cast<KeypadObject *>(closestObject);
       cout << "Interacting with KeypadObject: " << keypadObject->getId()
            << endl;

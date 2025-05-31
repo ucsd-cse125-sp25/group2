@@ -39,17 +39,18 @@ void PlayerLogic::jump(GameObject *player) {
   }
 
   // jump the player
-  if (player->getId() == SHEEP) {
-    if (player->isGrounded()) {
-      sheepJumps = SHEEP_MAX_JUMPS;
-    } else if (sheepJumps <= 0) {
-      return; // no jumps left
-    }
-    sheepJumps--;
+  if (player->isGrounded()) {
+    player->setGrounded(false);
+    auto rigidBody = player->getRigidBody();
+    rigidBody->applyImpulse(glm::vec3(0.0f, jumpForce, 0.0f));
+
+    // If sheep is jumping from the ground, reset double jump
+    sheepDoubleJump = player->getId() == SHEEP ? false : sheepDoubleJump;
+  } else if (player->getId() == SHEEP && !sheepDoubleJump) {
+    sheepDoubleJump = true;
+    auto rigidBody = player->getRigidBody();
+    rigidBody->applyImpulse(glm::vec3(0.0f, jumpForce * 1.5, 0.0f));
   }
-  player->setGrounded(false);
-  auto rigidBody = player->getRigidBody();
-  rigidBody->applyImpulse(glm::vec3(0.0f, jumpForce, 0.0f));
 }
 
 vector<OBJECT_ID> PlayerLogic::rotate(PLAYER_ID id, GameObject *player,
