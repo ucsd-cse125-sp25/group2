@@ -16,6 +16,8 @@ private:
   glm::vec3 halfExtents;
   glm::mat3 orientation;
 
+  OBJECT_ID triggerObject = -1;
+
   bool trigger = false;
   bool withinTrigger = false;
   bool activateTrigger = true;
@@ -67,6 +69,9 @@ public:
 
   bool canActivateTrigger() { return activateTrigger; }
   void setCanActivate(bool activate) { activateTrigger = activate; }
+
+  OBJECT_ID getTriggerObject() { return triggerObject; }
+  void setTriggerObject(OBJECT_ID objID) { triggerObject = objID; }
 
   bool intersects(const Collider &other, glm::vec3 &outNormal,
                   float &outPenetration) const {

@@ -48,6 +48,7 @@ void Physics::resolveCollisions() {
         GameObject *b = objects[j];
         // Using the first collider in the list, let's always set this to be the
         // overall bounding box of the object
+        
         Collider *aCol = a->getCollider()[0];
         Collider *bCol = b->getCollider()[0];
 
@@ -57,10 +58,14 @@ void Physics::resolveCollisions() {
         float penetration;
         if (aCol->intersects(*bCol, normal, penetration)) {
           if (aCol->isTrigger() || bCol->isTrigger()) {
-            if (aCol->isTrigger() && bCol->canActivateTrigger())
+            if (aCol->isTrigger() && bCol->canActivateTrigger()) {
               aCol->setWithinTrigger(true);
-            if (bCol->isTrigger() && aCol->canActivateTrigger())
+              aCol->setTriggerObject(b->getId());
+            }
+            if (bCol->isTrigger() && aCol->canActivateTrigger()) {
               bCol->setWithinTrigger(true);
+              bCol->setTriggerObject(a->getId());
+            }
             continue;
           }
           // if intersects, add both objects to the list of updated objects
