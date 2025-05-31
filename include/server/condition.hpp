@@ -18,7 +18,8 @@ private:
   OBJECT_ID id;
 
 public:
-  PressurePlateCondition(GameObject *obj, OBJECT_ID objID) : object(obj), id(objID) {}
+  PressurePlateCondition(GameObject *obj, OBJECT_ID objID)
+      : object(obj), id(objID) {}
   bool isSatisfied() const override;
 };
 
