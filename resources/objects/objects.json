@@ -21,7 +21,28 @@
       }
     },
     {
-      "name": "Cube",
+      "name": "Pressure Plate 1",
+      "level": 0,
+      "active": true,
+      "transform": {
+        "position": { "x": -10.0, "y": 0.0, "z": 0.0 },
+        "rotation": { "x": 0.0, "y": 0.0, "z": 0.0 },
+        "scale": { "x": 1, "y": 1, "z": 1 }
+      },
+      "client": {
+        "modelPath": "../resources/objects/cube/Cube.obj",
+        "vertShaderPath": "../resources/shaders/material.vert",
+        "fragShaderPath": "../resources/shaders/material.frag"
+      },
+      "server": {
+        "static": true,
+        "isTrigger": true,
+        "collider": "../resources/objects/cube/collider.json",
+        "interaction": "NONE"
+      }
+    },
+    {
+      "name": "Pressure Plate 2",
       "level": 0,
       "active": true,
       "transform": {
@@ -42,52 +63,11 @@
       }
     },
     {
-      "name": "Reward",
+      "name": "Pressure Plate 3",
       "level": 0,
-      "active": false,
-      "transform": {
-        "position": { "x": 0.0, "y": 0.0, "z": -5.0 },
-        "rotation": { "x": 0.0, "y": 0.0, "z": 0.0 },
-        "scale": { "x": 1, "y": 1, "z": 1 }
-      },
-      "client": {
-        "modelPath": "../resources/objects/cube/Cube.obj",
-        "vertShaderPath": "../resources/shaders/material.vert",
-        "fragShaderPath": "../resources/shaders/material.frag"
-      },
-      "server": {
-        "static": true,
-        "collider": "../resources/objects/cube/collider.json",
-        "interaction": "NONE"
-      }
-    },
-    {
-      "name": "Floor",
-      "level":0,
       "active": true,
       "transform": {
         "position": { "x": 0.0, "y": 0.0, "z": 0.0 },
-        "rotation": { "x": 0.0, "y": 0.0, "z": 0.0 },
-        "scale": { "x": 10.0, "y": 0.1, "z": 10.0 }
-      },
-      "client": {
-        "modelPath": "../resources/objects/cube/Cube.obj",
-        "vertShaderPath": "../resources/shaders/shader.vert",
-        "fragShaderPath": "../resources/shaders/shader.frag"
-      },
-      "server": {
-        "static": true,
-        "canActivate": false,
-        "collider": "../resources/objects/floor/collider.json",
-        "interaction": "NONE"
-      }
-    },
-    {
-      "name": "Cube",
-      "level": 1,
-      "active": false,
-      "transform": {
-        "position": { "x": -5.0, "y": 0.0, "z": -3.0 },
         "rotation": { "x": 0.0, "y": 0.0, "z": 0.0 },
         "scale": { "x": 1, "y": 1, "z": 1 }
       },
@@ -100,6 +80,148 @@
         "static": true,
         "isTrigger": true,
         "collider": "../resources/objects/cube/collider.json",
+        "interaction": "NONE"
+      }
+    },
+    {
+      "name": "Pressure Plate 4",
+      "level": 0,
+      "active": true,
+      "transform": {
+        "position": { "x": 5.0, "y": 0.0, "z": 0.0 },
+        "rotation": { "x": 0.0, "y": 0.0, "z": 0.0 },
+        "scale": { "x": 1, "y": 1, "z": 1 }
+      },
+      "client": {
+        "modelPath": "../resources/objects/cube/Cube.obj",
+        "vertShaderPath": "../resources/shaders/material.vert",
+        "fragShaderPath": "../resources/shaders/material.frag"
+      },
+      "server": {
+        "static": true,
+        "isTrigger": true,
+        "collider": "../resources/objects/cube/collider.json",
+        "interaction": "NONE"
+      }
+    },
+    {
+      "name": "Cube 1",
+      "level": 1,
+      "active": true,
+      "transform": {
+        "position": { "x": -10.0, "y": 30.0, "z": 5.0 },
+        "rotation": { "x": 0.0, "y": 0.0, "z": 0.0 },
+        "scale": { "x": 1, "y": 1, "z": 1 }
+      },
+      "client": {
+        "modelPath": "../resources/objects/cube/Cube.obj",
+        "vertShaderPath": "../resources/shaders/material.vert",
+        "fragShaderPath": "../resources/shaders/material.frag"
+      },
+      "server": {
+        "static": false,
+        "collider": "../resources/objects/cube/collider.json",
+        "interaction": "NONE"
+      }
+    },
+    {
+      "name": "Cube 2",
+      "level": 1,
+      "active": true,
+      "transform": {
+        "position": { "x": -5.0, "y": 5.0, "z": 5.0 },
+        "rotation": { "x": 0.0, "y": 0.0, "z": 0.0 },
+        "scale": { "x": 1, "y": 1, "z": 1 }
+      },
+      "client": {
+        "modelPath": "../resources/objects/cube/Cube.obj",
+        "vertShaderPath": "../resources/shaders/material.vert",
+        "fragShaderPath": "../resources/shaders/material.frag"
+      },
+      "server": {
+        "static": false,
+        "collider": "../resources/objects/cube/collider.json",
+        "interaction": "NONE"
+      }
+    },
+    {
+      "name": "Cube 3",
+      "level": 1,
+      "active": true,
+      "transform": {
+        "position": { "x": 0.0, "y": 5.0, "z": 5.0 },
+        "rotation": { "x": 0.0, "y": 0.0, "z": 0.0 },
+        "scale": { "x": 1, "y": 1, "z": 1 }
+      },
+      "client": {
+        "modelPath": "../resources/objects/cube/Cube.obj",
+        "vertShaderPath": "../resources/shaders/material.vert",
+        "fragShaderPath": "../resources/shaders/material.frag"
+      },
+      "server": {
+        "static": false,
+        "collider": "../resources/objects/cube/collider.json",
+        "interaction": "NONE"
+      }
+    },
+    {
+      "name": "Cube 4",
+      "level": 1,
+      "active": true,
+      "transform": {
+        "position": { "x": 5.0, "y": 5.0, "z": 5.0 },
+        "rotation": { "x": 0.0, "y": 0.0, "z": 0.0 },
+        "scale": { "x": 1, "y": 1, "z": 1 }
+      },
+      "client": {
+        "modelPath": "../resources/objects/cube/Cube.obj",
+        "vertShaderPath": "../resources/shaders/material.vert",
+        "fragShaderPath": "../resources/shaders/material.frag"
+      },
+      "server": {
+        "static": false,
+        "collider": "../resources/objects/cube/collider.json",
+        "interaction": "NONE"
+      }
+    },
+    {
+      "name": "Reward",
+      "level": 0,
+      "active": false,
+      "transform": {
+        "position": { "x": 0.0, "y": 20.0, "z": 0.0 },
+        "rotation": { "x": 0.0, "y": 0.0, "z": 0.0 },
+        "scale": { "x": 1, "y": 1, "z": 1 }
+      },
+      "client": {
+        "modelPath": "../resources/objects/cube/Cube.obj",
+        "vertShaderPath": "../resources/shaders/material.vert",
+        "fragShaderPath": "../resources/shaders/material.frag"
+      },
+      "server": {
+        "static": false,
+        "collider": "../resources/objects/cube/collider.json",
+        "interaction": "NONE"
+      }
+    },
+    {
+      "name": "Floor",
+      "level":0,
+      "active": true,
+      "transform": {
+        "position": { "x": 0.0, "y": 0.0, "z": 0.0 },
+        "rotation": { "x": 0.0, "y": 0.0, "z": 0.0 },
+        "scale": { "x": 20.0, "y": 0.1, "z": 20.0 }
+      },
+      "client": {
+        "modelPath": "../resources/objects/cube/Cube.obj",
+        "vertShaderPath": "../resources/shaders/shader.vert",
+        "fragShaderPath": "../resources/shaders/shader.frag"
+      },
+      "server": {
+        "static": true,
+        "canActivate": false,
+        "collider": "../resources/objects/floor/collider.json",
         "interaction": "NONE"
       }
     }

@@ -5,12 +5,26 @@
             "puzzles": [
                 {
                     "puzzleID": 0,
-                    "rewardID": 2,
+                    "rewardID": 9,
                     "conditions": [
                         {
                             "conditionType": "PRESSURE_PLATE",
                             "objectID": 1,
-                            "triggeringObjectID": 0
+                            "triggeringObjectID": 5
+                        },
+                        {
+                            "conditionType": "PRESSURE_PLATE",
+                            "objectID": 2,
+                            "triggeringObjectID": 6
+                        },
+                        {
+                            "conditionType": "PRESSURE_PLATE",
+                            "objectID": 3,
+                            "triggeringObjectID": 7
+                        },{
+                            "conditionType": "PRESSURE_PLATE",
+                            "objectID": 4,
+                            "triggeringObjectID": 8
                         }
                     ]
                 }
