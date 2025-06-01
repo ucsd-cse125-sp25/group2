@@ -124,7 +124,7 @@ void Physics::solveCollision(GameObject *a, GameObject *b, int aIndex,
           a_rb->applyImpulse(sheepBounce * glm::vec3(0, 1, 0));
         }
         for (Collider *c : a->getCollider()) {
-          c->update(a->getTransform());
+          c->update(a->getTransform(), a->getId() < 4);
         }
       }
       if (!b_rb->isStatic()) {
@@ -133,7 +133,7 @@ void Physics::solveCollision(GameObject *a, GameObject *b, int aIndex,
           b_rb->applyImpulse(sheepBounce * glm::vec3(0, 1, 0));
         }
         for (Collider *c : b->getCollider()) {
-          c->update(b->getTransform());
+          c->update(b->getTransform(), b->getId() < 4);
         }
       }
     }
@@ -166,7 +166,7 @@ void Physics::moveObjects(float deltaTime) {
     glm::vec3 pos = tf->getPosition() + rb->getVelocity() * deltaTime;
     tf->setPosition(pos);
     for (Collider *c : cl) {
-      c->update(tf);
+      c->update(tf, obj->getId() < 4);
     }
     rb->setForce(glm::vec3(0.0f));
     rb->setVelocity(glm::vec3(0, vel.y, 0));

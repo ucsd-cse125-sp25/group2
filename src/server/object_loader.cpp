@@ -69,7 +69,7 @@ unordered_map<int, unique_ptr<GameObject>> ObjectLoader::loadObjects() {
         for (Collider *c : cl) {
           // if (server.contains("canActivate"))
           //   c->setCanActivate(server["canActivate"].get<bool>());
-          c->update(base.transform.get());
+          c->update(base.transform.get(), objectId < 4);
         }
 
         if (server.contains("keypad")) {
