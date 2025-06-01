@@ -24,7 +24,7 @@ class Physics {
 private:
   vector<GameObject *> objects;
   // Increase gravity for faster falling
-  const glm::vec3 gravity = glm::vec3(0, -20, 0);
+  const glm::vec3 gravity = glm::vec3(0, -100, 0);
   const float density = 1.225f;
   const float drag = 1.05f;
   const float damping = 0.98f;

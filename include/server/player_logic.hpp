@@ -16,6 +16,7 @@ private:
   float speed;
   int sheepJumps;
   float jumpForce;
+  float sheepJumpForce;
   float glideFallSpeed;
   bool sheepDoubleJump = false;
 
