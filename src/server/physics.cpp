@@ -33,41 +33,18 @@ void Physics::clampVelocities(RigidBody *rb) {
 void Physics::resolveCollisions() {
   // Multiple iterations smooths out collision resolution fixes
   const int solverIterations = 3;
-  std::unordered_map<GameObject *, bool> groundedStates;
-  for (auto obj : objects) {
-    groundedStates[obj] = false;
-  }
   for (int s = 0; s < solverIterations; ++s) {
-    for (int i = 0; i < objects.size(); ++i) {
-      GameObject *a = objects[i];
-      for (int j = i + 1; j < objects.size(); ++j) {
-        GameObject *b = objects[j];
-        // Using the first collider in the list, let's always set this to be the
-        // overall bounding box of the object
-        if (!a->isActive() || !b->isActive())
-          continue;
-        Collider *aCol = a->getCollider()[0];
-        Collider *bCol = b->getCollider()[0];
-
-        if (!aCol || !bCol)
-          continue;
-        glm::vec3 normal;
-        float penetration;
-        if (aCol->intersects(*bCol, normal, penetration)) {
-          if (aCol->isTrigger() || bCol->isTrigger()) {
-            if (aCol->isTrigger() && bCol->canActivateTrigger()) {
-              aCol->setWithinTrigger(true);
-              aCol->setTriggerObject(b->getId());
-            }
-            if (bCol->isTrigger() && aCol->canActivateTrigger()) {
-              bCol->setWithinTrigger(true);
-              bCol->setTriggerObject(a->getId());
-            }
+    unordered_map<GameObject *, bool> groundedStates;
+    for (auto obj : objects) {
+      groundedStates[obj] = false;
+    }
+    for (int s = 0; s < solverIterations; ++s) {
+      for (int i = 0; i < objects.size(); ++i) {
+        GameObject *a = objects[i];
+        for (int j = i + 1; j < objects.size(); ++j) {
+          GameObject *b = objects[j];
+          if (!a->isActive() || !b->isActive() || a == b)
             continue;
-          }
-          // if intersects, add both objects to the list of updated objects
-          updatedObjects.insert(a->getId());
-          updatedObjects.insert(b->getId());
           for (int i = 0; i < a->getCollider().size(); i++) {
             for (int j = 0; j < b->getCollider().size(); j++) {
               solveCollision(a, b, i, j, groundedStates[a], groundedStates[b]);
