@@ -188,6 +188,12 @@ void Client::idleCallback(float deltaTime) {
       game->getObject(id)->activate();
       break;
     }
+    case PacketType::DEACTIVATE: {
+      auto deactivatePacket = dynamic_cast<DeactivatePacket *>(packet.get());
+      OBJECT_ID id = deactivatePacket->id;
+      game->getObject(id)->deactivate();
+      break;
+    }
     case PacketType::KEYPAD: {
       auto keypadPacket = dynamic_cast<KeypadPacket *>(packet.get());
       UIManager::keypad->setObjectID(keypadPacket->id);

@@ -97,6 +97,20 @@ ActivatePacket ActivatePacket::deserialize(const vector<char> &payload) {
   return packet;
 }
 
+vector<char> DeactivatePacket::serialize() const {
+  vector<char> buffer(sizeof(OBJECT_ID));
+  memcpy(buffer.data(), &id, sizeof(OBJECT_ID));
+  return buffer;
+}
+
+DeactivatePacket DeactivatePacket::deserialize(const vector<char> &payload) {
+  OBJECT_ID id;
+
+  memcpy(&id, payload.data(), sizeof(OBJECT_ID));
+  DeactivatePacket packet(id);
+  return packet;
+}
+
 vector<char> KeypadPacket::serialize() const {
   vector<char> buffer(sizeof(OBJECT_ID) + 2 * sizeof(bool));
   unsigned long size = 0;
@@ -272,6 +286,8 @@ unique_ptr<IPacket> deserialize(PacketType type, vector<char> &payload) {
         LevelChangePacket::deserialize(payload));
   case PacketType::ACTIVATE:
     return make_unique<ActivatePacket>(ActivatePacket::deserialize(payload));
+  case PacketType::DEACTIVATE:
+    return make_unique<DeactivatePacket>(DeactivatePacket::deserialize(payload));
   case PacketType::KEYPAD:
     return make_unique<KeypadPacket>(KeypadPacket::deserialize(payload));
   case PacketType::MOVEMENT:
