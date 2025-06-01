@@ -38,10 +38,6 @@ void Physics::resolveCollisions() {
     groundedStates[obj] = false;
   }
   for (int s = 0; s < solverIterations; ++s) {
-    unordered_map<GameObject *, bool> groundedStates;
-    for (auto obj : objects) {
-      groundedStates[obj] = false;
-    }
     for (int s = 0; s < solverIterations; ++s) {
       for (int i = 0; i < objects.size(); ++i) {
         GameObject *a = objects[i];
