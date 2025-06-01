@@ -46,9 +46,8 @@ void PlayerLogic::jump(GameObject *player) {
   if (player->isGrounded()) {
     player->setGrounded(false);
     auto rigidBody = player->getRigidBody();
-    rigidBody->setVelocity(glm::vec3(rigidBody->getVelocity().x,
-                                       0.0f,
-                                       rigidBody->getVelocity().z));
+    rigidBody->setVelocity(glm::vec3(rigidBody->getVelocity().x, 0.0f,
+                                     rigidBody->getVelocity().z));
     rigidBody->setForce(glm::vec3(0.0f));
     rigidBody->applyImpulse(glm::vec3(0.0f, force, 0.0f));
 
@@ -57,9 +56,8 @@ void PlayerLogic::jump(GameObject *player) {
   } else if (player->getId() == SHEEP && !sheepDoubleJump) {
     sheepDoubleJump = true;
     auto rigidBody = player->getRigidBody();
-    rigidBody->setVelocity(glm::vec3(rigidBody->getVelocity().x,
-                                       0.0f,
-                                       rigidBody->getVelocity().z));
+    rigidBody->setVelocity(glm::vec3(rigidBody->getVelocity().x, 0.0f,
+                                     rigidBody->getVelocity().z));
     rigidBody->setForce(glm::vec3(0.0f));
     rigidBody->applyImpulse(glm::vec3(0.0f, force, 0.0f));
   }
