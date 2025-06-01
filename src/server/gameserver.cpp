@@ -107,7 +107,7 @@ void GameServer::dispatchUpdates() {
         obj->getId(),
         Transform(obj->getPosition(), obj->getRotation(), obj->getScale()),
         obj->isActive());
-        network->sendToAll(objPacket);
+    network->sendToAll(objPacket);
   }
 }
 
@@ -118,7 +118,8 @@ void GameServer::dispatchSpecialUpdates() {
     if (obj->getInteractionType() == InteractionType::NOTE) {
       auto noteObject = dynamic_cast<NoteObject *>(obj);
       if (noteObject && noteObject->clientUsing != -1) {
-        network->sendToClient(noteObject->clientUsing, NotePacket(noteObject->getId()));
+        network->sendToClient(noteObject->clientUsing,
+                              NotePacket(noteObject->getId()));
       }
     } else if (obj->getInteractionType() == InteractionType::KEYPAD) {
       auto keypadObject = dynamic_cast<KeypadObject *>(obj);

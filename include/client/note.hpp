@@ -17,7 +17,6 @@ private:
   unique_ptr<BaseUI> noteDisplay;
   unique_ptr<BaseUI> closeButton;
 
-
 public:
   NoteUI();
 
@@ -26,7 +25,7 @@ public:
               float deltatime);
 
   void setObjectID(OBJECT_ID objectId);
-  
+
   void setOnClose(function<void()> callback);
 
   bool display;

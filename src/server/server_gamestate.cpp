@@ -159,7 +159,7 @@ void ServerGameState::updateInteraction(PLAYER_ID id) {
     }
     // If interaction type is note
     else if (closestObject->getInteractionType() == InteractionType::NOTE &&
-        id == PIG) {
+             id == PIG) {
       auto noteObject = dynamic_cast<NoteObject *>(closestObject);
       if (noteObject) {
         noteObject->clientUsing = playerLogic->getClient(id);
