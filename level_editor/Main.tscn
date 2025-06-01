@@ -1,10 +1,11 @@
-[gd_scene load_steps=45 format=3 uid="uid://cb220gddhst8m"]
+[gd_scene load_steps=46 format=3 uid="uid://cb220gddhst8m"]
 
 [ext_resource type="Script" uid="uid://nd5l8ocm7cud" path="res://scripts/metadata.gd" id="2_eh0nf"]
 [ext_resource type="PackedScene" uid="uid://cgwfirulao1f2" path="res://Cow.glb" id="2_fpmh6"]
 [ext_resource type="PackedScene" uid="uid://ckatidfhcngcm" path="res://Pig.glb" id="3_xwquf"]
 [ext_resource type="PackedScene" uid="uid://y0mg523veid7" path="res://Sheep.glb" id="4_3an2t"]
 [ext_resource type="PackedScene" uid="uid://b23o1kf0arccq" path="res://Chicken.glb" id="5_8cb1q"]
+[ext_resource type="PackedScene" uid="uid://ddgebfd8gq3xi" path="res://BlackBox.glb" id="6_c2ibq"]
 [ext_resource type="PackedScene" uid="uid://cdkdjxo7fh7mg" path="res://Cube.glb" id="7_kpr34"]
 [ext_resource type="PackedScene" uid="uid://yu0c1w82lw0p" path="res://PressurePlate.glb" id="8_03owx"]
 [ext_resource type="PackedScene" uid="uid://b4j1n0n4714pr" path="res://Barn.glb" id="8_trn2v"]
@@ -30,7 +31,7 @@ margin = 0.0
 size = Vector3(0.615295, 1, 1.15295)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_p3q2x"]
-size = Vector3(2, 2, 2)
+size = Vector3(1.00073, 2, 1.00014)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_sc1dx"]
 size = Vector3(2.3775, 5.1377, 0.480713)
@@ -153,14 +154,15 @@ model_path = "../resources/objects/Pig/Pig.obj"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -0.005)
 shape = SubResource("BoxShape3D_1274f")
 
-[node name="Floor" parent="." instance=ExtResource("7_kpr34")]
-transform = Transform3D(100, 0, 0, 0, 0.01, 0, 0, 0, 100, 0, 0.88, 0)
+[node name="Floor" parent="." instance=ExtResource("6_c2ibq")]
+transform = Transform3D(100, 0, 0, 0, 0.1, 0, 0, 0, 100, 6.16541, 0.668177, -29.377)
 script = ExtResource("2_eh0nf")
 is_static = true
 interaction = "NONE"
 model_path = "../resources/objects/box/BlackBox.obj"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0460206, 0, 0.00606543)
 shape = SubResource("BoxShape3D_p3q2x")
 
 [node name="pinPad" parent="." instance=ExtResource("9_03owx")]

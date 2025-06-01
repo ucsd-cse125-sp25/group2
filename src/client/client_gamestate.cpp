@@ -30,12 +30,12 @@ void ClientGameState::update(OBJECT_ID id, Transform *tf) {
     obj->update(tf);
 }
 
-void ClientGameState::draw(const glm::mat4 &viewProjMtx) {
+void ClientGameState::draw(const glm::mat4 &viewProjMtx, const glm::vec3 &pos) {
   // Draw all objects
   for (auto it = objectList.begin(); it != objectList.end(); it++) {
     auto &object = it->second;
     if (object->isActive()) {
-      object->draw(viewProjMtx);
+      object->draw(viewProjMtx, pos);
     }
   }
 }

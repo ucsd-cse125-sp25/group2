@@ -225,7 +225,7 @@ void Client::displayCallback(GLFWwindow *window) {
 
   // Draw objects
   if (game->state == Gamestate::GAME) {
-    game->draw(cam->getViewProj());
+    game->draw(cam->getViewProj(), cam->getPos());
   }
 
   // Main render display callback. Rendering of objects is done here
