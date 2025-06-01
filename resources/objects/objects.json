@@ -49,7 +49,7 @@
 			},
 			"transform": {
 				"position": {
-					"x": 8.0,
+					"x": 5.0,
 					"y": 0.9,
 					"z": -3.0
 				},
@@ -113,7 +113,7 @@
 			},
 			"transform": {
 				"position": {
-					"x": -3.0,
+					"x": -2.0,
 					"y": 0.9,
 					"z": -3.0
 				},
@@ -177,7 +177,7 @@
 			},
 			"transform": {
 				"position": {
-					"x": 3.0,
+					"x": 2.0,
 					"y": 0.9,
 					"z": -3.0
 				},
@@ -241,7 +241,7 @@
 			},
 			"transform": {
 				"position": {
-					"x": -7.989,
+					"x": -4.989,
 					"y": 1.093,
 					"z": -2.852
 				},
@@ -379,7 +379,7 @@
 				"position": {
 					"x": -17.159,
 					"y": 3.973,
-					"z": -20.895
+					"z": -19.251
 				},
 				"rotation": {
 					"x": 0.0,
@@ -451,7 +451,7 @@
 				"position": {
 					"x": -17.159,
 					"y": 3.973,
-					"z": -61.583
+					"z": -60.13
 				},
 				"rotation": {
 					"x": 0.0,
@@ -523,7 +523,7 @@
 				"position": {
 					"x": 17.428,
 					"y": 3.973,
-					"z": -38.246
+					"z": -39.82
 				},
 				"rotation": {
 					"x": 0.0,
@@ -595,7 +595,7 @@
 				"position": {
 					"x": 17.428,
 					"y": 3.973,
-					"z": -17.737
+					"z": -19.418
 				},
 				"rotation": {
 					"x": 0.0,
@@ -759,6 +759,36 @@
 							"x": 0.5,
 							"y": 15.0,
 							"z": 42.5
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": -1.0
+							},
+							"right": {
+								"x": 1.0,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"up": {
+								"x": 0.0,
+								"y": 1.0,
+								"z": 0.0
+							}
+						}
+					},
+					{
+						"center": {
+							"x": 0.448,
+							"y": 33.266,
+							"z": 6.084
+						},
+						"halfExtents": {
+							"x": 9.914,
+							"y": 0.701,
+							"z": 5.55
 						},
 						"isTrigger": false,
 						"orientation": {
@@ -1512,6 +1542,1094 @@
 				"rotation": {
 					"x": 0.0,
 					"y": 0.0,
+					"z": 0.0
+				},
+				"scale": {
+					"x": 1.0,
+					"y": 1.0,
+					"z": 1.0
+				}
+			}
+		},
+		{
+			"_id": 12,
+			"active": true,
+			"client": {
+				"fragShaderPath": "../resources/shaders/material.frag",
+				"modelPath": "../resources/objects/barn/stabledoor/StableDoor.obj",
+				"vertShaderPath": "../resources/shaders/material.vert"
+			},
+			"level": 0,
+			"name": "StableDoor",
+			"server": {
+				"colliders": [
+					{
+						"center": {
+							"x": 0.22,
+							"y": 6.733,
+							"z": 0.008
+						},
+						"halfExtents": {
+							"x": 4.839,
+							"y": 7.233,
+							"z": 0.934
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": -1.0,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"right": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": -1.0
+							},
+							"up": {
+								"x": 0.0,
+								"y": 1.0,
+								"z": 0.0
+							}
+						}
+					}
+				],
+				"interaction": "NONE",
+				"static": true
+			},
+			"transform": {
+				"position": {
+					"x": -18.381,
+					"y": 0.793,
+					"z": -13.931
+				},
+				"rotation": {
+					"x": 0.0,
+					"y": 90.0,
+					"z": 0.0
+				},
+				"scale": {
+					"x": 1.0,
+					"y": 1.0,
+					"z": 1.0
+				}
+			}
+		},
+		{
+			"_id": 13,
+			"active": true,
+			"client": {
+				"fragShaderPath": "../resources/shaders/material.frag",
+				"modelPath": "../resources/objects/barn/stabledoor/StableDoor.obj",
+				"vertShaderPath": "../resources/shaders/material.vert"
+			},
+			"level": 0,
+			"name": "StableDoor2",
+			"server": {
+				"colliders": [
+					{
+						"center": {
+							"x": 0.22,
+							"y": 6.733,
+							"z": 0.008
+						},
+						"halfExtents": {
+							"x": 4.839,
+							"y": 7.233,
+							"z": 0.934
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": -1.0,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"right": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": -1.0
+							},
+							"up": {
+								"x": 0.0,
+								"y": 1.0,
+								"z": 0.0
+							}
+						}
+					}
+				],
+				"interaction": "NONE",
+				"static": true
+			},
+			"transform": {
+				"position": {
+					"x": -18.381,
+					"y": 0.793,
+					"z": -24.33
+				},
+				"rotation": {
+					"x": 0.0,
+					"y": 90.0,
+					"z": 0.0
+				},
+				"scale": {
+					"x": 1.0,
+					"y": 1.0,
+					"z": 1.0
+				}
+			}
+		},
+		{
+			"_id": 14,
+			"active": true,
+			"client": {
+				"fragShaderPath": "../resources/shaders/material.frag",
+				"modelPath": "../resources/objects/barn/stabledoor/StableDoor.obj",
+				"vertShaderPath": "../resources/shaders/material.vert"
+			},
+			"level": 0,
+			"name": "StableDoor5",
+			"server": {
+				"colliders": [
+					{
+						"center": {
+							"x": 0.22,
+							"y": 6.733,
+							"z": 0.008
+						},
+						"halfExtents": {
+							"x": 4.839,
+							"y": 7.233,
+							"z": 0.934
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": -1.0,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"right": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": -1.0
+							},
+							"up": {
+								"x": 0.0,
+								"y": 1.0,
+								"z": 0.0
+							}
+						}
+					}
+				],
+				"interaction": "NONE",
+				"static": true
+			},
+			"transform": {
+				"position": {
+					"x": 18.51,
+					"y": 0.793,
+					"z": -13.931
+				},
+				"rotation": {
+					"x": 0.0,
+					"y": 90.0,
+					"z": 0.0
+				},
+				"scale": {
+					"x": 1.0,
+					"y": 1.0,
+					"z": 1.0
+				}
+			}
+		},
+		{
+			"_id": 15,
+			"active": true,
+			"client": {
+				"fragShaderPath": "../resources/shaders/material.frag",
+				"modelPath": "../resources/objects/barn/stabledoor/StableDoor.obj",
+				"vertShaderPath": "../resources/shaders/material.vert"
+			},
+			"level": 0,
+			"name": "StableDoor6",
+			"server": {
+				"colliders": [
+					{
+						"center": {
+							"x": 0.22,
+							"y": 6.733,
+							"z": 0.008
+						},
+						"halfExtents": {
+							"x": 4.839,
+							"y": 7.233,
+							"z": 0.934
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": -1.0,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"right": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": -1.0
+							},
+							"up": {
+								"x": 0.0,
+								"y": 1.0,
+								"z": 0.0
+							}
+						}
+					}
+				],
+				"interaction": "NONE",
+				"static": true
+			},
+			"transform": {
+				"position": {
+					"x": 18.51,
+					"y": 0.793,
+					"z": -24.33
+				},
+				"rotation": {
+					"x": 0.0,
+					"y": 90.0,
+					"z": 0.0
+				},
+				"scale": {
+					"x": 1.0,
+					"y": 1.0,
+					"z": 1.0
+				}
+			}
+		},
+		{
+			"_id": 16,
+			"active": true,
+			"client": {
+				"fragShaderPath": "../resources/shaders/material.frag",
+				"modelPath": "../resources/objects/barn/stabledoor/StableDoor.obj",
+				"vertShaderPath": "../resources/shaders/material.vert"
+			},
+			"level": 0,
+			"name": "StableDoor7",
+			"server": {
+				"colliders": [
+					{
+						"center": {
+							"x": 0.22,
+							"y": 6.733,
+							"z": 0.008
+						},
+						"halfExtents": {
+							"x": 4.839,
+							"y": 7.233,
+							"z": 0.934
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": -1.0,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"right": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": -1.0
+							},
+							"up": {
+								"x": 0.0,
+								"y": 1.0,
+								"z": 0.0
+							}
+						}
+					}
+				],
+				"interaction": "NONE",
+				"static": true
+			},
+			"transform": {
+				"position": {
+					"x": 18.51,
+					"y": 0.793,
+					"z": -34.345
+				},
+				"rotation": {
+					"x": 0.0,
+					"y": 90.0,
+					"z": 0.0
+				},
+				"scale": {
+					"x": 1.0,
+					"y": 1.0,
+					"z": 1.0
+				}
+			}
+		},
+		{
+			"_id": 17,
+			"active": true,
+			"client": {
+				"fragShaderPath": "../resources/shaders/material.frag",
+				"modelPath": "../resources/objects/barn/stabledoor/StableDoor.obj",
+				"vertShaderPath": "../resources/shaders/material.vert"
+			},
+			"level": 0,
+			"name": "StableDoor8",
+			"server": {
+				"colliders": [
+					{
+						"center": {
+							"x": 0.22,
+							"y": 6.733,
+							"z": 0.008
+						},
+						"halfExtents": {
+							"x": 4.839,
+							"y": 7.233,
+							"z": 0.934
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": -1.0,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"right": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": -1.0
+							},
+							"up": {
+								"x": 0.0,
+								"y": 1.0,
+								"z": 0.0
+							}
+						}
+					}
+				],
+				"interaction": "NONE",
+				"static": true
+			},
+			"transform": {
+				"position": {
+					"x": 18.51,
+					"y": 0.793,
+					"z": -44.743
+				},
+				"rotation": {
+					"x": 0.0,
+					"y": 90.0,
+					"z": 0.0
+				},
+				"scale": {
+					"x": 1.0,
+					"y": 1.0,
+					"z": 1.0
+				}
+			}
+		},
+		{
+			"_id": 18,
+			"active": true,
+			"client": {
+				"fragShaderPath": "../resources/shaders/material.frag",
+				"modelPath": "../resources/objects/barn/stabledoor/StableDoor.obj",
+				"vertShaderPath": "../resources/shaders/material.vert"
+			},
+			"level": 0,
+			"name": "StableDoor3",
+			"server": {
+				"colliders": [
+					{
+						"center": {
+							"x": 0.22,
+							"y": 6.733,
+							"z": 0.008
+						},
+						"halfExtents": {
+							"x": 4.839,
+							"y": 7.233,
+							"z": 0.934
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": -1.0,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"right": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": -1.0
+							},
+							"up": {
+								"x": 0.0,
+								"y": 1.0,
+								"z": 0.0
+							}
+						}
+					}
+				],
+				"interaction": "NONE",
+				"static": true
+			},
+			"transform": {
+				"position": {
+					"x": -18.381,
+					"y": 0.793,
+					"z": -54.781
+				},
+				"rotation": {
+					"x": 0.0,
+					"y": 90.0,
+					"z": 0.0
+				},
+				"scale": {
+					"x": 1.0,
+					"y": 1.0,
+					"z": 1.0
+				}
+			}
+		},
+		{
+			"_id": 19,
+			"active": true,
+			"client": {
+				"fragShaderPath": "../resources/shaders/material.frag",
+				"modelPath": "../resources/objects/barn/stabledoor/StableDoor.obj",
+				"vertShaderPath": "../resources/shaders/material.vert"
+			},
+			"level": 0,
+			"name": "StableDoor4",
+			"server": {
+				"colliders": [
+					{
+						"center": {
+							"x": 0.22,
+							"y": 6.733,
+							"z": 0.008
+						},
+						"halfExtents": {
+							"x": 4.839,
+							"y": 7.233,
+							"z": 0.934
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": -1.0,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"right": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": -1.0
+							},
+							"up": {
+								"x": 0.0,
+								"y": 1.0,
+								"z": 0.0
+							}
+						}
+					}
+				],
+				"interaction": "NONE",
+				"static": true
+			},
+			"transform": {
+				"position": {
+					"x": -18.381,
+					"y": 0.793,
+					"z": -65.179
+				},
+				"rotation": {
+					"x": 0.0,
+					"y": 90.0,
+					"z": 0.0
+				},
+				"scale": {
+					"x": 1.0,
+					"y": 1.0,
+					"z": 1.0
+				}
+			}
+		},
+		{
+			"_id": 20,
+			"active": true,
+			"client": {
+				"fragShaderPath": "../resources/shaders/material.frag",
+				"modelPath": "../resources/objects/box/BlueBox.obj",
+				"vertShaderPath": "../resources/shaders/material.vert"
+			},
+			"level": 0,
+			"name": "BlueBox",
+			"server": {
+				"colliders": [
+					{
+						"center": {
+							"x": -0.174,
+							"y": 2.015,
+							"z": -0.01
+						},
+						"halfExtents": {
+							"x": 1.026,
+							"y": 1.013,
+							"z": 1.017
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": 1.158,
+								"y": 0.0,
+								"z": -1.63
+							},
+							"right": {
+								"x": 1.63,
+								"y": 0.0,
+								"z": 1.158
+							},
+							"up": {
+								"x": 0.0,
+								"y": 2.0,
+								"z": 0.0
+							}
+						}
+					}
+				],
+				"interaction": "NONE",
+				"static": false
+			},
+			"transform": {
+				"position": {
+					"x": -26.666,
+					"y": 1.158,
+					"z": 6.601
+				},
+				"rotation": {
+					"x": 0.0,
+					"y": -35.395,
+					"z": 0.0
+				},
+				"scale": {
+					"x": 2.0,
+					"y": 2.0,
+					"z": 2.0
+				}
+			}
+		},
+		{
+			"_id": 21,
+			"active": true,
+			"client": {
+				"fragShaderPath": "../resources/shaders/material.frag",
+				"modelPath": "../resources/objects/box/RedBox.obj",
+				"vertShaderPath": "../resources/shaders/material.vert"
+			},
+			"level": 0,
+			"name": "RedBox",
+			"server": {
+				"colliders": [
+					{
+						"center": {
+							"x": -0.13,
+							"y": 1.511,
+							"z": -0.008
+						},
+						"halfExtents": {
+							"x": 1.026,
+							"y": 1.013,
+							"z": 1.017
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": -0.867,
+								"y": 0.0,
+								"z": -1.224
+							},
+							"right": {
+								"x": 1.224,
+								"y": 0.0,
+								"z": -0.867
+							},
+							"up": {
+								"x": 0.0,
+								"y": 1.5,
+								"z": 0.0
+							}
+						}
+					}
+				],
+				"interaction": "NONE",
+				"static": false
+			},
+			"transform": {
+				"position": {
+					"x": -25.665,
+					"y": 1.129,
+					"z": -35.906
+				},
+				"rotation": {
+					"x": 0.0,
+					"y": 35.309,
+					"z": 0.0
+				},
+				"scale": {
+					"x": 1.5,
+					"y": 1.5,
+					"z": 1.5
+				}
+			}
+		},
+		{
+			"_id": 22,
+			"active": true,
+			"client": {
+				"fragShaderPath": "../resources/shaders/material.frag",
+				"modelPath": "../resources/objects/box/YellowBox.obj",
+				"vertShaderPath": "../resources/shaders/material.vert"
+			},
+			"level": 0,
+			"name": "YellowBox",
+			"server": {
+				"colliders": [
+					{
+						"center": {
+							"x": -0.104,
+							"y": 1.209,
+							"z": -0.006
+						},
+						"halfExtents": {
+							"x": 1.026,
+							"y": 1.013,
+							"z": 1.017
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": 0.469,
+								"y": 0.0,
+								"z": -1.105
+							},
+							"right": {
+								"x": 1.105,
+								"y": 0.0,
+								"z": 0.469
+							},
+							"up": {
+								"x": 0.0,
+								"y": 1.2,
+								"z": 0.0
+							}
+						}
+					}
+				],
+				"interaction": "NONE",
+				"static": false
+			},
+			"transform": {
+				"position": {
+					"x": -27.073,
+					"y": 1.129,
+					"z": -43.711
+				},
+				"rotation": {
+					"x": 0.0,
+					"y": -22.985,
+					"z": 0.0
+				},
+				"scale": {
+					"x": 1.2,
+					"y": 1.2,
+					"z": 1.2
+				}
+			}
+		},
+		{
+			"_id": 23,
+			"active": true,
+			"client": {
+				"fragShaderPath": "../resources/shaders/material.frag",
+				"modelPath": "../resources/objects/box/GreenBox.obj",
+				"vertShaderPath": "../resources/shaders/material.vert"
+			},
+			"level": 0,
+			"name": "GreenBox",
+			"server": {
+				"colliders": [
+					{
+						"center": {
+							"x": -0.148,
+							"y": 1.713,
+							"z": -0.009
+						},
+						"halfExtents": {
+							"x": 1.026,
+							"y": 1.013,
+							"z": 1.017
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": -0.255,
+								"y": 0.0,
+								"z": -1.681
+							},
+							"right": {
+								"x": 1.681,
+								"y": 0.0,
+								"z": -0.255
+							},
+							"up": {
+								"x": 0.0,
+								"y": 1.7,
+								"z": 0.0
+							}
+						}
+					}
+				],
+				"interaction": "NONE",
+				"static": false
+			},
+			"transform": {
+				"position": {
+					"x": 26.937,
+					"y": 1.129,
+					"z": -52.798
+				},
+				"rotation": {
+					"x": 0.0,
+					"y": 8.637,
+					"z": 0.0
+				},
+				"scale": {
+					"x": 1.7,
+					"y": 1.7,
+					"z": 1.7
+				}
+			}
+		},
+		{
+			"_id": 24,
+			"active": true,
+			"client": {
+				"fragShaderPath": "../resources/shaders/material.frag",
+				"modelPath": "../resources/objects/horse/horse.obj",
+				"vertShaderPath": "../resources/shaders/material.vert"
+			},
+			"level": 0,
+			"name": "Horse",
+			"server": {
+				"colliders": [
+					{
+						"center": {
+							"x": 0.0,
+							"y": 4.037,
+							"z": -0.687
+						},
+						"halfExtents": {
+							"x": 0.5,
+							"y": 0.997,
+							"z": 0.866
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": 4.0,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"right": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": 4.0
+							},
+							"up": {
+								"x": 0.0,
+								"y": 4.0,
+								"z": 0.0
+							}
+						}
+					}
+				],
+				"interaction": "NONE",
+				"static": true
+			},
+			"transform": {
+				"position": {
+					"x": -26.589,
+					"y": 1.015,
+					"z": -19.386
+				},
+				"rotation": {
+					"x": 0.0,
+					"y": -90.0,
+					"z": 0.0
+				},
+				"scale": {
+					"x": 4.0,
+					"y": 4.0,
+					"z": 4.0
+				}
+			}
+		},
+		{
+			"_id": 25,
+			"active": true,
+			"client": {
+				"fragShaderPath": "../resources/shaders/material.frag",
+				"modelPath": "../resources/objects/horse/horse.obj",
+				"vertShaderPath": "../resources/shaders/material.vert"
+			},
+			"level": 0,
+			"name": "Horse2",
+			"server": {
+				"colliders": [
+					{
+						"center": {
+							"x": 0.0,
+							"y": 4.037,
+							"z": -0.687
+						},
+						"halfExtents": {
+							"x": 0.5,
+							"y": 0.997,
+							"z": 0.866
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": 4.0,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"right": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": 4.0
+							},
+							"up": {
+								"x": 0.0,
+								"y": 4.0,
+								"z": 0.0
+							}
+						}
+					}
+				],
+				"interaction": "NONE",
+				"static": true
+			},
+			"transform": {
+				"position": {
+					"x": -26.589,
+					"y": 1.015,
+					"z": -59.941
+				},
+				"rotation": {
+					"x": 0.0,
+					"y": -90.0,
+					"z": 0.0
+				},
+				"scale": {
+					"x": 4.0,
+					"y": 4.0,
+					"z": 4.0
+				}
+			}
+		},
+		{
+			"_id": 26,
+			"active": true,
+			"client": {
+				"fragShaderPath": "../resources/shaders/material.frag",
+				"modelPath": "../resources/objects/horse/horse.obj",
+				"vertShaderPath": "../resources/shaders/material.vert"
+			},
+			"level": 0,
+			"name": "Horse3",
+			"server": {
+				"colliders": [
+					{
+						"center": {
+							"x": 0.0,
+							"y": 4.037,
+							"z": -0.687
+						},
+						"halfExtents": {
+							"x": 0.5,
+							"y": 0.997,
+							"z": 0.866
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": -4.0,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"right": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": -4.0
+							},
+							"up": {
+								"x": 0.0,
+								"y": 4.0,
+								"z": 0.0
+							}
+						}
+					}
+				],
+				"interaction": "NONE",
+				"static": true
+			},
+			"transform": {
+				"position": {
+					"x": 26.67,
+					"y": 1.015,
+					"z": -19.386
+				},
+				"rotation": {
+					"x": 0.0,
+					"y": 90.0,
+					"z": 0.0
+				},
+				"scale": {
+					"x": 4.0,
+					"y": 4.0,
+					"z": 4.0
+				}
+			}
+		},
+		{
+			"_id": 27,
+			"active": true,
+			"client": {
+				"fragShaderPath": "../resources/shaders/material.frag",
+				"modelPath": "../resources/objects/horse/horse.obj",
+				"vertShaderPath": "../resources/shaders/material.vert"
+			},
+			"level": 0,
+			"name": "Horse4",
+			"server": {
+				"colliders": [
+					{
+						"center": {
+							"x": 0.0,
+							"y": 4.037,
+							"z": -0.687
+						},
+						"halfExtents": {
+							"x": 0.5,
+							"y": 0.997,
+							"z": 0.866
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": -4.0,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"right": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": -4.0
+							},
+							"up": {
+								"x": 0.0,
+								"y": 4.0,
+								"z": 0.0
+							}
+						}
+					}
+				],
+				"interaction": "NONE",
+				"static": true
+			},
+			"transform": {
+				"position": {
+					"x": 27.758,
+					"y": 0.545,
+					"z": -40.065
+				},
+				"rotation": {
+					"x": 0.0,
+					"y": 90.0,
+					"z": 0.0
+				},
+				"scale": {
+					"x": 4.0,
+					"y": 4.0,
+					"z": 4.0
+				}
+			}
+		},
+		{
+			"_id": 28,
+			"active": true,
+			"client": {
+				"fragShaderPath": "../resources/shaders/material.frag",
+				"modelPath": "../resources/objects/cube/Cube.obj",
+				"vertShaderPath": "../resources/shaders/material.vert"
+			},
+			"level": 0,
+			"name": "Cube2",
+			"server": {
+				"colliders": [
+					{
+						"center": {
+							"x": 0.001,
+							"y": 0.013,
+							"z": 0.002
+						},
+						"halfExtents": {
+							"x": 0.994,
+							"y": 0.997,
+							"z": 1.036
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": 0.866,
+								"y": 0.0,
+								"z": -0.5
+							},
+							"right": {
+								"x": 0.5,
+								"y": 0.0,
+								"z": 0.866
+							},
+							"up": {
+								"x": 0.0,
+								"y": 1.0,
+								"z": 0.0
+							}
+						}
+					}
+				],
+				"interaction": "PRESS",
+				"static": false
+			},
+			"transform": {
+				"position": {
+					"x": -5.025,
+					"y": 34.333,
+					"z": 7.975
+				},
+				"rotation": {
+					"x": 0.0,
+					"y": -60.0,
 					"z": 0.0
 				},
 				"scale": {
