@@ -272,12 +272,12 @@
 					{
 						"center": {
 							"x": -4.602,
-							"y": 0.0,
+							"y": -0.598,
 							"z": 0.607
 						},
 						"halfExtents": {
 							"x": 0.5,
-							"y": 1.0,
+							"y": 7.107,
 							"z": 0.5
 						},
 						"isTrigger": false,
@@ -623,14 +623,14 @@
 				"colliders": [
 					{
 						"center": {
-							"x": 0.169,
-							"y": 0.244,
-							"z": -0.043
+							"x": 0.17,
+							"y": 0.264,
+							"z": -0.072
 						},
 						"halfExtents": {
-							"x": 0.825,
-							"y": 0.301,
-							"z": 1.223
+							"x": 1.598,
+							"y": 0.284,
+							"z": 1.595
 						},
 						"isTrigger": true,
 						"orientation": {
@@ -658,7 +658,7 @@
 			"transform": {
 				"position": {
 					"x": -25.248,
-					"y": 27.815,
+					"y": 27.593,
 					"z": -65.789
 				},
 				"rotation": {
@@ -722,7 +722,7 @@
 			"transform": {
 				"position": {
 					"x": 24.407,
-					"y": 27.823,
+					"y": 27.64,
 					"z": 6.41
 				},
 				"rotation": {
@@ -2136,7 +2136,7 @@
 						}
 					}
 				],
-				"interaction": "NONE",
+				"interaction": "PICKUP",
 				"static": false
 			},
 			"transform": {
@@ -2200,7 +2200,7 @@
 						}
 					}
 				],
-				"interaction": "NONE",
+				"interaction": "PICKUP",
 				"static": false
 			},
 			"transform": {
@@ -2264,7 +2264,7 @@
 						}
 					}
 				],
-				"interaction": "NONE",
+				"interaction": "PICKUP",
 				"static": false
 			},
 			"transform": {
@@ -2328,7 +2328,7 @@
 						}
 					}
 				],
-				"interaction": "NONE",
+				"interaction": "PICKUP",
 				"static": false
 			},
 			"transform": {
@@ -2648,7 +2648,7 @@
 						}
 					}
 				],
-				"interaction": "PRESS",
+				"interaction": "PICKUP",
 				"static": false
 			},
 			"transform": {
@@ -3166,7 +3166,7 @@
 			"transform": {
 				"position": {
 					"x": -27.016,
-					"y": 0.773,
+					"y": 0.725,
 					"z": -3.72
 				},
 				"rotation": {
@@ -3230,7 +3230,7 @@
 			"transform": {
 				"position": {
 					"x": -30.462,
-					"y": 0.773,
+					"y": 0.725,
 					"z": -39.989
 				},
 				"rotation": {
@@ -3294,7 +3294,7 @@
 			"transform": {
 				"position": {
 					"x": 26.411,
-					"y": 0.773,
+					"y": 0.725,
 					"z": -65.831
 				},
 				"rotation": {
@@ -3358,7 +3358,7 @@
 			"transform": {
 				"position": {
 					"x": 30.542,
-					"y": 0.773,
+					"y": 0.725,
 					"z": 0.771
 				},
 				"rotation": {
@@ -3416,7 +3416,7 @@
 						}
 					}
 				],
-				"interaction": "PRESS",
+				"interaction": "PICKUP",
 				"static": false
 			},
 			"transform": {
@@ -3480,7 +3480,7 @@
 						}
 					}
 				],
-				"interaction": "PRESS",
+				"interaction": "PICKUP",
 				"static": false
 			},
 			"transform": {
@@ -3544,7 +3544,7 @@
 						}
 					}
 				],
-				"interaction": "PRESS",
+				"interaction": "PICKUP",
 				"static": false
 			},
 			"transform": {
@@ -3608,7 +3608,7 @@
 						}
 					}
 				],
-				"interaction": "PRESS",
+				"interaction": "PICKUP",
 				"static": false
 			},
 			"transform": {
