@@ -262,7 +262,7 @@
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
-				"modelPath": "../resources/objects/cube/Cube.obj",
+				"modelPath": "../resources/objects/box/BlackBox.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
 			"level": 0,
@@ -742,6 +742,262 @@
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
+				"modelPath": "../resources/objects/pressureplate/PressurePlate.obj",
+				"vertShaderPath": "../resources/shaders/material.vert"
+			},
+			"level": 0,
+			"name": "PressurePlate3",
+			"server": {
+				"colliders": [
+					{
+						"center": {
+							"x": 0.169,
+							"y": 0.244,
+							"z": -0.043
+						},
+						"halfExtents": {
+							"x": 1.595,
+							"y": 0.272,
+							"z": 1.601
+						},
+						"isTrigger": true,
+						"orientation": {
+							"forward": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": -1.0
+							},
+							"right": {
+								"x": 1.0,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"up": {
+								"x": 0.0,
+								"y": 1.0,
+								"z": 0.0
+							}
+						}
+					}
+				],
+				"interaction": "NONE",
+				"static": true
+			},
+			"transform": {
+				"position": {
+					"x": 26.471,
+					"y": 0.92,
+					"z": -65.79
+				},
+				"rotation": {
+					"x": 0.0,
+					"y": 0.0,
+					"z": 0.0
+				},
+				"scale": {
+					"x": 1.0,
+					"y": 1.0,
+					"z": 1.0
+				}
+			}
+		},
+		{
+			"_id": 12,
+			"active": true,
+			"client": {
+				"fragShaderPath": "../resources/shaders/material.frag",
+				"modelPath": "../resources/objects/pressureplate/PressurePlate.obj",
+				"vertShaderPath": "../resources/shaders/material.vert"
+			},
+			"level": 0,
+			"name": "PressurePlate4",
+			"server": {
+				"colliders": [
+					{
+						"center": {
+							"x": 0.169,
+							"y": 0.244,
+							"z": -0.043
+						},
+						"halfExtents": {
+							"x": 1.595,
+							"y": 0.272,
+							"z": 1.601
+						},
+						"isTrigger": true,
+						"orientation": {
+							"forward": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": -1.0
+							},
+							"right": {
+								"x": 1.0,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"up": {
+								"x": 0.0,
+								"y": 1.0,
+								"z": 0.0
+							}
+						}
+					}
+				],
+				"interaction": "NONE",
+				"static": true
+			},
+			"transform": {
+				"position": {
+					"x": -29.733,
+					"y": 0.922,
+					"z": -39.418
+				},
+				"rotation": {
+					"x": 0.0,
+					"y": 0.0,
+					"z": 0.0
+				},
+				"scale": {
+					"x": 1.0,
+					"y": 1.0,
+					"z": 1.0
+				}
+			}
+		},
+		{
+			"_id": 13,
+			"active": true,
+			"client": {
+				"fragShaderPath": "../resources/shaders/material.frag",
+				"modelPath": "../resources/objects/pressureplate/PressurePlate.obj",
+				"vertShaderPath": "../resources/shaders/material.vert"
+			},
+			"level": 0,
+			"name": "PressurePlate5",
+			"server": {
+				"colliders": [
+					{
+						"center": {
+							"x": 0.169,
+							"y": 0.244,
+							"z": -0.043
+						},
+						"halfExtents": {
+							"x": 1.595,
+							"y": 0.272,
+							"z": 1.601
+						},
+						"isTrigger": true,
+						"orientation": {
+							"forward": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": -1.0
+							},
+							"right": {
+								"x": 1.0,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"up": {
+								"x": 0.0,
+								"y": 1.0,
+								"z": 0.0
+							}
+						}
+					}
+				],
+				"interaction": "NONE",
+				"static": true
+			},
+			"transform": {
+				"position": {
+					"x": -27.084,
+					"y": 0.915,
+					"z": -3.632
+				},
+				"rotation": {
+					"x": 0.0,
+					"y": 0.0,
+					"z": 0.0
+				},
+				"scale": {
+					"x": 1.0,
+					"y": 1.0,
+					"z": 1.0
+				}
+			}
+		},
+		{
+			"_id": 14,
+			"active": true,
+			"client": {
+				"fragShaderPath": "../resources/shaders/material.frag",
+				"modelPath": "../resources/objects/pressureplate/PressurePlate.obj",
+				"vertShaderPath": "../resources/shaders/material.vert"
+			},
+			"level": 0,
+			"name": "PressurePlate6",
+			"server": {
+				"colliders": [
+					{
+						"center": {
+							"x": 0.169,
+							"y": 0.244,
+							"z": -0.043
+						},
+						"halfExtents": {
+							"x": 1.595,
+							"y": 0.272,
+							"z": 1.601
+						},
+						"isTrigger": true,
+						"orientation": {
+							"forward": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": -1.0
+							},
+							"right": {
+								"x": 1.0,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"up": {
+								"x": 0.0,
+								"y": 1.0,
+								"z": 0.0
+							}
+						}
+					}
+				],
+				"interaction": "NONE",
+				"static": true
+			},
+			"transform": {
+				"position": {
+					"x": 30.712,
+					"y": 0.915,
+					"z": 1.414
+				},
+				"rotation": {
+					"x": 0.0,
+					"y": 0.0,
+					"z": 0.0
+				},
+				"scale": {
+					"x": 1.0,
+					"y": 1.0,
+					"z": 1.0
+				}
+			}
+		},
+		{
+			"_id": 15,
+			"active": true,
+			"client": {
+				"fragShaderPath": "../resources/shaders/material.frag",
 				"modelPath": "../resources/objects/Barn/Barn.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
@@ -1143,12 +1399,42 @@
 						"center": {
 							"x": 25.638,
 							"y": 15.095,
-							"z": -19.943
+							"z": -29.542
 						},
 						"halfExtents": {
 							"x": 8.095,
 							"y": 13.468,
-							"z": 30.353
+							"z": 20.754
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": -1.0
+							},
+							"right": {
+								"x": 1.0,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"up": {
+								"x": 0.0,
+								"y": 1.0,
+								"z": 0.0
+							}
+						}
+					},
+					{
+						"center": {
+							"x": 18.55,
+							"y": 8.809,
+							"z": 0.821
+						},
+						"halfExtents": {
+							"x": 1.065,
+							"y": 6.967,
+							"z": 9.743
 						},
 						"isTrigger": false,
 						"orientation": {
@@ -1552,7 +1838,7 @@
 			}
 		},
 		{
-			"_id": 12,
+			"_id": 16,
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
@@ -1616,7 +1902,7 @@
 			}
 		},
 		{
-			"_id": 13,
+			"_id": 17,
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
@@ -1680,7 +1966,7 @@
 			}
 		},
 		{
-			"_id": 14,
+			"_id": 18,
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
@@ -1744,7 +2030,7 @@
 			}
 		},
 		{
-			"_id": 15,
+			"_id": 19,
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
@@ -1808,7 +2094,7 @@
 			}
 		},
 		{
-			"_id": 16,
+			"_id": 20,
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
@@ -1872,7 +2158,7 @@
 			}
 		},
 		{
-			"_id": 17,
+			"_id": 21,
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
@@ -1936,7 +2222,7 @@
 			}
 		},
 		{
-			"_id": 18,
+			"_id": 22,
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
@@ -2000,7 +2286,7 @@
 			}
 		},
 		{
-			"_id": 19,
+			"_id": 23,
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
@@ -2064,7 +2350,7 @@
 			}
 		},
 		{
-			"_id": 20,
+			"_id": 24,
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
@@ -2128,7 +2414,7 @@
 			}
 		},
 		{
-			"_id": 21,
+			"_id": 25,
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
@@ -2192,7 +2478,7 @@
 			}
 		},
 		{
-			"_id": 22,
+			"_id": 26,
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
@@ -2256,7 +2542,7 @@
 			}
 		},
 		{
-			"_id": 23,
+			"_id": 27,
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
@@ -2320,7 +2606,7 @@
 			}
 		},
 		{
-			"_id": 24,
+			"_id": 28,
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
@@ -2384,7 +2670,7 @@
 			}
 		},
 		{
-			"_id": 25,
+			"_id": 29,
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
@@ -2448,7 +2734,7 @@
 			}
 		},
 		{
-			"_id": 26,
+			"_id": 30,
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
@@ -2512,7 +2798,7 @@
 			}
 		},
 		{
-			"_id": 27,
+			"_id": 31,
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
@@ -2576,7 +2862,7 @@
 			}
 		},
 		{
-			"_id": 28,
+			"_id": 32,
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
@@ -2589,9 +2875,9 @@
 				"colliders": [
 					{
 						"center": {
-							"x": 0.001,
-							"y": 0.013,
-							"z": 0.002
+							"x": 0.003,
+							"y": 0.025,
+							"z": 0.004
 						},
 						"halfExtents": {
 							"x": 0.994,
@@ -2601,18 +2887,18 @@
 						"isTrigger": false,
 						"orientation": {
 							"forward": {
-								"x": 0.866,
+								"x": 1.732,
 								"y": 0.0,
-								"z": -0.5
+								"z": -1.0
 							},
 							"right": {
-								"x": 0.5,
+								"x": 1.0,
 								"y": 0.0,
-								"z": 0.866
+								"z": 1.732
 							},
 							"up": {
 								"x": 0.0,
-								"y": 1.0,
+								"y": 2.0,
 								"z": 0.0
 							}
 						}
@@ -2624,7 +2910,7 @@
 			"transform": {
 				"position": {
 					"x": -5.025,
-					"y": 34.333,
+					"y": 34.98,
 					"z": 7.975
 				},
 				"rotation": {
@@ -2633,9 +2919,393 @@
 					"z": 0.0
 				},
 				"scale": {
-					"x": 1.0,
-					"y": 1.0,
-					"z": 1.0
+					"x": 2.0,
+					"y": 2.0,
+					"z": 2.0
+				}
+			}
+		},
+		{
+			"_id": 33,
+			"active": true,
+			"client": {
+				"fragShaderPath": "../resources/shaders/material.frag",
+				"modelPath": "../resources/objects/box/BrownBox.obj",
+				"vertShaderPath": "../resources/shaders/material.vert"
+			},
+			"level": 0,
+			"name": "Crate",
+			"server": {
+				"colliders": [
+					{
+						"center": {
+							"x": 0.003,
+							"y": 0.025,
+							"z": 0.004
+						},
+						"halfExtents": {
+							"x": 0.994,
+							"y": 0.997,
+							"z": 1.036
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": 1.732,
+								"y": 0.0,
+								"z": -1.0
+							},
+							"right": {
+								"x": 1.0,
+								"y": 0.0,
+								"z": 1.732
+							},
+							"up": {
+								"x": 0.0,
+								"y": 2.0,
+								"z": 0.0
+							}
+						}
+					}
+				],
+				"interaction": "NONE",
+				"static": true
+			},
+			"transform": {
+				"position": {
+					"x": 22.563,
+					"y": 2.912,
+					"z": 7.99
+				},
+				"rotation": {
+					"x": 0.0,
+					"y": -60.0,
+					"z": 0.0
+				},
+				"scale": {
+					"x": 2.0,
+					"y": 2.0,
+					"z": 2.0
+				}
+			}
+		},
+		{
+			"_id": 34,
+			"active": true,
+			"client": {
+				"fragShaderPath": "../resources/shaders/material.frag",
+				"modelPath": "../resources/objects/box/BrownBox.obj",
+				"vertShaderPath": "../resources/shaders/material.vert"
+			},
+			"level": 0,
+			"name": "Crate2",
+			"server": {
+				"colliders": [
+					{
+						"center": {
+							"x": 0.003,
+							"y": 0.025,
+							"z": 0.004
+						},
+						"halfExtents": {
+							"x": 0.994,
+							"y": 0.997,
+							"z": 1.036
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": 1.941,
+								"y": 0.0,
+								"z": 0.482
+							},
+							"right": {
+								"x": -0.482,
+								"y": 0.0,
+								"z": 1.941
+							},
+							"up": {
+								"x": 0.0,
+								"y": 2.0,
+								"z": 0.0
+							}
+						}
+					}
+				],
+				"interaction": "NONE",
+				"static": true
+			},
+			"transform": {
+				"position": {
+					"x": 22.563,
+					"y": 2.912,
+					"z": 2.825
+				},
+				"rotation": {
+					"x": 0.0,
+					"y": -103.936,
+					"z": 0.0
+				},
+				"scale": {
+					"x": 2.0,
+					"y": 2.0,
+					"z": 2.0
+				}
+			}
+		},
+		{
+			"_id": 35,
+			"active": true,
+			"client": {
+				"fragShaderPath": "../resources/shaders/material.frag",
+				"modelPath": "../resources/objects/box/BrownBox.obj",
+				"vertShaderPath": "../resources/shaders/material.vert"
+			},
+			"level": 0,
+			"name": "Crate3",
+			"server": {
+				"colliders": [
+					{
+						"center": {
+							"x": 0.003,
+							"y": 0.025,
+							"z": 0.004
+						},
+						"halfExtents": {
+							"x": 0.994,
+							"y": 0.997,
+							"z": 1.036
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": 1.798,
+								"y": 0.0,
+								"z": -0.877
+							},
+							"right": {
+								"x": 0.877,
+								"y": 0.0,
+								"z": 1.798
+							},
+							"up": {
+								"x": 0.0,
+								"y": 2.0,
+								"z": 0.0
+							}
+						}
+					}
+				],
+				"interaction": "NONE",
+				"static": true
+			},
+			"transform": {
+				"position": {
+					"x": 22.563,
+					"y": 6.955,
+					"z": 2.825
+				},
+				"rotation": {
+					"x": 0.0,
+					"y": -64.001,
+					"z": 0.0
+				},
+				"scale": {
+					"x": 2.0,
+					"y": 2.0,
+					"z": 2.0
+				}
+			}
+		},
+		{
+			"_id": 36,
+			"active": true,
+			"client": {
+				"fragShaderPath": "../resources/shaders/material.frag",
+				"modelPath": "../resources/objects/box/BrownBox.obj",
+				"vertShaderPath": "../resources/shaders/material.vert"
+			},
+			"level": 0,
+			"name": "Crate4",
+			"server": {
+				"colliders": [
+					{
+						"center": {
+							"x": 0.003,
+							"y": 0.025,
+							"z": 0.004
+						},
+						"halfExtents": {
+							"x": 0.994,
+							"y": 0.997,
+							"z": 1.036
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": 1.789,
+								"y": 0.0,
+								"z": -0.893
+							},
+							"right": {
+								"x": 0.893,
+								"y": 0.0,
+								"z": 1.789
+							},
+							"up": {
+								"x": 0.0,
+								"y": 2.0,
+								"z": 0.0
+							}
+						}
+					}
+				],
+				"interaction": "NONE",
+				"static": true
+			},
+			"transform": {
+				"position": {
+					"x": 22.563,
+					"y": 2.912,
+					"z": -3.1
+				},
+				"rotation": {
+					"x": 0.0,
+					"y": -63.475,
+					"z": 0.0
+				},
+				"scale": {
+					"x": 2.0,
+					"y": 2.0,
+					"z": 2.0
+				}
+			}
+		},
+		{
+			"_id": 37,
+			"active": true,
+			"client": {
+				"fragShaderPath": "../resources/shaders/material.frag",
+				"modelPath": "../resources/objects/box/BrownBox.obj",
+				"vertShaderPath": "../resources/shaders/material.vert"
+			},
+			"level": 0,
+			"name": "Crate5",
+			"server": {
+				"colliders": [
+					{
+						"center": {
+							"x": 0.003,
+							"y": 0.025,
+							"z": 0.004
+						},
+						"halfExtents": {
+							"x": 0.994,
+							"y": 0.997,
+							"z": 1.036
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": 1.984,
+								"y": 0.0,
+								"z": -0.253
+							},
+							"right": {
+								"x": 0.253,
+								"y": 0.0,
+								"z": 1.984
+							},
+							"up": {
+								"x": 0.0,
+								"y": 2.0,
+								"z": 0.0
+							}
+						}
+					}
+				],
+				"interaction": "NONE",
+				"static": true
+			},
+			"transform": {
+				"position": {
+					"x": 22.563,
+					"y": 6.955,
+					"z": -3.1
+				},
+				"rotation": {
+					"x": 0.0,
+					"y": -82.741,
+					"z": 0.0
+				},
+				"scale": {
+					"x": 2.0,
+					"y": 2.0,
+					"z": 2.0
+				}
+			}
+		},
+		{
+			"_id": 38,
+			"active": true,
+			"client": {
+				"fragShaderPath": "../resources/shaders/material.frag",
+				"modelPath": "../resources/objects/box/BrownBox.obj",
+				"vertShaderPath": "../resources/shaders/material.vert"
+			},
+			"level": 0,
+			"name": "Crate6",
+			"server": {
+				"colliders": [
+					{
+						"center": {
+							"x": 0.003,
+							"y": 0.025,
+							"z": 0.004
+						},
+						"halfExtents": {
+							"x": 0.994,
+							"y": 0.997,
+							"z": 1.036
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": 1.119,
+								"y": 0.0,
+								"z": -1.658
+							},
+							"right": {
+								"x": 1.658,
+								"y": 0.0,
+								"z": 1.119
+							},
+							"up": {
+								"x": 0.0,
+								"y": 2.0,
+								"z": 0.0
+							}
+						}
+					}
+				],
+				"interaction": "NONE",
+				"static": true
+			},
+			"transform": {
+				"position": {
+					"x": 22.563,
+					"y": 11.014,
+					"z": -3.1
+				},
+				"rotation": {
+					"x": 0.0,
+					"y": -34.016,
+					"z": 0.0
+				},
+				"scale": {
+					"x": 2.0,
+					"y": 2.0,
+					"z": 2.0
 				}
 			}
 		}
