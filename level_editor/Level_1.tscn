@@ -1,0 +1,83 @@
+[gd_scene load_steps=13 format=3 uid="uid://bvhr5i3bxnn7q"]
+
+[ext_resource type="PackedScene" uid="uid://yxsysaqcgb5i" path="res://mill.glb" id="1_n0r7v"]
+[ext_resource type="PackedScene" uid="uid://b23o1kf0arccq" path="res://Chicken.glb" id="2_smwyr"]
+[ext_resource type="Script" uid="uid://nd5l8ocm7cud" path="res://scripts/metadata.gd" id="3_tedvs"]
+[ext_resource type="PackedScene" uid="uid://y0mg523veid7" path="res://Sheep.glb" id="4_gyeet"]
+[ext_resource type="PackedScene" uid="uid://cgwfirulao1f2" path="res://Cow.glb" id="5_2wi7h"]
+[ext_resource type="PackedScene" uid="uid://ckatidfhcngcm" path="res://Pig.glb" id="6_4s4xf"]
+[ext_resource type="PackedScene" uid="uid://ddgebfd8gq3xi" path="res://BlackBox.glb" id="7_p7bnq"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ar1si"]
+margin = 0.0
+size = Vector3(0.2, 0.5, 0.3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6fba8"]
+size = Vector3(1.04007, 1.23041, 1.33936)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_yaehp"]
+margin = 0.0
+size = Vector3(0.722076, 1.36316, 1.61292)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_d1osm"]
+margin = 0.0
+size = Vector3(0.615295, 1, 1.15295)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ie7uf"]
+size = Vector3(1.00073, 2, 1.00014)
+
+[node name="Level 1" type="Node3D"]
+
+[node name="mill" parent="." instance=ExtResource("1_n0r7v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.142321, -1.19209e-07, -21.1856)
+
+[node name="Chicken" parent="." instance=ExtResource("2_smwyr")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 5, 0.9, -3)
+script = ExtResource("3_tedvs")
+interaction = "NONE"
+model_path = "../resources/objects/chicken/Chicken.obj"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Chicken"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.246, 0)
+shape = SubResource("BoxShape3D_ar1si")
+
+[node name="Sheep" parent="." instance=ExtResource("4_gyeet")]
+transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 2, 0.9, -3)
+script = ExtResource("3_tedvs")
+interaction = "NONE"
+model_path = "../resources/objects/Sheep/Sheep.obj"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sheep"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.615, 0.053)
+shape = SubResource("BoxShape3D_6fba8")
+
+[node name="Cow" parent="." instance=ExtResource("5_2wi7h")]
+transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, -4.98924, 1.09321, -2.85237)
+script = ExtResource("3_tedvs")
+interaction = "NONE"
+model_path = "../resources/objects/cow/Cow.obj"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Cow"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.682, -0.082)
+shape = SubResource("BoxShape3D_yaehp")
+
+[node name="Pig" parent="." instance=ExtResource("6_4s4xf")]
+transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, -2, 0.9, -3)
+script = ExtResource("3_tedvs")
+interaction = "NONE"
+model_path = "../resources/objects/Pig/Pig.obj"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Pig"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -0.005)
+shape = SubResource("BoxShape3D_d1osm")
+
+[node name="Floor" parent="." instance=ExtResource("7_p7bnq")]
+transform = Transform3D(100, 0, 0, 0, 0.1, 0, 0, 0, 100, 6.16541, 0.668177, -29.377)
+script = ExtResource("3_tedvs")
+is_static = true
+interaction = "NONE"
+model_path = "../resources/objects/box/BlackBox.obj"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0460206, 0, 0.00606543)
+shape = SubResource("BoxShape3D_ie7uf")
