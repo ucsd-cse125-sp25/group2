@@ -3375,7 +3375,7 @@
 		},
 		{
 			"_id": 40,
-			"active": true,
+			"active": false,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
 				"modelPath": "../resources/objects/note/Note.obj",
@@ -3503,7 +3503,7 @@
 		},
 		{
 			"_id": 42,
-			"active": true,
+			"active": false,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
 				"modelPath": "../resources/objects/note/Note.obj",

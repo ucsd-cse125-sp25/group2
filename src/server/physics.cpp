@@ -73,10 +73,14 @@ void Physics::solveCollision(GameObject *a, GameObject *b, int aIndex,
   float penetration;
   if (aCol->intersects(*bCol, normal, penetration)) {
     if (aCol->isTrigger() || bCol->isTrigger()) {
-      if (aCol->isTrigger() && bCol->canActivateTrigger())
+      if (aCol->isTrigger() && bCol->canActivateTrigger()) {
         aCol->setWithinTrigger(true);
-      if (bCol->isTrigger() && aCol->canActivateTrigger())
+        aCol->setTriggerObject(b->getId());
+      }
+      if (bCol->isTrigger() && aCol->canActivateTrigger()) {
         bCol->setWithinTrigger(true);
+        bCol->setTriggerObject(a->getId());
+      }
       return;
     }
 
