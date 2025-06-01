@@ -8,26 +8,27 @@ Model::Model(const char *path) {
 
 void Model::changeColor(glm::vec3 col) { this->color = col; }
 
-void Model::draw(const glm::mat4 &viewProjMtx, const glm::vec3& pos, unique_ptr<Shader> &shader) {
-    // Activate the shader program
-    shader->use();
-    // Send camera view projection matrix to vertex shader file
-    shader->setMat4("viewProj", viewProjMtx);
-    // Send model matrix to vertex shader file
-    shader->setMat4("model", model);
-    shader->setVec3("DiffuseColor", color);
+void Model::draw(const glm::mat4 &viewProjMtx, const glm::vec3 &pos,
+                 unique_ptr<Shader> &shader) {
+  // Activate the shader program
+  shader->use();
+  // Send camera view projection matrix to vertex shader file
+  shader->setMat4("viewProj", viewProjMtx);
+  // Send model matrix to vertex shader file
+  shader->setMat4("model", model);
+  shader->setVec3("DiffuseColor", color);
 
-    // Light setup
-    shader->setVec3("lightPos", glm::vec3(0.0f, 15.0f, -60.0f));
-    shader->setVec3("lightColor", glm::vec3(1.0f, 1.0f, 1.0f));
-    shader->setVec3("viewPos", pos);
+  // Light setup
+  shader->setVec3("lightPos", glm::vec3(0.0f, 15.0f, -60.0f));
+  shader->setVec3("lightColor", glm::vec3(1.0f, 1.0f, 1.0f));
+  shader->setVec3("viewPos", pos);
 
-    // Control light attenuation
-    shader->setFloat("lightRadius", 1000.0f);      // Light reaches 50 units
-    shader->setBool("useAttenuation", false);
-    for (unsigned int i = 0; i < meshes.size(); i++)
-        // Draw each mesh
-        meshes[i].draw(shader);
+  // Control light attenuation
+  shader->setFloat("lightRadius", 1000.0f); // Light reaches 50 units
+  shader->setBool("useAttenuation", false);
+  for (unsigned int i = 0; i < meshes.size(); i++)
+    // Draw each mesh
+    meshes[i].draw(shader);
 }
 
 void Model::update(Transform *transform) {
@@ -48,9 +49,7 @@ void Model::update(Transform *transform) {
 void Model::loadModel(string path) {
   Assimp::Importer import;
   const aiScene *scene =
-      import.ReadFile(path,
-          aiProcess_Triangulate |
-          aiProcess_FlipUVs);
+      import.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs);
 
   if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE ||
       !scene->mRootNode) {
