@@ -19,11 +19,11 @@ unordered_map<int, unique_ptr<GameObject>> ObjectLoader::loadObjects() {
   if (objectsData.contains("objects") && objectsData["objects"].is_array()) {
 
     for (const auto &objData : objectsData["objects"]) {
-      OBJECT_ID objectId = id++;
+      OBJECT_ID objectID = id++;
 
       BaseObjectData base = createBaseGameObject(objData);
       unique_ptr<GameObject> obj =
-          make_unique<GameObject>(objectId, base.level, base.active,
+          make_unique<GameObject>(objectID, base.level, base.active,
                                   base.originalPosition, base.transform);
 
       if (objData.contains("client")) {
@@ -39,7 +39,7 @@ unordered_map<int, unique_ptr<GameObject>> ObjectLoader::loadObjects() {
       obj->getModel()->update(
           obj->getTransform()); // Update model with the transform for initial
                                 // rendering
-      objects[objectId] = move(obj);
+      objects[objectID] = move(obj);
     }
   }
 

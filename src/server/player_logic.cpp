@@ -27,14 +27,14 @@ OBJECT_ID PlayerLogic::moveHeldObject(PLAYER_ID id, GameObject *player) {
     auto tf = heldObject->getTransform();
     glm::vec3 offset = glm::vec3(0.0f, 2.0f, 0.0f);
     tf->setPosition(player->getTransform()->getPosition() + offset);
-    return heldObject->getId();
+    return heldObject->getID();
   }
   return -1;
 }
 
 void PlayerLogic::jump(GameObject *player) {
 
-  if (!player->isGrounded() && player->getId() != SHEEP) {
+  if (!player->isGrounded() && player->getID() != SHEEP) {
     return; // only sheep can jump in air
   }
 
@@ -45,8 +45,8 @@ void PlayerLogic::jump(GameObject *player) {
     rigidBody->applyImpulse(glm::vec3(0.0f, jumpForce, 0.0f));
 
     // If sheep is jumping from the ground, reset double jump
-    sheepDoubleJump = player->getId() == SHEEP ? false : sheepDoubleJump;
-  } else if (player->getId() == SHEEP && !sheepDoubleJump) {
+    sheepDoubleJump = player->getID() == SHEEP ? false : sheepDoubleJump;
+  } else if (player->getID() == SHEEP && !sheepDoubleJump) {
     sheepDoubleJump = true;
     auto rigidBody = player->getRigidBody();
     rigidBody->applyImpulse(glm::vec3(0.0f, jumpForce * 1.5, 0.0f));
@@ -65,7 +65,7 @@ vector<OBJECT_ID> PlayerLogic::rotate(PLAYER_ID id, GameObject *player,
   if (getHeldObject(id) != nullptr) {
     auto heldObject = getHeldObject(id);
     heldObject->getTransform()->setRotation(rotation);
-    rotatedObjects.push_back(heldObject->getId());
+    rotatedObjects.push_back(heldObject->getID());
   }
   return rotatedObjects;
 }

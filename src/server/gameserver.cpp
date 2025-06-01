@@ -108,12 +108,12 @@ void GameServer::dispatchUpdates() {
           !keypadObject->opened) {
         network->sendToClient(
             keypadObject->clientUsing,
-            KeypadPacket(keypadObject->getId(), true, keypadObject->unlocked));
+            KeypadPacket(keypadObject->getID(), true, keypadObject->unlocked));
         keypadObject->opened = true;
       }
     } else {
       ObjectPacket objPacket = ObjectPacket(
-          obj->getId(),
+          obj->getID(),
           Transform(obj->getPosition(), obj->getRotation(), obj->getScale()),
           obj->isActive());
       network->sendToAll(objPacket);

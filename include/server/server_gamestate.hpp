@@ -23,7 +23,7 @@ private:
 
   unordered_map<OBJECT_ID, unique_ptr<GameObject>> objectList;
   unordered_map<OBJECT_ID, GameObject *> interactableObjects;
-  unordered_set<OBJECT_ID> updatedObjectIds;
+  unordered_set<OBJECT_ID> updatedObjectIDs;
   vector<pair<RewardType, vector<OBJECT_ID>>> rewards;
 
   unique_ptr<Physics> physicsWorld;

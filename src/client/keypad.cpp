@@ -87,8 +87,8 @@ void KeypadUI::addInput(int index) {
 void KeypadUI::updateShapes() {
   for (int i = 0; i < shapeDisplays.size(); ++i) {
     if (i < inputSequence.size()) {
-      int shapeIdx = inputSequence[i];
-      shapeDisplays[i]->setTexture(shapeTextures[shapeIdx]);
+      int shapeIDx = inputSequence[i];
+      shapeDisplays[i]->setTexture(shapeTextures[shapeIDx]);
     } else {
       shapeDisplays[i]->setTexture(shapeTextures[4]);
     }
@@ -112,7 +112,7 @@ void KeypadUI::update(float mouseX, float mouseY, int winWidth, int winHeight,
   updateShapes();
 }
 
-void KeypadUI::setObjectID(OBJECT_ID objectId) { id = objectId; }
+void KeypadUI::setObjectID(OBJECT_ID objectID) { id = objectID; }
 
 void KeypadUI::setOnInputCallback(
     function<void(int index, OBJECT_ID id)> callback) {

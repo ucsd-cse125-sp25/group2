@@ -38,7 +38,7 @@ public:
   void update(float mouseX, float mouseY, int winWidth, int winHeight,
               float deltatime);
 
-  void setObjectID(OBJECT_ID objectId);
+  void setObjectID(OBJECT_ID objectID);
 
   void setOnInputCallback(function<void(OBJECT_ID id, int index)> callback);
   void setCloseCallback(function<void(OBJECT_ID id)> callback);

@@ -27,6 +27,6 @@ public:
   void send(const IPacket &packet);
   deque<unique_ptr<IPacket>> receive();
 
-  void setId(CLIENT_ID clientID) { id = clientID; }
-  CLIENT_ID getId() { return id; }
+  void setID(CLIENT_ID clientID) { id = clientID; }
+  CLIENT_ID getID() { return id; }
 };

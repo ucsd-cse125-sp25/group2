@@ -18,7 +18,7 @@ unordered_map<int, unique_ptr<GameObject>> ObjectLoader::loadObjects() {
 
   if (objectsData.contains("objects") && objectsData["objects"].is_array()) {
     for (const auto &objData : objectsData["objects"]) {
-      OBJECT_ID objectId = id++;
+      OBJECT_ID objectID = id++;
 
       BaseObjectData base = createBaseGameObject(objData);
       unique_ptr<GameObject> obj;
@@ -80,11 +80,11 @@ unordered_map<int, unique_ptr<GameObject>> ObjectLoader::loadObjects() {
               correctSequence.push_back(seq.get<int>());
             }
           }
-          obj = make_unique<KeypadObject>(objectId, base.level, base.active,
+          obj = make_unique<KeypadObject>(objectID, base.level, base.active,
                                           base.originalPosition, base.transform,
                                           rb, cl, correctSequence);
         } else {
-          obj = make_unique<GameObject>(objectId, base.level, base.active,
+          obj = make_unique<GameObject>(objectID, base.level, base.active,
                                         base.originalPosition, base.transform,
                                         rb, cl);
         }
@@ -108,7 +108,7 @@ unordered_map<int, unique_ptr<GameObject>> ObjectLoader::loadObjects() {
           }
         }
       }
-      objects[objectId] = move(obj);
+      objects[objectID] = move(obj);
     }
   }
 

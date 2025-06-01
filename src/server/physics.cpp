@@ -57,17 +57,17 @@ void Physics::resolveCollisions() {
           if (aCol->isTrigger() || bCol->isTrigger()) {
             if (aCol->isTrigger() && bCol->canActivateTrigger()) {
               aCol->setWithinTrigger(true);
-              aCol->setTriggerObject(b->getId());
+              aCol->setTriggerObject(b->getID());
             }
             if (bCol->isTrigger() && aCol->canActivateTrigger()) {
               bCol->setWithinTrigger(true);
-              bCol->setTriggerObject(a->getId());
+              bCol->setTriggerObject(a->getID());
             }
             continue;
           }
           // if intersects, add both objects to the list of updated objects
-          updatedObjects.insert(a->getId());
-          updatedObjects.insert(b->getId());
+          updatedObjects.insert(a->getID());
+          updatedObjects.insert(b->getID());
           for (int i = 0; i < a->getCollider().size(); i++) {
             for (int j = 0; j < b->getCollider().size(); j++) {
               solveCollision(a, b, i, j, groundedStates[a], groundedStates[b]);
@@ -101,8 +101,8 @@ void Physics::solveCollision(GameObject *a, GameObject *b, int aIndex,
       return;
     }
 
-    updatedObjects.insert(a->getId());
-    updatedObjects.insert(b->getId());
+    updatedObjects.insert(a->getID());
+    updatedObjects.insert(b->getID());
 
     // Check if the object is at rest (grounded)
     float groundThreshold = 0.7f;
@@ -141,7 +141,7 @@ void Physics::solveCollision(GameObject *a, GameObject *b, int aIndex,
       float sheepBounce = 4.0f;
       if (!a_rb->isStatic()) {
         a->getTransform()->updatePosition(-correction * invMassA);
-        if (b->getId() == SHEEP && normal.y < -0.7) {
+        if (b->getID() == SHEEP && normal.y < -0.7) {
           a_rb->applyImpulse(sheepBounce * glm::vec3(0, 1, 0));
         }
         for (Collider *c : a->getCollider()) {
@@ -150,7 +150,7 @@ void Physics::solveCollision(GameObject *a, GameObject *b, int aIndex,
       }
       if (!b_rb->isStatic()) {
         b->getTransform()->updatePosition(correction * invMassB);
-        if (a->getId() == SHEEP && normal.y > 0.7) {
+        if (a->getID() == SHEEP && normal.y > 0.7) {
           b_rb->applyImpulse(sheepBounce * glm::vec3(0, 1, 0));
         }
         for (Collider *c : b->getCollider()) {
@@ -196,6 +196,6 @@ void Physics::moveObjects(float deltaTime) {
 
     // if object has moved, add it to the updated objects list
     if (glm::length(pos - lastPos) > 0.0001f)
-      updatedObjects.insert(obj->getId());
+      updatedObjects.insert(obj->getID());
   }
 }

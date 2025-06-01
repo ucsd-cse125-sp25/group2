@@ -115,8 +115,8 @@ struct KeypadPacket : public IPacket {
   bool display;
   bool unlocked;
 
-  KeypadPacket(OBJECT_ID objectId, bool disp, bool unlock)
-      : id(objectId), display(disp), unlocked(unlock) {}
+  KeypadPacket(OBJECT_ID objectID, bool disp, bool unlock)
+      : id(objectID), display(disp), unlocked(unlock) {}
   PacketType getType() const override { return PacketType::KEYPAD; }
   vector<char> serialize() const override;
   static KeypadPacket deserialize(const vector<char> &payload);

@@ -15,7 +15,7 @@ bool ServerGameState::init() {
       interactableObjects[obj.first] = object;
     }
     physicsWorld->add(object);
-    levelManager->addObject(object->getLevelID(), object->getId(), object);
+    levelManager->addObject(object->getLevelID(), object->getID(), object);
   }
   levelManager->loadJSON();
 
@@ -62,7 +62,7 @@ void ServerGameState::updateMovement(PLAYER_ID id, MovementType type) {
       break;
     }
     for (auto id : movedObjects)
-      updatedObjectIds.insert(id);
+      updatedObjectIDs.insert(id);
   }
 }
 
@@ -71,7 +71,7 @@ void ServerGameState::updateRotation(PLAYER_ID id, glm::vec3 rotation) {
   vector<OBJECT_ID> rotatedObjects;
   if (player) {
     rotatedObjects = playerLogic->rotate(id, player, rotation);
-    updatedObjectIds.insert(rotatedObjects.begin(), rotatedObjects.end());
+    updatedObjectIDs.insert(rotatedObjects.begin(), rotatedObjects.end());
   }
 }
 
@@ -132,9 +132,9 @@ void ServerGameState::updateInteraction(PLAYER_ID id) {
   GameObject *heldObject = playerLogic->getHeldObject(id);
   if (heldObject != nullptr) {
     playerLogic->dropObject(player, heldObject);
-    cout << "Dropped object: " << heldObject->getId() << endl;
+    cout << "Dropped object: " << heldObject->getID() << endl;
     playerLogic->setHeldObject(id, nullptr);
-    updatedObjectIds.insert(closestObjectID);
+    updatedObjectIDs.insert(closestObjectID);
 
   } else if (closestObjectID != -1) {
 
@@ -143,8 +143,8 @@ void ServerGameState::updateInteraction(PLAYER_ID id) {
         heldObject == nullptr) {
       playerLogic->setHeldObject(id, closestObject);
       playerLogic->pickupObject(player, closestObject);
-      cout << "Picked up object: " << closestObject->getId() << endl;
-      updatedObjectIds.insert(closestObjectID);
+      cout << "Picked up object: " << closestObject->getID() << endl;
+      updatedObjectIDs.insert(closestObjectID);
       // If interaction type is press
     } else if (closestObject->getInteractionType() == InteractionType::PRESS) {
       closestObject->press();
@@ -154,11 +154,11 @@ void ServerGameState::updateInteraction(PLAYER_ID id) {
     if (closestObject->getInteractionType() == InteractionType::KEYPAD &&
         id == PIG) {
       auto keypadObject = dynamic_cast<KeypadObject *>(closestObject);
-      cout << "Interacting with KeypadObject: " << keypadObject->getId()
+      cout << "Interacting with KeypadObject: " << keypadObject->getID()
            << endl;
       if (keypadObject) {
         keypadObject->clientUsing = playerLogic->getClient(id);
-        updatedObjectIds.insert(closestObjectID);
+        updatedObjectIDs.insert(closestObjectID);
         cout << "client: " << keypadObject->clientUsing
              << " is now using keypad" << endl;
       }
@@ -212,11 +212,11 @@ void ServerGameState::applyPhysics() {
   // if the object is held by a player, move it with the player
   for (auto id : movedObjects) {
     if (id < NUM_PLAYERS) {
-      OBJECT_ID heldObjectId = playerLogic->moveHeldObject(id, getObject(id));
-      if (heldObjectId != -1)
-        updatedObjectIds.insert(heldObjectId);
+      OBJECT_ID heldObjectID = playerLogic->moveHeldObject(id, getObject(id));
+      if (heldObjectID != -1)
+        updatedObjectIDs.insert(heldObjectID);
     }
-    updatedObjectIds.insert(id);
+    updatedObjectIDs.insert(id);
   }
 }
 
@@ -230,8 +230,8 @@ GameObject *ServerGameState::getObject(OBJECT_ID id) {
 }
 
 vector<OBJECT_ID> ServerGameState::getLastUpdatedObjects() {
-  vector<OBJECT_ID> list(updatedObjectIds.begin(), updatedObjectIds.end());
-  updatedObjectIds.clear();
+  vector<OBJECT_ID> list(updatedObjectIDs.begin(), updatedObjectIDs.end());
+  updatedObjectIDs.clear();
   return list;
 }
 
