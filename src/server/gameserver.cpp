@@ -97,10 +97,11 @@ void GameServer::updateGameState() {
     }
   }
   game->applyPhysics();
+  triggerLevelChange = game->updateLevelManager();
 }
 
 void GameServer::dispatchUpdates() {
-  vector<int> updatedObjects = game->getLastUpdatedObjects();
+  vector<OBJECT_ID> updatedObjects = game->getLastUpdatedObjects();
   for (int i = 0; i < updatedObjects.size(); i++) {
     GameObject *obj = game->getObject(updatedObjects[i]);
     if (obj->getInteractionType() == InteractionType::KEYPAD) {
@@ -119,5 +120,19 @@ void GameServer::dispatchUpdates() {
           obj->isActive());
       network->sendToAll(objPacket);
     }
+  }
+
+  // If a puzzle is completed, send reward object
+  OBJECT_ID rewardObjectID = game->getRewardObjectID();
+  if (rewardObjectID != -1) {
+    game->getObject(rewardObjectID)->activate();
+    ActivatePacket rewardPacket(rewardObjectID);
+    network->sendToAll(rewardPacket);
+  }
+
+  if (triggerLevelChange) {
+    triggerLevelChange = false;
+    LevelChangePacket levelChangePacket(game->level);
+    network->sendToAll(levelChangePacket);
   }
 }

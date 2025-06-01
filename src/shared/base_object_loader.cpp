@@ -4,6 +4,16 @@ BaseObjectData BaseObjectLoader::createBaseGameObject(const json &objData) {
   BaseObjectData baseObjectData;
   glm::vec3 position, rotation, scale;
 
+  if (objData.contains("level")) {
+    if (objData["level"].is_number()) {
+      baseObjectData.level = objData["level"].get<LEVEL_ID>();
+    } else {
+      baseObjectData.level = 0; // Default
+    }
+  } else {
+    baseObjectData.level = 0; // Default
+  }
+
   if (objData.contains("active")) {
     if (objData["active"].is_boolean()) {
       baseObjectData.active = objData["active"].get<bool>();
@@ -20,9 +30,11 @@ BaseObjectData BaseObjectLoader::createBaseGameObject(const json &objData) {
   if (objData.contains("transform")) {
     auto &t = objData["transform"];
     position = parseVec3(t, "position", glm::vec3(0.0f));
+    baseObjectData.originalPosition = position;
     rotation = parseVec3(t, "rotation", glm::vec3(0.0f));
     scale = parseVec3(t, "scale", glm::vec3(1.0f));
   } else {
+    baseObjectData.originalPosition = glm::vec3(0.0f);
     position = glm::vec3(0.0f);
     rotation = glm::vec3(0.0f);
     scale = glm::vec3(1.0f);

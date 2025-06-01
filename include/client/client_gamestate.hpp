@@ -11,7 +11,9 @@ using namespace std;
 
 class ClientGameState {
 private:
-  unordered_map<int, unique_ptr<GameObject>> objectList;
+  LEVEL_ID level = 0;
+  unordered_map<OBJECT_ID, unique_ptr<GameObject>> objectList;
+  unordered_map<LEVEL_ID, unordered_map<OBJECT_ID, GameObject *>> levelObjects;
   GameObject *player;
 
 public:
@@ -20,6 +22,7 @@ public:
   bool init();
 
   // update methods
+  void changeLevel(LEVEL_ID levelNum);
   void update(OBJECT_ID id, Transform *tf);
   void draw(const glm::mat4 &viewProjMtx);
 

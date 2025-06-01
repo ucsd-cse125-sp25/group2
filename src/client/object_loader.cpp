@@ -4,9 +4,9 @@ unordered_map<int, unique_ptr<GameObject>> ObjectLoader::loadObjects() {
   unordered_map<int, unique_ptr<GameObject>> objects;
 
   // Open and parse JSON file
-  ifstream file(JSON_PATH);
+  ifstream file(OBJECT_PATH);
   if (!file.is_open()) {
-    cerr << "Failed to open JSON file: " << JSON_PATH << endl;
+    cerr << "Failed to open JSON file: " << OBJECT_PATH << endl;
   }
 
   json objectsData;
@@ -23,7 +23,8 @@ unordered_map<int, unique_ptr<GameObject>> ObjectLoader::loadObjects() {
 
       BaseObjectData base = createBaseGameObject(objData);
       unique_ptr<GameObject> obj =
-          make_unique<GameObject>(objectId, base.active, base.transform);
+          make_unique<GameObject>(objectId, base.level, base.active,
+                                  base.originalPosition, base.transform);
 
       if (objData.contains("client")) {
         auto &client = objData["client"];

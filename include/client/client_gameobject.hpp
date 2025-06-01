@@ -17,8 +17,9 @@ protected:
   unique_ptr<Shader> shader;
 
 public:
-  GameObject(const OBJECT_ID id, const bool isActive, unique_ptr<Transform> &tf)
-      : BaseGameObject(id, isActive, tf) {
+  GameObject(const OBJECT_ID id, const LEVEL_ID levelNum, const bool isActive,
+             glm::vec3 originalPosition, unique_ptr<Transform> &tf)
+      : BaseGameObject(id, levelNum, isActive, originalPosition, tf) {
     model = nullptr;
     shader = nullptr;
   };

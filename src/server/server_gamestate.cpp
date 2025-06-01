@@ -3,6 +3,7 @@
 ServerGameState::ServerGameState() : deltaTime(0.01f) {
   physicsWorld = make_unique<Physics>();
   playerLogic = make_unique<PlayerLogic>();
+  levelManager = make_unique<LevelManager>();
 }
 
 bool ServerGameState::init() {
@@ -14,7 +15,9 @@ bool ServerGameState::init() {
       interactableObjects[obj.first] = object;
     }
     physicsWorld->add(object);
+    levelManager->addObject(object->getLevelID(), object->getId(), object);
   }
+  levelManager->loadJSON();
 
   return true;
 }
@@ -131,7 +134,6 @@ void ServerGameState::updateInteraction(PLAYER_ID id) {
     playerLogic->dropObject(player, heldObject);
     cout << "Dropped object: " << heldObject->getId() << endl;
     playerLogic->setHeldObject(id, nullptr);
-    cout << "Dropped object: " << closestObject->getId() << endl;
     updatedObjectIds.insert(closestObjectID);
 
   } else if (closestObjectID != -1) {
@@ -164,6 +166,46 @@ void ServerGameState::updateInteraction(PLAYER_ID id) {
   }
 }
 
+bool ServerGameState::updateKeypadInput(OBJECT_ID id, vector<int> inputSequence,
+                                        bool close) {
+  auto keypadObject = dynamic_cast<KeypadObject *>(getObject(id));
+  if (keypadObject) {
+    if (close) {
+      keypadObject->clientUsing = -1;
+      keypadObject->opened = false;
+      return true; // Doesn't matter the return type
+    }
+    if (keypadObject->checkSequence(inputSequence)) {
+      cout << "Keypad ID: " << id << " unlocked!" << endl;
+      return true;
+    } else {
+      cout << "Keypad ID: " << id << " Input: ";
+      for (int i = 0; i < inputSequence.size(); ++i) {
+        cout << inputSequence[i];
+        cout << " ";
+      }
+      cout << " is incorrect." << endl;
+    }
+  } else {
+    cerr << "KeypadObject with id " << id << " not found" << endl;
+  }
+  return false;
+}
+
+bool ServerGameState::updateLevelManager() {
+  if (levelManager->updateLevels()) {
+    level++;
+    levelManager->advanceLevel();
+    cout << "Level completed!" << endl;
+    return true;
+  }
+  OBJECT_ID updatedID = levelManager->getRewardObjectID();
+  if (updatedID != -1) {
+    rewardObjectID = updatedID;
+  }
+  return false;
+}
+
 void ServerGameState::applyPhysics() {
   physicsWorld->calculateForces();
   physicsWorld->moveObjects(deltaTime);
@@ -190,34 +232,14 @@ GameObject *ServerGameState::getObject(OBJECT_ID id) {
   return nullptr;
 }
 
-vector<int> ServerGameState::getLastUpdatedObjects() {
-  vector<int> list(updatedObjectIds.begin(), updatedObjectIds.end());
+vector<OBJECT_ID> ServerGameState::getLastUpdatedObjects() {
+  vector<OBJECT_ID> list(updatedObjectIds.begin(), updatedObjectIds.end());
   updatedObjectIds.clear();
   return list;
 }
 
-bool ServerGameState::updateKeypadInput(OBJECT_ID id, vector<int> inputSequence,
-                                        bool close) {
-  auto keypadObject = dynamic_cast<KeypadObject *>(getObject(id));
-  if (keypadObject) {
-    if (close) {
-      keypadObject->clientUsing = -1;
-      keypadObject->opened = false;
-      return true; // Doesn't matter the return type
-    }
-    if (keypadObject->checkSequence(inputSequence)) {
-      cout << "Keypad ID: " << id << " unlocked!" << endl;
-      return true;
-    } else {
-      cout << "Keypad ID: " << id << " Input: ";
-      for (int i = 0; i < inputSequence.size(); ++i) {
-        cout << inputSequence[i];
-        cout << " ";
-      }
-      cout << " is incorrect." << endl;
-    }
-  } else {
-    cerr << "KeypadObject with id " << id << " not found" << endl;
-  }
-  return false;
+OBJECT_ID ServerGameState::getRewardObjectID() {
+  OBJECT_ID id = rewardObjectID;
+  rewardObjectID = -1;
+  return id;
 }

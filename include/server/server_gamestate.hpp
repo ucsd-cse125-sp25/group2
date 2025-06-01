@@ -2,6 +2,7 @@
 
 #include "globals.hpp"
 #include "keypad_object.hpp"
+#include "level_manager.hpp"
 #include "packets.hpp"
 #include "physics.hpp"
 #include "player_logic.hpp"
@@ -18,15 +19,20 @@ using namespace std;
 
 class ServerGameState {
 private:
-  int level;
+  OBJECT_ID rewardObjectID = -1;
   float deltaTime;
-  unordered_map<int, unique_ptr<GameObject>> objectList;
-  unordered_map<int, GameObject *> interactableObjects;
-  unordered_set<int> updatedObjectIds;
+
+  unordered_map<OBJECT_ID, unique_ptr<GameObject>> objectList;
+  unordered_map<OBJECT_ID, GameObject *> interactableObjects;
+  unordered_set<OBJECT_ID> updatedObjectIds;
+
   unique_ptr<Physics> physicsWorld;
   unique_ptr<PlayerLogic> playerLogic;
+  unique_ptr<LevelManager> levelManager;
 
 public:
+  LEVEL_ID level = 0;
+
   ServerGameState();
 
   bool init();
@@ -37,11 +43,13 @@ public:
   void updateMovement(PLAYER_ID id, MovementType type);
   void updateRotation(PLAYER_ID id, glm::vec3 rotation);
   void updateInteraction(PLAYER_ID id);
-  void applyPhysics();
   bool updateKeypadInput(OBJECT_ID id, vector<int> inputSequence, bool close);
+  bool updateLevelManager();
+  void applyPhysics();
 
   // getters
   GameObject *getObject(OBJECT_ID id);
   vector<int> getLastUpdatedObjects();
+  OBJECT_ID getRewardObjectID();
   PlayerLogic *getPlayerLogic() { return playerLogic.get(); }
 };

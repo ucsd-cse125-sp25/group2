@@ -94,6 +94,14 @@ unique_ptr<IPacket> ClientNetwork::processPackets(PacketType type,
         deserialize(PacketType::CHARACTERRESPONSE, payload);
     return packet;
   }
+  case PacketType::LEVELCHANGE: {
+    unique_ptr<IPacket> packet = deserialize(PacketType::LEVELCHANGE, payload);
+    return packet;
+  }
+  case PacketType::ACTIVATE: {
+    unique_ptr<IPacket> packet = deserialize(PacketType::ACTIVATE, payload);
+    return packet;
+  }
   case PacketType::KEYPAD: {
     unique_ptr<IPacket> packet = deserialize(PacketType::KEYPAD, payload);
     return packet;

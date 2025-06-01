@@ -36,7 +36,6 @@ bool Client::init() {
   // Window settings
   glfwWindowHint(GLFW_RESIZABLE, GL_TRUE);
   glfwWindowHint(GLFW_DECORATED, GL_TRUE);
-
 #ifdef __APPLE__
   glfwWindowHint(GLFW_MAXIMIZED, GLFW_TRUE);
 #endif
@@ -176,6 +175,17 @@ void Client::idleCallback(float deltaTime) {
       game->setPlayer(character);
       cam->setRadius(cam->getCameraRadius(
           character)); // Set camera radius based on character
+      break;
+    }
+    case PacketType::LEVELCHANGE: {
+      auto levelPacket = dynamic_cast<LevelChangePacket *>(packet.get());
+      game->changeLevel(levelPacket->level);
+      break;
+    }
+    case PacketType::ACTIVATE: {
+      auto activatePacket = dynamic_cast<ActivatePacket *>(packet.get());
+      OBJECT_ID id = activatePacket->id;
+      game->getObject(id)->activate();
       break;
     }
     case PacketType::KEYPAD: {

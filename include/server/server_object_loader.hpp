@@ -17,5 +17,4 @@ class ObjectLoader : public BaseObjectLoader {
 public:
   ObjectLoader() : BaseObjectLoader(){};
   unordered_map<int, unique_ptr<GameObject>> loadObjects();
-  vector<Collider *> loadCollider(string path);
 };

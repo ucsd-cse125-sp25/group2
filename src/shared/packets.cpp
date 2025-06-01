@@ -69,6 +69,34 @@ CharacterResponsePacket::deserialize(const vector<char> &payload) {
   return packet;
 }
 
+vector<char> LevelChangePacket::serialize() const {
+  vector<char> buffer(sizeof(LEVEL_ID));
+  memcpy(buffer.data(), &level, sizeof(LEVEL_ID));
+  return buffer;
+}
+
+LevelChangePacket LevelChangePacket::deserialize(const vector<char> &payload) {
+  LEVEL_ID level;
+
+  memcpy(&level, payload.data(), sizeof(LEVEL_ID));
+  LevelChangePacket packet(level);
+  return packet;
+}
+
+vector<char> ActivatePacket::serialize() const {
+  vector<char> buffer(sizeof(OBJECT_ID));
+  memcpy(buffer.data(), &id, sizeof(OBJECT_ID));
+  return buffer;
+}
+
+ActivatePacket ActivatePacket::deserialize(const vector<char> &payload) {
+  OBJECT_ID id;
+
+  memcpy(&id, payload.data(), sizeof(OBJECT_ID));
+  ActivatePacket packet(id);
+  return packet;
+}
+
 vector<char> KeypadPacket::serialize() const {
   vector<char> buffer(sizeof(OBJECT_ID) + 2 * sizeof(bool));
   unsigned long size = 0;
@@ -239,6 +267,11 @@ unique_ptr<IPacket> deserialize(PacketType type, vector<char> &payload) {
   case PacketType::CHARACTERRESPONSE:
     return make_unique<CharacterResponsePacket>(
         CharacterResponsePacket::deserialize(payload));
+  case PacketType::LEVELCHANGE:
+    return make_unique<LevelChangePacket>(
+        LevelChangePacket::deserialize(payload));
+  case PacketType::ACTIVATE:
+    return make_unique<ActivatePacket>(ActivatePacket::deserialize(payload));
   case PacketType::KEYPAD:
     return make_unique<KeypadPacket>(KeypadPacket::deserialize(payload));
   case PacketType::MOVEMENT:
