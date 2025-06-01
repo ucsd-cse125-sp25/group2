@@ -13,4 +13,4 @@ bool Puzzle::isPuzzleComplete() const {
   return true;
 }
 
-OBJECT_ID Puzzle::dispatchReward() { return rewardObjectID; }
+pair<RewardType, vector<OBJECT_ID>> Puzzle::dispatchReward() { return make_pair(rewardType, objectIDs); }

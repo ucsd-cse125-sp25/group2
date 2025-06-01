@@ -194,14 +194,11 @@ bool ServerGameState::updateKeypadInput(OBJECT_ID id, vector<int> inputSequence,
 
 bool ServerGameState::updateLevelManager() {
   if (levelManager->updateLevels()) {
+    rewards = levelManager->getRewards();
     level++;
     levelManager->advanceLevel();
     cout << "Level completed!" << endl;
     return true;
-  }
-  OBJECT_ID updatedID = levelManager->getRewardObjectID();
-  if (updatedID != -1) {
-    rewardObjectID = updatedID;
   }
   return false;
 }
@@ -238,8 +235,6 @@ vector<OBJECT_ID> ServerGameState::getLastUpdatedObjects() {
   return list;
 }
 
-OBJECT_ID ServerGameState::getRewardObjectID() {
-  OBJECT_ID id = rewardObjectID;
-  rewardObjectID = -1;
-  return id;
+vector<pair<RewardType, vector<OBJECT_ID>>> ServerGameState::getRewardObjects() {
+  return rewards;
 }

@@ -5,7 +5,9 @@
             "puzzles": [
                 {
                     "puzzleID": 0,
-                    "rewardID": 9,
+                    "rewardType": "ACTIVATE",
+                    "rewardIDs": [9],
+                    "puzzleType": "milestone",
                     "conditions": [
                         {
                             "conditionType": "PRESSURE_PLATE",

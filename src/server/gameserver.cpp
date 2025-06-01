@@ -55,8 +55,6 @@ void GameServer::updateGameState() {
     switch (packet->getType()) {
     case PacketType::MOVEMENT: {
       auto movementPacket = static_cast<MovementPacket *>(packet.get());
-      // game->updateMovement(movementPacket->id,
-      // movementPacket->movementType,movementPacket->cameraFront));
       game->updateMovement(movementPacket->id, movementPacket->movementType);
       break;
     }
@@ -123,13 +121,27 @@ void GameServer::dispatchUpdates() {
   }
 
   // If a puzzle is completed, send reward object
-  OBJECT_ID rewardObjectID = game->getRewardObjectID();
-  if (rewardObjectID != -1) {
-    game->getObject(rewardObjectID)->activate();
-    ActivatePacket rewardPacket(rewardObjectID);
-    network->sendToAll(rewardPacket);
+  vector<pair<RewardType, vector<OBJECT_ID>>> rewards = game->getRewardObjects();
+  for (const auto &reward : rewards) {
+    RewardType rewardType = reward.first;
+    const vector<OBJECT_ID> &rewardObjectIDs = reward.second;
+
+    if (rewardType == RewardType::ACTIVATE) {
+      for (const OBJECT_ID &objectID : rewardObjectIDs) {
+        game->getObject(objectID)->activate();
+        ActivatePacket activatePacket(objectID);
+        network->sendToAll(activatePacket);
+      }
+    } else if (rewardType == RewardType::DEACTIVATE) {
+      for (const OBJECT_ID &objectID : rewardObjectIDs) {
+        game->getObject(objectID)->deactivate();
+        ActivatePacket deactivatePacket(objectID);
+        network->sendToAll(deactivatePacket);
+      }
+    }
   }
 
+  // If a level is completed, notify all clients
   if (triggerLevelChange) {
     triggerLevelChange = false;
     LevelChangePacket levelChangePacket(game->level);

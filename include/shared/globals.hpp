@@ -22,6 +22,13 @@
 #define PUZZLE_PATH "../resources/puzzles/puzzles.json"
 #define CONFIG_PATH "../resources/config.json"
 
+enum class Gamestate : uint8_t { 
+  STARTSCREEN,
+  MAINMENU,
+  READY,
+  GAME
+};
+
 enum class MovementType : uint8_t {
   NONE,
   FORWARD,
@@ -40,4 +47,8 @@ enum class InteractionType : uint8_t {
   KEYPAD,
 };
 
-enum class Gamestate : uint8_t { STARTSCREEN, MAINMENU, READY, GAME };
+enum class RewardType : uint8_t {
+  NONE,
+  ACTIVATE,
+  DEACTIVATE,
+};

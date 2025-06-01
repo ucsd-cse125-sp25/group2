@@ -21,33 +21,35 @@ using namespace std;
 class Level {
 private:
   LEVEL_ID level;
-  PUZZLE_ID currentPuzzle;
-  NUM_PUZZLE numPuzzles;
-  OBJECT_ID rewardObjectID = -1;
-  unordered_map<PUZZLE_ID, unique_ptr<Puzzle>> puzzles;
+  NUM_PUZZLE numMilestones;
+  PUZZLE_ID currentMilestone;
+  unordered_map<PUZZLE_ID, unique_ptr<Puzzle>> clues; // puzzles that provide clues or guidance
+  unordered_map<PUZZLE_ID, unique_ptr<Puzzle>> milestones;  // puzzles that must be completed to advance the level
+  vector<pair<RewardType, vector<OBJECT_ID>>> rewards;
 
 public:
-  Level(LEVEL_ID id) : level(id), currentPuzzle(0), numPuzzles(0){};
-  void addPuzzle(unique_ptr<Puzzle> puzzle);
+  Level(LEVEL_ID id) : level(id), numMilestones(0), currentMilestone(0) {};
+  void addCluePuzzle(PUZZLE_ID id, unique_ptr<Puzzle> puzzle);
+  void addMilestonePuzzle(unique_ptr<Puzzle> puzzle);
   bool isLevelComplete();
-  OBJECT_ID getReward();
+  vector<pair<RewardType, vector<OBJECT_ID>>> getPuzzleRewards();
 };
 
 class LevelManager {
 private:
-  Level *currentLevel = nullptr;
-  LEVEL_ID currentLevelID = 0;
-  NUM_LEVEL numLevels = 0;
+  Level *currentLevel;
+  LEVEL_ID currentLevelID;
+  NUM_LEVEL numLevels;
   unordered_map<LEVEL_ID, unordered_map<OBJECT_ID, GameObject *>> levelObjects;
   unordered_map<LEVEL_ID, unique_ptr<Level>> levels;
 
 public:
-  LevelManager(){};
+  LevelManager(): currentLevel(nullptr), currentLevelID(0), numLevels(0) {}
 
   void addObject(LEVEL_ID levelID, OBJECT_ID objectID, GameObject *object);
   void addLevel(LEVEL_ID id, unique_ptr<Level> level);
   void loadJSON();
   bool updateLevels();
   void advanceLevel();
-  OBJECT_ID getRewardObjectID();
+  vector<pair<RewardType, vector<OBJECT_ID>>> getRewards();
 };
