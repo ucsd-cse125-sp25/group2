@@ -372,7 +372,7 @@
 						}
 					}
 				],
-				"interaction": "NONE",
+				"interaction": "NOTE",
 				"static": false
 			},
 			"transform": {

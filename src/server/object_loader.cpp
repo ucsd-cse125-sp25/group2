@@ -79,6 +79,10 @@ unordered_map<int, unique_ptr<GameObject>> ObjectLoader::loadObjects() {
           }
           obj = make_unique<KeypadObject>(objectId, base.active, base.transform,
                                           rb, cl, correctSequence);
+        } else if (server.contains("interaction") &&
+                   server["interaction"].get<string>() == "NOTE") {
+          obj = make_unique<NoteObject>(objectId, base.active, base.transform,
+                                        rb, cl);
         } else {
           obj = make_unique<GameObject>(objectId, base.active, base.transform,
                                         rb, cl);

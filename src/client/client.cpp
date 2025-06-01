@@ -126,6 +126,12 @@ bool Client::initUI() {
                              true);
     net->send(packet);
   });
+  UIManager::note->setOnClose([wind = this->window]() {
+    glfwSetInputMode(wind, GLFW_CURSOR,
+                     GLFW_CURSOR_DISABLED);
+    glfwSetInputMode(wind, GLFW_RAW_MOUSE_MOTION,
+                     GLFW_TRUE);
+  });
   return true;
 }
 
@@ -143,63 +149,71 @@ void Client::idleCallback(float deltaTime) {
     packets.pop_front();
 
     switch (packet->getType()) {
-    case PacketType::INIT: {
-      auto initPacket = dynamic_cast<InitPacket *>(packet.get());
-      cout << "Received INIT packet with ID: " << initPacket->id << endl;
-      network->setId(initPacket->id);
-      characterManager->setID(initPacket->id);
-      break;
-    }
-    case PacketType::OBJECT: {
-      auto objectPacket = dynamic_cast<ObjectPacket *>(packet.get());
-      game->update(objectPacket->id, &objectPacket->transform);
-      break;
-    }
-    case PacketType::GAMESTATE: {
-      auto statePacket = dynamic_cast<GameStatePacket *>(packet.get());
-      game->state = statePacket->state;
-      if (game->state == Gamestate::GAME) {
-        // Hide the cursor and lock it to the center of the window when the game
-        // starts
-        glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-#if !defined(__APPLE__)
-        glfwSetInputMode(window, GLFW_RAW_MOUSE_MOTION, GLFW_TRUE);
-#endif
+      case PacketType::INIT: {
+        auto initPacket = dynamic_cast<InitPacket *>(packet.get());
+        cout << "Received INIT packet with ID: " << initPacket->id << endl;
+        network->setId(initPacket->id);
+        characterManager->setID(initPacket->id);
+        break;
       }
-      break;
-    }
-    case PacketType::CHARACTERRESPONSE: {
-      auto characterPacket =
-          dynamic_cast<CharacterResponsePacket *>(packet.get());
-      characterManager->setCharacters(characterPacket->characterAssignments);
-      PLAYER_ID character = characterManager->selectedCharacter;
-      game->setPlayer(character);
-      cam->setRadius(cam->getCameraRadius(
-          character)); // Set camera radius based on character
-      break;
-    }
-    case PacketType::KEYPAD: {
-      auto keypadPacket = dynamic_cast<KeypadPacket *>(packet.get());
-      UIManager::keypad->setObjectID(keypadPacket->id);
-      UIManager::keypad->display = keypadPacket->display;
-      cout << "Keypad display: " << keypadPacket->display << endl;
-      if (keypadPacket->display) {
+      case PacketType::OBJECT: {
+        auto objectPacket = dynamic_cast<ObjectPacket *>(packet.get());
+        game->update(objectPacket->id, &objectPacket->transform);
+        break;
+      }
+      case PacketType::GAMESTATE: {
+        auto statePacket = dynamic_cast<GameStatePacket *>(packet.get());
+        game->state = statePacket->state;
+        if (game->state == Gamestate::GAME) {
+          // Hide the cursor and lock it to the center of the window when the game
+          // starts
+          glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+  #if !defined(__APPLE__)
+          glfwSetInputMode(window, GLFW_RAW_MOUSE_MOTION, GLFW_TRUE);
+  #endif
+        }
+        break;
+      }
+      case PacketType::CHARACTERRESPONSE: {
+        auto characterPacket =
+            dynamic_cast<CharacterResponsePacket *>(packet.get());
+        characterManager->setCharacters(characterPacket->characterAssignments);
+        PLAYER_ID character = characterManager->selectedCharacter;
+        game->setPlayer(character);
+        cam->setRadius(cam->getCameraRadius(
+            character)); // Set camera radius based on character
+        break;
+      }
+      case PacketType::KEYPAD: {
+        auto keypadPacket = dynamic_cast<KeypadPacket *>(packet.get());
+        UIManager::keypad->setObjectID(keypadPacket->id);
+        UIManager::keypad->display = keypadPacket->display;
+        cout << "Keypad display: " << keypadPacket->display << endl;
+        if (keypadPacket->display) {
+          glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+          glfwSetInputMode(window, GLFW_RAW_MOUSE_MOTION, GLFW_FALSE);
+        } else {
+          glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+          glfwSetInputMode(window, GLFW_RAW_MOUSE_MOTION, GLFW_TRUE);
+        }
+        UIManager::keypad->setUnlocked(keypadPacket->unlocked);
+        break;
+      }
+      case PacketType::NOTE: {
+        auto notePacket = dynamic_cast<NotePacket *>(packet.get());
+        UIManager::note->setObjectID(notePacket->id);
         glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
         glfwSetInputMode(window, GLFW_RAW_MOUSE_MOTION, GLFW_FALSE);
-      } else {
-        glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-        glfwSetInputMode(window, GLFW_RAW_MOUSE_MOTION, GLFW_TRUE);
+        UIManager::note->display = true;
+        break;
       }
-      UIManager::keypad->setUnlocked(keypadPacket->unlocked);
-      break;
-    }
     }
   }
 
   UIManager::updateMenu(mouseX, mouseY, windowWidth, windowHeight, deltaTime,
                         game->state);
 
-  if (game->state == Gamestate::GAME && !UIManager::keypad->display) {
+  if (game->state == Gamestate::GAME && !UIManager::keypad->display && !UIManager::note->display) {
     cam->update(xOffset, yOffset, game->getPlayer()->getPosition());
     xOffset = 0.0f;
     yOffset = 0.0f;
@@ -324,7 +338,7 @@ void Client::mouseCallback(GLFWwindow *window, double xPos, double yPos) {
 
 void Client::mouseButtonCallback(GLFWwindow *window, int button, int action,
                                  int mods) {
-  if (game->state != Gamestate::GAME || UIManager::keypad->display)
+  if (game->state != Gamestate::GAME || UIManager::keypad->display || UIManager::note->display)
     return;
   if (action == GLFW_PRESS) {
     if (button == GLFW_MOUSE_BUTTON_LEFT) {

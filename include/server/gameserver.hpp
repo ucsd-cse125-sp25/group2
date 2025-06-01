@@ -23,4 +23,5 @@ public:
 
   void updateGameState();
   void dispatchUpdates();
+  void dispatchSpecialUpdates();
 };

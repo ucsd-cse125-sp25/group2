@@ -2,6 +2,7 @@
 
 #include "globals.hpp"
 #include "keypad_object.hpp"
+#include "note_object.hpp"
 #include "packets.hpp"
 #include "physics.hpp"
 #include "player_logic.hpp"
@@ -23,6 +24,7 @@ private:
   unordered_map<int, unique_ptr<GameObject>> objectList;
   unordered_map<int, GameObject *> interactableObjects;
   unordered_set<int> updatedObjectIds;
+  unordered_set<int> updateSpecialObjects;
   unique_ptr<Physics> physicsWorld;
   unique_ptr<PlayerLogic> playerLogic;
 
@@ -43,5 +45,6 @@ public:
   // getters
   GameObject *getObject(OBJECT_ID id);
   vector<int> getLastUpdatedObjects();
+  vector<int> getSpecialUpdatedObjects();
   PlayerLogic *getPlayerLogic() { return playerLogic.get(); }
 };

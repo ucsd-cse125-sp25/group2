@@ -23,6 +23,7 @@ int main() {
 
       server->updateGameState();
       server->dispatchUpdates();
+      server->dispatchSpecialUpdates();
 
       auto stop = high_resolution_clock::now();
       auto wait = duration_cast<milliseconds>(SERVERTICKS - (stop - start));

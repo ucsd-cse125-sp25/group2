@@ -152,13 +152,18 @@ void ServerGameState::updateInteraction(PLAYER_ID id) {
     if (closestObject->getInteractionType() == InteractionType::KEYPAD &&
         id == PIG) {
       auto keypadObject = dynamic_cast<KeypadObject *>(closestObject);
-      cout << "Interacting with KeypadObject: " << keypadObject->getId()
-           << endl;
       if (keypadObject) {
         keypadObject->clientUsing = playerLogic->getClient(id);
-        updatedObjectIds.insert(closestObjectID);
-        cout << "client: " << keypadObject->clientUsing
-             << " is now using keypad" << endl;
+        updateSpecialObjects.insert(closestObjectID);
+      }
+    }
+    // If interaction type is note
+    else if (closestObject->getInteractionType() == InteractionType::NOTE &&
+        id == PIG) {
+      auto noteObject = dynamic_cast<NoteObject *>(closestObject);
+      if (noteObject) {
+        noteObject->clientUsing = playerLogic->getClient(id);
+        updateSpecialObjects.insert(closestObjectID);
       }
     }
   }
@@ -193,6 +198,12 @@ GameObject *ServerGameState::getObject(OBJECT_ID id) {
 vector<int> ServerGameState::getLastUpdatedObjects() {
   vector<int> list(updatedObjectIds.begin(), updatedObjectIds.end());
   updatedObjectIds.clear();
+  return list;
+}
+
+vector<int> ServerGameState::getSpecialUpdatedObjects() {
+  vector<int> list(updateSpecialObjects.begin(), updateSpecialObjects.end());
+  updateSpecialObjects.clear();
   return list;
 }
 

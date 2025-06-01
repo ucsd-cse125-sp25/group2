@@ -103,21 +103,30 @@ void GameServer::dispatchUpdates() {
   vector<int> updatedObjects = game->getLastUpdatedObjects();
   for (int i = 0; i < updatedObjects.size(); i++) {
     GameObject *obj = game->getObject(updatedObjects[i]);
-    if (obj->getInteractionType() == InteractionType::KEYPAD) {
+    ObjectPacket objPacket = ObjectPacket(
+        obj->getId(),
+        Transform(obj->getPosition(), obj->getRotation(), obj->getScale()),
+        obj->isActive());
+        network->sendToAll(objPacket);
+  }
+}
+
+void GameServer::dispatchSpecialUpdates() {
+  vector<int> specialObjects = game->getSpecialUpdatedObjects();
+  for (int i = 0; i < specialObjects.size(); i++) {
+    GameObject *obj = game->getObject(specialObjects[i]);
+    if (obj->getInteractionType() == InteractionType::NOTE) {
+      auto noteObject = dynamic_cast<NoteObject *>(obj);
+      if (noteObject && noteObject->clientUsing != -1) {
+        network->sendToClient(noteObject->clientUsing, NotePacket(noteObject->getId()));
+      }
+    } else if (obj->getInteractionType() == InteractionType::KEYPAD) {
       auto keypadObject = dynamic_cast<KeypadObject *>(obj);
-      if (keypadObject && keypadObject->clientUsing != -1 &&
-          !keypadObject->opened) {
+      if (keypadObject && keypadObject->clientUsing != -1) {
         network->sendToClient(
             keypadObject->clientUsing,
             KeypadPacket(keypadObject->getId(), true, keypadObject->unlocked));
-        keypadObject->opened = true;
       }
-    } else {
-      ObjectPacket objPacket = ObjectPacket(
-          obj->getId(),
-          Transform(obj->getPosition(), obj->getRotation(), obj->getScale()),
-          obj->isActive());
-      network->sendToAll(objPacket);
     }
   }
 }

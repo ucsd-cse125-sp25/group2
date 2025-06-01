@@ -220,6 +220,20 @@ vector<char> DisconnectPacket::serialize() const {
   return buffer;
 }
 
+vector<char> NotePacket::serialize() const {
+  vector<char> buffer(sizeof(OBJECT_ID));
+  memcpy(buffer.data(), &id, sizeof(OBJECT_ID));
+  return buffer;
+}
+
+NotePacket NotePacket::deserialize(const vector<char> &payload) {
+  OBJECT_ID id;
+
+  memcpy(&id, payload.data(), sizeof(OBJECT_ID));
+  NotePacket packet(id);
+  return packet;
+}
+
 DisconnectPacket DisconnectPacket::deserialize(const vector<char> &payload) {
   CLIENT_ID id;
 
@@ -254,6 +268,8 @@ unique_ptr<IPacket> deserialize(PacketType type, vector<char> &payload) {
   case PacketType::KEYPADINPUT:
     return make_unique<KeypadInputPacket>(
         KeypadInputPacket::deserialize(payload));
+  case PacketType::NOTE:
+    return make_unique<NotePacket>(NotePacket::deserialize(payload));
   case PacketType::DISCONNECT:
     return make_unique<DisconnectPacket>(
         DisconnectPacket::deserialize(payload));
