@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://cb220gddhst8m"]
+[gd_scene load_steps=45 format=3 uid="uid://cb220gddhst8m"]
 
 [ext_resource type="Script" uid="uid://nd5l8ocm7cud" path="res://scripts/metadata.gd" id="2_eh0nf"]
 [ext_resource type="PackedScene" uid="uid://cgwfirulao1f2" path="res://Cow.glb" id="2_fpmh6"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://cv1w326m73noo" path="res://StableDoor.glb" id="10_5vvyt"]
 [ext_resource type="PackedScene" uid="uid://bce63wvjpsvuu" path="res://BlueBox.glb" id="11_c6i3y"]
 [ext_resource type="PackedScene" uid="uid://c253d38jjwcjd" path="res://Horse.glb" id="12_c2ibq"]
+[ext_resource type="PackedScene" uid="uid://cwtr4ir66vtwn" path="res://BrownBox.glb" id="13_c6i3y"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_i6ese"]
 margin = 0.0
@@ -81,7 +82,7 @@ size = Vector3(2.13025, 13.9336, 19.4852)
 size = Vector3(15.7781, 36.9561, 21.0567)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_c2ibq"]
-size = Vector3(51.7906, 0.483582, 13.3626)
+size = Vector3(51.7906, 0.267303, 13.3626)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ndyye"]
 size = Vector3(15.185, 1.38055, 84.009)
@@ -106,6 +107,9 @@ size = Vector3(1, 1.99316, 1.73245)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_3b0ty"]
 size = Vector3(1.98724, 1.99469, 2.073)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hhcpw"]
+size = Vector3(1, 1, 1.01282)
 
 [node name="Level 0" type="Node3D"]
 
@@ -355,7 +359,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.3401, 10.0877, -19.2916)
 shape = SubResource("BoxShape3D_wkp8b")
 
 [node name="CollisionShape3D35" type="CollisionShape3D" parent="Barn"]
-transform = Transform3D(0.983713, 0, 0.179747, 0, 1, 0, -0.179747, 0, 0.983713, -0.945947, 28.7157, -23.346)
+transform = Transform3D(0.983713, 0, 0.179747, 0, 1, 0, -0.179747, 0, 0.983713, -1.141, 28.488, -23.3042)
 shape = SubResource("BoxShape3D_c2ibq")
 
 [node name="CollisionShape3D28" type="CollisionShape3D" parent="Barn"]
@@ -580,68 +584,79 @@ model_path = "../resources/objects/cube/Cube.obj"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00137329, 0.0125427, 0.0020752)
 shape = SubResource("BoxShape3D_3b0ty")
 
-[node name="Crate" parent="." instance=ExtResource("7_kpr34")]
-transform = Transform3D(1, 0, -1.73205, 0, 2, 0, 1.73205, 0, 1, 22.5626, 2.9122, 7.98953)
+[node name="BrownBox" parent="." instance=ExtResource("13_c6i3y")]
+transform = Transform3D(3.69107, 0, 1.54143, 0, 4, 0, -1.54143, 0, 3.69107, 22.6563, 0.876583, 6.06519)
 script = ExtResource("2_eh0nf")
 is_static = true
 interaction = "NONE"
 model_path = "../resources/objects/box/BrownBox.obj"
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Crate"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00137329, 0.0125427, 0.0020752)
-shape = SubResource("BoxShape3D_3b0ty")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BrownBox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.04565, 0.513908, 0.00640869)
+shape = SubResource("BoxShape3D_hhcpw")
 
-[node name="Crate2" parent="." instance=ExtResource("7_kpr34")]
-transform = Transform3D(-0.481676, 0, -1.94113, 0, 2, 0, 1.94113, 0, -0.481676, 22.5626, 2.9122, 2.82518)
+[node name="BrownBox2" parent="." instance=ExtResource("13_c6i3y")]
+transform = Transform3D(3.59768, 0, -1.74834, 0, 4, 0, 1.74834, 0, 3.59768, 22.6563, 0.876583, 0.784095)
 script = ExtResource("2_eh0nf")
 is_static = true
 interaction = "NONE"
 model_path = "../resources/objects/box/BrownBox.obj"
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Crate2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00137329, 0.0125427, 0.0020752)
-shape = SubResource("BoxShape3D_3b0ty")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BrownBox2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.04565, 0.513908, 0.00640869)
+shape = SubResource("BoxShape3D_hhcpw")
 
-[node name="Crate3" parent="." instance=ExtResource("7_kpr34")]
-transform = Transform3D(0.876711, 0, -1.7976, 0, 2, 0, 1.7976, 0, 0.876711, 22.5626, 6.95538, 2.82518)
+[node name="BrownBox3" parent="." instance=ExtResource("13_c6i3y")]
+transform = Transform3D(3.98287, 0, 0.36976, 0, 4, 0, -0.36976, 0, 3.98287, 22.6563, 4.89117, -0.0324998)
 script = ExtResource("2_eh0nf")
 is_static = true
 interaction = "NONE"
 model_path = "../resources/objects/box/BrownBox.obj"
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Crate3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00137329, 0.0125427, 0.0020752)
-shape = SubResource("BoxShape3D_3b0ty")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BrownBox3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.04565, 0.513908, 0.00640869)
+shape = SubResource("BoxShape3D_hhcpw")
 
-[node name="Crate4" parent="." instance=ExtResource("7_kpr34")]
-transform = Transform3D(0.893176, 0, -1.78948, 0, 2, 0, 1.78948, 0, 0.893176, 22.5626, 2.9122, -3.09994)
+[node name="BrownBox4" parent="." instance=ExtResource("13_c6i3y")]
+transform = Transform3D(3.89251, 0, -0.921082, 0, 4, 0, 0.921082, 0, 3.89251, 25.4084, 0.876583, -3.26583)
 script = ExtResource("2_eh0nf")
 is_static = true
 interaction = "NONE"
 model_path = "../resources/objects/box/BrownBox.obj"
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Crate4"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00137329, 0.0125427, 0.0020752)
-shape = SubResource("BoxShape3D_3b0ty")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BrownBox4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.04565, 0.513908, 0.00640869)
+shape = SubResource("BoxShape3D_hhcpw")
 
-[node name="Crate5" parent="." instance=ExtResource("7_kpr34")]
-transform = Transform3D(0.252709, 0, -1.98397, 0, 2, 0, 1.98397, 0, 0.252709, 22.5626, 6.95538, -3.09994)
+[node name="BrownBox7" parent="." instance=ExtResource("13_c6i3y")]
+transform = Transform3D(3.99935, 0, -0.0718337, 0, 4, 0, 0.0718337, 0, 3.99935, 21.9781, 0.876583, -5.35485)
 script = ExtResource("2_eh0nf")
 is_static = true
 interaction = "NONE"
 model_path = "../resources/objects/box/BrownBox.obj"
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Crate5"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00137329, 0.0125427, 0.0020752)
-shape = SubResource("BoxShape3D_3b0ty")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BrownBox7"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.04565, 0.513908, 0.00640869)
+shape = SubResource("BoxShape3D_hhcpw")
 
-[node name="Crate6" parent="." instance=ExtResource("7_kpr34")]
-transform = Transform3D(1.65776, 0, -1.11885, 0, 2, 0, 1.11885, 0, 1.65776, 22.5626, 11.0138, -3.09994)
+[node name="BrownBox5" parent="." instance=ExtResource("13_c6i3y")]
+transform = Transform3D(3.74927, 0, -1.3939, 0, 4, 0, 1.3939, 0, 3.74927, 22.6563, 4.89284, -4.81968)
 script = ExtResource("2_eh0nf")
 is_static = true
 interaction = "NONE"
 model_path = "../resources/objects/box/BrownBox.obj"
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Crate6"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00137329, 0.0125427, 0.0020752)
-shape = SubResource("BoxShape3D_3b0ty")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BrownBox5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.04565, 0.513908, 0.00640869)
+shape = SubResource("BoxShape3D_hhcpw")
+
+[node name="BrownBox6" parent="." instance=ExtResource("13_c6i3y")]
+transform = Transform3D(3.24691, 0, 2.33615, 0, 4, 0, -2.33615, 0, 3.24691, 22.4645, 8.90745, -3.32629)
+script = ExtResource("2_eh0nf")
+is_static = true
+interaction = "NONE"
+model_path = "../resources/objects/box/BrownBox.obj"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BrownBox6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.04565, 0.513908, 0.00640869)
+shape = SubResource("BoxShape3D_hhcpw")

@@ -1487,13 +1487,13 @@
 					},
 					{
 						"center": {
-							"x": -0.946,
-							"y": 28.716,
-							"z": -23.346
+							"x": -1.141,
+							"y": 28.488,
+							"z": -23.304
 						},
 						"halfExtents": {
 							"x": 25.895,
-							"y": 0.242,
+							"y": 0.134,
 							"z": 6.681
 						},
 						"isTrigger": false,
@@ -2934,35 +2934,35 @@
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
 			"level": 0,
-			"name": "Crate",
+			"name": "BrownBox",
 			"server": {
 				"colliders": [
 					{
 						"center": {
-							"x": 0.003,
-							"y": 0.025,
-							"z": 0.004
+							"x": -0.183,
+							"y": 2.056,
+							"z": 0.026
 						},
 						"halfExtents": {
-							"x": 0.994,
-							"y": 0.997,
-							"z": 1.036
+							"x": 0.5,
+							"y": 0.5,
+							"z": 0.506
 						},
 						"isTrigger": false,
 						"orientation": {
 							"forward": {
-								"x": 1.732,
+								"x": -1.541,
 								"y": 0.0,
-								"z": -1.0
+								"z": -3.691
 							},
 							"right": {
-								"x": 1.0,
+								"x": 3.691,
 								"y": 0.0,
-								"z": 1.732
+								"z": -1.541
 							},
 							"up": {
 								"x": 0.0,
-								"y": 2.0,
+								"y": 4.0,
 								"z": 0.0
 							}
 						}
@@ -2973,19 +2973,19 @@
 			},
 			"transform": {
 				"position": {
-					"x": 22.563,
-					"y": 2.912,
-					"z": 7.99
+					"x": 22.656,
+					"y": 0.877,
+					"z": 6.065
 				},
 				"rotation": {
 					"x": 0.0,
-					"y": -60.0,
+					"y": 22.666,
 					"z": 0.0
 				},
 				"scale": {
-					"x": 2.0,
-					"y": 2.0,
-					"z": 2.0
+					"x": 4.0,
+					"y": 4.0,
+					"z": 4.0
 				}
 			}
 		},
@@ -2998,35 +2998,35 @@
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
 			"level": 0,
-			"name": "Crate2",
+			"name": "BrownBox2",
 			"server": {
 				"colliders": [
 					{
 						"center": {
-							"x": 0.003,
-							"y": 0.025,
-							"z": 0.004
+							"x": -0.183,
+							"y": 2.056,
+							"z": 0.026
 						},
 						"halfExtents": {
-							"x": 0.994,
-							"y": 0.997,
-							"z": 1.036
+							"x": 0.5,
+							"y": 0.5,
+							"z": 0.506
 						},
 						"isTrigger": false,
 						"orientation": {
 							"forward": {
-								"x": 1.941,
+								"x": 1.748,
 								"y": 0.0,
-								"z": 0.482
+								"z": -3.598
 							},
 							"right": {
-								"x": -0.482,
+								"x": 3.598,
 								"y": 0.0,
-								"z": 1.941
+								"z": 1.748
 							},
 							"up": {
 								"x": 0.0,
-								"y": 2.0,
+								"y": 4.0,
 								"z": 0.0
 							}
 						}
@@ -3037,19 +3037,19 @@
 			},
 			"transform": {
 				"position": {
-					"x": 22.563,
-					"y": 2.912,
-					"z": 2.825
+					"x": 22.656,
+					"y": 0.877,
+					"z": 0.784
 				},
 				"rotation": {
 					"x": 0.0,
-					"y": -103.936,
+					"y": -25.918,
 					"z": 0.0
 				},
 				"scale": {
-					"x": 2.0,
-					"y": 2.0,
-					"z": 2.0
+					"x": 4.0,
+					"y": 4.0,
+					"z": 4.0
 				}
 			}
 		},
@@ -3062,35 +3062,35 @@
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
 			"level": 0,
-			"name": "Crate3",
+			"name": "BrownBox3",
 			"server": {
 				"colliders": [
 					{
 						"center": {
-							"x": 0.003,
-							"y": 0.025,
-							"z": 0.004
+							"x": -0.183,
+							"y": 2.056,
+							"z": 0.026
 						},
 						"halfExtents": {
-							"x": 0.994,
-							"y": 0.997,
-							"z": 1.036
+							"x": 0.5,
+							"y": 0.5,
+							"z": 0.506
 						},
 						"isTrigger": false,
 						"orientation": {
 							"forward": {
-								"x": 1.798,
+								"x": -0.37,
 								"y": 0.0,
-								"z": -0.877
+								"z": -3.983
 							},
 							"right": {
-								"x": 0.877,
+								"x": 3.983,
 								"y": 0.0,
-								"z": 1.798
+								"z": -0.37
 							},
 							"up": {
 								"x": 0.0,
-								"y": 2.0,
+								"y": 4.0,
 								"z": 0.0
 							}
 						}
@@ -3101,19 +3101,19 @@
 			},
 			"transform": {
 				"position": {
-					"x": 22.563,
-					"y": 6.955,
-					"z": 2.825
+					"x": 22.656,
+					"y": 4.891,
+					"z": -0.032
 				},
 				"rotation": {
 					"x": 0.0,
-					"y": -64.001,
+					"y": 5.304,
 					"z": 0.0
 				},
 				"scale": {
-					"x": 2.0,
-					"y": 2.0,
-					"z": 2.0
+					"x": 4.0,
+					"y": 4.0,
+					"z": 4.0
 				}
 			}
 		},
@@ -3126,35 +3126,35 @@
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
 			"level": 0,
-			"name": "Crate4",
+			"name": "BrownBox4",
 			"server": {
 				"colliders": [
 					{
 						"center": {
-							"x": 0.003,
-							"y": 0.025,
-							"z": 0.004
+							"x": -0.183,
+							"y": 2.056,
+							"z": 0.026
 						},
 						"halfExtents": {
-							"x": 0.994,
-							"y": 0.997,
-							"z": 1.036
+							"x": 0.5,
+							"y": 0.5,
+							"z": 0.506
 						},
 						"isTrigger": false,
 						"orientation": {
 							"forward": {
-								"x": 1.789,
+								"x": 0.921,
 								"y": 0.0,
-								"z": -0.893
+								"z": -3.893
 							},
 							"right": {
-								"x": 0.893,
+								"x": 3.893,
 								"y": 0.0,
-								"z": 1.789
+								"z": 0.921
 							},
 							"up": {
 								"x": 0.0,
-								"y": 2.0,
+								"y": 4.0,
 								"z": 0.0
 							}
 						}
@@ -3165,19 +3165,19 @@
 			},
 			"transform": {
 				"position": {
-					"x": 22.563,
-					"y": 2.912,
-					"z": -3.1
+					"x": 25.408,
+					"y": 0.877,
+					"z": -3.266
 				},
 				"rotation": {
 					"x": 0.0,
-					"y": -63.475,
+					"y": -13.313,
 					"z": 0.0
 				},
 				"scale": {
-					"x": 2.0,
-					"y": 2.0,
-					"z": 2.0
+					"x": 4.0,
+					"y": 4.0,
+					"z": 4.0
 				}
 			}
 		},
@@ -3190,35 +3190,35 @@
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
 			"level": 0,
-			"name": "Crate5",
+			"name": "BrownBox7",
 			"server": {
 				"colliders": [
 					{
 						"center": {
-							"x": 0.003,
-							"y": 0.025,
-							"z": 0.004
+							"x": -0.183,
+							"y": 2.056,
+							"z": 0.026
 						},
 						"halfExtents": {
-							"x": 0.994,
-							"y": 0.997,
-							"z": 1.036
+							"x": 0.5,
+							"y": 0.5,
+							"z": 0.506
 						},
 						"isTrigger": false,
 						"orientation": {
 							"forward": {
-								"x": 1.984,
+								"x": 0.072,
 								"y": 0.0,
-								"z": -0.253
+								"z": -3.999
 							},
 							"right": {
-								"x": 0.253,
+								"x": 3.999,
 								"y": 0.0,
-								"z": 1.984
+								"z": 0.072
 							},
 							"up": {
 								"x": 0.0,
-								"y": 2.0,
+								"y": 4.0,
 								"z": 0.0
 							}
 						}
@@ -3229,19 +3229,19 @@
 			},
 			"transform": {
 				"position": {
-					"x": 22.563,
-					"y": 6.955,
-					"z": -3.1
+					"x": 21.978,
+					"y": 0.877,
+					"z": -5.355
 				},
 				"rotation": {
 					"x": 0.0,
-					"y": -82.741,
+					"y": -1.029,
 					"z": 0.0
 				},
 				"scale": {
-					"x": 2.0,
-					"y": 2.0,
-					"z": 2.0
+					"x": 4.0,
+					"y": 4.0,
+					"z": 4.0
 				}
 			}
 		},
@@ -3254,35 +3254,35 @@
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
 			"level": 0,
-			"name": "Crate6",
+			"name": "BrownBox5",
 			"server": {
 				"colliders": [
 					{
 						"center": {
-							"x": 0.003,
-							"y": 0.025,
-							"z": 0.004
+							"x": -0.183,
+							"y": 2.056,
+							"z": 0.026
 						},
 						"halfExtents": {
-							"x": 0.994,
-							"y": 0.997,
-							"z": 1.036
+							"x": 0.5,
+							"y": 0.5,
+							"z": 0.506
 						},
 						"isTrigger": false,
 						"orientation": {
 							"forward": {
-								"x": 1.119,
+								"x": 1.394,
 								"y": 0.0,
-								"z": -1.658
+								"z": -3.749
 							},
 							"right": {
-								"x": 1.658,
+								"x": 3.749,
 								"y": 0.0,
-								"z": 1.119
+								"z": 1.394
 							},
 							"up": {
 								"x": 0.0,
-								"y": 2.0,
+								"y": 4.0,
 								"z": 0.0
 							}
 						}
@@ -3293,19 +3293,83 @@
 			},
 			"transform": {
 				"position": {
-					"x": 22.563,
-					"y": 11.014,
-					"z": -3.1
+					"x": 22.656,
+					"y": 4.893,
+					"z": -4.82
 				},
 				"rotation": {
 					"x": 0.0,
-					"y": -34.016,
+					"y": -20.394,
 					"z": 0.0
 				},
 				"scale": {
-					"x": 2.0,
-					"y": 2.0,
-					"z": 2.0
+					"x": 4.0,
+					"y": 4.0,
+					"z": 4.0
+				}
+			}
+		},
+		{
+			"_id": 39,
+			"active": true,
+			"client": {
+				"fragShaderPath": "../resources/shaders/material.frag",
+				"modelPath": "../resources/objects/box/BrownBox.obj",
+				"vertShaderPath": "../resources/shaders/material.vert"
+			},
+			"level": 0,
+			"name": "BrownBox6",
+			"server": {
+				"colliders": [
+					{
+						"center": {
+							"x": -0.183,
+							"y": 2.056,
+							"z": 0.026
+						},
+						"halfExtents": {
+							"x": 0.5,
+							"y": 0.5,
+							"z": 0.506
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": -2.336,
+								"y": 0.0,
+								"z": -3.247
+							},
+							"right": {
+								"x": 3.247,
+								"y": 0.0,
+								"z": -2.336
+							},
+							"up": {
+								"x": 0.0,
+								"y": 4.0,
+								"z": 0.0
+							}
+						}
+					}
+				],
+				"interaction": "NONE",
+				"static": true
+			},
+			"transform": {
+				"position": {
+					"x": 22.465,
+					"y": 8.907,
+					"z": -3.326
+				},
+				"rotation": {
+					"x": 0.0,
+					"y": 35.735,
+					"z": 0.0
+				},
+				"scale": {
+					"x": 4.0,
+					"y": 4.0,
+					"z": 4.0
 				}
 			}
 		}
