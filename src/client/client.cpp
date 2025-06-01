@@ -205,7 +205,7 @@ void Client::idleCallback(float deltaTime) {
     }
     }
   }
-  
+
   UIManager::updateMenu(mouseX, mouseY, windowWidth, windowHeight, deltaTime,
                         game->state);
 

@@ -25,7 +25,7 @@ OBJECT_ID Level::getReward() {
 }
 
 void LevelManager::addObject(LEVEL_ID levelID, OBJECT_ID objectID,
-                            GameObject *object) {
+                             GameObject *object) {
   levelObjects[levelID][objectID] = object;
 }
 

@@ -43,7 +43,7 @@ public:
   void updateMovement(PLAYER_ID id, MovementType type);
   void updateRotation(PLAYER_ID id, glm::vec3 rotation);
   void updateInteraction(PLAYER_ID id);
-    bool updateKeypadInput(OBJECT_ID id, vector<int> inputSequence, bool close);
+  bool updateKeypadInput(OBJECT_ID id, vector<int> inputSequence, bool close);
   bool updateLevelManager();
   void applyPhysics();
 

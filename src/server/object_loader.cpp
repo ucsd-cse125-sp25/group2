@@ -81,12 +81,12 @@ unordered_map<int, unique_ptr<GameObject>> ObjectLoader::loadObjects() {
             }
           }
           obj = make_unique<KeypadObject>(objectId, base.level, base.active,
-                                      base.originalPosition, base.transform, rb,
-                                      cl, correctSequence);
+                                          base.originalPosition, base.transform,
+                                          rb, cl, correctSequence);
         } else {
           obj = make_unique<GameObject>(objectId, base.level, base.active,
-                                      base.originalPosition, base.transform, rb,
-                                      cl);
+                                        base.originalPosition, base.transform,
+                                        rb, cl);
         }
 
         if (server.contains("interaction")) {
