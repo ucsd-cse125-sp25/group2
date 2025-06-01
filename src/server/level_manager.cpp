@@ -24,6 +24,16 @@ OBJECT_ID Level::getReward() {
   return val;
 }
 
+void LevelManager::addObject(LEVEL_ID levelID, OBJECT_ID objectID,
+                            GameObject *object) {
+  levelObjects[levelID][objectID] = object;
+}
+
+void LevelManager::addLevel(LEVEL_ID id, unique_ptr<Level> level) {
+  levels[id] = move(level);
+  numLevels++;
+}
+
 void LevelManager::loadJSON() {
   ifstream file(PUZZLE_PATH);
   if (!file.is_open()) {

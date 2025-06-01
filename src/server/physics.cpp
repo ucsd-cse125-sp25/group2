@@ -11,15 +11,11 @@ void Physics::calculateForces() {
     if (obj->getRigidBody()->isStatic() || !obj->isActive())
       continue;
 
-    glm::vec3 vel = obj->getRigidBody()->getVelocity();
     glm::vec3 force = glm::vec3(0);
 
     if (!obj->isGrounded()) {
       if (obj->hasGravity())
         force += obj->getRigidBody()->getMass() * gravity;
-      if (glm::dot(vel, vel) > 0.001f)
-        force += 0.5f * density * glm::dot(vel, vel) * drag *
-                 obj->getRigidBody()->getArea() * -1.0f * glm::normalize(vel);
     }
     obj->getRigidBody()->applyForce(force);
   }
@@ -72,17 +68,17 @@ void Physics::resolveCollisions() {
           // if intersects, add both objects to the list of updated objects
           updatedObjects.insert(a->getId());
           updatedObjects.insert(b->getId());
-          for (int i = 1; i < a->getCollider().size(); i++) {
-            for (int j = 1; j < b->getCollider().size(); j++) {
+          for (int i = 0; i < a->getCollider().size(); i++) {
+            for (int j = 0; j < b->getCollider().size(); j++) {
               solveCollision(a, b, i, j, groundedStates[a], groundedStates[b]);
             }
           }
         }
       }
     }
-  }
-  for (auto &[obj, isGrounded] : groundedStates) {
-    obj->setGrounded(isGrounded);
+    for (auto &[obj, isGrounded] : groundedStates) {
+      obj->setGrounded(isGrounded);
+    }
   }
 }
 
@@ -104,6 +100,9 @@ void Physics::solveCollision(GameObject *a, GameObject *b, int aIndex,
         bCol->setWithinTrigger(true);
       return;
     }
+
+    updatedObjects.insert(a->getId());
+    updatedObjects.insert(b->getId());
 
     // Check if the object is at rest (grounded)
     float groundThreshold = 0.7f;
@@ -139,10 +138,25 @@ void Physics::solveCollision(GameObject *a, GameObject *b, int aIndex,
     if (massSum > 0) {
       glm::vec3 correction =
           max(penetration - slop, 0.0f) / massSum * percent * normal;
-      if (!a_rb->isStatic())
+      float sheepBounce = 4.0f;
+      if (!a_rb->isStatic()) {
         a->getTransform()->updatePosition(-correction * invMassA);
-      if (!b_rb->isStatic())
+        if (b->getId() == SHEEP && normal.y < -0.7) {
+          a_rb->applyImpulse(sheepBounce * glm::vec3(0, 1, 0));
+        }
+        for (Collider *c : a->getCollider()) {
+          c->update(a->getTransform());
+        }
+      }
+      if (!b_rb->isStatic()) {
         b->getTransform()->updatePosition(correction * invMassB);
+        if (a->getId() == SHEEP && normal.y > 0.7) {
+          b_rb->applyImpulse(sheepBounce * glm::vec3(0, 1, 0));
+        }
+        for (Collider *c : b->getCollider()) {
+          c->update(b->getTransform());
+        }
+      }
     }
   }
 }
@@ -178,7 +192,7 @@ void Physics::moveObjects(float deltaTime) {
       c->update(tf);
     }
     rb->setForce(glm::vec3(0.0f));
-    rb->setVelocity(glm::vec3(0.0f, vel.y, 0.0f));
+    rb->setVelocity(glm::vec3(0, vel.y, 0));
 
     // if object has moved, add it to the updated objects list
     if (glm::length(pos - lastPos) > 0.0001f)

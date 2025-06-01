@@ -36,6 +36,9 @@ bool Client::init() {
   // Window settings
   glfwWindowHint(GLFW_RESIZABLE, GL_TRUE);
   glfwWindowHint(GLFW_DECORATED, GL_TRUE);
+#ifdef __APPLE__
+  glfwWindowHint(GLFW_MAXIMIZED, GLFW_TRUE);
+#endif
 
   // Create the GLFW window
   window = glfwCreateWindow(windowWidth, windowHeight, "Barnyard Breakout",
@@ -48,11 +51,14 @@ bool Client::init() {
 
   glfwMakeContextCurrent(window);
 
+  // Only initialize GLEW on non-Apple platforms
+#ifndef __APPLE__
   GLenum err = glewInit();
   if (err != GLEW_OK) {
     cerr << "GLEW initialization failed: " << glewGetErrorString(err) << endl;
     return false;
   }
+#endif
 
   return true;
 }
@@ -108,6 +114,17 @@ bool Client::initUI() {
     CharacterSelectPacket packet(COW, net->getId());
     net->send(packet);
   });
+  UIManager::keypad->setOnInputCallback(
+      [net = network.get()](OBJECT_ID id, int index) {
+        KeypadInputPacket packet(id, net->getId(),
+                                 UIManager::keypad->inputSequence, false);
+        net->send(packet);
+      });
+  UIManager::keypad->setCloseCallback([net = network.get()](OBJECT_ID id) {
+    KeypadInputPacket packet(id, net->getId(), UIManager::keypad->inputSequence,
+                             true);
+    net->send(packet);
+  });
   return true;
 }
 
@@ -127,6 +144,7 @@ void Client::idleCallback(float deltaTime) {
     switch (packet->getType()) {
     case PacketType::INIT: {
       auto initPacket = dynamic_cast<InitPacket *>(packet.get());
+      cout << "Received INIT packet with ID: " << initPacket->id << endl;
       network->setId(initPacket->id);
       characterManager->setID(initPacket->id);
       break;
@@ -154,6 +172,7 @@ void Client::idleCallback(float deltaTime) {
           dynamic_cast<CharacterResponsePacket *>(packet.get());
       characterManager->setCharacters(characterPacket->characterAssignments);
       PLAYER_ID character = characterManager->selectedCharacter;
+      game->setPlayer(character);
       cam->setRadius(cam->getCameraRadius(
           character)); // Set camera radius based on character
       break;
@@ -168,16 +187,29 @@ void Client::idleCallback(float deltaTime) {
       OBJECT_ID id = activatePacket->id;
       game->getObject(id)->activate();
       break;
-    } break;
+    }
+    case PacketType::KEYPAD: {
+      auto keypadPacket = dynamic_cast<KeypadPacket *>(packet.get());
+      UIManager::keypad->setObjectID(keypadPacket->id);
+      UIManager::keypad->display = keypadPacket->display;
+      cout << "Keypad display: " << keypadPacket->display << endl;
+      if (keypadPacket->display) {
+        glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+        glfwSetInputMode(window, GLFW_RAW_MOUSE_MOTION, GLFW_FALSE);
+      } else {
+        glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+        glfwSetInputMode(window, GLFW_RAW_MOUSE_MOTION, GLFW_TRUE);
+      }
+      UIManager::keypad->setUnlocked(keypadPacket->unlocked);
+      break;
+    }
     }
   }
-  if (game->state == Gamestate::STARTSCREEN ||
-      game->state == Gamestate::MAINMENU) {
-    UIManager::updateMenu(mouseX, mouseY, windowWidth, windowHeight, deltaTime,
-                          game->state);
-  }
+  
+  UIManager::updateMenu(mouseX, mouseY, windowWidth, windowHeight, deltaTime,
+                        game->state);
 
-  if (game->state == Gamestate::GAME) {
+  if (game->state == Gamestate::GAME && !UIManager::keypad->display) {
     cam->update(xOffset, yOffset, game->getPlayer()->getPosition());
     xOffset = 0.0f;
     yOffset = 0.0f;
@@ -189,10 +221,7 @@ void Client::displayCallback(GLFWwindow *window) {
   // Clear the color and depth buffers
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-  if (game->state == Gamestate::STARTSCREEN ||
-      game->state == Gamestate::MAINMENU) {
-    UIManager::drawMenu(game->state);
-  }
+  UIManager::drawMenu(game->state);
 
   // Draw objects
   if (game->state == Gamestate::GAME) {
@@ -305,7 +334,7 @@ void Client::mouseCallback(GLFWwindow *window, double xPos, double yPos) {
 
 void Client::mouseButtonCallback(GLFWwindow *window, int button, int action,
                                  int mods) {
-  if (game->state != Gamestate::GAME)
+  if (game->state != Gamestate::GAME || UIManager::keypad->display)
     return;
   if (action == GLFW_PRESS) {
     if (button == GLFW_MOUSE_BUTTON_LEFT) {
@@ -320,12 +349,16 @@ void Client::mouseButtonCallback(GLFWwindow *window, int button, int action,
         // Show the cursor
         isCursorHidden = false;
         glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+#ifndef __APPLE__
         glfwSetInputMode(window, GLFW_RAW_MOUSE_MOTION, GLFW_FALSE);
+#endif
       } else {
         // Hide the cursor
         isCursorHidden = true;
         glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+#ifndef __APPLE__
         glfwSetInputMode(window, GLFW_RAW_MOUSE_MOTION, GLFW_TRUE);
+#endif
       }
     }
   }

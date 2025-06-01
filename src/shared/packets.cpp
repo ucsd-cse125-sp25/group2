@@ -97,6 +97,32 @@ ActivatePacket ActivatePacket::deserialize(const vector<char> &payload) {
   return packet;
 }
 
+vector<char> KeypadPacket::serialize() const {
+  vector<char> buffer(sizeof(OBJECT_ID) + 2 * sizeof(bool));
+  unsigned long size = 0;
+  memcpy(buffer.data(), &id, sizeof(OBJECT_ID));
+  size += sizeof(OBJECT_ID);
+  memcpy(buffer.data() + size, &display, sizeof(bool));
+  size += sizeof(bool);
+  memcpy(buffer.data() + size, &unlocked, sizeof(bool));
+  return buffer;
+}
+
+KeypadPacket KeypadPacket::deserialize(const vector<char> &payload) {
+  OBJECT_ID id;
+  bool display;
+  bool unlocked;
+
+  unsigned long size = 0;
+  memcpy(&id, payload.data(), sizeof(OBJECT_ID));
+  size += sizeof(OBJECT_ID);
+  memcpy(&display, payload.data() + size, sizeof(bool));
+  size += sizeof(bool);
+  memcpy(&unlocked, payload.data() + size, sizeof(bool));
+  KeypadPacket packet(id, display, unlocked);
+  return packet;
+}
+
 vector<char> MovementPacket::serialize() const {
   vector<char> buffer(sizeof(PLAYER_ID) + sizeof(MovementType) +
                       sizeof(glm::vec3));
@@ -178,6 +204,44 @@ CharacterSelectPacket::deserialize(const vector<char> &payload) {
   return packet;
 }
 
+vector<char> KeypadInputPacket::serialize() const {
+  vector<char> buffer(sizeof(OBJECT_ID) + sizeof(CLIENT_ID) +
+                      inputSequence.size() * sizeof(int) + sizeof(bool));
+  unsigned long size = 0;
+  memcpy(buffer.data(), &objectID, sizeof(OBJECT_ID));
+  size += sizeof(OBJECT_ID);
+  memcpy(buffer.data() + size, &clientID, sizeof(CLIENT_ID));
+  size += sizeof(CLIENT_ID);
+  for (int input : inputSequence) {
+    memcpy(buffer.data() + size, &input, sizeof(int));
+    size += sizeof(int);
+  }
+  memcpy(buffer.data() + size, &close, sizeof(bool));
+  return buffer;
+}
+
+KeypadInputPacket KeypadInputPacket::deserialize(const vector<char> &payload) {
+  OBJECT_ID objectID;
+  CLIENT_ID clientID;
+  vector<int> inputSequence;
+  bool close;
+
+  unsigned long size = 0;
+  memcpy(&objectID, payload.data(), sizeof(OBJECT_ID));
+  size += sizeof(OBJECT_ID);
+  memcpy(&clientID, payload.data() + size, sizeof(CLIENT_ID));
+  size += sizeof(CLIENT_ID);
+  for (int i = 0; i < 4; ++i) {
+    int input;
+    memcpy(&input, payload.data() + size, sizeof(int));
+    inputSequence.push_back(input);
+    size += sizeof(int);
+  }
+  memcpy(&close, payload.data() + size, sizeof(bool));
+  KeypadInputPacket packet(objectID, clientID, inputSequence, close);
+  return packet;
+}
+
 vector<char> DisconnectPacket::serialize() const {
   vector<char> buffer(sizeof(CLIENT_ID));
   memcpy(buffer.data(), &id, sizeof(CLIENT_ID));
@@ -208,6 +272,8 @@ unique_ptr<IPacket> deserialize(PacketType type, vector<char> &payload) {
         LevelChangePacket::deserialize(payload));
   case PacketType::ACTIVATE:
     return make_unique<ActivatePacket>(ActivatePacket::deserialize(payload));
+  case PacketType::KEYPAD:
+    return make_unique<KeypadPacket>(KeypadPacket::deserialize(payload));
   case PacketType::MOVEMENT:
     return make_unique<MovementPacket>(MovementPacket::deserialize(payload));
   case PacketType::ROTATION:
@@ -218,6 +284,9 @@ unique_ptr<IPacket> deserialize(PacketType type, vector<char> &payload) {
   case PacketType::CHARACTERSELECT:
     return make_unique<CharacterSelectPacket>(
         CharacterSelectPacket::deserialize(payload));
+  case PacketType::KEYPADINPUT:
+    return make_unique<KeypadInputPacket>(
+        KeypadInputPacket::deserialize(payload));
   case PacketType::DISCONNECT:
     return make_unique<DisconnectPacket>(
         DisconnectPacket::deserialize(payload));

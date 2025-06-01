@@ -55,6 +55,8 @@ void GameServer::updateGameState() {
     switch (packet->getType()) {
     case PacketType::MOVEMENT: {
       auto movementPacket = static_cast<MovementPacket *>(packet.get());
+      // game->updateMovement(movementPacket->id,
+      // movementPacket->movementType,movementPacket->cameraFront));
       game->updateMovement(movementPacket->id, movementPacket->movementType);
       break;
     }
@@ -80,6 +82,18 @@ void GameServer::updateGameState() {
       // }
       break;
     }
+    case PacketType::KEYPADINPUT: {
+      auto keypadPacket = static_cast<KeypadInputPacket *>(packet.get());
+      bool unlocked = game->updateKeypadInput(keypadPacket->objectID,
+                                              keypadPacket->inputSequence,
+                                              keypadPacket->close);
+      if (!keypadPacket->close) {
+        network->sendToClient(
+            keypadPacket->clientID,
+            KeypadPacket(keypadPacket->objectID, !unlocked, unlocked));
+      }
+      break;
+    }
     }
   }
   game->applyPhysics();
@@ -90,11 +104,22 @@ void GameServer::dispatchUpdates() {
   vector<OBJECT_ID> updatedObjects = game->getLastUpdatedObjects();
   for (int i = 0; i < updatedObjects.size(); i++) {
     GameObject *obj = game->getObject(updatedObjects[i]);
-    ObjectPacket objPacket = ObjectPacket(
-        obj->getId(),
-        Transform(obj->getPosition(), obj->getRotation(), obj->getScale()),
-        obj->isActive());
-    network->sendToAll(objPacket);
+    if (obj->getInteractionType() == InteractionType::KEYPAD) {
+      auto keypadObject = dynamic_cast<KeypadObject *>(obj);
+      if (keypadObject && keypadObject->clientUsing != -1 &&
+          !keypadObject->opened) {
+        network->sendToClient(
+            keypadObject->clientUsing,
+            KeypadPacket(keypadObject->getId(), true, keypadObject->unlocked));
+        keypadObject->opened = true;
+      }
+    } else {
+      ObjectPacket objPacket = ObjectPacket(
+          obj->getId(),
+          Transform(obj->getPosition(), obj->getRotation(), obj->getScale()),
+          obj->isActive());
+      network->sendToAll(objPacket);
+    }
   }
 
   // If a puzzle is completed, send reward object

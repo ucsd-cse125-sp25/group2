@@ -8,8 +8,6 @@ bool ClientGameState::init() {
     auto object = obj.second.get();
     levelObjects[object->getLevelID()][id] = object;
   }
-  // player kind of hardcoded for now, later with character selection
-  player = getObject(0);
   state = Gamestate::STARTSCREEN;
   return true;
 }

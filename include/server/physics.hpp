@@ -4,6 +4,7 @@
 #include "server_gameobject.hpp"
 
 #include <algorithm>
+#include <unordered_map>
 #include <unordered_set>
 #include <vector>
 
@@ -22,7 +23,8 @@ struct Collision {
 class Physics {
 private:
   vector<GameObject *> objects;
-  const glm::vec3 gravity = glm::vec3(0, -9.8, 0);
+  // Increase gravity for faster falling
+  const glm::vec3 gravity = glm::vec3(0, -20, 0);
   const float density = 1.225f;
   const float drag = 1.05f;
   const float damping = 0.98f;

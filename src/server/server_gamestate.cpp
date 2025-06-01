@@ -30,6 +30,7 @@ CLIENT_ID *ServerGameState::updateCharacters(PLAYER_ID playerID,
 
 void ServerGameState::updateMovement(PLAYER_ID id, MovementType type) {
   auto player = getObject(id);
+  vector<OBJECT_ID> movedObjects;
   if (player) {
     // Find the direction of movement based on the player's facing direction
     glm::vec3 playerFront = player->getTransform()->getForward();
@@ -60,7 +61,8 @@ void ServerGameState::updateMovement(PLAYER_ID id, MovementType type) {
       cerr << "Unknown movement type" << endl;
       break;
     }
-    updatedObjectIds.insert(id);
+    for (auto id : movedObjects)
+      updatedObjectIds.insert(id);
   }
 }
 
@@ -79,7 +81,10 @@ void ServerGameState::updateInteraction(PLAYER_ID id) {
   float minDistance = numeric_limits<float>::max();
 
   auto player = getObject(id);
-  glm::vec3 rayOrigin = player->getTransform()->getPosition();
+  glm::vec3 rayOrigin =
+      player->getCollider()[0]
+          ->getCenter(); // use collider center instead since it is placed at
+                         // the center of the player
   glm::vec3 rayDirection = glm::normalize(player->getTransform()->getForward());
 
   // Only need to iterate through the interactable objects
@@ -129,10 +134,10 @@ void ServerGameState::updateInteraction(PLAYER_ID id) {
     playerLogic->dropObject(player, heldObject);
     cout << "Dropped object: " << heldObject->getId() << endl;
     playerLogic->setHeldObject(id, nullptr);
-  }
+    updatedObjectIds.insert(closestObjectID);
 
-  // If an interactable object was clicked
-  else if (closestObjectID != -1) {
+  } else if (closestObjectID != -1) {
+
     // If interaction type is pickup and player is not holding an object
     if (closestObject->getInteractionType() == InteractionType::PICKUP &&
         heldObject == nullptr) {
@@ -145,7 +150,46 @@ void ServerGameState::updateInteraction(PLAYER_ID id) {
       closestObject->press();
       cout << "Pressed object: " << closestObjectID << endl;
     }
+
+    if (closestObject->getInteractionType() == InteractionType::KEYPAD &&
+        id == PIG) {
+      auto keypadObject = dynamic_cast<KeypadObject *>(closestObject);
+      cout << "Interacting with KeypadObject: " << keypadObject->getId()
+           << endl;
+      if (keypadObject) {
+        keypadObject->clientUsing = playerLogic->getClient(id);
+        updatedObjectIds.insert(closestObjectID);
+        cout << "client: " << keypadObject->clientUsing
+             << " is now using keypad" << endl;
+      }
+    }
   }
+}
+
+bool ServerGameState::updateKeypadInput(OBJECT_ID id, vector<int> inputSequence,
+                                        bool close) {
+  auto keypadObject = dynamic_cast<KeypadObject *>(getObject(id));
+  if (keypadObject) {
+    if (close) {
+      keypadObject->clientUsing = -1;
+      keypadObject->opened = false;
+      return true; // Doesn't matter the return type
+    }
+    if (keypadObject->checkSequence(inputSequence)) {
+      cout << "Keypad ID: " << id << " unlocked!" << endl;
+      return true;
+    } else {
+      cout << "Keypad ID: " << id << " Input: ";
+      for (int i = 0; i < inputSequence.size(); ++i) {
+        cout << inputSequence[i];
+        cout << " ";
+      }
+      cout << " is incorrect." << endl;
+    }
+  } else {
+    cerr << "KeypadObject with id " << id << " not found" << endl;
+  }
+  return false;
 }
 
 bool ServerGameState::updateLevelManager() {

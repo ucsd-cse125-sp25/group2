@@ -17,11 +17,11 @@ public:
             glm::vec3 scl = glm::vec3(1, 1, 1));
 
   glm::vec3 getPosition() const { return position; }
-  glm::vec3 getRotation() const { return rotation; };
-  glm::vec3 getScale() const { return scale; };
+  glm::vec3 getRotation() const { return rotation; }
+  glm::vec3 getScale() const { return scale; }
   glm::vec3 getForward() const { return forward; }
-  glm::vec3 getUp() const { return up; };
-  glm::vec3 getRight() const { return right; };
+  glm::vec3 getUp() const { return up; }
+  glm::vec3 getRight() const { return right; }
 
   void setPosition(glm::vec3 pos) { position = pos; }
   void setRotation(glm::vec3 rot) {

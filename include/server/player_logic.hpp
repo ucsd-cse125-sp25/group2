@@ -8,12 +8,16 @@
 
 using namespace std;
 
+#define SHEEP_MAX_JUMPS 2
+
 class PlayerLogic {
 private:
   // Movement properties
   float speed;
+  int sheepJumps;
   float jumpForce;
   float glideFallSpeed;
+  bool sheepDoubleJump = false;
 
   // Interaction properties
   unordered_map<PLAYER_ID, GameObject *>

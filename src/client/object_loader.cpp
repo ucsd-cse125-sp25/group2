@@ -32,12 +32,6 @@ unordered_map<int, unique_ptr<GameObject>> ObjectLoader::loadObjects() {
         auto vertShaderPath = client.value("vertShaderPath", "");
         auto fragShaderPath = client.value("fragShaderPath", "");
 
-// If MacOS - turn everything into cube
-#ifdef __APPLE__
-        modelPath = "../resources/objects/cube/Cube.obj";
-        vertShaderPath = "../resources/shaders/shader.vert";
-        fragShaderPath = "../resources/shaders/shader.frag";
-#endif
         obj->setModel(make_unique<Model>(modelPath.c_str()));
         obj->setShader(make_unique<Shader>(vertShaderPath.c_str(),
                                            fragShaderPath.c_str()));
