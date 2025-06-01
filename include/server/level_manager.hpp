@@ -23,12 +23,14 @@ private:
   LEVEL_ID level;
   NUM_PUZZLE numMilestones;
   PUZZLE_ID currentMilestone;
-  unordered_map<PUZZLE_ID, unique_ptr<Puzzle>> clues; // puzzles that provide clues or guidance
-  unordered_map<PUZZLE_ID, unique_ptr<Puzzle>> milestones;  // puzzles that must be completed to advance the level
+  unordered_map<PUZZLE_ID, unique_ptr<Puzzle>>
+      clues; // puzzles that provide clues or guidance
+  unordered_map<PUZZLE_ID, unique_ptr<Puzzle>>
+      milestones; // puzzles that must be completed to advance the level
   vector<pair<RewardType, vector<OBJECT_ID>>> rewards;
 
 public:
-  Level(LEVEL_ID id) : level(id), numMilestones(0), currentMilestone(0) {};
+  Level(LEVEL_ID id) : level(id), numMilestones(0), currentMilestone(0){};
   void addCluePuzzle(PUZZLE_ID id, unique_ptr<Puzzle> puzzle);
   void addMilestonePuzzle(unique_ptr<Puzzle> puzzle);
   bool isLevelComplete();
@@ -44,7 +46,7 @@ private:
   unordered_map<LEVEL_ID, unique_ptr<Level>> levels;
 
 public:
-  LevelManager(): currentLevel(nullptr), currentLevelID(0), numLevels(0) {}
+  LevelManager() : currentLevel(nullptr), currentLevelID(0), numLevels(0) {}
 
   void addObject(LEVEL_ID levelID, OBJECT_ID objectID, GameObject *object);
   void addLevel(LEVEL_ID id, unique_ptr<Level> level);

@@ -121,7 +121,8 @@ void GameServer::dispatchUpdates() {
   }
 
   // If a puzzle is completed, send reward object
-  vector<pair<RewardType, vector<OBJECT_ID>>> rewards = game->getRewardObjects();
+  vector<pair<RewardType, vector<OBJECT_ID>>> rewards =
+      game->getRewardObjects();
   for (const auto &reward : rewards) {
     RewardType rewardType = reward.first;
     const vector<OBJECT_ID> &rewardObjectIDs = reward.second;

@@ -10,7 +10,8 @@ void Level::addMilestonePuzzle(unique_ptr<Puzzle> puzzle) {
 }
 
 bool Level::isLevelComplete() {
-  // loop through all clue puzzles, if complete dispatch reward (activate or deactivate)
+  // loop through all clue puzzles, if complete dispatch reward (activate or
+  // deactivate)
   for (const auto &cluePair : clues) {
     auto clue = cluePair.second.get();
     if (clue->isPuzzleComplete()) {
@@ -18,8 +19,8 @@ bool Level::isLevelComplete() {
     }
   }
 
-  // loop through milestones, which are puzzles that must be completed for the level to be complete
-  // milestone puzzles have specific order of completion
+  // loop through milestones, which are puzzles that must be completed for the
+  // level to be complete milestone puzzles have specific order of completion
   Puzzle *milestone = nullptr;
   if (currentMilestone < numMilestones) {
     milestone = milestones[currentMilestone].get();
@@ -71,8 +72,7 @@ void LevelManager::loadJSON() {
           PUZZLE_ID puzzleID = puzzleData["puzzleID"].get<int>();
 
           string rewardTypeStr = puzzleData["rewardType"].get<string>();
-          auto rewardTypeVal =
-              magic_enum::enum_cast<RewardType>(rewardTypeStr);
+          auto rewardTypeVal = magic_enum::enum_cast<RewardType>(rewardTypeStr);
           RewardType rewardType = rewardTypeVal.value_or(RewardType::NONE);
 
           vector<OBJECT_ID> rewardIDs;
@@ -80,8 +80,9 @@ void LevelManager::loadJSON() {
             rewardIDs.push_back(rewardID.get<int>());
           }
 
-          unique_ptr<Puzzle> newPuzzle = make_unique<Puzzle>(rewardType, rewardIDs);
-          
+          unique_ptr<Puzzle> newPuzzle =
+              make_unique<Puzzle>(rewardType, rewardIDs);
+
           if (puzzleData.contains("conditions") &&
               puzzleData["conditions"].is_array()) {
             for (const auto &conditionData : puzzleData["conditions"]) {
@@ -97,7 +98,8 @@ void LevelManager::loadJSON() {
                 ConditionType conditionType = conditionVal.value();
                 switch (conditionType) {
                 case ConditionType::PRESSURE_PLATE: {
-                  OBJECT_ID triggeringObjectID = conditionData["triggeringObjectID"].get<int>();
+                  OBJECT_ID triggeringObjectID =
+                      conditionData["triggeringObjectID"].get<int>();
                   condition = make_unique<PressurePlateCondition>(
                       object, triggeringObjectID);
                   break;
@@ -117,8 +119,8 @@ void LevelManager::loadJSON() {
           if (puzzleType == "milestone") {
             newLevel->addMilestonePuzzle(move(newPuzzle));
           } else if (puzzleType == "clue") {
-              newLevel->addCluePuzzle(puzzleID, move(newPuzzle));
-              break;
+            newLevel->addCluePuzzle(puzzleID, move(newPuzzle));
+            break;
           }
         }
       }

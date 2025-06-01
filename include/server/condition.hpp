@@ -10,6 +10,7 @@ enum class ConditionType { PRESSURE_PLATE, BUTTON, PIN };
 class PuzzleCondition {
 protected:
   GameObject *object;
+
 public:
   PuzzleCondition(GameObject *obj) : object(obj) {}
   virtual bool isSatisfied() const = 0;

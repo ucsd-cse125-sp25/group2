@@ -235,6 +235,7 @@ vector<OBJECT_ID> ServerGameState::getLastUpdatedObjects() {
   return list;
 }
 
-vector<pair<RewardType, vector<OBJECT_ID>>> ServerGameState::getRewardObjects() {
+vector<pair<RewardType, vector<OBJECT_ID>>>
+ServerGameState::getRewardObjects() {
   return rewards;
 }

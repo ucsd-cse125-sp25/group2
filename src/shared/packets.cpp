@@ -287,7 +287,8 @@ unique_ptr<IPacket> deserialize(PacketType type, vector<char> &payload) {
   case PacketType::ACTIVATE:
     return make_unique<ActivatePacket>(ActivatePacket::deserialize(payload));
   case PacketType::DEACTIVATE:
-    return make_unique<DeactivatePacket>(DeactivatePacket::deserialize(payload));
+    return make_unique<DeactivatePacket>(
+        DeactivatePacket::deserialize(payload));
   case PacketType::KEYPAD:
     return make_unique<KeypadPacket>(KeypadPacket::deserialize(payload));
   case PacketType::MOVEMENT:
