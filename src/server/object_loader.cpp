@@ -41,11 +41,6 @@ unordered_map<OBJECT_ID, unique_ptr<GameObject>> ObjectLoader::loadObjects() {
           rb->setMass(m);
         }
 
-        if (server.contains("onlyCowCanMove")) {
-          bool canMove = server["onlyCowCanMove"].get<bool>();
-          rb->setCowCanMove(canMove);
-        }
-
         auto cl = vector<Collider *>();
         if (server.contains("colliders") && server["colliders"].is_array()) {
           for (const auto &clData : server["colliders"]) {

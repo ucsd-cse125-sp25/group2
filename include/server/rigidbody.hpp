@@ -12,8 +12,6 @@ private:
   float area;
   bool staticObject;
 
-  bool onlyCowCanMove = false;
-
 public:
   RigidBody(glm::vec3 v = glm::vec3(0), glm::vec3 f = glm::vec3(0), float m = 1)
       : velocity(v), force(f), mass(m) {
@@ -27,7 +25,6 @@ public:
   void setMass(float m) { mass = m; }
   void setArea(float a) { area = a; }
   void setStatic(bool isStatic) { staticObject = isStatic; }
-  void setCowCanMove(bool canMove) { onlyCowCanMove = canMove; }
 
   void applyForce(glm::vec3 f) { force += f; }
   void applyImpulse(glm::vec3 i) { velocity += i / mass; }
@@ -39,5 +36,4 @@ public:
   float getRestitution() { return restitution; }
   float getFriction() { return friction; }
   bool isStatic() { return staticObject; }
-  bool canOnlyCowMove() { return onlyCowCanMove; }
 };

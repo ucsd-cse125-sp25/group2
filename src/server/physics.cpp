@@ -98,12 +98,9 @@ void Physics::solveCollision(GameObject *a, GameObject *b, int aIndex,
     glm::vec3 b_vel = b_rb->getVelocity();
     float restitution = min(a_rb->getRestitution(), b_rb->getRestitution());
 
-    // If object can only be moved by cow, check if colliding object is a
-    // different player
-    bool aIsStatic =
-        (a_rb->canOnlyCowMove() && b->getId() < COW) ? true : a_rb->isStatic();
-    bool bIsStatic =
-        (b_rb->canOnlyCowMove() && a->getId() < COW) ? true : b_rb->isStatic();
+    // Objects cannot be moved by any player except for a cow
+    bool aIsStatic = b->getId() < COW ? true : a_rb->isStatic();
+    bool bIsStatic = a->getId() < COW ? true : b_rb->isStatic();
 
     float invMassA = aIsStatic ? 0.0f : 1.0f / a_rb->getMass();
     float invMassB = bIsStatic ? 0.0f : 1.0f / b_rb->getMass();

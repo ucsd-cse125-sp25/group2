@@ -2712,7 +2712,6 @@
 						}
 					}
 				],
-				"onlyCowCanMove": true,
 				"interaction": "NONE",
 				"static": false
 			},
