@@ -207,6 +207,7 @@ void Client::idleCallback(float deltaTime) {
       auto notePacket = dynamic_cast<NotePacket *>(packet.get());
       cout << "displaying note with ID: " << notePacket->id << endl;
       game->displayNote(notePacket->id);
+      display = notePacket->id; // Store the note ID to display
       break;
     }
     }
@@ -232,6 +233,11 @@ void Client::displayCallback(GLFWwindow *window) {
   // Draw objects
   if (game->state == Gamestate::GAME) {
     game->draw(cam->getViewProj(), cam->getPos());
+  }
+
+  if (display != 0) {
+    game->displayNote(display);
+    // display = 0; // Reset display after showing the note
   }
 
   // Main render display callback. Rendering of objects is done here

@@ -170,8 +170,9 @@ struct KeypadInputPacket : public IPacket {
 
 struct NotePacket : public IPacket {
   OBJECT_ID id;
+  bool isPickingUp;
 
-  NotePacket(OBJECT_ID objectID) : id(objectID) {}
+  NotePacket(OBJECT_ID objectID, bool pickup) : id(objectID), pickup(pickup) {}
   PacketType getType() const override { return PacketType::NOTE; }
   vector<char> serialize() const override;
   static NotePacket deserialize(const vector<char> &payload);

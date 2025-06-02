@@ -243,8 +243,11 @@ KeypadInputPacket KeypadInputPacket::deserialize(const vector<char> &payload) {
 }
 
 vector<char> NotePacket::serialize() const {
-  vector<char> buffer(sizeof(OBJECT_ID));
+  unsigned long size = 0;
+  vector<char> buffer(sizeof(OBJECT_ID) + sizeof(bool));
   memcpy(buffer.data(), &id, sizeof(OBJECT_ID));
+  size += sizeof(OBJECT_ID);
+  memcpy(buffer.data() + size, &isPickingUp, sizeof(bool));
   return buffer;
 }
 

@@ -32,6 +32,8 @@ private:
 
   void updatePlayerRotation();
 
+  int display = 0;
+
 public:
   // Window properties
   GLFWwindow *window;
