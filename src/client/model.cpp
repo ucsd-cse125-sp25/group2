@@ -26,6 +26,9 @@ void Model::draw(const glm::mat4 &viewProjMtx, const glm::vec3 &pos,
   // Control light attenuation
   shader->setFloat("lightRadius", 1000.0f); // Light reaches 50 units
   shader->setBool("useAttenuation", false);
+  if (isTransparent) {
+    shader->setBool("isTransparent", true);
+  }
   for (unsigned int i = 0; i < meshes.size(); i++)
     // Draw each mesh
     meshes[i].draw(shader);
