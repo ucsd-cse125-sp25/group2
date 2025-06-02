@@ -82,9 +82,8 @@ void ServerGameState::updateInteraction(PLAYER_ID id) {
 
   auto player = getObject(id);
   glm::vec3 rayOrigin =
-      player->getCollider()[0]
-          ->getCenter(); // use collider center instead since it is placed at
-                         // the center of the player
+      player->getTransform()->getPosition() + glm::vec3(0, 0.5f, 0);  
+
   glm::vec3 rayDirection = glm::normalize(player->getTransform()->getForward());
 
   // Only need to iterate through the interactable objects
