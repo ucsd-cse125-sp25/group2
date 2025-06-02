@@ -16,6 +16,8 @@ private:
   unordered_map<LEVEL_ID, unordered_map<OBJECT_ID, GameObject *>> levelObjects;
   GameObject *player;
 
+  unordered_map<OBJECT_ID, unique_ptr<BaseUI>> notes;
+
 public:
   Gamestate state;
 
@@ -25,6 +27,14 @@ public:
   void changeLevel(LEVEL_ID levelNum);
   void update(OBJECT_ID id, Transform *tf);
   void draw(const glm::mat4 &viewProjMtx, const glm::vec3 &pos);
+  void displayNote(OBJECT_ID id) {
+    auto note = notes.find(id);
+    if (note != notes.end()) {
+      note->second->draw();
+    } else {
+      cerr << "Note with id " << id << " not found" << endl;
+    }
+  }
 
   GameObject *getObject(OBJECT_ID id);
   GameObject *getPlayer() { return player; }
