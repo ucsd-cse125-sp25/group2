@@ -102,7 +102,8 @@ void Physics::solveCollision(GameObject *a, GameObject *b, int aIndex,
     bool aIsStatic = b->getId() < COW ? true : a_rb->isStatic();
     bool bIsStatic = a->getId() < COW ? true : b_rb->isStatic();
 
-    // If this object is being held by this player, we don't want it to collide with it
+    // If this object is being held by this player, we don't want it to collide
+    // with it
     aIsStatic = a->getId() == b_rb->playerHold() ? true : aIsStatic;
     bIsStatic = b->getId() == a_rb->playerHold() ? true : bIsStatic;
 
