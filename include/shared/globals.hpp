@@ -21,6 +21,7 @@
 #define OBJECT_PATH "../resources/objects/objects.json"
 #define PUZZLE_PATH "../resources/puzzles/puzzles.json"
 #define CONFIG_PATH "../resources/config.json"
+#define NOTE_PATH "../resources/ui/notes.json"
 
 enum class MovementType : uint8_t {
   NONE,
@@ -41,3 +42,6 @@ enum class InteractionType : uint8_t {
 };
 
 enum class Gamestate : uint8_t { STARTSCREEN, MAINMENU, READY, GAME };
+
+// Implement later instead of numbers
+enum class Levels : uint8_t { WINDMILL, BARN };

@@ -5,6 +5,8 @@
 #include "model.hpp"
 #include "shader.hpp"
 #include "transform.hpp"
+#include "ui.hpp"
+#include "ui_manager.hpp"
 
 #include <fstream>
 #include <iostream>
@@ -14,5 +16,6 @@
 class ObjectLoader : public BaseObjectLoader {
 public:
   ObjectLoader() : BaseObjectLoader(){};
-  unordered_map<int, unique_ptr<GameObject>> loadObjects();
+  unordered_map<OBJECT_ID, unique_ptr<GameObject>> loadObjects();
+  unordered_map<OBJECT_ID, unique_ptr<BaseUI>> loadNotes();
 };

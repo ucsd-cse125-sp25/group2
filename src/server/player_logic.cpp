@@ -100,6 +100,11 @@ void PlayerLogic::pickupObject(GameObject *playerObject, GameObject *object) {
   glm::vec3 offset = glm::vec3(0.0f, 2.0f, 0.0f);
   tf->setPosition(playerTransform->getPosition() + offset);
   object->setUsesGravity(false);
+
+  if (playerObject->getId() == PIG &&
+      pigNotes.find(object->getId()) != pigNotes.end()) {
+    pigPickedUpNote = true; // Pig has picked up a note
+  }
 }
 
 void PlayerLogic::dropObject(GameObject *playerObject, GameObject *object) {

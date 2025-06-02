@@ -1,7 +1,7 @@
 #include "client_object_loader.hpp"
 
-unordered_map<int, unique_ptr<GameObject>> ObjectLoader::loadObjects() {
-  unordered_map<int, unique_ptr<GameObject>> objects;
+unordered_map<OBJECT_ID, unique_ptr<GameObject>> ObjectLoader::loadObjects() {
+  unordered_map<OBJECT_ID, unique_ptr<GameObject>> objects;
 
   // Open and parse JSON file
   ifstream file(OBJECT_PATH);
@@ -45,3 +45,35 @@ unordered_map<int, unique_ptr<GameObject>> ObjectLoader::loadObjects() {
 
   return objects;
 };
+
+unordered_map<OBJECT_ID, unique_ptr<BaseUI>> ObjectLoader::loadNotes() {
+  unordered_map<OBJECT_ID, unique_ptr<BaseUI>> notes;
+
+  // Open and parse JSON file
+  ifstream file(NOTE_PATH);
+  if (!file.is_open()) {
+    cerr << "Failed to open JSON file: " << NOTE_PATH << endl;
+  }
+
+  json notesData;
+  try {
+    file >> notesData;
+  } catch (const exception &e) {
+    cerr << "JSON parsing error: " << e.what() << endl;
+    return notes;
+  }
+  
+  if (notesData.contains("notes") && notesData["notes"].is_array()) {
+    for (const auto &noteData : notesData["notes"]) {
+      OBJECT_ID noteId = noteData.value("id", 0);
+      cout << "Loading note with ID: " << noteId << endl;
+      string path = noteData.value("path", "");
+      cout << "Note path: " << path << endl;
+      notes[noteId] = UIManager::createUIElement(0.0f, 0.0f, 0.25f, 0.25f, 1, nullopt,
+                               path.c_str(),
+                               nullptr, false, false);
+    }
+  }
+
+  return notes;
+}

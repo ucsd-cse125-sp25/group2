@@ -203,6 +203,12 @@ void Client::idleCallback(float deltaTime) {
       UIManager::keypad->setUnlocked(keypadPacket->unlocked);
       break;
     }
+    case PacketType::NOTE: {
+      auto notePacket = dynamic_cast<NotePacket *>(packet.get());
+      cout << "displaying note with ID: " << notePacket->id << endl;
+      game->displayNote(notePacket->id);
+      break;
+    }
     }
   }
 
