@@ -97,17 +97,22 @@ void Physics::solveCollision(GameObject *a, GameObject *b, int aIndex,
     glm::vec3 a_vel = a_rb->getVelocity();
     glm::vec3 b_vel = b_rb->getVelocity();
     float restitution = min(a_rb->getRestitution(), b_rb->getRestitution());
-    float invMassA = a_rb->isStatic() ? 0.0f : 1.0f / a_rb->getMass();
-    float invMassB = b_rb->isStatic() ? 0.0f : 1.0f / b_rb->getMass();
+
+    // If object can only be moved by cow, check if colliding object is a different player
+    bool aIsStatic = (a_rb->canOnlyCowMove() && b->getId() < COW) ? true : a_rb->isStatic();
+    bool bIsStatic = (b_rb->canOnlyCowMove() && a->getId() < COW) ? true : b_rb->isStatic();
+
+    float invMassA = aIsStatic ? 0.0f : 1.0f / a_rb->getMass();
+    float invMassB = bIsStatic ? 0.0f : 1.0f / b_rb->getMass();
     float massSum = invMassA + invMassB;
 
     // Apply impulse based on mass and velocity of object's colliding.
     float v_close = glm::dot(b_vel - a_vel, normal);
     if (v_close < 0 && massSum > 0) {
       glm::vec3 impulse = -(1 + restitution) * v_close / massSum * normal;
-      if (!a_rb->isStatic())
+      if (!aIsStatic)
         a_rb->applyImpulse(-impulse * invMassA);
-      if (!b_rb->isStatic())
+      if (!bIsStatic)
         b_rb->applyImpulse(impulse * invMassB);
     }
 
@@ -118,7 +123,7 @@ void Physics::solveCollision(GameObject *a, GameObject *b, int aIndex,
       glm::vec3 correction =
           max(penetration - slop, 0.0f) / massSum * percent * normal;
       float sheepBounce = 10.0f;
-      if (!a_rb->isStatic()) {
+      if (!aIsStatic) {
         a->getTransform()->updatePosition(-correction * invMassA);
         if (b->getId() == SHEEP && normal.y < -0.7) {
           a_rb->applyImpulse(sheepBounce * glm::vec3(0, 1, 0) *
@@ -128,7 +133,7 @@ void Physics::solveCollision(GameObject *a, GameObject *b, int aIndex,
           c->update(a->getTransform(), a->getId() < NUM_PLAYERS);
         }
       }
-      if (!b_rb->isStatic()) {
+      if (!bIsStatic) {
         b->getTransform()->updatePosition(correction * invMassB);
         if (a->getId() == SHEEP && normal.y > 0.7) {
           b_rb->applyImpulse(sheepBounce * glm::vec3(0, 1, 0) *
