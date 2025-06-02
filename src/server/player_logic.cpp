@@ -26,7 +26,7 @@ OBJECT_ID PlayerLogic::moveHeldObject(PLAYER_ID id, GameObject *player) {
   if (getHeldObject(id) != nullptr) {
     auto heldObject = getHeldObject(id);
     auto tf = heldObject->getTransform();
-    glm::vec3 offset = glm::vec3(0.0f, 2.0f, 0.0f);
+    glm::vec3 offset = glm::vec3(0.0f, 4.0f, 0.0f);
     tf->setPosition(player->getTransform()->getPosition() + offset);
     return heldObject->getID();
   }
@@ -97,7 +97,7 @@ void PlayerLogic::glide(GameObject *chicken) {
 void PlayerLogic::pickupObject(GameObject *playerObject, GameObject *object) {
   auto playerTransform = playerObject->getTransform();
   auto tf = object->getTransform();
-  glm::vec3 offset = glm::vec3(0.0f, 2.0f, 0.0f);
+  glm::vec3 offset = glm::vec3(0.0f, 4.0f, 0.0f);
   tf->setPosition(playerTransform->getPosition() + offset);
   object->setUsesGravity(false);
 }
