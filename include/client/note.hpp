@@ -32,7 +32,7 @@ private:
   bool unlocked;
 
 public:
-  NoteUI(OBJECT_ID objectId) : id(objectId) {};
+  NoteUI(OBJECT_ID objectId) : id(objectId){};
 
   void draw();
   void update(float mouseX, float mouseY, int winWidth, int winHeight,
@@ -41,9 +41,7 @@ public:
   void setOnInputCallback(function<void(OBJECT_ID id, int index)> callback);
   void setCloseCallback(function<void(OBJECT_ID id)> callback);
 
-  OBJECT_ID getObjectID() const {
-    return id;
-  }
+  OBJECT_ID getObjectID() const { return id; }
 
   bool display;
 };

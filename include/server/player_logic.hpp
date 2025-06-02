@@ -40,9 +40,7 @@ public:
   void setHeldObject(PLAYER_ID id, GameObject *object) {
     heldObjects[id] = object;
   };
-  void setNotes(unordered_set<OBJECT_ID> notes) {
-    pigNotes = notes;
-  };
+  void setNotes(unordered_set<OBJECT_ID> notes) { pigNotes = notes; };
   void notifiedPigClient() {
     pigPickedUpNote = false; // Client has been notified
   }
