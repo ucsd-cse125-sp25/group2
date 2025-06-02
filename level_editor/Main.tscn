@@ -32,7 +32,7 @@ margin = 0.0
 size = Vector3(0.615295, 1, 1.15295)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_p3q2x"]
-size = Vector3(1.00073, 14.2148, 1.00014)
+size = Vector3(1.00073, 24.3907, 1.00014)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mxvw5"]
 
@@ -178,14 +178,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -0.005)
 shape = SubResource("BoxShape3D_1274f")
 
 [node name="Floor" parent="." instance=ExtResource("6_c2ibq")]
-transform = Transform3D(100, 0, 0, 0, 0.1, 0, 0, 0, 100, 6.165, 0.64, -29.377)
+transform = Transform3D(100, 0, 0, 0, 0.1, 0, 0, 0, 100, 6.165, -0.378852, -29.377)
 script = ExtResource("2_eh0nf")
 is_static = true
 interaction = "NONE"
 model_path = "../resources/objects/box/BlackBox.obj"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0460206, -5.98196, 0.0060654)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0460206, -0.894022, 0.0060654)
 shape = SubResource("BoxShape3D_p3q2x")
 
 [node name="Note" parent="." instance=ExtResource("16_fpfj3")]

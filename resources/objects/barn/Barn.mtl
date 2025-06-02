@@ -1,7 +1,7 @@
-# Blender 4.3.2 MTL File: 'Barn.blend'
+# Blender 4.4.0 MTL File: 'Barn.blend'
 # www.blender.org
 
-newmtl BodyFace.002
+newmtl BodyFace
 Ns 0.000000
 Ka 1.000000 1.000000 1.000000
 Kd 0.366251 0.074214 0.039546
@@ -11,7 +11,7 @@ Ni 1.500000
 d 1.000000
 illum 1
 
-newmtl BrownFrame.002
+newmtl BrownFrame
 Ns 0.000000
 Ka 1.000000 1.000000 1.000000
 Kd 0.074213 0.045186 0.039546
@@ -21,7 +21,7 @@ Ni 1.500000
 d 1.000000
 illum 1
 
-newmtl FenceWood.002
+newmtl FenceWood
 Ns 0.000000
 Ka 1.000000 1.000000 1.000000
 Kd 0.497766 0.296317 0.135745
@@ -31,7 +31,7 @@ Ni 1.500000
 d 1.000000
 illum 1
 
-newmtl Floor.002
+newmtl Floor
 Ns 0.000000
 Ka 1.000000 1.000000 1.000000
 Kd 0.024011 0.015504 0.013817
@@ -41,7 +41,7 @@ Ni 1.500000
 d 1.000000
 illum 1
 
-newmtl Glass.002
+newmtl Glass
 Ns 360.000000
 Ka 1.000000 1.000000 1.000000
 Kd 0.800000 0.800000 0.800000
@@ -51,7 +51,7 @@ Ni 1.000000
 d 1.000000
 illum 2
 
-newmtl Material.003
+newmtl Material
 Ns 250.000000
 Ka 1.000000 1.000000 1.000000
 Kd 0.800000 0.800000 0.800000
@@ -61,9 +61,9 @@ Ni 1.450000
 d 1.000000
 illum 2
 
-newmtl Metal.002
+newmtl Metal
 Ns 0.000000
-Ka 1.000000 1.000000 1.000000
+Ka 0.679104 0.679104 0.679104
 Kd 0.069011 0.069011 0.069011
 Ks 0.000000 0.000000 0.000000
 Ke 0.000000 0.000000 0.000000
@@ -71,7 +71,7 @@ Ni 1.500000
 d 1.000000
 illum 1
 
-newmtl RoofFace.002
+newmtl RoofFace
 Ns 0.000000
 Ka 1.000000 1.000000 1.000000
 Kd 0.086192 0.045923 0.040022
