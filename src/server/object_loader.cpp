@@ -1,7 +1,7 @@
 #include "server_object_loader.hpp"
 
-unordered_map<int, unique_ptr<GameObject>> ObjectLoader::loadObjects() {
-  unordered_map<int, unique_ptr<GameObject>> objects;
+unordered_map<OBJECT_ID, unique_ptr<GameObject>> ObjectLoader::loadObjects() {
+  unordered_map<OBJECT_ID, unique_ptr<GameObject>> objects;
 
   ifstream file(OBJECT_PATH);
   if (!file.is_open()) {
@@ -119,3 +119,30 @@ unordered_map<int, unique_ptr<GameObject>> ObjectLoader::loadObjects() {
 
   return objects;
 };
+
+unordered_set<OBJECT_ID> ObjectLoader::loadNotes() {
+  unordered_set<OBJECT_ID> notes;
+
+  ifstream file(NOTE_PATH);
+  if (!file.is_open()) {
+    cerr << "Failed to open JSON file: " << NOTE_PATH << endl;
+    return notes;
+  }
+
+  json notesData;
+  try {
+    file >> notesData;
+  } catch (const exception &e) {
+    cerr << "JSON parsing error: " << e.what() << endl;
+    return notes;
+  }
+
+  if (notesData.contains("notes") && notesData["notes"].is_array()) {
+    for (const auto &noteData : notesData["notes"]) {
+      OBJECT_ID noteId = noteData.value("id", 0);
+      notes.insert(noteId);
+    }
+  }
+
+  return notes;
+}

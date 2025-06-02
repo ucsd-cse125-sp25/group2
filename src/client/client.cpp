@@ -203,6 +203,12 @@ void Client::idleCallback(float deltaTime) {
       UIManager::keypad->setUnlocked(keypadPacket->unlocked);
       break;
     }
+    case PacketType::NOTE: {
+      auto notePacket = dynamic_cast<NotePacket *>(packet.get());
+      cout << "displaying note with ID: " << notePacket->id << endl;
+      selectedNote = notePacket->id; // Store the note ID to display
+      break;
+    }
     }
   }
 
@@ -226,6 +232,10 @@ void Client::displayCallback(GLFWwindow *window) {
   // Draw objects
   if (game->state == Gamestate::GAME) {
     game->draw(cam->getViewProj(), cam->getPos());
+  }
+
+  if (selectedNote != -1) {
+    game->displayNote(selectedNote);
   }
 
   // Main render display callback. Rendering of objects is done here

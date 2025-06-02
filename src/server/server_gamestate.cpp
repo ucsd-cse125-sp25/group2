@@ -9,6 +9,7 @@ ServerGameState::ServerGameState() : deltaTime(0.01f) {
 bool ServerGameState::init() {
   ObjectLoader objectLoader = ObjectLoader();
   objectList = objectLoader.loadObjects();
+  playerLogic->setNotes(objectLoader.loadNotes());
   for (auto &obj : objectList) {
     auto object = obj.second.get();
     if (object->getInteractionType() != InteractionType::NONE) {
