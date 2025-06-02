@@ -32,7 +32,7 @@ private:
 
   void updatePlayerRotation();
 
-  int display = 0;
+  int selectedNote = -1;
 
 public:
   // Window properties

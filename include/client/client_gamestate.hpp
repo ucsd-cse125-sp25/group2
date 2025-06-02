@@ -31,7 +31,6 @@ public:
     auto note = notes.find(id);
     if (note != notes.end()) {
       note->second->draw();
-      cout << "drawing?" << endl;
     } else {
       cerr << "Note with id " << id << " not found" << endl;
     }

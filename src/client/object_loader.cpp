@@ -66,12 +66,10 @@ unordered_map<OBJECT_ID, unique_ptr<BaseUI>> ObjectLoader::loadNotes() {
   if (notesData.contains("notes") && notesData["notes"].is_array()) {
     for (const auto &noteData : notesData["notes"]) {
       OBJECT_ID noteId = noteData.value("id", 0);
-      cout << "Loading note with ID: " << noteId << endl;
       string path = noteData.value("path", "");
-      cout << "Note path: " << path << endl;
-      notes[noteId] =
-          UIManager::createUIElement(0.0f, 0.0f, 0.25f, 0.25f, 1, nullopt,
-                                     path.c_str(), nullptr, false, false);
+      notes[noteId] = UIManager::createUIElement(0.0f, 0.0f, 0.25f, 0.5f, 1, nullopt,
+                               path.c_str(),
+                               nullptr, false, false);
     }
   }
 

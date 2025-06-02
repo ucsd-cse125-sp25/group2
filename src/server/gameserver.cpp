@@ -130,13 +130,11 @@ void GameServer::dispatchUpdates() {
     network->sendToAll(rewardPacket);
   }
 
-  OBJECT_ID note = game->getPlayerLogic()->getPigNote();
-  // Check if pig picked up a note and tell client
-  if (note != -1) {
-    NotePacket notePacket(note);
-    cout << "Pig picked up note with ID: " << note << endl;
-    network->sendToClient(game->getPlayerLogic()->getClient(PIG), notePacket);
-    game->getPlayerLogic()->notifiedPigClient();
+  if (game->getPlayerLogic()->doNotifyClient()) {
+    // Notify clients if pig picked up or dropped a note
+    GameObject *heldObject = game->getPlayerLogic()->getHeldObject(PIG);
+    OBJECT_ID heldNote = heldObject ? heldObject->getId() : -1;
+    network->sendToClient(game->getPlayerLogic()->getClient(PIG), NotePacket(heldNote));
   }
 
   if (triggerLevelChange) {
