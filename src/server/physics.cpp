@@ -102,6 +102,15 @@ void Physics::solveCollision(GameObject *a, GameObject *b, int aIndex,
     bool aIsStatic = b->getId() < COW ? true : a_rb->isStatic();
     bool bIsStatic = a->getId() < COW ? true : b_rb->isStatic();
 
+    // If this object is being held by this player, we don't want it to collide with it
+    aIsStatic = a->getId() == b_rb->playerHold() ? true : aIsStatic;
+    bIsStatic = b->getId() == a_rb->playerHold() ? true : bIsStatic;
+
+    // If both objects are static, no need to resolve collision
+    if (aIsStatic && bIsStatic) {
+      return;
+    }
+
     float invMassA = aIsStatic ? 0.0f : 1.0f / a_rb->getMass();
     float invMassB = bIsStatic ? 0.0f : 1.0f / b_rb->getMass();
     float massSum = invMassA + invMassB;
