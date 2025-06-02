@@ -32,7 +32,7 @@ void Physics::clampVelocities(RigidBody *rb) {
 
 void Physics::resolveCollisions() {
   // Multiple iterations smooths out collision resolution fixes
-  const int solverIterations = 3;
+  const int solverIterations = 9;
   unordered_map<GameObject *, bool> groundedStates;
   for (auto obj : objects) {
     groundedStates[obj] = false;
@@ -117,7 +117,7 @@ void Physics::solveCollision(GameObject *a, GameObject *b, int aIndex,
     if (massSum > 0) {
       glm::vec3 correction =
           max(penetration - slop, 0.0f) / massSum * percent * normal;
-      float sheepBounce = 30.0f;
+      float sheepBounce = 8.0f;
       if (!a_rb->isStatic()) {
         a->getTransform()->updatePosition(-correction * invMassA);
         if (b->getID() == SHEEP && normal.y < -0.7) {
