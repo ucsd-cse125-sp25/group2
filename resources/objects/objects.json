@@ -2637,7 +2637,7 @@
 					}
 				],
 				"interaction": "NONE",
-				"static": true
+				"static": false
 			},
 			"transform": {
 				"position": {
