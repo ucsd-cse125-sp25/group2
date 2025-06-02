@@ -216,7 +216,7 @@ void Client::idleCallback(float deltaTime) {
                         game->state);
 
   if (game->state == Gamestate::GAME && !UIManager::keypad->display) {
-    cam->update(xOffset, yOffset, game->getPlayer()->getPosition());
+    cam->update(xOffset, yOffset, game->getPlayer()->getPosition() + cam->getCameraOffset(game->getPlayer()->getID()));
     xOffset = 0.0f;
     yOffset = 0.0f;
     updatePlayerRotation();
