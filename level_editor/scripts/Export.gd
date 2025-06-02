@@ -144,7 +144,7 @@ func _basis_to_json(basis: Basis) -> Dictionary:
 	return {
 		"right": _vec3_to_json(basis.x),
 		"up": _vec3_to_json(basis.y),
-		"forward": _vec3_to_json(-basis.z) 
+		"forward": _vec3_to_json(basis.z) 
 	}
 	
 #func _basis_to_json(basis: Basis) -> Dictionary:
