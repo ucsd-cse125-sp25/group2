@@ -1,8 +1,8 @@
 #pragma once
 
 #include "globals.hpp"
-#include "server_gameobject.hpp"
 #include "keypad_object.hpp"
+#include "server_gameobject.hpp"
 
 using namespace std;
 
