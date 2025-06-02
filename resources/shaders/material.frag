@@ -102,4 +102,16 @@ void main()
     
     // Output the final calculated lighting result
     FragColor = vec4(diffuseColor, 1.0);
+
+    // "Fake" lighting based on distance to camera
+    float depth = length(viewPos - FragPos);
+    float depthFade = clamp(depth / 20.0, 0.0, 1.0);
+
+    // Posterize the base diffuse color
+    vec3 posterized = floor(diffuseColor * 4.0) / 4.0;
+
+    // Darken further objects more strongly
+    vec3 finalColor = mix(posterized, posterized * 0.1, depthFade);
+
+    FragColor = vec4(finalColor, 1.0);
 }

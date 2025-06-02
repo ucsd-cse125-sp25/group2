@@ -37,7 +37,7 @@ size = Vector3(1.00073, 14.2148, 1.00014)
 [sub_resource type="BoxShape3D" id="BoxShape3D_mxvw5"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_sc1dx"]
-size = Vector3(2.3775, 5.1377, 0.480713)
+size = Vector3(2.3775, 5.38623, 0.618286)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_j4qnp"]
 size = Vector3(1.65008, 0.601104, 2.44588)
@@ -199,7 +199,7 @@ transform = Transform3D(1, 0, -1.42109e-14, 0, 1, 0, 1.42109e-14, 0, 1, -0.09076
 shape = SubResource("BoxShape3D_mxvw5")
 
 [node name="pinPad" parent="." instance=ExtResource("9_03owx")]
-transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0.656052, 3.97337, -71.3512)
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0.656052, 2.64958, -71.3512)
 script = ExtResource("2_eh0nf")
 is_static = true
 interaction = "KEYPAD"
@@ -208,7 +208,7 @@ is_keyPad = true
 correctSequence = [0, 1, 2, 3]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="pinPad"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0870667, -0.475098, -0.0865479)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0870668, 0.637299, -0.169525)
 shape = SubResource("BoxShape3D_sc1dx")
 
 [node name="RedPressurePlate" parent="." instance=ExtResource("15_j4qnp")]
@@ -343,7 +343,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0907601, 0.30794, 0)
 shape = SubResource("BoxShape3D_mxvw5")
 
 [node name="pinPad2" parent="." instance=ExtResource("9_03owx")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -33.0689, 3.97337, -13.0591)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -33.0689, 2.64958, -13.0591)
 script = ExtResource("2_eh0nf")
 is_static = true
 interaction = "KEYPAD"
@@ -352,7 +352,7 @@ is_keyPad = true
 correctSequence = [0, 1, 2, 3]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="pinPad2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0870667, -0.475098, -0.0865479)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0870667, 0.680311, -0.188011)
 shape = SubResource("BoxShape3D_sc1dx")
 
 [node name="SheepPressurePlate" parent="." instance=ExtResource("8_03owx")]
@@ -423,7 +423,7 @@ transform = Transform3D(1, 0, 1.42109e-14, 0, 1, 0, -1.42109e-14, 0, 1, -0.09076
 shape = SubResource("BoxShape3D_mxvw5")
 
 [node name="pinPad3" parent="." instance=ExtResource("9_03owx")]
-transform = Transform3D(-2.18557e-07, 0, -1, 0, 1, 0, 1, 0, -2.18557e-07, -33.0442, 3.97337, -54.2074)
+transform = Transform3D(-2.18557e-07, 0, -1, 0, 1, 0, 1, 0, -2.18557e-07, -33.0442, 2.64958, -54.2074)
 script = ExtResource("2_eh0nf")
 is_static = true
 interaction = "KEYPAD"
@@ -432,7 +432,7 @@ is_keyPad = true
 correctSequence = [0, 1, 2, 3]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="pinPad3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0870667, -0.475098, -0.0865479)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0870667, 0.684576, -0.174187)
 shape = SubResource("BoxShape3D_sc1dx")
 
 [node name="PigPressurePlate" parent="." instance=ExtResource("8_03owx")]
@@ -521,7 +521,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0907601, 0.349015, 0)
 shape = SubResource("BoxShape3D_mxvw5")
 
 [node name="pinPad4" parent="." instance=ExtResource("9_03owx")]
-transform = Transform3D(1.31134e-07, 0, 1, 0, 1, 0, -1, 0, 1.31134e-07, 33.4973, 3.97337, -45.9861)
+transform = Transform3D(1.31134e-07, 0, 1, 0, 1, 0, -1, 0, 1.31134e-07, 33.4973, 2.64958, -45.9861)
 script = ExtResource("2_eh0nf")
 is_static = true
 interaction = "KEYPAD"
@@ -530,7 +530,7 @@ is_keyPad = true
 correctSequence = [0, 1, 2, 3]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="pinPad4"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0870667, -0.475098, -0.0865479)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0870667, 0.681832, -0.155334)
 shape = SubResource("BoxShape3D_sc1dx")
 
 [node name="ChickenPressurePlate" parent="." instance=ExtResource("8_03owx")]
