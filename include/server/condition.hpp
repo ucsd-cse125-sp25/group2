@@ -2,6 +2,7 @@
 
 #include "globals.hpp"
 #include "server_gameobject.hpp"
+#include "keypad_object.hpp"
 
 using namespace std;
 

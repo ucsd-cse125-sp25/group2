@@ -9,4 +9,10 @@ bool PressurePlateCondition::isSatisfied() const {
 
 bool ButtonCondition::isSatisfied() const { return object->isActive(); }
 
-bool PinCondition::isSatisfied() const { return object->isActive(); }
+bool PinCondition::isSatisfied() const {
+  KeypadObject *keypad = dynamic_cast<KeypadObject *>(object);
+  if (keypad) {
+    return !keypad->unlocked;
+  }
+  return false;
+}
