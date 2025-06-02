@@ -148,7 +148,7 @@ void Physics::moveObjects(float deltaTime) {
   float moveSpeed = 20.0f;
 
   for (GameObject *obj : objects) {
-    if(!obj->isActive())
+    if (!obj->isActive())
       continue;
     RigidBody *rb = obj->getRigidBody();
     vector<Collider *> cl = obj->getCollider();
