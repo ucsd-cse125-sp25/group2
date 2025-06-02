@@ -32,6 +32,8 @@ private:
 
   void updatePlayerRotation();
 
+  int selectedNote = -1;
+
 public:
   // Window properties
   GLFWwindow *window;
