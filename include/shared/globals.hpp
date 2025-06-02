@@ -37,11 +37,11 @@ enum class InteractionType : uint8_t {
   NONE,
   PICKUP,
   PRESS,
-  OPEN_CLOSE,
+  OPEN_CL OSE,
   KEYPAD,
 };
 
 enum class Gamestate : uint8_t { STARTSCREEN, MAINMENU, READY, GAME };
 
 // Implement later instead of numbers
-enum class Levels : uint8_t { WINDMILL, BARN };
+// enum class Levels : uint8_t { WINDMILL, BARN };
