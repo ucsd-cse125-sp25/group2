@@ -118,22 +118,22 @@ vector<char> KeypadPacket::serialize() const {
   size += sizeof(OBJECT_ID);
   memcpy(buffer.data() + size, &display, sizeof(bool));
   size += sizeof(bool);
-  memcpy(buffer.data() + size, &unlocked, sizeof(bool));
+  memcpy(buffer.data() + size, &solved, sizeof(bool));
   return buffer;
 }
 
 KeypadPacket KeypadPacket::deserialize(const vector<char> &payload) {
   OBJECT_ID id;
   bool display;
-  bool unlocked;
+  bool solved;
 
   unsigned long size = 0;
   memcpy(&id, payload.data(), sizeof(OBJECT_ID));
   size += sizeof(OBJECT_ID);
   memcpy(&display, payload.data() + size, sizeof(bool));
   size += sizeof(bool);
-  memcpy(&unlocked, payload.data() + size, sizeof(bool));
-  KeypadPacket packet(id, display, unlocked);
+  memcpy(&solved, payload.data() + size, sizeof(bool));
+  KeypadPacket packet(id, display, solved);
   return packet;
 }
 

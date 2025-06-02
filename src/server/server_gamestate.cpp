@@ -172,7 +172,7 @@ bool ServerGameState::updateKeypadInput(OBJECT_ID id, vector<int> inputSequence,
       return true; // Doesn't matter the return type
     }
     if (keypadObject->checkSequence(inputSequence)) {
-      cout << "Keypad ID: " << id << " unlocked!" << endl;
+      cout << "Keypad ID: " << id << " solved!" << endl;
       return true;
     } else {
       cout << "Keypad ID: " << id << " Input: ";

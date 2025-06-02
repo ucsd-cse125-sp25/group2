@@ -114,10 +114,10 @@ struct DeactivatePacket : public IPacket {
 struct KeypadPacket : public IPacket {
   OBJECT_ID id;
   bool display;
-  bool unlocked;
+  bool solved;
 
   KeypadPacket(OBJECT_ID objectID, bool disp, bool unlock)
-      : id(objectID), display(disp), unlocked(unlock) {}
+      : id(objectID), display(disp), solved(unlock) {}
   PacketType getType() const override { return PacketType::KEYPAD; }
   vector<char> serialize() const override;
   static KeypadPacket deserialize(const vector<char> &payload);

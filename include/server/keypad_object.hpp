@@ -14,9 +14,9 @@ public:
                unique_ptr<RigidBody> &rb, vector<Collider *> &cl,
                const vector<int> &sequence)
       : GameObject(id, levelNum, isActive, originalPosition, tf, rb, cl),
-        correctSequence(sequence), unlocked(false), locked(false),
+        correctSequence(sequence), solved(false), locked(false),
         clientUsing(-1), opened(false){};
-  bool unlocked;
+  bool solved;
   bool locked;
   CLIENT_ID clientUsing;
   bool opened;

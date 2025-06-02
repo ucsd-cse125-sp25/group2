@@ -5,6 +5,7 @@ void Level::addCluePuzzle(PUZZLE_ID id, unique_ptr<Puzzle> puzzle) {
 }
 
 void Level::addMilestonePuzzle(unique_ptr<Puzzle> puzzle) {
+  cout << "Adding milestone puzzle" << endl;
   milestones[numMilestones] = move(puzzle);
   numMilestones++;
 }
@@ -22,7 +23,7 @@ bool Level::isLevelComplete() {
   // loop through milestones, which are puzzles that must be completed for the
   // level to be complete milestone puzzles have specific order of completion
   Puzzle *milestone = nullptr;
-  if (currentMilestone < numMilestones) {
+  if (currentMilestone <= numMilestones) {
     milestone = milestones[currentMilestone].get();
     if (milestone->isPuzzleComplete()) {
       rewards.push_back(milestone->dispatchReward());
@@ -117,8 +118,10 @@ void LevelManager::loadJSON() {
           }
           string puzzleType = puzzleData["puzzleType"].get<string>();
           if (puzzleType == "milestone") {
+            cout << "Adding milestone puzzle with ID: " << puzzleID << endl;
             newLevel->addMilestonePuzzle(move(newPuzzle));
           } else if (puzzleType == "clue") {
+            cout << "Adding clue puzzle with ID: " << puzzleID << endl;
             newLevel->addCluePuzzle(puzzleID, move(newPuzzle));
             break;
           }

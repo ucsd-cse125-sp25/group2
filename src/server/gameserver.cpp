@@ -82,13 +82,13 @@ void GameServer::updateGameState() {
     }
     case PacketType::KEYPADINPUT: {
       auto keypadPacket = static_cast<KeypadInputPacket *>(packet.get());
-      bool unlocked = game->updateKeypadInput(keypadPacket->objectID,
+      bool solved = game->updateKeypadInput(keypadPacket->objectID,
                                               keypadPacket->inputSequence,
                                               keypadPacket->close);
       if (!keypadPacket->close) {
         network->sendToClient(
             keypadPacket->clientID,
-            KeypadPacket(keypadPacket->objectID, !unlocked, unlocked));
+            KeypadPacket(keypadPacket->objectID, !solved, solved));
       }
       break;
     }
@@ -108,7 +108,7 @@ void GameServer::dispatchUpdates() {
           !keypadObject->opened) {
         network->sendToClient(
             keypadObject->clientUsing,
-            KeypadPacket(keypadObject->getID(), true, keypadObject->unlocked));
+            KeypadPacket(keypadObject->getID(), true, keypadObject->solved));
         keypadObject->opened = true;
       }
     } else {

@@ -2,7 +2,7 @@
 
 KeypadUI::KeypadUI() : inputSequence(4) {
   loadTextures();
-  unlocked = false;
+  solved = false;
   display = false;
   inputSequence.clear();
 
@@ -120,10 +120,10 @@ void KeypadUI::setOnInputCallback(
 }
 
 void KeypadUI::setUnlocked(bool isUnlocked) {
-  if (!unlocked) {
-    unlocked = isUnlocked;
+  if (!solved) {
+    solved = isUnlocked;
   }
-  // play animation or change UI state based on unlocked status
+  // play animation or change UI state based on solved status
 }
 void KeypadUI::setCloseCallback(function<void(OBJECT_ID id)> callback) {
   onCloseCallback = move(callback);

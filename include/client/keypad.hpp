@@ -29,7 +29,7 @@ private:
   void loadTextures();
   void removeInputs();
 
-  bool unlocked;
+  bool solved;
 
 public:
   KeypadUI();
