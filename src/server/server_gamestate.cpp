@@ -82,7 +82,7 @@ void ServerGameState::updateInteraction(PLAYER_ID id) {
 
   auto player = getObject(id);
   glm::vec3 rayOrigin =
-      player->getTransform()->getPosition() + glm::vec3(0, 0.5f, 0);  
+      player->getTransform()->getPosition() + glm::vec3(0, 0.5f, 0);
 
   glm::vec3 rayDirection = glm::normalize(player->getTransform()->getForward());
 
