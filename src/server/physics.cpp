@@ -99,7 +99,7 @@ void Physics::solveCollision(GameObject *a, GameObject *b, int aIndex,
     float restitution = min(a_rb->getRestitution(), b_rb->getRestitution());
 
     bool aIsNotPlayer = a->getId() >= NUM_PLAYERS;
-    bool bIsNotPlayer = b->getId() >= NUM_PLAYERS; 
+    bool bIsNotPlayer = b->getId() >= NUM_PLAYERS;
 
     // Objects cannot be moved by any player except for a cow
     bool aIsStatic = b->getId() < COW && aIsNotPlayer ? true : a_rb->isStatic();
