@@ -3,6 +3,7 @@
 bool ClientGameState::init() {
   ObjectLoader objectLoader = ObjectLoader();
   objectList = objectLoader.loadObjects();
+  notes = objectLoader.loadNotes();
   for (auto &obj : objectList) {
     auto id = obj.first;
     auto object = obj.second.get();

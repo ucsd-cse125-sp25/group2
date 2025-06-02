@@ -52,6 +52,8 @@ void setup_opengl_settings() {
   glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
   // Set clear color to black
   glClearColor(0, 0, 0, 0);
+  glEnable(GL_BLEND);
+  glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
 
 int main(void) {

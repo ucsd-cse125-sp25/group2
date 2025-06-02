@@ -21,6 +21,7 @@
 #define OBJECT_PATH "../resources/objects/objects.json"
 #define PUZZLE_PATH "../resources/puzzles/puzzles.json"
 #define CONFIG_PATH "../resources/config.json"
+#define NOTE_PATH "../resources/ui/notes.json"
 
 enum class Gamestate : uint8_t { STARTSCREEN, MAINMENU, READY, GAME };
 

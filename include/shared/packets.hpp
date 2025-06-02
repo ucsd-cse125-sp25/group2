@@ -25,6 +25,7 @@ enum class PacketType : uint8_t {
   ACTIVATE,
   DEACTIVATE,
   KEYPAD,
+  NOTE,
 
   // Sender: Client
   MOVEMENT,
@@ -175,6 +176,15 @@ struct KeypadInputPacket : public IPacket {
   PacketType getType() const override { return PacketType::KEYPADINPUT; }
   vector<char> serialize() const override;
   static KeypadInputPacket deserialize(const vector<char> &payload);
+};
+
+struct NotePacket : public IPacket {
+  OBJECT_ID id;
+
+  NotePacket(OBJECT_ID objectID) : id(objectID) {}
+  PacketType getType() const override { return PacketType::NOTE; }
+  vector<char> serialize() const override;
+  static NotePacket deserialize(const vector<char> &payload);
 };
 
 struct DisconnectPacket : public IPacket {

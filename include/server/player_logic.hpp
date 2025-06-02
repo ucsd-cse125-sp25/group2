@@ -5,6 +5,7 @@
 
 #include <iostream>
 #include <unordered_map>
+#include <unordered_set>
 
 using namespace std;
 
@@ -24,6 +25,10 @@ private:
   unordered_map<PLAYER_ID, GameObject *>
       heldObjects; // map from player ID to the object they are holding
 
+  // Checking if pig has a note
+  unordered_set<OBJECT_ID> pigNotes; // set of notes that the pig can hold
+  bool pigNoteChange = false;
+
   // Client-to-Character mappings
   CLIENT_ID characterToClient[NUM_PLAYERS];
   PLAYER_ID clientToCharacter[NUM_PLAYERS];
@@ -35,6 +40,7 @@ public:
   void setHeldObject(PLAYER_ID id, GameObject *object) {
     heldObjects[id] = object;
   };
+  void setNotes(unordered_set<OBJECT_ID> notes) { pigNotes = notes; };
 
   // Getters
   GameObject *getHeldObject(PLAYER_ID id) { return heldObjects[id]; };
@@ -50,6 +56,11 @@ public:
 
   // Ability functions
   void glide(GameObject *chicken);
+  bool doNotifyClient() {
+    bool notify = pigNoteChange;
+    pigNoteChange = false; // Reset the flag after notifying
+    return notify;
+  }
 
   // Interaction functions
   void pickupObject(GameObject *player, GameObject *object);
