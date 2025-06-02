@@ -32,5 +32,5 @@ public:
   Shader *getShader() const { return shader.get(); };
 
   void update(Transform *tf);
-  void draw(const glm::mat4 &viewProjMtx);
+  void draw(const glm::mat4 &viewProjMtx, const glm::vec3 &pos);
 };

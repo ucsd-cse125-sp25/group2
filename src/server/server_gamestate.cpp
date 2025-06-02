@@ -134,7 +134,7 @@ void ServerGameState::updateInteraction(PLAYER_ID id) {
     playerLogic->dropObject(player, heldObject);
     cout << "Dropped object: " << heldObject->getID() << endl;
     playerLogic->setHeldObject(id, nullptr);
-    updatedObjectIDs.insert(closestObjectID);
+    updatedObjectIDs.insert(heldObject->getID());
 
   } else if (closestObjectID != -1) {
 

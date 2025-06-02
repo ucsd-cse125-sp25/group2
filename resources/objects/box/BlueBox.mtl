@@ -1,0 +1,12 @@
+# Blender 4.4.0 MTL File: 'BlueBox.blend'
+# www.blender.org
+
+newmtl BlueButton
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.021893 0.524820 0.720957
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 1

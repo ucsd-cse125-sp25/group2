@@ -41,12 +41,14 @@ public:
       : originalCenter(ctr), center(ctr), originalHalfExtents(ext),
         halfExtents(ext), originalOrientation(ort), orientation(ort) {}
 
-  void update(Transform *tf) {
+  void update(Transform *tf, bool isPlayer) {
     center = originalCenter + tf->getPosition();
     glm::mat3 orient;
     orient[0] = tf->getRight();
     orient[1] = tf->getUp();
     orient[2] = tf->getForward();
+    if (!isPlayer)
+      orient[2].z = -orient[2].z;
     orientation = orient * originalOrientation;
   }
 

@@ -6,27 +6,45 @@
                 {
                     "puzzleID": 0,
                     "rewardType": "ACTIVATE",
-                    "rewardIDs": [9],
+                    "rewardIDs": [42],
                     "puzzleType": "milestone",
                     "conditions": [
-                        {
+                        {   
+                            "__name": "Blue Pressure Plate",
                             "conditionType": "PRESSURE_PLATE",
-                            "objectID": 1,
-                            "triggeringObjectID": 5
+                            "objectID": 39,
+                            "triggeringObjectID": 20
                         },
                         {
+                            "__name": "Red Pressure Plate",
                             "conditionType": "PRESSURE_PLATE",
-                            "objectID": 2,
-                            "triggeringObjectID": 6
+                            "objectID": 36,
+                            "triggeringObjectID": 21
                         },
                         {
+                            "__name": "Yellow Pressure Plate",
                             "conditionType": "PRESSURE_PLATE",
-                            "objectID": 3,
-                            "triggeringObjectID": 7
+                            "objectID": 38,
+                            "triggeringObjectID": 22
                         },{
+                            "__name": "Green Pressure Plate",
                             "conditionType": "PRESSURE_PLATE",
-                            "objectID": 4,
-                            "triggeringObjectID": 8
+                            "objectID": 37,
+                            "triggeringObjectID": 23
+                        }
+                    ]
+                },
+                {
+                    "puzzleID": 1,
+                    "rewardType": "ACTIVATE",
+                    "rewardIDs": [40],
+                    "puzzleType": "milestone",
+                    "conditions": [
+                        {   
+                            "__name": "Pressure Plate",
+                            "conditionType": "PRESSURE_PLATE",
+                            "objectID": 10,
+                            "triggeringObjectID": 2
                         }
                     ]
                 }

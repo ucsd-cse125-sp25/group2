@@ -31,7 +31,8 @@ private:
 public:
   glm::mat4 model;
   Model(const char *path);
-  void draw(const glm::mat4 &viewProjMtx, unique_ptr<Shader> &shader);
+  void draw(const glm::mat4 &viewProjMtx, const glm::vec3 &pos,
+            unique_ptr<Shader> &shader);
   void update(Transform *transform);
   void changeColor(glm::vec3 col);
 };
