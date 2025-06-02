@@ -29,6 +29,7 @@ private:
   unsigned int textureFromFile(const char *path, const string &directory);
 
 public:
+  bool isTransparent = false;
   glm::mat4 model;
   Model(const char *path);
   void draw(const glm::mat4 &viewProjMtx, const glm::vec3 &pos,

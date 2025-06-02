@@ -22,6 +22,7 @@ uniform vec3 viewPos;
 // Light attenuation control
 uniform float lightRadius; // How far the light reaches
 uniform bool useAttenuation; // Whether to use distance falloff
+uniform bool isTransparent = false;
 
 // Texture properties
 uniform bool useTexture;
@@ -111,7 +112,10 @@ void main()
     vec3 posterized = floor(diffuseColor * 4.0) / 4.0;
 
     // Darken further objects more strongly
-    vec3 finalColor = mix(posterized, posterized * 0.1, depthFade);
-
-    FragColor = vec4(finalColor, 1.0);
+    vec3 finalColor = mix(diffuseColor, diffuseColor * 0.3, depthFade);
+    float a = 1.0;
+    if (isTransparent) {
+        a = 0.5;
+    }
+    FragColor = vec4(diffuseColor, a);
 }
