@@ -1,9 +1,10 @@
 #include "player_logic.hpp"
 
 PlayerLogic::PlayerLogic() {
-  speed = 10.0f;
+  speed = 20.0f;
   sheepJumps = SHEEP_MAX_JUMPS;
-  jumpForce = 15.0f;
+  jumpForce = 40.0f;
+  sheepJumpForce = 60.0f;
   glideFallSpeed = 1.0f;
 
   for (int i = 0; i < NUM_PLAYERS; i++) {
@@ -37,19 +38,28 @@ void PlayerLogic::jump(GameObject *player) {
   if (!player->isGrounded() && player->getId() != SHEEP) {
     return; // only sheep can jump in air
   }
-
+  float force = jumpForce;
+  if (player->getId() == SHEEP) {
+    force = sheepJumpForce;
+  }
   // jump the player
   if (player->isGrounded()) {
     player->setGrounded(false);
     auto rigidBody = player->getRigidBody();
-    rigidBody->applyImpulse(glm::vec3(0.0f, jumpForce, 0.0f));
+    rigidBody->setVelocity(glm::vec3(rigidBody->getVelocity().x, 0.0f,
+                                     rigidBody->getVelocity().z));
+    rigidBody->setForce(glm::vec3(0.0f));
+    rigidBody->applyImpulse(glm::vec3(0.0f, force, 0.0f));
 
     // If sheep is jumping from the ground, reset double jump
     sheepDoubleJump = player->getId() == SHEEP ? false : sheepDoubleJump;
   } else if (player->getId() == SHEEP && !sheepDoubleJump) {
     sheepDoubleJump = true;
     auto rigidBody = player->getRigidBody();
-    rigidBody->applyImpulse(glm::vec3(0.0f, jumpForce * 1.5, 0.0f));
+    rigidBody->setVelocity(glm::vec3(rigidBody->getVelocity().x, 0.0f,
+                                     rigidBody->getVelocity().z));
+    rigidBody->setForce(glm::vec3(0.0f));
+    rigidBody->applyImpulse(glm::vec3(0.0f, force, 0.0f));
   }
 }
 
@@ -64,7 +74,8 @@ vector<OBJECT_ID> PlayerLogic::rotate(PLAYER_ID id, GameObject *player,
   // if the player is holding an object, apply the rotation to the object
   if (getHeldObject(id) != nullptr) {
     auto heldObject = getHeldObject(id);
-    heldObject->getTransform()->setRotation(rotation);
+    // heldObject->getTransform()->setRotation(rotation); comment this out for
+    // now
     rotatedObjects.push_back(heldObject->getId());
   }
   return rotatedObjects;

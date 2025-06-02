@@ -24,7 +24,7 @@ public:
   // update methods
   void changeLevel(LEVEL_ID levelNum);
   void update(OBJECT_ID id, Transform *tf);
-  void draw(const glm::mat4 &viewProjMtx);
+  void draw(const glm::mat4 &viewProjMtx, const glm::vec3 &pos);
 
   GameObject *getObject(OBJECT_ID id);
   GameObject *getPlayer() { return player; }

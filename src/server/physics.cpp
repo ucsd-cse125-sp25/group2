@@ -8,7 +8,7 @@ void Physics::remove(GameObject *obj) {
 
 void Physics::calculateForces() {
   for (GameObject *obj : objects) {
-    if (obj->getRigidBody()->isStatic() || !obj->isActive())
+    if (obj->getRigidBody()->isStatic())
       continue;
 
     glm::vec3 force = glm::vec3(0);
@@ -33,18 +33,16 @@ void Physics::clampVelocities(RigidBody *rb) {
 void Physics::resolveCollisions() {
   // Multiple iterations smooths out collision resolution fixes
   const int solverIterations = 3;
+  unordered_map<GameObject *, bool> groundedStates;
+  for (auto obj : objects) {
+    groundedStates[obj] = false;
+  }
   for (int s = 0; s < solverIterations; ++s) {
-    unordered_map<GameObject *, bool> groundedStates;
-    for (auto obj : objects) {
-      groundedStates[obj] = false;
-    }
     for (int s = 0; s < solverIterations; ++s) {
       for (int i = 0; i < objects.size(); ++i) {
         GameObject *a = objects[i];
         for (int j = i + 1; j < objects.size(); ++j) {
           GameObject *b = objects[j];
-          if (!a->isActive() || !b->isActive() || a == b)
-            continue;
           for (int i = 0; i < a->getCollider().size(); i++) {
             for (int j = 0; j < b->getCollider().size(); j++) {
               solveCollision(a, b, i, j, groundedStates[a], groundedStates[b]);
@@ -71,10 +69,14 @@ void Physics::solveCollision(GameObject *a, GameObject *b, int aIndex,
   float penetration;
   if (aCol->intersects(*bCol, normal, penetration)) {
     if (aCol->isTrigger() || bCol->isTrigger()) {
-      if (aCol->isTrigger() && bCol->canActivateTrigger())
+      if (aCol->isTrigger() && bCol->canActivateTrigger()) {
         aCol->setWithinTrigger(true);
-      if (bCol->isTrigger() && aCol->canActivateTrigger())
+        aCol->setTriggerObject(b->getId());
+      }
+      if (bCol->isTrigger() && aCol->canActivateTrigger()) {
         bCol->setWithinTrigger(true);
+        bCol->setTriggerObject(a->getId());
+      }
       return;
     }
 
@@ -115,23 +117,25 @@ void Physics::solveCollision(GameObject *a, GameObject *b, int aIndex,
     if (massSum > 0) {
       glm::vec3 correction =
           max(penetration - slop, 0.0f) / massSum * percent * normal;
-      float sheepBounce = 4.0f;
+      float sheepBounce = 10.0f;
       if (!a_rb->isStatic()) {
         a->getTransform()->updatePosition(-correction * invMassA);
         if (b->getId() == SHEEP && normal.y < -0.7) {
-          a_rb->applyImpulse(sheepBounce * glm::vec3(0, 1, 0));
+          a_rb->applyImpulse(sheepBounce * glm::vec3(0, 1, 0) *
+                             a_rb->getMass());
         }
         for (Collider *c : a->getCollider()) {
-          c->update(a->getTransform());
+          c->update(a->getTransform(), a->getId() < NUM_PLAYERS);
         }
       }
       if (!b_rb->isStatic()) {
         b->getTransform()->updatePosition(correction * invMassB);
         if (a->getId() == SHEEP && normal.y > 0.7) {
-          b_rb->applyImpulse(sheepBounce * glm::vec3(0, 1, 0));
+          b_rb->applyImpulse(sheepBounce * glm::vec3(0, 1, 0) *
+                             b_rb->getMass());
         }
         for (Collider *c : b->getCollider()) {
-          c->update(b->getTransform());
+          c->update(b->getTransform(), b->getId() < NUM_PLAYERS);
         }
       }
     }
@@ -139,11 +143,9 @@ void Physics::solveCollision(GameObject *a, GameObject *b, int aIndex,
 }
 
 void Physics::moveObjects(float deltaTime) {
-  float moveSpeed = 10.0f;
+  float moveSpeed = 20.0f;
 
   for (GameObject *obj : objects) {
-    if (!obj->isActive())
-      continue;
     RigidBody *rb = obj->getRigidBody();
     vector<Collider *> cl = obj->getCollider();
     if (cl[0]->isTrigger()) {
@@ -166,7 +168,7 @@ void Physics::moveObjects(float deltaTime) {
     glm::vec3 pos = tf->getPosition() + rb->getVelocity() * deltaTime;
     tf->setPosition(pos);
     for (Collider *c : cl) {
-      c->update(tf);
+      c->update(tf, obj->getId() < NUM_PLAYERS);
     }
     rb->setForce(glm::vec3(0.0f));
     rb->setVelocity(glm::vec3(0, vel.y, 0));

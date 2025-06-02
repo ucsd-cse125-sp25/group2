@@ -98,7 +98,6 @@ func get_all_colliders(node: Node3D) -> Array:
 				var is_trigger := false
 				if child.has_meta("isTrigger"):
 					is_trigger = child.get_meta("isTrigger")
-					
 				var extents = shape.size * 0.5
 				
 				var collider_data := {
