@@ -63,8 +63,7 @@ void PlayerLogic::jump(GameObject *player) {
   }
 }
 
-void PlayerLogic::rotate(GameObject *player,
-                                      glm::vec3 rotation) {
+void PlayerLogic::rotate(GameObject *player, glm::vec3 rotation) {
   // rotate the player
   player->getTransform()->setRotation(rotation);
 }

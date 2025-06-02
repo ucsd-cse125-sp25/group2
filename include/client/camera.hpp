@@ -52,7 +52,5 @@ public:
   glm::mat4 getViewProj() { return viewProjMat; }
   glm::vec3 getRotation() { return glm::vec3(pitch, yaw, 0.0f); }
   float getCameraRadius(PLAYER_ID id) { return characterCamRadius[id]; }
-  glm::vec3 getCameraOffset(PLAYER_ID id) {
-    return characterCamOffset[id];
-  }
+  glm::vec3 getCameraOffset(PLAYER_ID id) { return characterCamOffset[id]; }
 };

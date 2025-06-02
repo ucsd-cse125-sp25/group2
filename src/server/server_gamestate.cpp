@@ -77,7 +77,9 @@ void ServerGameState::updateInteraction(PLAYER_ID id) {
   float minDistance = numeric_limits<float>::max();
 
   auto player = getObject(id);
-  glm::vec3 rayOrigin = player->getTransform()->getPosition() + glm::vec3(0, 0.5f, 0); // Ray origin is slightly above the player
+  glm::vec3 rayOrigin =
+      player->getTransform()->getPosition() +
+      glm::vec3(0, 0.5f, 0); // Ray origin is slightly above the player
   glm::vec3 rayDirection = glm::normalize(player->getTransform()->getForward());
 
   // Only need to iterate through the interactable objects
