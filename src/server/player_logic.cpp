@@ -74,7 +74,7 @@ vector<OBJECT_ID> PlayerLogic::rotate(PLAYER_ID id, GameObject *player,
   // if the player is holding an object, apply the rotation to the object
   if (getHeldObject(id) != nullptr) {
     auto heldObject = getHeldObject(id);
-    heldObject->getTransform()->setRotation(rotation);
+    // heldObject->getTransform()->setRotation(rotation); comment this out for now
     rotatedObjects.push_back(heldObject->getId());
   }
   return rotatedObjects;
