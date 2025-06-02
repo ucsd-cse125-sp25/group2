@@ -37,7 +37,7 @@ enum class InteractionType : uint8_t {
   NONE,
   PICKUP,
   PRESS,
-  OPEN_CL OSE,
+  OPEN_CLOSE,
   KEYPAD,
 };
 
