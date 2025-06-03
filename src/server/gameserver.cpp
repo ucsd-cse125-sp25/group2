@@ -136,7 +136,7 @@ void GameServer::dispatchUpdates() {
     } else if (rewardType == RewardType::DEACTIVATE) {
       for (const OBJECT_ID &objectID : rewardObjectIDs) {
         game->getObject(objectID)->deactivate();
-        ActivatePacket deactivatePacket(objectID);
+        DeactivatePacket deactivatePacket(objectID);
         network->sendToAll(deactivatePacket);
       }
     }
