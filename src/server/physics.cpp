@@ -135,7 +135,7 @@ void Physics::solveCollision(GameObject *a, GameObject *b, int aIndex,
     if (massSum > 0) {
       glm::vec3 correction =
           max(penetration - slop, 0.0f) / massSum * percent * normal;
-      float sheepBounce = 9.0f;
+      float sheepBounce = 15.0f;
       if (!a_rb->isStatic()) {
         a->getTransform()->updatePosition(-correction * invMassA);
         if (b->getID() == SHEEP && normal.y < -0.7) {
@@ -161,7 +161,7 @@ void Physics::solveCollision(GameObject *a, GameObject *b, int aIndex,
 }
 
 void Physics::moveObjects(float deltaTime) {
-  float moveSpeed = 25.0f;
+  float moveSpeed = 50.0f;
 
   for (GameObject *obj : objects) {
     if (!obj->isActive())

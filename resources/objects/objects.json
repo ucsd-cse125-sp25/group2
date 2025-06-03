@@ -15,14 +15,14 @@
 				"colliders": [
 					{
 						"center": {
-							"x": 0.0,
-							"y": 0.738,
-							"z": 0.0
+							"x": 0.002,
+							"y": 0.677,
+							"z": 0.141
 						},
 						"halfExtents": {
-							"x": 0.1,
+							"x": 0.25,
 							"y": 0.25,
-							"z": 0.15
+							"z": 0.25
 						},
 						"isTrigger": false,
 						"orientation": {
@@ -49,8 +49,8 @@
 			},
 			"transform": {
 				"position": {
-					"x": 5.0,
-					"y": 0.9,
+					"x": 5.627,
+					"y": 0.866,
 					"z": -3.0
 				},
 				"rotation": {
@@ -515,70 +515,6 @@
 		},
 		{
 			"_id": 8,
-			"active": true,
-			"client": {
-				"fragShaderPath": "../resources/shaders/material.frag",
-				"modelPath": "../resources/objects/box/BlackBox.obj",
-				"vertShaderPath": "../resources/shaders/material.vert"
-			},
-			"level": 0,
-			"name": "Floor",
-			"server": {
-				"colliders": [
-					{
-						"center": {
-							"x": -4.602,
-							"y": -5.518,
-							"z": 0.607
-						},
-						"halfExtents": {
-							"x": 0.5,
-							"y": 66.481,
-							"z": 0.5
-						},
-						"isTrigger": false,
-						"orientation": {
-							"forward": {
-								"x": 0.0,
-								"y": 0.0,
-								"z": 100.0
-							},
-							"right": {
-								"x": 100.0,
-								"y": 0.0,
-								"z": 0.0
-							},
-							"up": {
-								"x": 0.0,
-								"y": 0.1,
-								"z": 0.0
-							}
-						}
-					}
-				],
-				"interaction": "NONE",
-				"static": true
-			},
-			"transform": {
-				"position": {
-					"x": 6.165,
-					"y": -0.379,
-					"z": -29.377
-				},
-				"rotation": {
-					"x": 0.0,
-					"y": 0.0,
-					"z": 0.0
-				},
-				"scale": {
-					"x": 100.0,
-					"y": 0.1,
-					"z": 100.0
-				}
-			}
-		},
-		{
-			"_id": 9,
 			"active": false,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
@@ -642,7 +578,7 @@
 			}
 		},
 		{
-			"_id": 10,
+			"_id": 9,
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
@@ -714,7 +650,7 @@
 			}
 		},
 		{
-			"_id": 11,
+			"_id": 10,
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
@@ -778,7 +714,7 @@
 			}
 		},
 		{
-			"_id": 12,
+			"_id": 11,
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
@@ -842,7 +778,7 @@
 			}
 		},
 		{
-			"_id": 13,
+			"_id": 12,
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
@@ -906,7 +842,7 @@
 			}
 		},
 		{
-			"_id": 14,
+			"_id": 13,
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
@@ -970,7 +906,7 @@
 			}
 		},
 		{
-			"_id": 15,
+			"_id": 14,
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
@@ -983,12 +919,12 @@
 				"colliders": [
 					{
 						"center": {
-							"x": -0.043,
+							"x": 0.323,
 							"y": 9.188,
 							"z": 0.076
 						},
 						"halfExtents": {
-							"x": 5.058,
+							"x": 5.423,
 							"y": 17.579,
 							"z": 0.864
 						},
@@ -1034,7 +970,7 @@
 			}
 		},
 		{
-			"_id": 16,
+			"_id": 15,
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
@@ -1098,7 +1034,7 @@
 			}
 		},
 		{
-			"_id": 17,
+			"_id": 16,
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
@@ -1162,7 +1098,7 @@
 			}
 		},
 		{
-			"_id": 18,
+			"_id": 17,
 			"active": false,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
@@ -1226,7 +1162,7 @@
 			}
 		},
 		{
-			"_id": 19,
+			"_id": 18,
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
@@ -1298,7 +1234,7 @@
 			}
 		},
 		{
-			"_id": 20,
+			"_id": 19,
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
@@ -1312,12 +1248,12 @@
 					{
 						"center": {
 							"x": 0.17,
-							"y": 0.264,
+							"y": 0.921,
 							"z": -0.072
 						},
 						"halfExtents": {
 							"x": 1.598,
-							"y": 0.284,
+							"y": 0.817,
 							"z": 1.595
 						},
 						"isTrigger": true,
@@ -1345,9 +1281,9 @@
 			},
 			"transform": {
 				"position": {
-					"x": -25.248,
-					"y": 27.593,
-					"z": -65.789
+					"x": -24.246,
+					"y": 27.599,
+					"z": -65.671
 				},
 				"rotation": {
 					"x": 0.0,
@@ -1362,7 +1298,7 @@
 			}
 		},
 		{
-			"_id": 21,
+			"_id": 20,
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
@@ -1376,12 +1312,12 @@
 					{
 						"center": {
 							"x": 0.162,
-							"y": 0.304,
+							"y": 0.844,
 							"z": -0.097
 						},
 						"halfExtents": {
 							"x": 1.58,
-							"y": 0.333,
+							"y": 0.75,
 							"z": 1.613
 						},
 						"isTrigger": true,
@@ -1410,7 +1346,7 @@
 			"transform": {
 				"position": {
 					"x": 24.407,
-					"y": 27.64,
+					"y": 27.598,
 					"z": 6.41
 				},
 				"rotation": {
@@ -1426,7 +1362,7 @@
 			}
 		},
 		{
-			"_id": 22,
+			"_id": 21,
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
@@ -1439,12 +1375,12 @@
 				"colliders": [
 					{
 						"center": {
-							"x": -0.062,
+							"x": 0.406,
 							"y": 9.188,
 							"z": -0.027
 						},
 						"halfExtents": {
-							"x": 5.039,
+							"x": 5.507,
 							"y": 17.579,
 							"z": 0.976
 						},
@@ -1490,7 +1426,7 @@
 			}
 		},
 		{
-			"_id": 23,
+			"_id": 22,
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
@@ -1554,7 +1490,7 @@
 			}
 		},
 		{
-			"_id": 24,
+			"_id": 23,
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
@@ -1618,7 +1554,7 @@
 			}
 		},
 		{
-			"_id": 25,
+			"_id": 24,
 			"active": false,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
@@ -1666,8 +1602,8 @@
 			"transform": {
 				"position": {
 					"x": 0.536,
-					"y": 53.252,
-					"z": 7.209
+					"y": 52.039,
+					"z": -22.895
 				},
 				"rotation": {
 					"x": 0.0,
@@ -1682,7 +1618,7 @@
 			}
 		},
 		{
-			"_id": 26,
+			"_id": 25,
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
@@ -1754,7 +1690,7 @@
 			}
 		},
 		{
-			"_id": 27,
+			"_id": 26,
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
@@ -1773,7 +1709,7 @@
 						},
 						"halfExtents": {
 							"x": 1.58,
-							"y": 0.333,
+							"y": 0.75,
 							"z": 1.613
 						},
 						"isTrigger": true,
@@ -1818,7 +1754,7 @@
 			}
 		},
 		{
-			"_id": 28,
+			"_id": 27,
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
@@ -1882,7 +1818,7 @@
 			}
 		},
 		{
-			"_id": 29,
+			"_id": 28,
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
@@ -1946,7 +1882,7 @@
 			}
 		},
 		{
-			"_id": 30,
+			"_id": 29,
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
@@ -2010,7 +1946,7 @@
 			}
 		},
 		{
-			"_id": 31,
+			"_id": 30,
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
@@ -2023,12 +1959,12 @@
 				"colliders": [
 					{
 						"center": {
-							"x": 0.446,
+							"x": 0.108,
 							"y": 11.249,
 							"z": -0.034
 						},
 						"halfExtents": {
-							"x": 5.081,
+							"x": 5.419,
 							"y": 15.619,
 							"z": 0.921
 						},
@@ -2074,7 +2010,7 @@
 			}
 		},
 		{
-			"_id": 32,
+			"_id": 31,
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
@@ -2138,7 +2074,7 @@
 			}
 		},
 		{
-			"_id": 33,
+			"_id": 32,
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
@@ -2202,7 +2138,7 @@
 			}
 		},
 		{
-			"_id": 34,
+			"_id": 33,
 			"active": false,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
@@ -2266,7 +2202,7 @@
 			}
 		},
 		{
-			"_id": 35,
+			"_id": 34,
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
@@ -2322,7 +2258,7 @@
 			"transform": {
 				"position": {
 					"x": 33.497,
-					"y": 2.644,
+					"y": 2.65,
 					"z": -45.986
 				},
 				"rotation": {
@@ -2338,7 +2274,7 @@
 			}
 		},
 		{
-			"_id": 36,
+			"_id": 35,
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
@@ -2352,12 +2288,12 @@
 					{
 						"center": {
 							"x": 0.162,
-							"y": 0.304,
+							"y": 0.833,
 							"z": -0.097
 						},
 						"halfExtents": {
 							"x": 1.58,
-							"y": 0.333,
+							"y": 0.75,
 							"z": 1.613
 						},
 						"isTrigger": true,
@@ -2387,7 +2323,7 @@
 				"position": {
 					"x": 30.701,
 					"y": 0.763,
-					"z": -11.995
+					"z": -33.995
 				},
 				"rotation": {
 					"x": 0.0,
@@ -2402,7 +2338,7 @@
 			}
 		},
 		{
-			"_id": 37,
+			"_id": 36,
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
@@ -2415,12 +2351,12 @@
 				"colliders": [
 					{
 						"center": {
-							"x": 0.446,
+							"x": 0.044,
 							"y": 11.2,
 							"z": -0.033
 						},
 						"halfExtents": {
-							"x": 5.006,
+							"x": 5.408,
 							"y": 15.571,
 							"z": 0.911
 						},
@@ -2466,7 +2402,7 @@
 			}
 		},
 		{
-			"_id": 38,
+			"_id": 37,
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
@@ -2530,7 +2466,7 @@
 			}
 		},
 		{
-			"_id": 39,
+			"_id": 38,
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
@@ -2594,7 +2530,7 @@
 			}
 		},
 		{
-			"_id": 40,
+			"_id": 39,
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
@@ -2658,7 +2594,7 @@
 			}
 		},
 		{
-			"_id": 41,
+			"_id": 40,
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
@@ -2722,7 +2658,7 @@
 			}
 		},
 		{
-			"_id": 42,
+			"_id": 41,
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
@@ -2786,7 +2722,7 @@
 			}
 		},
 		{
-			"_id": 43,
+			"_id": 42,
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
@@ -2850,7 +2786,7 @@
 			}
 		},
 		{
-			"_id": 44,
+			"_id": 43,
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
@@ -2914,7 +2850,7 @@
 			}
 		},
 		{
-			"_id": 45,
+			"_id": 44,
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
@@ -2978,7 +2914,7 @@
 			}
 		},
 		{
-			"_id": 46,
+			"_id": 45,
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
@@ -3038,6 +2974,70 @@
 					"x": 4.0,
 					"y": 4.0,
 					"z": 4.0
+				}
+			}
+		},
+		{
+			"_id": 46,
+			"active": true,
+			"client": {
+				"fragShaderPath": "../resources/shaders/material.frag",
+				"modelPath": "../resources/objects/box/BlackBox.obj",
+				"vertShaderPath": "../resources/shaders/material.vert"
+			},
+			"level": 0,
+			"name": "Floor",
+			"server": {
+				"colliders": [
+					{
+						"center": {
+							"x": -4.602,
+							"y": -0.089,
+							"z": 0.607
+						},
+						"halfExtents": {
+							"x": 0.5,
+							"y": 12.195,
+							"z": 0.5
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": 100.0
+							},
+							"right": {
+								"x": 100.0,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"up": {
+								"x": 0.0,
+								"y": 0.1,
+								"z": 0.0
+							}
+						}
+					}
+				],
+				"interaction": "NONE",
+				"static": true
+			},
+			"transform": {
+				"position": {
+					"x": 6.165,
+					"y": -0.379,
+					"z": -29.377
+				},
+				"rotation": {
+					"x": 0.0,
+					"y": 0.0,
+					"z": 0.0
+				},
+				"scale": {
+					"x": 100.0,
+					"y": 0.1,
+					"z": 100.0
 				}
 			}
 		},
@@ -3445,14 +3445,14 @@
 					},
 					{
 						"center": {
-							"x": -15.212,
+							"x": -13.956,
 							"y": 8.182,
-							"z": -7.474
+							"z": -6.886
 						},
 						"halfExtents": {
 							"x": 1.0,
 							"y": 7.587,
-							"z": 6.374
+							"z": 4.989
 						},
 						"isTrigger": false,
 						"orientation": {
@@ -3475,14 +3475,14 @@
 					},
 					{
 						"center": {
-							"x": -14.743,
+							"x": -13.448,
 							"y": 8.143,
-							"z": -31.086
+							"z": -31.576
 						},
 						"halfExtents": {
 							"x": 1.0,
 							"y": 7.587,
-							"z": 6.374
+							"z": 4.989
 						},
 						"isTrigger": false,
 						"orientation": {
@@ -3512,7 +3512,7 @@
 						"halfExtents": {
 							"x": 1.0,
 							"y": 7.587,
-							"z": 6.374
+							"z": 4.989
 						},
 						"isTrigger": false,
 						"orientation": {
