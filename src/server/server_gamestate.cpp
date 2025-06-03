@@ -195,11 +195,10 @@ bool ServerGameState::updateLevelManager() {
     levelManager->advanceLevel();
     cout << "Level completed!" << endl;
     return true;
-  }
-  else {
+  } else {
     rewards = levelManager->getRewards();
     return false;
-  } 
+  }
 }
 
 void ServerGameState::applyPhysics() {
