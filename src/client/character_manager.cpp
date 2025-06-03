@@ -15,18 +15,18 @@ void CharacterManager::setCharacters(CLIENT_ID *characterAssignments) {
       UIManager::selectButton(UIManager::characterButtons[i]);
       selectedCharacter = i;
       switch (i) {
-        case 0:
-          SoundManager::playSound("ChickenSound");
-          break;
-        case 1:
-          SoundManager::playSound("PigSound");
-          break;
-        case 2:
-          SoundManager::playSound("SheepSound");
-          break;
-        case 3:
-          SoundManager::playSound("CowSound");
-          break;
+      case 0:
+        SoundManager::playSound("ChickenSound");
+        break;
+      case 1:
+        SoundManager::playSound("PigSound");
+        break;
+      case 2:
+        SoundManager::playSound("SheepSound");
+        break;
+      case 3:
+        SoundManager::playSound("CowSound");
+        break;
       }
       // Case 3: Character is assigned to someone else → lock the button
     } else {
