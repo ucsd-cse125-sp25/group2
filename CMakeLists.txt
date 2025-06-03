@@ -39,6 +39,20 @@ if(USE_SANITIZER)
     message(STATUS "Building with Address Sanitizer in Debug mode")
 endif()
 
+if (APPLE)
+    set(FMOD_PLATFORM "mac")
+    set(FMOD_LIBS fmod fmodstudio)
+elseif (WIN32)
+    set(FMOD_PLATFORM "windows")
+    set(FMOD_LIBS fmod_vc fmodstudio_vc)
+elseif (UNIX)
+    set(FMOD_PLATFORM "linux")
+    set(FMOD_LIBS fmod fmodstudio)
+endif()
+
+set(FMOD_ROOT ${CMAKE_SOURCE_DIR}/dependencies/fmod)
+set(FMOD_LIB_DIR ${FMOD_ROOT}/${FMOD_PLATFORM}/lib)
+
 # Required for dependencies
 include(FetchContent)
 

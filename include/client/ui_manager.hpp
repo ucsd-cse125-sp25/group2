@@ -2,6 +2,7 @@
 
 #include "globals.hpp"
 #include "keypad.hpp"
+#include "sound_manager.hpp"
 #include "ui.hpp"
 
 #include <algorithm>

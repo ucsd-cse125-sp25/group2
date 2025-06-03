@@ -7,6 +7,7 @@
 #include "core.hpp"
 #include "model.hpp"
 #include "shader.hpp"
+#include "sound_manager.hpp"
 #include "ui_manager.hpp"
 
 using namespace std;
