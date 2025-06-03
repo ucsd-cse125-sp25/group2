@@ -11,6 +11,7 @@ private:
   float friction;
   float area;
   bool staticObject;
+  PLAYER_ID playerHolding;
 
 public:
   RigidBody(glm::vec3 v = glm::vec3(0), glm::vec3 f = glm::vec3(0), float m = 1)
@@ -18,6 +19,7 @@ public:
     friction = 0.5f;
     restitution = 0.1f;
     staticObject = true;
+    playerHolding = -1;
   }
 
   void setVelocity(glm::vec3 v) { velocity = v; }
@@ -25,6 +27,7 @@ public:
   void setMass(float m) { mass = m; }
   void setArea(float a) { area = a; }
   void setStatic(bool isStatic) { staticObject = isStatic; }
+  void setHeld(PLAYER_ID playerId) { playerHolding = playerId; }
 
   void applyForce(glm::vec3 f) { force += f; }
   void applyImpulse(glm::vec3 i) { velocity += i / mass; }
@@ -36,4 +39,5 @@ public:
   float getRestitution() { return restitution; }
   float getFriction() { return friction; }
   bool isStatic() { return staticObject; }
+  PLAYER_ID playerHold() { return playerHolding; }
 };

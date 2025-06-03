@@ -143,6 +143,14 @@ void GameServer::dispatchUpdates() {
   }
 
   // If a level is completed, notify all clients
+  if (game->getPlayerLogic()->doNotifyClient()) {
+    // Notify clients if pig picked up or dropped a note
+    GameObject *heldObject = game->getPlayerLogic()->getHeldObject(PIG);
+    OBJECT_ID heldNote = heldObject ? heldObject->getId() : -1;
+    network->sendToClient(game->getPlayerLogic()->getClient(PIG),
+                          NotePacket(heldNote));
+  }
+
   if (triggerLevelChange) {
     triggerLevelChange = false;
     LevelChangePacket levelChangePacket(game->level);
