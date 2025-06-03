@@ -38,13 +38,12 @@
                     "puzzleID": 1,
                     "rewardType": "DEACTIVATE",
                     "rewardIDs": [15, 16],
-                    "puzzleType": "milestone",
+                    "puzzleType": "clue",
                     "conditions": [
                         {   
                             "__name": "Pinpad",
                             "conditionType": "PIN",
-                            "objectID": 6,
-                            "triggeringObjectID": 1
+                            "objectID": 6
                         }
                     ]
                 },
@@ -134,19 +133,6 @@
                             "__name": "Pinpad 4",
                             "conditionType": "PIN",
                             "objectID": 35,
-                            "triggeringObjectID": 1
-                        }
-                    ]
-                },
-                {
-                    "puzzleID": 7,
-                    "rewardType": "NONE",
-                    "puzzleType": "milestone",
-                    "conditions": [
-                        {
-                            "__name" : "Button",
-                            "conditionType": "BUTTON",
-                            "objectID": 40,
                             "triggeringObjectID": 1
                         }
                     ]

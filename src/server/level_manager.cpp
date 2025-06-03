@@ -70,6 +70,7 @@ void LevelManager::loadJSON() {
 
       if (levelData.contains("puzzles") && levelData["puzzles"].is_array()) {
         for (const auto &puzzleData : levelData["puzzles"]) {
+          cout << "loading puzzle" << id << endl;
           PUZZLE_ID puzzleID = puzzleData["puzzleID"].get<int>();
 
           string rewardTypeStr = puzzleData["rewardType"].get<string>();
@@ -83,6 +84,7 @@ void LevelManager::loadJSON() {
 
           unique_ptr<Puzzle> newPuzzle =
               make_unique<Puzzle>(rewardType, rewardIDs);
+          cout << "made new puzzle with ID: " << puzzleID << endl;
 
           if (puzzleData.contains("conditions") &&
               puzzleData["conditions"].is_array()) {
@@ -123,7 +125,6 @@ void LevelManager::loadJSON() {
           } else if (puzzleType == "clue") {
             cout << "Adding clue puzzle with ID: " << puzzleID << endl;
             newLevel->addCluePuzzle(puzzleID, move(newPuzzle));
-            break;
           }
         }
       }
