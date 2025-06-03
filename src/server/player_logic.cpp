@@ -68,6 +68,10 @@ void PlayerLogic::rotate(GameObject *player, glm::vec3 rotation) {
   player->getTransform()->setRotation(rotation);
 }
 
+void PlayerLogic::reset(GameObject *player) {
+  player->getTransform()->setPosition(player->getOriginalPosition());
+}
+
 void PlayerLogic::glide(GameObject *chicken) {
   // glide the chicken
   if (!chicken->isGrounded()) {

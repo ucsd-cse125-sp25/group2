@@ -53,6 +53,7 @@ public:
   OBJECT_ID moveHeldObject(PLAYER_ID id, GameObject *player);
   void jump(GameObject *player);
   void rotate(GameObject *player, glm::vec3 rotation);
+  void reset(GameObject *player);
 
   // Ability functions
   void glide(GameObject *chicken);

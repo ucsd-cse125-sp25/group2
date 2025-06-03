@@ -32,7 +32,8 @@ enum class MovementType : uint8_t {
   LEFT,
   RIGHT,
   JUMP,
-  GLIDE
+  GLIDE,
+  RESET
 };
 
 enum class InteractionType : uint8_t {

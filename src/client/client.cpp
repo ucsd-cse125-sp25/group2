@@ -335,6 +335,10 @@ void Client::keyCallback(GLFWwindow *window, int key, int scancode, int action,
       network->send(packet);
       SoundManager::playSound("BounceSound");
     }
+    if (key == GLFW_KEY_U) {
+      MovementPacket packet(game->getPlayer()->getID(), MovementType::RESET);
+      network->send(packet);
+    }
   }
 }
 

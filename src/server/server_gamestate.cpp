@@ -57,6 +57,9 @@ void ServerGameState::updateMovement(PLAYER_ID id, MovementType type) {
     case MovementType::GLIDE:
       playerLogic->glide(player);
       break;
+    case MovementType::RESET:
+      playerLogic->reset(player);
+      break;
     default:
       cerr << "Unknown movement type" << endl;
       break;
