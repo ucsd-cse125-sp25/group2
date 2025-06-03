@@ -215,12 +215,6 @@ void Client::idleCallback(float deltaTime) {
       selectedNote = notePacket->id; // Store the note ID to display
       break;
     }
-    case PacketType::NOTE: {
-      auto notePacket = dynamic_cast<NotePacket *>(packet.get());
-      cout << "displaying note with ID: " << notePacket->id << endl;
-      selectedNote = notePacket->id; // Store the note ID to display
-      break;
-    }
     }
   }
 

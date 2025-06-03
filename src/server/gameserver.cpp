@@ -146,7 +146,7 @@ void GameServer::dispatchUpdates() {
   if (game->getPlayerLogic()->doNotifyClient()) {
     // Notify clients if pig picked up or dropped a note
     GameObject *heldObject = game->getPlayerLogic()->getHeldObject(PIG);
-    OBJECT_ID heldNote = heldObject ? heldObject->getId() : -1;
+    OBJECT_ID heldNote = heldObject ? heldObject->getID() : -1;
     network->sendToClient(game->getPlayerLogic()->getClient(PIG),
                           NotePacket(heldNote));
   }
