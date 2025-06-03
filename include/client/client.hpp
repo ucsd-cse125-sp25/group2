@@ -3,6 +3,7 @@
 #include "camera.hpp"
 #include "character_manager.hpp"
 #include "client_gamestate.hpp"
+#include "sound_manager.hpp"
 #include "client_network.hpp"
 #include "core.hpp"
 #include "model.hpp"

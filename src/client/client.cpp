@@ -96,6 +96,7 @@ bool Client::initUI() {
       []() { UIManager::startButton->isSelected = true; });
   UIManager::startScreenUI->setOnSelect([&state = game->state]() {
     state = Gamestate::MAINMENU;
+    SoundManager::playSound("CharacterSelectBGM");
     UIManager::startScreenUI->isSelected = true;
   });
   UIManager::chickenButton->setOnClick([net = network.get()]() {
