@@ -5,7 +5,7 @@
 using namespace chrono_literals;
 using namespace chrono;
 
-#define SERVERTICKS milliseconds(30)
+#define SERVERTICKS milliseconds(50)
 
 int main() {
   // Create context and start the server

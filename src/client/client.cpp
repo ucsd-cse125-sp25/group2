@@ -96,6 +96,7 @@ bool Client::initUI() {
       []() { UIManager::startButton->isSelected = true; });
   UIManager::startScreenUI->setOnSelect([&state = game->state]() {
     state = Gamestate::MAINMENU;
+    SoundManager::stopSound("TitleBGM");
     SoundManager::playSound("CharacterSelectBGM");
     UIManager::startScreenUI->isSelected = true;
   });
@@ -161,6 +162,8 @@ void Client::idleCallback(float deltaTime) {
       if (game->state == Gamestate::GAME) {
         // Hide the cursor and lock it to the center of the window when the game
         // starts
+        SoundManager::stopSound("CharacterSelectBGM");
+        SoundManager::playSound("GameBGM");
         glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 #if !defined(__APPLE__)
         glfwSetInputMode(window, GLFW_RAW_MOUSE_MOTION, GLFW_TRUE);
@@ -253,18 +256,22 @@ void Client::processMovementInput() {
   if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
     MovementPacket packet(game->getPlayer()->getId(), MovementType::FORWARD);
     network->send(packet);
+    SoundManager::playSound("WalkingSound");
   }
   if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
     MovementPacket packet(game->getPlayer()->getId(), MovementType::BACKWARD);
     network->send(packet);
+    SoundManager::playSound("WalkingSound");
   }
   if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
     MovementPacket packet(game->getPlayer()->getId(), MovementType::LEFT);
     network->send(packet);
+    SoundManager::playSound("WalkingSound");
   }
   if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
     MovementPacket packet(game->getPlayer()->getId(), MovementType::RIGHT);
     network->send(packet);
+    SoundManager::playSound("WalkingSound");
   }
   if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS) {
     if (characterManager->selectedCharacter == CHICKEN) {
@@ -318,6 +325,7 @@ void Client::keyCallback(GLFWwindow *window, int key, int scancode, int action,
     if (key == GLFW_KEY_SPACE) {
       MovementPacket packet(game->getPlayer()->getId(), MovementType::JUMP);
       network->send(packet);
+      SoundManager::playSound("BounceSound");
     }
   }
 }
