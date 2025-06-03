@@ -24,19 +24,19 @@ void UIManager::makeMenus() {
                                "../resources/ui/CharacterSelection.png",
                                nullptr, false, false);
   chickenButton =
-      createUIElement(-0.6f, -0.8f, 0.4f, 0.4f, 0, AnimationInfo(1, 3, 0.1f),
+      createUIElement(-0.75f, -0.8f, 0.4f, 0.4f, 0, AnimationInfo(1, 3, 0.1f),
                       "../resources/ui/ChickenButton.png",
                       "../resources/ui/ChickenButtonHover.png", true, true);
   pigButton =
-      createUIElement(-0.2f, -0.8f, 0.4f, 0.4f, 0, AnimationInfo(1, 3, 0.1f),
+      createUIElement(-0.3f, -0.8f, 0.4f, 0.4f, 0, AnimationInfo(1, 3, 0.1f),
                       "../resources/ui/PigButton.png",
                       "../resources/ui/PigButtonHover.png", true, true);
   sheepButton =
-      createUIElement(0.2f, -0.8f, 0.4f, 0.4f, 0, AnimationInfo(1, 3, 0.1f),
+      createUIElement(0.17f, -0.8f, 0.4f, 0.4f, 0, AnimationInfo(1, 3, 0.1f),
                       "../resources/ui/SheepButton.png",
                       "../resources/ui/SheepButtonHover.png", true, true);
   cowButton =
-      createUIElement(0.6f, -0.8f, 0.4f, 0.4f, 0, AnimationInfo(1, 3, 0.1f),
+      createUIElement(0.65f, -0.8f, 0.4f, 0.4f, 0, AnimationInfo(1, 3, 0.1f),
                       "../resources/ui/CowButton.png",
                       "../resources/ui/CowButtonHover.png", true, true);
   characterButtons = {chickenButton.get(), pigButton.get(), sheepButton.get(),
