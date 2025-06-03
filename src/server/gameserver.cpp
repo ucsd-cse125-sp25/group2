@@ -74,10 +74,10 @@ void GameServer::updateGameState() {
           characterPacket->playerID, characterPacket->clientID);
       CharacterResponsePacket packet(characterAssignments);
       network->sendToAll(packet);
-      if (game->getPlayerLogic()->allCharactersAssigned()) {
-        GameStatePacket statePacket(Gamestate::GAME);
-        network->sendToAll(statePacket);
-      }
+      // if (game->getPlayerLogic()->allCharactersAssigned()) {
+      GameStatePacket statePacket(Gamestate::GAME);
+      network->sendToAll(statePacket);
+      // }
       break;
     }
     case PacketType::KEYPADINPUT: {
