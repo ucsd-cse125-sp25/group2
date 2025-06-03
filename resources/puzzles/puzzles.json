@@ -6,31 +6,31 @@
                 {
                     "puzzleID": 0,
                     "rewardType": "ACTIVATE",
-                    "rewardIDs": [5],
+                    "rewardIDs": [9],
                     "puzzleType": "clue",
                     "conditions": [
                         {   
                             "__name": "Blue Pressure Plate",
                             "conditionType": "PRESSURE_PLATE",
-                            "objectID": 10,
-                            "triggeringObjectID": 11
+                            "objectID": 11,
+                            "triggeringObjectID": 4
                         },
                         {
                             "__name": "Red Pressure Plate",
                             "conditionType": "PRESSURE_PLATE",
-                            "objectID": 7,
-                            "triggeringObjectID": 12
+                            "objectID": 12,
+                            "triggeringObjectID": 5
                         },
                         {
                             "__name": "Yellow Pressure Plate",
                             "conditionType": "PRESSURE_PLATE",
-                            "objectID": 9,
-                            "triggeringObjectID": 13
+                            "objectID": 13,
+                            "triggeringObjectID": 6
                         },{
                             "__name": "Green Pressure Plate",
                             "conditionType": "PRESSURE_PLATE",
-                            "objectID": 8,
-                            "triggeringObjectID": 14
+                            "objectID": 14,
+                            "triggeringObjectID": 7
                         }
                     ]
                 },
@@ -43,7 +43,7 @@
                         {   
                             "__name": "Pinpad",
                             "conditionType": "PIN",
-                            "objectID": 6
+                            "objectID": 10
                         }
                     ]
                 },

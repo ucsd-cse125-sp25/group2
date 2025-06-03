@@ -62,7 +62,7 @@ void Physics::solveCollision(GameObject *a, GameObject *b, int aIndex,
   Collider *aCol = a->getCollider()[aIndex];
   Collider *bCol = b->getCollider()[bIndex];
 
-  if (!aCol || !bCol)
+  if (!aCol || !bCol || !a->isActive() || !b->isActive())
     return;
 
   glm::vec3 normal;
