@@ -38,7 +38,7 @@
                     "puzzleID": 1,
                     "rewardType": "DEACTIVATE",
                     "rewardIDs": [15, 16],
-                    "puzzleType": "clue",
+                    "puzzleType": "milestone",
                     "conditions": [
                         {   
                             "__name": "Pinpad",
