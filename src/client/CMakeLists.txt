@@ -9,10 +9,8 @@ add_executable(${TARGET_NAME} ${CLIENT_SRCS})
 target_include_directories(${TARGET_NAME} PRIVATE 
     ${CLIENT_INCLUDE_DIRECTORY} 
     ${SHARED_INCLUDE_DIRECTORY}
-    ${CMAKE_SOURCE_DIR}/dependencies/fmod/include
+    ${FMOD_ROOT}/include
 )
-
-target_link_directories(client PRIVATE ${FMOD_LIB_DIR})
 
 # Platform-specific configurations
 if(APPLE)
@@ -46,11 +44,7 @@ target_link_libraries(${TARGET_NAME} PRIVATE
     ${FMOD_LIBS}
 )
 
-# Set C++ standard
-set_target_properties(${TARGET_NAME} PROPERTIES
-    CXX_STANDARD 17
-    CXX_STANDARD_REQUIRED ON
-)
+target_link_directories(client PRIVATE ${FMOD_LIB_DIR})
 
 if(WIN32)
     add_custom_command(TARGET client POST_BUILD
