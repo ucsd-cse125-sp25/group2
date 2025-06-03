@@ -1,11 +1,11 @@
 #include "player_logic.hpp"
 
 PlayerLogic::PlayerLogic() {
-  speed = 20.0f;
+  speed = 25.0f;
   sheepJumps = SHEEP_MAX_JUMPS;
   jumpForce = 40.0f;
   sheepJumpForce = 60.0f;
-  glideFallSpeed = 1.0f;
+  glideFallSpeed = 10.0f;
 
   for (int i = 0; i < NUM_PLAYERS; i++) {
     heldObjects[i] = nullptr;

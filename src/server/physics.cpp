@@ -161,7 +161,7 @@ void Physics::solveCollision(GameObject *a, GameObject *b, int aIndex,
 }
 
 void Physics::moveObjects(float deltaTime) {
-  float moveSpeed = 20.0f;
+  float moveSpeed = 25.0f;
 
   for (GameObject *obj : objects) {
     if (!obj->isActive())
