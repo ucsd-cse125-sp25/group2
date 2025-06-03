@@ -196,7 +196,10 @@ bool ServerGameState::updateLevelManager() {
     cout << "Level completed!" << endl;
     return true;
   }
-  return false;
+  else {
+    rewards = levelManager->getRewards();
+    return false;
+  } 
 }
 
 void ServerGameState::applyPhysics() {
@@ -233,5 +236,7 @@ vector<OBJECT_ID> ServerGameState::getLastUpdatedObjects() {
 
 vector<pair<RewardType, vector<OBJECT_ID>>>
 ServerGameState::getRewardObjects() {
-  return rewards;
+  vector<pair<RewardType, vector<OBJECT_ID>>> res = rewards;
+  rewards.clear();
+  return res;
 }

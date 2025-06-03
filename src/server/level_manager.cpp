@@ -5,7 +5,6 @@ void Level::addCluePuzzle(PUZZLE_ID id, unique_ptr<Puzzle> puzzle) {
 }
 
 void Level::addMilestonePuzzle(unique_ptr<Puzzle> puzzle) {
-  cout << "Adding milestone puzzle" << endl;
   milestones[numMilestones] = move(puzzle);
   numMilestones++;
 }
@@ -16,7 +15,12 @@ bool Level::isLevelComplete() {
   for (const auto &cluePair : clues) {
     auto clue = cluePair.second.get();
     if (clue->isPuzzleComplete()) {
-      rewards.push_back(clue->dispatchReward());
+      if (clue->isCompleted())
+        continue;
+      else {
+        clue->setComplete();
+        rewards.push_back(clue->dispatchReward());
+      }
     }
   }
 
@@ -26,6 +30,7 @@ bool Level::isLevelComplete() {
   if (currentMilestone <= numMilestones) {
     milestone = milestones[currentMilestone].get();
     if (milestone->isPuzzleComplete()) {
+      milestone->setComplete();
       rewards.push_back(milestone->dispatchReward());
       currentMilestone++;
     }
@@ -35,7 +40,9 @@ bool Level::isLevelComplete() {
 }
 
 vector<pair<RewardType, vector<OBJECT_ID>>> Level::getPuzzleRewards() {
-  return rewards;
+  vector<pair<RewardType, vector<OBJECT_ID>>> res = rewards;
+  rewards.clear();
+  return res;
 }
 
 void LevelManager::addObject(LEVEL_ID levelID, OBJECT_ID objectID,
@@ -70,7 +77,6 @@ void LevelManager::loadJSON() {
 
       if (levelData.contains("puzzles") && levelData["puzzles"].is_array()) {
         for (const auto &puzzleData : levelData["puzzles"]) {
-          cout << "loading puzzle" << id << endl;
           PUZZLE_ID puzzleID = puzzleData["puzzleID"].get<int>();
 
           string rewardTypeStr = puzzleData["rewardType"].get<string>();
@@ -84,7 +90,6 @@ void LevelManager::loadJSON() {
 
           unique_ptr<Puzzle> newPuzzle =
               make_unique<Puzzle>(rewardType, rewardIDs);
-          cout << "made new puzzle with ID: " << puzzleID << endl;
 
           if (puzzleData.contains("conditions") &&
               puzzleData["conditions"].is_array()) {
@@ -120,10 +125,8 @@ void LevelManager::loadJSON() {
           }
           string puzzleType = puzzleData["puzzleType"].get<string>();
           if (puzzleType == "milestone") {
-            cout << "Adding milestone puzzle with ID: " << puzzleID << endl;
             newLevel->addMilestonePuzzle(move(newPuzzle));
           } else if (puzzleType == "clue") {
-            cout << "Adding clue puzzle with ID: " << puzzleID << endl;
             newLevel->addCluePuzzle(puzzleID, move(newPuzzle));
           }
         }
