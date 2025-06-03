@@ -83,8 +83,8 @@ void GameServer::updateGameState() {
     case PacketType::KEYPADINPUT: {
       auto keypadPacket = static_cast<KeypadInputPacket *>(packet.get());
       bool solved = game->updateKeypadInput(keypadPacket->objectID,
-                                              keypadPacket->inputSequence,
-                                              keypadPacket->close);
+                                            keypadPacket->inputSequence,
+                                            keypadPacket->close);
       if (!keypadPacket->close) {
         network->sendToClient(
             keypadPacket->clientID,
