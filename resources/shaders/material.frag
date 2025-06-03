@@ -117,5 +117,5 @@ void main()
     if (isTransparent) {
         a = 0.5;
     }
-    FragColor = vec4(diffuseColor, a);
+    FragColor = vec4(finalColor, a);
 }
