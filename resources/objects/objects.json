@@ -3046,6 +3046,262 @@
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
+				"modelPath": "../resources/objects/note/CowNote.obj",
+				"vertShaderPath": "../resources/shaders/material.vert"
+			},
+			"level": 0,
+			"name": "CowNote",
+			"server": {
+				"colliders": [
+					{
+						"center": {
+							"x": 0.041,
+							"y": 0.743,
+							"z": 0.017
+						},
+						"halfExtents": {
+							"x": 1.098,
+							"y": 1.009,
+							"z": 0.028
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": 0.75
+							},
+							"right": {
+								"x": -0.732,
+								"y": -0.162,
+								"z": 0.0
+							},
+							"up": {
+								"x": 0.162,
+								"y": -0.732,
+								"z": 0.0
+							}
+						}
+					}
+				],
+				"interaction": "NONE",
+				"static": true
+			},
+			"transform": {
+				"position": {
+					"x": 24.661,
+					"y": 32.39,
+					"z": 11.639
+				},
+				"rotation": {
+					"x": 0.0,
+					"y": 0.0,
+					"z": -167.527
+				},
+				"scale": {
+					"x": 0.75,
+					"y": 0.75,
+					"z": 0.75
+				}
+			}
+		},
+		{
+			"_id": 48,
+			"active": true,
+			"client": {
+				"fragShaderPath": "../resources/shaders/material.frag",
+				"modelPath": "../resources/objects/note/ChickenNote.obj",
+				"vertShaderPath": "../resources/shaders/material.vert"
+			},
+			"level": 0,
+			"name": "ChickenNote",
+			"server": {
+				"colliders": [
+					{
+						"center": {
+							"x": 0.041,
+							"y": 0.743,
+							"z": 0.017
+						},
+						"halfExtents": {
+							"x": 1.098,
+							"y": 1.009,
+							"z": 0.028
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": -0.75,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"right": {
+								"x": 0.0,
+								"y": -0.055,
+								"z": -0.748
+							},
+							"up": {
+								"x": 0.0,
+								"y": -0.748,
+								"z": 0.055
+							}
+						}
+					}
+				],
+				"interaction": "NONE",
+				"static": true
+			},
+			"transform": {
+				"position": {
+					"x": 33.497,
+					"y": 6.012,
+					"z": -33.739
+				},
+				"rotation": {
+					"x": 0.0,
+					"y": -90.0,
+					"z": -175.777
+				},
+				"scale": {
+					"x": 0.75,
+					"y": 0.75,
+					"z": 0.75
+				}
+			}
+		},
+		{
+			"_id": 49,
+			"active": true,
+			"client": {
+				"fragShaderPath": "../resources/shaders/material.frag",
+				"modelPath": "../resources/objects/note/PigNote.obj",
+				"vertShaderPath": "../resources/shaders/material.vert"
+			},
+			"level": 0,
+			"name": "PigNote",
+			"server": {
+				"colliders": [
+					{
+						"center": {
+							"x": 0.041,
+							"y": 0.743,
+							"z": 0.017
+						},
+						"halfExtents": {
+							"x": 1.098,
+							"y": 1.009,
+							"z": 0.028
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": 0.75
+							},
+							"right": {
+								"x": -0.746,
+								"y": 0.079,
+								"z": 0.0
+							},
+							"up": {
+								"x": -0.079,
+								"y": -0.746,
+								"z": 0.0
+							}
+						}
+					}
+				],
+				"interaction": "NONE",
+				"static": true
+			},
+			"transform": {
+				"position": {
+					"x": 0.184,
+					"y": 39.496,
+					"z": 11.6
+				},
+				"rotation": {
+					"x": 0.0,
+					"y": 0.0,
+					"z": 173.947
+				},
+				"scale": {
+					"x": 0.75,
+					"y": 0.75,
+					"z": 0.75
+				}
+			}
+		},
+		{
+			"_id": 50,
+			"active": true,
+			"client": {
+				"fragShaderPath": "../resources/shaders/material.frag",
+				"modelPath": "../resources/objects/note/SheepNote.obj",
+				"vertShaderPath": "../resources/shaders/material.vert"
+			},
+			"level": 0,
+			"name": "SheepNote",
+			"server": {
+				"colliders": [
+					{
+						"center": {
+							"x": 0.041,
+							"y": 0.743,
+							"z": 0.017
+						},
+						"halfExtents": {
+							"x": 1.098,
+							"y": 1.009,
+							"z": 0.028
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": 0.75
+							},
+							"right": {
+								"x": -0.727,
+								"y": 0.183,
+								"z": 0.0
+							},
+							"up": {
+								"x": -0.183,
+								"y": -0.727,
+								"z": 0.0
+							}
+						}
+					}
+				],
+				"interaction": "NONE",
+				"static": true
+			},
+			"transform": {
+				"position": {
+					"x": -23.837,
+					"y": 32.187,
+					"z": -71.332
+				},
+				"rotation": {
+					"x": 0.0,
+					"y": 0.0,
+					"z": 165.861
+				},
+				"scale": {
+					"x": 0.75,
+					"y": 0.75,
+					"z": 0.75
+				}
+			}
+		},
+		{
+			"_id": 51,
+			"active": true,
+			"client": {
+				"fragShaderPath": "../resources/shaders/material.frag",
 				"modelPath": "../resources/objects/Barn/Barn.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
