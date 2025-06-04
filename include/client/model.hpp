@@ -4,6 +4,7 @@
 #include "mesh.hpp"
 #include "shader.hpp"
 #include "transform.hpp"
+#include "light_manager.hpp"
 
 #include <assimp/Importer.hpp>
 #include <assimp/postprocess.h>
