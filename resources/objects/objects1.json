@@ -272,7 +272,7 @@
 					{
 						"center": {
 							"x": 0.081,
-							"y": 0.272,
+							"y": 0.445,
 							"z": 0.018
 						},
 						"halfExtents": {
@@ -305,9 +305,9 @@
 			},
 			"transform": {
 				"position": {
-					"x": 3.36,
+					"x": 0.017,
 					"y": 0.768,
-					"z": -14.409
+					"z": -10.581
 				},
 				"rotation": {
 					"x": 0.0,
@@ -326,6 +326,70 @@
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
+				"modelPath": "../resources/objects/button/GreenButton.obj",
+				"vertShaderPath": "../resources/shaders/material.vert"
+			},
+			"level": 0,
+			"name": "GreenPressurePlate",
+			"server": {
+				"colliders": [
+					{
+						"center": {
+							"x": 0.081,
+							"y": 0.403,
+							"z": 0.018
+						},
+						"halfExtents": {
+							"x": 0.825,
+							"y": 0.301,
+							"z": 1.223
+						},
+						"isTrigger": true,
+						"orientation": {
+							"forward": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": 1.0
+							},
+							"right": {
+								"x": 1.5,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"up": {
+								"x": 0.0,
+								"y": 1.0,
+								"z": 0.0
+							}
+						}
+					}
+				],
+				"interaction": "NONE",
+				"static": true
+			},
+			"transform": {
+				"position": {
+					"x": 0.017,
+					"y": 0.768,
+					"z": -17.943
+				},
+				"rotation": {
+					"x": 0.0,
+					"y": 0.0,
+					"z": 0.0
+				},
+				"scale": {
+					"x": 1.5,
+					"y": 1.0,
+					"z": 1.0
+				}
+			}
+		},
+		{
+			"_id": 6,
+			"active": true,
+			"client": {
+				"fragShaderPath": "../resources/shaders/material.frag",
 				"modelPath": "../resources/objects/button/RedButton.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
@@ -336,7 +400,7 @@
 					{
 						"center": {
 							"x": 0.081,
-							"y": 0.272,
+							"y": 0.469,
 							"z": 0.018
 						},
 						"halfExtents": {
@@ -370,70 +434,6 @@
 			"transform": {
 				"position": {
 					"x": 3.36,
-					"y": 9.2,
-					"z": -14.409
-				},
-				"rotation": {
-					"x": 0.0,
-					"y": 0.0,
-					"z": 0.0
-				},
-				"scale": {
-					"x": 1.5,
-					"y": 1.0,
-					"z": 1.0
-				}
-			}
-		},
-		{
-			"_id": 6,
-			"active": true,
-			"client": {
-				"fragShaderPath": "../resources/shaders/material.frag",
-				"modelPath": "../resources/objects/button/YellowButton.obj",
-				"vertShaderPath": "../resources/shaders/material.vert"
-			},
-			"level": 0,
-			"name": "YellowPressurePlate",
-			"server": {
-				"colliders": [
-					{
-						"center": {
-							"x": 0.081,
-							"y": 0.272,
-							"z": 0.018
-						},
-						"halfExtents": {
-							"x": 0.825,
-							"y": 0.301,
-							"z": 1.223
-						},
-						"isTrigger": true,
-						"orientation": {
-							"forward": {
-								"x": 0.0,
-								"y": 0.0,
-								"z": 1.0
-							},
-							"right": {
-								"x": 1.5,
-								"y": 0.0,
-								"z": 0.0
-							},
-							"up": {
-								"x": 0.0,
-								"y": 1.0,
-								"z": 0.0
-							}
-						}
-					}
-				],
-				"interaction": "NONE",
-				"static": true
-			},
-			"transform": {
-				"position": {
-					"x": -3.575,
 					"y": 9.2,
 					"z": -14.409
 				},
@@ -454,17 +454,17 @@
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
-				"modelPath": "../resources/objects/button/GreenButton.obj",
+				"modelPath": "../resources/objects/button/YellowButton.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
 			"level": 0,
-			"name": "GreenPressurePlate",
+			"name": "YellowPressurePlate",
 			"server": {
 				"colliders": [
 					{
 						"center": {
 							"x": 0.081,
-							"y": 0.272,
+							"y": 0.44,
 							"z": 0.018
 						},
 						"halfExtents": {
@@ -498,7 +498,7 @@
 			"transform": {
 				"position": {
 					"x": -3.575,
-					"y": 0.768,
+					"y": 9.2,
 					"z": -14.409
 				},
 				"rotation": {
@@ -906,6 +906,70 @@
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
 			"level": 0,
+			"name": "YellowDoor3",
+			"server": {
+				"colliders": [
+					{
+						"center": {
+							"x": 0.074,
+							"y": 5.605,
+							"z": 0.03
+						},
+						"halfExtents": {
+							"x": 2.808,
+							"y": 5.602,
+							"z": 0.672
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": 0.986
+							},
+							"right": {
+								"x": 0.928,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"up": {
+								"x": 0.0,
+								"y": 1.0,
+								"z": 0.0
+							}
+						}
+					}
+				],
+				"interaction": "NONE",
+				"static": true
+			},
+			"transform": {
+				"position": {
+					"x": 5.315,
+					"y": 10.026,
+					"z": -55.052
+				},
+				"rotation": {
+					"x": 0.0,
+					"y": 0.0,
+					"z": 0.0
+				},
+				"scale": {
+					"x": 0.928,
+					"y": 1.0,
+					"z": 0.986
+				}
+			}
+		},
+		{
+			"_id": 15,
+			"active": true,
+			"client": {
+				"fragShaderPath": "../resources/shaders/material.frag",
+				"modelPath": "../resources/objects/mill/mazedoor/MazeDoor.obj",
+				"vertShaderPath": "../resources/shaders/material.vert"
+			},
+			"level": 0,
 			"name": "GreenDoor2",
 			"server": {
 				"colliders": [
@@ -962,7 +1026,7 @@
 			}
 		},
 		{
-			"_id": 15,
+			"_id": 16,
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
@@ -1026,7 +1090,7 @@
 			}
 		},
 		{
-			"_id": 16,
+			"_id": 17,
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
@@ -1090,7 +1154,7 @@
 			}
 		},
 		{
-			"_id": 17,
+			"_id": 18,
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
@@ -1154,7 +1218,7 @@
 			}
 		},
 		{
-			"_id": 18,
+			"_id": 19,
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
@@ -1218,7 +1282,79 @@
 			}
 		},
 		{
-			"_id": 19,
+			"_id": 20,
+			"active": true,
+			"client": {
+				"fragShaderPath": "../resources/shaders/material.frag",
+				"modelPath": "../resources/objects/keypad/pinPad.obj",
+				"vertShaderPath": "../resources/shaders/material.vert"
+			},
+			"level": 0,
+			"name": "pinPad",
+			"server": {
+				"colliders": [
+					{
+						"center": {
+							"x": -0.087,
+							"y": 0.637,
+							"z": -0.17
+						},
+						"halfExtents": {
+							"x": 1.189,
+							"y": 2.693,
+							"z": 0.309
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": 1.0
+							},
+							"right": {
+								"x": 1.0,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"up": {
+								"x": 0.0,
+								"y": 1.0,
+								"z": 0.0
+							}
+						}
+					}
+				],
+				"interaction": "KEYPAD",
+				"keypad": {
+					"correctSequence": [
+						3,
+						1,
+						2,
+						1
+					]
+				},
+				"static": true
+			},
+			"transform": {
+				"position": {
+					"x": -13.365,
+					"y": 10.707,
+					"z": -41.502
+				},
+				"rotation": {
+					"x": 0.0,
+					"y": 0.0,
+					"z": 0.0
+				},
+				"scale": {
+					"x": 1.0,
+					"y": 1.0,
+					"z": 1.0
+				}
+			}
+		},
+		{
+			"_id": 21,
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
@@ -1282,7 +1418,7 @@
 			}
 		},
 		{
-			"_id": 20,
+			"_id": 22,
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
@@ -1346,7 +1482,7 @@
 			}
 		},
 		{
-			"_id": 21,
+			"_id": 23,
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
@@ -1410,7 +1546,7 @@
 			}
 		},
 		{
-			"_id": 22,
+			"_id": 24,
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
@@ -1474,7 +1610,7 @@
 			}
 		},
 		{
-			"_id": 23,
+			"_id": 25,
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
@@ -1538,7 +1674,71 @@
 			}
 		},
 		{
-			"_id": 24,
+			"_id": 26,
+			"active": true,
+			"client": {
+				"fragShaderPath": "../resources/shaders/material.frag",
+				"modelPath": "../resources/objects/note/Note.obj",
+				"vertShaderPath": "../resources/shaders/material.vert"
+			},
+			"level": 0,
+			"name": "Note",
+			"server": {
+				"colliders": [
+					{
+						"center": {
+							"x": -0.182,
+							"y": 0.668,
+							"z": 0.0
+						},
+						"halfExtents": {
+							"x": 0.5,
+							"y": 0.5,
+							"z": 0.5
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": 2.0
+							},
+							"right": {
+								"x": 2.0,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"up": {
+								"x": 0.0,
+								"y": 2.0,
+								"z": 0.0
+							}
+						}
+					}
+				],
+				"interaction": "PICKUP",
+				"static": false
+			},
+			"transform": {
+				"position": {
+					"x": 5.539,
+					"y": 11.385,
+					"z": -51.28
+				},
+				"rotation": {
+					"x": 0.0,
+					"y": 0.0,
+					"z": 0.0
+				},
+				"scale": {
+					"x": 2.0,
+					"y": 2.0,
+					"z": 2.0
+				}
+			}
+		},
+		{
+			"_id": 27,
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
@@ -2331,12 +2531,12 @@
 					},
 					{
 						"center": {
-							"x": 8.977,
+							"x": 8.507,
 							"y": 15.619,
 							"z": -37.22
 						},
 						"halfExtents": {
-							"x": 7.074,
+							"x": 0.545,
 							"y": 5.57,
 							"z": 4.139
 						},
@@ -2361,14 +2561,14 @@
 					},
 					{
 						"center": {
-							"x": 8.977,
+							"x": 2.335,
 							"y": 15.619,
-							"z": -44.72
+							"z": -40.975
 						},
 						"halfExtents": {
-							"x": 7.074,
+							"x": 0.432,
 							"y": 5.57,
-							"z": 4.139
+							"z": 7.885
 						},
 						"isTrigger": false,
 						"orientation": {
@@ -2422,6 +2622,36 @@
 					{
 						"center": {
 							"x": -6.866,
+							"y": 15.606,
+							"z": -33.757
+						},
+						"halfExtents": {
+							"x": 3.185,
+							"y": 5.581,
+							"z": 0.693
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": 1.0
+							},
+							"right": {
+								"x": 1.0,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"up": {
+								"x": 0.0,
+								"y": 1.0,
+								"z": 0.0
+							}
+						}
+					},
+					{
+						"center": {
+							"x": 5.147,
 							"y": 15.606,
 							"z": -33.757
 						},
@@ -2721,13 +2951,13 @@
 					},
 					{
 						"center": {
-							"x": 0.114,
-							"y": 29.816,
+							"x": 4.063,
+							"y": 26.243,
 							"z": 5.856
 						},
 						"halfExtents": {
-							"x": 10.538,
-							"y": 18.251,
+							"x": 1.323,
+							"y": 6.632,
 							"z": 0.878
 						},
 						"isTrigger": false,
@@ -2738,13 +2968,103 @@
 								"z": 1.0
 							},
 							"right": {
-								"x": 1.0,
-								"y": 0.0,
+								"x": 0.857,
+								"y": -0.516,
 								"z": 0.0
 							},
 							"up": {
+								"x": 0.516,
+								"y": 0.857,
+								"z": 0.0
+							}
+						}
+					},
+					{
+						"center": {
+							"x": -5.252,
+							"y": 16.49,
+							"z": 5.856
+						},
+						"halfExtents": {
+							"x": 1.323,
+							"y": 6.632,
+							"z": 0.878
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
 								"x": 0.0,
-								"y": 1.0,
+								"y": 0.0,
+								"z": 1.0
+							},
+							"right": {
+								"x": 0.68,
+								"y": -0.733,
+								"z": 0.0
+							},
+							"up": {
+								"x": 0.733,
+								"y": 0.68,
+								"z": 0.0
+							}
+						}
+					},
+					{
+						"center": {
+							"x": -4.602,
+							"y": 26.243,
+							"z": 5.856
+						},
+						"halfExtents": {
+							"x": 1.323,
+							"y": 6.632,
+							"z": 0.878
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": 1.0
+							},
+							"right": {
+								"x": 0.79,
+								"y": 0.613,
+								"z": 0.0
+							},
+							"up": {
+								"x": -0.613,
+								"y": 0.79,
+								"z": 0.0
+							}
+						}
+					},
+					{
+						"center": {
+							"x": 5.415,
+							"y": 16.598,
+							"z": 5.856
+						},
+						"halfExtents": {
+							"x": 1.323,
+							"y": 6.632,
+							"z": 0.878
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": 1.0
+							},
+							"right": {
+								"x": 0.642,
+								"y": 0.766,
+								"z": 0.0
+							},
+							"up": {
+								"x": -0.766,
+								"y": 0.642,
 								"z": 0.0
 							}
 						}

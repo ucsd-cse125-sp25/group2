@@ -6,70 +6,70 @@
                 {
                     "puzzleID": 0,
                     "rewardType": "DEACTIVATE",
-                    "rewardIDs": [8, 13, 15],
+                    "rewardIDs": [8, 13, 16],
                     "puzzleType": "clue",
                     "conditions": [
                         {   
                             "__name": "Blue Pressure Plate",
                             "conditionType": "PRESSURE_PLATE",
                             "objectID": 4,
-                            "triggeringObjectID": 3
+                            "triggeringObjectID": 2
                         }
                     ]
                 },
                 {
-                    "puzzleID": 0,
-                    "rewardType": "NONE",
-                    "rewardIDs": [9, 11, 18],
-                    "puzzleType": "clue",
-                    "conditions": [
-                        {   
-                            "__name": "Red Pressure Plate",
-                            "conditionType": "PRESSURE_PLATE",
-                            "objectID": 5,
-                            "triggeringObjectID": 0
-                        }
-                    ]
-                },
-                {
-                    "puzzleID": 0,
+                    "puzzleID": 1,
                     "rewardType": "DEACTIVATE",
-                    "rewardIDs": [12, 17],
-                    "puzzleType": "clue",
-                    "conditions": [
-                        {   
-                            "__name": "Yellow Pressure Plate",
-                            "conditionType": "PRESSURE_PLATE",
-                            "objectID": 6,
-                            "triggeringObjectID": 0
-                        }
-                    ]
-                },
-                {
-                    "puzzleID": 0,
-                    "rewardType": "NONE",
-                    "rewardIDs": [10, 14, 16],
+                    "rewardIDs": [10, 15, 17],
                     "puzzleType": "clue",
                     "conditions": [
                         {   
                             "__name": "Green Pressure Plate",
                             "conditionType": "PRESSURE_PLATE",
-                            "objectID": 7,
-                            "triggeringObjectID": 3
+                            "objectID": 5,
+                            "triggeringObjectID": 2
                         }
                     ]
                 },
                 {
-                    "puzzleID": 0,
+                    "puzzleID": 2,
+                    "rewardType": "DEACTIVATE",
+                    "rewardIDs": [9, 11, 19],
+                    "puzzleType": "clue",
+                    "conditions": [
+                        {   
+                            "__name": "Red Pressure Plate",
+                            "conditionType": "PRESSURE_PLATE",
+                            "objectID": 6,
+                            "triggeringObjectID": 2
+                        }
+                    ]
+                },
+                {
+                    "puzzleID": 3,
+                    "rewardType": "DEACTIVATE",
+                    "rewardIDs": [12, 14, 18],
+                    "puzzleType": "clue",
+                    "conditions": [
+                        {   
+                            "__name": "Yellow Pressure Plate",
+                            "conditionType": "PRESSURE_PLATE",
+                            "objectID": 7,
+                            "triggeringObjectID": 2
+                        }
+                    ]
+                },
+                {
+                    "puzzleID": 4,
                     "rewardType": "NONE",
                     "rewardIDs": [],
                     "puzzleType": "milestone",
                     "conditions": [
                         {   
-                            "__name": "End",
-                            "conditionType": "PRESSURE_PLATE",
-                            "objectID": 5,
-                            "triggeringObjectID": 3
+                            "__name": "Pinpad",
+                            "conditionType": "PIN",
+                            "objectID": 20,
+                            "triggeringObjectID": 1
                         }
                     ]
                 }
