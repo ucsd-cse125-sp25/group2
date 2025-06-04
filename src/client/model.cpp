@@ -16,6 +16,11 @@ void Model::draw(const glm::mat4 &viewProjMtx, const glm::vec3 &pos,
   shader->setVec3("DiffuseColor", color);
   shader->setVec3("viewPos", pos);
 
+  // Light setup
+  shader->setFloat("ambientStrength", 0.1f);
+  shader->setFloat("diffuseStrength", 1.0f);
+  shader->setFloat("specularStrength", 1.0f);
+
   LightManager::sendToShader(shader);
 
   if (isTransparent) {
