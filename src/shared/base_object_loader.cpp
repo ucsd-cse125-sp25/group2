@@ -5,8 +5,9 @@ BaseObjectData BaseObjectLoader::createBaseGameObject(const json &objData) {
   glm::vec3 position, rotation, scale;
 
   if (objData.contains("level")) {
-      auto levelTypeVal = magic_enum::enum_cast<LevelType>(objData["level"].get<string>());
-      baseObjectData.level = levelTypeVal.value_or(LevelType::NONE);
+    auto levelTypeVal =
+        magic_enum::enum_cast<LevelType>(objData["level"].get<string>());
+    baseObjectData.level = levelTypeVal.value_or(LevelType::NONE);
   } else {
     baseObjectData.level = LevelType::NONE; // Default
   }

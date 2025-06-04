@@ -4,9 +4,9 @@
 #include "client_object_loader.hpp"
 #include "globals.hpp"
 
+#include <magic_enum/magic_enum.hpp>
 #include <memory>
 #include <unordered_map>
-#include <magic_enum/magic_enum.hpp>
 
 using namespace std;
 
