@@ -94,9 +94,11 @@ void ObjectLoader::loadLights() {
 
   if (lightsData.contains("lights") && lightsData["lights"].is_array()) {
     for (const auto &lightData : lightsData["lights"]) {
-      const LEVEL_ID level = static_cast<LEVEL_ID>(lightData.value("level", -1));
+      const LEVEL_ID level =
+          static_cast<LEVEL_ID>(lightData.value("level", -1));
       glm::vec3 position = parseVec3(lightData, "position", glm::vec3(0.0f));
-      glm::vec3 color = parseVec3(lightData, "color", glm::vec3(1.0f, 1.0f, 1.0f));
+      glm::vec3 color =
+          parseVec3(lightData, "color", glm::vec3(1.0f, 1.0f, 1.0f));
       float radius = lightData.value("radius", 1.0f);
       bool useAttenuation = lightData.value("useAttenuation", true);
       LightManager::addLight(level, position, color, radius, useAttenuation);
