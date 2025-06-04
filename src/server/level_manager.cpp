@@ -63,7 +63,8 @@ void LevelManager::loadJSON() {
 
   if (levelsData.contains("levels") && levelsData["levels"].is_array()) {
     for (const auto &levelData : levelsData["levels"]) {
-      auto levelTypeVal = magic_enum::enum_cast<LevelType>(levelData["levelType"].get<string>());
+      auto levelTypeVal = magic_enum::enum_cast<LevelType>(
+          levelData["levelType"].get<string>());
       LevelType levelType = levelTypeVal.value_or(LevelType::NONE);
       auto currentLevelObjects = levelObjects[levelType];
       unique_ptr<Level> newLevel = make_unique<Level>(levelType);
@@ -143,7 +144,8 @@ void LevelManager::advanceLevel() {
   uint8_t levelNum = magic_enum::enum_integer(currentLevelType);
   levelNum++;
   if (levelNum < NUM_LEVELS) {
-    currentLevelType = magic_enum::enum_cast<LevelType>(levelNum).value_or(LevelType::NONE);
+    currentLevelType =
+        magic_enum::enum_cast<LevelType>(levelNum).value_or(LevelType::NONE);
     currentLevel = levels[currentLevelType].get();
   }
 }
