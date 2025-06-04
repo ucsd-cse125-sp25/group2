@@ -4,15 +4,15 @@ unordered_map<LEVEL_ID, vector<Light>> LightManager::lights;
 LEVEL_ID LightManager::currentLevel = 0;
 
 void LightManager::addLight(LEVEL_ID level, const glm::vec3 &pos,
-                          const glm::vec3 &color, float radius,
-                          bool useAtten) {
+                            const glm::vec3 &color, float radius,
+                            bool useAtten) {
   if (level < NUM_LEVELS) {
     lights[level].push_back({pos, color, radius, useAtten});
   }
 }
 
 void LightManager::sendToShader(unique_ptr<Shader> &shader) {
-  auto& currentLights = lights[currentLevel];
+  auto &currentLights = lights[currentLevel];
   int numLights = currentLights.size();
 
   shader->setInt("numLights", numLights);
@@ -32,10 +32,6 @@ void LightManager::sendToShader(unique_ptr<Shader> &shader) {
   }
 }
 
-void LightManager::clearLights(LEVEL_ID level) {
-  lights[level].clear();
-}
+void LightManager::clearLights(LEVEL_ID level) { lights[level].clear(); }
 
-void LightManager::setCurrentLevel(LEVEL_ID level) {
-  currentLevel = level;
-}
+void LightManager::setCurrentLevel(LEVEL_ID level) { currentLevel = level; }

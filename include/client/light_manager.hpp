@@ -23,6 +23,7 @@ class LightManager {
 private:
   static unordered_map<LEVEL_ID, vector<Light>> lights;
   static LEVEL_ID currentLevel;
+
 public:
   static void addLight(LEVEL_ID level, const glm::vec3 &pos,
                        const glm::vec3 &color, float radius,
