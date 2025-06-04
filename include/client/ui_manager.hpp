@@ -44,5 +44,6 @@ public:
   static unique_ptr<BaseUI> cowButton;
 
   static unique_ptr<BaseUI> loadingScreen;
+  static unique_ptr<BaseUI> gameCompletedScreen;
   static unique_ptr<KeypadUI> keypad;
 };

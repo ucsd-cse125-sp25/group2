@@ -100,6 +100,8 @@ bool Client::initUI() {
     SoundManager::playSound("CharacterSelectBGM");
     UIManager::startScreenUI->isSelected = true;
   });
+  UIManager::loadingScreen->setOnSelect(
+      [&state = game->state]() { state = Gamestate::GAME; UIManager::loadingScreen->resetAnim(); });
   UIManager::chickenButton->setOnClick([net = network.get()]() {
     CharacterSelectPacket packet(CHICKEN, net->getID());
     net->send(packet);

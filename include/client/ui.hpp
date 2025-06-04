@@ -92,4 +92,6 @@ public:
   bool isHovered(float ndcX, float ndcY);
 
   void play();
+
+  void resetAnim();
 };

@@ -4,6 +4,7 @@ unique_ptr<BaseUI> UIManager::startScreenUI = nullptr;
 unique_ptr<BaseUI> UIManager::startButton = nullptr;
 unique_ptr<BaseUI> UIManager::mainMenuUI = nullptr;
 unique_ptr<BaseUI> UIManager::loadingScreen = nullptr;
+unique_ptr<BaseUI> UIManager::gameCompletedScreen = nullptr;
 unique_ptr<BaseUI> UIManager::chickenButton = nullptr;
 unique_ptr<BaseUI> UIManager::pigButton = nullptr;
 unique_ptr<BaseUI> UIManager::sheepButton = nullptr;
@@ -22,6 +23,12 @@ void UIManager::makeMenus() {
                       "../resources/ui/StartButtonHover.png", true, true);
   mainMenuUI = createUIElement(0.0f, 0.0f, 2.0f, 2.0f, 0, nullopt,
                                "../resources/ui/CharacterSelection.png",
+                               nullptr, false, false);
+  loadingScreen = createUIElement(
+      0.0f, 0.0f, 2.0f, 2.0f, 0, AnimationInfo(6, 6, 0.1f),
+      "../resources/ui/LoadingScreen.png", nullptr, false, false);
+  gameCompletedScreen = createUIElement(0.0f, 0.0f, 2.0f, 2.0f, 0, nullopt,
+                               "../resources/ui/GameCompletedScreen.png",
                                nullptr, false, false);
   chickenButton =
       createUIElement(-0.75f, -0.8f, 0.4f, 0.4f, 0, AnimationInfo(1, 3, 0.1f),
@@ -81,9 +88,20 @@ void UIManager::updateMenu(float mouseX, float mouseY, int winWidth,
     for (auto *button : characterButtons) {
       button->update(mouseX, mouseY, winWidth, winHeight, deltatime);
     }
+    break;
   case Gamestate::GAME:
     if (keypad && keypad->display) {
       keypad->update(mouseX, mouseY, winWidth, winHeight, deltatime);
+    }
+    break;
+  case Gamestate::LOADING:
+    if (loadingScreen) {
+      loadingScreen->update(mouseX, mouseY, winWidth, winHeight, deltatime);
+    }
+    break;
+  case Gamestate::COMPLETED:
+    if (gameCompletedScreen) {
+      gameCompletedScreen->update(mouseX, mouseY, winWidth, winHeight, deltatime);
     }
     break;
   default:
@@ -103,10 +121,17 @@ void UIManager::drawMenu(Gamestate state) {
     pigButton->draw();
     sheepButton->draw();
     cowButton->draw();
+    break;
   case Gamestate::GAME:
     if (keypad && keypad->display) {
       keypad->draw();
     }
+    break;
+  case Gamestate::LOADING:
+    loadingScreen->draw();
+    break;
+  case Gamestate::COMPLETED:
+    gameCompletedScreen->draw();
     break;
   default:
     break;
