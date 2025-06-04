@@ -4,7 +4,7 @@
         "level": 0,
         "position": {
             "x": 0,
-            "y": 0,
+            "y": 5,
             "z": 0
         },
         "color": {
@@ -12,7 +12,7 @@
             "y": 1.0,
             "z": 1.0
         },
-        "radius": 10,
+        "radius": 200,
         "useAttenuation": true
     }
   ]
