@@ -23,7 +23,14 @@
 #define CONFIG_PATH "../resources/config.json"
 #define NOTE_PATH "../resources/ui/notes.json"
 
-enum class Gamestate : uint8_t { STARTSCREEN, MAINMENU, READY, GAME, LOADING, COMPLETED };
+enum class Gamestate : uint8_t {
+  STARTSCREEN,
+  MAINMENU,
+  READY,
+  GAME,
+  LOADING,
+  COMPLETED
+};
 
 enum class MovementType : uint8_t {
   NONE,

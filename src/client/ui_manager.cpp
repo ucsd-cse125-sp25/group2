@@ -27,9 +27,9 @@ void UIManager::makeMenus() {
   loadingScreen = createUIElement(
       0.0f, 0.0f, 2.0f, 2.0f, 0, AnimationInfo(6, 6, 0.1f),
       "../resources/ui/LoadingScreen.png", nullptr, false, false);
-  gameCompletedScreen = createUIElement(0.0f, 0.0f, 2.0f, 2.0f, 0, nullopt,
-                               "../resources/ui/GameCompletedScreen.png",
-                               nullptr, false, false);
+  gameCompletedScreen = createUIElement(
+      0.0f, 0.0f, 2.0f, 2.0f, 0, nullopt,
+      "../resources/ui/GameCompletedScreen.png", nullptr, false, false);
   chickenButton =
       createUIElement(-0.75f, -0.8f, 0.4f, 0.4f, 0, AnimationInfo(1, 3, 0.1f),
                       "../resources/ui/ChickenButton.png",
@@ -101,7 +101,8 @@ void UIManager::updateMenu(float mouseX, float mouseY, int winWidth,
     break;
   case Gamestate::COMPLETED:
     if (gameCompletedScreen) {
-      gameCompletedScreen->update(mouseX, mouseY, winWidth, winHeight, deltatime);
+      gameCompletedScreen->update(mouseX, mouseY, winWidth, winHeight,
+                                  deltatime);
     }
     break;
   default:
