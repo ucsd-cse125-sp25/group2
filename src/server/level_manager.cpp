@@ -15,7 +15,7 @@ bool Level::isLevelComplete() {
   for (const auto &cluePair : clues) {
     auto clue = cluePair.second.get();
     if (clue->isPuzzleComplete())
-        rewards.push_back(clue->dispatchReward());
+      rewards.push_back(clue->dispatchReward());
   }
 
   // loop through milestones, which are puzzles that must be completed for the
