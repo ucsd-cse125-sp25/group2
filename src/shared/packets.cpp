@@ -270,6 +270,22 @@ NotePacket NotePacket::deserialize(const vector<char> &payload) {
   return packet;
 }
 
+vector<char> SoundPacket::serialize() const {
+  vector<char> buffer(soundName.size() + sizeof(uint32_t));
+  uint32_t size = soundName.size();
+  memcpy(buffer.data(), &size, sizeof(uint32_t));
+  memcpy(buffer.data() + sizeof(uint32_t), soundName.data(), size);
+  return buffer;
+}
+
+SoundPacket SoundPacket::deserialize(const vector<char> &payload) {
+  uint32_t size;
+  memcpy(&size, payload.data(), sizeof(uint32_t));
+  string soundName(payload.data() + sizeof(uint32_t), size);
+  SoundPacket packet(soundName);
+  return packet;
+}
+
 vector<char> DisconnectPacket::serialize() const {
   vector<char> buffer(sizeof(CLIENT_ID));
   memcpy(buffer.data(), &id, sizeof(CLIENT_ID));
@@ -320,6 +336,8 @@ unique_ptr<IPacket> deserialize(PacketType type, vector<char> &payload) {
         KeypadInputPacket::deserialize(payload));
   case PacketType::NOTE:
     return make_unique<NotePacket>(NotePacket::deserialize(payload));
+  case PacketType::SOUND:
+    return make_unique<SoundPacket>(SoundPacket::deserialize(payload));
   case PacketType::DISCONNECT:
     return make_unique<DisconnectPacket>(
         DisconnectPacket::deserialize(payload));

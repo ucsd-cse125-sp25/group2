@@ -34,6 +34,9 @@ enum class PacketType : uint8_t {
   CHARACTERSELECT,
   KEYPADINPUT,
   DISCONNECT,
+
+  // Sender: both
+  SOUND,
 };
 
 struct IPacket {
@@ -185,6 +188,15 @@ struct NotePacket : public IPacket {
   PacketType getType() const override { return PacketType::NOTE; }
   vector<char> serialize() const override;
   static NotePacket deserialize(const vector<char> &payload);
+};
+
+struct SoundPacket : public IPacket {
+  string soundName;
+
+  SoundPacket(const string &name) : soundName(name) {}
+  PacketType getType() const override { return PacketType::SOUND; }
+  vector<char> serialize() const override;
+  static SoundPacket deserialize(const vector<char> &payload);
 };
 
 struct DisconnectPacket : public IPacket {

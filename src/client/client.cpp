@@ -225,6 +225,11 @@ void Client::idleCallback(float deltaTime) {
       selectedNote = notePacket->id; // Store the note ID to display
       break;
     }
+    case PacketType::SOUND: {
+      auto soundPacket = dynamic_cast<SoundPacket *>(packet.get());
+      SoundManager::playSound(soundPacket->soundName);
+      break;
+    }
     }
   }
 
@@ -381,22 +386,35 @@ void Client::mouseButtonCallback(GLFWwindow *window, int button, int action,
     }
     // delete later: to switch between different clients on one machine
     if (button == GLFW_MOUSE_BUTTON_RIGHT) {
-      static bool isCursorHidden = true;
-      if (isCursorHidden) {
-        // Show the cursor
-        isCursorHidden = false;
-        glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
-#ifndef __APPLE__
-        glfwSetInputMode(window, GLFW_RAW_MOUSE_MOTION, GLFW_FALSE);
-#endif
-      } else {
-        // Hide the cursor
-        isCursorHidden = true;
-        glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-#ifndef __APPLE__
-        glfwSetInputMode(window, GLFW_RAW_MOUSE_MOTION, GLFW_TRUE);
-#endif
-      }
+      switch (characterManager->selectedCharacter) {
+      case CHICKEN:
+        network->send(SoundPacket("ChickenSound"));
+        break;
+      case PIG:
+        network->send(SoundPacket("PigSound"));
+        break;
+      case SHEEP:
+        network->send(SoundPacket("SheepSound"));
+        break;
+      case COW:
+        network->send(SoundPacket("CowSound"));
+        break;
+      };
+      //       static bool isCursorHidden = true;
+      //       if (isCursorHidden) {
+      //         // Show the cursor
+      //         isCursorHidden = false;
+      //         glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+      // #ifndef __APPLE__
+      //         glfwSetInputMode(window, GLFW_RAW_MOUSE_MOTION, GLFW_FALSE);
+      // #endif
+      //       } else {
+      //         // Hide the cursor
+      //         isCursorHidden = true;
+      //         glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+      // #ifndef __APPLE__
+      //         glfwSetInputMode(window, GLFW_RAW_MOUSE_MOTION, GLFW_TRUE);
+      // #endif
     }
   }
 }

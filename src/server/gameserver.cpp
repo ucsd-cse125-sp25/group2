@@ -92,6 +92,11 @@ void GameServer::updateGameState() {
       }
       break;
     }
+    case PacketType::SOUND: {
+      auto soundPacket = static_cast<SoundPacket *>(packet.get());
+      network->sendToAll(*soundPacket);
+      break;
+    }
     }
   }
   game->applyPhysics();
