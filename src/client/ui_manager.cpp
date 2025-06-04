@@ -16,36 +16,36 @@ void UIManager::makeMenus() {
   // Start Screen + button
   startScreenUI = createUIElement(
       0.0f, 0.0f, 2.0f, 2.0f, 0, AnimationInfo(3, 6, 0.04f),
-      "../resources/ui/TitleScreenAnim.png", nullptr, false, false);
+      "../resources/ui/screen/TitleScreenAnim.png", nullptr, false, false);
   startButton =
       createUIElement(0.0f, -0.5f, 0.5f, 0.5f, 0, AnimationInfo(1, 3, 0.1f),
-                      "../resources/ui/StartButton.png",
-                      "../resources/ui/StartButtonHover.png", true, true);
+                      "../resources/ui/buttons/StartButton.png",
+                      "../resources/ui/buttons/StartButtonHover.png", true, true);
   mainMenuUI = createUIElement(0.0f, 0.0f, 2.0f, 2.0f, 0, nullopt,
-                               "../resources/ui/CharacterSelection.png",
+                               "../resources/ui/screen/CharacterSelection.png",
                                nullptr, false, false);
   loadingScreen = createUIElement(
       0.0f, 0.0f, 2.0f, 2.0f, 0, AnimationInfo(6, 6, 0.1f),
-      "../resources/ui/LoadingScreen.png", nullptr, false, false);
+      "../resources/ui/screen/LoadingScreen.png", nullptr, false, false);
   gameCompletedScreen = createUIElement(
       0.0f, 0.0f, 2.0f, 2.0f, 0, nullopt,
-      "../resources/ui/GameCompletedScreen.png", nullptr, false, false);
+      "../resources/ui/screen/GameCompletedScreen.png", nullptr, false, false);
   chickenButton =
       createUIElement(-0.75f, -0.8f, 0.4f, 0.4f, 0, AnimationInfo(1, 3, 0.1f),
-                      "../resources/ui/ChickenButton.png",
-                      "../resources/ui/ChickenButtonHover.png", true, true);
+                      "../resources/ui/buttons/ChickenButton.png",
+                      "../resources/ui/buttons/ChickenButtonHover.png", true, true);
   pigButton =
       createUIElement(-0.3f, -0.8f, 0.4f, 0.4f, 0, AnimationInfo(1, 3, 0.1f),
-                      "../resources/ui/PigButton.png",
-                      "../resources/ui/PigButtonHover.png", true, true);
+                      "../resources/ui/buttons/PigButton.png",
+                      "../resources/ui/buttons/PigButtonHover.png", true, true);
   sheepButton =
       createUIElement(0.17f, -0.8f, 0.4f, 0.4f, 0, AnimationInfo(1, 3, 0.1f),
-                      "../resources/ui/SheepButton.png",
-                      "../resources/ui/SheepButtonHover.png", true, true);
+                      "../resources/ui/buttons/SheepButton.png",
+                      "../resources/ui/buttons/SheepButtonHover.png", true, true);
   cowButton =
       createUIElement(0.65f, -0.8f, 0.4f, 0.4f, 0, AnimationInfo(1, 3, 0.1f),
-                      "../resources/ui/CowButton.png",
-                      "../resources/ui/CowButtonHover.png", true, true);
+                      "../resources/ui/buttons/CowButton.png",
+                      "../resources/ui/buttons/CowButtonHover.png", true, true);
   characterButtons = {chickenButton.get(), pigButton.get(), sheepButton.get(),
                       cowButton.get()};
   keypad = make_unique<KeypadUI>();
