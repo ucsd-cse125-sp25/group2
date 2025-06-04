@@ -17,10 +17,10 @@ void UIManager::makeMenus() {
   startScreenUI = createUIElement(
       0.0f, 0.0f, 2.0f, 2.0f, 0, AnimationInfo(3, 6, 0.04f),
       "../resources/ui/screen/TitleScreenAnim.png", nullptr, false, false);
-  startButton =
-      createUIElement(0.0f, -0.5f, 0.5f, 0.5f, 0, AnimationInfo(1, 3, 0.1f),
-                      "../resources/ui/buttons/StartButton.png",
-                      "../resources/ui/buttons/StartButtonHover.png", true, true);
+  startButton = createUIElement(
+      0.0f, -0.5f, 0.5f, 0.5f, 0, AnimationInfo(1, 3, 0.1f),
+      "../resources/ui/buttons/StartButton.png",
+      "../resources/ui/buttons/StartButtonHover.png", true, true);
   mainMenuUI = createUIElement(0.0f, 0.0f, 2.0f, 2.0f, 0, nullopt,
                                "../resources/ui/screen/CharacterSelection.png",
                                nullptr, false, false);
@@ -30,18 +30,18 @@ void UIManager::makeMenus() {
   gameCompletedScreen = createUIElement(
       0.0f, 0.0f, 2.0f, 2.0f, 0, nullopt,
       "../resources/ui/screen/GameCompletedScreen.png", nullptr, false, false);
-  chickenButton =
-      createUIElement(-0.75f, -0.8f, 0.4f, 0.4f, 0, AnimationInfo(1, 3, 0.1f),
-                      "../resources/ui/buttons/ChickenButton.png",
-                      "../resources/ui/buttons/ChickenButtonHover.png", true, true);
+  chickenButton = createUIElement(
+      -0.75f, -0.8f, 0.4f, 0.4f, 0, AnimationInfo(1, 3, 0.1f),
+      "../resources/ui/buttons/ChickenButton.png",
+      "../resources/ui/buttons/ChickenButtonHover.png", true, true);
   pigButton =
       createUIElement(-0.3f, -0.8f, 0.4f, 0.4f, 0, AnimationInfo(1, 3, 0.1f),
                       "../resources/ui/buttons/PigButton.png",
                       "../resources/ui/buttons/PigButtonHover.png", true, true);
-  sheepButton =
-      createUIElement(0.17f, -0.8f, 0.4f, 0.4f, 0, AnimationInfo(1, 3, 0.1f),
-                      "../resources/ui/buttons/SheepButton.png",
-                      "../resources/ui/buttons/SheepButtonHover.png", true, true);
+  sheepButton = createUIElement(
+      0.17f, -0.8f, 0.4f, 0.4f, 0, AnimationInfo(1, 3, 0.1f),
+      "../resources/ui/buttons/SheepButton.png",
+      "../resources/ui/buttons/SheepButtonHover.png", true, true);
   cowButton =
       createUIElement(0.65f, -0.8f, 0.4f, 0.4f, 0, AnimationInfo(1, 3, 0.1f),
                       "../resources/ui/buttons/CowButton.png",
