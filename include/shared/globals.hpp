@@ -8,10 +8,9 @@
 #define CLIENT_ID int
 #define OBJECT_ID int
 #define PLAYER_ID int
-#define LEVEL_ID int
 
 #define NUM_PLAYERS 4
-#define NUM_LEVELS 2
+#define NUM_LEVELS 1
 
 #define CHICKEN 0
 #define PIG 1
@@ -56,3 +55,19 @@ enum class RewardType : uint8_t {
   ACTIVATE,
   DEACTIVATE,
 };
+
+// for testing until we add more level logic
+enum class LevelType : uint8_t {
+  NONE,
+  BARN,
+  ALL,
+};
+
+// enum class LevelType : uint8_t {
+//   NONE,
+//   PENS,
+//   SILO,
+//   WINDMILL,
+//   BARN,
+//   ALL,
+// };

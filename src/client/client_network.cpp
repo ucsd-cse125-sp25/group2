@@ -114,6 +114,10 @@ unique_ptr<IPacket> ClientNetwork::processPackets(PacketType type,
     unique_ptr<IPacket> packet = deserialize(PacketType::NOTE, payload);
     return packet;
   }
+  case PacketType::SOUND: {
+    unique_ptr<IPacket> packet = deserialize(PacketType::SOUND, payload);
+    return packet;
+  }
   default:
     cerr << ("Client Warning: Unknown packet type") << endl;
     return nullptr;

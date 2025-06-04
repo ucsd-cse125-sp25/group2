@@ -12,15 +12,15 @@ using namespace std;
 class BaseGameObject {
 protected:
   OBJECT_ID id;
-  LEVEL_ID level;
+  LevelType level;
   bool active;
   glm::vec3 originalPosition;
   unique_ptr<Transform> transform;
 
 public:
-  BaseGameObject(const OBJECT_ID id, const int levelNum, const bool isActive,
+  BaseGameObject(const OBJECT_ID id, const LevelType levelType, const bool isActive,
                  glm::vec3 originalPos, unique_ptr<Transform> &tf)
-      : id(id), level(levelNum), active(isActive),
+      : id(id), level(levelType), active(isActive),
         originalPosition(originalPos), transform(move(tf)){};
 
   virtual ~BaseGameObject(){};
@@ -32,7 +32,7 @@ public:
   // getters
   const OBJECT_ID getID() const { return id; };
   bool isActive() const { return active; };
-  LEVEL_ID getLevelID() const { return level; };
+  LevelType getLevel() const { return level; };
   glm::vec3 getOriginalPosition() { return originalPosition; }
   Transform *getTransform() { return transform.get(); };
   glm::vec3 getPosition() { return transform->getPosition(); };

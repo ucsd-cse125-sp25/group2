@@ -47,26 +47,24 @@ KeypadUI::KeypadUI() : inputSequence(4) {
 }
 
 void KeypadUI::loadTextures() {
-  buttonTextures = {
-      BaseUI::loadTexture("../resources/ui/Buttons/sprite_00.png"),
-      BaseUI::loadTexture("../resources/ui/Buttons/sprite_02.png"),
-      BaseUI::loadTexture("../resources/ui/Buttons/sprite_04.png"),
-      BaseUI::loadTexture("../resources/ui/Buttons/sprite_06.png"),
-      BaseUI::loadTexture("../resources/ui/Buttons/sprite_08.png")};
+  buttonTextures = {BaseUI::loadTexture("../resources/ui/pin/sprite_00.png"),
+                    BaseUI::loadTexture("../resources/ui/pin/sprite_02.png"),
+                    BaseUI::loadTexture("../resources/ui/pin/sprite_04.png"),
+                    BaseUI::loadTexture("../resources/ui/pin/sprite_06.png"),
+                    BaseUI::loadTexture("../resources/ui/pin/sprite_08.png")};
 
   buttonHoverTextures = {
-      BaseUI::loadTexture("../resources/ui/Buttons/sprite_01.png"),
-      BaseUI::loadTexture("../resources/ui/Buttons/sprite_03.png"),
-      BaseUI::loadTexture("../resources/ui/Buttons/sprite_05.png"),
-      BaseUI::loadTexture("../resources/ui/Buttons/sprite_07.png"),
-      BaseUI::loadTexture("../resources/ui/Buttons/sprite_09.png")};
+      BaseUI::loadTexture("../resources/ui/pin/sprite_01.png"),
+      BaseUI::loadTexture("../resources/ui/pin/sprite_03.png"),
+      BaseUI::loadTexture("../resources/ui/pin/sprite_05.png"),
+      BaseUI::loadTexture("../resources/ui/pin/sprite_07.png"),
+      BaseUI::loadTexture("../resources/ui/pin/sprite_09.png")};
 
-  shapeTextures = {
-      BaseUI::loadTexture("../resources/ui/Buttons/sprite_10.png"),
-      BaseUI::loadTexture("../resources/ui/Buttons/sprite_11.png"),
-      BaseUI::loadTexture("../resources/ui/Buttons/sprite_12.png"),
-      BaseUI::loadTexture("../resources/ui/Buttons/sprite_13.png"),
-      BaseUI::loadTexture("../resources/ui/Buttons/sprite_14.png")};
+  shapeTextures = {BaseUI::loadTexture("../resources/ui/pin/sprite_10.png"),
+                   BaseUI::loadTexture("../resources/ui/pin/sprite_11.png"),
+                   BaseUI::loadTexture("../resources/ui/pin/sprite_12.png"),
+                   BaseUI::loadTexture("../resources/ui/pin/sprite_13.png"),
+                   BaseUI::loadTexture("../resources/ui/pin/sprite_14.png")};
 }
 
 void KeypadUI::addInput(int index) {
