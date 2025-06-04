@@ -14,14 +14,8 @@ bool Level::isLevelComplete() {
   // deactivate)
   for (const auto &cluePair : clues) {
     auto clue = cluePair.second.get();
-    if (clue->isPuzzleComplete()) {
-      if (clue->isCompleted())
-        continue;
-      else {
-        clue->setComplete();
+    if (clue->isPuzzleComplete())
         rewards.push_back(clue->dispatchReward());
-      }
-    }
   }
 
   // loop through milestones, which are puzzles that must be completed for the
@@ -30,7 +24,6 @@ bool Level::isLevelComplete() {
   if (currentMilestone <= numMilestones) {
     milestone = milestones[currentMilestone].get();
     if (milestone->isPuzzleComplete()) {
-      milestone->setComplete();
       rewards.push_back(milestone->dispatchReward());
       currentMilestone++;
     }
