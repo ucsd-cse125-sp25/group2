@@ -6,6 +6,7 @@
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
 				"modelPath": "../resources/objects/chicken/Chicken.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
@@ -70,6 +71,7 @@
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
 				"modelPath": "../resources/objects/Pig/Pig.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
@@ -134,6 +136,7 @@
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
 				"modelPath": "../resources/objects/Sheep/Sheep.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
@@ -198,6 +201,7 @@
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
 				"modelPath": "../resources/objects/cow/Cow.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
@@ -262,6 +266,7 @@
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
 				"modelPath": "../resources/objects/button/BlueButton.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
@@ -326,6 +331,7 @@
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
 				"modelPath": "../resources/objects/button/GreenButton.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
@@ -390,6 +396,7 @@
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
 				"modelPath": "../resources/objects/button/RedButton.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
@@ -454,6 +461,7 @@
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
 				"modelPath": "../resources/objects/button/YellowButton.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
@@ -518,6 +526,7 @@
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
 				"modelPath": "../resources/objects/mill/mazedoor/MazeDoor.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
@@ -582,6 +591,7 @@
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
 				"modelPath": "../resources/objects/mill/mazedoor/MazeDoor.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
@@ -610,7 +620,7 @@
 							"right": {
 								"x": 0.0,
 								"y": 0.0,
-								"z": -1.377
+								"z": -1.378
 							},
 							"up": {
 								"x": 0.0,
@@ -635,7 +645,7 @@
 					"z": 0.0
 				},
 				"scale": {
-					"x": 1.377,
+					"x": 1.378,
 					"y": 1.0,
 					"z": 0.666
 				}
@@ -646,6 +656,7 @@
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
 				"modelPath": "../resources/objects/mill/mazedoor/MazeDoor.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
@@ -674,7 +685,7 @@
 							"right": {
 								"x": 0.0,
 								"y": 0.0,
-								"z": -1.377
+								"z": -1.378
 							},
 							"up": {
 								"x": 0.0,
@@ -699,7 +710,7 @@
 					"z": 0.0
 				},
 				"scale": {
-					"x": 1.377,
+					"x": 1.378,
 					"y": 1.0,
 					"z": 0.933
 				}
@@ -710,6 +721,7 @@
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
 				"modelPath": "../resources/objects/mill/mazedoor/MazeDoor.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
@@ -774,6 +786,7 @@
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
 				"modelPath": "../resources/objects/mill/mazedoor/MazeDoor.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
@@ -838,6 +851,7 @@
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
 				"modelPath": "../resources/objects/mill/mazedoor/MazeDoor.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
@@ -902,6 +916,7 @@
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
 				"modelPath": "../resources/objects/mill/mazedoor/MazeDoor.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
@@ -947,7 +962,7 @@
 				"position": {
 					"x": 5.315,
 					"y": 10.026,
-					"z": -55.052
+					"z": -55.053
 				},
 				"rotation": {
 					"x": 0.0,
@@ -966,6 +981,7 @@
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
 				"modelPath": "../resources/objects/mill/mazedoor/MazeDoor.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
@@ -1030,6 +1046,7 @@
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
 				"modelPath": "../resources/objects/mill/mazedoor/MazeDoor.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
@@ -1094,6 +1111,7 @@
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
 				"modelPath": "../resources/objects/mill/mazedoor/MazeDoor.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
@@ -1158,6 +1176,7 @@
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
 				"modelPath": "../resources/objects/mill/mazedoor/MazeDoor.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
@@ -1201,7 +1220,7 @@
 			},
 			"transform": {
 				"position": {
-					"x": -10.485,
+					"x": -10.484,
 					"y": 10.041,
 					"z": -59.13
 				},
@@ -1222,6 +1241,7 @@
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
 				"modelPath": "../resources/objects/mill/mazedoor/MazeDoor.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
@@ -1286,6 +1306,7 @@
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
 				"modelPath": "../resources/objects/keypad/pinPad.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
@@ -1358,6 +1379,7 @@
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
 				"modelPath": "../resources/objects/note/CowNote.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
@@ -1422,6 +1444,7 @@
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
 				"modelPath": "../resources/objects/note/ChickenNote.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
@@ -1466,7 +1489,7 @@
 			"transform": {
 				"position": {
 					"x": 4.779,
-					"y": 13.473,
+					"y": 13.472,
 					"z": -14.148
 				},
 				"rotation": {
@@ -1486,6 +1509,7 @@
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
 				"modelPath": "../resources/objects/note/PigNote.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
@@ -1550,6 +1574,7 @@
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
 				"modelPath": "../resources/objects/box/BlackBox.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
@@ -1614,6 +1639,7 @@
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
 				"modelPath": "../resources/objects/mill/mazedoor/MazeDoor.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
@@ -1678,6 +1704,7 @@
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
 				"modelPath": "../resources/objects/note/Note.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
@@ -1722,7 +1749,7 @@
 			"transform": {
 				"position": {
 					"x": 5.539,
-					"y": 11.385,
+					"y": 11.384,
 					"z": -51.28
 				},
 				"rotation": {
@@ -1742,11 +1769,12 @@
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
 				"modelPath": "../resources/objects/mill/mill.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
 			"level": 0,
-			"name": "mill",
+			"name": "Mill",
 			"server": {
 				"colliders": [
 					{
@@ -2563,7 +2591,7 @@
 						"center": {
 							"x": 2.335,
 							"y": 15.619,
-							"z": -40.975
+							"z": -40.974
 						},
 						"halfExtents": {
 							"x": 0.432,
@@ -3448,6 +3476,71 @@
 					"x": 1.0,
 					"y": 1.0,
 					"z": 1.0
+				}
+			}
+		},
+		{
+			"_id": 28,
+			"active": true,
+			"client": {
+				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": true,
+				"modelPath": "../resources/objects/box/MetalBox.obj",
+				"vertShaderPath": "../resources/shaders/material.vert"
+			},
+			"level": 0,
+			"name": "MazeFloor",
+			"server": {
+				"colliders": [
+					{
+						"center": {
+							"x": 0.462,
+							"y": 0.34,
+							"z": -0.504
+						},
+						"halfExtents": {
+							"x": 1.018,
+							"y": 0.5,
+							"z": 1.011
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": 18.879
+							},
+							"right": {
+								"x": 15.559,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"up": {
+								"x": 0.0,
+								"y": 0.469,
+								"z": 0.0
+							}
+						}
+					}
+				],
+				"interaction": "NONE",
+				"static": true
+			},
+			"transform": {
+				"position": {
+					"x": -0.517,
+					"y": 9.073,
+					"z": -43.307
+				},
+				"rotation": {
+					"x": 0.0,
+					"y": 0.0,
+					"z": 0.0
+				},
+				"scale": {
+					"x": 15.56,
+					"y": 0.469,
+					"z": 18.879
 				}
 			}
 		}

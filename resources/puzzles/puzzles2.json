@@ -6,14 +6,71 @@
                 {
                     "puzzleID": 0,
                     "rewardType": "ACTIVATE",
-                    "rewardIDs": [4],
-                    "puzzleType": "milestone",
+                    "rewardIDs": [19],
+                    "puzzleType": "clue",
                     "conditions": [
                         {   
                             "__name": "Blue Pressure Plate",
                             "conditionType": "PRESSURE_PLATE",
-                            "objectID": 6,
+                            "objectID": 7,
+                            "triggeringObjectID": 4
+                        },
+                        {
+                            "__name": "Red Pressure Plate",
+                            "conditionType": "PRESSURE_PLATE",
+                            "objectID": 8,
                             "triggeringObjectID": 5
+                        },
+                        {
+                            "__name": "Green Pressure Plate",
+                            "conditionType": "PRESSURE_PLATE",
+                            "objectID": 9,
+                            "triggeringObjectID": 6
+                        }
+                    ]
+                },
+                {
+                    "puzzleID": 1,
+                    "rewardType": "DEACTIVATE",
+                    "rewardIDs": [24],
+                    "puzzleType": "clue",
+                    "conditions": [
+                        {   
+                            "__name": "Pinpad",
+                            "conditionType": "PIN",
+                            "objectID": 18
+                        }
+                    ]
+                },
+                {
+                    "puzzleID": 2,
+                    "rewardType": "NONE",
+                    "rewardIDs": [],
+                    "puzzleType": "milestone",
+                    "conditions": [
+                        {   
+                            "__name": "Chicken Pressure Plate",
+                            "conditionType": "PRESSURE_PLATE",
+                            "objectID": 10,
+                            "triggeringObjectID": 0
+                        },
+                        {   
+                            "__name": "Pig Pressure Plate",
+                            "conditionType": "PRESSURE_PLATE",
+                            "objectID": 12,
+                            "triggeringObjectID": 1
+                        },
+                        {   
+                            "__name": "Sheep Pressure Plate",
+                            "conditionType": "PRESSURE_PLATE",
+                            "objectID": 14,
+                            "triggeringObjectID": 2
+                        },
+                        {   
+                            "__name": "Cow Pressure Plate",
+                            "conditionType": "PRESSURE_PLATE",
+                            "objectID": 16,
+                            "triggeringObjectID": 3
                         }
                     ]
                 }
