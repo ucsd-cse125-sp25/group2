@@ -1,45 +1,45 @@
 @tool
 extends EditorScript
 
-var level_number: int = 0;
+var level = "NONE"
+var object_nodes := []
 
 func _run():
+	var scenes = ["Pens.tscn", "Silo.tscn", "Windmill.tscn"]
+	var file = FileAccess.open("res://objects.json", FileAccess.WRITE)
+	for scene_path in scenes:
+		var scene = load(scene_path)
+		var root = scene.instantiate()
+		
+		get_editor_interface().get_edited_scene_root().add_child(root)
+		export(root)
+		root.queue_free()
+
 	var export_data := {
 		"_comment": "DO NOT CHANGE THE ORDER OF CHARACTERS. ANIMALS MUST REMAIN AT TOP OF JSON AND IN ORDER",
 		"objects": []
 	}
-
-	var root = get_editor_interface().get_edited_scene_root()
-	if not root:
-		printerr("No scene root!")
-		return
-		
-	level_number = get_level_number(root.name)
-
-	var object_nodes := []
-
-	for child in root.get_children():
-		if child is Node3D:
-			var object_json := _process_node(child)
-			if object_json:
-				object_nodes.append(object_json)
-
+	
 	# Sort animals to top if needed, based on their names
 	var animals = ["Chicken", "Pig", "Sheep", "Cow"]
 	#var animals = ["Cow", "Pig", "Sheep", "Chicken"]
 	var animal_objects = []
 	var other_objects = []
+	var animals_added = []
 
-	for obj in object_nodes:
-		if obj["name"] in animals:
+	for obj in object_nodes:	
+		if obj["name"] in animals_added:
+			printerr("cannot have duplicate players")
+		elif obj["name"] in animals:
 			animal_objects.append(obj)
+			animals_added.append(obj["name"])
 		else:
 			other_objects.append(obj)
 
 	animal_objects.sort_custom(_sort_animals)
 	
 	for animal in animal_objects:
-		animal["level"] = 0
+		animal["level"] = "ALL"
 		
 	var all_objects = animal_objects + other_objects
 	
@@ -49,12 +49,29 @@ func _run():
 		id_counter += 1
 		
 	export_data["objects"] = all_objects
-		
-	var file = FileAccess.open("res://objects.json", FileAccess.WRITE)
+	
 	file.store_string(JSON.stringify(export_data, "\t")) # Pretty print with tab
 	file.close()
 
 	print("Export completed to objects.json")
+		
+
+func export(root):
+	if not root:
+		printerr("No scene root!")
+		return
+		
+	level = root.name
+	if (root.name != "BARN") and (root.name != "PENS") and (root.name != "WINDMILL") and (root.name != "SILO"):
+		printerr("level must be one of the four levels")
+		return
+
+	for child in root.get_children():
+		if child is Node3D:
+			var object_json := _process_node(child)
+			if object_json:
+				object_nodes.append(object_json)
+		
 
 func _process_node(node: Node3D) -> Dictionary:
 	var server_data := {
@@ -73,9 +90,9 @@ func _process_node(node: Node3D) -> Dictionary:
 		is_transparent = node.get_meta("isTransparent")
 			
 	var data := {
-		"level": level_number,
+		"level": level,
 		"name": node.name,
-		"active": node.visible,
+		"active": false,
 		"transform": {
 			"position": _vec3_to_json(node.global_position),
 			"rotation": _vec3_to_json(node.global_rotation_degrees),

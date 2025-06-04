@@ -1,0 +1,38 @@
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://cuk885vdvyvru"
+path.s3tc="res://.godot/imported/ChickenCoop_Plain_Blue_Texture_2695561_col.jpg-63747c32c75c4c572edff534d01978fc.s3tc.ctex"
+metadata={
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
+}
+generator_parameters={
+"md5": "7b26d0ef5e03f173eed2e19c43e19458"
+}
+
+[deps]
+
+source_file="res://ChickenCoop/ChickenCoop_Plain_Blue_Texture_2695561_col.jpg"
+dest_files=["res://.godot/imported/ChickenCoop_Plain_Blue_Texture_2695561_col.jpg-63747c32c75c4c572edff534d01978fc.s3tc.ctex"]
+
+[params]
+
+compress/mode=2
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=true
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=0
