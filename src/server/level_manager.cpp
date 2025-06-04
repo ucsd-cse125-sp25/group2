@@ -1,27 +1,41 @@
 #include "level_manager.hpp"
 
-void Level::addPuzzle(unique_ptr<Puzzle> puzzle) {
-  puzzles[numPuzzles] = move(puzzle);
-  numPuzzles++;
+void Level::addCluePuzzle(PUZZLE_ID id, unique_ptr<Puzzle> puzzle) {
+  clues[id] = move(puzzle);
+}
+
+void Level::addMilestonePuzzle(unique_ptr<Puzzle> puzzle) {
+  milestones[numMilestones] = move(puzzle);
+  numMilestones++;
 }
 
 bool Level::isLevelComplete() {
-  Puzzle *puzzle = nullptr;
-  if (currentPuzzle < numPuzzles) {
-    puzzle = puzzles[currentPuzzle].get();
-    if (puzzle->isPuzzleComplete()) {
-      rewardObjectID = puzzle->dispatchReward();
-      currentPuzzle++;
+  // loop through all clue puzzles, if complete dispatch reward (activate or
+  // deactivate)
+  for (const auto &cluePair : clues) {
+    auto clue = cluePair.second.get();
+    if (clue->isPuzzleComplete())
+      rewards.push_back(clue->dispatchReward());
+  }
+
+  // loop through milestones, which are puzzles that must be completed for the
+  // level to be complete milestone puzzles have specific order of completion
+  Puzzle *milestone = nullptr;
+  if (currentMilestone <= numMilestones) {
+    milestone = milestones[currentMilestone].get();
+    if (milestone->isPuzzleComplete()) {
+      rewards.push_back(milestone->dispatchReward());
+      currentMilestone++;
     }
   }
 
-  return (currentPuzzle >= numPuzzles);
+  return (currentMilestone == numMilestones);
 }
 
-OBJECT_ID Level::getReward() {
-  OBJECT_ID val = rewardObjectID;
-  rewardObjectID = -1;
-  return val;
+vector<pair<RewardType, vector<OBJECT_ID>>> Level::getPuzzleRewards() {
+  vector<pair<RewardType, vector<OBJECT_ID>>> res = rewards;
+  rewards.clear();
+  return res;
 }
 
 void LevelManager::addObject(LEVEL_ID levelID, OBJECT_ID objectID,
@@ -56,8 +70,19 @@ void LevelManager::loadJSON() {
 
       if (levelData.contains("puzzles") && levelData["puzzles"].is_array()) {
         for (const auto &puzzleData : levelData["puzzles"]) {
-          OBJECT_ID rewardObjID = puzzleData["rewardID"].get<int>();
-          unique_ptr<Puzzle> newPuzzle = make_unique<Puzzle>(rewardObjID);
+          PUZZLE_ID puzzleID = puzzleData["puzzleID"].get<int>();
+
+          string rewardTypeStr = puzzleData["rewardType"].get<string>();
+          auto rewardTypeVal = magic_enum::enum_cast<RewardType>(rewardTypeStr);
+          RewardType rewardType = rewardTypeVal.value_or(RewardType::NONE);
+
+          vector<OBJECT_ID> rewardIDs;
+          for (const auto &rewardID : puzzleData["rewardIDs"]) {
+            rewardIDs.push_back(rewardID.get<int>());
+          }
+
+          unique_ptr<Puzzle> newPuzzle =
+              make_unique<Puzzle>(rewardType, rewardIDs);
 
           if (puzzleData.contains("conditions") &&
               puzzleData["conditions"].is_array()) {
@@ -70,17 +95,16 @@ void LevelManager::loadJSON() {
               auto conditionVal =
                   magic_enum::enum_cast<ConditionType>(conditionStr);
 
-              // Pressure plate requires a triggering object ID
-              OBJECT_ID triggeringObjectID =
-                  conditionData["triggeringObjectID"].get<int>();
-
               if (conditionVal.has_value()) {
                 ConditionType conditionType = conditionVal.value();
                 switch (conditionType) {
-                case ConditionType::PRESSURE_PLATE:
+                case ConditionType::PRESSURE_PLATE: {
+                  OBJECT_ID triggeringObjectID =
+                      conditionData["triggeringObjectID"].get<int>();
                   condition = make_unique<PressurePlateCondition>(
                       object, triggeringObjectID);
                   break;
+                }
                 case ConditionType::BUTTON:
                   condition = make_unique<ButtonCondition>(object);
                   break;
@@ -92,7 +116,12 @@ void LevelManager::loadJSON() {
               newPuzzle->addCondition(move(condition));
             }
           }
-          newLevel->addPuzzle(move(newPuzzle));
+          string puzzleType = puzzleData["puzzleType"].get<string>();
+          if (puzzleType == "milestone") {
+            newLevel->addMilestonePuzzle(move(newPuzzle));
+          } else if (puzzleType == "clue") {
+            newLevel->addCluePuzzle(puzzleID, move(newPuzzle));
+          }
         }
       }
       addLevel(id, move(newLevel));
@@ -116,6 +145,6 @@ void LevelManager::advanceLevel() {
   }
 }
 
-OBJECT_ID LevelManager::getRewardObjectID() {
-  return currentLevel->getReward();
+vector<pair<RewardType, vector<OBJECT_ID>>> LevelManager::getRewards() {
+  return currentLevel->getPuzzleRewards();
 }

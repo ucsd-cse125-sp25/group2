@@ -1,6 +1,7 @@
 #pragma once
 
 #include "globals.hpp"
+#include "keypad_object.hpp"
 #include "server_gameobject.hpp"
 
 using namespace std;
@@ -8,35 +9,32 @@ using namespace std;
 enum class ConditionType { PRESSURE_PLATE, BUTTON, PIN };
 
 class PuzzleCondition {
+protected:
+  GameObject *object;
+
 public:
+  PuzzleCondition(GameObject *obj) : object(obj) {}
   virtual bool isSatisfied() const = 0;
 };
 
 class PressurePlateCondition : public PuzzleCondition {
 private:
-  GameObject *object;
   OBJECT_ID id;
 
 public:
   PressurePlateCondition(GameObject *obj, OBJECT_ID objID)
-      : object(obj), id(objID) {}
+      : PuzzleCondition(obj), id(objID) {}
   bool isSatisfied() const override;
 };
 
 class ButtonCondition : public PuzzleCondition {
-private:
-  GameObject *object;
-
 public:
-  ButtonCondition(GameObject *obj) : object(obj) {}
+  ButtonCondition(GameObject *obj) : PuzzleCondition(obj) {}
   bool isSatisfied() const override;
 };
 
 class PinCondition : public PuzzleCondition {
-private:
-  GameObject *object;
-
 public:
-  PinCondition(GameObject *obj) : object(obj) {}
+  PinCondition(GameObject *obj) : PuzzleCondition(obj) {}
   bool isSatisfied() const override;
 };

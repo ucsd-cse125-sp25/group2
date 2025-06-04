@@ -121,7 +121,7 @@ deque<unique_ptr<IPacket>> ServerNetwork::receiveFromClients() {
   }
 
   // add latest rotation packets for each client
-  for (auto &[clientId, packet] : lastRotation) {
+  for (auto &[clientID, packet] : lastRotation) {
     if (packet) {
       packets.push_back(move(packet));
     }
@@ -129,7 +129,7 @@ deque<unique_ptr<IPacket>> ServerNetwork::receiveFromClients() {
   lastRotation.clear();
 
   // add latest interaction packets for each client
-  for (auto &[clientId, packet] : lastInteraction) {
+  for (auto &[clientID, packet] : lastInteraction) {
     if (packet) {
       packets.push_back(move(packet));
     }

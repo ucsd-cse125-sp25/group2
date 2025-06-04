@@ -23,6 +23,15 @@
 #define CONFIG_PATH "../resources/config.json"
 #define NOTE_PATH "../resources/ui/notes.json"
 
+enum class Gamestate : uint8_t {
+  STARTSCREEN,
+  MAINMENU,
+  READY,
+  GAME,
+  LOADING,
+  COMPLETED
+};
+
 enum class MovementType : uint8_t {
   NONE,
   FORWARD,
@@ -30,7 +39,8 @@ enum class MovementType : uint8_t {
   LEFT,
   RIGHT,
   JUMP,
-  GLIDE
+  GLIDE,
+  RESET
 };
 
 enum class InteractionType : uint8_t {
@@ -41,7 +51,8 @@ enum class InteractionType : uint8_t {
   KEYPAD,
 };
 
-enum class Gamestate : uint8_t { STARTSCREEN, MAINMENU, READY, GAME };
-
-// Implement later instead of numbers
-// enum class Levels : uint8_t { WINDMILL, BARN };
+enum class RewardType : uint8_t {
+  NONE,
+  ACTIVATE,
+  DEACTIVATE,
+};

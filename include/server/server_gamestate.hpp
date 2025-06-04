@@ -19,12 +19,12 @@ using namespace std;
 
 class ServerGameState {
 private:
-  OBJECT_ID rewardObjectID = -1;
   float deltaTime;
 
   unordered_map<OBJECT_ID, unique_ptr<GameObject>> objectList;
   unordered_map<OBJECT_ID, GameObject *> interactableObjects;
-  unordered_set<OBJECT_ID> updatedObjectIds;
+  unordered_set<OBJECT_ID> updatedObjectIDs;
+  vector<pair<RewardType, vector<OBJECT_ID>>> rewards;
 
   unique_ptr<Physics> physicsWorld;
   unique_ptr<PlayerLogic> playerLogic;
@@ -50,6 +50,6 @@ public:
   // getters
   GameObject *getObject(OBJECT_ID id);
   vector<int> getLastUpdatedObjects();
-  OBJECT_ID getRewardObjectID();
+  vector<pair<RewardType, vector<OBJECT_ID>>> getRewardObjects();
   PlayerLogic *getPlayerLogic() { return playerLogic.get(); }
 };

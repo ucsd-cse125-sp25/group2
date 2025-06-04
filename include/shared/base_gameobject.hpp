@@ -30,7 +30,7 @@ public:
   void deactivate() { active = false; };
 
   // getters
-  const OBJECT_ID getId() const { return id; };
+  const OBJECT_ID getID() const { return id; };
   bool isActive() const { return active; };
   LEVEL_ID getLevelID() const { return level; };
   glm::vec3 getOriginalPosition() { return originalPosition; }

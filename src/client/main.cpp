@@ -83,6 +83,7 @@ int main(void) {
   }
 
   client->initGameState();
+  SoundManager::init();
 
   if (!client->initUI()) {
     cerr << "StartSceen Failed" << endl;
@@ -104,6 +105,7 @@ int main(void) {
 
       // Rendering call back
       client->displayCallback(window);
+      SoundManager::update();
     }
   } catch (const exception &e) {
     cerr << "Client Exception: " << e.what() << endl;

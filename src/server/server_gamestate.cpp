@@ -16,7 +16,7 @@ bool ServerGameState::init() {
       interactableObjects[obj.first] = object;
     }
     physicsWorld->add(object);
-    levelManager->addObject(object->getLevelID(), object->getId(), object);
+    levelManager->addObject(object->getLevelID(), object->getID(), object);
   }
   levelManager->loadJSON();
 
@@ -31,7 +31,6 @@ CLIENT_ID *ServerGameState::updateCharacters(PLAYER_ID playerID,
 
 void ServerGameState::updateMovement(PLAYER_ID id, MovementType type) {
   auto player = getObject(id);
-  vector<OBJECT_ID> movedObjects;
   if (player) {
     // Find the direction of movement based on the player's facing direction
     glm::vec3 playerFront = player->getTransform()->getForward();
@@ -58,21 +57,21 @@ void ServerGameState::updateMovement(PLAYER_ID id, MovementType type) {
     case MovementType::GLIDE:
       playerLogic->glide(player);
       break;
+    case MovementType::RESET:
+      playerLogic->reset(player);
+      break;
     default:
       cerr << "Unknown movement type" << endl;
       break;
     }
-    for (auto id : movedObjects)
-      updatedObjectIds.insert(id);
   }
 }
 
 void ServerGameState::updateRotation(PLAYER_ID id, glm::vec3 rotation) {
   auto player = getObject(id);
-  vector<OBJECT_ID> rotatedObjects;
   if (player) {
-    rotatedObjects = playerLogic->rotate(id, player, rotation);
-    updatedObjectIds.insert(rotatedObjects.begin(), rotatedObjects.end());
+    playerLogic->rotate(player, rotation);
+    updatedObjectIDs.insert(id);
   }
 }
 
@@ -83,8 +82,8 @@ void ServerGameState::updateInteraction(PLAYER_ID id) {
 
   auto player = getObject(id);
   glm::vec3 rayOrigin =
-      player->getTransform()->getPosition() + glm::vec3(0, 0.5f, 0);
-
+      player->getTransform()->getPosition() +
+      glm::vec3(0, 0.5f, 0); // Ray origin is slightly above the player
   glm::vec3 rayDirection = glm::normalize(player->getTransform()->getForward());
 
   // Only need to iterate through the interactable objects
@@ -132,9 +131,9 @@ void ServerGameState::updateInteraction(PLAYER_ID id) {
   GameObject *heldObject = playerLogic->getHeldObject(id);
   if (heldObject != nullptr) {
     playerLogic->dropObject(player, heldObject);
-    cout << "Dropped object: " << heldObject->getId() << endl;
+    cout << "Dropped object: " << heldObject->getID() << endl;
     playerLogic->setHeldObject(id, nullptr);
-    updatedObjectIds.insert(heldObject->getId());
+    updatedObjectIDs.insert(heldObject->getID());
 
   } else if (closestObjectID != -1) {
 
@@ -143,8 +142,8 @@ void ServerGameState::updateInteraction(PLAYER_ID id) {
         heldObject == nullptr) {
       playerLogic->setHeldObject(id, closestObject);
       playerLogic->pickupObject(player, closestObject);
-      cout << "Picked up object: " << closestObject->getId() << endl;
-      updatedObjectIds.insert(closestObjectID);
+      cout << "Picked up object: " << closestObject->getID() << endl;
+      updatedObjectIDs.insert(closestObjectID);
       // If interaction type is press
     } else if (closestObject->getInteractionType() == InteractionType::PRESS) {
       closestObject->press();
@@ -154,11 +153,11 @@ void ServerGameState::updateInteraction(PLAYER_ID id) {
     if (closestObject->getInteractionType() == InteractionType::KEYPAD &&
         id == PIG) {
       auto keypadObject = dynamic_cast<KeypadObject *>(closestObject);
-      cout << "Interacting with KeypadObject: " << keypadObject->getId()
+      cout << "Interacting with KeypadObject: " << keypadObject->getID()
            << endl;
       if (keypadObject) {
         keypadObject->clientUsing = playerLogic->getClient(id);
-        updatedObjectIds.insert(closestObjectID);
+        updatedObjectIDs.insert(closestObjectID);
         cout << "client: " << keypadObject->clientUsing
              << " is now using keypad" << endl;
       }
@@ -176,7 +175,7 @@ bool ServerGameState::updateKeypadInput(OBJECT_ID id, vector<int> inputSequence,
       return true; // Doesn't matter the return type
     }
     if (keypadObject->checkSequence(inputSequence)) {
-      cout << "Keypad ID: " << id << " unlocked!" << endl;
+      cout << "Keypad ID: " << id << " solved!" << endl;
       return true;
     } else {
       cout << "Keypad ID: " << id << " Input: ";
@@ -194,16 +193,15 @@ bool ServerGameState::updateKeypadInput(OBJECT_ID id, vector<int> inputSequence,
 
 bool ServerGameState::updateLevelManager() {
   if (levelManager->updateLevels()) {
+    rewards = levelManager->getRewards();
     level++;
     levelManager->advanceLevel();
     cout << "Level completed!" << endl;
     return true;
+  } else {
+    rewards = levelManager->getRewards();
+    return false;
   }
-  OBJECT_ID updatedID = levelManager->getRewardObjectID();
-  if (updatedID != -1) {
-    rewardObjectID = updatedID;
-  }
-  return false;
 }
 
 void ServerGameState::applyPhysics() {
@@ -215,11 +213,11 @@ void ServerGameState::applyPhysics() {
   // if the object is held by a player, move it with the player
   for (auto id : movedObjects) {
     if (id < NUM_PLAYERS) {
-      OBJECT_ID heldObjectId = playerLogic->moveHeldObject(id, getObject(id));
-      if (heldObjectId != -1)
-        updatedObjectIds.insert(heldObjectId);
+      OBJECT_ID heldObjectID = playerLogic->moveHeldObject(id, getObject(id));
+      if (heldObjectID != -1)
+        updatedObjectIDs.insert(heldObjectID);
     }
-    updatedObjectIds.insert(id);
+    updatedObjectIDs.insert(id);
   }
 }
 
@@ -233,13 +231,14 @@ GameObject *ServerGameState::getObject(OBJECT_ID id) {
 }
 
 vector<OBJECT_ID> ServerGameState::getLastUpdatedObjects() {
-  vector<OBJECT_ID> list(updatedObjectIds.begin(), updatedObjectIds.end());
-  updatedObjectIds.clear();
+  vector<OBJECT_ID> list(updatedObjectIDs.begin(), updatedObjectIDs.end());
+  updatedObjectIDs.clear();
   return list;
 }
 
-OBJECT_ID ServerGameState::getRewardObjectID() {
-  OBJECT_ID id = rewardObjectID;
-  rewardObjectID = -1;
-  return id;
+vector<pair<RewardType, vector<OBJECT_ID>>>
+ServerGameState::getRewardObjects() {
+  vector<pair<RewardType, vector<OBJECT_ID>>> res = rewards;
+  rewards.clear();
+  return res;
 }

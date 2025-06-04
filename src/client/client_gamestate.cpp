@@ -14,6 +14,15 @@ bool ClientGameState::init() {
 }
 
 void ClientGameState::changeLevel(LEVEL_ID levelNum) {
+
+  if (levelNum < NUM_LEVELS - 1) {
+    state = Gamestate::LOADING;
+    UIManager::loadingScreen->play();
+  } else {
+    state = Gamestate::COMPLETED;
+  }
+  cout << "Changing level to: " << levelNum << endl;
+
   // Deactivate all objects in the current level
   for (auto &obj : levelObjects[level]) {
     obj.second->deactivate();

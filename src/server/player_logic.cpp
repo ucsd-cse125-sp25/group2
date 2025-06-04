@@ -1,11 +1,11 @@
 #include "player_logic.hpp"
 
 PlayerLogic::PlayerLogic() {
-  speed = 20.0f;
+  speed = 50.0f;
   sheepJumps = SHEEP_MAX_JUMPS;
-  jumpForce = 40.0f;
-  sheepJumpForce = 60.0f;
-  glideFallSpeed = 1.0f;
+  jumpForce = 60.0f;
+  sheepJumpForce = 90.0f;
+  glideFallSpeed = 10.0f;
 
   for (int i = 0; i < NUM_PLAYERS; i++) {
     heldObjects[i] = nullptr;
@@ -26,20 +26,20 @@ OBJECT_ID PlayerLogic::moveHeldObject(PLAYER_ID id, GameObject *player) {
   if (getHeldObject(id) != nullptr) {
     auto heldObject = getHeldObject(id);
     auto tf = heldObject->getTransform();
-    glm::vec3 offset = glm::vec3(0.0f, 2.0f, 0.0f);
+    glm::vec3 offset = glm::vec3(0.0f, 4.0f, 0.0f);
     tf->setPosition(player->getTransform()->getPosition() + offset);
-    return heldObject->getId();
+    return heldObject->getID();
   }
   return -1;
 }
 
 void PlayerLogic::jump(GameObject *player) {
 
-  if (!player->isGrounded() && player->getId() != SHEEP) {
+  if (!player->isGrounded() && player->getID() != SHEEP) {
     return; // only sheep can jump in air
   }
   float force = jumpForce;
-  if (player->getId() == SHEEP) {
+  if (player->getID() == SHEEP) {
     force = sheepJumpForce;
   }
   // jump the player
@@ -52,8 +52,8 @@ void PlayerLogic::jump(GameObject *player) {
     rigidBody->applyImpulse(glm::vec3(0.0f, force, 0.0f));
 
     // If sheep is jumping from the ground, reset double jump
-    sheepDoubleJump = player->getId() == SHEEP ? false : sheepDoubleJump;
-  } else if (player->getId() == SHEEP && !sheepDoubleJump) {
+    sheepDoubleJump = player->getID() == SHEEP ? false : sheepDoubleJump;
+  } else if (player->getID() == SHEEP && !sheepDoubleJump) {
     sheepDoubleJump = true;
     auto rigidBody = player->getRigidBody();
     rigidBody->setVelocity(glm::vec3(rigidBody->getVelocity().x, 0.0f,
@@ -63,22 +63,13 @@ void PlayerLogic::jump(GameObject *player) {
   }
 }
 
-vector<OBJECT_ID> PlayerLogic::rotate(PLAYER_ID id, GameObject *player,
-                                      glm::vec3 rotation) {
-  vector<OBJECT_ID> rotatedObjects;
-
+void PlayerLogic::rotate(GameObject *player, glm::vec3 rotation) {
   // rotate the player
   player->getTransform()->setRotation(rotation);
-  rotatedObjects.push_back(id);
+}
 
-  // if the player is holding an object, apply the rotation to the object
-  if (getHeldObject(id) != nullptr) {
-    auto heldObject = getHeldObject(id);
-    // heldObject->getTransform()->setRotation(rotation); comment this out for
-    // now
-    rotatedObjects.push_back(heldObject->getId());
-  }
-  return rotatedObjects;
+void PlayerLogic::reset(GameObject *player) {
+  player->getTransform()->setPosition(player->getOriginalPosition());
 }
 
 void PlayerLogic::glide(GameObject *chicken) {
@@ -97,13 +88,13 @@ void PlayerLogic::glide(GameObject *chicken) {
 void PlayerLogic::pickupObject(GameObject *playerObject, GameObject *object) {
   auto playerTransform = playerObject->getTransform();
   auto tf = object->getTransform();
-  glm::vec3 offset = glm::vec3(0.0f, 2.0f, 0.0f);
+  glm::vec3 offset = glm::vec3(0.0f, 4.0f, 0.0f);
   tf->setPosition(playerTransform->getPosition() + offset);
   object->setUsesGravity(false);
-  object->getRigidBody()->setHeld(playerObject->getId());
+  object->getRigidBody()->setHeld(playerObject->getID());
 
-  if (playerObject->getId() == PIG &&
-      pigNotes.find(object->getId()) != pigNotes.end()) {
+  if (playerObject->getID() == PIG &&
+      pigNotes.find(object->getID()) != pigNotes.end()) {
     pigNoteChange = true; // Pig has picked up a note
   }
 }
@@ -116,8 +107,8 @@ void PlayerLogic::dropObject(GameObject *playerObject, GameObject *object) {
   object->setUsesGravity(true);
   object->getRigidBody()->setHeld(-1);
 
-  if (playerObject->getId() == PIG &&
-      pigNotes.find(object->getId()) != pigNotes.end()) {
+  if (playerObject->getID() == PIG &&
+      pigNotes.find(object->getID()) != pigNotes.end()) {
     pigNoteChange = true; // Pig has dropped a note
   }
 }

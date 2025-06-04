@@ -55,8 +55,6 @@ void GameServer::updateGameState() {
     switch (packet->getType()) {
     case PacketType::MOVEMENT: {
       auto movementPacket = static_cast<MovementPacket *>(packet.get());
-      // game->updateMovement(movementPacket->id,
-      // movementPacket->movementType,movementPacket->cameraFront));
       game->updateMovement(movementPacket->id, movementPacket->movementType);
       break;
     }
@@ -84,13 +82,13 @@ void GameServer::updateGameState() {
     }
     case PacketType::KEYPADINPUT: {
       auto keypadPacket = static_cast<KeypadInputPacket *>(packet.get());
-      bool unlocked = game->updateKeypadInput(keypadPacket->objectID,
-                                              keypadPacket->inputSequence,
-                                              keypadPacket->close);
+      bool solved = game->updateKeypadInput(keypadPacket->objectID,
+                                            keypadPacket->inputSequence,
+                                            keypadPacket->close);
       if (!keypadPacket->close) {
         network->sendToClient(
             keypadPacket->clientID,
-            KeypadPacket(keypadPacket->objectID, !unlocked, unlocked));
+            KeypadPacket(keypadPacket->objectID, !solved, solved));
       }
       break;
     }
@@ -110,12 +108,12 @@ void GameServer::dispatchUpdates() {
           !keypadObject->opened) {
         network->sendToClient(
             keypadObject->clientUsing,
-            KeypadPacket(keypadObject->getId(), true, keypadObject->unlocked));
+            KeypadPacket(keypadObject->getID(), true, keypadObject->solved));
         keypadObject->opened = true;
       }
     } else {
       ObjectPacket objPacket = ObjectPacket(
-          obj->getId(),
+          obj->getID(),
           Transform(obj->getPosition(), obj->getRotation(), obj->getScale()),
           obj->isActive());
       network->sendToAll(objPacket);
@@ -123,17 +121,32 @@ void GameServer::dispatchUpdates() {
   }
 
   // If a puzzle is completed, send reward object
-  OBJECT_ID rewardObjectID = game->getRewardObjectID();
-  if (rewardObjectID != -1) {
-    game->getObject(rewardObjectID)->activate();
-    ActivatePacket rewardPacket(rewardObjectID);
-    network->sendToAll(rewardPacket);
+  vector<pair<RewardType, vector<OBJECT_ID>>> rewards =
+      game->getRewardObjects();
+  for (const auto &reward : rewards) {
+    RewardType rewardType = reward.first;
+    const vector<OBJECT_ID> &rewardObjectIDs = reward.second;
+
+    if (rewardType == RewardType::ACTIVATE) {
+      for (const OBJECT_ID &objectID : rewardObjectIDs) {
+        game->getObject(objectID)->activate();
+        ActivatePacket activatePacket(objectID);
+        network->sendToAll(activatePacket);
+      }
+    } else if (rewardType == RewardType::DEACTIVATE) {
+      for (const OBJECT_ID &objectID : rewardObjectIDs) {
+        game->getObject(objectID)->deactivate();
+        DeactivatePacket deactivatePacket(objectID);
+        network->sendToAll(deactivatePacket);
+      }
+    }
   }
 
+  // If a level is completed, notify all clients
   if (game->getPlayerLogic()->doNotifyClient()) {
     // Notify clients if pig picked up or dropped a note
     GameObject *heldObject = game->getPlayerLogic()->getHeldObject(PIG);
-    OBJECT_ID heldNote = heldObject ? heldObject->getId() : -1;
+    OBJECT_ID heldNote = heldObject ? heldObject->getID() : -1;
     network->sendToClient(game->getPlayerLogic()->getClient(PIG),
                           NotePacket(heldNote));
   }

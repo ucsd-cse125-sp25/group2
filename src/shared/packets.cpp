@@ -97,6 +97,20 @@ ActivatePacket ActivatePacket::deserialize(const vector<char> &payload) {
   return packet;
 }
 
+vector<char> DeactivatePacket::serialize() const {
+  vector<char> buffer(sizeof(OBJECT_ID));
+  memcpy(buffer.data(), &id, sizeof(OBJECT_ID));
+  return buffer;
+}
+
+DeactivatePacket DeactivatePacket::deserialize(const vector<char> &payload) {
+  OBJECT_ID id;
+
+  memcpy(&id, payload.data(), sizeof(OBJECT_ID));
+  DeactivatePacket packet(id);
+  return packet;
+}
+
 vector<char> KeypadPacket::serialize() const {
   vector<char> buffer(sizeof(OBJECT_ID) + 2 * sizeof(bool));
   unsigned long size = 0;
@@ -104,22 +118,22 @@ vector<char> KeypadPacket::serialize() const {
   size += sizeof(OBJECT_ID);
   memcpy(buffer.data() + size, &display, sizeof(bool));
   size += sizeof(bool);
-  memcpy(buffer.data() + size, &unlocked, sizeof(bool));
+  memcpy(buffer.data() + size, &solved, sizeof(bool));
   return buffer;
 }
 
 KeypadPacket KeypadPacket::deserialize(const vector<char> &payload) {
   OBJECT_ID id;
   bool display;
-  bool unlocked;
+  bool solved;
 
   unsigned long size = 0;
   memcpy(&id, payload.data(), sizeof(OBJECT_ID));
   size += sizeof(OBJECT_ID);
   memcpy(&display, payload.data() + size, sizeof(bool));
   size += sizeof(bool);
-  memcpy(&unlocked, payload.data() + size, sizeof(bool));
-  KeypadPacket packet(id, display, unlocked);
+  memcpy(&solved, payload.data() + size, sizeof(bool));
+  KeypadPacket packet(id, display, solved);
   return packet;
 }
 
@@ -286,6 +300,9 @@ unique_ptr<IPacket> deserialize(PacketType type, vector<char> &payload) {
         LevelChangePacket::deserialize(payload));
   case PacketType::ACTIVATE:
     return make_unique<ActivatePacket>(ActivatePacket::deserialize(payload));
+  case PacketType::DEACTIVATE:
+    return make_unique<DeactivatePacket>(
+        DeactivatePacket::deserialize(payload));
   case PacketType::KEYPAD:
     return make_unique<KeypadPacket>(KeypadPacket::deserialize(payload));
   case PacketType::MOVEMENT:

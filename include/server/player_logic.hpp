@@ -52,8 +52,8 @@ public:
   void move(GameObject *player, glm::vec3 direction);
   OBJECT_ID moveHeldObject(PLAYER_ID id, GameObject *player);
   void jump(GameObject *player);
-  vector<OBJECT_ID> rotate(PLAYER_ID id, GameObject *player,
-                           glm::vec3 rotation);
+  void rotate(GameObject *player, glm::vec3 rotation);
+  void reset(GameObject *player);
 
   // Ability functions
   void glide(GameObject *chicken);

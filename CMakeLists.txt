@@ -15,7 +15,6 @@ endif()
 
 # Add ASan support
 option(USE_SANITIZER "Build with Address Sanitizer" OFF)
-# Add to your existing CMakeLists.txt, in the USE_SANITIZER section
 if(USE_SANITIZER)
     if(APPLE)
         # macOS specific settings with better debug support
@@ -39,6 +38,17 @@ if(USE_SANITIZER)
     message(STATUS "Building with Address Sanitizer in Debug mode")
 endif()
 
+if (APPLE)
+    set(FMOD_PLATFORM "mac")
+    set(FMOD_LIBS fmod fmodstudio)
+elseif (WIN32)
+    set(FMOD_PLATFORM "windows")
+    set(FMOD_LIBS fmod_vc fmodstudio_vc)
+elseif (UNIX)
+    set(FMOD_PLATFORM "linux")
+    set(FMOD_LIBS fmod fmodstudio)
+endif()
+
 # Required for dependencies
 include(FetchContent)
 
@@ -46,6 +56,8 @@ include(FetchContent)
 SET(CLIENT_INCLUDE_DIRECTORY ${PROJECT_SOURCE_DIR}/include/client)
 SET(SERVER_INCLUDE_DIRECTORY ${PROJECT_SOURCE_DIR}/include/server)
 SET(SHARED_INCLUDE_DIRECTORY ${PROJECT_SOURCE_DIR}/include/shared)
+set(FMOD_ROOT ${CMAKE_SOURCE_DIR}/dependencies/fmod)
+set(FMOD_LIB_DIR ${FMOD_ROOT}/${FMOD_PLATFORM}/lib)
 
 # Custom function to collect source files in a directory
 function(collect_sources dir out_var)

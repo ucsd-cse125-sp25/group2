@@ -102,6 +102,10 @@ unique_ptr<IPacket> ClientNetwork::processPackets(PacketType type,
     unique_ptr<IPacket> packet = deserialize(PacketType::ACTIVATE, payload);
     return packet;
   }
+  case PacketType::DEACTIVATE: {
+    unique_ptr<IPacket> packet = deserialize(PacketType::DEACTIVATE, payload);
+    return packet;
+  }
   case PacketType::KEYPAD: {
     unique_ptr<IPacket> packet = deserialize(PacketType::KEYPAD, payload);
     return packet;

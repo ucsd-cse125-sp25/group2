@@ -220,3 +220,9 @@ void BaseUI::setupQuad() {
                         (void *)(2 * sizeof(float)));
   glEnableVertexAttribArray(1);
 }
+
+void BaseUI::resetAnim() {
+  animInfo.startAnim = false;
+  animInfo.currentFrame = 0;
+  animInfo.animationTimer = 0.0f;
+}

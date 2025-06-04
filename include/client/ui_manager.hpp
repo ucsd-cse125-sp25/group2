@@ -2,6 +2,7 @@
 
 #include "globals.hpp"
 #include "keypad.hpp"
+#include "sound_manager.hpp"
 #include "ui.hpp"
 
 #include <algorithm>
@@ -43,5 +44,6 @@ public:
   static unique_ptr<BaseUI> cowButton;
 
   static unique_ptr<BaseUI> loadingScreen;
+  static unique_ptr<BaseUI> gameCompletedScreen;
   static unique_ptr<KeypadUI> keypad;
 };

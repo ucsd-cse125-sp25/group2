@@ -17,10 +17,15 @@ Camera::Camera()
 
   worldUp = cameraUp;
 
-  characterCamRadius[CHICKEN] = 7.0f;
-  characterCamRadius[PIG] = 9.0f;
-  characterCamRadius[SHEEP] = 9.0f;
-  characterCamRadius[COW] = 11.0f;
+  characterCamRadius[CHICKEN] = 3.0f;
+  characterCamRadius[PIG] = 5.5f;
+  characterCamRadius[SHEEP] = 6.0f;
+  characterCamRadius[COW] = 6.0f;
+
+  characterCamOffset[CHICKEN] = glm::vec3(0.0f, 2.0f, 0.0f);
+  characterCamOffset[PIG] = glm::vec3(0.0f, 3.0f, 0.0f);
+  characterCamOffset[SHEEP] = glm::vec3(0.0f, 4.3f, 0.0f);
+  characterCamOffset[COW] = glm::vec3(0.0f, 4.8f, 0.0f);
 }
 
 void Camera::update(float xOffset, float yOffset, glm::vec3 target) {
@@ -35,7 +40,7 @@ void Camera::update(float xOffset, float yOffset, glm::vec3 target) {
     yaw += 360.0f;
 
   // restrict pitch (vertical)
-  pitch = glm::clamp(pitch, 0.0f, 30.0f);
+  pitch = glm::clamp(pitch, -20.0f, 45.0f);
 
   // Updating view projection matrix
   float camX = radius * cos(glm::radians(yaw)) * cos(glm::radians(pitch));
@@ -44,16 +49,13 @@ void Camera::update(float xOffset, float yOffset, glm::vec3 target) {
 
   cameraPos = target + glm::vec3(camX, camY, camZ);
 
-  glm::vec3 lookOffset(0.0f, 3.0f, 0.0f); // look a bit higher than the target
-  glm::vec3 lookAtPoint = target + lookOffset;
-
-  cameraFront = glm::normalize(lookAtPoint - cameraPos);
+  cameraFront = glm::normalize(target - cameraPos);
 
   cameraRight = glm::normalize(glm::cross(cameraFront, worldUp));
   cameraUp = glm::normalize(glm::cross(cameraRight, cameraFront));
 
   projection = glm::perspective(glm::radians(fov), aspect, nearClip, farClip);
-  view = glm::lookAt(cameraPos, lookAtPoint, cameraUp);
+  view = glm::lookAt(cameraPos, target, cameraUp);
 
   viewProjMat = projection * view;
 }
