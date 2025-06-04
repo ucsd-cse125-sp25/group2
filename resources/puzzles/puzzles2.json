@@ -1,0 +1,23 @@
+{
+    "levels": [
+        {
+            "levelID": 0,
+            "puzzles": [
+                {
+                    "puzzleID": 0,
+                    "rewardType": "ACTIVATE",
+                    "rewardIDs": [4],
+                    "puzzleType": "milestone",
+                    "conditions": [
+                        {   
+                            "__name": "Blue Pressure Plate",
+                            "conditionType": "PRESSURE_PLATE",
+                            "objectID": 6,
+                            "triggeringObjectID": 5
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
