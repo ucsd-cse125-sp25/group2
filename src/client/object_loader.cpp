@@ -31,8 +31,10 @@ unordered_map<OBJECT_ID, unique_ptr<GameObject>> ObjectLoader::loadObjects() {
         auto modelPath = client.value("modelPath", "");
         auto vertShaderPath = client.value("vertShaderPath", "");
         auto fragShaderPath = client.value("fragShaderPath", "");
+        bool isTransparent = client.value("isTransparent", false);
 
         obj->setModel(make_unique<Model>(modelPath.c_str()));
+        obj->getModel()->setTransparency(isTransparent);
         obj->setShader(make_unique<Shader>(vertShaderPath.c_str(),
                                            fragShaderPath.c_str()));
       }

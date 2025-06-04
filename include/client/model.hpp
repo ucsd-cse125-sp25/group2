@@ -36,4 +36,5 @@ public:
             unique_ptr<Shader> &shader);
   void update(Transform *transform);
   void changeColor(glm::vec3 col);
+  void setTransparency(bool transparent) { isTransparent = transparent;  }
 };
