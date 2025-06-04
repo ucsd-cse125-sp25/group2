@@ -38,14 +38,13 @@ vector<pair<RewardType, vector<OBJECT_ID>>> Level::getPuzzleRewards() {
   return res;
 }
 
-void LevelManager::addObject(LEVEL_ID levelID, OBJECT_ID objectID,
+void LevelManager::addObject(LevelType levelType, OBJECT_ID objectID,
                              GameObject *object) {
-  levelObjects[levelID][objectID] = object;
+  levelObjects[levelType][objectID] = object;
 }
 
-void LevelManager::addLevel(LEVEL_ID id, unique_ptr<Level> level) {
-  levels[id] = move(level);
-  numLevels++;
+void LevelManager::addLevel(LevelType levelType, unique_ptr<Level> level) {
+  levels[levelType] = move(level);
 }
 
 void LevelManager::loadJSON() {
@@ -64,9 +63,10 @@ void LevelManager::loadJSON() {
 
   if (levelsData.contains("levels") && levelsData["levels"].is_array()) {
     for (const auto &levelData : levelsData["levels"]) {
-      LEVEL_ID id = levelData["levelID"].get<int>();
-      auto currentLevelObjects = levelObjects[id];
-      unique_ptr<Level> newLevel = make_unique<Level>(id);
+      auto levelTypeVal = magic_enum::enum_cast<LevelType>(levelData["levelType"].get<string>());
+      LevelType levelType = levelTypeVal.value_or(LevelType::NONE);
+      auto currentLevelObjects = levelObjects[levelType];
+      unique_ptr<Level> newLevel = make_unique<Level>(levelType);
 
       if (levelData.contains("puzzles") && levelData["puzzles"].is_array()) {
         for (const auto &puzzleData : levelData["puzzles"]) {
@@ -124,24 +124,27 @@ void LevelManager::loadJSON() {
           }
         }
       }
-      addLevel(id, move(newLevel));
+      addLevel(levelType, move(newLevel));
     }
   }
 
-  currentLevel = levels[currentLevelID].get();
+  currentLevel = levels[currentLevelType].get();
 }
 
 bool LevelManager::updateLevels() {
-  if (currentLevelID < numLevels) {
+  uint8_t levelNum = magic_enum::enum_integer(currentLevelType);
+  if (levelNum < NUM_LEVELS) {
     return currentLevel->isLevelComplete();
   }
   return false;
 }
 
 void LevelManager::advanceLevel() {
-  currentLevelID++;
-  if (currentLevelID < numLevels) {
-    currentLevel = levels[currentLevelID].get();
+  uint8_t levelNum = magic_enum::enum_integer(currentLevelType);
+  levelNum++;
+  if (levelNum < NUM_LEVELS) {
+    currentLevelType = magic_enum::enum_cast<LevelType>(levelNum).value_or(LevelType::NONE);
+    currentLevel = levels[currentLevelType].get();
   }
 }
 

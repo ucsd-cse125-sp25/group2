@@ -7,14 +7,14 @@ bool ClientGameState::init() {
   for (auto &obj : objectList) {
     auto id = obj.first;
     auto object = obj.second.get();
-    levelObjects[object->getLevelID()][id] = object;
+    levelObjects[object->getLevel()][id] = object;
   }
   state = Gamestate::STARTSCREEN;
   return true;
 }
 
-void ClientGameState::changeLevel(LEVEL_ID levelNum) {
-
+void ClientGameState::advanceLevel(LevelType newLevel) {
+  uint8_t levelNum = magic_enum::enum_integer(newLevel);
   if (levelNum < NUM_LEVELS - 1) {
     state = Gamestate::LOADING;
     UIManager::loadingScreen->play();
@@ -24,12 +24,11 @@ void ClientGameState::changeLevel(LEVEL_ID levelNum) {
   cout << "Changing level to: " << levelNum << endl;
 
   // Deactivate all objects in the current level
-  for (auto &obj : levelObjects[level]) {
+  for (auto &obj : levelObjects[newLevel]) {
     obj.second->deactivate();
   }
-  level = levelNum;
   // Activate all objects in the new level
-  for (auto &obj : levelObjects[level]) {
+  for (auto &obj : levelObjects[newLevel]) {
     obj.second->activate();
   }
 }

@@ -9,11 +9,11 @@ private:
 
 public:
   bool checkSequence(const vector<int> &inputSequence);
-  KeypadObject(const OBJECT_ID id, const LEVEL_ID levelNum, const bool isActive,
+  KeypadObject(const OBJECT_ID id, const LevelType level, const bool isActive,
                glm::vec3 originalPosition, unique_ptr<Transform> &tf,
                unique_ptr<RigidBody> &rb, vector<Collider *> &cl,
                const vector<int> &sequence)
-      : GameObject(id, levelNum, isActive, originalPosition, tf, rb, cl),
+      : GameObject(id, level, isActive, originalPosition, tf, rb, cl),
         correctSequence(sequence), solved(false), locked(false),
         clientUsing(-1), opened(false){};
   bool solved;

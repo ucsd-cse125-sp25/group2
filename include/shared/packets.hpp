@@ -88,9 +88,9 @@ struct CharacterResponsePacket : public IPacket {
 };
 
 struct LevelChangePacket : public IPacket {
-  LEVEL_ID level;
+  LevelType level;
 
-  LevelChangePacket(LEVEL_ID lvl) : level(lvl) {}
+  LevelChangePacket(LevelType lvl) : level(lvl) {}
   PacketType getType() const override { return PacketType::LEVELCHANGE; }
   vector<char> serialize() const override;
   static LevelChangePacket deserialize(const vector<char> &payload);

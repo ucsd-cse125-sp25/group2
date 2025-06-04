@@ -7,12 +7,13 @@
 #include <nlohmann/json.hpp>
 #include <string>
 #include <unordered_map>
+#include <magic_enum/magic_enum.hpp>
 
 using json = nlohmann::json;
 using namespace std;
 
 struct BaseObjectData {
-  LEVEL_ID level;
+  LevelType level;
   bool active;
   glm::vec3 originalPosition;
   unique_ptr<Transform> transform;

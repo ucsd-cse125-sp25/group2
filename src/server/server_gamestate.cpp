@@ -16,7 +16,7 @@ bool ServerGameState::init() {
       interactableObjects[obj.first] = object;
     }
     physicsWorld->add(object);
-    levelManager->addObject(object->getLevelID(), object->getID(), object);
+    levelManager->addObject(object->getLevel(), object->getID(), object);
   }
   levelManager->loadJSON();
 
@@ -194,7 +194,6 @@ bool ServerGameState::updateKeypadInput(OBJECT_ID id, vector<int> inputSequence,
 bool ServerGameState::updateLevelManager() {
   if (levelManager->updateLevels()) {
     rewards = levelManager->getRewards();
-    level++;
     levelManager->advanceLevel();
     cout << "Level completed!" << endl;
     return true;

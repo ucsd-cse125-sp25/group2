@@ -187,7 +187,7 @@ void Client::idleCallback(float deltaTime) {
     }
     case PacketType::LEVELCHANGE: {
       auto levelPacket = dynamic_cast<LevelChangePacket *>(packet.get());
-      game->changeLevel(levelPacket->level);
+      game->advanceLevel(levelPacket->level);
       break;
     }
     case PacketType::ACTIVATE: {
