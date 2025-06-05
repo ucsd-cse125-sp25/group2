@@ -157,8 +157,7 @@ void LevelManager::advanceLevel() {
   for (const auto &objPair : levelObjects[LevelType::ALL]) {
     GameObject *player = objPair.second;
     player->activate();
-    player->getTransform()->setPosition(
-        player->getOriginalPosition());
+    player->getTransform()->setPosition(player->getOriginalPosition());
   }
 
   // Deactivate all objects in the current level

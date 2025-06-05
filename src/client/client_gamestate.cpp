@@ -25,8 +25,7 @@ void ClientGameState::advanceLevel(LevelType newLevel) {
 
   for (auto &obj : levelObjects[LevelType::ALL]) {
     obj.second->activate();
-    obj.second->getTransform()->setPosition(
-        obj.second->getOriginalPosition());
+    obj.second->getTransform()->setPosition(obj.second->getOriginalPosition());
   }
 
   // Deactivate all objects in the current level
