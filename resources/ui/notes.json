@@ -1,24 +1,28 @@
 {
   "notes": [
     {
-      "id": 19,
+      "id": 95,
       "path": "../resources/ui/notes/note1.png"
     },
     {
-      "id": 30,
+      "id": 19,
       "path": "../resources/ui/notes/note2.png"
     },
     {
-      "id": 39,
+      "id": 30,
       "path": "../resources/ui/notes/note3.png"
     },
     {
-      "id": 46,
+      "id": 39,
       "path": "../resources/ui/notes/note4.png"
     },
     {
-      "id": 55,
+      "id": 46,
       "path": "../resources/ui/notes/note5.png"
+    },
+    {
+      "id": 55,
+      "path": "../resources/ui/notes/note6.png"
     }
   ]
 }

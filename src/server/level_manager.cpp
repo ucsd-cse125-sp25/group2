@@ -113,6 +113,9 @@ void LevelManager::loadJSON() {
                       object, triggeringObjectID);
                   break;
                 }
+                case ConditionType::PRESSURE_PLATE_OFF:
+                  condition = make_unique<PressurePlateOffCondition>(object);
+                  break;
                 case ConditionType::BUTTON:
                   condition = make_unique<ButtonCondition>(object);
                   break;

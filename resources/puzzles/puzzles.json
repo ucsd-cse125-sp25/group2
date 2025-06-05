@@ -19,6 +19,20 @@
                 },
                 {
                     "puzzleID": 1,
+                    "rewardType": "ACTIVATE",
+                    "rewardIDs": [78, 83, 86],
+                    "puzzleType": "clue",
+                    "conditions": [
+                        {   
+                            "__name": "Blue Pressure Plate",
+                            "conditionType": "PRESSURE_PLATE_OFF",
+                            "objectID": 74,
+                            "triggeringObjectID": 99
+                        }
+                    ]
+                },
+                {
+                    "puzzleID": 2,
                     "rewardType": "DEACTIVATE",
                     "rewardIDs": [80, 85, 87],
                     "puzzleType": "clue",
@@ -32,7 +46,21 @@
                     ]
                 },
                 {
-                    "puzzleID": 2,
+                    "puzzleID": 3,
+                    "rewardType": "ACTIVATE",
+                    "rewardIDs": [80, 85, 87],
+                    "puzzleType": "clue",
+                    "conditions": [
+                        {   
+                            "__name": "Green Pressure Plate",
+                            "conditionType": "PRESSURE_PLATE_OFF",
+                            "objectID": 75,
+                            "triggeringObjectID": 99
+                        }
+                    ]
+                },
+                {
+                    "puzzleID": 4,
                     "rewardType": "DEACTIVATE",
                     "rewardIDs": [79, 81, 89],
                     "puzzleType": "clue",
@@ -46,7 +74,21 @@
                     ]
                 },
                 {
-                    "puzzleID": 3,
+                    "puzzleID": 5,
+                    "rewardType": "ACTIVATE",
+                    "rewardIDs": [80, 85, 87],
+                    "puzzleType": "clue",
+                    "conditions": [
+                        {   
+                            "__name": "Red Pressure Plate",
+                            "conditionType": "PRESSURE_PLATE_OFF",
+                            "objectID": 96,
+                            "triggeringObjectID": 2
+                        }
+                    ]
+                },
+                {
+                    "puzzleID": 6,
                     "rewardType": "DEACTIVATE",
                     "rewardIDs": [82, 84, 88],
                     "puzzleType": "clue",
@@ -60,7 +102,21 @@
                     ]
                 },
                 {
-                    "puzzleID": 4,
+                    "puzzleID": 6,
+                    "rewardType": "ACTIVATE",
+                    "rewardIDs": [82, 84, 88],
+                    "puzzleType": "clue",
+                    "conditions": [
+                        {   
+                            "__name": "Yellow Pressure Plate",
+                            "conditionType": "PRESSURE_PLATE_OFF",
+                            "objectID": 96,
+                            "triggeringObjectID": 2
+                        }
+                    ]
+                },
+                {
+                    "puzzleID": 7,
                     "rewardType": "NONE",
                     "rewardIDs": [],
                     "puzzleType": "milestone",
@@ -157,7 +213,7 @@
                 {
                     "puzzleID": 0,
                     "rewardType": "ACTIVATE",
-                    "rewardIDs": [8],
+                    "rewardIDs": [30],
                     "puzzleType": "clue",
                     "conditions": [
                         {   

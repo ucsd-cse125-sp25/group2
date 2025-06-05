@@ -6,7 +6,7 @@
 
 using namespace std;
 
-enum class ConditionType { PRESSURE_PLATE, BUTTON, PIN };
+enum class ConditionType { PRESSURE_PLATE, PRESSURE_PLATE_OFF, BUTTON, PIN };
 
 class PuzzleCondition {
 protected:
@@ -24,6 +24,12 @@ private:
 public:
   PressurePlateCondition(GameObject *obj, OBJECT_ID objID)
       : PuzzleCondition(obj), id(objID) {}
+  bool isSatisfied() const override;
+};
+
+class PressurePlateOffCondition : public PuzzleCondition {
+public:
+  PressurePlateOffCondition(GameObject *obj) : PuzzleCondition(obj) {}
   bool isSatisfied() const override;
 };
 

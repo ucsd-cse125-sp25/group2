@@ -60,7 +60,7 @@ enum class RewardType : uint8_t {
 enum class LevelType : uint8_t {
   NONE,
   WINDMILL,
-  BARN,
   SILO,
+  BARN,
   ALL,
 };
