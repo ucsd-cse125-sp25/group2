@@ -10859,71 +10859,6 @@
 			"active": false,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
-				"isTransparent": true,
-				"modelPath": "../resources/objects/box/MetalBox.obj",
-				"vertShaderPath": "../resources/shaders/material.vert"
-			},
-			"level": "WINDMILL",
-			"name": "MazeFloor",
-			"server": {
-				"colliders": [
-					{
-						"center": {
-							"x": 0.462,
-							"y": 0.34,
-							"z": -0.504
-						},
-						"halfExtents": {
-							"x": 1.018,
-							"y": 0.5,
-							"z": 1.011
-						},
-						"isTrigger": false,
-						"orientation": {
-							"forward": {
-								"x": 0.0,
-								"y": 0.0,
-								"z": 18.879
-							},
-							"right": {
-								"x": 15.559,
-								"y": 0.0,
-								"z": 0.0
-							},
-							"up": {
-								"x": 0.0,
-								"y": 0.469,
-								"z": 0.0
-							}
-						}
-					}
-				],
-				"interaction": "NONE",
-				"static": true
-			},
-			"transform": {
-				"position": {
-					"x": -0.517,
-					"y": 9.073,
-					"z": -43.307
-				},
-				"rotation": {
-					"x": 0.0,
-					"y": 0.0,
-					"z": 0.0
-				},
-				"scale": {
-					"x": 15.56,
-					"y": 0.469,
-					"z": 18.879
-				}
-			}
-		},
-		{
-			"_id": 98,
-			"active": false,
-			"client": {
-				"fragShaderPath": "../resources/shaders/material.frag",
 				"isTransparent": false,
 				"modelPath": "../resources/objects/box/BlackBox.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
@@ -10985,7 +10920,7 @@
 			}
 		},
 		{
-			"_id": 99,
+			"_id": 98,
 			"active": false,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
@@ -11050,12 +10985,12 @@
 			}
 		},
 		{
-			"_id": 100,
+			"_id": 99,
 			"active": false,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
 				"isTransparent": false,
-				"modelPath": "../resources/objects/box/BlackBox.obj",
+				"modelPath": "../resources/objects/box/TransparentBox.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
 			"level": "WINDMILL",

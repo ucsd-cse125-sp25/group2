@@ -2,182 +2,32 @@
 	"lights": [
 		{
 			"color": {
-				"x": 10,
-				"y": 10,
-				"z": 10
+				"x": 2.5,
+				"y": 2.5,
+				"z": 2.5
 			},
-			"level": "BARN",
-			"position": {
-				"x": 0.3,
-				"y": 53.703,
-				"z": 0.558
-			},
-			"radius": 50,
-			"useAttenuation": true
-		},
-		{
-			"color": {
-				"x": 5,
-				"y": 5,
-				"z": 5
-			},
-			"level": "BARN",
-			"position": {
-				"x": -24.138,
-				"y": 23.616,
-				"z": -0.963
-			},
-			"radius": 30,
-			"useAttenuation": true
-		},
-		{
-			"color": {
-				"x": 5,
-				"y": 5,
-				"z": 5
-			},
-			"level": "BARN",
-			"position": {
-				"x": -24.138,
-				"y": 23.616,
-				"z": -30.069
-			},
-			"radius": 30,
-			"useAttenuation": true
-		},
-		{
-			"color": {
-				"x": 5,
-				"y": 5,
-				"z": 5
-			},
-			"level": "BARN",
-			"position": {
-				"x": -24.138,
-				"y": 23.616,
-				"z": -59.567
-			},
-			"radius": 30,
-			"useAttenuation": true
-		},
-		{
-			"color": {
-				"x": 5,
-				"y": 5,
-				"z": 5
-			},
-			"level": "BARN",
-			"position": {
-				"x": 25.664,
-				"y": 23.616,
-				"z": -59.567
-			},
-			"radius": 30,
-			"useAttenuation": true
-		},
-		{
-			"color": {
-				"x": 5,
-				"y": 5,
-				"z": 5
-			},
-			"level": "BARN",
-			"position": {
-				"x": 25.664,
-				"y": 23.616,
-				"z": -26.454
-			},
-			"radius": 30,
-			"useAttenuation": true
-		},
-		{
-			"color": {
-				"x": 5,
-				"y": 5,
-				"z": 5
-			},
-			"level": "BARN",
-			"position": {
-				"x": 25.664,
-				"y": 23.616,
-				"z": 1.396
-			},
-			"radius": 30,
-			"useAttenuation": true
-		},
-		{
-			"color": {
-				"x": 10,
-				"y": 10,
-				"z": 10
-			},
-			"level": "BARN",
-			"position": {
-				"x": 3.143,
-				"y": 26.395,
-				"z": -21.792
-			},
-			"radius": 60,
-			"useAttenuation": true
-		},
-		{
-			"color": {
-				"x": 10,
-				"y": 10,
-				"z": 10
-			},
-			"level": "BARN",
-			"position": {
-				"x": 0.946,
-				"y": 16.771,
-				"z": -67.088
-			},
-			"radius": 60,
-			"useAttenuation": true
-		},
-		{
-			"color": {
-				"x": 10,
-				"y": 10,
-				"z": 10
-			},
-			"level": "BARN",
-			"position": {
-				"x": -0.25,
-				"y": 16.753,
-				"z": 10.713
-			},
-			"radius": 60,
-			"useAttenuation": true
-		},
-		{
-			"color": {
-				"x": 10,
-				"y": 10,
-				"z": 10
-			},
-			"level": "BARN",
+			"level": "WINDMILL",
 			"position": {
 				"x": 0,
-				"y": 53.703,
-				"z": -30.439
+				"y": 1.736,
+				"z": -43.935
 			},
-			"radius": 50,
+			"radius": 20,
 			"useAttenuation": true
 		},
 		{
 			"color": {
-				"x": 10,
-				"y": 10,
-				"z": 10
+				"x": 200,
+				"y": 200,
+				"z": 200
 			},
-			"level": "BARN",
+			"level": "WINDMILL",
 			"position": {
 				"x": 0,
-				"y": 53.703,
-				"z": -60.022
+				"y": 277.883,
+				"z": 0
 			},
-			"radius": 50,
+			"radius": 1000,
 			"useAttenuation": true
 		},
 		{
@@ -557,32 +407,182 @@
 		},
 		{
 			"color": {
-				"x": 2.5,
-				"y": 2.5,
-				"z": 2.5
+				"x": 10,
+				"y": 10,
+				"z": 10
 			},
-			"level": "WINDMILL",
+			"level": "BARN",
 			"position": {
-				"x": 0,
-				"y": 1.736,
-				"z": -43.935
+				"x": 0.3,
+				"y": 53.703,
+				"z": 0.558
 			},
-			"radius": 20,
+			"radius": 50,
 			"useAttenuation": true
 		},
 		{
 			"color": {
-				"x": 200,
-				"y": 200,
-				"z": 200
+				"x": 5,
+				"y": 5,
+				"z": 5
 			},
-			"level": "WINDMILL",
+			"level": "BARN",
+			"position": {
+				"x": -24.138,
+				"y": 23.616,
+				"z": -0.963
+			},
+			"radius": 30,
+			"useAttenuation": true
+		},
+		{
+			"color": {
+				"x": 5,
+				"y": 5,
+				"z": 5
+			},
+			"level": "BARN",
+			"position": {
+				"x": -24.138,
+				"y": 23.616,
+				"z": -30.069
+			},
+			"radius": 30,
+			"useAttenuation": true
+		},
+		{
+			"color": {
+				"x": 5,
+				"y": 5,
+				"z": 5
+			},
+			"level": "BARN",
+			"position": {
+				"x": -24.138,
+				"y": 23.616,
+				"z": -59.567
+			},
+			"radius": 30,
+			"useAttenuation": true
+		},
+		{
+			"color": {
+				"x": 5,
+				"y": 5,
+				"z": 5
+			},
+			"level": "BARN",
+			"position": {
+				"x": 25.664,
+				"y": 23.616,
+				"z": -59.567
+			},
+			"radius": 30,
+			"useAttenuation": true
+		},
+		{
+			"color": {
+				"x": 5,
+				"y": 5,
+				"z": 5
+			},
+			"level": "BARN",
+			"position": {
+				"x": 25.664,
+				"y": 23.616,
+				"z": -26.454
+			},
+			"radius": 30,
+			"useAttenuation": true
+		},
+		{
+			"color": {
+				"x": 5,
+				"y": 5,
+				"z": 5
+			},
+			"level": "BARN",
+			"position": {
+				"x": 25.664,
+				"y": 23.616,
+				"z": 1.396
+			},
+			"radius": 30,
+			"useAttenuation": true
+		},
+		{
+			"color": {
+				"x": 10,
+				"y": 10,
+				"z": 10
+			},
+			"level": "BARN",
+			"position": {
+				"x": 3.143,
+				"y": 26.395,
+				"z": -21.792
+			},
+			"radius": 60,
+			"useAttenuation": true
+		},
+		{
+			"color": {
+				"x": 10,
+				"y": 10,
+				"z": 10
+			},
+			"level": "BARN",
+			"position": {
+				"x": 0.946,
+				"y": 16.771,
+				"z": -67.088
+			},
+			"radius": 60,
+			"useAttenuation": true
+		},
+		{
+			"color": {
+				"x": 10,
+				"y": 10,
+				"z": 10
+			},
+			"level": "BARN",
+			"position": {
+				"x": -0.25,
+				"y": 16.753,
+				"z": 10.713
+			},
+			"radius": 60,
+			"useAttenuation": true
+		},
+		{
+			"color": {
+				"x": 10,
+				"y": 10,
+				"z": 10
+			},
+			"level": "BARN",
 			"position": {
 				"x": 0,
-				"y": 277.883,
-				"z": 0
+				"y": 53.703,
+				"z": -30.439
 			},
-			"radius": 1000,
+			"radius": 50,
+			"useAttenuation": true
+		},
+		{
+			"color": {
+				"x": 10,
+				"y": 10,
+				"z": 10
+			},
+			"level": "BARN",
+			"position": {
+				"x": 0,
+				"y": 53.703,
+				"z": -60.022
+			},
+			"radius": 50,
 			"useAttenuation": true
 		}
 	]
