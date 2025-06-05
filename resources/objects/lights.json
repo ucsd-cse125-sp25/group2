@@ -639,8 +639,23 @@
 			"level": "WINDMILL",
 			"position": {
 				"x": -13.443,
-				"y": 11.283,
-				"z": -18.669
+				"y": 14.759,
+				"z": -21.041
+			},
+			"radius": 60,
+			"useAttenuation": true
+		},
+		{
+			"color": {
+				"x": 1,
+				"y": 1,
+				"z": 1
+			},
+			"level": "WINDMILL",
+			"position": {
+				"x": -6.808,
+				"y": 14.232,
+				"z": -13.942
 			},
 			"radius": 60,
 			"useAttenuation": true
@@ -654,8 +669,23 @@
 			"level": "WINDMILL",
 			"position": {
 				"x": 13.101,
-				"y": 11.283,
-				"z": -18.669
+				"y": 14.972,
+				"z": -21.257
+			},
+			"radius": 60,
+			"useAttenuation": true
+		},
+		{
+			"color": {
+				"x": 1,
+				"y": 1,
+				"z": 1
+			},
+			"level": "WINDMILL",
+			"position": {
+				"x": 6.997,
+				"y": 13.179,
+				"z": -13.733
 			},
 			"radius": 60,
 			"useAttenuation": true
@@ -684,23 +714,68 @@
 			"level": "WINDMILL",
 			"position": {
 				"x": -0.23,
-				"y": 11.098,
-				"z": -6.254
+				"y": 18.838,
+				"z": -1.14
 			},
-			"radius": 60,
+			"radius": 80,
 			"useAttenuation": true
 		},
 		{
 			"color": {
-				"x": 3,
-				"y": 3,
-				"z": 3
+				"x": 2,
+				"y": 2,
+				"z": 2
 			},
 			"level": "WINDMILL",
 			"position": {
-				"x": 0,
-				"y": 142.661,
-				"z": -36.519
+				"x": 45.045,
+				"y": 37.61,
+				"z": -70.011
+			},
+			"radius": 300,
+			"useAttenuation": true
+		},
+		{
+			"color": {
+				"x": 2,
+				"y": 2,
+				"z": 2
+			},
+			"level": "WINDMILL",
+			"position": {
+				"x": 45.045,
+				"y": 37.61,
+				"z": 14.582
+			},
+			"radius": 300,
+			"useAttenuation": true
+		},
+		{
+			"color": {
+				"x": 2,
+				"y": 2,
+				"z": 2
+			},
+			"level": "WINDMILL",
+			"position": {
+				"x": -42.245,
+				"y": 37.61,
+				"z": 14.582
+			},
+			"radius": 300,
+			"useAttenuation": true
+		},
+		{
+			"color": {
+				"x": 2,
+				"y": 2,
+				"z": 2
+			},
+			"level": "WINDMILL",
+			"position": {
+				"x": -42.245,
+				"y": 37.61,
+				"z": -70.919
 			},
 			"radius": 300,
 			"useAttenuation": true
