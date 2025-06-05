@@ -68,8 +68,8 @@ enum class LevelType : uint8_t {
 };
 
 static const glm::vec3 STARTING_POSITIONS[NUM_PLAYERS] = {
-    glm::vec3(-82.0f, 0.865999996f, 15.0f),    // Player 1
+    glm::vec3(-82.0f, 0.865999996f, 15.0f),   // Player 1
     glm::vec3(58.594f, 0.865999996f, 93.0f),  // Player 2
-    glm::vec3(32.361f, 0.865999996f, -12.0f),   // Player 3
-    glm::vec3(40.0f, 0.865999996f, 1.0f)    // Player 4
+    glm::vec3(32.361f, 0.865999996f, -12.0f), // Player 3
+    glm::vec3(40.0f, 0.865999996f, 1.0f)      // Player 4
 };
