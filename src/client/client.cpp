@@ -126,10 +126,9 @@ bool Client::initUI() {
                                  UIManager::keypad->inputSequence, false);
         net->send(packet);
       });
-  UIManager::keypad->setCloseCallback([net = network.get()](OBJECT_ID id) {
-    KeypadInputPacket packet(id, net->getID(), UIManager::keypad->inputSequence,
-                             true);
-    net->send(packet);
+  UIManager::keypad->setCloseCallback([window = this->window](OBJECT_ID id) {
+    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    glfwSetInputMode(window, GLFW_RAW_MOUSE_MOTION, GLFW_TRUE);
   });
   return true;
 }
