@@ -5,7 +5,11 @@ var level = "NONE"
 var object_nodes := []
 
 func _run():
+<<<<<<< HEAD
 	var scenes = ["Pens.tscn", "Silo.tscn", "Windmill.tscn", "Barn.tscn"]
+=======
+	var scenes = ["Pens.tscn", "Silo.tscn", "Windmill.tscn", "BarnLevel.tscn"]
+>>>>>>> d13e060f2e53bcb89b15155c0f1c5cc114583e65
 	var file = FileAccess.open("res://objects.json", FileAccess.WRITE)
 	for scene_path in scenes:
 		var scene = load(scene_path)
