@@ -70,15 +70,15 @@ CharacterResponsePacket::deserialize(const vector<char> &payload) {
 }
 
 vector<char> LevelChangePacket::serialize() const {
-  vector<char> buffer(sizeof(LEVEL_ID));
-  memcpy(buffer.data(), &level, sizeof(LEVEL_ID));
+  vector<char> buffer(sizeof(LevelType));
+  memcpy(buffer.data(), &level, sizeof(LevelType));
   return buffer;
 }
 
 LevelChangePacket LevelChangePacket::deserialize(const vector<char> &payload) {
-  LEVEL_ID level;
+  LevelType level;
 
-  memcpy(&level, payload.data(), sizeof(LEVEL_ID));
+  memcpy(&level, payload.data(), sizeof(LevelType));
   LevelChangePacket packet(level);
   return packet;
 }

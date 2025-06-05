@@ -31,8 +31,6 @@ private:
   unique_ptr<LevelManager> levelManager;
 
 public:
-  LEVEL_ID level = 0;
-
   ServerGameState();
 
   bool init();
@@ -52,4 +50,6 @@ public:
   vector<int> getLastUpdatedObjects();
   vector<pair<RewardType, vector<OBJECT_ID>>> getRewardObjects();
   PlayerLogic *getPlayerLogic() { return playerLogic.get(); }
+  LevelManager *getLevelManager() { return levelManager.get(); }
+  LevelType getLevel() { return levelManager->getLevel(); }
 };

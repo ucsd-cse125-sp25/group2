@@ -16,11 +16,10 @@ using namespace std;
 
 #define PUZZLE_ID int
 #define NUM_PUZZLE int
-#define NUM_LEVEL int
 
 class Level {
 private:
-  LEVEL_ID level;
+  LevelType level;
   NUM_PUZZLE numMilestones;
   PUZZLE_ID currentMilestone;
   unordered_map<PUZZLE_ID, unique_ptr<Puzzle>>
@@ -30,7 +29,7 @@ private:
   vector<pair<RewardType, vector<OBJECT_ID>>> rewards;
 
 public:
-  Level(LEVEL_ID id) : level(id), numMilestones(0), currentMilestone(0){};
+  Level(LevelType l) : level(l), numMilestones(0), currentMilestone(0){};
   void addCluePuzzle(PUZZLE_ID id, unique_ptr<Puzzle> puzzle);
   void addMilestonePuzzle(unique_ptr<Puzzle> puzzle);
   bool isLevelComplete();
@@ -40,18 +39,20 @@ public:
 class LevelManager {
 private:
   Level *currentLevel;
-  LEVEL_ID currentLevelID;
-  NUM_LEVEL numLevels;
-  unordered_map<LEVEL_ID, unordered_map<OBJECT_ID, GameObject *>> levelObjects;
-  unordered_map<LEVEL_ID, unique_ptr<Level>> levels;
+  LevelType currentLevelType;
+  unordered_map<LevelType, unordered_map<OBJECT_ID, GameObject *>> levelObjects;
+  unordered_map<LevelType, unique_ptr<Level>> levels;
 
 public:
-  LevelManager() : currentLevel(nullptr), currentLevelID(0), numLevels(0) {}
+  // change to NONE when level should start before beginning level
+  LevelManager() : currentLevel(nullptr), currentLevelType(LevelType::NONE) {}
 
-  void addObject(LEVEL_ID levelID, OBJECT_ID objectID, GameObject *object);
-  void addLevel(LEVEL_ID id, unique_ptr<Level> level);
+  void addObject(LevelType levelType, OBJECT_ID objectID, GameObject *object);
+  void addLevel(LevelType levelType, unique_ptr<Level> level);
   void loadJSON();
   bool updateLevels();
   void advanceLevel();
   vector<pair<RewardType, vector<OBJECT_ID>>> getRewards();
+
+  LevelType getLevel() const { return currentLevelType; }
 };
