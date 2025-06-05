@@ -1,5 +1,26 @@
-# Blender 4.4.3 MTL File: 'ChickenCoop.blend'
+# Blender 4.4.0 MTL File: 'ChickenCoop.blend'
 # www.blender.org
+
+newmtl BlueBox
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.066162 0.079834 0.113953
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 1
+
+newmtl BlueWall
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd Plain_Blue_Texture_2795562_col.jpg
+map_Ns Plain_Blue_Texture_2795562_rough.jpg
+map_refl Plain_Blue_Texture_2795562_met.jpg
 
 newmtl Blue_roof_bricks
 Ns 250.000000
@@ -12,6 +33,16 @@ illum 2
 map_Kd roof_diffuse.jpg
 map_Bump -bm 1.000000 roof_normal.jpg
 
+newmtl DoorMesh
+Ns 360.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+
 newmtl Frame
 Ns 250.000000
 Ka 1.000000 1.000000 1.000000
@@ -22,7 +53,30 @@ Ni 1.500000
 d 1.000000
 illum 2
 
-newmtl Material.007
+newmtl Leafs
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.042786 0.075745 0.038208
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 1
+
+newmtl WindowMesh
+Ns 360.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd Mesh_fabric_BaseColor-Mesh_fabric_Alpha.png
+map_Ns Mesh_fabric_Roughness.png
+map_Bump -bm 1.000000 Mesh_fabric_Normal.jpg
+
+newmtl Wood
 Ns 0.000000
 Ka 1.000000 1.000000 1.000000
 Kd 0.162029 0.076185 0.021219
@@ -31,68 +85,3 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.500000
 d 1.000000
 illum 1
-
-newmtl Mesh_fabric
-Ns 360.000000
-Ka 1.000000 1.000000 1.000000
-Kd 0.800000 0.800000 0.800000
-Ks 0.500000 0.500000 0.500000
-Ke 0.000000 0.000000 0.000000
-Ni 1.000000
-d 1.000000
-illum 2
-
-newmtl Mesh_fabric.001
-Ns 360.000000
-Ka 1.000000 1.000000 1.000000
-Kd 0.800000 0.800000 0.800000
-Ks 0.500000 0.500000 0.500000
-Ke 0.000000 0.000000 0.000000
-Ni 1.000000
-d 1.000000
-illum 2
-
-newmtl Plain_Blue_Texture.001
-Ka 1.000000 1.000000 1.000000
-Ks 0.500000 0.500000 0.500000
-Ke 0.000000 0.000000 0.000000
-Ni 1.500000
-d 1.000000
-illum 2
-map_Kd Plain_Blue_Texture_2795562_col.jpg
-map_Ns Plain_Blue_Texture_2795562_rough.jpg
-map_refl Plain_Blue_Texture_2795562_met.jpg
-
-newmtl Plain_Blue_Texture.002
-Ka 1.000000 1.000000 1.000000
-Ks 0.500000 0.500000 0.500000
-Ke 0.000000 0.000000 0.000000
-Ni 1.500000
-d 1.000000
-illum 2
-map_Kd Plain_Blue_Texture_15100536_col.jpg
-map_Ns Plain_Blue_Texture_15100536_rough.jpg
-map_refl Plain_Blue_Texture_15100536_met.jpg
-
-newmtl Plain_Blue_Texture.003
-Ka 1.000000 1.000000 1.000000
-Ks 0.500000 0.500000 0.500000
-Ke 0.000000 0.000000 0.000000
-Ni 1.500000
-d 1.000000
-illum 2
-map_Kd Plain_Blue_Texture_2695561_col.jpg
-map_Ns Plain_Blue_Texture_2695561_rough.jpg
-map_refl Plain_Blue_Texture_2695561_met.jpg
-
-newmtl Poliigon_GrassPatchyGround_4585_2K.005
-Ka 1.000000 1.000000 1.000000
-Kd 0.800000 0.800000 0.800000
-Ks 0.500000 0.500000 0.500000
-Ke 0.000000 0.000000 0.000000
-Ni 1.500000
-d 1.000000
-illum 2
-map_Ns /Poliigon/Library/Poliigon_GrassPatchyGround_4585/2K/Poliigon_GrassPatchyGround_4585_Roughness.jpg
-map_refl /Poliigon/Library/Poliigon_GrassPatchyGround_4585/2K/Poliigon_GrassPatchyGround_4585_Metallic.jpg
-map_Bump -bm 1.000000 /Poliigon/Library/Poliigon_GrassPatchyGround_4585/2K/Poliigon_GrassPatchyGround_4585_Normal.jpg
