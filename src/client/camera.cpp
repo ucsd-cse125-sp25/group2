@@ -40,7 +40,7 @@ void Camera::update(float xOffset, float yOffset, glm::vec3 target) {
     yaw += 360.0f;
 
   // restrict pitch (vertical)
-  pitch = glm::clamp(pitch, -20.0f, 45.0f);
+  pitch = glm::clamp(pitch, -30.0f, 60.0f);
 
   // Updating view projection matrix
   float camX = radius * cos(glm::radians(yaw)) * cos(glm::radians(pitch));

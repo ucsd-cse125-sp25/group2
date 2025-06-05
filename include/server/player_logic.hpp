@@ -15,6 +15,8 @@ class PlayerLogic {
 private:
   // Movement properties
   float speed;
+  float chickenSpeed;
+  float cowSpeed;
   int sheepJumps;
   float jumpForce;
   float sheepJumpForce;

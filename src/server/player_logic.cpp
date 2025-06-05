@@ -1,7 +1,9 @@
 #include "player_logic.hpp"
 
 PlayerLogic::PlayerLogic() {
-  speed = 50.0f;
+  speed = 35.0f;
+  cowSpeed = 30.0f;
+  chickenSpeed = 40.0f;
   sheepJumps = SHEEP_MAX_JUMPS;
   jumpForce = 60.0f;
   sheepJumpForce = 90.0f;
@@ -17,7 +19,14 @@ PlayerLogic::PlayerLogic() {
 void PlayerLogic::move(GameObject *player, glm::vec3 direction) {
   // move the player
   auto rigidBody = player->getRigidBody();
-  rigidBody->applyImpulse(speed * direction);
+  float spd = speed;
+  if (player->getID() == CHICKEN) {
+    spd = chickenSpeed;
+  }
+  else if (player->getID() == COW) {
+    spd = cowSpeed;
+  }
+  rigidBody->applyImpulse(spd * direction);
 }
 
 OBJECT_ID PlayerLogic::moveHeldObject(PLAYER_ID id, GameObject *player) {
