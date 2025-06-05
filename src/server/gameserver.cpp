@@ -75,15 +75,14 @@ void GameServer::updateGameState() {
       CharacterResponsePacket packet(characterAssignments);
       network->sendToAll(packet);
       // if (game->getPlayerLogic()->allCharactersAssigned()) {
-        // set game state to GAME
-        game->state = Gamestate::GAME;
-        GameStatePacket statePacket(game->state);
-        network->sendToAll(statePacket);
-        // go from Level NONE to the first level
-        game->getLevelManager()->advanceLevel();
-        LevelChangePacket levelChangePacket(
-            game->getLevelManager()->getLevel());
-        network->sendToAll(levelChangePacket);
+      // set game state to GAME
+      game->state = Gamestate::GAME;
+      GameStatePacket statePacket(game->state);
+      network->sendToAll(statePacket);
+      // go from Level NONE to the first level
+      game->getLevelManager()->advanceLevel();
+      LevelChangePacket levelChangePacket(game->getLevelManager()->getLevel());
+      network->sendToAll(levelChangePacket);
       // }
       break;
     }
@@ -172,14 +171,15 @@ void GameServer::dispatchUpdates() {
 }
 
 void GameServer::dispatchKeypadPackets() {
-    vector<OBJECT_ID> keypads = game->getKeypadObjects();
-    for (int i = 0; i < keypads.size(); i++) {
-      GameObject *obj = game->getObject(keypads[i]);
-      auto keypadObject = dynamic_cast<KeypadObject *>(obj);
-      if (keypadObject && keypadObject->clientUsing != -1 && !keypadObject->solved) {
-        network->sendToClient(
-            keypadObject->clientUsing,
-            KeypadPacket(keypadObject->getID(), true, keypadObject->solved));
-      }
+  vector<OBJECT_ID> keypads = game->getKeypadObjects();
+  for (int i = 0; i < keypads.size(); i++) {
+    GameObject *obj = game->getObject(keypads[i]);
+    auto keypadObject = dynamic_cast<KeypadObject *>(obj);
+    if (keypadObject && keypadObject->clientUsing != -1 &&
+        !keypadObject->solved) {
+      network->sendToClient(
+          keypadObject->clientUsing,
+          KeypadPacket(keypadObject->getID(), true, keypadObject->solved));
     }
+  }
 }
