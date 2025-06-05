@@ -122,7 +122,7 @@ void KeypadUI::setUnlocked(bool isUnlocked) {
     solved = isUnlocked;
   }
   // play animation or change UI state based on solved status
-  else{
+  else {
     inputSequence.clear();
   }
 }

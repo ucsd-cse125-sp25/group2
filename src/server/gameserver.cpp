@@ -85,9 +85,9 @@ void GameServer::updateGameState() {
       bool solved = game->updateKeypadInput(keypadPacket->objectID,
                                             keypadPacket->inputSequence,
                                             keypadPacket->close);
-        network->sendToClient(
-            keypadPacket->clientID,
-            KeypadPacket(keypadPacket->objectID, !solved, solved));
+      network->sendToClient(
+          keypadPacket->clientID,
+          KeypadPacket(keypadPacket->objectID, !solved, solved));
       break;
     }
     case PacketType::SOUND: {
@@ -161,15 +161,16 @@ void GameServer::dispatchUpdates() {
   }
 }
 
-  void GameServer::dispatchKeypadPackets() {
-    vector<OBJECT_ID> keypads = game->getKeypadObjects();
-    for (int i = 0; i < keypads.size(); i++) {
-      GameObject *obj = game->getObject(keypads[i]);
-      auto keypadObject = dynamic_cast<KeypadObject *>(obj);
-      if (keypadObject && keypadObject->clientUsing != -1 && !keypadObject->solved) {
-        network->sendToClient(
-            keypadObject->clientUsing,
-            KeypadPacket(keypadObject->getID(), true, keypadObject->solved));
-      }
+void GameServer::dispatchKeypadPackets() {
+  vector<OBJECT_ID> keypads = game->getKeypadObjects();
+  for (int i = 0; i < keypads.size(); i++) {
+    GameObject *obj = game->getObject(keypads[i]);
+    auto keypadObject = dynamic_cast<KeypadObject *>(obj);
+    if (keypadObject && keypadObject->clientUsing != -1 &&
+        !keypadObject->solved) {
+      network->sendToClient(
+          keypadObject->clientUsing,
+          KeypadPacket(keypadObject->getID(), true, keypadObject->solved));
+    }
   }
 }
