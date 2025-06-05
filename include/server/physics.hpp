@@ -34,6 +34,8 @@ private:
   void clampVelocities(RigidBody *rb);
 
 public:
+  vector<OBJECT_ID> fur = {107, 108, 109, 110, 111, 112, 113, 114, 115, 116};
+
   void add(GameObject *obj);
   void remove(GameObject *obj);
 

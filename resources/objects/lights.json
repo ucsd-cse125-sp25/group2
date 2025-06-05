@@ -704,6 +704,96 @@
 			},
 			"radius": 300,
 			"useAttenuation": true
+		},
+		{
+			"color": {
+				"x": 1,
+				"y": 1,
+				"z": 1
+			},
+			"level": "PENS",
+			"position": {
+				"x": 0,
+				"y": 1000.736,
+				"z": -403.935
+			},
+			"radius": 6000,
+			"useAttenuation": true
+		},
+		{
+			"color": {
+				"x": 1,
+				"y": 1,
+				"z": 1
+			},
+			"level": "PENS",
+			"position": {
+				"x": -130.443,
+				"y": 1100.283,
+				"z": -18.669
+			},
+			"radius": 6000,
+			"useAttenuation": true
+		},
+		{
+			"color": {
+				"x": 1,
+				"y": 1,
+				"z": 1
+			},
+			"level": "PENS",
+			"position": {
+				"x": 130.101,
+				"y": 1100.283,
+				"z": -180.669
+			},
+			"radius": 6000,
+			"useAttenuation": true
+		},
+		{
+			"color": {
+				"x": 1,
+				"y": 1,
+				"z": 1
+			},
+			"level": "PENS",
+			"position": {
+				"x": -0.028,
+				"y": 6.672,
+				"z": -14.471
+			},
+			"radius": 6000,
+			"useAttenuation": true
+		},
+		{
+			"color": {
+				"x": 1,
+				"y": 1,
+				"z": 1
+			},
+			"level": "PENS",
+			"position": {
+				"x": 100,
+				"y": 1000,
+				"z": -6.254
+			},
+			"radius": 6000,
+			"useAttenuation": true
+		},
+		{
+			"color": {
+				"x": 3,
+				"y": 3,
+				"z": 3
+			},
+			"level": "PENS",
+			"position": {
+				"x": 0,
+				"y": 500.661,
+				"z": 0.519
+			},
+			"radius": 1000,
+			"useAttenuation": true
 		}
 	]
 }

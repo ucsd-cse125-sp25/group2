@@ -156,11 +156,22 @@ void LevelManager::advanceLevel() {
     return;
   }
 
+  uint8_t levelNum = magic_enum::enum_integer(currentLevelType);
+
+  levelNum++;
+  cout << "Advancing level to: " << static_cast<int>(levelNum) << endl;
+
+  int id = 0;
   // Reset all players to their original positions
   for (const auto &objPair : levelObjects[LevelType::ALL]) {
     GameObject *player = objPair.second;
     player->activate();
-    player->getTransform()->setPosition(player->getOriginalPosition());
+    if (levelNum == 1) {
+      player->getTransform()->setPosition(STARTING_POSITIONS[id]);
+      id++;
+    } else {
+      player->getTransform()->setPosition(player->getOriginalPosition());
+    }
   }
 
   // Deactivate all objects in the current level
@@ -168,11 +179,6 @@ void LevelManager::advanceLevel() {
     GameObject *object = objPair.second;
     object->deactivate();
   }
-
-  uint8_t levelNum = magic_enum::enum_integer(currentLevelType);
-
-  levelNum++;
-  cout << "Advancing level to: " << static_cast<int>(levelNum) << endl;
 
   currentLevelType =
       magic_enum::enum_cast<LevelType>(levelNum).value_or(LevelType::NONE);
