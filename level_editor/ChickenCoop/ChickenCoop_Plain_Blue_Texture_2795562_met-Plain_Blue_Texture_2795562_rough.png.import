@@ -2,14 +2,11 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://e6c037o1rp8i"
+uid="uid://eta66olh50yd"
 path.s3tc="res://.godot/imported/ChickenCoop_Plain_Blue_Texture_2795562_met-Plain_Blue_Texture_2795562_rough.png-9e52d9e6b14304224b22ea5e7dc7cf84.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
-}
-generator_parameters={
-"md5": "1a673c4317a0eab57fa3545c0c690a23"
 }
 
 [deps]
