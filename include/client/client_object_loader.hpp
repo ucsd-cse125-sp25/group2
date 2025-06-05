@@ -7,6 +7,7 @@
 #include "transform.hpp"
 #include "ui.hpp"
 #include "ui_manager.hpp"
+#include "light_manager.hpp"
 
 #include <fstream>
 #include <iostream>

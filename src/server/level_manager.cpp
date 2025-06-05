@@ -155,25 +155,29 @@ void LevelManager::advanceLevel() {
   uint8_t levelNum = magic_enum::enum_integer(currentLevelType);
   levelNum++;
   cout << "Advancing level to: " << static_cast<int>(levelNum) << endl;
-  if (levelNum < NUM_LEVELS) {
-    currentLevelType =
-        magic_enum::enum_cast<LevelType>(levelNum).value_or(LevelType::NONE);
-    currentLevel = levels[currentLevelType].get();
 
-    // get the objects that we don't want to activate when the level changes,
-    // i.e. notes
-    vector<OBJECT_ID> rewardIDs = currentLevel->getNotes();
+  currentLevelType =
+      magic_enum::enum_cast<LevelType>(levelNum).value_or(LevelType::NONE);
+  currentLevel = levels[currentLevelType].get();
 
-    // Activate all objects except for notes in the new level
-    for (const auto &objPair : levelObjects[currentLevelType]) {
-      GameObject *object = objPair.second;
-      if (find(rewardIDs.begin(), rewardIDs.end(), object->getID()) !=
-          rewardIDs.end()) {
-        continue;
-      }
-      object->activate();
-    }
+  if (levelNum > NUM_LEVELS) {
+    cout << "All levels completed!" << endl;
+    return;
   }
+  // get the objects that we don't want to activate when the level changes,
+  // i.e. notes
+  vector<OBJECT_ID> rewardIDs = currentLevel->getNotes();
+
+  // Activate all objects except for notes in the new level
+  for (const auto &objPair : levelObjects[currentLevelType]) {
+    GameObject *object = objPair.second;
+    if (find(rewardIDs.begin(), rewardIDs.end(), object->getID()) !=
+        rewardIDs.end()) {
+      continue;
+    }
+    object->activate();
+  }
+
 }
 
 vector<pair<RewardType, vector<OBJECT_ID>>> LevelManager::getRewards() {

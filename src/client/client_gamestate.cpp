@@ -16,7 +16,7 @@ bool ClientGameState::init() {
 
 void ClientGameState::advanceLevel(LevelType newLevel) {
   uint8_t levelNum = magic_enum::enum_integer(newLevel);
-  if (levelNum < NUM_LEVELS) {
+  if (levelNum <= NUM_LEVELS) {
     state = Gamestate::LOADING;
     UIManager::loadingScreen->play();
   } else {

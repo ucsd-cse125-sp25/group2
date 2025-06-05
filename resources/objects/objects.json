@@ -1228,7 +1228,7 @@
       "active": true,
       "client": {
         "fragShaderPath": "../resources/shaders/material.frag",
-        "modelPath": "../resources/objects/pressureplate/PressurePlate.obj",
+        "modelPath": "../resources/objects/button/PressurePlate.obj",
         "vertShaderPath": "../resources/shaders/material.vert"
       },
       "level": "BARN",
@@ -1292,7 +1292,7 @@
       "active": true,
       "client": {
         "fragShaderPath": "../resources/shaders/material.frag",
-        "modelPath": "../resources/objects/pressureplate/PressurePlate.obj",
+        "modelPath": "../resources/objects/button/PressurePlate.obj",
         "vertShaderPath": "../resources/shaders/material.vert"
       },
       "level": "BARN",
@@ -1679,7 +1679,7 @@
       "active": true,
       "client": {
         "fragShaderPath": "../resources/shaders/material.frag",
-        "modelPath": "../resources/objects/pressureplate/PressurePlate.obj",
+        "modelPath": "../resources/objects/button/PressurePlate.obj",
         "vertShaderPath": "../resources/shaders/material.vert"
       },
       "level": "BARN",
@@ -2258,7 +2258,7 @@
       "active": true,
       "client": {
         "fragShaderPath": "../resources/shaders/material.frag",
-        "modelPath": "../resources/objects/pressureplate/PressurePlate.obj",
+        "modelPath": "../resources/objects/button/PressurePlate.obj",
         "vertShaderPath": "../resources/shaders/material.vert"
       },
       "level": "BARN",
