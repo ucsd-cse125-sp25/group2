@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=3 uid="uid://dxhhdauuopfmj"]
+[gd_scene load_steps=55 format=3 uid="uid://byi7dqadf46at"]
 
 [ext_resource type="PackedScene" uid="uid://b23o1kf0arccq" path="res://Chicken.glb" id="1_3xbpx"]
 [ext_resource type="Script" uid="uid://nd5l8ocm7cud" path="res://scripts/metadata.gd" id="2_utodh"]
@@ -133,6 +133,7 @@ size = Vector3(13.2899, 1.56934, 19.2019)
 size = Vector3(51.1888, 1.2063, 6.17532)
 
 [node name="SILO" type="Node3D"]
+visible = false
 
 [node name="Chicken" parent="." instance=ExtResource("1_3xbpx")]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 5.62678, 0.86553, -3)

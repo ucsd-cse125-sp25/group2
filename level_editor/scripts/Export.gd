@@ -5,11 +5,7 @@ var level = "NONE"
 var object_nodes := []
 
 func _run():
-<<<<<<< HEAD
 	var scenes = ["Pens.tscn", "Silo.tscn", "Windmill.tscn", "Barn.tscn"]
-=======
-	var scenes = ["Pens.tscn", "Silo.tscn", "Windmill.tscn", "BarnLevel.tscn"]
->>>>>>> d13e060f2e53bcb89b15155c0f1c5cc114583e65
 	var file = FileAccess.open("res://objects.json", FileAccess.WRITE)
 	for scene_path in scenes:
 		var scene = load(scene_path)
@@ -92,11 +88,13 @@ func _process_node(node: Node3D) -> Dictionary:
 	var is_transparent := false
 	if node.has_meta("isTransparent"):
 		is_transparent = node.get_meta("isTransparent")
-			
+	var is_active := true
+	if level == "BARN" or level == "WINDMILL" or level == "SILO":
+		is_active = false
 	var data := {
 		"level": level,
 		"name": node.name,
-		"active": false,
+		"active": is_active,
 		"transform": {
 			"position": _vec3_to_json(node.global_position),
 			"rotation": _vec3_to_json(node.global_rotation_degrees),

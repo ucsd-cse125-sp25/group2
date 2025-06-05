@@ -1,0 +1,84 @@
+# Blender 4.4.0 MTL File: 'ChickenCoop.blend'
+# www.blender.org
+
+newmtl BlueBox
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.066162 0.079834 0.113953
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 1
+
+newmtl BlueWall
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd ../../../resources/objects/chickencoop/Plain_Blue_Texture_2795562_col.jpg
+map_Ns ../../../resources/objects/chickencoop/Plain_Blue_Texture_2795562_rough.jpg
+map_refl C:/Plain_Blue_Texture_2795562_met.jpg
+
+newmtl Blue_roof_bricks
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd ../../../resources/objects/chickencoop/roof_diffuse.jpg
+map_Bump -bm 1.000000 ../../../resources/objects/chickencoop/roof_normal.jpg
+
+newmtl DoorMesh
+Ns 360.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+
+newmtl Frame
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+
+newmtl Leafs
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.042786 0.075745 0.038208
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 1
+
+newmtl WindowMesh
+Ns 360.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+
+newmtl Wood
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.162029 0.076185 0.021219
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 1
