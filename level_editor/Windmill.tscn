@@ -1,7 +1,7 @@
 [gd_scene load_steps=56 format=3 uid="uid://cul6vdgnijhaj"]
 
 [ext_resource type="PackedScene" uid="uid://b23o1kf0arccq" path="res://Chicken.glb" id="1_b6705"]
-[ext_resource type="Script" uid="uid://nd5l8ocm7cud" path="res://scripts/metadata.gd" id="2_b34sr"]
+[ext_resource type="Script" path="res://scripts/metadata.gd" id="2_b34sr"]
 [ext_resource type="PackedScene" uid="uid://y0mg523veid7" path="res://Sheep.glb" id="3_uso7n"]
 [ext_resource type="PackedScene" uid="uid://cgwfirulao1f2" path="res://Cow.glb" id="4_wus86"]
 [ext_resource type="PackedScene" uid="uid://ckatidfhcngcm" path="res://Pig.glb" id="5_6eq67"]
@@ -684,3 +684,13 @@ metadata/isTransparent = true
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MazeFloor"]
 transform = Transform3D(0.999978, 0, 0, 0, 0.99997, 0, 0, 0, 0.999999, 0.0297225, 0.723988, -0.0266724)
 shape = SubResource("BoxShape3D_aki0h")
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.73648, -43.935)
+light_energy = 5.0
+omni_range = 20.0
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 277.883, 0)
+light_energy = 400.0
+omni_range = 1000.0

@@ -1,7 +1,7 @@
 [gd_scene load_steps=55 format=3 uid="uid://dxhhdauuopfmj"]
 
 [ext_resource type="PackedScene" uid="uid://b23o1kf0arccq" path="res://Chicken.glb" id="1_3xbpx"]
-[ext_resource type="Script" uid="uid://nd5l8ocm7cud" path="res://scripts/metadata.gd" id="2_utodh"]
+[ext_resource type="Script" path="res://scripts/metadata.gd" id="2_utodh"]
 [ext_resource type="PackedScene" uid="uid://y0mg523veid7" path="res://Sheep.glb" id="3_1tjoq"]
 [ext_resource type="PackedScene" uid="uid://cgwfirulao1f2" path="res://Cow.glb" id="4_lh8yy"]
 [ext_resource type="PackedScene" uid="uid://ckatidfhcngcm" path="res://Pig.glb" id="5_cs0qs"]
@@ -418,6 +418,131 @@ model_path = "../resources/objects/box/BlackBox.obj"
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0460206, -0.894022, 0.0060654)
 shape = SubResource("BoxShape3D_ibitd")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.7405, 114.427, -14.9753)
+light_energy = 20.0
+omni_range = 50.0
+
+[node name="OmniLight3D3" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.6544, 114.427, -0.156014)
+light_energy = 20.0
+omni_range = 50.0
+
+[node name="OmniLight3D4" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.293, 114.427, 19.3641)
+light_energy = 20.0
+omni_range = 50.0
+
+[node name="OmniLight3D5" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.7531, 114.427, 19.3641)
+light_energy = 20.0
+omni_range = 50.0
+
+[node name="OmniLight3D6" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.9615, 114.427, -5.8106)
+light_energy = 20.0
+omni_range = 50.0
+
+[node name="OmniLight3D7" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.03669, 114.427, -19.6242)
+light_energy = 20.0
+omni_range = 50.0
+
+[node name="OmniLight3D8" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.7405, 79.4778, -14.9753)
+light_energy = 20.0
+omni_range = 50.0
+
+[node name="OmniLight3D9" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.6544, 79.4778, -0.156014)
+light_energy = 20.0
+omni_range = 50.0
+
+[node name="OmniLight3D10" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.293, 79.4778, 19.3641)
+light_energy = 20.0
+omni_range = 50.0
+
+[node name="OmniLight3D11" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.7531, 79.4778, 19.3641)
+light_energy = 20.0
+omni_range = 50.0
+
+[node name="OmniLight3D12" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.9615, 79.4778, -5.8106)
+light_energy = 20.0
+omni_range = 50.0
+
+[node name="OmniLight3D13" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.03669, 79.4778, -19.6242)
+light_energy = 20.0
+omni_range = 50.0
+
+[node name="OmniLight3D14" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.7405, 56.1163, -14.9753)
+light_energy = 20.0
+omni_range = 50.0
+
+[node name="OmniLight3D15" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.6544, 56.1163, -0.156014)
+light_energy = 20.0
+omni_range = 50.0
+
+[node name="OmniLight3D16" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.293, 56.1163, 19.3641)
+light_energy = 20.0
+omni_range = 50.0
+
+[node name="OmniLight3D17" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.7531, 56.1163, 19.3641)
+light_energy = 20.0
+omni_range = 50.0
+
+[node name="OmniLight3D18" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.9615, 56.1163, -5.8106)
+light_energy = 20.0
+omni_range = 50.0
+
+[node name="OmniLight3D19" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.03669, 56.1163, -19.6242)
+light_energy = 20.0
+omni_range = 50.0
+
+[node name="OmniLight3D20" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.7405, 24.3485, -14.9753)
+light_energy = 20.0
+omni_range = 50.0
+
+[node name="OmniLight3D21" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.6544, 24.3485, -0.156014)
+light_energy = 20.0
+omni_range = 50.0
+
+[node name="OmniLight3D22" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.293, 24.3485, 19.3641)
+light_energy = 20.0
+omni_range = 50.0
+
+[node name="OmniLight3D23" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.7531, 24.3485, 19.3641)
+light_energy = 20.0
+omni_range = 50.0
+
+[node name="OmniLight3D24" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.9615, 24.3485, -5.8106)
+light_energy = 20.0
+omni_range = 50.0
+
+[node name="OmniLight3D25" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.03669, 24.3485, -19.6242)
+light_energy = 20.0
+omni_range = 50.0
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 92.219, 0)
+light_energy = 50.0
+omni_range = 30.0
 
 [node name="Silo" parent="." instance=ExtResource("16_t3vs3")]
 transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0, 0)
