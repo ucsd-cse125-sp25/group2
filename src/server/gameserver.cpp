@@ -29,24 +29,24 @@ bool GameServer::start() {
     return false;
   }
   network->setOnJoin([game = game.get(), net = network.get()]() {
-      CharacterResponsePacket responsePacket(
-          game->getPlayerLogic()->getCharacterAssignments());
-      net->sendToAll(responsePacket);    
-      for (int i = 0; i < NUM_PLAYERS; i++) {
-        cout << responsePacket.characterAssignments[i] << " ";
-      }
-      cout << endl;
-    });
-    
+    CharacterResponsePacket responsePacket(
+        game->getPlayerLogic()->getCharacterAssignments());
+    net->sendToAll(responsePacket);
+    for (int i = 0; i < NUM_PLAYERS; i++) {
+      cout << responsePacket.characterAssignments[i] << " ";
+    }
+    cout << endl;
+  });
+
   network->setOnLeave([game = game.get(), net = network.get()](CLIENT_ID id) {
-      game->getPlayerLogic()->unAssignCharacter(id);
-      CharacterResponsePacket responsePacket(
-          game->getPlayerLogic()->getCharacterAssignments());
-      for (int i = 0; i < NUM_PLAYERS; i++) {
-        cout << responsePacket.characterAssignments[i] << " ";
-      }
-      cout << endl;
-      net->sendToAll(responsePacket);
+    game->getPlayerLogic()->unAssignCharacter(id);
+    CharacterResponsePacket responsePacket(
+        game->getPlayerLogic()->getCharacterAssignments());
+    for (int i = 0; i < NUM_PLAYERS; i++) {
+      cout << responsePacket.characterAssignments[i] << " ";
+    }
+    cout << endl;
+    net->sendToAll(responsePacket);
   });
   return true;
 }
@@ -88,16 +88,16 @@ void GameServer::updateGameState() {
         // go from Level NONE to the first level
         game->getLevelManager()->advanceLevel();
         LevelChangePacket levelChangePacket(
-          game->getLevelManager()->getLevel());
+            game->getLevelManager()->getLevel());
         network->sendToAll(levelChangePacket);
       } else if (game->state == Gamestate::GAME) {
         GameStatePacket statePacket(game->state);
         network->sendToAll(statePacket);
         LevelChangePacket levelChangePacket(
-          game->getLevelManager()->getLevel());
+            game->getLevelManager()->getLevel());
         network->sendToClient(characterPacket->clientID, levelChangePacket);
       }
-     
+
       break;
     }
     case PacketType::KEYPADINPUT: {
