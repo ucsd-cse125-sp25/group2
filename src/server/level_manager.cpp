@@ -9,9 +9,7 @@ void Level::addMilestonePuzzle(unique_ptr<Puzzle> puzzle) {
   numMilestones++;
 }
 
-void Level::addNote(OBJECT_ID id) {
-  notes.push_back(id);
-}
+void Level::addNote(OBJECT_ID id) { notes.push_back(id); }
 
 bool Level::isLevelComplete() {
   // loop through all clue puzzles, if complete dispatch reward (activate or
@@ -42,9 +40,7 @@ vector<pair<RewardType, vector<OBJECT_ID>>> Level::getPuzzleRewards() {
   return res;
 }
 
-vector<OBJECT_ID> Level::getNotes() {
-  return notes;
-}
+vector<OBJECT_ID> Level::getNotes() { return notes; }
 
 void LevelManager::addObject(LevelType levelType, OBJECT_ID objectID,
                              GameObject *object) {
@@ -164,7 +160,8 @@ void LevelManager::advanceLevel() {
         magic_enum::enum_cast<LevelType>(levelNum).value_or(LevelType::NONE);
     currentLevel = levels[currentLevelType].get();
 
-    // get the objects that we don't want to activate when the level changes, i.e. notes
+    // get the objects that we don't want to activate when the level changes,
+    // i.e. notes
     vector<OBJECT_ID> rewardIDs = currentLevel->getNotes();
 
     // Activate all objects except for notes in the new level

@@ -10,7 +10,7 @@ bool PressurePlateCondition::isSatisfied() const {
 
 bool ButtonCondition::isSatisfied() const {
   cout << "ButtonCondition::isSatisfied called for object ID: "
-       << object->getID() << endl; 
+       << object->getID() << endl;
   return object->hasBeenPressed();
 }
 

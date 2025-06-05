@@ -105,7 +105,7 @@ void GameServer::updateGameState() {
     }
     }
   }
-  
+
   if (game->state == Gamestate::GAME) {
     game->applyPhysics();
     triggerLevelChange = game->updateLevelManager();

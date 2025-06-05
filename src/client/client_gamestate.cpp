@@ -28,7 +28,7 @@ void ClientGameState::advanceLevel(LevelType newLevel) {
     obj.second->deactivate();
   }
 
-  currentLevelType = newLevel;  // update current level
+  currentLevelType = newLevel; // update current level
 
   // Activate all objects in the new level
   for (auto &obj : levelObjects[currentLevelType]) {
