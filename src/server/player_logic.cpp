@@ -22,8 +22,7 @@ void PlayerLogic::move(GameObject *player, glm::vec3 direction) {
   float spd = speed;
   if (player->getID() == 0) {
     spd = chickenSpeed;
-  }
-  else if (player->getID() == 3) {
+  } else if (player->getID() == 3) {
     spd = cowSpeed;
   }
   rigidBody->applyImpulse(speed * direction);
