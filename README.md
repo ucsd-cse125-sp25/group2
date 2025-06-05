@@ -26,10 +26,10 @@ Made By:
 
 - **Keyboard Movement**
 
-  - Use **W** / **Up Arrow** to move forward.
-  - Use **S** / **Down Arrow** to move backward.
-  - Use **A** / **Left Arrow** to strafe left.
-  - Use **D** / **Right Arrow** to strafe right.
+  - Use **W** to move forward.
+  - Use **S** to move backward.
+  - Use **A** to strafe left.
+  - Use **D** to strafe right.
   - Press **Space** to jump.
   - Chicken can glide by holding **space**
   - Sheep can double jump by holding **space**
