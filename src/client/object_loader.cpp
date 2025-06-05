@@ -76,6 +76,21 @@ unordered_map<OBJECT_ID, unique_ptr<BaseUI>> ObjectLoader::loadNotes() {
   return notes;
 }
 
+LevelType ObjectLoader::getLevelFromString(const string &levelStr) {
+  if (levelStr == "BARN") {
+    return LevelType::BARN;
+  } else if (levelStr == "PENS") {
+    return LevelType::PENS;
+  } else if (levelStr == "SILO") {
+    return LevelType::SILO;
+  } else if (levelStr == "WINDMILL") {
+    return LevelType::WINDMILL;
+  } else if (levelStr == "ALL") {
+    return LevelType::ALL;
+  }
+  return LevelType::BARN; // Default to BARN if unknown
+}
+
 void ObjectLoader::loadLights() {
   // Open and parse JSON file
   ifstream file(LIGHT_PATH);
@@ -94,7 +109,8 @@ void ObjectLoader::loadLights() {
 
   if (lightsData.contains("lights") && lightsData["lights"].is_array()) {
     for (const auto &lightData : lightsData["lights"]) {
-      LevelType level = LevelType::BARN;
+      std::string levelStr = lightData.value("level", "BARN");
+      auto level = getLevelFromString(levelStr);
       glm::vec3 position = parseVec3(lightData, "position", glm::vec3(0.0f));
       glm::vec3 color =
           parseVec3(lightData, "color", glm::vec3(1.0f, 1.0f, 1.0f));

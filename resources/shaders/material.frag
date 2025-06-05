@@ -15,7 +15,7 @@ uniform float materialShininess;
 uniform vec3 DiffuseColor;
 
 // Multi-light support
-#define MAX_LIGHTS 8
+#define MAX_LIGHTS 100
 uniform int numLights;
 uniform vec3 lightPositions[MAX_LIGHTS];
 uniform vec3 lightColors[MAX_LIGHTS];

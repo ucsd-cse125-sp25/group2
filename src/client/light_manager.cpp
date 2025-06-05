@@ -12,6 +12,8 @@ void LightManager::addLight(LevelType level, const glm::vec3 &pos,
 void LightManager::sendToShader(unique_ptr<Shader> &shader) {
   auto &currentLights = lights[currentLevel];
   int numLights = currentLights.size();
+  // cout << "Sending " << numLights << " lights to shader for level "
+  //      << static_cast<int>(currentLevel) << endl;
 
   shader->setInt("numLights", numLights);
 

@@ -17,8 +17,8 @@
 #define SHEEP 2
 #define COW 3
 
-#define OBJECT_PATH "../resources/objects/objects.json"
-#define PUZZLE_PATH "../resources/puzzles/puzzles.json"
+#define OBJECT_PATH "../resources/objects/objects1.json"
+#define PUZZLE_PATH "../resources/puzzles/puzzles1.json"
 #define CONFIG_PATH "../resources/config.json"
 #define NOTE_PATH "../resources/ui/notes.json"
 #define LIGHT_PATH "../resources/objects/lights.json"
@@ -58,17 +58,18 @@ enum class RewardType : uint8_t {
 };
 
 // for testing until we add more level logic
+// enum class LevelType : uint8_t {
+//   NONE,
+//   BARN,
+
+//   ALL,
+// };
+
 enum class LevelType : uint8_t {
   NONE,
+  PENS,
+  SILO,
+  WINDMILL,
   BARN,
   ALL,
 };
-
-// enum class LevelType : uint8_t {
-//   NONE,
-//   PENS,
-//   SILO,
-//   WINDMILL,
-//   BARN,
-//   ALL,
-// };
