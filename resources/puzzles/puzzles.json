@@ -368,25 +368,25 @@
                         {   
                             "__name": "Chicken Pressure Plate",
                             "conditionType": "PRESSURE_PLATE",
-                            "objectID": 124,
+                            "objectID": 121,
                             "triggeringObjectID": 0
                         },
                         {   
                             "__name": "Pig Pressure Plate",
                             "conditionType": "PRESSURE_PLATE",
-                            "objectID": 123,
+                            "objectID": 122,
                             "triggeringObjectID": 1
                         },
                         {   
                             "__name": "Sheep Pressure Plate",
                             "conditionType": "PRESSURE_PLATE",
-                            "objectID": 122,
+                            "objectID": 123,
                             "triggeringObjectID": 2
                         },
                         {   
                             "__name": "Cow Pressure Plate",
                             "conditionType": "PRESSURE_PLATE",
-                            "objectID": 121,
+                            "objectID": 124,
                             "triggeringObjectID": 3
                         }
                     ]
