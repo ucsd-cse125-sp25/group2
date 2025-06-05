@@ -57,14 +57,5 @@ public:
   bool updateLevels();
   void advanceLevel();
   vector<pair<RewardType, vector<OBJECT_ID>>> getRewards();
-  void instantiatePlayers();
-
   LevelType getLevel() const { return currentLevelType; }
-
-  glm::vec3 startingPositions[NUM_PLAYERS] = {
-      glm::vec3(0.0f, 0.0f, 0.0f),   // Player 1
-      glm::vec3(5.0f, 0.0f, 5.0f),   // Player 2
-      glm::vec3(-5.0f, 0.0f, -5.0f), // Player 3
-      glm::vec3(-5.0f, 0.0f, -5.0f)  // Player 4
-  };
 };

@@ -3,6 +3,7 @@
 #include "client_gameobject.hpp"
 #include "client_object_loader.hpp"
 #include "globals.hpp"
+#include "light_manager.hpp"
 
 #include <magic_enum/magic_enum.hpp>
 #include <memory>

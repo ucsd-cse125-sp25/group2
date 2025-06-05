@@ -1,6 +1,57 @@
 {
     "levels": [
         {
+            "levelType": "SILO",
+            "puzzles": [
+                {
+                    "puzzleID": 0,
+                    "rewardType": "NONE",
+                    "rewardIDs": [],
+                    "puzzleType": "milestone",
+                    "conditions": [
+                        {   
+                            "__name": "test",
+                            "conditionType": "PRESSURE_PLATE",
+                            "objectID": 41,
+                            "triggeringObjectID": 38
+                        }
+                    ]
+                },
+                {
+                    "puzzleID": 2,
+                    "rewardType": "NONE",
+                    "rewardIDs": [],
+                    "puzzleType": "milestone",
+                    "conditions": [
+                        {   
+                            "__name": "Chicken Pressure Plate",
+                            "conditionType": "PRESSURE_PLATE",
+                            "objectID": 10,
+                            "triggeringObjectID": 0
+                        },
+                        {   
+                            "__name": "Pig Pressure Plate",
+                            "conditionType": "PRESSURE_PLATE",
+                            "objectID": 12,
+                            "triggeringObjectID": 1
+                        },
+                        {   
+                            "__name": "Sheep Pressure Plate",
+                            "conditionType": "PRESSURE_PLATE",
+                            "objectID": 14,
+                            "triggeringObjectID": 2
+                        },
+                        {   
+                            "__name": "Cow Pressure Plate",
+                            "conditionType": "PRESSURE_PLATE",
+                            "objectID": 16,
+                            "triggeringObjectID": 3
+                        }
+                    ]
+                }
+            ]
+        },
+        {
             "levelType": "BARN",
             "puzzles": [
                 {

@@ -23,12 +23,19 @@ void ClientGameState::advanceLevel(LevelType newLevel) {
     state = Gamestate::COMPLETED;
   }
 
+  for (auto &obj : levelObjects[LevelType::ALL]) {
+    obj.second->activate();
+    obj.second->getTransform()->setPosition(
+        obj.second->getOriginalPosition());
+  }
+
   // Deactivate all objects in the current level
   for (auto &obj : levelObjects[currentLevelType]) {
     obj.second->deactivate();
   }
 
   currentLevelType = newLevel; // update current level
+  LightManager::setCurrentLevel(currentLevelType);
 
   // Activate all objects in the new level
   for (auto &obj : levelObjects[currentLevelType]) {

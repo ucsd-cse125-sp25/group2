@@ -147,14 +147,18 @@ bool LevelManager::updateLevels() {
 }
 
 void LevelManager::advanceLevel() {
-  // if (currentLevelType == LevelType::NONE) {
-  //   instantiatePlayers();
-  // }
-
   if (currentLevelType == LevelType::BARN) {
     currentLevelType = LevelType::ALL;
     cout << "All levels completed!" << endl;
     return;
+  }
+
+  // Reset all players to their original positions
+  for (const auto &objPair : levelObjects[LevelType::ALL]) {
+    GameObject *player = objPair.second;
+    player->activate();
+    player->getTransform()->setPosition(
+        player->getOriginalPosition());
   }
 
   // Deactivate all objects in the current level
@@ -189,13 +193,4 @@ void LevelManager::advanceLevel() {
 
 vector<pair<RewardType, vector<OBJECT_ID>>> LevelManager::getRewards() {
   return currentLevel->getPuzzleRewards();
-}
-
-void LevelManager::instantiatePlayers() {
-  auto animals = levelObjects[LevelType::ALL];
-  for (const auto &animalPair : animals) {
-    GameObject *animal = animalPair.second;
-    animal->activate();
-    animal->getTransform()->setPosition(startingPositions[animal->getID()]);
-  }
 }
