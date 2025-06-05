@@ -139,7 +139,6 @@ void LevelManager::advanceLevel() {
     instantiatePlayers();
   }
 
-
   for (const auto &objPair : levelObjects[currentLevelType]) {
     GameObject *object = objPair.second;
     object->deactivate(); // Deactivate all objects in the current level
