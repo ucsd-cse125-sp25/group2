@@ -27,7 +27,7 @@
                             "__name": "Blue Pressure Plate",
                             "conditionType": "PRESSURE_PLATE_OFF",
                             "objectID": 74,
-                            "triggeringObjectID": 99
+                            "triggeringObjectID": 100
                         }
                     ]
                 },
@@ -55,7 +55,7 @@
                             "__name": "Green Pressure Plate",
                             "conditionType": "PRESSURE_PLATE_OFF",
                             "objectID": 75,
-                            "triggeringObjectID": 99
+                            "triggeringObjectID": 100
                         }
                     ]
                 },
