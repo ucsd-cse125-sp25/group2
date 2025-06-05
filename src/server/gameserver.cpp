@@ -165,7 +165,8 @@ void GameServer::dispatchUpdates() {
   }
 
   if (game->sheepNote != -1) {
-    OBJECT_ID sheepNoteID = game->sheepNote == 1 ? 118 : -1; // 118 is the note ID
+    OBJECT_ID sheepNoteID =
+        game->sheepNote == 1 ? 118 : -1; // 118 is the note ID
     network->sendToClient(game->getPlayerLogic()->getClient(SHEEP),
                           NotePacket(sheepNoteID));
     game->sheepNote = -1;

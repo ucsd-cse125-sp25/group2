@@ -142,7 +142,7 @@ void ServerGameState::updateInteraction(PLAYER_ID id) {
     updatedObjectIDs.insert(heldObject->getID());
 
     if (id == SHEEP && heldObject->getID() == 118) {
-    cout << "seg?3" << endl;
+      cout << "seg?3" << endl;
       sheepNote = 0;
     }
 
@@ -157,7 +157,7 @@ void ServerGameState::updateInteraction(PLAYER_ID id) {
       updatedObjectIDs.insert(closestObjectID);
 
       if (id == SHEEP && closestObject->getID() == 118) {
-    cout << "seg?12" << endl;
+        cout << "seg?12" << endl;
         sheepNote = 1;
       }
       // If interaction type is press

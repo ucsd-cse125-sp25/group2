@@ -1,8 +1,9 @@
 #include "client_gamestate.hpp"
 
 bool ClientGameState::init() {
-  sheepNote = UIManager::createUIElement(0.0f, 0.0f, 0.25f, 0.35f, 1, nullopt,
-                                     "../resources/ui/notes/SheepMechanic.png", nullptr, false, false);
+  sheepNote = UIManager::createUIElement(
+      0.0f, 0.0f, 0.25f, 0.35f, 1, nullopt,
+      "../resources/ui/notes/SheepMechanic.png", nullptr, false, false);
   ObjectLoader objectLoader = ObjectLoader();
   objectList = objectLoader.loadObjects();
   notes = objectLoader.loadNotes();
