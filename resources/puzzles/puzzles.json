@@ -1,6 +1,25 @@
 {
     "levels": [
         {
+            "levelType": "WINDMILL",
+            "puzzles": [
+                {
+                    "puzzleID": 0,
+                    "rewardType": "ACTIVATE",
+                    "rewardIDs": [19],
+                    "puzzleType": "milestone",
+                    "conditions": [
+                        {   
+                            "__name": "Blue Pressure Plate",
+                            "conditionType": "PRESSURE_PLATE",
+                            "objectID": 74,
+                            "triggeringObjectID": 3
+                        }
+                    ]
+                }
+            ]
+        },
+        {
             "levelType": "SILO",
             "puzzles": [
                 {
@@ -88,57 +107,57 @@
                         {   
                             "__name": "BluePressurePlate",
                             "conditionType": "PRESSURE_PLATE",
-                            "objectID": 10,
-                            "triggeringObjectID": 4
+                            "objectID": 32,
+                            "triggeringObjectID": 26
                         },
                         {
                             "__name": "RedPressurePlate",
                             "conditionType": "PRESSURE_PLATE",
-                            "objectID": 11,
-                            "triggeringObjectID": 5
+                            "objectID": 33,
+                            "triggeringObjectID": 27
                         },
                         {
                             "__name": "YellowPressurePlate",
                             "conditionType": "PRESSURE_PLATE",
-                            "objectID": 12,
-                            "triggeringObjectID": 6
+                            "objectID": 34,
+                            "triggeringObjectID": 28
                         },{
                             "__name": "GreenPressurePlate",
                             "conditionType": "PRESSURE_PLATE",
-                            "objectID": 13,
-                            "triggeringObjectID": 7
+                            "objectID": 35,
+                            "triggeringObjectID": 29
                         }
                     ]
                 },
                 {
                     "puzzleID": 1,
                     "rewardType": "DEACTIVATE",
-                    "rewardIDs": [14, 15],
+                    "rewardIDs": [36, 37],
                     "puzzleType": "milestone",
                     "conditions": [
                         {   
                             "__name": "Pinpad",
                             "conditionType": "PIN",
-                            "objectID": 9
+                            "objectID": 31
                         }
                     ]
                 },
                 {
                     "puzzleID": 2,
                     "rewardType": "ACTIVATE",
-                    "rewardIDs": [17],
+                    "rewardIDs": [39],
                     "puzzleType": "clue",
                     "conditions": [
                         {   
                             "__name": "SheepPressurePlate",
                             "conditionType": "PRESSURE_PLATE",
-                            "objectID": 19,
+                            "objectID": 41,
                             "triggeringObjectID": 2
                         },
                         {   
                             "__name": "CowPressurePlate",
                             "conditionType": "PRESSURE_PLATE",
-                            "objectID": 20,
+                            "objectID": 42,
                             "triggeringObjectID": 3
                         }
                     ]
@@ -146,72 +165,72 @@
                 {
                     "puzzleID": 3,
                     "rewardType": "DEACTIVATE",
-                    "rewardIDs": [21, 22],
+                    "rewardIDs": [43, 44],
                     "puzzleType": "milestone",
                     "conditions": [
                         {   
                             "__name": "Pinpad 2",
                             "conditionType": "PIN",
-                            "objectID": 18
+                            "objectID": 40
                         }
                     ]
                 },
                 {
                     "puzzleID": 4,
                     "rewardType": "ACTIVATE",
-                    "rewardIDs": [24],
+                    "rewardIDs": [46],
                     "puzzleType": "clue",
                     "conditions": [
                         {   
                             "__name": "PigPressurePlate",
                             "conditionType": "PRESSURE_PLATE",
-                            "objectID": 26,
+                            "objectID": 48,
                             "triggeringObjectID": 1
                         }
                     ]
                 },
                 {
-                    "puzzleID": 4,
+                    "puzzleID": 5,
                     "rewardType": "DEACTIVATE",
-                    "rewardIDs": [30, 31],
+                    "rewardIDs": [52, 53],
                     "puzzleType": "milestone",
                     "conditions": [
                         {   
                             "__name": "Pinpad 3",
                             "conditionType": "PIN",
-                            "objectID": 25
-                        }
-                    ]
-                },
-                {
-                    "puzzleID": 5,
-                    "rewardType": "ACTIVATE",
-                    "rewardIDs": [33],
-                    "puzzleType": "clue",
-                    "conditions": [
-                        {   
-                            "__name": "ChickenPressurePlate",
-                            "conditionType": "PRESSURE_PLATE",
-                            "objectID": 35,
-                            "triggeringObjectID": 0
+                            "objectID": 47
                         }
                     ]
                 },
                 {
                     "puzzleID": 6,
-                    "rewardType": "DEACTIVATE",
-                    "rewardIDs": [36,37],
-                    "puzzleType": "milestone",
+                    "rewardType": "ACTIVATE",
+                    "rewardIDs": [55],
+                    "puzzleType": "clue",
                     "conditions": [
                         {   
-                            "__name": "Pinpad 4",
-                            "conditionType": "PIN",
-                            "objectID": 34
+                            "__name": "ChickenPressurePlate",
+                            "conditionType": "PRESSURE_PLATE",
+                            "objectID": 57,
+                            "triggeringObjectID": 0
                         }
                     ]
                 },
                 {
                     "puzzleID": 7,
+                    "rewardType": "DEACTIVATE",
+                    "rewardIDs": [58, 59],
+                    "puzzleType": "milestone",
+                    "conditions": [
+                        {   
+                            "__name": "Pinpad 4",
+                            "conditionType": "PIN",
+                            "objectID": 56
+                        }
+                    ]
+                },
+                {
+                    "puzzleID": 8,
                     "rewardType": "NONE",
                     "rewardIDs": [],
                     "puzzleType": "milestone",
@@ -219,7 +238,7 @@
                         {
                             "__name": "RedButton",
                             "conditionType": "BUTTON",
-                            "objectID": 51
+                            "objectID": 73
                         }
                     ]
                 }

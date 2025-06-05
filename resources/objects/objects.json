@@ -7642,7 +7642,7 @@
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
 				"isTransparent": false,
-				"modelPath": "../resources/objects/Button.obj",
+				"modelPath": "../resources/objects/button/Button.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
 			"level": "BARN",
@@ -7707,6 +7707,3224 @@
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
 				"isTransparent": false,
+				"modelPath": "../resources/objects/button/BlueButton.obj",
+				"vertShaderPath": "../resources/shaders/material.vert"
+			},
+			"level": "WINDMILL",
+			"name": "BluePressurePlate",
+			"server": {
+				"colliders": [
+					{
+						"center": {
+							"x": 0.081,
+							"y": 0.445,
+							"z": 0.018
+						},
+						"halfExtents": {
+							"x": 0.825,
+							"y": 0.301,
+							"z": 1.223
+						},
+						"isTrigger": true,
+						"orientation": {
+							"forward": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": 1.0
+							},
+							"right": {
+								"x": 1.5,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"up": {
+								"x": 0.0,
+								"y": 1.0,
+								"z": 0.0
+							}
+						}
+					}
+				],
+				"interaction": "NONE",
+				"static": true
+			},
+			"transform": {
+				"position": {
+					"x": 0.017,
+					"y": 0.768,
+					"z": -10.581
+				},
+				"rotation": {
+					"x": 0.0,
+					"y": 0.0,
+					"z": 0.0
+				},
+				"scale": {
+					"x": 1.5,
+					"y": 1.0,
+					"z": 1.0
+				}
+			}
+		},
+		{
+			"_id": 75,
+			"active": false,
+			"client": {
+				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
+				"modelPath": "../resources/objects/button/GreenButton.obj",
+				"vertShaderPath": "../resources/shaders/material.vert"
+			},
+			"level": "WINDMILL",
+			"name": "GreenPressurePlate",
+			"server": {
+				"colliders": [
+					{
+						"center": {
+							"x": 0.081,
+							"y": 0.403,
+							"z": 0.018
+						},
+						"halfExtents": {
+							"x": 0.825,
+							"y": 0.301,
+							"z": 1.223
+						},
+						"isTrigger": true,
+						"orientation": {
+							"forward": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": 1.0
+							},
+							"right": {
+								"x": 1.5,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"up": {
+								"x": 0.0,
+								"y": 1.0,
+								"z": 0.0
+							}
+						}
+					}
+				],
+				"interaction": "NONE",
+				"static": true
+			},
+			"transform": {
+				"position": {
+					"x": 0.017,
+					"y": 0.768,
+					"z": -17.943
+				},
+				"rotation": {
+					"x": 0.0,
+					"y": 0.0,
+					"z": 0.0
+				},
+				"scale": {
+					"x": 1.5,
+					"y": 1.0,
+					"z": 1.0
+				}
+			}
+		},
+		{
+			"_id": 76,
+			"active": false,
+			"client": {
+				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
+				"modelPath": "../resources/objects/button/RedButton.obj",
+				"vertShaderPath": "../resources/shaders/material.vert"
+			},
+			"level": "WINDMILL",
+			"name": "RedPressurePlate",
+			"server": {
+				"colliders": [
+					{
+						"center": {
+							"x": 0.081,
+							"y": 0.469,
+							"z": 0.018
+						},
+						"halfExtents": {
+							"x": 0.825,
+							"y": 0.301,
+							"z": 1.223
+						},
+						"isTrigger": true,
+						"orientation": {
+							"forward": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": 1.0
+							},
+							"right": {
+								"x": 1.5,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"up": {
+								"x": 0.0,
+								"y": 1.0,
+								"z": 0.0
+							}
+						}
+					}
+				],
+				"interaction": "NONE",
+				"static": true
+			},
+			"transform": {
+				"position": {
+					"x": 3.36,
+					"y": 9.2,
+					"z": -14.409
+				},
+				"rotation": {
+					"x": 0.0,
+					"y": 0.0,
+					"z": 0.0
+				},
+				"scale": {
+					"x": 1.5,
+					"y": 1.0,
+					"z": 1.0
+				}
+			}
+		},
+		{
+			"_id": 77,
+			"active": false,
+			"client": {
+				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
+				"modelPath": "../resources/objects/button/YellowButton.obj",
+				"vertShaderPath": "../resources/shaders/material.vert"
+			},
+			"level": "WINDMILL",
+			"name": "YellowPressurePlate",
+			"server": {
+				"colliders": [
+					{
+						"center": {
+							"x": 0.081,
+							"y": 0.44,
+							"z": 0.018
+						},
+						"halfExtents": {
+							"x": 0.825,
+							"y": 0.301,
+							"z": 1.223
+						},
+						"isTrigger": true,
+						"orientation": {
+							"forward": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": 1.0
+							},
+							"right": {
+								"x": 1.5,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"up": {
+								"x": 0.0,
+								"y": 1.0,
+								"z": 0.0
+							}
+						}
+					}
+				],
+				"interaction": "NONE",
+				"static": true
+			},
+			"transform": {
+				"position": {
+					"x": -3.575,
+					"y": 9.2,
+					"z": -14.409
+				},
+				"rotation": {
+					"x": 0.0,
+					"y": 0.0,
+					"z": 0.0
+				},
+				"scale": {
+					"x": 1.5,
+					"y": 1.0,
+					"z": 1.0
+				}
+			}
+		},
+		{
+			"_id": 78,
+			"active": false,
+			"client": {
+				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
+				"modelPath": "../resources/objects/mill/mazedoor/MazeDoor.obj",
+				"vertShaderPath": "../resources/shaders/material.vert"
+			},
+			"level": "WINDMILL",
+			"name": "BlueDoor",
+			"server": {
+				"colliders": [
+					{
+						"center": {
+							"x": 0.071,
+							"y": 5.605,
+							"z": 0.031
+						},
+						"halfExtents": {
+							"x": 2.808,
+							"y": 5.602,
+							"z": 0.672
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": 1.0
+							},
+							"right": {
+								"x": 0.9,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"up": {
+								"x": 0.0,
+								"y": 1.0,
+								"z": 0.0
+							}
+						}
+					}
+				],
+				"interaction": "NONE",
+				"static": true
+			},
+			"transform": {
+				"position": {
+					"x": -2.513,
+					"y": 10.041,
+					"z": -32.822
+				},
+				"rotation": {
+					"x": 0.0,
+					"y": 0.0,
+					"z": 0.0
+				},
+				"scale": {
+					"x": 0.9,
+					"y": 1.0,
+					"z": 1.0
+				}
+			}
+		},
+		{
+			"_id": 79,
+			"active": false,
+			"client": {
+				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
+				"modelPath": "../resources/objects/mill/mazedoor/MazeDoor.obj",
+				"vertShaderPath": "../resources/shaders/material.vert"
+			},
+			"level": "WINDMILL",
+			"name": "RedDoor",
+			"server": {
+				"colliders": [
+					{
+						"center": {
+							"x": 0.109,
+							"y": 5.605,
+							"z": 0.02
+						},
+						"halfExtents": {
+							"x": 2.808,
+							"y": 5.602,
+							"z": 0.672
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": 0.666,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"right": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": -1.378
+							},
+							"up": {
+								"x": 0.0,
+								"y": 1.0,
+								"z": 0.0
+							}
+						}
+					}
+				],
+				"interaction": "NONE",
+				"static": true
+			},
+			"transform": {
+				"position": {
+					"x": -10.479,
+					"y": 10.041,
+					"z": -28.346
+				},
+				"rotation": {
+					"x": 0.0,
+					"y": 90.0,
+					"z": 0.0
+				},
+				"scale": {
+					"x": 1.378,
+					"y": 1.0,
+					"z": 0.666
+				}
+			}
+		},
+		{
+			"_id": 80,
+			"active": false,
+			"client": {
+				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
+				"modelPath": "../resources/objects/mill/mazedoor/MazeDoor.obj",
+				"vertShaderPath": "../resources/shaders/material.vert"
+			},
+			"level": "WINDMILL",
+			"name": "GreenDoor",
+			"server": {
+				"colliders": [
+					{
+						"center": {
+							"x": 0.109,
+							"y": 5.605,
+							"z": 0.029
+						},
+						"halfExtents": {
+							"x": 2.808,
+							"y": 5.602,
+							"z": 0.672
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": 0.933,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"right": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": -1.378
+							},
+							"up": {
+								"x": 0.0,
+								"y": 1.0,
+								"z": 0.0
+							}
+						}
+					}
+				],
+				"interaction": "NONE",
+				"static": true
+			},
+			"transform": {
+				"position": {
+					"x": 5.714,
+					"y": 10.041,
+					"z": -28.346
+				},
+				"rotation": {
+					"x": 0.0,
+					"y": 90.0,
+					"z": 0.0
+				},
+				"scale": {
+					"x": 1.378,
+					"y": 1.0,
+					"z": 0.933
+				}
+			}
+		},
+		{
+			"_id": 81,
+			"active": false,
+			"client": {
+				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
+				"modelPath": "../resources/objects/mill/mazedoor/MazeDoor.obj",
+				"vertShaderPath": "../resources/shaders/material.vert"
+			},
+			"level": "WINDMILL",
+			"name": "RedDoor2",
+			"server": {
+				"colliders": [
+					{
+						"center": {
+							"x": 0.103,
+							"y": 5.605,
+							"z": 0.028
+						},
+						"halfExtents": {
+							"x": 2.808,
+							"y": 5.602,
+							"z": 0.672
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": 0.901,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"right": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": -1.297
+							},
+							"up": {
+								"x": 0.0,
+								"y": 1.0,
+								"z": 0.0
+							}
+						}
+					}
+				],
+				"interaction": "NONE",
+				"static": true
+			},
+			"transform": {
+				"position": {
+					"x": 0.43,
+					"y": 10.041,
+					"z": -36.885
+				},
+				"rotation": {
+					"x": 0.0,
+					"y": 90.0,
+					"z": 0.0
+				},
+				"scale": {
+					"x": 1.297,
+					"y": 1.0,
+					"z": 0.901
+				}
+			}
+		},
+		{
+			"_id": 82,
+			"active": false,
+			"client": {
+				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
+				"modelPath": "../resources/objects/mill/mazedoor/MazeDoor.obj",
+				"vertShaderPath": "../resources/shaders/material.vert"
+			},
+			"level": "WINDMILL",
+			"name": "YellowDoor",
+			"server": {
+				"colliders": [
+					{
+						"center": {
+							"x": 0.085,
+							"y": 5.605,
+							"z": 0.023
+						},
+						"halfExtents": {
+							"x": 2.808,
+							"y": 5.602,
+							"z": 0.672
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": 0.747
+							},
+							"right": {
+								"x": 1.072,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"up": {
+								"x": 0.0,
+								"y": 1.0,
+								"z": 0.0
+							}
+						}
+					}
+				],
+				"interaction": "NONE",
+				"static": true
+			},
+			"transform": {
+				"position": {
+					"x": 4.968,
+					"y": 10.026,
+					"z": -40.931
+				},
+				"rotation": {
+					"x": 0.0,
+					"y": 0.0,
+					"z": 0.0
+				},
+				"scale": {
+					"x": 1.072,
+					"y": 1.0,
+					"z": 0.747
+				}
+			}
+		},
+		{
+			"_id": 83,
+			"active": false,
+			"client": {
+				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
+				"modelPath": "../resources/objects/mill/mazedoor/MazeDoor.obj",
+				"vertShaderPath": "../resources/shaders/material.vert"
+			},
+			"level": "WINDMILL",
+			"name": "BlueDoor2",
+			"server": {
+				"colliders": [
+					{
+						"center": {
+							"x": 0.095,
+							"y": 5.605,
+							"z": 0.026
+						},
+						"halfExtents": {
+							"x": 2.808,
+							"y": 5.602,
+							"z": 0.672
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": 0.843,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"right": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": -1.195
+							},
+							"up": {
+								"x": 0.0,
+								"y": 1.0,
+								"z": 0.0
+							}
+						}
+					}
+				],
+				"interaction": "NONE",
+				"static": true
+			},
+			"transform": {
+				"position": {
+					"x": 8.488,
+					"y": 10.041,
+					"z": -44.147
+				},
+				"rotation": {
+					"x": 0.0,
+					"y": 90.0,
+					"z": 0.0
+				},
+				"scale": {
+					"x": 1.195,
+					"y": 1.0,
+					"z": 0.843
+				}
+			}
+		},
+		{
+			"_id": 84,
+			"active": false,
+			"client": {
+				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
+				"modelPath": "../resources/objects/mill/mazedoor/MazeDoor.obj",
+				"vertShaderPath": "../resources/shaders/material.vert"
+			},
+			"level": "WINDMILL",
+			"name": "YellowDoor3",
+			"server": {
+				"colliders": [
+					{
+						"center": {
+							"x": 0.074,
+							"y": 5.605,
+							"z": 0.03
+						},
+						"halfExtents": {
+							"x": 2.808,
+							"y": 5.602,
+							"z": 0.672
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": 0.986
+							},
+							"right": {
+								"x": 0.928,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"up": {
+								"x": 0.0,
+								"y": 1.0,
+								"z": 0.0
+							}
+						}
+					}
+				],
+				"interaction": "NONE",
+				"static": true
+			},
+			"transform": {
+				"position": {
+					"x": 5.315,
+					"y": 10.026,
+					"z": -55.053
+				},
+				"rotation": {
+					"x": 0.0,
+					"y": 0.0,
+					"z": 0.0
+				},
+				"scale": {
+					"x": 0.928,
+					"y": 1.0,
+					"z": 0.986
+				}
+			}
+		},
+		{
+			"_id": 85,
+			"active": false,
+			"client": {
+				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
+				"modelPath": "../resources/objects/mill/mazedoor/MazeDoor.obj",
+				"vertShaderPath": "../resources/shaders/material.vert"
+			},
+			"level": "WINDMILL",
+			"name": "GreenDoor2",
+			"server": {
+				"colliders": [
+					{
+						"center": {
+							"x": 0.085,
+							"y": 5.605,
+							"z": 0.031
+						},
+						"halfExtents": {
+							"x": 2.808,
+							"y": 5.602,
+							"z": 0.672
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": 1.021
+							},
+							"right": {
+								"x": 1.072,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"up": {
+								"x": 0.0,
+								"y": 1.0,
+								"z": 0.0
+							}
+						}
+					}
+				],
+				"interaction": "NONE",
+				"static": true
+			},
+			"transform": {
+				"position": {
+					"x": -0.981,
+					"y": 10.026,
+					"z": -48.154
+				},
+				"rotation": {
+					"x": 0.0,
+					"y": 0.0,
+					"z": 0.0
+				},
+				"scale": {
+					"x": 1.072,
+					"y": 1.0,
+					"z": 1.021
+				}
+			}
+		},
+		{
+			"_id": 86,
+			"active": false,
+			"client": {
+				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
+				"modelPath": "../resources/objects/mill/mazedoor/MazeDoor.obj",
+				"vertShaderPath": "../resources/shaders/material.vert"
+			},
+			"level": "WINDMILL",
+			"name": "BlueDoor3",
+			"server": {
+				"colliders": [
+					{
+						"center": {
+							"x": 0.085,
+							"y": 5.605,
+							"z": 0.031
+						},
+						"halfExtents": {
+							"x": 2.808,
+							"y": 5.602,
+							"z": 0.672
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": 1.021
+							},
+							"right": {
+								"x": 1.072,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"up": {
+								"x": 0.0,
+								"y": 1.0,
+								"z": 0.0
+							}
+						}
+					}
+				],
+				"interaction": "NONE",
+				"static": true
+			},
+			"transform": {
+				"position": {
+					"x": -7.298,
+					"y": 10.026,
+					"z": -55.061
+				},
+				"rotation": {
+					"x": 0.0,
+					"y": 0.0,
+					"z": 0.0
+				},
+				"scale": {
+					"x": 1.072,
+					"y": 1.0,
+					"z": 1.021
+				}
+			}
+		},
+		{
+			"_id": 87,
+			"active": false,
+			"client": {
+				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
+				"modelPath": "../resources/objects/mill/mazedoor/MazeDoor.obj",
+				"vertShaderPath": "../resources/shaders/material.vert"
+			},
+			"level": "WINDMILL",
+			"name": "GreenDoor3",
+			"server": {
+				"colliders": [
+					{
+						"center": {
+							"x": 0.105,
+							"y": 5.605,
+							"z": 0.021
+						},
+						"halfExtents": {
+							"x": 2.808,
+							"y": 5.602,
+							"z": 0.672
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": 0.672,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"right": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": -1.327
+							},
+							"up": {
+								"x": 0.0,
+								"y": 1.0,
+								"z": 0.0
+							}
+						}
+					}
+				],
+				"interaction": "NONE",
+				"static": true
+			},
+			"transform": {
+				"position": {
+					"x": -4.01,
+					"y": 10.041,
+					"z": -59.13
+				},
+				"rotation": {
+					"x": 0.0,
+					"y": 90.0,
+					"z": 0.0
+				},
+				"scale": {
+					"x": 1.327,
+					"y": 1.0,
+					"z": 0.672
+				}
+			}
+		},
+		{
+			"_id": 88,
+			"active": false,
+			"client": {
+				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
+				"modelPath": "../resources/objects/mill/mazedoor/MazeDoor.obj",
+				"vertShaderPath": "../resources/shaders/material.vert"
+			},
+			"level": "WINDMILL",
+			"name": "YellowDoor2",
+			"server": {
+				"colliders": [
+					{
+						"center": {
+							"x": 0.105,
+							"y": 5.605,
+							"z": 0.021
+						},
+						"halfExtents": {
+							"x": 2.808,
+							"y": 5.602,
+							"z": 0.672
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": 0.672,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"right": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": -1.327
+							},
+							"up": {
+								"x": 0.0,
+								"y": 1.0,
+								"z": 0.0
+							}
+						}
+					}
+				],
+				"interaction": "NONE",
+				"static": true
+			},
+			"transform": {
+				"position": {
+					"x": -10.484,
+					"y": 10.041,
+					"z": -59.13
+				},
+				"rotation": {
+					"x": 0.0,
+					"y": 90.0,
+					"z": 0.0
+				},
+				"scale": {
+					"x": 1.327,
+					"y": 1.0,
+					"z": 0.672
+				}
+			}
+		},
+		{
+			"_id": 89,
+			"active": false,
+			"client": {
+				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
+				"modelPath": "../resources/objects/mill/mazedoor/MazeDoor.obj",
+				"vertShaderPath": "../resources/shaders/material.vert"
+			},
+			"level": "WINDMILL",
+			"name": "RedDoor3",
+			"server": {
+				"colliders": [
+					{
+						"center": {
+							"x": 0.075,
+							"y": 5.605,
+							"z": 0.031
+						},
+						"halfExtents": {
+							"x": 2.808,
+							"y": 5.602,
+							"z": 0.672
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": 1.021
+							},
+							"right": {
+								"x": 0.943,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"up": {
+								"x": 0.0,
+								"y": 1.0,
+								"z": 0.0
+							}
+						}
+					}
+				],
+				"interaction": "NONE",
+				"static": true
+			},
+			"transform": {
+				"position": {
+					"x": -13.412,
+					"y": 10.026,
+					"z": -55.061
+				},
+				"rotation": {
+					"x": 0.0,
+					"y": 0.0,
+					"z": 0.0
+				},
+				"scale": {
+					"x": 0.943,
+					"y": 1.0,
+					"z": 1.021
+				}
+			}
+		},
+		{
+			"_id": 90,
+			"active": false,
+			"client": {
+				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
+				"modelPath": "../resources/objects/keypad/pinPad.obj",
+				"vertShaderPath": "../resources/shaders/material.vert"
+			},
+			"level": "WINDMILL",
+			"name": "pinPad",
+			"server": {
+				"colliders": [
+					{
+						"center": {
+							"x": -0.087,
+							"y": 0.637,
+							"z": -0.17
+						},
+						"halfExtents": {
+							"x": 1.189,
+							"y": 2.693,
+							"z": 0.309
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": 1.0
+							},
+							"right": {
+								"x": 1.0,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"up": {
+								"x": 0.0,
+								"y": 1.0,
+								"z": 0.0
+							}
+						}
+					}
+				],
+				"interaction": "KEYPAD",
+				"keypad": {
+					"correctSequence": [
+						3,
+						1,
+						2,
+						1
+					]
+				},
+				"static": true
+			},
+			"transform": {
+				"position": {
+					"x": -13.365,
+					"y": 10.707,
+					"z": -41.502
+				},
+				"rotation": {
+					"x": 0.0,
+					"y": 0.0,
+					"z": 0.0
+				},
+				"scale": {
+					"x": 1.0,
+					"y": 1.0,
+					"z": 1.0
+				}
+			}
+		},
+		{
+			"_id": 91,
+			"active": false,
+			"client": {
+				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
+				"modelPath": "../resources/objects/note/CowNote.obj",
+				"vertShaderPath": "../resources/shaders/material.vert"
+			},
+			"level": "WINDMILL",
+			"name": "CowNote",
+			"server": {
+				"colliders": [
+					{
+						"center": {
+							"x": 0.041,
+							"y": 0.743,
+							"z": 0.017
+						},
+						"halfExtents": {
+							"x": 1.098,
+							"y": 1.009,
+							"z": 0.028
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": 0.75
+							},
+							"right": {
+								"x": -0.732,
+								"y": -0.162,
+								"z": 0.0
+							},
+							"up": {
+								"x": 0.162,
+								"y": -0.732,
+								"z": 0.0
+							}
+						}
+					}
+				],
+				"interaction": "NONE",
+				"static": true
+			},
+			"transform": {
+				"position": {
+					"x": 3.577,
+					"y": 4.826,
+					"z": -16.609
+				},
+				"rotation": {
+					"x": 0.0,
+					"y": 0.0,
+					"z": -167.527
+				},
+				"scale": {
+					"x": 0.75,
+					"y": 0.75,
+					"z": 0.75
+				}
+			}
+		},
+		{
+			"_id": 92,
+			"active": false,
+			"client": {
+				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
+				"modelPath": "../resources/objects/note/ChickenNote.obj",
+				"vertShaderPath": "../resources/shaders/material.vert"
+			},
+			"level": "WINDMILL",
+			"name": "ChickenNote",
+			"server": {
+				"colliders": [
+					{
+						"center": {
+							"x": 0.041,
+							"y": 0.743,
+							"z": 0.017
+						},
+						"halfExtents": {
+							"x": 1.098,
+							"y": 1.009,
+							"z": 0.028
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": -0.75,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"right": {
+								"x": 0.0,
+								"y": 0.256,
+								"z": -0.705
+							},
+							"up": {
+								"x": 0.0,
+								"y": -0.705,
+								"z": -0.256
+							}
+						}
+					}
+				],
+				"interaction": "NONE",
+				"static": true
+			},
+			"transform": {
+				"position": {
+					"x": 4.779,
+					"y": 13.472,
+					"z": -14.148
+				},
+				"rotation": {
+					"x": 0.0,
+					"y": -90.0,
+					"z": 160.011
+				},
+				"scale": {
+					"x": 0.75,
+					"y": 0.75,
+					"z": 0.75
+				}
+			}
+		},
+		{
+			"_id": 93,
+			"active": false,
+			"client": {
+				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
+				"modelPath": "../resources/objects/note/PigNote.obj",
+				"vertShaderPath": "../resources/shaders/material.vert"
+			},
+			"level": "WINDMILL",
+			"name": "PigNote",
+			"server": {
+				"colliders": [
+					{
+						"center": {
+							"x": 0.041,
+							"y": 0.743,
+							"z": 0.017
+						},
+						"halfExtents": {
+							"x": 1.098,
+							"y": 1.009,
+							"z": 0.028
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": 0.75
+							},
+							"right": {
+								"x": -0.743,
+								"y": -0.104,
+								"z": 0.0
+							},
+							"up": {
+								"x": 0.104,
+								"y": -0.743,
+								"z": 0.0
+							}
+						}
+					}
+				],
+				"interaction": "NONE",
+				"static": true
+			},
+			"transform": {
+				"position": {
+					"x": 2.327,
+					"y": 14.431,
+					"z": -32.102
+				},
+				"rotation": {
+					"x": 0.0,
+					"y": 0.0,
+					"z": -172.06
+				},
+				"scale": {
+					"x": 0.75,
+					"y": 0.75,
+					"z": 0.75
+				}
+			}
+		},
+		{
+			"_id": 94,
+			"active": false,
+			"client": {
+				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
+				"modelPath": "../resources/objects/mill/mazedoor/MazeDoor.obj",
+				"vertShaderPath": "../resources/shaders/material.vert"
+			},
+			"level": "WINDMILL",
+			"name": "WoodWall",
+			"server": {
+				"colliders": [
+					{
+						"center": {
+							"x": 0.079,
+							"y": 5.605,
+							"z": 0.031
+						},
+						"halfExtents": {
+							"x": 2.808,
+							"y": 5.602,
+							"z": 0.672
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": 1.0
+							},
+							"right": {
+								"x": 1.0,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"up": {
+								"x": 0.0,
+								"y": 1.0,
+								"z": 0.0
+							}
+						}
+					}
+				],
+				"interaction": "NONE",
+				"static": true
+			},
+			"transform": {
+				"position": {
+					"x": -7.821,
+					"y": 10.041,
+					"z": -32.822
+				},
+				"rotation": {
+					"x": 0.0,
+					"y": 0.0,
+					"z": 0.0
+				},
+				"scale": {
+					"x": 1.0,
+					"y": 1.0,
+					"z": 1.0
+				}
+			}
+		},
+		{
+			"_id": 95,
+			"active": false,
+			"client": {
+				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
+				"modelPath": "../resources/objects/note/Note.obj",
+				"vertShaderPath": "../resources/shaders/material.vert"
+			},
+			"level": "WINDMILL",
+			"name": "Note",
+			"server": {
+				"colliders": [
+					{
+						"center": {
+							"x": -0.182,
+							"y": 0.668,
+							"z": 0.0
+						},
+						"halfExtents": {
+							"x": 0.5,
+							"y": 0.5,
+							"z": 0.5
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": 2.0
+							},
+							"right": {
+								"x": 2.0,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"up": {
+								"x": 0.0,
+								"y": 2.0,
+								"z": 0.0
+							}
+						}
+					}
+				],
+				"interaction": "PICKUP",
+				"static": false
+			},
+			"transform": {
+				"position": {
+					"x": 5.539,
+					"y": 11.384,
+					"z": -51.28
+				},
+				"rotation": {
+					"x": 0.0,
+					"y": 0.0,
+					"z": 0.0
+				},
+				"scale": {
+					"x": 2.0,
+					"y": 2.0,
+					"z": 2.0
+				}
+			}
+		},
+		{
+			"_id": 96,
+			"active": false,
+			"client": {
+				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
+				"modelPath": "../resources/objects/mill/mill.obj",
+				"vertShaderPath": "../resources/shaders/material.vert"
+			},
+			"level": "WINDMILL",
+			"name": "Mill",
+			"server": {
+				"colliders": [
+					{
+						"center": {
+							"x": 1.563,
+							"y": 37.156,
+							"z": -14.407
+						},
+						"halfExtents": {
+							"x": 0.5,
+							"y": 12.195,
+							"z": 0.5
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": 100.0
+							},
+							"right": {
+								"x": 100.0,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"up": {
+								"x": 0.0,
+								"y": 0.1,
+								"z": 0.0
+							}
+						}
+					},
+					{
+						"center": {
+							"x": 52.23,
+							"y": 10.638,
+							"z": -14.407
+						},
+						"halfExtents": {
+							"x": 0.008,
+							"y": 312.766,
+							"z": 0.5
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": 100.0
+							},
+							"right": {
+								"x": 100.0,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"up": {
+								"x": 0.0,
+								"y": 0.1,
+								"z": 0.0
+							}
+						}
+					},
+					{
+						"center": {
+							"x": -49.233,
+							"y": 10.638,
+							"z": -14.407
+						},
+						"halfExtents": {
+							"x": 0.008,
+							"y": 312.766,
+							"z": 0.5
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": 100.0
+							},
+							"right": {
+								"x": 100.0,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"up": {
+								"x": 0.0,
+								"y": 0.1,
+								"z": 0.0
+							}
+						}
+					},
+					{
+						"center": {
+							"x": 0.639,
+							"y": 8.458,
+							"z": -65.195
+						},
+						"halfExtents": {
+							"x": 0.5,
+							"y": 311.087,
+							"z": 0.009
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": 100.0
+							},
+							"right": {
+								"x": 100.0,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"up": {
+								"x": 0.0,
+								"y": 0.1,
+								"z": 0.0
+							}
+						}
+					},
+					{
+						"center": {
+							"x": 0.639,
+							"y": 8.458,
+							"z": 36.451
+						},
+						"halfExtents": {
+							"x": 0.5,
+							"y": 311.087,
+							"z": 0.009
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": 100.0
+							},
+							"right": {
+								"x": 100.0,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"up": {
+								"x": 0.0,
+								"y": 0.1,
+								"z": 0.0
+							}
+						}
+					},
+					{
+						"center": {
+							"x": -3.678,
+							"y": 4.205,
+							"z": 3.808
+						},
+						"halfExtents": {
+							"x": 1.663,
+							"y": 4.994,
+							"z": 1.904
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": 1.0
+							},
+							"right": {
+								"x": 1.0,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"up": {
+								"x": 0.0,
+								"y": 1.0,
+								"z": 0.0
+							}
+						}
+					},
+					{
+						"center": {
+							"x": -14.552,
+							"y": 4.205,
+							"z": -11.96
+						},
+						"halfExtents": {
+							"x": 1.663,
+							"y": 4.994,
+							"z": 1.904
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": 1.0
+							},
+							"right": {
+								"x": 1.0,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"up": {
+								"x": 0.0,
+								"y": 1.0,
+								"z": 0.0
+							}
+						}
+					},
+					{
+						"center": {
+							"x": 14.383,
+							"y": 4.205,
+							"z": -11.96
+						},
+						"halfExtents": {
+							"x": 1.663,
+							"y": 4.994,
+							"z": 1.904
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": 1.0
+							},
+							"right": {
+								"x": 1.0,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"up": {
+								"x": 0.0,
+								"y": 1.0,
+								"z": 0.0
+							}
+						}
+					},
+					{
+						"center": {
+							"x": -14.552,
+							"y": 4.205,
+							"z": -46.74
+						},
+						"halfExtents": {
+							"x": 1.663,
+							"y": 4.994,
+							"z": 1.904
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": 1.0
+							},
+							"right": {
+								"x": 1.0,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"up": {
+								"x": 0.0,
+								"y": 1.0,
+								"z": 0.0
+							}
+						}
+					},
+					{
+						"center": {
+							"x": 14.383,
+							"y": 4.205,
+							"z": -46.806
+						},
+						"halfExtents": {
+							"x": 1.663,
+							"y": 4.994,
+							"z": 1.904
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": 1.0
+							},
+							"right": {
+								"x": 1.0,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"up": {
+								"x": 0.0,
+								"y": 1.0,
+								"z": 0.0
+							}
+						}
+					},
+					{
+						"center": {
+							"x": 3.648,
+							"y": 4.205,
+							"z": 3.808
+						},
+						"halfExtents": {
+							"x": 1.663,
+							"y": 4.994,
+							"z": 1.904
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": 1.0
+							},
+							"right": {
+								"x": 1.0,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"up": {
+								"x": 0.0,
+								"y": 1.0,
+								"z": 0.0
+							}
+						}
+					},
+					{
+						"center": {
+							"x": -3.678,
+							"y": 4.205,
+							"z": -3.866
+						},
+						"halfExtents": {
+							"x": 1.663,
+							"y": 4.994,
+							"z": 1.904
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": 1.0
+							},
+							"right": {
+								"x": 1.0,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"up": {
+								"x": 0.0,
+								"y": 1.0,
+								"z": 0.0
+							}
+						}
+					},
+					{
+						"center": {
+							"x": 3.655,
+							"y": 4.205,
+							"z": -3.861
+						},
+						"halfExtents": {
+							"x": 1.663,
+							"y": 4.994,
+							"z": 1.904
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": 1.0
+							},
+							"right": {
+								"x": 1.0,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"up": {
+								"x": 0.0,
+								"y": 1.0,
+								"z": 0.0
+							}
+						}
+					},
+					{
+						"center": {
+							"x": -0.119,
+							"y": 8.336,
+							"z": -3.859
+						},
+						"halfExtents": {
+							"x": 5.192,
+							"y": 0.912,
+							"z": 1.76
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": 1.0
+							},
+							"right": {
+								"x": 1.0,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"up": {
+								"x": 0.0,
+								"y": 1.0,
+								"z": 0.0
+							}
+						}
+					},
+					{
+						"center": {
+							"x": -0.119,
+							"y": 8.33,
+							"z": 3.835
+						},
+						"halfExtents": {
+							"x": 5.192,
+							"y": 0.912,
+							"z": 1.76
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": 1.0
+							},
+							"right": {
+								"x": 1.0,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"up": {
+								"x": 0.0,
+								"y": 1.0,
+								"z": 0.0
+							}
+						}
+					},
+					{
+						"center": {
+							"x": -3.659,
+							"y": 8.337,
+							"z": -0.086
+						},
+						"halfExtents": {
+							"x": 1.65,
+							"y": 0.899,
+							"z": 2.203
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": 1.0
+							},
+							"right": {
+								"x": 1.0,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"up": {
+								"x": 0.0,
+								"y": 1.0,
+								"z": 0.0
+							}
+						}
+					},
+					{
+						"center": {
+							"x": 3.655,
+							"y": 8.337,
+							"z": -0.086
+						},
+						"halfExtents": {
+							"x": 1.65,
+							"y": 0.899,
+							"z": 2.203
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": 1.0
+							},
+							"right": {
+								"x": 1.0,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"up": {
+								"x": 0.0,
+								"y": 1.0,
+								"z": 0.0
+							}
+						}
+					},
+					{
+						"center": {
+							"x": 0.003,
+							"y": 9.133,
+							"z": -5.248
+						},
+						"halfExtents": {
+							"x": 5.313,
+							"y": 0.384,
+							"z": 0.502
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": 1.0
+							},
+							"right": {
+								"x": 1.0,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"up": {
+								"x": 0.0,
+								"y": 1.0,
+								"z": 0.0
+							}
+						}
+					},
+					{
+						"center": {
+							"x": -0.125,
+							"y": 9.724,
+							"z": -8.012
+						},
+						"halfExtents": {
+							"x": 1.72,
+							"y": 0.297,
+							"z": 2.589
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": 0.0,
+								"y": -0.107,
+								"z": 0.994
+							},
+							"right": {
+								"x": 1.0,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"up": {
+								"x": 0.0,
+								"y": 0.994,
+								"z": 0.107
+							}
+						}
+					},
+					{
+						"center": {
+							"x": -0.123,
+							"y": 8.932,
+							"z": -5.133
+						},
+						"halfExtents": {
+							"x": 1.724,
+							"y": 0.694,
+							"z": 0.494
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": 0.0,
+								"y": 0.81,
+								"z": 0.586
+							},
+							"right": {
+								"x": 1.0,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"up": {
+								"x": 0.0,
+								"y": 0.586,
+								"z": -0.81
+							}
+						}
+					},
+					{
+						"center": {
+							"x": -0.006,
+							"y": 9.575,
+							"z": -29.425
+						},
+						"halfExtents": {
+							"x": 15.983,
+							"y": 0.468,
+							"z": 19.211
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": 1.0
+							},
+							"right": {
+								"x": 1.0,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"up": {
+								"x": 0.0,
+								"y": 1.0,
+								"z": 0.0
+							}
+						}
+					},
+					{
+						"center": {
+							"x": -0.006,
+							"y": 21.756,
+							"z": -29.425
+						},
+						"halfExtents": {
+							"x": 15.983,
+							"y": 0.468,
+							"z": 19.211
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": 1.0
+							},
+							"right": {
+								"x": 1.0,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"up": {
+								"x": 0.0,
+								"y": 1.0,
+								"z": 0.0
+							}
+						}
+					},
+					{
+						"center": {
+							"x": 7.949,
+							"y": 15.619,
+							"z": -18.416
+						},
+						"halfExtents": {
+							"x": 8.064,
+							"y": 5.57,
+							"z": 0.677
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": 1.0
+							},
+							"right": {
+								"x": 1.0,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"up": {
+								"x": 0.0,
+								"y": 1.0,
+								"z": 0.0
+							}
+						}
+					},
+					{
+						"center": {
+							"x": -7.905,
+							"y": 15.619,
+							"z": -18.416
+						},
+						"halfExtents": {
+							"x": 2.995,
+							"y": 5.57,
+							"z": 0.677
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": 1.0
+							},
+							"right": {
+								"x": 1.0,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"up": {
+								"x": 0.0,
+								"y": 1.0,
+								"z": 0.0
+							}
+						}
+					},
+					{
+						"center": {
+							"x": -6.87,
+							"y": 15.619,
+							"z": -26.565
+						},
+						"halfExtents": {
+							"x": 9.141,
+							"y": 5.57,
+							"z": 0.492
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": 1.0
+							},
+							"right": {
+								"x": 1.0,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"up": {
+								"x": 0.0,
+								"y": 1.0,
+								"z": 0.0
+							}
+						}
+					},
+					{
+						"center": {
+							"x": 12.027,
+							"y": 15.619,
+							"z": -22.983
+						},
+						"halfExtents": {
+							"x": 4.047,
+							"y": 5.57,
+							"z": 4.139
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": 1.0
+							},
+							"right": {
+								"x": 1.0,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"up": {
+								"x": 0.0,
+								"y": 1.0,
+								"z": 0.0
+							}
+						}
+					},
+					{
+						"center": {
+							"x": 8.507,
+							"y": 15.619,
+							"z": -37.22
+						},
+						"halfExtents": {
+							"x": 0.545,
+							"y": 5.57,
+							"z": 4.139
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": 1.0
+							},
+							"right": {
+								"x": 1.0,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"up": {
+								"x": 0.0,
+								"y": 1.0,
+								"z": 0.0
+							}
+						}
+					},
+					{
+						"center": {
+							"x": 2.335,
+							"y": 15.619,
+							"z": -40.974
+						},
+						"halfExtents": {
+							"x": 0.432,
+							"y": 5.57,
+							"z": 7.885
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": 1.0
+							},
+							"right": {
+								"x": 1.0,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"up": {
+								"x": 0.0,
+								"y": 1.0,
+								"z": 0.0
+							}
+						}
+					},
+					{
+						"center": {
+							"x": -1.241,
+							"y": 15.606,
+							"z": -40.689
+						},
+						"halfExtents": {
+							"x": 3.185,
+							"y": 5.581,
+							"z": 0.693
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": 1.0
+							},
+							"right": {
+								"x": 1.0,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"up": {
+								"x": 0.0,
+								"y": 1.0,
+								"z": 0.0
+							}
+						}
+					},
+					{
+						"center": {
+							"x": -6.866,
+							"y": 15.606,
+							"z": -33.757
+						},
+						"halfExtents": {
+							"x": 3.185,
+							"y": 5.581,
+							"z": 0.693
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": 1.0
+							},
+							"right": {
+								"x": 1.0,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"up": {
+								"x": 0.0,
+								"y": 1.0,
+								"z": 0.0
+							}
+						}
+					},
+					{
+						"center": {
+							"x": 5.147,
+							"y": 15.606,
+							"z": -33.757
+						},
+						"halfExtents": {
+							"x": 3.185,
+							"y": 5.581,
+							"z": 0.693
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": 1.0
+							},
+							"right": {
+								"x": 1.0,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"up": {
+								"x": 0.0,
+								"y": 1.0,
+								"z": 0.0
+							}
+						}
+					},
+					{
+						"center": {
+							"x": -10.454,
+							"y": 15.619,
+							"z": -30.21
+						},
+						"halfExtents": {
+							"x": 0.442,
+							"y": 5.57,
+							"z": 11.125
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": 1.0
+							},
+							"right": {
+								"x": 1.0,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"up": {
+								"x": 0.0,
+								"y": 1.0,
+								"z": 0.0
+							}
+						}
+					},
+					{
+						"center": {
+							"x": 15.827,
+							"y": 28.756,
+							"z": -29.503
+						},
+						"halfExtents": {
+							"x": 0.291,
+							"y": 18.743,
+							"z": 19.235
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": 1.0
+							},
+							"right": {
+								"x": 1.0,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"up": {
+								"x": 0.0,
+								"y": 1.0,
+								"z": 0.0
+							}
+						}
+					},
+					{
+						"center": {
+							"x": -15.684,
+							"y": 28.756,
+							"z": -29.503
+						},
+						"halfExtents": {
+							"x": 0.291,
+							"y": 18.743,
+							"z": 19.235
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": 1.0
+							},
+							"right": {
+								"x": 1.0,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"up": {
+								"x": 0.0,
+								"y": 1.0,
+								"z": 0.0
+							}
+						}
+					},
+					{
+						"center": {
+							"x": -9.026,
+							"y": 28.819,
+							"z": -10.473
+						},
+						"halfExtents": {
+							"x": 7.0,
+							"y": 18.762,
+							"z": 0.264
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": 1.0
+							},
+							"right": {
+								"x": 1.0,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"up": {
+								"x": 0.0,
+								"y": 1.0,
+								"z": 0.0
+							}
+						}
+					},
+					{
+						"center": {
+							"x": 3.312,
+							"y": 28.524,
+							"z": -7.819
+						},
+						"halfExtents": {
+							"x": 1.838,
+							"y": 19.037,
+							"z": 2.846
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": 1.0
+							},
+							"right": {
+								"x": 1.0,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"up": {
+								"x": 0.0,
+								"y": 1.0,
+								"z": 0.0
+							}
+						}
+					},
+					{
+						"center": {
+							"x": -3.719,
+							"y": 28.355,
+							"z": -7.857
+						},
+						"halfExtents": {
+							"x": 1.838,
+							"y": 19.037,
+							"z": 2.846
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": 1.0
+							},
+							"right": {
+								"x": 1.0,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"up": {
+								"x": 0.0,
+								"y": 1.0,
+								"z": 0.0
+							}
+						}
+					},
+					{
+						"center": {
+							"x": 8.817,
+							"y": 28.819,
+							"z": -10.473
+						},
+						"halfExtents": {
+							"x": 7.0,
+							"y": 18.762,
+							"z": 0.264
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": 1.0
+							},
+							"right": {
+								"x": 1.0,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"up": {
+								"x": 0.0,
+								"y": 1.0,
+								"z": 0.0
+							}
+						}
+					},
+					{
+						"center": {
+							"x": -0.049,
+							"y": 28.819,
+							"z": -48.375
+						},
+						"halfExtents": {
+							"x": 15.866,
+							"y": 18.762,
+							"z": 0.264
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": 1.0
+							},
+							"right": {
+								"x": 1.0,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"up": {
+								"x": 0.0,
+								"y": 1.0,
+								"z": 0.0
+							}
+						}
+					},
+					{
+						"center": {
+							"x": -0.025,
+							"y": 9.188,
+							"z": 5.256
+						},
+						"halfExtents": {
+							"x": 5.313,
+							"y": 0.328,
+							"z": 0.263
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": 1.0
+							},
+							"right": {
+								"x": 1.0,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"up": {
+								"x": 0.0,
+								"y": 1.0,
+								"z": 0.0
+							}
+						}
+					},
+					{
+						"center": {
+							"x": 4.063,
+							"y": 26.243,
+							"z": 5.856
+						},
+						"halfExtents": {
+							"x": 1.323,
+							"y": 6.632,
+							"z": 0.878
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": 1.0
+							},
+							"right": {
+								"x": 0.857,
+								"y": -0.516,
+								"z": 0.0
+							},
+							"up": {
+								"x": 0.516,
+								"y": 0.857,
+								"z": 0.0
+							}
+						}
+					},
+					{
+						"center": {
+							"x": -5.252,
+							"y": 16.49,
+							"z": 5.856
+						},
+						"halfExtents": {
+							"x": 1.323,
+							"y": 6.632,
+							"z": 0.878
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": 1.0
+							},
+							"right": {
+								"x": 0.68,
+								"y": -0.733,
+								"z": 0.0
+							},
+							"up": {
+								"x": 0.733,
+								"y": 0.68,
+								"z": 0.0
+							}
+						}
+					},
+					{
+						"center": {
+							"x": -4.602,
+							"y": 26.243,
+							"z": 5.856
+						},
+						"halfExtents": {
+							"x": 1.323,
+							"y": 6.632,
+							"z": 0.878
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": 1.0
+							},
+							"right": {
+								"x": 0.79,
+								"y": 0.613,
+								"z": 0.0
+							},
+							"up": {
+								"x": -0.613,
+								"y": 0.79,
+								"z": 0.0
+							}
+						}
+					},
+					{
+						"center": {
+							"x": 5.415,
+							"y": 16.598,
+							"z": 5.856
+						},
+						"halfExtents": {
+							"x": 1.323,
+							"y": 6.632,
+							"z": 0.878
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": 1.0
+							},
+							"right": {
+								"x": 0.642,
+								"y": 0.766,
+								"z": 0.0
+							},
+							"up": {
+								"x": -0.766,
+								"y": 0.642,
+								"z": 0.0
+							}
+						}
+					},
+					{
+						"center": {
+							"x": 5.092,
+							"y": 9.378,
+							"z": 0.084
+						},
+						"halfExtents": {
+							"x": 0.268,
+							"y": 0.186,
+							"z": 5.28
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": 1.0
+							},
+							"right": {
+								"x": 1.0,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"up": {
+								"x": 0.0,
+								"y": 1.0,
+								"z": 0.0
+							}
+						}
+					},
+					{
+						"center": {
+							"x": -5.056,
+							"y": 9.378,
+							"z": 0.084
+						},
+						"halfExtents": {
+							"x": 0.268,
+							"y": 0.186,
+							"z": 5.28
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": 1.0
+							},
+							"right": {
+								"x": 1.0,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"up": {
+								"x": 0.0,
+								"y": 1.0,
+								"z": 0.0
+							}
+						}
+					},
+					{
+						"center": {
+							"x": -5.468,
+							"y": 22.798,
+							"z": -0.113
+						},
+						"halfExtents": {
+							"x": 0.643,
+							"y": 13.37,
+							"z": 5.188
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": 1.0
+							},
+							"right": {
+								"x": 1.0,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"up": {
+								"x": 0.0,
+								"y": 1.0,
+								"z": 0.0
+							}
+						}
+					},
+					{
+						"center": {
+							"x": 5.415,
+							"y": 22.832,
+							"z": -0.146
+						},
+						"halfExtents": {
+							"x": 0.643,
+							"y": 13.37,
+							"z": 5.188
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": 1.0
+							},
+							"right": {
+								"x": 1.0,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"up": {
+								"x": 0.0,
+								"y": 1.0,
+								"z": 0.0
+							}
+						}
+					},
+					{
+						"center": {
+							"x": -0.102,
+							"y": 25.521,
+							"z": -5.329
+						},
+						"halfExtents": {
+							"x": 1.843,
+							"y": 10.449,
+							"z": 0.281
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": 1.0
+							},
+							"right": {
+								"x": 1.0,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"up": {
+								"x": 0.0,
+								"y": 1.0,
+								"z": 0.0
+							}
+						}
+					},
+					{
+						"center": {
+							"x": 3.248,
+							"y": 22.829,
+							"z": -5.424
+						},
+						"halfExtents": {
+							"x": 1.555,
+							"y": 13.221,
+							"z": 0.384
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": 1.0
+							},
+							"right": {
+								"x": 1.0,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"up": {
+								"x": 0.0,
+								"y": 1.0,
+								"z": 0.0
+							}
+						}
+					},
+					{
+						"center": {
+							"x": -3.482,
+							"y": 22.682,
+							"z": -5.422
+						},
+						"halfExtents": {
+							"x": 1.555,
+							"y": 13.221,
+							"z": 0.384
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": 1.0
+							},
+							"right": {
+								"x": 1.0,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"up": {
+								"x": 0.0,
+								"y": 1.0,
+								"z": 0.0
+							}
+						}
+					},
+					{
+						"center": {
+							"x": -3.211,
+							"y": 22.924,
+							"z": 5.33
+						},
+						"halfExtents": {
+							"x": 1.804,
+							"y": 13.313,
+							"z": 0.405
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": 1.0
+							},
+							"right": {
+								"x": 1.0,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"up": {
+								"x": 0.0,
+								"y": 1.0,
+								"z": 0.0
+							}
+						}
+					},
+					{
+						"center": {
+							"x": 3.166,
+							"y": 22.831,
+							"z": 5.367
+						},
+						"halfExtents": {
+							"x": 1.804,
+							"y": 13.313,
+							"z": 0.405
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": 1.0
+							},
+							"right": {
+								"x": 1.0,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"up": {
+								"x": 0.0,
+								"y": 1.0,
+								"z": 0.0
+							}
+						}
+					},
+					{
+						"center": {
+							"x": 0.001,
+							"y": 11.175,
+							"z": 5.318
+						},
+						"halfExtents": {
+							"x": 1.458,
+							"y": 1.594,
+							"z": 0.37
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": 1.0
+							},
+							"right": {
+								"x": 1.0,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"up": {
+								"x": 0.0,
+								"y": 1.0,
+								"z": 0.0
+							}
+						}
+					},
+					{
+						"center": {
+							"x": -0.033,
+							"y": 25.871,
+							"z": 5.314
+						},
+						"halfExtents": {
+							"x": 1.562,
+							"y": 10.364,
+							"z": 0.375
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": 1.0
+							},
+							"right": {
+								"x": 1.0,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"up": {
+								"x": 0.0,
+								"y": 1.0,
+								"z": 0.0
+							}
+						}
+					},
+					{
+						"center": {
+							"x": -0.033,
+							"y": 34.005,
+							"z": 0.008
+						},
+						"halfExtents": {
+							"x": 4.944,
+							"y": 15.097,
+							"z": 5.107
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": 1.0
+							},
+							"right": {
+								"x": 1.0,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"up": {
+								"x": 0.0,
+								"y": 1.0,
+								"z": 0.0
+							}
+						}
+					}
+				],
+				"interaction": "NONE",
+				"static": true
+			},
+			"transform": {
+				"position": {
+					"x": 0.0,
+					"y": 0.0,
+					"z": -14.363
+				},
+				"rotation": {
+					"x": 0.0,
+					"y": 0.0,
+					"z": 0.0
+				},
+				"scale": {
+					"x": 1.0,
+					"y": 1.0,
+					"z": 1.0
+				}
+			}
+		},
+		{
+			"_id": 97,
+			"active": false,
+			"client": {
+				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": true,
+				"modelPath": "../resources/objects/box/MetalBox.obj",
+				"vertShaderPath": "../resources/shaders/material.vert"
+			},
+			"level": "WINDMILL",
+			"name": "MazeFloor",
+			"server": {
+				"colliders": [
+					{
+						"center": {
+							"x": 0.462,
+							"y": 0.34,
+							"z": -0.504
+						},
+						"halfExtents": {
+							"x": 1.018,
+							"y": 0.5,
+							"z": 1.011
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": 18.879
+							},
+							"right": {
+								"x": 15.559,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"up": {
+								"x": 0.0,
+								"y": 0.469,
+								"z": 0.0
+							}
+						}
+					}
+				],
+				"interaction": "NONE",
+				"static": true
+			},
+			"transform": {
+				"position": {
+					"x": -0.517,
+					"y": 9.073,
+					"z": -43.307
+				},
+				"rotation": {
+					"x": 0.0,
+					"y": 0.0,
+					"z": 0.0
+				},
+				"scale": {
+					"x": 15.56,
+					"y": 0.469,
+					"z": 18.879
+				}
+			}
+		},
+		{
+			"_id": 98,
+			"active": false,
+			"client": {
+				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
 				"modelPath": "../resources/objects/box/BlackBox.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
@@ -7767,7 +10985,7 @@
 			}
 		},
 		{
-			"_id": 75,
+			"_id": 99,
 			"active": false,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
@@ -7817,6 +11035,71 @@
 				"position": {
 					"x": 6.165,
 					"y": -0.379,
+					"z": -29.377
+				},
+				"rotation": {
+					"x": 0.0,
+					"y": 0.0,
+					"z": 0.0
+				},
+				"scale": {
+					"x": 100.0,
+					"y": 0.1,
+					"z": 100.0
+				}
+			}
+		},
+		{
+			"_id": 100,
+			"active": false,
+			"client": {
+				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
+				"modelPath": "../resources/objects/box/BlackBox.obj",
+				"vertShaderPath": "../resources/shaders/material.vert"
+			},
+			"level": "WINDMILL",
+			"name": "Floor",
+			"server": {
+				"colliders": [
+					{
+						"center": {
+							"x": -4.602,
+							"y": -1.082,
+							"z": 0.607
+						},
+						"halfExtents": {
+							"x": 0.5,
+							"y": 12.195,
+							"z": 0.5
+						},
+						"isTrigger": false,
+						"orientation": {
+							"forward": {
+								"x": 0.0,
+								"y": 0.0,
+								"z": 100.0
+							},
+							"right": {
+								"x": 100.0,
+								"y": 0.0,
+								"z": 0.0
+							},
+							"up": {
+								"x": 0.0,
+								"y": 0.1,
+								"z": 0.0
+							}
+						}
+					}
+				],
+				"interaction": "NONE",
+				"static": true
+			},
+			"transform": {
+				"position": {
+					"x": 6.165,
+					"y": 0.682,
 					"z": -29.377
 				},
 				"rotation": {

@@ -74,7 +74,7 @@ void GameServer::updateGameState() {
           characterPacket->playerID, characterPacket->clientID);
       CharacterResponsePacket packet(characterAssignments);
       network->sendToAll(packet);
-      // if (game->getPlayerLogic()->allCharactersAssigned()) {
+      if (game->getPlayerLogic()->allCharactersAssigned()) {
       // set game state to GAME
       game->state = Gamestate::GAME;
       GameStatePacket statePacket(game->state);
@@ -83,7 +83,7 @@ void GameServer::updateGameState() {
       game->getLevelManager()->advanceLevel();
       LevelChangePacket levelChangePacket(game->getLevelManager()->getLevel());
       network->sendToAll(levelChangePacket);
-      // }
+      }
       break;
     }
     case PacketType::KEYPADINPUT: {
