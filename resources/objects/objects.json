@@ -9145,7 +9145,7 @@
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
 				"isTransparent": false,
-				"modelPath": "../resources/objects/mill/mill.obj",
+				"modelPath": "../resources/objects/mill/Mill.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
 			"level": "WINDMILL",
@@ -10990,7 +10990,7 @@
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
 				"isTransparent": false,
-				"modelPath": "../resources/objects/box/TransparentBox.obj",
+				"modelPath": "../resources/objects/box/BlackBox.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
 			"level": "WINDMILL",
