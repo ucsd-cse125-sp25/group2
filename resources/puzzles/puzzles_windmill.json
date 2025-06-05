@@ -1,0 +1,153 @@
+{
+    "levels": [
+        {
+            "levelType": "WINDMILL",
+            "puzzles": [
+                {
+                    "puzzleID": 0,
+                    "rewardType": "DEACTIVATE",
+                    "rewardIDs": [112, 117, 120],
+                    "puzzleType": "clue",
+                    "conditions": [
+                        {   
+                            "__name": "BluePressurePlate",
+                            "conditionType": "PRESSURE_PLATE",
+                            "objectID": 108,
+                            "triggeringObjectID": 2
+                        }
+                    ]
+                },
+                {
+                    "puzzleID": 1,
+                    "rewardType": "DEACTIVATE",
+                    "rewardIDs": [113, 115, 123],
+                    "puzzleType": "clue",
+                    "conditions": [
+                        {   
+                            "__name": "RedPressurePlate",
+                            "conditionType": "PRESSURE_PLATE",
+                            "objectID": 110,
+                            "triggeringObjectID": 2
+                        }
+                    ]
+                },
+                {
+                    "puzzleID": 2,
+                    "rewardType": "DEACTIVATE",
+                    "rewardIDs": [116, 118, 122],
+                    "puzzleType": "clue",
+                    "conditions": [
+                        {   
+                            "__name": "YellowPressurePlate",
+                            "conditionType": "PRESSURE_PLATE",
+                            "objectID": 111,
+                            "triggeringObjectID": 2
+                        }
+                    ]
+                },
+                {
+                    "puzzleID": 3,
+                    "rewardType": "DEACTIVATE",
+                    "rewardIDs": [114, 119, 121],
+                    "puzzleType": "clue",
+                    "conditions": [
+                        {   
+                            "__name": "GreenPressurePlate",
+                            "conditionType": "PRESSURE_PLATE",
+                            "objectID": 109,
+                            "triggeringObjectID": 2
+                        }
+                    ]
+                },
+                {
+                    "puzzleID": 4,
+                    "rewardType": "ACTIVATE",
+                    "rewardIDs": [112, 117, 120],
+                    "puzzleType": "clue",
+                    "conditions": [
+                        {   
+                            "__name": "BluePressurePlate",
+                            "conditionType": "PRESSURE_PLATE",
+                            "objectID": 108,
+                            "triggeringObjectID": 135
+                        }
+                    ]
+                },
+                {
+                    "puzzleID": 5,
+                    "rewardType": "ACTIVATE",
+                    "rewardIDs": [113, 115, 123],
+                    "puzzleType": "clue",
+                    "conditions": [
+                        {   
+                            "__name": "RedPressurePlate",
+                            "conditionType": "PRESSURE_PLATE",
+                            "objectID": 110,
+                            "triggeringObjectID": 130
+                        }
+                    ]
+                },
+                {
+                    "puzzleID": 6,
+                    "rewardType": "ACTIVATE",
+                    "rewardIDs": [116, 118, 122],
+                    "puzzleType": "clue",
+                    "conditions": [
+                        {   
+                            "__name": "YellowPressurePlate",
+                            "conditionType": "PRESSURE_PLATE",
+                            "objectID": 111,
+                            "triggeringObjectID": 130
+                        }
+                    ]
+                },
+                {
+                    "puzzleID": 7,
+                    "rewardType": "ACTIVATE",
+                    "rewardIDs": [114, 119, 121],
+                    "puzzleType": "clue",
+                    "conditions": [
+                        {   
+                            "__name": "GreenPressurePlate",
+                            "conditionType": "PRESSURE_PLATE",
+                            "objectID": 109,
+                            "triggeringObjectID": 135
+                        }
+                    ]
+                },
+                {
+                    "puzzleID": 8,
+                    "rewardType": "NONE",
+                    "rewardIDs": [],
+                    "puzzleType": "milestone",
+                    "conditions": [
+                        {   
+                            "__name": "Pinpad",
+                            "conditionType": "PIN",
+                            "objectID": 124
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "levelType": "SILO",
+            "puzzles": [
+                {
+                    "puzzleID": 0,
+                    "rewardType": "DEACTIVATE",
+                    "rewardIDs": [112, 117, 120],
+                    "puzzleType": "clue",
+                    "conditions": [
+                        {   
+                            "__name": "BluePressurePlate",
+                            "conditionType": "PRESSURE_PLATE",
+                            "objectID": 108,
+                            "triggeringObjectID": 2
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

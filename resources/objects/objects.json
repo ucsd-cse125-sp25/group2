@@ -10,7 +10,7 @@
 				"modelPath": "../resources/objects/chicken/Chicken.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
-			"level": "WINDMILL",
+			"level": "BARN",
 			"name": "Chicken",
 			"server": {
 				"colliders": [
@@ -75,7 +75,7 @@
 				"modelPath": "../resources/objects/Pig/Pig.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
-			"level": "WINDMILL",
+			"level": "BARN",
 			"name": "Pig",
 			"server": {
 				"colliders": [
@@ -140,7 +140,7 @@
 				"modelPath": "../resources/objects/Sheep/Sheep.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
-			"level": "WINDMILL",
+			"level": "BARN",
 			"name": "Sheep",
 			"server": {
 				"colliders": [
@@ -205,7 +205,7 @@
 				"modelPath": "../resources/objects/cow/Cow.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
-			"level": "WINDMILL",
+			"level": "BARN",
 			"name": "Cow",
 			"server": {
 				"colliders": [
@@ -6867,7 +6867,7 @@
 					}
 				],
 				"interaction": "PICKUP",
-				"static": true
+				"static": false
 			},
 			"transform": {
 				"position": {
@@ -6932,7 +6932,7 @@
 					}
 				],
 				"interaction": "PICKUP",
-				"static": true
+				"static": false
 			},
 			"transform": {
 				"position": {
@@ -6997,7 +6997,7 @@
 					}
 				],
 				"interaction": "PICKUP",
-				"static": true
+				"static": false
 			},
 			"transform": {
 				"position": {
@@ -7062,7 +7062,7 @@
 					}
 				],
 				"interaction": "PICKUP",
-				"static": true
+				"static": false
 			},
 			"transform": {
 				"position": {
@@ -7127,7 +7127,7 @@
 					}
 				],
 				"interaction": "PICKUP",
-				"static": true
+				"static": false
 			},
 			"transform": {
 				"position": {
@@ -7720,7 +7720,7 @@
 					}
 				],
 				"interaction": "PICKUP",
-				"static": true
+				"static": false
 			},
 			"transform": {
 				"position": {
@@ -8183,7 +8183,7 @@
 					}
 				],
 				"interaction": "PICKUP",
-				"static": true
+				"static": false
 			},
 			"transform": {
 				"position": {
@@ -8386,7 +8386,7 @@
 					}
 				],
 				"interaction": "NONE",
-				"static": true
+				"static": false
 			},
 			"transform": {
 				"position": {
@@ -8451,7 +8451,7 @@
 					}
 				],
 				"interaction": "NONE",
-				"static": true
+				"static": false
 			},
 			"transform": {
 				"position": {
@@ -8516,7 +8516,7 @@
 					}
 				],
 				"interaction": "NONE",
-				"static": true
+				"static": false
 			},
 			"transform": {
 				"position": {
@@ -8776,7 +8776,7 @@
 					}
 				],
 				"interaction": "PICKUP",
-				"static": true
+				"static": false
 			},
 			"transform": {
 				"position": {
