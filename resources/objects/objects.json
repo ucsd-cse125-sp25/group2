@@ -6,6 +6,7 @@
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
 				"modelPath": "../resources/objects/chicken/Chicken.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
@@ -70,6 +71,7 @@
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
 				"modelPath": "../resources/objects/Pig/Pig.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
@@ -134,6 +136,7 @@
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
 				"modelPath": "../resources/objects/Sheep/Sheep.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
@@ -198,6 +201,7 @@
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
 				"modelPath": "../resources/objects/cow/Cow.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
@@ -262,6 +266,7 @@
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
 				"modelPath": "../resources/objects/box/BlueBox.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
@@ -326,6 +331,7 @@
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
 				"modelPath": "../resources/objects/box/RedBox.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
@@ -390,6 +396,7 @@
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
 				"modelPath": "../resources/objects/box/YellowBox.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
@@ -454,6 +461,7 @@
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
 				"modelPath": "../resources/objects/box/GreenBox.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
@@ -518,6 +526,7 @@
 			"active": false,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
 				"modelPath": "../resources/objects/note/Note.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
@@ -582,6 +591,7 @@
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
 				"modelPath": "../resources/objects/keypad/pinPad.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
@@ -654,6 +664,7 @@
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
 				"modelPath": "../resources/objects/button/BlueButton.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
@@ -718,6 +729,7 @@
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
 				"modelPath": "../resources/objects/button/RedButton.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
@@ -782,6 +794,7 @@
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
 				"modelPath": "../resources/objects/button/YellowButton.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
@@ -846,6 +859,7 @@
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
 				"modelPath": "../resources/objects/button/GreenButton.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
@@ -910,6 +924,7 @@
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
 				"modelPath": "../resources/objects/barn/stabledoor/StableDoor.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
@@ -974,6 +989,7 @@
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
 				"modelPath": "../resources/objects/barn/stabledoor/StableDoor.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
@@ -1038,6 +1054,7 @@
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
 				"modelPath": "../resources/objects/horse/horse.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
@@ -1102,6 +1119,7 @@
 			"active": false,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
 				"modelPath": "../resources/objects/note/Note.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
@@ -1166,6 +1184,7 @@
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
 				"modelPath": "../resources/objects/keypad/pinPad.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
@@ -1238,6 +1257,7 @@
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
 				"modelPath": "../resources/objects/pressureplate/PressurePlate.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
@@ -1302,6 +1322,7 @@
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
 				"modelPath": "../resources/objects/pressureplate/PressurePlate.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
@@ -1366,6 +1387,7 @@
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
 				"modelPath": "../resources/objects/barn/stabledoor/StableDoor.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
@@ -1430,6 +1452,7 @@
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
 				"modelPath": "../resources/objects/barn/stabledoor/StableDoor.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
@@ -1494,6 +1517,7 @@
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
 				"modelPath": "../resources/objects/horse/horse.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
@@ -1558,6 +1582,7 @@
 			"active": false,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
 				"modelPath": "../resources/objects/note/Note.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
@@ -1622,6 +1647,7 @@
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
 				"modelPath": "../resources/objects/keypad/pinPad.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
@@ -1694,6 +1720,7 @@
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
 				"modelPath": "../resources/objects/pressureplate/PressurePlate.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
@@ -1758,6 +1785,7 @@
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
 				"modelPath": "../resources/objects/box/BrownBox.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
@@ -1822,6 +1850,7 @@
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
 				"modelPath": "../resources/objects/box/BrownBox.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
@@ -1886,6 +1915,7 @@
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
 				"modelPath": "../resources/objects/box/BrownBox.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
@@ -1950,6 +1980,7 @@
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
 				"modelPath": "../resources/objects/barn/stabledoor/StableDoor.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
@@ -2014,6 +2045,7 @@
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
 				"modelPath": "../resources/objects/barn/stabledoor/StableDoor.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
@@ -2078,6 +2110,7 @@
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
 				"modelPath": "../resources/objects/horse/horse.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
@@ -2142,6 +2175,7 @@
 			"active": false,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
 				"modelPath": "../resources/objects/note/Note.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
@@ -2206,6 +2240,7 @@
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
 				"modelPath": "../resources/objects/keypad/pinPad.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
@@ -2278,6 +2313,7 @@
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
 				"modelPath": "../resources/objects/pressureplate/PressurePlate.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
@@ -2342,6 +2378,7 @@
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
 				"modelPath": "../resources/objects/barn/stabledoor/StableDoor.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
@@ -2406,6 +2443,7 @@
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
 				"modelPath": "../resources/objects/barn/stabledoor/StableDoor.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
@@ -2470,6 +2508,7 @@
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
 				"modelPath": "../resources/objects/horse/horse.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
@@ -2534,6 +2573,7 @@
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
 				"modelPath": "../resources/objects/box/BrownBox.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
@@ -2598,6 +2638,7 @@
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
 				"modelPath": "../resources/objects/box/BrownBox.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
@@ -2662,6 +2703,7 @@
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
 				"modelPath": "../resources/objects/box/BrownBox.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
@@ -2726,6 +2768,7 @@
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
 				"modelPath": "../resources/objects/box/BrownBox.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
@@ -2790,6 +2833,7 @@
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
 				"modelPath": "../resources/objects/box/BrownBox.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
@@ -2854,6 +2898,7 @@
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
 				"modelPath": "../resources/objects/box/BrownBox.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
@@ -2918,6 +2963,7 @@
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
 				"modelPath": "../resources/objects/box/BrownBox.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
@@ -2982,6 +3028,7 @@
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
 				"modelPath": "../resources/objects/box/BlackBox.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
@@ -3046,6 +3093,7 @@
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
 				"modelPath": "../resources/objects/note/CowNote.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
@@ -3110,6 +3158,7 @@
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
 				"modelPath": "../resources/objects/note/ChickenNote.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
@@ -3174,6 +3223,7 @@
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
 				"modelPath": "../resources/objects/note/PigNote.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
@@ -3238,6 +3288,7 @@
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
 				"modelPath": "../resources/objects/note/SheepNote.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
@@ -3302,6 +3353,7 @@
 			"active": true,
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
+				"isTransparent": false,
 				"modelPath": "../resources/objects/Barn/Barn.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},

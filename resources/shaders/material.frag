@@ -113,7 +113,7 @@ void main()
 
     // Darken further objects more strongly
     vec3 finalColor = mix(diffuseColor, diffuseColor * 0.3, depthFade);
-    float a = 1.0;
+    float a = 1;
     if (isTransparent) {
         a = 0.5;
     }
