@@ -16,20 +16,22 @@ bool ClientGameState::init() {
 
 void ClientGameState::advanceLevel(LevelType newLevel) {
   uint8_t levelNum = magic_enum::enum_integer(newLevel);
-  if (levelNum < NUM_LEVELS - 1) {
+  if (levelNum < NUM_LEVELS) {
     state = Gamestate::LOADING;
     UIManager::loadingScreen->play();
   } else {
     state = Gamestate::COMPLETED;
   }
-  cout << "Changing level to: " << levelNum << endl;
 
   // Deactivate all objects in the current level
-  for (auto &obj : levelObjects[newLevel]) {
+  for (auto &obj : levelObjects[currentLevelType]) {
     obj.second->deactivate();
   }
+
+  currentLevelType = newLevel;  // update current level
+
   // Activate all objects in the new level
-  for (auto &obj : levelObjects[newLevel]) {
+  for (auto &obj : levelObjects[currentLevelType]) {
     if (notes.find(obj.first) != notes.end()) {
       continue; // Skip notes, want to keep them deactivated
     }

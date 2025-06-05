@@ -28,13 +28,16 @@ private:
   unordered_map<PUZZLE_ID, unique_ptr<Puzzle>>
       milestones; // puzzles that must be completed to advance the level
   vector<pair<RewardType, vector<OBJECT_ID>>> rewards;
+  vector<OBJECT_ID> notes;
 
 public:
   Level(LevelType l) : level(l), numMilestones(0), currentMilestone(0){};
   void addCluePuzzle(PUZZLE_ID id, unique_ptr<Puzzle> puzzle);
   void addMilestonePuzzle(unique_ptr<Puzzle> puzzle);
+  void addNote(OBJECT_ID id);
   bool isLevelComplete();
   vector<pair<RewardType, vector<OBJECT_ID>>> getPuzzleRewards();
+  vector<OBJECT_ID> getNotes();
 };
 
 class LevelManager {
@@ -46,7 +49,7 @@ private:
 
 public:
   // change to NONE when level should start before beginning level
-  LevelManager() : currentLevel(nullptr), currentLevelType(LevelType::BARN) {}
+  LevelManager() : currentLevel(nullptr), currentLevelType(LevelType::NONE) {}
 
   void addObject(LevelType levelType, OBJECT_ID objectID, GameObject *object);
   void addLevel(LevelType levelType, unique_ptr<Level> level);
