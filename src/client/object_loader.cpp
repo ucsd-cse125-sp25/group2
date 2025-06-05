@@ -94,8 +94,7 @@ void ObjectLoader::loadLights() {
 
   if (lightsData.contains("lights") && lightsData["lights"].is_array()) {
     for (const auto &lightData : lightsData["lights"]) {
-      const LEVEL_ID level =
-          static_cast<LEVEL_ID>(lightData.value("level", -1));
+      LevelType level = LevelType::BARN;
       glm::vec3 position = parseVec3(lightData, "position", glm::vec3(0.0f));
       glm::vec3 color =
           parseVec3(lightData, "color", glm::vec3(1.0f, 1.0f, 1.0f));

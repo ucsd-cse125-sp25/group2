@@ -21,14 +21,14 @@ struct Light {
 
 class LightManager {
 private:
-  static unordered_map<LEVEL_ID, vector<Light>> lights;
-  static LEVEL_ID currentLevel;
+  static unordered_map<LevelType, vector<Light>> lights;
+  static LevelType currentLevel;
 
 public:
-  static void addLight(LEVEL_ID level, const glm::vec3 &pos,
+  static void addLight(LevelType level, const glm::vec3 &pos,
                        const glm::vec3 &color, float radius,
                        bool useAtten = true);
   static void sendToShader(unique_ptr<Shader> &shader);
-  static void clearLights(LEVEL_ID level);
-  static void setCurrentLevel(LEVEL_ID level);
+  static void clearLights(LevelType level);
+  static void setCurrentLevel(LevelType level);
 };

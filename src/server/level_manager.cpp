@@ -65,7 +65,7 @@ void LevelManager::loadJSON() {
     for (const auto &levelData : levelsData["levels"]) {
       auto levelTypeVal = magic_enum::enum_cast<LevelType>(
           levelData["levelType"].get<string>());
-      LevelType levelType = levelTypeVal.value_or(LevelType::NONE);
+      LevelType levelType = LevelType::BARN;
       auto currentLevelObjects = levelObjects[levelType];
       unique_ptr<Level> newLevel = make_unique<Level>(levelType);
 
@@ -135,14 +135,14 @@ void LevelManager::loadJSON() {
 bool LevelManager::updateLevels() { return currentLevel->isLevelComplete(); }
 
 void LevelManager::advanceLevel() {
-  if (currentLevelType == LevelType::NONE) {
-    instantiatePlayers();
-  }
+  // if (currentLevelType == LevelType::NONE) {
+  //   instantiatePlayers();
+  // }
 
-  for (const auto &objPair : levelObjects[currentLevelType]) {
-    GameObject *object = objPair.second;
-    object->deactivate(); // Deactivate all objects in the current level
-  }
+  // for (const auto &objPair : levelObjects[currentLevelType]) {
+  //   GameObject *object = objPair.second;
+  //   object->deactivate(); // Deactivate all objects in the current level
+  // }
 
   uint8_t levelNum = magic_enum::enum_integer(currentLevelType);
   levelNum++;
@@ -152,23 +152,23 @@ void LevelManager::advanceLevel() {
     currentLevel = levels[currentLevelType].get();
 
     // get the objects that we don't want to activate when the level changes
-    vector<OBJECT_ID> rewardIDs;
-    for (const auto &reward : currentLevel->getPuzzleRewards()) {
-      RewardType rewardType = reward.first;
-      if (rewardType == RewardType::ACTIVATE) {
-        rewardIDs = reward.second;
-      }
-    }
+    // vector<OBJECT_ID> rewardIDs;
+    // for (const auto &reward : currentLevel->getPuzzleRewards()) {
+    //   RewardType rewardType = reward.first;
+    //   if (rewardType == RewardType::ACTIVATE) {
+    //     rewardIDs = reward.second;
+    //   }
+    // }
 
-    for (const auto &objPair : levelObjects[currentLevelType]) {
-      GameObject *object = objPair.second;
-      if (find(rewardIDs.begin(), rewardIDs.end(), object->getID()) !=
-          rewardIDs.end()) {
-        continue;
-      }
-      object->activate(); // Activate all objects in the new level
-      object->getTransform()->setPosition(object->getOriginalPosition());
-    }
+    // for (const auto &objPair : levelObjects[currentLevelType]) {
+    //   GameObject *object = objPair.second;
+    //   if (find(rewardIDs.begin(), rewardIDs.end(), object->getID()) !=
+    //       rewardIDs.end()) {
+    //     continue;
+    //   }
+    //   object->activate(); // Activate all objects in the new level
+    //   object->getTransform()->setPosition(object->getOriginalPosition());
+    // }
   }
 }
 

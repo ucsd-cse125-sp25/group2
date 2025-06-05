@@ -46,7 +46,7 @@ private:
 
 public:
   // change to NONE when level should start before beginning level
-  LevelManager() : currentLevel(nullptr), currentLevelType(LevelType::NONE) {}
+  LevelManager() : currentLevel(nullptr), currentLevelType(LevelType::BARN) {}
 
   void addObject(LevelType levelType, OBJECT_ID objectID, GameObject *object);
   void addLevel(LevelType levelType, unique_ptr<Level> level);
