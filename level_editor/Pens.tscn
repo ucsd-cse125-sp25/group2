@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=3 uid="uid://ln2128244f0t"]
+[gd_scene load_steps=60 format=3 uid="uid://icmwctukkbm5"]
 
 [ext_resource type="PackedScene" uid="uid://b2prjbdumvvql" path="res://ChickenCoop/ChickenCoop.glb" id="1_7latb"]
 [ext_resource type="Script" uid="uid://nd5l8ocm7cud" path="res://scripts/metadata.gd" id="2_77vgb"]
@@ -8,6 +8,14 @@
 [ext_resource type="PackedScene" uid="uid://su3lmbugv6wa" path="res://CowPen/CowPen.blend" id="6_ci0rd"]
 [ext_resource type="PackedScene" uid="uid://d1n5sqb7xwsjf" path="res://Dome/Dome.glb" id="7_7eh5b"]
 [ext_resource type="PackedScene" uid="uid://b43u8h3y8ne6j" path="res://millNew.glb" id="8_pjp1q"]
+[ext_resource type="PackedScene" uid="uid://jgt1l50by4df" path="res://pinPad.glb" id="9_ci0rd"]
+[ext_resource type="PackedScene" uid="uid://brfh1d4pkcle0" path="res://FurClump.glb" id="10_sg11g"]
+[ext_resource type="PackedScene" uid="uid://bieetl7eoid5f" path="res://Note.glb" id="11_f4n3u"]
+[ext_resource type="PackedScene" uid="uid://clleqkkktss8l" path="res://RedPressurePlate.glb" id="12_uqnqr"]
+[ext_resource type="PackedScene" uid="uid://jbrfkqxgoveu" path="res://YellowPressurePlate.glb" id="13_bmyjn"]
+[ext_resource type="PackedScene" uid="uid://0h364xn6k35t" path="res://GreenPressurePlate.glb" id="14_wwmmt"]
+[ext_resource type="PackedScene" uid="uid://bti75a8cfjebu" path="res://BluePressurePlate.glb" id="15_psusw"]
+[ext_resource type="PackedScene" uid="uid://cwtr4ir66vtwn" path="res://BrownBox.glb" id="16_8xn6u"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_1fhj5"]
 size = Vector3(1.81879, 110.645, 71.7005)
@@ -84,9 +92,6 @@ size = Vector3(81.2998, 43.5508, 4.15637)
 [sub_resource type="BoxShape3D" id="BoxShape3D_lydmm"]
 size = Vector3(5, 50, 76.834)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_4x62k"]
-size = Vector3(2, 10.9507, 7.067)
-
 [sub_resource type="BoxShape3D" id="BoxShape3D_f4n3u"]
 size = Vector3(1.97656, 45.0529, 39.6693)
 
@@ -128,6 +133,18 @@ size = Vector3(844.569, 1, 916.544)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_psusw"]
 size = Vector3(1, 346.735, 335.808)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4x62k"]
+size = Vector3(2, 10.9507, 7.067)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8xn6u"]
+size = Vector3(2, 1, 2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_q543h"]
+size = Vector3(1.76373, 1, 2.77673)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tk4v2"]
+size = Vector3(1.034, 1.02002, 1.1)
 
 [node name="PENS" type="Node3D"]
 
@@ -277,6 +294,8 @@ debug_color = Color(0.913725, 0.294118, 0, 1)
 
 [node name="SheepPen" parent="." instance=ExtResource("5_1a8al")]
 transform = Transform3D(0.726275, 0, 0.687404, 0, 1, 0, -0.687404, 0, 0.726275, 52.43, 0, -6.25)
+script = ExtResource("2_77vgb")
+model_path = "../resources/objects/sheeppen/SheepPen.obj"
 
 [node name="CollisionShape3D7" type="CollisionShape3D" parent="SheepPen"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.43723, 21.137, 39.0413)
@@ -306,16 +325,6 @@ debug_color = Color(1, 0, 0.0784314, 1)
 transform = Transform3D(0.999904, 0, 0.0138749, 0, 1, 0, -0.0138749, 0, 0.999904, 97.203, 0, 93.975)
 script = ExtResource("2_77vgb")
 model_path = "../resources/objects/pigpen/PigPenDoor.obj"
-
-[node name="PigPenDoor" parent="PigPen" instance=ExtResource("5_rodv0")]
-script = ExtResource("2_77vgb")
-model_path = "../resources/objects/pigpen/PigPenDoor.obj"
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="PigPen/PigPenDoor"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -39, 5.82099, 3.16671)
-visible = false
-shape = SubResource("BoxShape3D_4x62k")
-debug_color = Color(0.654902, 0.321569, 1, 1)
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="PigPen"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.43723, 21.137, 38.427)
@@ -464,17 +473,6 @@ visible = false
 shape = SubResource("BoxShape3D_sg11g")
 debug_color = Color(1, 0, 0.0784314, 1)
 
-[node name="millNew" parent="Dome" instance=ExtResource("8_pjp1q")]
-transform = Transform3D(-0.999997, 0, -0.0023388, 0, 1, 0, 0.0023388, 0, -0.999997, -1.532, 0, 166.279)
-script = ExtResource("2_77vgb")
-model_path = "../resources/objects/mill/mill.obj"
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Dome/millNew"]
-transform = Transform3D(-0.999997, 0, 0.0023388, 0, 1, 0, -0.0023388, 0, -0.999997, -9.50783, 140.675, 8.52299)
-visible = false
-shape = SubResource("BoxShape3D_wwmmt")
-debug_color = Color(0.756863, 0.188235, 1, 1)
-
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Dome"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 162.262, 123.368, 1.97746)
 visible = false
@@ -486,3 +484,296 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -157.502, 123.368, 1.97746)
 visible = false
 shape = SubResource("BoxShape3D_psusw")
 debug_color = Color(0.94902, 0, 0.564706, 1)
+
+[node name="millNew" parent="." instance=ExtResource("8_pjp1q")]
+transform = Transform3D(-0.999997, 0, -0.0023388, 0, 1, 0, 0.0023388, 0, -0.999997, -1.532, 0, 166.279)
+script = ExtResource("2_77vgb")
+model_path = "../resources/objects/mill/mill.obj"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="millNew"]
+transform = Transform3D(-0.999997, 0, 0.0023388, 0, 1, 0, -0.0023388, 0, -0.999997, -9.50783, 140.675, 8.52299)
+visible = false
+shape = SubResource("BoxShape3D_wwmmt")
+debug_color = Color(0.756863, 0.188235, 1, 1)
+
+[node name="pinPad" parent="." instance=ExtResource("9_ci0rd")]
+transform = Transform3D(-0.174817, 0, -0.984601, 0, 1, 0, 0.984601, 0, -0.174817, 58.9044, 4.07365, 99.8131)
+script = ExtResource("2_77vgb")
+interaction = "KEYPAD"
+model_path = "../resources/objects/keypad/pinPad.obj"
+is_keyPad = true
+correctSequence = [0, 3, 2, 1]
+
+[node name="PigPenDoor" parent="." instance=ExtResource("5_rodv0")]
+transform = Transform3D(0.999904, 0, 0.0138749, 0, 1, 0, -0.0138749, 0, 0.999904, 97.203, 0, 93.975)
+script = ExtResource("2_77vgb")
+model_path = "../resources/objects/pigpen/PigPenDoor.obj"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PigPenDoor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -39, 5.82099, 3.16671)
+visible = false
+shape = SubResource("BoxShape3D_4x62k")
+debug_color = Color(0.654902, 0.321569, 1, 1)
+
+[node name="FurClump2" parent="." instance=ExtResource("10_sg11g")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 64.332, 1, 17.343)
+script = ExtResource("2_77vgb")
+model_path = "../resources/objects/sheeppen/FurClump.obj"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FurClump2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("BoxShape3D_8xn6u")
+debug_color = Color(0.823529, 0, 0.960784, 1)
+
+[node name="FurClump3" parent="." instance=ExtResource("10_sg11g")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 28.063, 3.32058, -22.0927)
+script = ExtResource("2_77vgb")
+model_path = "../resources/objects/sheeppen/FurClump.obj"
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="FurClump3"]
+shape = SubResource("BoxShape3D_8xn6u")
+debug_color = Color(0.823529, 0, 0.960784, 1)
+
+[node name="FurClump4" parent="." instance=ExtResource("10_sg11g")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 73.1522, 0.515216, -22.768)
+script = ExtResource("2_77vgb")
+model_path = "../resources/objects/sheeppen/FurClump.obj"
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="FurClump4"]
+shape = SubResource("BoxShape3D_8xn6u")
+debug_color = Color(0.823529, 0, 0.960784, 1)
+
+[node name="FurClump5" parent="." instance=ExtResource("10_sg11g")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 77.6658, 4.13765, 0.589861)
+script = ExtResource("2_77vgb")
+model_path = "../resources/objects/sheeppen/FurClump.obj"
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="FurClump5"]
+shape = SubResource("BoxShape3D_8xn6u")
+debug_color = Color(0.823529, 0, 0.960784, 1)
+
+[node name="FurClump6" parent="." instance=ExtResource("10_sg11g")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 32.1411, 0.831515, -12.8841)
+script = ExtResource("2_77vgb")
+model_path = "../resources/objects/sheeppen/FurClump.obj"
+
+[node name="CollisionShape3D5" type="CollisionShape3D" parent="FurClump6"]
+shape = SubResource("BoxShape3D_8xn6u")
+debug_color = Color(0.823529, 0, 0.960784, 1)
+
+[node name="FurClump7" parent="." instance=ExtResource("10_sg11g")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 54.5129, 0.831515, -4.80214)
+script = ExtResource("2_77vgb")
+model_path = "../resources/objects/sheeppen/FurClump.obj"
+
+[node name="CollisionShape3D6" type="CollisionShape3D" parent="FurClump7"]
+shape = SubResource("BoxShape3D_8xn6u")
+debug_color = Color(0.823529, 0, 0.960784, 1)
+
+[node name="FurClump8" parent="." instance=ExtResource("10_sg11g")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 44.9792, 0.831517, -33.2279)
+script = ExtResource("2_77vgb")
+model_path = "../resources/objects/sheeppen/FurClump.obj"
+
+[node name="CollisionShape3D7" type="CollisionShape3D" parent="FurClump8"]
+shape = SubResource("BoxShape3D_8xn6u")
+debug_color = Color(0.823529, 0, 0.960784, 1)
+
+[node name="FurClump9" parent="." instance=ExtResource("10_sg11g")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 27.7249, 0.831517, 13.3446)
+script = ExtResource("2_77vgb")
+model_path = "../resources/objects/sheeppen/FurClump.obj"
+
+[node name="CollisionShape3D8" type="CollisionShape3D" parent="FurClump9"]
+shape = SubResource("BoxShape3D_8xn6u")
+debug_color = Color(0.823529, 0, 0.960784, 1)
+
+[node name="FurClump10" parent="." instance=ExtResource("10_sg11g")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 23.2645, 0.831517, 1.75178)
+script = ExtResource("2_77vgb")
+model_path = "../resources/objects/sheeppen/FurClump.obj"
+
+[node name="CollisionShape3D9" type="CollisionShape3D" parent="FurClump10"]
+shape = SubResource("BoxShape3D_8xn6u")
+debug_color = Color(0.823529, 0, 0.960784, 1)
+
+[node name="FurClump11" parent="." instance=ExtResource("10_sg11g")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 16.9576, 0.831517, -14.8592)
+script = ExtResource("2_77vgb")
+model_path = "../resources/objects/sheeppen/FurClump.obj"
+
+[node name="CollisionShape3D10" type="CollisionShape3D" parent="FurClump11"]
+shape = SubResource("BoxShape3D_8xn6u")
+debug_color = Color(0.823529, 0, 0.960784, 1)
+
+[node name="Note" parent="." instance=ExtResource("11_f4n3u")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 59.0455, 2.59789, 99.0546)
+script = ExtResource("2_77vgb")
+interaction = "PICKUP"
+model_path = "../resources/objects/note/Note.obj"
+
+[node name="Note4" parent="." instance=ExtResource("11_f4n3u")]
+transform = Transform3D(0.69804, 0, -0.716058, 0, 1, 0, 0.716058, 0, 0.69804, 27.2398, 2.9374, 21.1873)
+script = ExtResource("2_77vgb")
+interaction = "PICKUP"
+model_path = "../resources/objects/note/Note.obj"
+
+[node name="Note5" parent="." instance=ExtResource("11_f4n3u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -128.007, 3.35581, 92.8791)
+script = ExtResource("2_77vgb")
+interaction = "PICKUP"
+model_path = "../resources/objects/note/Note.obj"
+
+[node name="Note6" parent="." instance=ExtResource("11_f4n3u")]
+transform = Transform3D(0.805928, 0, 0.592013, 0, 1, 0, -0.592013, 0, 0.805928, -95.2617, 7.72265, 30.0594)
+script = ExtResource("2_77vgb")
+interaction = "PICKUP"
+model_path = "../resources/objects/note/Note.obj"
+
+[node name="RedPressurePlate" parent="." instance=ExtResource("12_uqnqr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.13729, 0, 153.482)
+script = ExtResource("2_77vgb")
+model_path = "../resources/objects/pressureplate/RedPressurePlate.obj"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RedPressurePlate"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0424957, -0.23634, 0.019928)
+shape = SubResource("BoxShape3D_q543h")
+debug_color = Color(0.870588, 0, 0.847059, 1)
+
+[node name="YellowPressurePlate" parent="." instance=ExtResource("13_bmyjn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.558912, 0, 153.374)
+script = ExtResource("2_77vgb")
+model_path = "../resources/objects/pressureplate/YellowPressurePlate.obj"
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="YellowPressurePlate"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.236, 0.128)
+shape = SubResource("BoxShape3D_q543h")
+debug_color = Color(0.870588, 0, 0.847059, 1)
+
+[node name="GreenPressurePlate" parent="." instance=ExtResource("14_wwmmt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.92457, 0, 153.336)
+script = ExtResource("2_77vgb")
+model_path = "../resources/objects/pressureplate/GreenPressurePlate.obj"
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="GreenPressurePlate"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.236, 0.166)
+shape = SubResource("BoxShape3D_q543h")
+debug_color = Color(0.870588, 0, 0.847059, 1)
+
+[node name="BluePressurePlate" parent="." instance=ExtResource("15_psusw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.33476, 0, 153.287)
+script = ExtResource("2_77vgb")
+model_path = "../resources/objects/pressureplate/BluePressurePlate.obj"
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="BluePressurePlate"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.236, 0.215)
+shape = SubResource("BoxShape3D_q543h")
+debug_color = Color(0.870588, 0, 0.847059, 1)
+
+[node name="BrownBox" parent="." instance=ExtResource("16_8xn6u")]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -69.2236, 0, 98.5607)
+script = ExtResource("2_77vgb")
+is_static = false
+model_path = "../resources/objects/box/BrownBox.obj"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BrownBox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0517912, 0.535786, 0.00901794)
+visible = false
+shape = SubResource("BoxShape3D_tk4v2")
+debug_color = Color(0.847059, 0, 0.905882, 1)
+
+[node name="BrownBox2" parent="." instance=ExtResource("16_8xn6u")]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -67.6808, 0, 104.078)
+script = ExtResource("2_77vgb")
+is_static = false
+model_path = "../resources/objects/box/BrownBox.obj"
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="BrownBox2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0456524, 0.525614, 0)
+visible = false
+shape = SubResource("BoxShape3D_tk4v2")
+debug_color = Color(0.847059, 0, 0.905882, 1)
+
+[node name="BrownBox3" parent="." instance=ExtResource("16_8xn6u")]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -68.2601, 5.3188, 105.891)
+script = ExtResource("2_77vgb")
+is_static = false
+model_path = "../resources/objects/box/BrownBox.obj"
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="BrownBox3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0456524, 0.515604, 0)
+visible = false
+shape = SubResource("BoxShape3D_tk4v2")
+debug_color = Color(0.847059, 0, 0.905882, 1)
+
+[node name="BrownBox4" parent="." instance=ExtResource("16_8xn6u")]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -112.842, 0.286245, 91.857)
+script = ExtResource("2_77vgb")
+is_static = false
+model_path = "../resources/objects/box/BrownBox.obj"
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="BrownBox4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0456524, 0.515604, 0)
+visible = false
+shape = SubResource("BoxShape3D_tk4v2")
+debug_color = Color(0.847059, 0, 0.905882, 1)
+
+[node name="BrownBox5" parent="." instance=ExtResource("16_8xn6u")]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -126.463, 0.51294, 85.3017)
+script = ExtResource("2_77vgb")
+is_static = false
+model_path = "../resources/objects/box/BrownBox.obj"
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="BrownBox5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0456524, 0.515604, 0)
+visible = false
+shape = SubResource("BoxShape3D_tk4v2")
+debug_color = Color(0.847059, 0, 0.905882, 1)
+
+[node name="BrownBox6" parent="." instance=ExtResource("16_8xn6u")]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -119.504, 1.92348, 88.8247)
+script = ExtResource("2_77vgb")
+is_static = false
+model_path = "../resources/objects/box/BrownBox.obj"
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="BrownBox6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0456524, 0.515604, 0)
+visible = false
+shape = SubResource("BoxShape3D_tk4v2")
+debug_color = Color(0.847059, 0, 0.905882, 1)
+
+[node name="BrownBox7" parent="." instance=ExtResource("16_8xn6u")]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -117.699, 1.92348, 79.3608)
+script = ExtResource("2_77vgb")
+is_static = false
+model_path = "../resources/objects/box/BrownBox.obj"
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="BrownBox7"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0456524, 0.515604, 0)
+visible = false
+shape = SubResource("BoxShape3D_tk4v2")
+debug_color = Color(0.847059, 0, 0.905882, 1)
+
+[node name="BrownBox8" parent="." instance=ExtResource("16_8xn6u")]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -111.766, 1.92348, 81.2673)
+script = ExtResource("2_77vgb")
+is_static = false
+model_path = "../resources/objects/box/BrownBox.obj"
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="BrownBox8"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0456524, 0.515604, 0)
+visible = false
+shape = SubResource("BoxShape3D_tk4v2")
+debug_color = Color(0.847059, 0, 0.905882, 1)
+
+[node name="BrownBox9" parent="." instance=ExtResource("16_8xn6u")]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -77.7058, 1.92348, 104.452)
+script = ExtResource("2_77vgb")
+is_static = false
+model_path = "../resources/objects/box/BrownBox.obj"
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="BrownBox9"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0456524, 0.515604, 0)
+visible = false
+shape = SubResource("BoxShape3D_tk4v2")
+debug_color = Color(0.847059, 0, 0.905882, 1)

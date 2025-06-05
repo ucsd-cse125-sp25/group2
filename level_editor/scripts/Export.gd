@@ -5,7 +5,7 @@ var level = "NONE"
 var object_nodes := []
 
 func _run():
-	var scenes = ["Pens.tscn", "Silo.tscn", "Windmill.tscn", "Barn.tscn"]
+	var scenes = ["Pens.tscn", "Silo.tscn", "Barn.tscn", "Windmill.tscn"]
 	var file = FileAccess.open("res://objects.json", FileAccess.WRITE)
 	for scene_path in scenes:
 		var scene = load(scene_path)
@@ -20,12 +20,15 @@ func _run():
 		"objects": []
 	}
 	
+	var floor = ["Floor", "Dome"]
+	
 	# Sort animals to top if needed, based on their names
 	var animals = ["Chicken", "Pig", "Sheep", "Cow"]
 	#var animals = ["Cow", "Pig", "Sheep", "Chicken"]
 	var animal_objects = []
 	var other_objects = []
 	var animals_added = []
+	var floor_objects = []
 
 	for obj in object_nodes:	
 		if obj["name"] in animals_added:
@@ -33,6 +36,8 @@ func _run():
 		elif obj["name"] in animals:
 			animal_objects.append(obj)
 			animals_added.append(obj["name"])
+		elif obj["name"] in floor:
+			floor_objects.append(obj)
 		else:
 			other_objects.append(obj)
 
@@ -41,7 +46,7 @@ func _run():
 	for animal in animal_objects:
 		animal["level"] = "ALL"
 		
-	var all_objects = animal_objects + other_objects
+	var all_objects = animal_objects + other_objects + floor_objects
 	
 	var id_counter := 0
 	for obj in all_objects:
@@ -88,9 +93,7 @@ func _process_node(node: Node3D) -> Dictionary:
 	var is_transparent := false
 	if node.has_meta("isTransparent"):
 		is_transparent = node.get_meta("isTransparent")
-	var is_active := true
-	if level == "BARN" or level == "WINDMILL" or level == "SILO":
-		is_active = false
+	var is_active := false
 	var data := {
 		"name": node.name,
 		"level": level,
