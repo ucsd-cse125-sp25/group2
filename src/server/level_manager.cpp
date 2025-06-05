@@ -132,10 +132,7 @@ void LevelManager::loadJSON() {
   currentLevel = levels[currentLevelType].get();
 }
 
-bool LevelManager::updateLevels() {
-  return currentLevel->isLevelComplete();
-}
-
+bool LevelManager::updateLevels() { return currentLevel->isLevelComplete(); }
 
 void LevelManager::advanceLevel() {
   for (const auto &objPair : levelObjects[currentLevelType]) {
@@ -161,9 +158,10 @@ void LevelManager::advanceLevel() {
 
     for (const auto &objPair : levelObjects[currentLevelType]) {
       GameObject *object = objPair.second;
-      if (find(rewardIDs.begin(), rewardIDs.end(), object->getID()) != rewardIDs.end()) {
+      if (find(rewardIDs.begin(), rewardIDs.end(), object->getID()) !=
+          rewardIDs.end()) {
         continue;
-      } 
+      }
       object->activate(); // Activate all objects in the new level
       object->getTransform()->setPosition(object->getOriginalPosition());
     }

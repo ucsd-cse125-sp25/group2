@@ -3,6 +3,7 @@
 #include "globals.hpp"
 #include "puzzle.hpp"
 
+#include <algorithm>
 #include <fstream>
 #include <iostream>
 #include <magic_enum/magic_enum.hpp>
@@ -10,7 +11,6 @@
 #include <string>
 #include <unordered_map>
 #include <vector>
-#include <algorithm>
 
 using json = nlohmann::json;
 using namespace std;
