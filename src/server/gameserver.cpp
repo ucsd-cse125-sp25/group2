@@ -79,7 +79,8 @@ void GameServer::updateGameState() {
           characterPacket->playerID, characterPacket->clientID);
       CharacterResponsePacket packet(characterAssignments);
       network->sendToAll(packet);
-      if (game->getPlayerLogic()->allCharactersAssigned() && game->state == Gamestate::STARTSCREEN) {
+      if (game->getPlayerLogic()->allCharactersAssigned() &&
+          game->state == Gamestate::STARTSCREEN) {
         // set game state to GAME
         game->state = Gamestate::GAME;
         GameStatePacket statePacket(game->state);
