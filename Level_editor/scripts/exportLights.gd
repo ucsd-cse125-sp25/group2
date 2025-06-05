@@ -68,8 +68,8 @@ func _vec3_to_json(vec: Vector3) -> Dictionary:
 
 func _get_color(node: OmniLight3D) -> Dictionary:
 	return {
-		"x": node.light_energy,
-		"y": node.light_energy,
-		"z": node.light_energy,
+		"x": node.light_energy * 0.5,
+		"y": node.light_energy * 0.5,
+		"z": node.light_energy * 0.5,
 	}
 	

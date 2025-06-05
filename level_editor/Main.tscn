@@ -891,12 +891,12 @@ light_energy = 20.0
 omni_range = 60.0
 
 [node name="OmniLight3D12" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.94555, 26.3954, -67.0883)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.94555, 16.7705, -67.0883)
 light_energy = 20.0
 omni_range = 60.0
 
 [node name="OmniLight3D11" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.250329, 28.6709, 5.59365)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.250329, 16.7527, 10.7127)
 light_energy = 20.0
 omni_range = 60.0
 
