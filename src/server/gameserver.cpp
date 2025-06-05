@@ -75,13 +75,14 @@ void GameServer::updateGameState() {
       CharacterResponsePacket packet(characterAssignments);
       network->sendToAll(packet);
       if (game->getPlayerLogic()->allCharactersAssigned()) {
-      // set game state to GAME
+        // set game state to GAME
         game->state = Gamestate::GAME;
         GameStatePacket statePacket(game->state);
         network->sendToAll(statePacket);
-      // go from Level NONE to the first level
+        // go from Level NONE to the first level
         game->getLevelManager()->advanceLevel();
-        LevelChangePacket levelChangePacket(game->getLevelManager()->getLevel());
+        LevelChangePacket levelChangePacket(
+            game->getLevelManager()->getLevel());
         network->sendToAll(levelChangePacket);
       }
       break;
