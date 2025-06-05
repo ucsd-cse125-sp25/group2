@@ -779,6 +779,21 @@
 			},
 			"radius": 300,
 			"useAttenuation": true
+		},
+		{
+			"color": {
+				"x": 2,
+				"y": 2,
+				"z": 2
+			},
+			"level": "WINDMILL",
+			"position": {
+				"x": -2.659,
+				"y": 73.891,
+				"z": -39.527
+			},
+			"radius": 500,
+			"useAttenuation": true
 		}
 	]
 }

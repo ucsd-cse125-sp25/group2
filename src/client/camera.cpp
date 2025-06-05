@@ -7,7 +7,7 @@ Camera::Camera()
   fov = 60.0f;
   aspect = 1.33f;
   nearClip = 0.1f;
-  farClip = 100.0f;
+  farClip = 200.0f;
 
   yaw = 90.0f; // place camera along +Z axis to see behind the target
   pitch = 0.0f;
