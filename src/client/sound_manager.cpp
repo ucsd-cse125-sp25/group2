@@ -19,7 +19,7 @@ bool SoundManager::init() {
   if (result != FMOD_OK)
     return false;
 
-  SoundManager::setMasterVolume(0.0f);
+  SoundManager::setMasterVolume(1.0f);
   preLoadSounds();
 
   SoundManager::setVolume("BounceSound", 4.0f);

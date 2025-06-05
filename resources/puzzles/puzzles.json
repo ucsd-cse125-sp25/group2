@@ -13,7 +13,7 @@
                             "__name": "Blue Pressure Plate",
                             "conditionType": "PRESSURE_PLATE",
                             "objectID": 74,
-                            "triggeringObjectID": 2
+                            "triggeringObjectID": 3
                         }
                     ]
                 },
@@ -27,7 +27,7 @@
                             "__name": "Blue Pressure Plate",
                             "conditionType": "PRESSURE_PLATE_OFF",
                             "objectID": 74,
-                            "triggeringObjectID": 99
+                            "triggeringObjectID": 3
                         }
                     ]
                 },
@@ -41,7 +41,7 @@
                             "__name": "Green Pressure Plate",
                             "conditionType": "PRESSURE_PLATE",
                             "objectID": 75,
-                            "triggeringObjectID": 2
+                            "triggeringObjectID": 3
                         }
                     ]
                 },
@@ -55,7 +55,7 @@
                             "__name": "Green Pressure Plate",
                             "conditionType": "PRESSURE_PLATE_OFF",
                             "objectID": 75,
-                            "triggeringObjectID": 99
+                            "triggeringObjectID": 3
                         }
                     ]
                 },
@@ -69,7 +69,7 @@
                             "__name": "Red Pressure Plate",
                             "conditionType": "PRESSURE_PLATE",
                             "objectID": 76,
-                            "triggeringObjectID": 2
+                            "triggeringObjectID": 0
                         }
                     ]
                 },
@@ -83,7 +83,7 @@
                             "__name": "Red Pressure Plate",
                             "conditionType": "PRESSURE_PLATE_OFF",
                             "objectID": 76,
-                            "triggeringObjectID": 96
+                            "triggeringObjectID": 0
                         }
                     ]
                 },
@@ -97,7 +97,7 @@
                             "__name": "Yellow Pressure Plate",
                             "conditionType": "PRESSURE_PLATE",
                             "objectID": 77,
-                            "triggeringObjectID": 2
+                            "triggeringObjectID": 0
                         }
                     ]
                 },
@@ -111,7 +111,7 @@
                             "__name": "Yellow Pressure Plate",
                             "conditionType": "PRESSURE_PLATE_OFF",
                             "objectID": 77,
-                            "triggeringObjectID": 96
+                            "triggeringObjectID": 0
                         }
                     ]
                 },
