@@ -17,8 +17,8 @@
 #define SHEEP 2
 #define COW 3
 
-#define OBJECT_PATH "../resources/objects/objects1.json"
-#define PUZZLE_PATH "../resources/puzzles/puzzles1.json"
+#define OBJECT_PATH "../resources/objects/objects.json"
+#define PUZZLE_PATH "../resources/puzzles/puzzles.json"
 #define CONFIG_PATH "../resources/config.json"
 #define NOTE_PATH "../resources/ui/notes.json"
 #define LIGHT_PATH "../resources/objects/lights.json"
