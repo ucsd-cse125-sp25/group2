@@ -75,8 +75,11 @@ void GameServer::updateGameState() {
       CharacterResponsePacket packet(characterAssignments);
       network->sendToAll(packet);
       // if (game->getPlayerLogic()->allCharactersAssigned()) {
-      GameStatePacket statePacket(Gamestate::GAME);
+      // set game state to GAME
+      game->state = Gamestate::GAME;
+      GameStatePacket statePacket(game->state);
       network->sendToAll(statePacket);
+      // go from Level NONE to the first level
       game->getLevelManager()->advanceLevel();
       LevelChangePacket levelChangePacket(game->getLevelManager()->getLevel());
       network->sendToAll(levelChangePacket);
@@ -102,8 +105,9 @@ void GameServer::updateGameState() {
     }
     }
   }
-  game->applyPhysics();
+  
   if (game->state == Gamestate::GAME) {
+    game->applyPhysics();
     triggerLevelChange = game->updateLevelManager();
   }
 }

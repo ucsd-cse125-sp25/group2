@@ -146,7 +146,7 @@ void ServerGameState::updateInteraction(PLAYER_ID id) {
       updatedObjectIDs.insert(closestObjectID);
       // If interaction type is press
     } else if (closestObject->getInteractionType() == InteractionType::PRESS) {
-      closestObject->press();
+      closestObject->togglePressed();
       cout << "Pressed object: " << closestObjectID << endl;
     }
 

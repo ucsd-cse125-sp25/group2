@@ -94,7 +94,10 @@ void ObjectLoader::loadLights() {
 
   if (lightsData.contains("lights") && lightsData["lights"].is_array()) {
     for (const auto &lightData : lightsData["lights"]) {
-      LevelType level = LevelType::BARN;
+      std::string levelStr = lightData.value("level", "BARN");
+      // auto level = getLevelFromString(levelStr);
+      LevelType level = magic_enum::enum_cast<LevelType>(levelStr)
+                            .value_or(LevelType::NONE);
       glm::vec3 position = parseVec3(lightData, "position", glm::vec3(0.0f));
       glm::vec3 color =
           parseVec3(lightData, "color", glm::vec3(1.0f, 1.0f, 1.0f));

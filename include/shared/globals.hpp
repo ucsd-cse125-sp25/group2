@@ -10,7 +10,7 @@
 #define PLAYER_ID int
 
 #define NUM_PLAYERS 4
-#define NUM_LEVELS 2
+#define NUM_LEVELS 1
 
 #define CHICKEN 0
 #define PIG 1

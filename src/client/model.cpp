@@ -17,7 +17,7 @@ void Model::draw(const glm::mat4 &viewProjMtx, const glm::vec3 &pos,
   shader->setVec3("viewPos", pos);
 
   // Light setup
-  shader->setFloat("ambientStrength", 0.1f);
+  shader->setFloat("ambientStrength", 0.5f);
   shader->setFloat("diffuseStrength", 1.0f);
   shader->setFloat("specularStrength", 1.0f);
 

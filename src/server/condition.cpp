@@ -8,7 +8,11 @@ bool PressurePlateCondition::isSatisfied() const {
   return false;
 }
 
-bool ButtonCondition::isSatisfied() const { return object->isActive(); }
+bool ButtonCondition::isSatisfied() const {
+  cout << "ButtonCondition::isSatisfied called for object ID: "
+       << object->getID() << endl; 
+  return object->hasBeenPressed();
+}
 
 bool PinCondition::isSatisfied() const {
   KeypadObject *keypad = dynamic_cast<KeypadObject *>(object);
