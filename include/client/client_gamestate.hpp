@@ -4,6 +4,7 @@
 #include "client_object_loader.hpp"
 #include "globals.hpp"
 
+#include <magic_enum/magic_enum.hpp>
 #include <memory>
 #include <unordered_map>
 
@@ -11,9 +12,8 @@ using namespace std;
 
 class ClientGameState {
 private:
-  LEVEL_ID level = 0;
   unordered_map<OBJECT_ID, unique_ptr<GameObject>> objectList;
-  unordered_map<LEVEL_ID, unordered_map<OBJECT_ID, GameObject *>> levelObjects;
+  unordered_map<LevelType, unordered_map<OBJECT_ID, GameObject *>> levelObjects;
   GameObject *player;
 
   unordered_map<OBJECT_ID, unique_ptr<BaseUI>> notes;
@@ -24,7 +24,7 @@ public:
   bool init();
 
   // update methods
-  void changeLevel(LEVEL_ID levelNum);
+  void advanceLevel(LevelType newLevel);
   void update(OBJECT_ID id, Transform *tf);
   void draw(const glm::mat4 &viewProjMtx, const glm::vec3 &pos);
   void displayNote(OBJECT_ID id) {

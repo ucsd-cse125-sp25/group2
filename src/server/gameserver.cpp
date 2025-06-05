@@ -158,7 +158,7 @@ void GameServer::dispatchUpdates() {
 
   if (triggerLevelChange) {
     triggerLevelChange = false;
-    LevelChangePacket levelChangePacket(game->level);
+    LevelChangePacket levelChangePacket(game->getLevel());
     network->sendToAll(levelChangePacket);
   }
 }

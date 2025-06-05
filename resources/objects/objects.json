@@ -9,7 +9,7 @@
 				"modelPath": "../resources/objects/chicken/Chicken.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
-			"level": 0,
+			"level": "ALL",
 			"name": "Chicken",
 			"server": {
 				"colliders": [
@@ -73,7 +73,7 @@
 				"modelPath": "../resources/objects/Pig/Pig.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
-			"level": 0,
+			"level": "ALL",
 			"name": "Pig",
 			"server": {
 				"colliders": [
@@ -137,7 +137,7 @@
 				"modelPath": "../resources/objects/Sheep/Sheep.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
-			"level": 0,
+			"level": "ALL",
 			"name": "Sheep",
 			"server": {
 				"colliders": [
@@ -201,7 +201,7 @@
 				"modelPath": "../resources/objects/cow/Cow.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
-			"level": 0,
+			"level": "ALL",
 			"name": "Cow",
 			"server": {
 				"colliders": [
@@ -265,7 +265,7 @@
 				"modelPath": "../resources/objects/box/BlueBox.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
-			"level": 0,
+			"level": "BARN",
 			"name": "BlueBox",
 			"server": {
 				"colliders": [
@@ -329,7 +329,7 @@
 				"modelPath": "../resources/objects/box/RedBox.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
-			"level": 0,
+			"level": "BARN",
 			"name": "RedBox",
 			"server": {
 				"colliders": [
@@ -393,7 +393,7 @@
 				"modelPath": "../resources/objects/box/YellowBox.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
-			"level": 0,
+			"level": "BARN",
 			"name": "YellowBox",
 			"server": {
 				"colliders": [
@@ -457,7 +457,7 @@
 				"modelPath": "../resources/objects/box/GreenBox.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
-			"level": 0,
+			"level": "BARN",
 			"name": "GreenBox",
 			"server": {
 				"colliders": [
@@ -521,7 +521,7 @@
 				"modelPath": "../resources/objects/note/Note.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
-			"level": 0,
+			"level": "BARN",
 			"name": "Note",
 			"server": {
 				"colliders": [
@@ -585,7 +585,7 @@
 				"modelPath": "../resources/objects/keypad/pinPad.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
-			"level": 0,
+			"level": "BARN",
 			"name": "pinPad",
 			"server": {
 				"colliders": [
@@ -657,7 +657,7 @@
 				"modelPath": "../resources/objects/button/BlueButton.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
-			"level": 0,
+			"level": "BARN",
 			"name": "BluePressurePlate",
 			"server": {
 				"colliders": [
@@ -721,7 +721,7 @@
 				"modelPath": "../resources/objects/button/RedButton.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
-			"level": 0,
+			"level": "BARN",
 			"name": "RedPressurePlate",
 			"server": {
 				"colliders": [
@@ -785,7 +785,7 @@
 				"modelPath": "../resources/objects/button/YellowButton.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
-			"level": 0,
+			"level": "BARN",
 			"name": "YellowPressurePlate",
 			"server": {
 				"colliders": [
@@ -849,7 +849,7 @@
 				"modelPath": "../resources/objects/button/GreenButton.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
-			"level": 0,
+			"level": "BARN",
 			"name": "GreenPressurePlate",
 			"server": {
 				"colliders": [
@@ -913,7 +913,7 @@
 				"modelPath": "../resources/objects/barn/stabledoor/StableDoor.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
-			"level": 0,
+			"level": "BARN",
 			"name": "StableDoor",
 			"server": {
 				"colliders": [
@@ -977,7 +977,7 @@
 				"modelPath": "../resources/objects/barn/stabledoor/StableDoor.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
-			"level": 0,
+			"level": "BARN",
 			"name": "StableDoor2",
 			"server": {
 				"colliders": [
@@ -1041,7 +1041,7 @@
 				"modelPath": "../resources/objects/horse/horse.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
-			"level": 0,
+			"level": "BARN",
 			"name": "Horse",
 			"server": {
 				"colliders": [
@@ -1105,7 +1105,7 @@
 				"modelPath": "../resources/objects/note/Note.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
-			"level": 0,
+			"level": "BARN",
 			"name": "Note2",
 			"server": {
 				"colliders": [
@@ -1169,7 +1169,7 @@
 				"modelPath": "../resources/objects/keypad/pinPad.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
-			"level": 0,
+			"level": "BARN",
 			"name": "pinPad2",
 			"server": {
 				"colliders": [
@@ -1241,7 +1241,7 @@
 				"modelPath": "../resources/objects/pressureplate/PressurePlate.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
-			"level": 0,
+			"level": "BARN",
 			"name": "SheepPressurePlate",
 			"server": {
 				"colliders": [
@@ -1305,7 +1305,7 @@
 				"modelPath": "../resources/objects/pressureplate/PressurePlate.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
-			"level": 0,
+			"level": "BARN",
 			"name": "CowPressurePlate",
 			"server": {
 				"colliders": [
@@ -1369,7 +1369,7 @@
 				"modelPath": "../resources/objects/barn/stabledoor/StableDoor.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
-			"level": 0,
+			"level": "BARN",
 			"name": "StableDoor3",
 			"server": {
 				"colliders": [
@@ -1433,7 +1433,7 @@
 				"modelPath": "../resources/objects/barn/stabledoor/StableDoor.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
-			"level": 0,
+			"level": "BARN",
 			"name": "StableDoor4",
 			"server": {
 				"colliders": [
@@ -1497,7 +1497,7 @@
 				"modelPath": "../resources/objects/horse/horse.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
-			"level": 0,
+			"level": "BARN",
 			"name": "Horse2",
 			"server": {
 				"colliders": [
@@ -1561,7 +1561,7 @@
 				"modelPath": "../resources/objects/note/Note.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
-			"level": 0,
+			"level": "BARN",
 			"name": "Note3",
 			"server": {
 				"colliders": [
@@ -1625,7 +1625,7 @@
 				"modelPath": "../resources/objects/keypad/pinPad.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
-			"level": 0,
+			"level": "BARN",
 			"name": "pinPad3",
 			"server": {
 				"colliders": [
@@ -1697,7 +1697,7 @@
 				"modelPath": "../resources/objects/pressureplate/PressurePlate.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
-			"level": 0,
+			"level": "BARN",
 			"name": "PigPressurePlate",
 			"server": {
 				"colliders": [
@@ -1761,7 +1761,7 @@
 				"modelPath": "../resources/objects/box/BrownBox.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
-			"level": 0,
+			"level": "BARN",
 			"name": "HeavyBox",
 			"server": {
 				"colliders": [
@@ -1825,7 +1825,7 @@
 				"modelPath": "../resources/objects/box/BrownBox.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
-			"level": 0,
+			"level": "BARN",
 			"name": "HeavyBox2",
 			"server": {
 				"colliders": [
@@ -1889,7 +1889,7 @@
 				"modelPath": "../resources/objects/box/BrownBox.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
-			"level": 0,
+			"level": "BARN",
 			"name": "HeavyBox3",
 			"server": {
 				"colliders": [
@@ -1953,7 +1953,7 @@
 				"modelPath": "../resources/objects/barn/stabledoor/StableDoor.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
-			"level": 0,
+			"level": "BARN",
 			"name": "StableDoor5",
 			"server": {
 				"colliders": [
@@ -2017,7 +2017,7 @@
 				"modelPath": "../resources/objects/barn/stabledoor/StableDoor.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
-			"level": 0,
+			"level": "BARN",
 			"name": "StableDoor6",
 			"server": {
 				"colliders": [
@@ -2081,7 +2081,7 @@
 				"modelPath": "../resources/objects/horse/horse.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
-			"level": 0,
+			"level": "BARN",
 			"name": "Horse3",
 			"server": {
 				"colliders": [
@@ -2145,7 +2145,7 @@
 				"modelPath": "../resources/objects/note/Note.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
-			"level": 0,
+			"level": "BARN",
 			"name": "Note4",
 			"server": {
 				"colliders": [
@@ -2209,7 +2209,7 @@
 				"modelPath": "../resources/objects/keypad/pinPad.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
-			"level": 0,
+			"level": "BARN",
 			"name": "pinPad4",
 			"server": {
 				"colliders": [
@@ -2281,7 +2281,7 @@
 				"modelPath": "../resources/objects/pressureplate/PressurePlate.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
-			"level": 0,
+			"level": "BARN",
 			"name": "ChickenPressurePlate",
 			"server": {
 				"colliders": [
@@ -2345,7 +2345,7 @@
 				"modelPath": "../resources/objects/barn/stabledoor/StableDoor.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
-			"level": 0,
+			"level": "BARN",
 			"name": "StableDoor7",
 			"server": {
 				"colliders": [
@@ -2409,7 +2409,7 @@
 				"modelPath": "../resources/objects/barn/stabledoor/StableDoor.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
-			"level": 0,
+			"level": "BARN",
 			"name": "StableDoor8",
 			"server": {
 				"colliders": [
@@ -2473,7 +2473,7 @@
 				"modelPath": "../resources/objects/horse/horse.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
-			"level": 0,
+			"level": "BARN",
 			"name": "Horse4",
 			"server": {
 				"colliders": [
@@ -2537,7 +2537,7 @@
 				"modelPath": "../resources/objects/box/BrownBox.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
-			"level": 0,
+			"level": "BARN",
 			"name": "BrownBox",
 			"server": {
 				"colliders": [
@@ -2601,7 +2601,7 @@
 				"modelPath": "../resources/objects/box/BrownBox.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
-			"level": 0,
+			"level": "BARN",
 			"name": "BrownBox2",
 			"server": {
 				"colliders": [
@@ -2665,7 +2665,7 @@
 				"modelPath": "../resources/objects/box/BrownBox.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
-			"level": 0,
+			"level": "BARN",
 			"name": "BrownBox3",
 			"server": {
 				"colliders": [
@@ -2729,7 +2729,7 @@
 				"modelPath": "../resources/objects/box/BrownBox.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
-			"level": 0,
+			"level": "BARN",
 			"name": "BrownBox4",
 			"server": {
 				"colliders": [
@@ -2793,7 +2793,7 @@
 				"modelPath": "../resources/objects/box/BrownBox.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
-			"level": 0,
+			"level": "BARN",
 			"name": "BrownBox5",
 			"server": {
 				"colliders": [
@@ -2857,7 +2857,7 @@
 				"modelPath": "../resources/objects/box/BrownBox.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
-			"level": 0,
+			"level": "BARN",
 			"name": "BrownBox6",
 			"server": {
 				"colliders": [
@@ -2921,7 +2921,7 @@
 				"modelPath": "../resources/objects/box/BrownBox.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
-			"level": 0,
+			"level": "BARN",
 			"name": "BrownBox7",
 			"server": {
 				"colliders": [
@@ -2985,7 +2985,7 @@
 				"modelPath": "../resources/objects/box/BlackBox.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
-			"level": 0,
+			"level": "BARN",
 			"name": "Floor",
 			"server": {
 				"colliders": [
@@ -3049,7 +3049,7 @@
 				"modelPath": "../resources/objects/note/CowNote.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
-			"level": 0,
+			"level": "BARN",
 			"name": "CowNote",
 			"server": {
 				"colliders": [
@@ -3113,7 +3113,7 @@
 				"modelPath": "../resources/objects/note/ChickenNote.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
-			"level": 0,
+			"level": "BARN",
 			"name": "ChickenNote",
 			"server": {
 				"colliders": [
@@ -3177,7 +3177,7 @@
 				"modelPath": "../resources/objects/note/PigNote.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
-			"level": 0,
+			"level": "BARN",
 			"name": "PigNote",
 			"server": {
 				"colliders": [
@@ -3241,7 +3241,7 @@
 				"modelPath": "../resources/objects/note/SheepNote.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
-			"level": 0,
+			"level": "BARN",
 			"name": "SheepNote",
 			"server": {
 				"colliders": [
@@ -3305,7 +3305,7 @@
 				"modelPath": "../resources/objects/Barn/Barn.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
-			"level": 0,
+			"level": "BARN",
 			"name": "Barn",
 			"server": {
 				"colliders": [

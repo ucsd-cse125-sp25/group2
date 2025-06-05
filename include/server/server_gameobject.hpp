@@ -26,10 +26,10 @@ protected:
   vector<Collider *> colliders;
 
 public:
-  GameObject(const OBJECT_ID id, const LEVEL_ID levelNum, const bool isActive,
+  GameObject(const OBJECT_ID id, const LevelType level, const bool isActive,
              glm::vec3 originalPosition, unique_ptr<Transform> &tf,
              unique_ptr<RigidBody> &rb, vector<Collider *> &cl)
-      : BaseGameObject(id, levelNum, isActive, originalPosition, tf),
+      : BaseGameObject(id, level, isActive, originalPosition, tf),
         rigidbody(move(rb)), colliders(cl) {
     interactionType = InteractionType::NONE;
     usesGravity = true;
