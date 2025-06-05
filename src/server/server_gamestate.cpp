@@ -4,6 +4,7 @@ ServerGameState::ServerGameState() : deltaTime(0.01f) {
   physicsWorld = make_unique<Physics>();
   playerLogic = make_unique<PlayerLogic>();
   levelManager = make_unique<LevelManager>();
+  sheepNote = -1;
 }
 
 bool ServerGameState::init() {
@@ -140,6 +141,11 @@ void ServerGameState::updateInteraction(PLAYER_ID id) {
     playerLogic->setHeldObject(id, nullptr);
     updatedObjectIDs.insert(heldObject->getID());
 
+    if (id == SHEEP && heldObject->getID() == 118) {
+    cout << "seg?3" << endl;
+      sheepNote = 0;
+    }
+
   } else if (closestObjectID != -1) {
 
     // If interaction type is pickup and player is not holding an object
@@ -149,6 +155,11 @@ void ServerGameState::updateInteraction(PLAYER_ID id) {
       playerLogic->pickupObject(player, closestObject);
       cout << "Picked up object: " << closestObject->getID() << endl;
       updatedObjectIDs.insert(closestObjectID);
+
+      if (id == SHEEP && closestObject->getID() == 118) {
+    cout << "seg?12" << endl;
+        sheepNote = 1;
+      }
       // If interaction type is press
     } else if (closestObject->getInteractionType() == InteractionType::PRESS) {
       closestObject->togglePressed();

@@ -4,6 +4,7 @@
 #include "client_object_loader.hpp"
 #include "globals.hpp"
 #include "light_manager.hpp"
+#include "ui_manager.hpp"
 
 #include <magic_enum/magic_enum.hpp>
 #include <memory>
@@ -19,6 +20,8 @@ private:
   GameObject *player;
   LevelType currentLevelType = LevelType::NONE;
 
+  unique_ptr<BaseUI> sheepNote;
+
 public:
   Gamestate state;
 
@@ -29,6 +32,10 @@ public:
   void update(OBJECT_ID id, Transform *tf);
   void draw(const glm::mat4 &viewProjMtx, const glm::vec3 &pos);
   void displayNote(OBJECT_ID id) {
+    if (id == 118) {
+      sheepNote->draw();
+      return;
+    }
     auto note = notes.find(id);
     if (note != notes.end()) {
       note->second->draw();

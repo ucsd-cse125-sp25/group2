@@ -37,6 +37,8 @@ public:
   bool init();
   Gamestate state;
 
+  int sheepNote; // 1 = picked up 0 = dropped
+
   // update methods
   CLIENT_ID *updateCharacters(PLAYER_ID playerID, CLIENT_ID clientID);
   void updateMovement(PLAYER_ID id, MovementType type);
