@@ -24,6 +24,7 @@ private:
   unordered_map<OBJECT_ID, unique_ptr<GameObject>> objectList;
   unordered_map<OBJECT_ID, GameObject *> interactableObjects;
   unordered_set<OBJECT_ID> updatedObjectIDs;
+  unordered_set<OBJECT_ID> keypadObjectsIDs;
   vector<pair<RewardType, vector<OBJECT_ID>>> rewards;
 
   unique_ptr<Physics> physicsWorld;
@@ -48,6 +49,7 @@ public:
   // getters
   GameObject *getObject(OBJECT_ID id);
   vector<int> getLastUpdatedObjects();
+  vector<int> getKeypadObjects();
   vector<pair<RewardType, vector<OBJECT_ID>>> getRewardObjects();
   PlayerLogic *getPlayerLogic() { return playerLogic.get(); }
   LevelManager *getLevelManager() { return levelManager.get(); }
