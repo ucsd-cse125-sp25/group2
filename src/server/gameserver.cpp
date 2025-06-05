@@ -78,8 +78,7 @@ void GameServer::updateGameState() {
       GameStatePacket statePacket(Gamestate::GAME);
       network->sendToAll(statePacket);
       game->getLevelManager()->advanceLevel();
-      LevelChangePacket levelChangePacket(
-          game->getLevelManager()->getLevel());
+      LevelChangePacket levelChangePacket(game->getLevelManager()->getLevel());
       network->sendToAll(levelChangePacket);
       // }
       break;
