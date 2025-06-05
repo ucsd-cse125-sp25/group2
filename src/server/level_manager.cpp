@@ -139,11 +139,22 @@ void LevelManager::loadJSON() {
   currentLevel = levels[currentLevelType].get();
 }
 
-bool LevelManager::updateLevels() { return currentLevel->isLevelComplete(); }
+bool LevelManager::updateLevels() { 
+  if (currentLevelType == LevelType::ALL) {
+    return false;
+  }
+  return currentLevel->isLevelComplete(); 
+}
 
 void LevelManager::advanceLevel() {
   if (currentLevelType == LevelType::NONE) {
     instantiatePlayers();
+  }
+
+  if (currentLevelType == LevelType::BARN) {
+    currentLevelType = LevelType::ALL;
+    cout << "All levels completed!" << endl;
+    return;
   }
 
   // Deactivate all objects in the current level
@@ -153,6 +164,7 @@ void LevelManager::advanceLevel() {
   }
 
   uint8_t levelNum = magic_enum::enum_integer(currentLevelType);
+
   levelNum++;
   cout << "Advancing level to: " << static_cast<int>(levelNum) << endl;
 
@@ -160,10 +172,6 @@ void LevelManager::advanceLevel() {
       magic_enum::enum_cast<LevelType>(levelNum).value_or(LevelType::NONE);
   currentLevel = levels[currentLevelType].get();
 
-  if (levelNum > NUM_LEVELS) {
-    cout << "All levels completed!" << endl;
-    return;
-  }
   // get the objects that we don't want to activate when the level changes,
   // i.e. notes
   vector<OBJECT_ID> rewardIDs = currentLevel->getNotes();

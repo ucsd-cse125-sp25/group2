@@ -10,7 +10,7 @@
                     "puzzleType": "milestone",
                     "conditions": [
                         {   
-                            "__name": "Blue box",
+                            "__name": "BlueBox",
                             "conditionType": "BUTTON",
                             "objectID": 4
                         }
