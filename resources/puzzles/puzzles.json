@@ -57,63 +57,63 @@
                 {
                     "puzzleID": 0,
                     "rewardType": "ACTIVATE",
-                    "rewardIDs": [64],
+                    "rewardIDs": [8],
                     "puzzleType": "clue",
                     "conditions": [
                         {   
                             "__name": "BluePressurePlate",
                             "conditionType": "PRESSURE_PLATE",
-                            "objectID": 66,
-                            "triggeringObjectID": 60
+                            "objectID": 10,
+                            "triggeringObjectID": 4
                         },
                         {
                             "__name": "RedPressurePlate",
                             "conditionType": "PRESSURE_PLATE",
-                            "objectID": 67,
-                            "triggeringObjectID": 61
+                            "objectID": 11,
+                            "triggeringObjectID": 5
                         },
                         {
                             "__name": "YellowPressurePlate",
                             "conditionType": "PRESSURE_PLATE",
-                            "objectID": 68,
-                            "triggeringObjectID": 62
+                            "objectID": 12,
+                            "triggeringObjectID": 6
                         },{
                             "__name": "GreenPressurePlate",
                             "conditionType": "PRESSURE_PLATE",
-                            "objectID": 69,
-                            "triggeringObjectID": 63
+                            "objectID": 13,
+                            "triggeringObjectID": 7
                         }
                     ]
                 },
                 {
                     "puzzleID": 1,
                     "rewardType": "DEACTIVATE",
-                    "rewardIDs": [70, 71],
+                    "rewardIDs": [14, 15],
                     "puzzleType": "milestone",
                     "conditions": [
                         {   
                             "__name": "Pinpad",
                             "conditionType": "PIN",
-                            "objectID": 65
+                            "objectID": 9
                         }
                     ]
                 },
                 {
                     "puzzleID": 2,
                     "rewardType": "ACTIVATE",
-                    "rewardIDs": [73],
+                    "rewardIDs": [17],
                     "puzzleType": "clue",
                     "conditions": [
                         {   
                             "__name": "SheepPressurePlate",
                             "conditionType": "PRESSURE_PLATE",
-                            "objectID": 75,
+                            "objectID": 19,
                             "triggeringObjectID": 2
                         },
                         {   
                             "__name": "CowPressurePlate",
                             "conditionType": "PRESSURE_PLATE",
-                            "objectID": 76,
+                            "objectID": 20,
                             "triggeringObjectID": 3
                         }
                     ]
@@ -121,26 +121,26 @@
                 {
                     "puzzleID": 3,
                     "rewardType": "DEACTIVATE",
-                    "rewardIDs": [77, 78],
+                    "rewardIDs": [21, 22],
                     "puzzleType": "milestone",
                     "conditions": [
                         {   
                             "__name": "Pinpad 2",
                             "conditionType": "PIN",
-                            "objectID": 74
+                            "objectID": 18
                         }
                     ]
                 },
                 {
                     "puzzleID": 4,
                     "rewardType": "ACTIVATE",
-                    "rewardIDs": [80],
+                    "rewardIDs": [24],
                     "puzzleType": "clue",
                     "conditions": [
                         {   
                             "__name": "PigPressurePlate",
                             "conditionType": "PRESSURE_PLATE",
-                            "objectID": 82,
+                            "objectID": 26,
                             "triggeringObjectID": 1
                         }
                     ]
@@ -148,26 +148,26 @@
                 {
                     "puzzleID": 4,
                     "rewardType": "DEACTIVATE",
-                    "rewardIDs": [86, 87],
+                    "rewardIDs": [30, 31],
                     "puzzleType": "milestone",
                     "conditions": [
                         {   
                             "__name": "Pinpad 3",
                             "conditionType": "PIN",
-                            "objectID": 81
+                            "objectID": 25
                         }
                     ]
                 },
                 {
                     "puzzleID": 5,
                     "rewardType": "ACTIVATE",
-                    "rewardIDs": [89],
+                    "rewardIDs": [33],
                     "puzzleType": "clue",
                     "conditions": [
                         {   
                             "__name": "ChickenPressurePlate",
                             "conditionType": "PRESSURE_PLATE",
-                            "objectID": 91,
+                            "objectID": 35,
                             "triggeringObjectID": 0
                         }
                     ]
@@ -175,13 +175,13 @@
                 {
                     "puzzleID": 6,
                     "rewardType": "DEACTIVATE",
-                    "rewardIDs": [92,93],
+                    "rewardIDs": [36,37],
                     "puzzleType": "milestone",
                     "conditions": [
                         {   
                             "__name": "Pinpad 4",
                             "conditionType": "PIN",
-                            "objectID": 90
+                            "objectID": 34
                         }
                     ]
                 },
@@ -194,7 +194,7 @@
                         {
                             "__name": "RedButton",
                             "conditionType": "BUTTON",
-                            "objectID": 107
+                            "objectID": 51
                         }
                     ]
                 }

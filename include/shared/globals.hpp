@@ -10,7 +10,7 @@
 #define PLAYER_ID int
 
 #define NUM_PLAYERS 4
-#define NUM_LEVELS 2
+#define NUM_LEVELS 1
 
 #define CHICKEN 0
 #define PIG 1
@@ -59,7 +59,6 @@ enum class RewardType : uint8_t {
 // for testing until we add more level logic
 enum class LevelType : uint8_t {
   NONE,
-  SILO,
   BARN,
   ALL,
 };
