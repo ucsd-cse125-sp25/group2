@@ -31,8 +31,8 @@ Made By:
   - Use **A** to strafe left.
   - Use **D** to strafe right.
   - Press **Space** to jump.
-  - Chicken can glide by holding **space**
-  - Sheep can double jump by holding **space**
+  - Chicken can glide by holding **Space**
+  - Sheep can double jump by pressing **Space** while jumping
 
 - **Animal Abilities**
 
