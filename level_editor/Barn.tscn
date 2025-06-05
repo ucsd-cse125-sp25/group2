@@ -1,21 +1,21 @@
 [gd_scene load_steps=57 format=3 uid="uid://crualgrh0gpoc"]
 
-[ext_resource type="Script" uid="uid://nd5l8ocm7cud" path="res://scripts/metadata.gd" id="2_eh0nf"]
-[ext_resource type="PackedScene" uid="uid://cgwfirulao1f2" path="res://Cow.glb" id="2_fpmh6"]
-[ext_resource type="PackedScene" uid="uid://ckatidfhcngcm" path="res://Pig.glb" id="3_xwquf"]
-[ext_resource type="PackedScene" uid="uid://y0mg523veid7" path="res://Sheep.glb" id="4_3an2t"]
-[ext_resource type="PackedScene" uid="uid://b23o1kf0arccq" path="res://Chicken.glb" id="5_8cb1q"]
-[ext_resource type="PackedScene" uid="uid://ddgebfd8gq3xi" path="res://BlackBox.glb" id="6_c2ibq"]
-[ext_resource type="PackedScene" uid="uid://yu0c1w82lw0p" path="res://PressurePlate.glb" id="8_03owx"]
-[ext_resource type="PackedScene" uid="uid://b4j1n0n4714pr" path="res://Barn.glb" id="8_trn2v"]
-[ext_resource type="PackedScene" uid="uid://jgt1l50by4df" path="res://pinPad.glb" id="9_03owx"]
-[ext_resource type="PackedScene" uid="uid://cv1w326m73noo" path="res://StableDoor.glb" id="10_5vvyt"]
-[ext_resource type="PackedScene" uid="uid://bce63wvjpsvuu" path="res://BlueBox.glb" id="11_c6i3y"]
-[ext_resource type="PackedScene" uid="uid://c253d38jjwcjd" path="res://Horse.glb" id="12_c2ibq"]
-[ext_resource type="PackedScene" uid="uid://cwtr4ir66vtwn" path="res://BrownBox.glb" id="13_c6i3y"]
-[ext_resource type="PackedScene" uid="uid://ciebm0rfyisrl" path="res://AnimalNote.glb" id="15_fpfj3"]
-[ext_resource type="PackedScene" uid="uid://clleqkkktss8l" path="res://RedPressurePlate.glb" id="15_j4qnp"]
-[ext_resource type="PackedScene" uid="uid://bieetl7eoid5f" path="res://Note.glb" id="16_fpfj3"]
+[ext_resource type="PackedScene" uid="uid://b23o1kf0arccq" path="res://Chicken.glb" id="1_cs67b"]
+[ext_resource type="Script" uid="uid://nd5l8ocm7cud" path="res://scripts/metadata.gd" id="2_uf54u"]
+[ext_resource type="PackedScene" uid="uid://y0mg523veid7" path="res://Sheep.glb" id="3_v72fy"]
+[ext_resource type="PackedScene" uid="uid://cgwfirulao1f2" path="res://Cow.glb" id="4_t3qkk"]
+[ext_resource type="PackedScene" uid="uid://ckatidfhcngcm" path="res://Pig.glb" id="5_njc3d"]
+[ext_resource type="PackedScene" uid="uid://bce63wvjpsvuu" path="res://BlueBox.glb" id="6_p7h2o"]
+[ext_resource type="PackedScene" uid="uid://bieetl7eoid5f" path="res://Note.glb" id="7_0q0ww"]
+[ext_resource type="PackedScene" uid="uid://jgt1l50by4df" path="res://pinPad.glb" id="8_ngcir"]
+[ext_resource type="PackedScene" uid="uid://clleqkkktss8l" path="res://RedPressurePlate.glb" id="9_tew4x"]
+[ext_resource type="PackedScene" uid="uid://cv1w326m73noo" path="res://StableDoor.glb" id="10_53cmg"]
+[ext_resource type="PackedScene" uid="uid://c253d38jjwcjd" path="res://Horse.glb" id="11_m7jp2"]
+[ext_resource type="PackedScene" uid="uid://yu0c1w82lw0p" path="res://PressurePlate.glb" id="12_cpuah"]
+[ext_resource type="PackedScene" uid="uid://cwtr4ir66vtwn" path="res://BrownBox.glb" id="13_0uiba"]
+[ext_resource type="PackedScene" uid="uid://ddgebfd8gq3xi" path="res://BlackBox.glb" id="14_ewx32"]
+[ext_resource type="PackedScene" uid="uid://ciebm0rfyisrl" path="res://AnimalNote.glb" id="15_qjq31"]
+[ext_resource type="PackedScene" uid="uid://b4j1n0n4714pr" path="res://Barn.glb" id="16_aj31e"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_i6ese"]
 margin = 0.0
@@ -139,11 +139,11 @@ size = Vector3(69, 62, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_y48i7"]
 size = Vector3(20.7266, 1, 84.0742)
 
-[node name="Level 0" type="Node3D"]
+[node name="BARN" type="Node3D"]
 
-[node name="Chicken" parent="." instance=ExtResource("5_8cb1q")]
+[node name="Chicken" parent="." instance=ExtResource("1_cs67b")]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 5.62678, 0.86553, -3)
-script = ExtResource("2_eh0nf")
+script = ExtResource("2_uf54u")
 interaction = "NONE"
 model_path = "../resources/objects/chicken/Chicken.obj"
 
@@ -151,9 +151,9 @@ model_path = "../resources/objects/chicken/Chicken.obj"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000535727, 0.225797, 0.0468507)
 shape = SubResource("BoxShape3D_i6ese")
 
-[node name="Sheep" parent="." instance=ExtResource("4_3an2t")]
+[node name="Sheep" parent="." instance=ExtResource("3_v72fy")]
 transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 2, 0.9, -3)
-script = ExtResource("2_eh0nf")
+script = ExtResource("2_uf54u")
 interaction = "NONE"
 model_path = "../resources/objects/Sheep/Sheep.obj"
 
@@ -161,9 +161,9 @@ model_path = "../resources/objects/Sheep/Sheep.obj"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.615, 0.053)
 shape = SubResource("BoxShape3D_pqjvv")
 
-[node name="Cow" parent="." instance=ExtResource("2_fpmh6")]
+[node name="Cow" parent="." instance=ExtResource("4_t3qkk")]
 transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, -4.98924, 1.09321, -2.85237)
-script = ExtResource("2_eh0nf")
+script = ExtResource("2_uf54u")
 interaction = "NONE"
 model_path = "../resources/objects/cow/Cow.obj"
 
@@ -171,9 +171,9 @@ model_path = "../resources/objects/cow/Cow.obj"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.682, -0.082)
 shape = SubResource("BoxShape3D_eonxi")
 
-[node name="Pig" parent="." instance=ExtResource("3_xwquf")]
+[node name="Pig" parent="." instance=ExtResource("5_njc3d")]
 transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, -2, 0.9, -3)
-script = ExtResource("2_eh0nf")
+script = ExtResource("2_uf54u")
 interaction = "NONE"
 model_path = "../resources/objects/Pig/Pig.obj"
 
@@ -181,9 +181,9 @@ model_path = "../resources/objects/Pig/Pig.obj"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -0.005)
 shape = SubResource("BoxShape3D_1274f")
 
-[node name="BlueBox" parent="." instance=ExtResource("11_c6i3y")]
+[node name="BlueBox" parent="." instance=ExtResource("6_p7h2o")]
 transform = Transform3D(1.63036, 0, -1.15842, 0, 2, 0, 1.15842, 0, 1.63036, -26.6663, 1.15846, 6.60101)
-script = ExtResource("2_eh0nf")
+script = ExtResource("2_uf54u")
 interaction = "PICKUP"
 model_path = "../resources/objects/box/BlueBox.obj"
 
@@ -191,9 +191,9 @@ model_path = "../resources/objects/box/BlueBox.obj"
 transform = Transform3D(0.99998, 0, 0, 0, 1, 0, 0, 0, 0.99998, -0.086977, 1.00748, -0.00518894)
 shape = SubResource("BoxShape3D_2gh4u")
 
-[node name="RedBox" parent="." instance=ExtResource("11_c6i3y")]
+[node name="RedBox" parent="." instance=ExtResource("6_p7h2o")]
 transform = Transform3D(1.22407, 0, 0.866979, 0, 1.5, 0, -0.866979, 0, 1.22407, -25.6646, 1.12892, -35.9059)
-script = ExtResource("2_eh0nf")
+script = ExtResource("2_uf54u")
 interaction = "PICKUP"
 model_path = "../resources/objects/box/RedBox.obj"
 
@@ -201,9 +201,9 @@ model_path = "../resources/objects/box/RedBox.obj"
 transform = Transform3D(0.99998, 0, 0, 0, 1, 0, 0, 0, 0.99998, -0.086977, 1.00748, -0.00518894)
 shape = SubResource("BoxShape3D_2gh4u")
 
-[node name="YellowBox" parent="." instance=ExtResource("11_c6i3y")]
+[node name="YellowBox" parent="." instance=ExtResource("6_p7h2o")]
 transform = Transform3D(1.10473, 0, -0.468588, 0, 1.2, 0, 0.468588, 0, 1.10473, -27.0732, 1.12892, -43.7105)
-script = ExtResource("2_eh0nf")
+script = ExtResource("2_uf54u")
 interaction = "PICKUP"
 model_path = "../resources/objects/box/YellowBox.obj"
 
@@ -211,9 +211,9 @@ model_path = "../resources/objects/box/YellowBox.obj"
 transform = Transform3D(0.99998, 0, 0, 0, 1, 0, 0, 0, 0.99998, -0.086977, 1.00748, -0.00518894)
 shape = SubResource("BoxShape3D_2gh4u")
 
-[node name="GreenBox" parent="." instance=ExtResource("11_c6i3y")]
+[node name="GreenBox" parent="." instance=ExtResource("6_p7h2o")]
 transform = Transform3D(1.68072, 0, 0.255296, 0, 1.7, 0, -0.255296, 0, 1.68072, 26.937, 1.12892, -52.7984)
-script = ExtResource("2_eh0nf")
+script = ExtResource("2_uf54u")
 interaction = "PICKUP"
 model_path = "../resources/objects/box/GreenBox.obj"
 
@@ -221,10 +221,10 @@ model_path = "../resources/objects/box/GreenBox.obj"
 transform = Transform3D(0.99998, 0, 0, 0, 1, 0, 0, 0, 0.99998, -0.086977, 1.00748, -0.00518894)
 shape = SubResource("BoxShape3D_2gh4u")
 
-[node name="Note" parent="." instance=ExtResource("16_fpfj3")]
+[node name="Note" parent="." instance=ExtResource("7_0q0ww")]
 transform = Transform3D(3, 0, -4.41081e-07, 0, 3, 0, 4.41081e-07, 0, 3, 0.535945, 27.1936, 7.20914)
 visible = false
-script = ExtResource("2_eh0nf")
+script = ExtResource("2_uf54u")
 interaction = "PICKUP"
 model_path = "../resources/objects/note/Note.obj"
 
@@ -232,9 +232,9 @@ model_path = "../resources/objects/note/Note.obj"
 transform = Transform3D(1, 0, -1.42109e-14, 0, 1, 0, 1.42109e-14, 0, 1, -0.0907601, 0.334157, 0)
 shape = SubResource("BoxShape3D_mxvw5")
 
-[node name="pinPad" parent="." instance=ExtResource("9_03owx")]
+[node name="pinPad" parent="." instance=ExtResource("8_ngcir")]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0.656052, 2.64958, -71.3512)
-script = ExtResource("2_eh0nf")
+script = ExtResource("2_uf54u")
 is_static = true
 interaction = "KEYPAD"
 model_path = "../resources/objects/keypad/pinPad.obj"
@@ -245,9 +245,9 @@ correctSequence = [0, 1, 2, 3]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0870668, 0.637299, -0.169525)
 shape = SubResource("BoxShape3D_sc1dx")
 
-[node name="BluePressurePlate" parent="." instance=ExtResource("15_j4qnp")]
+[node name="BluePressurePlate" parent="." instance=ExtResource("9_tew4x")]
 transform = Transform3D(2, 0, 0, 0, 1, 0, 0, 0, 1.3, 30.5417, 0.725382, 0.770742)
-script = ExtResource("2_eh0nf")
+script = ExtResource("2_uf54u")
 is_static = true
 interaction = "NONE"
 model_path = "../resources/objects/button/BlueButton.obj"
@@ -257,9 +257,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0541573, 0.422452, 0.017938
 shape = SubResource("BoxShape3D_j4qnp")
 metadata/isTrigger = true
 
-[node name="RedPressurePlate" parent="." instance=ExtResource("15_j4qnp")]
+[node name="RedPressurePlate" parent="." instance=ExtResource("9_tew4x")]
 transform = Transform3D(2, 0, 0, 0, 1, 0, 0, 0, 1.3, -27.0164, 0.725382, -3.71977)
-script = ExtResource("2_eh0nf")
+script = ExtResource("2_uf54u")
 is_static = true
 interaction = "NONE"
 model_path = "../resources/objects/button/RedButton.obj"
@@ -269,9 +269,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0541573, 0.389828, 0.017937
 shape = SubResource("BoxShape3D_j4qnp")
 metadata/isTrigger = true
 
-[node name="YellowPressurePlate" parent="." instance=ExtResource("15_j4qnp")]
+[node name="YellowPressurePlate" parent="." instance=ExtResource("9_tew4x")]
 transform = Transform3D(2, 0, 0, 0, 1, 0, 0, 0, 1.3, 26.4113, 0.725382, -65.8309)
-script = ExtResource("2_eh0nf")
+script = ExtResource("2_uf54u")
 is_static = true
 interaction = "NONE"
 model_path = "../resources/objects/button/YellowButton.obj"
@@ -281,9 +281,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0541573, 0.404657, 0.017940
 shape = SubResource("BoxShape3D_j4qnp")
 metadata/isTrigger = true
 
-[node name="GreenPressurePlate" parent="." instance=ExtResource("15_j4qnp")]
+[node name="GreenPressurePlate" parent="." instance=ExtResource("9_tew4x")]
 transform = Transform3D(2, 0, 0, 0, 1, 0, 0, 0, 1.3, -30.4615, 0.725382, -39.9889)
-script = ExtResource("2_eh0nf")
+script = ExtResource("2_uf54u")
 is_static = true
 interaction = "NONE"
 model_path = "../resources/objects/button/GreenButton.obj"
@@ -293,9 +293,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0541573, 0.390437, 0.017938
 shape = SubResource("BoxShape3D_j4qnp")
 metadata/isTrigger = true
 
-[node name="StableDoor" parent="." instance=ExtResource("10_5vvyt")]
+[node name="StableDoor" parent="." instance=ExtResource("10_53cmg")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -18.3811, 0.792756, -13.9313)
-script = ExtResource("2_eh0nf")
+script = ExtResource("2_uf54u")
 is_static = true
 interaction = "NONE"
 model_path = "../resources/objects/barn/stabledoor/StableDoor.obj"
@@ -304,9 +304,9 @@ model_path = "../resources/objects/barn/stabledoor/StableDoor.obj"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.32257, 9.18845, 0.0758438)
 shape = SubResource("BoxShape3D_wkp8b")
 
-[node name="StableDoor2" parent="." instance=ExtResource("10_5vvyt")]
+[node name="StableDoor2" parent="." instance=ExtResource("10_53cmg")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -18.3811, 0.792756, -24.3298)
-script = ExtResource("2_eh0nf")
+script = ExtResource("2_uf54u")
 is_static = true
 interaction = "NONE"
 model_path = "../resources/objects/barn/stabledoor/StableDoor.obj"
@@ -315,9 +315,9 @@ model_path = "../resources/objects/barn/stabledoor/StableDoor.obj"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.219604, 13.1405, 0.00790405)
 shape = SubResource("BoxShape3D_5tuhn")
 
-[node name="Horse" parent="." instance=ExtResource("12_c2ibq")]
+[node name="Horse" parent="." instance=ExtResource("11_m7jp2")]
 transform = Transform3D(-1.74846e-07, 0, -4, 0, 4, 0, 4, 0, -1.74846e-07, -26.5886, 1.01504, -19.3863)
-script = ExtResource("2_eh0nf")
+script = ExtResource("2_uf54u")
 is_static = true
 interaction = "NONE"
 model_path = "../resources/objects/horse/horse.obj"
@@ -326,10 +326,10 @@ model_path = "../resources/objects/horse/horse.obj"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.00928, -0.171829)
 shape = SubResource("BoxShape3D_devvj")
 
-[node name="Note2" parent="." instance=ExtResource("16_fpfj3")]
+[node name="Note2" parent="." instance=ExtResource("7_0q0ww")]
 transform = Transform3D(-3, 0, 4.52987e-07, 0, 3, 0, -4.52987e-07, 0, -3, -0.277468, 50.1684, -62.7393)
 visible = false
-script = ExtResource("2_eh0nf")
+script = ExtResource("2_uf54u")
 interaction = "PICKUP"
 model_path = "../resources/objects/note/Note.obj"
 
@@ -337,9 +337,9 @@ model_path = "../resources/objects/note/Note.obj"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0907601, 0.30794, 0)
 shape = SubResource("BoxShape3D_mxvw5")
 
-[node name="pinPad2" parent="." instance=ExtResource("9_03owx")]
+[node name="pinPad2" parent="." instance=ExtResource("8_ngcir")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -33.0689, 2.64958, -13.0591)
-script = ExtResource("2_eh0nf")
+script = ExtResource("2_uf54u")
 is_static = true
 interaction = "KEYPAD"
 model_path = "../resources/objects/keypad/pinPad.obj"
@@ -350,9 +350,9 @@ correctSequence = [0, 1, 2, 3]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0870667, 0.680311, -0.188011)
 shape = SubResource("BoxShape3D_sc1dx")
 
-[node name="SheepPressurePlate" parent="." instance=ExtResource("8_03owx")]
+[node name="SheepPressurePlate" parent="." instance=ExtResource("12_cpuah")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.246, 27.5986, -65.6712)
-script = ExtResource("2_eh0nf")
+script = ExtResource("2_uf54u")
 is_static = true
 interaction = "NONE"
 model_path = "../resources/objects/pressureplate/PressurePlate.obj"
@@ -362,9 +362,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.170395, 0.920989, -0.071502
 shape = SubResource("BoxShape3D_xrxkg")
 metadata/isTrigger = true
 
-[node name="CowPressurePlate" parent="." instance=ExtResource("8_03owx")]
+[node name="CowPressurePlate" parent="." instance=ExtResource("12_cpuah")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.4068, 27.5981, 6.40986)
-script = ExtResource("2_eh0nf")
+script = ExtResource("2_uf54u")
 is_static = true
 interaction = "NONE"
 model_path = "../resources/objects/pressureplate/PressurePlate.obj"
@@ -374,9 +374,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.161942, 0.844463, -0.096847
 shape = SubResource("BoxShape3D_fpfj3")
 metadata/isTrigger = true
 
-[node name="StableDoor3" parent="." instance=ExtResource("10_5vvyt")]
+[node name="StableDoor3" parent="." instance=ExtResource("10_53cmg")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -18.3811, 0.792756, -54.7807)
-script = ExtResource("2_eh0nf")
+script = ExtResource("2_uf54u")
 is_static = true
 interaction = "NONE"
 model_path = "../resources/objects/barn/stabledoor/StableDoor.obj"
@@ -385,9 +385,9 @@ model_path = "../resources/objects/barn/stabledoor/StableDoor.obj"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.406265, 9.18845, -0.0272942)
 shape = SubResource("BoxShape3D_40n85")
 
-[node name="StableDoor4" parent="." instance=ExtResource("10_5vvyt")]
+[node name="StableDoor4" parent="." instance=ExtResource("10_53cmg")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -18.3811, 0.792756, -65.1792)
-script = ExtResource("2_eh0nf")
+script = ExtResource("2_uf54u")
 is_static = true
 interaction = "NONE"
 model_path = "../resources/objects/barn/stabledoor/StableDoor.obj"
@@ -396,9 +396,9 @@ model_path = "../resources/objects/barn/stabledoor/StableDoor.obj"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.219604, 13.0471, 0.00790405)
 shape = SubResource("BoxShape3D_5tuhn")
 
-[node name="Horse2" parent="." instance=ExtResource("12_c2ibq")]
+[node name="Horse2" parent="." instance=ExtResource("11_m7jp2")]
 transform = Transform3D(-1.74846e-07, 0, -4, 0, 4, 0, 4, 0, -1.74846e-07, -26.5886, 1.01504, -59.9415)
-script = ExtResource("2_eh0nf")
+script = ExtResource("2_uf54u")
 is_static = true
 interaction = "NONE"
 model_path = "../resources/objects/horse/horse.obj"
@@ -407,10 +407,10 @@ model_path = "../resources/objects/horse/horse.obj"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.00928, -0.171829)
 shape = SubResource("BoxShape3D_devvj")
 
-[node name="Note3" parent="." instance=ExtResource("16_fpfj3")]
+[node name="Note3" parent="." instance=ExtResource("7_0q0ww")]
 transform = Transform3D(3, 0, -4.41081e-07, 0, 3, 0, 4.41081e-07, 0, 3, 0.535945, 52.0392, -22.8948)
 visible = false
-script = ExtResource("2_eh0nf")
+script = ExtResource("2_uf54u")
 interaction = "PICKUP"
 model_path = "../resources/objects/note/Note.obj"
 
@@ -418,9 +418,9 @@ model_path = "../resources/objects/note/Note.obj"
 transform = Transform3D(1, 0, 1.42109e-14, 0, 1, 0, -1.42109e-14, 0, 1, -0.0907601, 0.326931, 0)
 shape = SubResource("BoxShape3D_mxvw5")
 
-[node name="pinPad3" parent="." instance=ExtResource("9_03owx")]
+[node name="pinPad3" parent="." instance=ExtResource("8_ngcir")]
 transform = Transform3D(-2.18557e-07, 0, -1, 0, 1, 0, 1, 0, -2.18557e-07, -33.0442, 2.64958, -54.2074)
-script = ExtResource("2_eh0nf")
+script = ExtResource("2_uf54u")
 is_static = true
 interaction = "KEYPAD"
 model_path = "../resources/objects/keypad/pinPad.obj"
@@ -431,9 +431,9 @@ correctSequence = [0, 1, 2, 3]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0870667, 0.684576, -0.174187)
 shape = SubResource("BoxShape3D_sc1dx")
 
-[node name="PigPressurePlate" parent="." instance=ExtResource("8_03owx")]
+[node name="PigPressurePlate" parent="." instance=ExtResource("12_cpuah")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2047, 32.9398, 8.30804)
-script = ExtResource("2_eh0nf")
+script = ExtResource("2_uf54u")
 is_static = true
 interaction = "NONE"
 model_path = "../resources/objects/pressureplate/PressurePlate.obj"
@@ -443,9 +443,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.161942, 0.782455, -0.096847
 shape = SubResource("BoxShape3D_fpfj3")
 metadata/isTrigger = true
 
-[node name="HeavyBox" parent="." instance=ExtResource("13_c6i3y")]
+[node name="HeavyBox" parent="." instance=ExtResource("13_0uiba")]
 transform = Transform3D(3.69107, 0, 1.54143, 0, 4, 0, -1.54143, 0, 3.69107, 3.52126, 32.9168, 8.6299)
-script = ExtResource("2_eh0nf")
+script = ExtResource("2_uf54u")
 interaction = "NONE"
 model_path = "../resources/objects/box/BrownBox.obj"
 
@@ -453,9 +453,9 @@ model_path = "../resources/objects/box/BrownBox.obj"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.04565, 0.513908, 0.00640869)
 shape = SubResource("BoxShape3D_3b0ty")
 
-[node name="HeavyBox2" parent="." instance=ExtResource("13_c6i3y")]
+[node name="HeavyBox2" parent="." instance=ExtResource("13_0uiba")]
 transform = Transform3D(2.44423, 0, -3.16635, 0, 4, 0, 3.16635, 0, 2.44423, -1.92358, 32.9168, 8.68711)
-script = ExtResource("2_eh0nf")
+script = ExtResource("2_uf54u")
 interaction = "NONE"
 model_path = "../resources/objects/box/BrownBox.obj"
 
@@ -463,9 +463,9 @@ model_path = "../resources/objects/box/BrownBox.obj"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.04565, 0.513908, 0.00640869)
 shape = SubResource("BoxShape3D_3b0ty")
 
-[node name="HeavyBox3" parent="." instance=ExtResource("13_c6i3y")]
+[node name="HeavyBox3" parent="." instance=ExtResource("13_0uiba")]
 transform = Transform3D(3.90861, 0, 0.850139, 0, 4, 0, -0.850139, 0, 3.90861, 1.34719, 32.9168, 4.37045)
-script = ExtResource("2_eh0nf")
+script = ExtResource("2_uf54u")
 interaction = "NONE"
 model_path = "../resources/objects/box/BrownBox.obj"
 
@@ -473,9 +473,9 @@ model_path = "../resources/objects/box/BrownBox.obj"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.04565, 0.513908, 0.00640869)
 shape = SubResource("BoxShape3D_3b0ty")
 
-[node name="StableDoor5" parent="." instance=ExtResource("10_5vvyt")]
+[node name="StableDoor5" parent="." instance=ExtResource("10_53cmg")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 18.5099, 0.792756, -44.7432)
-script = ExtResource("2_eh0nf")
+script = ExtResource("2_uf54u")
 is_static = true
 interaction = "NONE"
 model_path = "../resources/objects/barn/stabledoor/StableDoor.obj"
@@ -484,9 +484,9 @@ model_path = "../resources/objects/barn/stabledoor/StableDoor.obj"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.108364, 11.2488, -0.0338669)
 shape = SubResource("BoxShape3D_gb15f")
 
-[node name="StableDoor6" parent="." instance=ExtResource("10_5vvyt")]
+[node name="StableDoor6" parent="." instance=ExtResource("10_53cmg")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 18.5099, 0.792756, -34.3448)
-script = ExtResource("2_eh0nf")
+script = ExtResource("2_uf54u")
 is_static = true
 interaction = "NONE"
 model_path = "../resources/objects/barn/stabledoor/StableDoor.obj"
@@ -495,9 +495,9 @@ model_path = "../resources/objects/barn/stabledoor/StableDoor.obj"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.219604, 13.1481, 0.00790405)
 shape = SubResource("BoxShape3D_5tuhn")
 
-[node name="Horse3" parent="." instance=ExtResource("12_c2ibq")]
+[node name="Horse3" parent="." instance=ExtResource("11_m7jp2")]
 transform = Transform3D(5.24537e-07, 0, 4, 0, 4, 0, -4, 0, 5.24537e-07, 26.6703, 1.01504, -19.3863)
-script = ExtResource("2_eh0nf")
+script = ExtResource("2_uf54u")
 is_static = true
 interaction = "NONE"
 model_path = "../resources/objects/horse/horse.obj"
@@ -506,10 +506,10 @@ model_path = "../resources/objects/horse/horse.obj"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.00928, -0.171829)
 shape = SubResource("BoxShape3D_devvj")
 
-[node name="Note4" parent="." instance=ExtResource("16_fpfj3")]
+[node name="Note4" parent="." instance=ExtResource("7_0q0ww")]
 transform = Transform3D(-3, 0, 4.52987e-07, 0, 3, 0, -4.52987e-07, 0, -3, 0.263901, 23.029, -25.4196)
 visible = false
-script = ExtResource("2_eh0nf")
+script = ExtResource("2_uf54u")
 interaction = "PICKUP"
 model_path = "../resources/objects/note/Note.obj"
 
@@ -517,9 +517,9 @@ model_path = "../resources/objects/note/Note.obj"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0907601, 0.349015, 0)
 shape = SubResource("BoxShape3D_mxvw5")
 
-[node name="pinPad4" parent="." instance=ExtResource("9_03owx")]
+[node name="pinPad4" parent="." instance=ExtResource("8_ngcir")]
 transform = Transform3D(1.31134e-07, 0, 1, 0, 1, 0, -1, 0, 1.31134e-07, 33.4973, 2.64958, -45.9861)
-script = ExtResource("2_eh0nf")
+script = ExtResource("2_uf54u")
 is_static = true
 interaction = "KEYPAD"
 model_path = "../resources/objects/keypad/pinPad.obj"
@@ -530,9 +530,9 @@ correctSequence = [0, 1, 2, 3]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0870667, 0.681832, -0.155334)
 shape = SubResource("BoxShape3D_sc1dx")
 
-[node name="ChickenPressurePlate" parent="." instance=ExtResource("8_03owx")]
+[node name="ChickenPressurePlate" parent="." instance=ExtResource("12_cpuah")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.7014, 0.7627, -33.995)
-script = ExtResource("2_eh0nf")
+script = ExtResource("2_uf54u")
 is_static = true
 interaction = "NONE"
 model_path = "../resources/objects/pressureplate/PressurePlate.obj"
@@ -542,9 +542,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.161942, 0.83345, -0.0968475
 shape = SubResource("BoxShape3D_fpfj3")
 metadata/isTrigger = true
 
-[node name="StableDoor7" parent="." instance=ExtResource("10_5vvyt")]
+[node name="StableDoor7" parent="." instance=ExtResource("10_53cmg")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 18.5099, 0.792756, -24.3298)
-script = ExtResource("2_eh0nf")
+script = ExtResource("2_uf54u")
 is_static = true
 interaction = "NONE"
 model_path = "../resources/objects/barn/stabledoor/StableDoor.obj"
@@ -553,9 +553,9 @@ model_path = "../resources/objects/barn/stabledoor/StableDoor.obj"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0444603, 11.2005, -0.0330105)
 shape = SubResource("BoxShape3D_sph85")
 
-[node name="StableDoor8" parent="." instance=ExtResource("10_5vvyt")]
+[node name="StableDoor8" parent="." instance=ExtResource("10_53cmg")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 18.5099, 0.792756, -13.9313)
-script = ExtResource("2_eh0nf")
+script = ExtResource("2_uf54u")
 is_static = true
 interaction = "NONE"
 model_path = "../resources/objects/barn/stabledoor/StableDoor.obj"
@@ -564,9 +564,9 @@ model_path = "../resources/objects/barn/stabledoor/StableDoor.obj"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.219604, 13.1314, 0.00790405)
 shape = SubResource("BoxShape3D_5tuhn")
 
-[node name="Horse4" parent="." instance=ExtResource("12_c2ibq")]
+[node name="Horse4" parent="." instance=ExtResource("11_m7jp2")]
 transform = Transform3D(5.24537e-07, 0, 4, 0, 4, 0, -4, 0, 5.24537e-07, 27.7578, 0.544575, -40.0648)
-script = ExtResource("2_eh0nf")
+script = ExtResource("2_uf54u")
 is_static = true
 interaction = "NONE"
 model_path = "../resources/objects/horse/horse.obj"
@@ -575,9 +575,9 @@ model_path = "../resources/objects/horse/horse.obj"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.00928, -0.171829)
 shape = SubResource("BoxShape3D_devvj")
 
-[node name="BrownBox" parent="." instance=ExtResource("13_c6i3y")]
+[node name="BrownBox" parent="." instance=ExtResource("13_0uiba")]
 transform = Transform3D(3.69107, 0, 1.54143, 0, 4, 0, -1.54143, 0, 3.69107, 22.6563, 0.876583, 6.06519)
-script = ExtResource("2_eh0nf")
+script = ExtResource("2_uf54u")
 is_static = true
 interaction = "NONE"
 model_path = "../resources/objects/box/BrownBox.obj"
@@ -586,9 +586,9 @@ model_path = "../resources/objects/box/BrownBox.obj"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.04565, 0.513908, 0.00640869)
 shape = SubResource("BoxShape3D_hhcpw")
 
-[node name="BrownBox2" parent="." instance=ExtResource("13_c6i3y")]
+[node name="BrownBox2" parent="." instance=ExtResource("13_0uiba")]
 transform = Transform3D(3.59768, 0, -1.74834, 0, 4, 0, 1.74834, 0, 3.59768, 22.6563, 0.876583, 0.784095)
-script = ExtResource("2_eh0nf")
+script = ExtResource("2_uf54u")
 is_static = true
 interaction = "NONE"
 model_path = "../resources/objects/box/BrownBox.obj"
@@ -597,9 +597,9 @@ model_path = "../resources/objects/box/BrownBox.obj"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.04565, 0.513908, 0.00640869)
 shape = SubResource("BoxShape3D_hhcpw")
 
-[node name="BrownBox3" parent="." instance=ExtResource("13_c6i3y")]
+[node name="BrownBox3" parent="." instance=ExtResource("13_0uiba")]
 transform = Transform3D(3.98287, 0, 0.36976, 0, 4, 0, -0.36976, 0, 3.98287, 22.6563, 4.89117, -0.0324998)
-script = ExtResource("2_eh0nf")
+script = ExtResource("2_uf54u")
 is_static = true
 interaction = "NONE"
 model_path = "../resources/objects/box/BrownBox.obj"
@@ -608,9 +608,9 @@ model_path = "../resources/objects/box/BrownBox.obj"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.04565, 0.513908, 0.00640869)
 shape = SubResource("BoxShape3D_hhcpw")
 
-[node name="BrownBox4" parent="." instance=ExtResource("13_c6i3y")]
+[node name="BrownBox4" parent="." instance=ExtResource("13_0uiba")]
 transform = Transform3D(3.89251, 0, -0.921082, 0, 4, 0, 0.921082, 0, 3.89251, 25.4084, 0.876583, -3.26583)
-script = ExtResource("2_eh0nf")
+script = ExtResource("2_uf54u")
 is_static = true
 interaction = "NONE"
 model_path = "../resources/objects/box/BrownBox.obj"
@@ -619,9 +619,9 @@ model_path = "../resources/objects/box/BrownBox.obj"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.04565, 0.513908, 0.00640869)
 shape = SubResource("BoxShape3D_hhcpw")
 
-[node name="BrownBox5" parent="." instance=ExtResource("13_c6i3y")]
+[node name="BrownBox5" parent="." instance=ExtResource("13_0uiba")]
 transform = Transform3D(3.74927, 0, -1.3939, 0, 4, 0, 1.3939, 0, 3.74927, 22.6563, 4.89284, -4.81968)
-script = ExtResource("2_eh0nf")
+script = ExtResource("2_uf54u")
 is_static = true
 interaction = "NONE"
 model_path = "../resources/objects/box/BrownBox.obj"
@@ -630,9 +630,9 @@ model_path = "../resources/objects/box/BrownBox.obj"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.04565, 0.513908, 0.00640869)
 shape = SubResource("BoxShape3D_hhcpw")
 
-[node name="BrownBox6" parent="." instance=ExtResource("13_c6i3y")]
+[node name="BrownBox6" parent="." instance=ExtResource("13_0uiba")]
 transform = Transform3D(3.24691, 0, 2.33615, 0, 4, 0, -2.33615, 0, 3.24691, 22.4645, 8.90745, -3.32629)
-script = ExtResource("2_eh0nf")
+script = ExtResource("2_uf54u")
 is_static = true
 interaction = "NONE"
 model_path = "../resources/objects/box/BrownBox.obj"
@@ -641,9 +641,9 @@ model_path = "../resources/objects/box/BrownBox.obj"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.04565, 0.513908, 0.00640869)
 shape = SubResource("BoxShape3D_hhcpw")
 
-[node name="BrownBox7" parent="." instance=ExtResource("13_c6i3y")]
+[node name="BrownBox7" parent="." instance=ExtResource("13_0uiba")]
 transform = Transform3D(3.99935, 0, -0.0718337, 0, 4, 0, 0.0718337, 0, 3.99935, 21.9781, 0.876583, -5.35485)
-script = ExtResource("2_eh0nf")
+script = ExtResource("2_uf54u")
 is_static = true
 interaction = "NONE"
 model_path = "../resources/objects/box/BrownBox.obj"
@@ -652,9 +652,9 @@ model_path = "../resources/objects/box/BrownBox.obj"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.04565, 0.513908, 0.00640869)
 shape = SubResource("BoxShape3D_hhcpw")
 
-[node name="Floor" parent="." instance=ExtResource("6_c2ibq")]
+[node name="Floor" parent="." instance=ExtResource("14_ewx32")]
 transform = Transform3D(100, 0, 0, 0, 0.1, 0, 0, 0, 100, 6.165, -0.378852, -29.377)
-script = ExtResource("2_eh0nf")
+script = ExtResource("2_uf54u")
 is_static = true
 interaction = "NONE"
 model_path = "../resources/objects/box/BlackBox.obj"
@@ -663,9 +663,9 @@ model_path = "../resources/objects/box/BlackBox.obj"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0460206, -0.894022, 0.0060654)
 shape = SubResource("BoxShape3D_p3q2x")
 
-[node name="CowNote" parent="." instance=ExtResource("15_fpfj3")]
+[node name="CowNote" parent="." instance=ExtResource("15_qjq31")]
 transform = Transform3D(-0.732298, 0.161985, 0, -0.161985, -0.732298, 0, 0, 0, 0.75, 24.6611, 32.3901, 11.6386)
-script = ExtResource("2_eh0nf")
+script = ExtResource("2_uf54u")
 is_static = true
 interaction = "NONE"
 model_path = "../resources/objects/note/CowNote.obj"
@@ -674,9 +674,9 @@ model_path = "../resources/objects/note/CowNote.obj"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0551758, 0.991051, 0.0229492)
 shape = SubResource("BoxShape3D_o7g6l")
 
-[node name="ChickenNote" parent="." instance=ExtResource("15_fpfj3")]
+[node name="ChickenNote" parent="." instance=ExtResource("15_qjq31")]
 transform = Transform3D(3.46395e-08, 6.75115e-10, -0.75, -0.0552288, -0.747964, -3.22408e-09, -0.747964, 0.0552288, -3.44957e-08, 33.4968, 6.01246, -33.7389)
-script = ExtResource("2_eh0nf")
+script = ExtResource("2_uf54u")
 is_static = true
 interaction = "NONE"
 model_path = "../resources/objects/note/ChickenNote.obj"
@@ -685,9 +685,9 @@ model_path = "../resources/objects/note/ChickenNote.obj"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0551758, 0.991051, 0.0229492)
 shape = SubResource("BoxShape3D_o7g6l")
 
-[node name="PigNote" parent="." instance=ExtResource("15_fpfj3")]
+[node name="PigNote" parent="." instance=ExtResource("15_qjq31")]
 transform = Transform3D(-0.745819, -0.0790864, 0, 0.0790864, -0.745819, 0, 0, 0, 0.75, 0.183525, 39.4956, 11.5999)
-script = ExtResource("2_eh0nf")
+script = ExtResource("2_uf54u")
 is_static = true
 interaction = "NONE"
 model_path = "../resources/objects/note/PigNote.obj"
@@ -696,9 +696,9 @@ model_path = "../resources/objects/note/PigNote.obj"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0551758, 0.991051, 0.0229492)
 shape = SubResource("BoxShape3D_o7g6l")
 
-[node name="SheepNote" parent="." instance=ExtResource("15_fpfj3")]
+[node name="SheepNote" parent="." instance=ExtResource("15_qjq31")]
 transform = Transform3D(-0.72728, -0.183206, 0, 0.183206, -0.72728, 0, 0, 0, 0.75, -23.8372, 32.1873, -71.3322)
-script = ExtResource("2_eh0nf")
+script = ExtResource("2_uf54u")
 is_static = true
 interaction = "NONE"
 model_path = "../resources/objects/note/SheepNote.obj"
@@ -707,9 +707,9 @@ model_path = "../resources/objects/note/SheepNote.obj"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0551758, 0.991051, 0.0229492)
 shape = SubResource("BoxShape3D_o7g6l")
 
-[node name="Barn" parent="." instance=ExtResource("8_trn2v")]
+[node name="Barn" parent="." instance=ExtResource("16_aj31e")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
-script = ExtResource("2_eh0nf")
+script = ExtResource("2_uf54u")
 is_static = true
 interaction = "NONE"
 model_path = "../resources/objects/Barn/Barn.obj"
