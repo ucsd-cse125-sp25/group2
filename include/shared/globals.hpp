@@ -61,6 +61,6 @@ enum class LevelType : uint8_t {
   NONE,
   WINDMILL,
   BARN,
-  SILO,  
+  SILO,
   ALL,
 };
