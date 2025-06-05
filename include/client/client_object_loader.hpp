@@ -2,12 +2,12 @@
 
 #include "base_object_loader.hpp"
 #include "client_gameobject.hpp"
+#include "light_manager.hpp"
 #include "model.hpp"
 #include "shader.hpp"
 #include "transform.hpp"
 #include "ui.hpp"
 #include "ui_manager.hpp"
-#include "light_manager.hpp"
 
 #include <fstream>
 #include <iostream>

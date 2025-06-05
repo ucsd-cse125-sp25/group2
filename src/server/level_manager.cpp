@@ -177,7 +177,6 @@ void LevelManager::advanceLevel() {
     }
     object->activate();
   }
-
 }
 
 vector<pair<RewardType, vector<OBJECT_ID>>> LevelManager::getRewards() {
