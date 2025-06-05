@@ -4,7 +4,8 @@ bool PressurePlateCondition::isSatisfied() const {
   auto cl = object->getCollider()[0];
   if (cl->isWithinTrigger()) {
     if (cl->getTriggerObject() == id) {
-      cl->setTriggerObject(-1); // Reset trigger object after satisfying condition
+      cl->setTriggerObject(
+          -1); // Reset trigger object after satisfying condition
       return true;
     }
   }
