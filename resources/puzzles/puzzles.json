@@ -1,32 +1,150 @@
 {
     "levels": [
         {
-            "levelType": "BARN",
+            "levelType": "WINDMILL",
             "puzzles": [
                 {
                     "puzzleID": 0,
-                    "rewardType": "NONE",
-                    "rewardIDs": [],
-                    "puzzleType": "milestone",
+                    "rewardType": "DEACTIVATE",
+                    "rewardIDs": [112, 117, 120],
+                    "puzzleType": "clue",
                     "conditions": [
                         {   
-                            "__name": "BlueBox",
-                            "conditionType": "BUTTON",
-                            "objectID": 4
+                            "__name": "BluePressurePlate",
+                            "conditionType": "PRESSURE_PLATE",
+                            "objectID": 108,
+                            "triggeringObjectID": 2
                         }
                     ]
                 },
                 {
                     "puzzleID": 1,
+                    "rewardType": "DEACTIVATE",
+                    "rewardIDs": [113, 115, 123],
+                    "puzzleType": "clue",
+                    "conditions": [
+                        {   
+                            "__name": "RedPressurePlate",
+                            "conditionType": "PRESSURE_PLATE",
+                            "objectID": 110,
+                            "triggeringObjectID": 2
+                        }
+                    ]
+                },
+                {
+                    "puzzleID": 2,
+                    "rewardType": "DEACTIVATE",
+                    "rewardIDs": [116, 118, 122],
+                    "puzzleType": "clue",
+                    "conditions": [
+                        {   
+                            "__name": "YellowPressurePlate",
+                            "conditionType": "PRESSURE_PLATE",
+                            "objectID": 111,
+                            "triggeringObjectID": 2
+                        }
+                    ]
+                },
+                {
+                    "puzzleID": 3,
+                    "rewardType": "DEACTIVATE",
+                    "rewardIDs": [114, 119, 121],
+                    "puzzleType": "clue",
+                    "conditions": [
+                        {   
+                            "__name": "GreenPressurePlate",
+                            "conditionType": "PRESSURE_PLATE",
+                            "objectID": 109,
+                            "triggeringObjectID": 2
+                        }
+                    ]
+                },
+                {
+                    "puzzleID": 4,
+                    "rewardType": "ACTIVATE",
+                    "rewardIDs": [112, 117, 120],
+                    "puzzleType": "clue",
+                    "conditions": [
+                        {   
+                            "__name": "BluePressurePlate",
+                            "conditionType": "PRESSURE_PLATE",
+                            "objectID": 108,
+                            "triggeringObjectID": 131
+                        }
+                    ]
+                },
+                {
+                    "_comment": "WINDMILL ID??? TODO::",
+                    "puzzleID": 5,
+                    "rewardType": "ACTIVATE",
+                    "rewardIDs": [113, 115, 123],
+                    "puzzleType": "clue",
+                    "conditions": [
+                        {   
+                            "__name": "RedPressurePlate",
+                            "conditionType": "PRESSURE_PLATE",
+                            "objectID": 110,
+                            "triggeringObjectID": 131
+                        }
+                    ]
+                },
+                {
+                    "puzzleID": 6,
+                    "rewardType": "ACTIVATE",
+                    "rewardIDs": [116, 118, 122],
+                    "puzzleType": "clue",
+                    "conditions": [
+                        {   
+                            "__name": "YellowPressurePlate",
+                            "conditionType": "PRESSURE_PLATE",
+                            "objectID": 111,
+                            "triggeringObjectID": 131
+                        }
+                    ]
+                },
+                {
+                    "puzzleID": 7,
+                    "rewardType": "ACTIVATE",
+                    "rewardIDs": [114, 119, 121],
+                    "puzzleType": "clue",
+                    "conditions": [
+                        {   
+                            "__name": "GreenPressurePlate",
+                            "conditionType": "PRESSURE_PLATE",
+                            "objectID": 109,
+                            "triggeringObjectID": 131
+                        }
+                    ]
+                },
+                {
+                    "puzzleID": 8,
                     "rewardType": "NONE",
                     "rewardIDs": [],
                     "puzzleType": "milestone",
                     "conditions": [
                         {   
-                            "__name": "Blue box",
+                            "__name": "Pinpad",
+                            "conditionType": "PIN",
+                            "objectID": 124
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "levelType": "SILO",
+            "puzzles": [
+                {
+                    "puzzleID": 0,
+                    "rewardType": "DEACTIVATE",
+                    "rewardIDs": [112, 117, 120],
+                    "puzzleType": "clue",
+                    "conditions": [
+                        {   
+                            "__name": "BluePressurePlate",
                             "conditionType": "PRESSURE_PLATE",
-                            "objectID": 11,
-                            "triggeringObjectID": 5
+                            "objectID": 108,
+                            "triggeringObjectID": 2
                         }
                     ]
                 }

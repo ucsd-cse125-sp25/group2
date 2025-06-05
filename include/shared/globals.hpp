@@ -58,17 +58,17 @@ enum class RewardType : uint8_t {
 };
 
 // for testing until we add more level logic
-enum class LevelType : uint8_t {
-  NONE,
-  BARN,
-  ALL,
-};
-
 // enum class LevelType : uint8_t {
 //   NONE,
-//   PENS,
-//   SILO,
 //   WINDMILL,
-//   BARN,
 //   ALL,
 // };
+
+enum class LevelType : uint8_t {
+  NONE,
+  WINDMILL,
+  SILO,
+  BARN,
+  PENS,
+  ALL,
+};

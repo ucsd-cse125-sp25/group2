@@ -147,9 +147,9 @@ bool LevelManager::updateLevels() {
 }
 
 void LevelManager::advanceLevel() {
-  if (currentLevelType == LevelType::NONE) {
-    instantiatePlayers();
-  }
+  // if (currentLevelType == LevelType::NONE) {
+  //   instantiatePlayers();
+  // }
 
   if (currentLevelType == LevelType::BARN) {
     currentLevelType = LevelType::ALL;

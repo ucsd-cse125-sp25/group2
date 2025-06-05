@@ -10,7 +10,7 @@
 				"modelPath": "../resources/objects/chicken/Chicken.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
-			"level": "ALL",
+			"level": "WINDMILL",
 			"name": "Chicken",
 			"server": {
 				"colliders": [
@@ -75,7 +75,7 @@
 				"modelPath": "../resources/objects/Pig/Pig.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
-			"level": "ALL",
+			"level": "WINDMILL",
 			"name": "Pig",
 			"server": {
 				"colliders": [
@@ -140,7 +140,7 @@
 				"modelPath": "../resources/objects/Sheep/Sheep.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
-			"level": "ALL",
+			"level": "WINDMILL",
 			"name": "Sheep",
 			"server": {
 				"colliders": [
@@ -205,7 +205,7 @@
 				"modelPath": "../resources/objects/cow/Cow.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
-			"level": "ALL",
+			"level": "WINDMILL",
 			"name": "Cow",
 			"server": {
 				"colliders": [
