@@ -5460,10 +5460,10 @@
 				"interaction": "KEYPAD",
 				"keypad": {
 					"correctSequence": [
-						1,
+						3,
 						0,
 						2,
-						3
+						1
 					]
 				},
 				"static": true
