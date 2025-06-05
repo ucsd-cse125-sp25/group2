@@ -22,7 +22,7 @@ Made By:
 
   - Move the mouse up or down to look up and down.
   - Move the mouse left or right to look around and rotate the player's facing direction.
-  - Click on the mouse to pickup objects, only certain objects can be picked up
+  - **Left-Click** to pickup/drop objects, only certain objects can be picked up
 
 - **Keyboard Movement**
 
