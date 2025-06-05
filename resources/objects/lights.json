@@ -794,6 +794,67 @@
 			},
 			"radius": 500,
 			"useAttenuation": true
+		},
+		{
+			"color": {
+				"x": 2,
+				"y": 2,
+				"z": 2
+			},
+			"level": "PENS",
+			"position": {
+				"x": 45.045,
+				"y": 37.61,
+				"z": 14.582
+			},
+			"radius": 3000,
+			"useAttenuation": true
+		},
+		{
+			"color": {
+				"x": 2,
+				"y": 2,
+				"z": 2
+			},
+			"level": "PENS",
+			"position": {
+				"x": -42.245,
+				"y": 37.61,
+				"z": 14.582
+			},
+			"radius": 3000,
+			"useAttenuation": true
+		},
+		{
+			"color": {
+				"x": 2,
+				"y": 2,
+				"z": 2
+			},
+			"level": "PENS",
+			"position": {
+				"x": -42.245,
+				"y": 37.61,
+				"z": -70.919
+			},
+			"radius": 1200,
+			"useAttenuation": true
+		},
+		{
+			"color": {
+				"x": 2,
+				"y": 2,
+				"z": 2
+			},
+			"level": "PENS",
+			"position": {
+				"x": -2.659,
+				"y": 73.891,
+				"z": -39.527
+			},
+			"radius": 1500,
+			"useAttenuation": true
 		}
+		
 	]
 }

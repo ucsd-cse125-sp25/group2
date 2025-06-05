@@ -138,7 +138,8 @@ void Physics::solveCollision(GameObject *a, GameObject *b, int aIndex,
       float sheepBounce = 15.0f;
       if (!a_rb->isStatic()) {
         a->getTransform()->updatePosition(-correction * invMassA);
-        if (b->getID() == SHEEP && normal.y < -0.7) {
+        bool bIsFur = std::find(fur.begin(), fur.end(), b->getID()) != fur.end();
+        if ((b->getID() == SHEEP || bIsFur) && normal.y < -0.7) {
           a_rb->applyImpulse(sheepBounce * glm::vec3(0, 1, 0) *
                              a_rb->getMass());
         }
@@ -148,9 +149,10 @@ void Physics::solveCollision(GameObject *a, GameObject *b, int aIndex,
       }
       if (!bIsStatic) {
         b->getTransform()->updatePosition(correction * invMassB);
-        if (a->getID() == SHEEP && normal.y > 0.7) {
+        bool isFur = std::find(fur.begin(), fur.end(), a->getID()) != fur.end();
+        if ((a->getID() == SHEEP || isFur) && normal.y > 0.7) {
           b_rb->applyImpulse(sheepBounce * glm::vec3(0, 1, 0) *
-                             b_rb->getMass());
+                 b_rb->getMass());
         }
         for (Collider *c : b->getCollider()) {
           c->update(b->getTransform());

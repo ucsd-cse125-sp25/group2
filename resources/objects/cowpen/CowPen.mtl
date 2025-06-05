@@ -70,7 +70,7 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 1
-map_Bump -bm 1.000000 CowPen_fabric_14_normal.jpg
+map_Bump -bm 1.000000 CowPen_fabric_14_color.jpg
 
 newmtl WoodBox
 Ns 0.000000

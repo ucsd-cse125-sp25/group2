@@ -23,9 +23,16 @@ void ClientGameState::advanceLevel(LevelType newLevel) {
     state = Gamestate::COMPLETED;
   }
 
+  int id = 0;
   for (auto &obj : levelObjects[LevelType::ALL]) {
     obj.second->activate();
-    obj.second->getTransform()->setPosition(obj.second->getOriginalPosition());
+    uint8_t levelNum = magic_enum::enum_integer(obj.second->getLevel());
+    if (levelNum == 1) {
+      obj.second->getTransform()->setPosition(STARTING_POSITIONS[id]);
+      id++;
+    } else {
+      obj.second->getTransform()->setPosition(obj.second->getOriginalPosition());
+    }
   }
 
   // Deactivate all objects in the current level
