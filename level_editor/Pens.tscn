@@ -1,22 +1,22 @@
-[gd_scene load_steps=44 format=3 uid="uid://ln2128244f0t"]
+[gd_scene load_steps=49 format=3 uid="uid://ln2128244f0t"]
 
 [ext_resource type="PackedScene" uid="uid://b2prjbdumvvql" path="res://ChickenCoop/ChickenCoop.glb" id="1_7latb"]
 [ext_resource type="Script" uid="uid://nd5l8ocm7cud" path="res://scripts/metadata.gd" id="2_77vgb"]
-[ext_resource type="PackedScene" uid="uid://he2ac22ttdyj" path="res://CowPen/CowPen.glb" id="2_qk7ro"]
-[ext_resource type="PackedScene" uid="uid://c040yo76st3s" path="res://pigPen.glb" id="4_hjvrp"]
-[ext_resource type="PackedScene" uid="uid://bojo1i8n44cau" path="res://SheepPen.glb" id="5_1a8al"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_ayd5w"]
-size = Vector3(278.244, 1, 35.686)
+[ext_resource type="PackedScene" uid="uid://4kgvbs6feieh" path="res://PigPen/PigPen.glb" id="4_dma3g"]
+[ext_resource type="PackedScene" uid="uid://cjinosnlo6pya" path="res://SheepPen.glb" id="5_1a8al"]
+[ext_resource type="PackedScene" uid="uid://busli8rv64qte" path="res://PigPen/PigPenDoor.glb" id="5_rodv0"]
+[ext_resource type="PackedScene" uid="uid://su3lmbugv6wa" path="res://CowPen/CowPen.blend" id="6_ci0rd"]
+[ext_resource type="PackedScene" uid="uid://d1n5sqb7xwsjf" path="res://Dome/Dome.glb" id="7_7eh5b"]
+[ext_resource type="PackedScene" uid="uid://b43u8h3y8ne6j" path="res://millNew.glb" id="8_pjp1q"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_1fhj5"]
-size = Vector3(6.0514, 110.645, 71.7005)
+size = Vector3(1.81879, 110.645, 71.7005)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_16pka"]
-size = Vector3(3.75073, 81.0305, 102.535)
+size = Vector3(3.75073, 81.0305, 49.9128)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_j8bo8"]
-size = Vector3(67.2988, 90.6982, 1.31369)
+size = Vector3(65.7764, 90.6982, 1.31369)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_1jdk1"]
 size = Vector3(67.4919, 90, 1.74707)
@@ -28,25 +28,25 @@ size = Vector3(44.2949, 1, 23.1964)
 size = Vector3(36.9166, 1.05505, 11.461)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_liaj6"]
-size = Vector3(24.7416, 1, 79.1882)
+size = Vector3(24.7416, 1, 75.952)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_b60u5"]
 size = Vector3(25.6066, 20.2662, 1.43274)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_7ds5r"]
-size = Vector3(32.2615, 22.9479, 1)
+size = Vector3(28.8808, 22.9479, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_kmy7e"]
 size = Vector3(1, 19.944, 15.1808)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_833wy"]
-size = Vector3(23.2231, 18.8055, 1)
+size = Vector3(23.2231, 13.6972, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ghrvs"]
-size = Vector3(1, 19.0958, 18.1631)
+size = Vector3(1, 16.3204, 16.6412)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_jvy75"]
-size = Vector3(21.2861, 1, 13.0459)
+size = Vector3(26.5597, 1, 16.6678)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_keufu"]
 size = Vector3(93.8384, 1, 21.7163)
@@ -78,17 +78,29 @@ size = Vector3(5.2124, 1, 28.8345)
 [sub_resource type="BoxShape3D" id="BoxShape3D_pjp1q"]
 size = Vector3(10, 1, 25.3894)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_38r3v"]
+size = Vector3(81.2998, 43.5508, 4.15637)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_lydmm"]
+size = Vector3(5, 50, 76.834)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4x62k"]
+size = Vector3(2, 10.9507, 7.067)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_f4n3u"]
+size = Vector3(1.97656, 45.0529, 39.6693)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_uqnqr"]
+size = Vector3(2, 41.96, 34.066)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_bmyjn"]
+size = Vector3(2, 31.3965, 10)
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_77vgb"]
 size = Vector3(82.7802, 53.2905, 4.12781)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_hjvrp"]
 size = Vector3(5, 55.331, 72.82)
-
-[sub_resource type="BoxMesh" id="BoxMesh_1a8al"]
-size = Vector3(10, 1, 10)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_elu6b"]
-size = Vector3(80.582, 1, 77.2035)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_baruh"]
 size = Vector3(15.2886, 3.0376, 4.61938)
@@ -108,104 +120,110 @@ size = Vector3(40.0976, 5, 5)
 [sub_resource type="BoxShape3D" id="BoxShape3D_ci0rd"]
 size = Vector3(3.14886, 5, 17.271)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_4x62k"]
-size = Vector3(80.9922, 1, 77.0854)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_38r3v"]
-size = Vector3(81.2998, 43.5508, 4.15637)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_lydmm"]
-size = Vector3(5, 50, 76.834)
+[sub_resource type="BoxShape3D" id="BoxShape3D_wwmmt"]
+size = Vector3(340.813, 281.351, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_sg11g"]
-size = Vector3(227.743, 1, 208.021)
+size = Vector3(844.569, 1, 916.544)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_psusw"]
+size = Vector3(1, 346.735, 335.808)
 
 [node name="PENS" type="Node3D"]
 
 [node name="ChickenCoop" parent="." instance=ExtResource("1_7latb")]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -52.8447, 0, -156.765)
+transform = Transform3D(-0.87565, 0, -0.482946, 0, 1, 0, 0.482946, 0, -0.87565, -70.988, 0, -3.685)
 script = ExtResource("2_77vgb")
-is_static = true
 interaction = "NONE"
 model_path = "../resources/objects/chickencoop/ChickenCoop.obj"
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ChickenCoop"]
-transform = Transform3D(0.368097, 0, 0, 0, 1.01097, 0, 0, 0, 1.42207, 6.381, 0, -0.538)
-shape = SubResource("BoxShape3D_ayd5w")
-debug_color = Color(0.941176, 0, 0.909804, 1)
-
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="ChickenCoop"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -44.0262, 3.43825, -0.377)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -41.9099, 3.43825, -0.376999)
+visible = false
 shape = SubResource("BoxShape3D_1fhj5")
 debug_color = Color(0.619608, 0.352941, 1, 1)
 
 [node name="CollisionShape3D3" type="CollisionShape3D" parent="ChickenCoop"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 48.2846, 18.839, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 48.2846, 18.839, -0.0879898)
+visible = false
 shape = SubResource("BoxShape3D_16pka")
 debug_color = Color(0, 0.6, 0.701961, 1)
 
 [node name="CollisionShape3D4" type="CollisionShape3D" parent="ChickenCoop"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.7852, 17.0529, -21.7408)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.024, 17.0529, -21.7408)
+visible = false
 shape = SubResource("BoxShape3D_j8bo8")
 debug_color = Color(0.992157, 0, 0.227451, 1)
 
 [node name="CollisionShape3D5" type="CollisionShape3D" parent="ChickenCoop"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.6082, 15.4694, 22.7353)
+visible = false
 shape = SubResource("BoxShape3D_1jdk1")
 debug_color = Color(0.858989, 0.000715223, 0.880769, 1)
 
 [node name="CollisionShape3D6" type="CollisionShape3D" parent="ChickenCoop"]
 transform = Transform3D(0.851727, 0.523986, 0, -0.523986, 0.851727, 0, 0, 0, 1, 3.096, 10.2506, 0.897676)
+visible = false
 shape = SubResource("BoxShape3D_6p2dc")
 debug_color = Color(0.831373, 0, 0.945098, 1)
 
 [node name="CollisionShape3D7" type="CollisionShape3D" parent="ChickenCoop"]
 transform = Transform3D(0.817899, 0.575362, 0, -0.575362, 0.817899, 0, 0, 0, 1, -26.7639, 29.5439, 6.40392)
+visible = false
 shape = SubResource("BoxShape3D_fmu3g")
 debug_color = Color(0.981579, 0, 0.373918, 1)
 
 [node name="CollisionShape3D9" type="CollisionShape3D" parent="ChickenCoop"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28.2037, 21.9328, -1.56205)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28.2037, 21.9328, 0.0560455)
+visible = false
 shape = SubResource("BoxShape3D_liaj6")
 debug_color = Color(0.878431, 0.341176, 0, 1)
 
 [node name="CollisionShape3D10" type="CollisionShape3D" parent="ChickenCoop"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.2906, 12.5435, 22.4547)
+visible = false
 shape = SubResource("BoxShape3D_b60u5")
 debug_color = Color(0.90545, 0.000139002, 0.74968, 1)
 
 [node name="CollisionShape3D8" type="CollisionShape3D" parent="ChickenCoop"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28.9494, 9.9306, -21.7963)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.259, 9.9306, -21.7963)
+visible = false
 shape = SubResource("BoxShape3D_7ds5r")
 debug_color = Color(0.890196, 0, 0.792157, 1)
 
 [node name="CollisionShape3D11" type="CollisionShape3D" parent="ChickenCoop"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.2443, 32.6533, 29.9839)
+visible = false
 shape = SubResource("BoxShape3D_kmy7e")
 debug_color = Color(0.996078, 0, 0.203922, 1)
 
 [node name="CollisionShape3D12" type="CollisionShape3D" parent="ChickenCoop"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28.2989, 31.5038, 38.1569)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28.2989, 28.9496, 38.1569)
+visible = false
 shape = SubResource("BoxShape3D_833wy")
 debug_color = Color(0.927851, 3.32102e-05, 0.663833, 1)
 
 [node name="CollisionShape3D13" type="CollisionShape3D" parent="ChickenCoop"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40.0973, 32.1516, 31.6021)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40.0973, 30.7639, 30.8412)
+visible = false
 shape = SubResource("BoxShape3D_ghrvs")
 debug_color = Color(0.596078, 0.372549, 1, 1)
 
 [node name="CollisionShape3D15" type="CollisionShape3D" parent="ChickenCoop"]
-transform = Transform3D(1, 0, 0, 0, 0.986332, -0.164772, 0, 0.164772, 0.986332, -28.2155, 36.8825, 28.4854)
+transform = Transform3D(1, 0, 0, 0, 0.986332, -0.164772, 0, 0.164772, 0.986332, -27.7639, 36.5581, 30.5203)
+visible = false
 shape = SubResource("BoxShape3D_jvy75")
 debug_color = Color(0.635294, 0.341176, 1, 1)
 
 [node name="CollisionShape3D16" type="CollisionShape3D" parent="ChickenCoop"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.44507, 40.2671, -10.1105)
+visible = false
 shape = SubResource("BoxShape3D_keufu")
 debug_color = Color(0.972549, 0, 0.427451, 1)
 
 [node name="CollisionShape3D17" type="CollisionShape3D" parent="ChickenCoop"]
 transform = Transform3D(1, 0, 0, 0, 0.783412, -0.621503, 0, 0.621503, 0.783412, 2.67697, 50.7387, 11.0863)
+visible = false
 shape = SubResource("BoxShape3D_joegk")
 debug_color = Color(0.552941, 0.4, 1, 1)
 
@@ -217,194 +235,254 @@ debug_color = Color(0.690196, 0.286275, 1, 1)
 
 [node name="CollisionShape3D19" type="CollisionShape3D" parent="ChickenCoop"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28.1584, 41.3762, 22.6795)
+visible = false
 shape = SubResource("BoxShape3D_wnq0t")
 debug_color = Color(0.631373, 0.345098, 1, 1)
 
 [node name="CollisionShape3D20" type="CollisionShape3D" parent="ChickenCoop"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.7963, 28.6446, -37.6755)
+visible = false
 shape = SubResource("BoxShape3D_ra6nl")
 debug_color = Color(0.772549, 0.14902, 1, 1)
 
 [node name="CollisionShape3D21" type="CollisionShape3D" parent="ChickenCoop"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.0206, 29.7594, -30.1415)
+visible = false
 shape = SubResource("BoxShape3D_gxey3")
 debug_color = Color(0.478431, 0.439216, 1, 1)
 
 [node name="CollisionShape3D22" type="CollisionShape3D" parent="ChickenCoop"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -39.636, 29.2149, -31.098)
+visible = false
 shape = SubResource("BoxShape3D_4hpui")
 debug_color = Color(0.745098, 0.211765, 1, 1)
 
 [node name="CollisionShape3D23" type="CollisionShape3D" parent="ChickenCoop"]
 transform = Transform3D(1, 0, 0, 0, 0.985938, 0.167113, 0, -0.167113, 0.985938, -30.4124, 36.7421, -29.0202)
+visible = false
 shape = SubResource("BoxShape3D_g005c")
 debug_color = Color(0.839216, 0, 0.929412, 1)
 
 [node name="CollisionShape3D14" type="CollisionShape3D" parent="ChickenCoop"]
 transform = Transform3D(1, 0, 0, 0, 0.797773, 0.602957, 0, -0.602957, 0.797773, 44.7771, 50.2668, -11.2399)
+visible = false
 shape = SubResource("BoxShape3D_7eh5b")
 debug_color = Color(0.854902, 0, 0.890196, 1)
 
 [node name="CollisionShape3D24" type="CollisionShape3D" parent="ChickenCoop"]
 transform = Transform3D(1, 0, 0, 0, 0.798636, 0.601815, 0, -0.601815, 0.798636, 39.5125, 51.1126, -9.51667)
+visible = false
 shape = SubResource("BoxShape3D_pjp1q")
 debug_color = Color(0.913725, 0.294118, 0, 1)
 
-[node name="CowPen" parent="." instance=ExtResource("2_qk7ro")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.159, 0)
+[node name="SheepPen" parent="." instance=ExtResource("5_1a8al")]
+transform = Transform3D(0.726275, 0, 0.687404, 0, 1, 0, -0.687404, 0, 0.726275, 52.43, 0, -6.25)
+
+[node name="CollisionShape3D7" type="CollisionShape3D" parent="SheepPen"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.43723, 21.137, 39.0413)
+visible = false
+shape = SubResource("BoxShape3D_38r3v")
+debug_color = Color(0.709804, 0.266667, 1, 1)
+
+[node name="CollisionShape3D8" type="CollisionShape3D" parent="SheepPen"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.43723, 21.137, -36.9349)
+visible = false
+shape = SubResource("BoxShape3D_38r3v")
+debug_color = Color(0.709804, 0.266667, 1, 1)
+
+[node name="CollisionShape3D9" type="CollisionShape3D" parent="SheepPen"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40.215, 25.0108, 0.688461)
+visible = false
+shape = SubResource("BoxShape3D_lydmm")
+debug_color = Color(1, 0, 0.0784314, 1)
+
+[node name="CollisionShape3D10" type="CollisionShape3D" parent="SheepPen"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40.5992, 25.0108, 0.688461)
+visible = false
+shape = SubResource("BoxShape3D_lydmm")
+debug_color = Color(1, 0, 0.0784314, 1)
+
+[node name="PigPen" parent="." instance=ExtResource("4_dma3g")]
+transform = Transform3D(0.999904, 0, 0.0138749, 0, 1, 0, -0.0138749, 0, 0.999904, 97.203, 0, 93.975)
 script = ExtResource("2_77vgb")
-is_static = true
-interaction = "NONE"
+model_path = "../resources/objects/pigpen/PigPenDoor.obj"
+
+[node name="PigPenDoor" parent="PigPen" instance=ExtResource("5_rodv0")]
+script = ExtResource("2_77vgb")
+model_path = "../resources/objects/pigpen/PigPenDoor.obj"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PigPen/PigPenDoor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -39, 5.82099, 3.16671)
+visible = false
+shape = SubResource("BoxShape3D_4x62k")
+debug_color = Color(0.654902, 0.321569, 1, 1)
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="PigPen"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.43723, 21.137, 38.427)
+visible = false
+shape = SubResource("BoxShape3D_38r3v")
+debug_color = Color(0.709804, 0.266667, 1, 1)
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="PigPen"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.43723, 21.137, -37.5492)
+visible = false
+shape = SubResource("BoxShape3D_38r3v")
+debug_color = Color(0.709804, 0.266667, 1, 1)
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="PigPen"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40.215, 25.0108, 0.0741959)
+visible = false
+shape = SubResource("BoxShape3D_lydmm")
+debug_color = Color(1, 0, 0.0784314, 1)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PigPen"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -39.0588, 20.0264, -19.7709)
+visible = false
+shape = SubResource("BoxShape3D_f4n3u")
+debug_color = Color(0.827451, 0, 0.94902, 1)
+
+[node name="CollisionShape3D5" type="CollisionShape3D" parent="PigPen"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38.743, 21.169, 23.6996)
+visible = false
+shape = SubResource("BoxShape3D_uqnqr")
+debug_color = Color(0.898039, 0, 0.768627, 1)
+
+[node name="CollisionShape3D6" type="CollisionShape3D" parent="PigPen"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -39, 26.8822, 2.955)
+visible = false
+shape = SubResource("BoxShape3D_bmyjn")
+debug_color = Color(0.85098, 0.372549, 0, 1)
+
+[node name="CowPen" parent="." instance=ExtResource("6_ci0rd")]
+transform = Transform3D(-0.999766, 0.000303483, -0.0216209, 0.000307814, 1, -0.000196797, 0.0216208, -0.000203401, -0.999766, -104.539, 0, 105.312)
+script = ExtResource("2_77vgb")
 model_path = "../resources/objects/cowpen/CowPen.obj"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CowPen"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.633877, 26.8714, -37.646)
+visible = false
 shape = SubResource("BoxShape3D_77vgb")
 debug_color = Color(0.831373, 0, 0.941176, 1)
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="CowPen"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.66142, 25.921, 38.6465)
+visible = false
 shape = SubResource("BoxShape3D_77vgb")
 debug_color = Color(0.831373, 0, 0.941176, 1)
 
 [node name="CollisionShape3D3" type="CollisionShape3D" parent="CowPen"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 39.9632, 25.1435, 0.800888)
+visible = false
 shape = SubResource("BoxShape3D_hjvrp")
 debug_color = Color(0.619608, 0.356863, 1, 1)
 
 [node name="CollisionShape3D4" type="CollisionShape3D" parent="CowPen"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -39.2192, 27.2351, 1.09453)
+visible = false
 shape = SubResource("BoxShape3D_hjvrp")
 debug_color = Color(0.619608, 0.356863, 1, 1)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="CowPen"]
-transform = Transform3D(10.3838, 0, 0, 0, 1.11455, 0, 0, 0, 9.06383, -1.03789, -0.325246, 3.1604)
-mesh = SubResource("BoxMesh_1a8al")
-skeleton = NodePath("")
-
-[node name="CollisionShape3D5" type="CollisionShape3D" parent="CowPen"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.348267, 0.018652, 1.08435)
-shape = SubResource("BoxShape3D_elu6b")
-debug_color = Color(0.862745, 0, 0.866667, 1)
-
 [node name="CollisionShape3D6" type="CollisionShape3D" parent="CowPen"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.5056, 1.67746, 31.7089)
+visible = false
 shape = SubResource("BoxShape3D_baruh")
 debug_color = Color(0.729412, 0.235294, 1, 1)
 
 [node name="CollisionShape3D8" type="CollisionShape3D" parent="CowPen"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.122, 1.48008, 16.2047)
+visible = false
 shape = SubResource("BoxShape3D_baruh")
 debug_color = Color(0.729412, 0.235294, 1, 1)
 
 [node name="CollisionShape3D13" type="CollisionShape3D" parent="CowPen"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.8929, 1.64348, -33.4823)
+visible = false
 shape = SubResource("BoxShape3D_baruh")
 debug_color = Color(0.729412, 0.235294, 1, 1)
 
 [node name="CollisionShape3D7" type="CollisionShape3D" parent="CowPen"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.192474, 1.35479, 31.7293)
+visible = false
 shape = SubResource("BoxShape3D_dma3g")
 debug_color = Color(0.984314, 0, 0.337255, 1)
 
 [node name="CollisionShape3D9" type="CollisionShape3D" parent="CowPen"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.91257, 1.43081, 0.417679)
+visible = false
 shape = SubResource("BoxShape3D_rodv0")
 debug_color = Color(0.627451, 0.34902, 1, 1)
 
 [node name="CollisionShape3D12" type="CollisionShape3D" parent="CowPen"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.8223, 1.54862, -28.4691)
+visible = false
 shape = SubResource("BoxShape3D_rodv0")
 debug_color = Color(0.627451, 0.34902, 1, 1)
 
 [node name="CollisionShape3D10" type="CollisionShape3D" parent="CowPen"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.9717, 1.67973, -11.4516)
+visible = false
 shape = SubResource("BoxShape3D_rodv0")
 debug_color = Color(0.627451, 0.34902, 1, 1)
 
 [node name="CollisionShape3D11" type="CollisionShape3D" parent="CowPen"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32.6387, 1.60088, 11.4827)
+visible = false
 shape = SubResource("BoxShape3D_rodv0")
 debug_color = Color(0.627451, 0.34902, 1, 1)
 
 [node name="CollisionShape3D14" type="CollisionShape3D" parent="CowPen"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.201, 0.966394, -7.04311)
+visible = false
 shape = SubResource("BoxShape3D_qk7ro")
 debug_color = Color(0.980392, 0, 0.384314, 1)
 
 [node name="CollisionShape3D15" type="CollisionShape3D" parent="CowPen"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.7706, 2.70533, 9.00653)
+visible = false
 shape = SubResource("BoxShape3D_1a8al")
 debug_color = Color(0.992157, 0, 0.270588, 1)
 
 [node name="CollisionShape3D16" type="CollisionShape3D" parent="CowPen"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.5123, 2.75051, -26.8838)
+visible = false
 shape = SubResource("BoxShape3D_ci0rd")
 debug_color = Color(0.988235, 0, 0.286275, 1)
 
-[node name="pigPen" parent="." instance=ExtResource("4_hjvrp")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 110.304, 0, 53.1732)
+[node name="Dome" parent="." instance=ExtResource("7_7eh5b")]
 script = ExtResource("2_77vgb")
-is_static = true
-interaction = "NONE"
-model_path = "../resources/objects/cowpen/PigPen.obj"
+model_path = "../resources/objects/dome/Dome.obj"
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="pigPen"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.127, -0.5, -0.378)
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="Dome"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.95587, 140.675, -85.0065)
 visible = false
-shape = SubResource("BoxShape3D_4x62k")
-debug_color = Color(0.819608, 0, 0.964706, 1)
+shape = SubResource("BoxShape3D_wwmmt")
+debug_color = Color(0.756863, 0.188235, 1, 1)
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="pigPen"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.43723, 21.137, 38.4268)
-shape = SubResource("BoxShape3D_38r3v")
-debug_color = Color(0.709804, 0.266667, 1, 1)
-
-[node name="CollisionShape3D3" type="CollisionShape3D" parent="pigPen"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.43723, 21.137, -37.5494)
-shape = SubResource("BoxShape3D_38r3v")
-debug_color = Color(0.709804, 0.266667, 1, 1)
-
-[node name="CollisionShape3D4" type="CollisionShape3D" parent="pigPen"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40.215, 25.0108, 0.0739975)
-shape = SubResource("BoxShape3D_lydmm")
-debug_color = Color(1, 0, 0.0784314, 1)
-
-[node name="CollisionShape3D5" type="CollisionShape3D" parent="pigPen"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40.5992, 25.0108, 0.0739975)
-shape = SubResource("BoxShape3D_lydmm")
-debug_color = Color(1, 0, 0.0784314, 1)
-
-[node name="SheepPen" parent="." instance=ExtResource("5_1a8al")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 110.304, 0, -52.9929)
-
-[node name="CollisionShape3D11" type="CollisionShape3D" parent="SheepPen"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -114.273, -0.381475, 53.7761)
+[node name="CollisionShape3D11" type="CollisionShape3D" parent="Dome"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.47102, -0.4, -63.0737)
+visible = false
 shape = SubResource("BoxShape3D_sg11g")
 debug_color = Color(1, 0, 0.0784314, 1)
 
-[node name="CollisionShape3D6" type="CollisionShape3D" parent="SheepPen"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.127, -0.5, 0.236366)
+[node name="millNew" parent="Dome" instance=ExtResource("8_pjp1q")]
+transform = Transform3D(-0.999997, 0, -0.0023388, 0, 1, 0, 0.0023388, 0, -0.999997, -1.532, 0, 166.279)
+script = ExtResource("2_77vgb")
+model_path = "../resources/objects/mill/mill.obj"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Dome/millNew"]
+transform = Transform3D(-0.999997, 0, 0.0023388, 0, 1, 0, -0.0023388, 0, -0.999997, -9.50783, 140.675, 8.52299)
 visible = false
-shape = SubResource("BoxShape3D_4x62k")
-debug_color = Color(0.819608, 0, 0.964706, 1)
+shape = SubResource("BoxShape3D_wwmmt")
+debug_color = Color(0.756863, 0.188235, 1, 1)
 
-[node name="CollisionShape3D7" type="CollisionShape3D" parent="SheepPen"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.43723, 21.137, 39.0412)
-shape = SubResource("BoxShape3D_38r3v")
-debug_color = Color(0.709804, 0.266667, 1, 1)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Dome"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 162.262, 123.368, 1.97746)
+visible = false
+shape = SubResource("BoxShape3D_psusw")
+debug_color = Color(0.94902, 0, 0.564706, 1)
 
-[node name="CollisionShape3D8" type="CollisionShape3D" parent="SheepPen"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.43723, 21.137, -36.935)
-shape = SubResource("BoxShape3D_38r3v")
-debug_color = Color(0.709804, 0.266667, 1, 1)
-
-[node name="CollisionShape3D9" type="CollisionShape3D" parent="SheepPen"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40.215, 25.0108, 0.688362)
-shape = SubResource("BoxShape3D_lydmm")
-debug_color = Color(1, 0, 0.0784314, 1)
-
-[node name="CollisionShape3D10" type="CollisionShape3D" parent="SheepPen"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40.5992, 25.0108, 0.688362)
-shape = SubResource("BoxShape3D_lydmm")
-debug_color = Color(1, 0, 0.0784314, 1)
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Dome"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -157.502, 123.368, 1.97746)
+visible = false
+shape = SubResource("BoxShape3D_psusw")
+debug_color = Color(0.94902, 0, 0.564706, 1)

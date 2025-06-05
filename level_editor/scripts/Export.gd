@@ -92,8 +92,8 @@ func _process_node(node: Node3D) -> Dictionary:
 	if level == "BARN" or level == "WINDMILL" or level == "SILO":
 		is_active = false
 	var data := {
-		"level": level,
 		"name": node.name,
+		"level": level,
 		"active": is_active,
 		"transform": {
 			"position": _vec3_to_json(node.global_position),
