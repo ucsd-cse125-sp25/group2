@@ -50,5 +50,6 @@ public:
   vector<int> getLastUpdatedObjects();
   vector<pair<RewardType, vector<OBJECT_ID>>> getRewardObjects();
   PlayerLogic *getPlayerLogic() { return playerLogic.get(); }
+  LevelManager *getLevelManager() { return levelManager.get(); }
   LevelType getLevel() { return levelManager->getLevel(); }
 };
