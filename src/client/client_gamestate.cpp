@@ -30,6 +30,9 @@ void ClientGameState::advanceLevel(LevelType newLevel) {
   }
   // Activate all objects in the new level
   for (auto &obj : levelObjects[newLevel]) {
+    if (notes.find(obj.first) != notes.end()) {
+      continue; // Skip notes, want to keep them deactivated
+    }
     obj.second->activate();
   }
 }

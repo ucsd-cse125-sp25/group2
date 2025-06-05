@@ -133,20 +133,40 @@ void LevelManager::loadJSON() {
 }
 
 bool LevelManager::updateLevels() {
-  uint8_t levelNum = magic_enum::enum_integer(currentLevelType);
-  if (levelNum < NUM_LEVELS) {
-    return currentLevel->isLevelComplete();
-  }
-  return false;
+  return currentLevel->isLevelComplete();
 }
 
+
 void LevelManager::advanceLevel() {
+  for (const auto &objPair : levelObjects[currentLevelType]) {
+    GameObject *object = objPair.second;
+    object->deactivate(); // Deactivate all objects in the current level
+  }
+
   uint8_t levelNum = magic_enum::enum_integer(currentLevelType);
   levelNum++;
   if (levelNum < NUM_LEVELS) {
     currentLevelType =
         magic_enum::enum_cast<LevelType>(levelNum).value_or(LevelType::NONE);
     currentLevel = levels[currentLevelType].get();
+
+    // get the objects that we don't want to activate when the level changes
+    vector<OBJECT_ID> rewardIDs;
+    for (const auto &reward : currentLevel->getPuzzleRewards()) {
+      RewardType rewardType = reward.first;
+      if (rewardType == RewardType::ACTIVATE) {
+        rewardIDs = reward.second;
+      }
+    }
+
+    for (const auto &objPair : levelObjects[currentLevelType]) {
+      GameObject *object = objPair.second;
+      if (find(rewardIDs.begin(), rewardIDs.end(), object->getID()) != rewardIDs.end()) {
+        continue;
+      } 
+      object->activate(); // Activate all objects in the new level
+      object->getTransform()->setPosition(object->getOriginalPosition());
+    }
   }
 }
 
