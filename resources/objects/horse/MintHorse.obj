@@ -1,6 +1,6 @@
 # Blender 4.4.0
 # www.blender.org
-mtllib horse.mtl
+mtllib MintHorse.mtl
 o Horse
 v -0.155347 1.222255 0.014282
 v -0.077674 0.684164 0.147122

@@ -1,10 +1,10 @@
-# Blender 4.4.0 MTL File: 'Boxes.blend'
+# Blender 4.4.0 MTL File: 'Silo.blend'
 # www.blender.org
 
-newmtl Black
-Ns 0.000000
+newmtl SiloMetal
+Ns 200.490067
 Ka 1.000000 1.000000 1.000000
-Kd 0.009299 0.009299 0.009299
+Kd 0.118066 0.118066 0.118066
 Ks 0.000000 0.000000 0.000000
 Ke 0.000000 0.000000 0.000000
 Ni 1.500000

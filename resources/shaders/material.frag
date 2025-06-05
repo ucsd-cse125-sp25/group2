@@ -90,6 +90,7 @@ void main()
         vec4 specTexColor = texture(texture_specular1, TexCoords);
         specularColor = vec3(specTexColor);
         shininess = 32.0;
+        FragColor = vec4(diffuseColor, 1); return;
     } else {
         ambientColor = materialAmbient * 0.1;
         
