@@ -657,7 +657,7 @@
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
 				"isTransparent": false,
-				"modelPath": "../resources/objects/pressureplate/PressurePlate.obj",
+				"modelPath": "../resources/objects/button/PressurePlate.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
 			"level": "SILO",
@@ -787,7 +787,7 @@
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
 				"isTransparent": false,
-				"modelPath": "../resources/objects/pressureplate/PressurePlate.obj",
+				"modelPath": "../resources/objects/button/PressurePlate.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
 			"level": "SILO",
@@ -917,7 +917,7 @@
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
 				"isTransparent": false,
-				"modelPath": "../resources/objects/pressureplate/PressurePlate.obj",
+				"modelPath": "../resources/objects/button/PressurePlate.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
 			"level": "SILO",
@@ -1047,7 +1047,7 @@
 			"client": {
 				"fragShaderPath": "../resources/shaders/material.frag",
 				"isTransparent": false,
-				"modelPath": "../resources/objects/pressureplate/PressurePlate.obj",
+				"modelPath": "../resources/objects/button/PressurePlate.obj",
 				"vertShaderPath": "../resources/shaders/material.vert"
 			},
 			"level": "SILO",
