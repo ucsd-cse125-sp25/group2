@@ -151,6 +151,7 @@ size = Vector3(2.29709, 2.13611, 0.498169)
 [node name="Chicken" parent="." instance=ExtResource("1_cs67b")]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 5.62678, 0.86553, -3)
 script = ExtResource("2_uf54u")
+is_static = false
 interaction = "NONE"
 model_path = "../resources/objects/chicken/Chicken.obj"
 
@@ -161,6 +162,7 @@ shape = SubResource("BoxShape3D_i6ese")
 [node name="Sheep" parent="." instance=ExtResource("3_v72fy")]
 transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 2, 0.9, -3)
 script = ExtResource("2_uf54u")
+is_static = false
 interaction = "NONE"
 model_path = "../resources/objects/Sheep/Sheep.obj"
 
@@ -171,6 +173,7 @@ shape = SubResource("BoxShape3D_pqjvv")
 [node name="Cow" parent="." instance=ExtResource("4_t3qkk")]
 transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, -4.98924, 1.09321, -2.85237)
 script = ExtResource("2_uf54u")
+is_static = false
 interaction = "NONE"
 model_path = "../resources/objects/cow/Cow.obj"
 
@@ -181,6 +184,7 @@ shape = SubResource("BoxShape3D_eonxi")
 [node name="Pig" parent="." instance=ExtResource("5_njc3d")]
 transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, -2, 0.9, -3)
 script = ExtResource("2_uf54u")
+is_static = false
 interaction = "NONE"
 model_path = "../resources/objects/Pig/Pig.obj"
 
@@ -191,6 +195,7 @@ shape = SubResource("BoxShape3D_1274f")
 [node name="BlueBox" parent="." instance=ExtResource("6_p7h2o")]
 transform = Transform3D(1.63036, 0, -1.15842, 0, 2, 0, 1.15842, 0, 1.63036, -26.6663, 1.15846, 6.60101)
 script = ExtResource("2_uf54u")
+is_static = false
 interaction = "PICKUP"
 model_path = "../resources/objects/box/BlueBox.obj"
 
@@ -201,6 +206,7 @@ shape = SubResource("BoxShape3D_2gh4u")
 [node name="RedBox" parent="." instance=ExtResource("6_p7h2o")]
 transform = Transform3D(1.22407, 0, 0.866979, 0, 1.5, 0, -0.866979, 0, 1.22407, -25.6646, 1.12892, -35.9059)
 script = ExtResource("2_uf54u")
+is_static = false
 interaction = "PICKUP"
 model_path = "../resources/objects/box/RedBox.obj"
 
@@ -211,6 +217,7 @@ shape = SubResource("BoxShape3D_2gh4u")
 [node name="YellowBox" parent="." instance=ExtResource("6_p7h2o")]
 transform = Transform3D(1.10473, 0, -0.468588, 0, 1.2, 0, 0.468588, 0, 1.10473, -27.0732, 1.12892, -43.7105)
 script = ExtResource("2_uf54u")
+is_static = false
 interaction = "PICKUP"
 model_path = "../resources/objects/box/YellowBox.obj"
 
@@ -221,6 +228,7 @@ shape = SubResource("BoxShape3D_2gh4u")
 [node name="GreenBox" parent="." instance=ExtResource("6_p7h2o")]
 transform = Transform3D(1.68072, 0, 0.255296, 0, 1.7, 0, -0.255296, 0, 1.68072, 26.937, 1.12892, -52.7984)
 script = ExtResource("2_uf54u")
+is_static = false
 interaction = "PICKUP"
 model_path = "../resources/objects/box/GreenBox.obj"
 
@@ -232,6 +240,7 @@ shape = SubResource("BoxShape3D_2gh4u")
 transform = Transform3D(3, 0, -4.41081e-07, 0, 3, 0, 4.41081e-07, 0, 3, 0.535945, 27.1936, 7.20914)
 visible = false
 script = ExtResource("2_uf54u")
+is_static = false
 interaction = "PICKUP"
 model_path = "../resources/objects/note/Note.obj"
 
@@ -329,6 +338,7 @@ shape = SubResource("BoxShape3D_devvj")
 transform = Transform3D(-3, 0, 4.52987e-07, 0, 3, 0, -4.52987e-07, 0, -3, -0.277468, 50.1684, -62.7393)
 visible = false
 script = ExtResource("2_uf54u")
+is_static = false
 interaction = "PICKUP"
 model_path = "../resources/objects/note/Note.obj"
 
@@ -404,6 +414,7 @@ shape = SubResource("BoxShape3D_devvj")
 transform = Transform3D(3, 0, -4.41081e-07, 0, 3, 0, 4.41081e-07, 0, 3, 0.535945, 52.0392, -22.8948)
 visible = false
 script = ExtResource("2_uf54u")
+is_static = false
 interaction = "PICKUP"
 model_path = "../resources/objects/note/Note.obj"
 
@@ -437,6 +448,7 @@ metadata/isTrigger = true
 [node name="HeavyBox" parent="." instance=ExtResource("13_0uiba")]
 transform = Transform3D(3.69107, 0, 1.54143, 0, 4, 0, -1.54143, 0, 3.69107, 3.52126, 32.9168, 8.6299)
 script = ExtResource("2_uf54u")
+is_static = false
 interaction = "NONE"
 model_path = "../resources/objects/box/BrownBox.obj"
 
@@ -447,6 +459,7 @@ shape = SubResource("BoxShape3D_3b0ty")
 [node name="HeavyBox2" parent="." instance=ExtResource("13_0uiba")]
 transform = Transform3D(2.44423, 0, -3.16635, 0, 4, 0, 3.16635, 0, 2.44423, -1.92358, 32.9168, 8.68711)
 script = ExtResource("2_uf54u")
+is_static = false
 interaction = "NONE"
 model_path = "../resources/objects/box/BrownBox.obj"
 
@@ -457,6 +470,7 @@ shape = SubResource("BoxShape3D_3b0ty")
 [node name="HeavyBox3" parent="." instance=ExtResource("13_0uiba")]
 transform = Transform3D(3.90861, 0, 0.850139, 0, 4, 0, -0.850139, 0, 3.90861, 1.34719, 32.9168, 4.37045)
 script = ExtResource("2_uf54u")
+is_static = false
 interaction = "NONE"
 model_path = "../resources/objects/box/BrownBox.obj"
 
@@ -498,6 +512,7 @@ shape = SubResource("BoxShape3D_devvj")
 transform = Transform3D(-3, 0, 4.52987e-07, 0, 3, 0, -4.52987e-07, 0, -3, 0.263901, 23.029, -25.4196)
 visible = false
 script = ExtResource("2_uf54u")
+is_static = false
 interaction = "PICKUP"
 model_path = "../resources/objects/note/Note.obj"
 
