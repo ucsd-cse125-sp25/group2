@@ -135,6 +135,11 @@ void LevelManager::loadJSON() {
 bool LevelManager::updateLevels() { return currentLevel->isLevelComplete(); }
 
 void LevelManager::advanceLevel() {
+  if (currentLevelType == LevelType::NONE) {
+    instantiatePlayers();
+  }
+
+
   for (const auto &objPair : levelObjects[currentLevelType]) {
     GameObject *object = objPair.second;
     object->deactivate(); // Deactivate all objects in the current level
@@ -170,4 +175,13 @@ void LevelManager::advanceLevel() {
 
 vector<pair<RewardType, vector<OBJECT_ID>>> LevelManager::getRewards() {
   return currentLevel->getPuzzleRewards();
+}
+
+void LevelManager::instantiatePlayers() {
+  auto animals = levelObjects[LevelType::ALL];
+  for (const auto &animalPair : animals) {
+    GameObject *animal = animalPair.second;
+    animal->activate();
+    animal->getTransform()->setPosition(startingPositions[animal->getID()]);
+  }
 }
