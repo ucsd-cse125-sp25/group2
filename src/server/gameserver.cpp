@@ -77,6 +77,9 @@ void GameServer::updateGameState() {
       // if (game->getPlayerLogic()->allCharactersAssigned()) {
       GameStatePacket statePacket(Gamestate::GAME);
       network->sendToAll(statePacket);
+      game->getLevelManager()->advanceLevel();
+      LevelChangePacket levelChangePacket(game->getLevelManager()->getLevel());
+      network->sendToAll(levelChangePacket);
       // }
       break;
     }
