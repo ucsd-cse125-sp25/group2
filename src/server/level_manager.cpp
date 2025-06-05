@@ -139,11 +139,11 @@ void LevelManager::loadJSON() {
   currentLevel = levels[currentLevelType].get();
 }
 
-bool LevelManager::updateLevels() { 
+bool LevelManager::updateLevels() {
   if (currentLevelType == LevelType::ALL) {
     return false;
   }
-  return currentLevel->isLevelComplete(); 
+  return currentLevel->isLevelComplete();
 }
 
 void LevelManager::advanceLevel() {
