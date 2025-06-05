@@ -33,7 +33,8 @@ void ClientGameState::advanceLevel(LevelType newLevel) {
       obj.second->getTransform()->setPosition(STARTING_POSITIONS[id]);
       id++;
     } else {
-      obj.second->getTransform()->setPosition(obj.second->getOriginalPosition());
+      obj.second->getTransform()->setPosition(
+          obj.second->getOriginalPosition());
     }
   }
 
