@@ -46,7 +46,7 @@
 					}
 				],
 				"interaction": "NONE",
-				"static": true
+				"static": false
 			},
 			"transform": {
 				"position": {
@@ -111,7 +111,7 @@
 					}
 				],
 				"interaction": "NONE",
-				"static": true
+				"static": false
 			},
 			"transform": {
 				"position": {
@@ -176,7 +176,7 @@
 					}
 				],
 				"interaction": "NONE",
-				"static": true
+				"static": false
 			},
 			"transform": {
 				"position": {
@@ -241,7 +241,7 @@
 					}
 				],
 				"interaction": "NONE",
-				"static": true
+				"static": false
 			},
 			"transform": {
 				"position": {
