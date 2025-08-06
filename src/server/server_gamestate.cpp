@@ -125,6 +125,11 @@ void ServerGameState::updateInteraction(PLAYER_ID id) {
     }
   }
 
+  if (minDistance > 8) {
+    closestObjectID = -1;
+    closestObject = nullptr;
+  }
+
   cout << "Closest object: " << closestObjectID << endl;
 
   // If the character is holding an object, drop it
