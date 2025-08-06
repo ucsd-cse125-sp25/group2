@@ -2,12 +2,12 @@
 
 PlayerLogic::PlayerLogic() {
   speed = 35.0f;
+  cowSpeed = 30.0f;
+  chickenSpeed = 40.0f;
   sheepJumps = SHEEP_MAX_JUMPS;
   jumpForce = 60.0f;
   sheepJumpForce = 90.0f;
   glideFallSpeed = 10.0f;
-  cowSpeed = 30.0f;
-  chickenSpeed = 40.0f;
 
   for (int i = 0; i < NUM_PLAYERS; i++) {
     heldObjects[i] = nullptr;
@@ -20,12 +20,12 @@ void PlayerLogic::move(GameObject *player, glm::vec3 direction) {
   // move the player
   auto rigidBody = player->getRigidBody();
   float spd = speed;
-  if (player->getID() == 0) {
+  if (player->getID() == CHICKEN) {
     spd = chickenSpeed;
-  } else if (player->getID() == 3) {
+  } else if (player->getID() == COW) {
     spd = cowSpeed;
   }
-  rigidBody->applyImpulse(speed * direction);
+  rigidBody->applyImpulse(spd * direction);
 }
 
 OBJECT_ID PlayerLogic::moveHeldObject(PLAYER_ID id, GameObject *player) {

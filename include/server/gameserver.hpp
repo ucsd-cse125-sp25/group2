@@ -25,4 +25,5 @@ public:
 
   void updateGameState();
   void dispatchUpdates();
+  void dispatchKeypadPackets();
 };

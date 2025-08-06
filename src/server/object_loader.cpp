@@ -97,15 +97,6 @@ unordered_map<OBJECT_ID, unique_ptr<GameObject>> ObjectLoader::loadObjects() {
           if (interactionType.has_value()) {
             obj->setInteractability(interactionType.value());
           }
-          if (interactionType == InteractionType::PRESS) {
-            string objName = objData["name"].get<string>();
-            auto pressFunc = pressFunctionMap.find(objName);
-            if (pressFunc != pressFunctionMap.end()) {
-              obj->setPressFunction(pressFunc->second);
-            } else {
-              cerr << "No press function found for object: " << objName << endl;
-            }
-          }
         }
       }
       objects[objectID] = move(obj);

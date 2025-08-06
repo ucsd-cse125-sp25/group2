@@ -1,6 +1,7 @@
 #pragma once
 
 #include "core.hpp"
+#include "light_manager.hpp"
 #include "mesh.hpp"
 #include "shader.hpp"
 #include "transform.hpp"

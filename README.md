@@ -19,13 +19,11 @@ Made By:
 ## Controls
 
 - **Mouse Movement**
-
   - Move the mouse up or down to look up and down.
   - Move the mouse left or right to look around and rotate the player's facing direction.
   - **Left-Click** to pickup/drop objects, only certain objects can be picked up
 
 - **Keyboard Movement**
-
   - Use **W** to move forward.
   - Use **S** to move backward.
   - Use **A** to strafe left.
@@ -35,7 +33,6 @@ Made By:
   - Sheep can double jump by pressing **Space** while jumping
 
 - **Animal Abilities**
-
   - The Cow is strong and can push items 💪🐮
   - The Pig is smart and can read notes and numbers 📖🐖
   - The Chicken can slow down its fall by gliding 🪽🐤

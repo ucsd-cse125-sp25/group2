@@ -1,20 +1,28 @@
 {
   "notes": [
     {
-      "id": 40,
+      "id": 95,
       "path": "../resources/ui/notes/note1.png"
     },
     {
-      "id": 41,
-      "path": "../resources/ui/notes/note1.png"
+      "id": 19,
+      "path": "../resources/ui/notes/note2.png"
     },
     {
-      "id": 42,
-      "path": "../resources/ui/notes/note1.png"
+      "id": 30,
+      "path": "../resources/ui/notes/note3.png"
     },
     {
-      "id": 43,
-      "path": "../resources/ui/notes/note1.png"
+      "id": 39,
+      "path": "../resources/ui/notes/note4.png"
+    },
+    {
+      "id": 46,
+      "path": "../resources/ui/notes/note5.png"
+    },
+    {
+      "id": 55,
+      "path": "../resources/ui/notes/note6.png"
     }
   ]
 }

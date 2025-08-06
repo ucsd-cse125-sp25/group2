@@ -4,6 +4,7 @@ bool ClientGameState::init() {
   ObjectLoader objectLoader = ObjectLoader();
   objectList = objectLoader.loadObjects();
   notes = objectLoader.loadNotes();
+  objectLoader.loadLights();
   for (auto &obj : objectList) {
     auto id = obj.first;
     auto object = obj.second.get();
@@ -15,20 +16,31 @@ bool ClientGameState::init() {
 
 void ClientGameState::advanceLevel(LevelType newLevel) {
   uint8_t levelNum = magic_enum::enum_integer(newLevel);
-  if (levelNum < NUM_LEVELS - 1) {
+  if (levelNum <= NUM_LEVELS) {
     state = Gamestate::LOADING;
     UIManager::loadingScreen->play();
   } else {
     state = Gamestate::COMPLETED;
   }
-  cout << "Changing level to: " << levelNum << endl;
+
+  for (auto &obj : levelObjects[LevelType::ALL]) {
+    obj.second->activate();
+    obj.second->getTransform()->setPosition(obj.second->getOriginalPosition());
+  }
 
   // Deactivate all objects in the current level
-  for (auto &obj : levelObjects[newLevel]) {
+  for (auto &obj : levelObjects[currentLevelType]) {
     obj.second->deactivate();
   }
+
+  currentLevelType = newLevel; // update current level
+  LightManager::setCurrentLevel(currentLevelType);
+
   // Activate all objects in the new level
-  for (auto &obj : levelObjects[newLevel]) {
+  for (auto &obj : levelObjects[currentLevelType]) {
+    if (notes.find(obj.first) != notes.end()) {
+      continue; // Skip notes, want to keep them deactivated
+    }
     obj.second->activate();
   }
 }

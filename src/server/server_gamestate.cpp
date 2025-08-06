@@ -151,7 +151,7 @@ void ServerGameState::updateInteraction(PLAYER_ID id) {
       updatedObjectIDs.insert(closestObjectID);
       // If interaction type is press
     } else if (closestObject->getInteractionType() == InteractionType::PRESS) {
-      closestObject->press();
+      closestObject->togglePressed();
       cout << "Pressed object: " << closestObjectID << endl;
     }
 
@@ -162,7 +162,7 @@ void ServerGameState::updateInteraction(PLAYER_ID id) {
            << endl;
       if (keypadObject) {
         keypadObject->clientUsing = playerLogic->getClient(id);
-        updatedObjectIDs.insert(closestObjectID);
+        keypadObjectsIDs.insert(closestObjectID);
         cout << "client: " << keypadObject->clientUsing
              << " is now using keypad" << endl;
       }
@@ -174,11 +174,6 @@ bool ServerGameState::updateKeypadInput(OBJECT_ID id, vector<int> inputSequence,
                                         bool close) {
   auto keypadObject = dynamic_cast<KeypadObject *>(getObject(id));
   if (keypadObject) {
-    if (close) {
-      keypadObject->clientUsing = -1;
-      keypadObject->opened = false;
-      return true; // Doesn't matter the return type
-    }
     if (keypadObject->checkSequence(inputSequence)) {
       cout << "Keypad ID: " << id << " solved!" << endl;
       return true;
@@ -237,6 +232,12 @@ GameObject *ServerGameState::getObject(OBJECT_ID id) {
 vector<OBJECT_ID> ServerGameState::getLastUpdatedObjects() {
   vector<OBJECT_ID> list(updatedObjectIDs.begin(), updatedObjectIDs.end());
   updatedObjectIDs.clear();
+  return list;
+}
+
+vector<OBJECT_ID> ServerGameState::getKeypadObjects() {
+  vector<OBJECT_ID> list(keypadObjectsIDs.begin(), keypadObjectsIDs.end());
+  keypadObjectsIDs.clear();
   return list;
 }
 

@@ -10,27 +10,25 @@ void Model::changeColor(glm::vec3 col) { this->color = col; }
 
 void Model::draw(const glm::mat4 &viewProjMtx, const glm::vec3 &pos,
                  unique_ptr<Shader> &shader) {
-  // Activate the shader program
   shader->use();
-  // Send camera view projection matrix to vertex shader file
   shader->setMat4("viewProj", viewProjMtx);
-  // Send model matrix to vertex shader file
   shader->setMat4("model", model);
   shader->setVec3("DiffuseColor", color);
-
-  // Light setup
-  shader->setVec3("lightPos", glm::vec3(0.0f, 15.0f, -60.0f));
-  shader->setVec3("lightColor", glm::vec3(1.0f, 1.0f, 1.0f));
   shader->setVec3("viewPos", pos);
 
-  // Control light attenuation
-  shader->setFloat("lightRadius", 1000.0f); // Light reaches 50 units
-  shader->setBool("useAttenuation", false);
+  // Light setup
+  shader->setFloat("ambientStrength", 0.5f);
+  shader->setFloat("diffuseStrength", 1.0f);
+  shader->setFloat("specularStrength", 1.0f);
+
+  LightManager::sendToShader(shader);
+
   if (isTransparent) {
     shader->setBool("isTransparent", true);
   }
+
+  // Draw each mesh
   for (unsigned int i = 0; i < meshes.size(); i++)
-    // Draw each mesh
     meshes[i].draw(shader);
 }
 

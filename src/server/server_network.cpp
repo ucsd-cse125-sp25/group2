@@ -196,7 +196,9 @@ void ServerNetwork::handleClientDisconnect(CLIENT_ID id) {
     socket->close();
   }
   clients.erase(id);
+  cerr << "calling callback" << endl;
   onClientLeave(id);
+  cerr << "finisheding callback" << endl;
 }
 
 void ServerNetwork::setOnJoin(function<void()> callback) {

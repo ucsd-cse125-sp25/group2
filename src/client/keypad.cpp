@@ -122,6 +122,9 @@ void KeypadUI::setUnlocked(bool isUnlocked) {
     solved = isUnlocked;
   }
   // play animation or change UI state based on solved status
+  else {
+    inputSequence.clear();
+  }
 }
 void KeypadUI::setCloseCallback(function<void(OBJECT_ID id)> callback) {
   onCloseCallback = move(callback);

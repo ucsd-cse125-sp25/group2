@@ -75,3 +75,35 @@ unordered_map<OBJECT_ID, unique_ptr<BaseUI>> ObjectLoader::loadNotes() {
 
   return notes;
 }
+
+void ObjectLoader::loadLights() {
+  // Open and parse JSON file
+  ifstream file(LIGHT_PATH);
+  if (!file.is_open()) {
+    cerr << "Failed to open JSON file: " << LIGHT_PATH << endl;
+    return;
+  }
+
+  json lightsData;
+  try {
+    file >> lightsData;
+  } catch (const exception &e) {
+    cerr << "JSON parsing error: " << e.what() << endl;
+    return;
+  }
+
+  if (lightsData.contains("lights") && lightsData["lights"].is_array()) {
+    for (const auto &lightData : lightsData["lights"]) {
+      std::string levelStr = lightData.value("level", "BARN");
+      // auto level = getLevelFromString(levelStr);
+      LevelType level =
+          magic_enum::enum_cast<LevelType>(levelStr).value_or(LevelType::NONE);
+      glm::vec3 position = parseVec3(lightData, "position", glm::vec3(0.0f));
+      glm::vec3 color =
+          parseVec3(lightData, "color", glm::vec3(1.0f, 1.0f, 1.0f));
+      float radius = lightData.value("radius", 1.0f);
+      bool useAttenuation = lightData.value("useAttenuation", true);
+      LightManager::addLight(level, position, color, radius, useAttenuation);
+    }
+  }
+}

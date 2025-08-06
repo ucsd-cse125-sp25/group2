@@ -126,10 +126,9 @@ bool Client::initUI() {
                                  UIManager::keypad->inputSequence, false);
         net->send(packet);
       });
-  UIManager::keypad->setCloseCallback([net = network.get()](OBJECT_ID id) {
-    KeypadInputPacket packet(id, net->getID(), UIManager::keypad->inputSequence,
-                             true);
-    net->send(packet);
+  UIManager::keypad->setCloseCallback([window = this->window](OBJECT_ID id) {
+    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    glfwSetInputMode(window, GLFW_RAW_MOUSE_MOTION, GLFW_TRUE);
   });
   return true;
 }
@@ -179,10 +178,16 @@ void Client::idleCallback(float deltaTime) {
       auto characterPacket =
           dynamic_cast<CharacterResponsePacket *>(packet.get());
       characterManager->setCharacters(characterPacket->characterAssignments);
-      PLAYER_ID character = characterManager->selectedCharacter;
-      game->setPlayer(character);
-      cam->setRadius(cam->getCameraRadius(
-          character)); // Set camera radius based on character
+      for (int i = 0; i < NUM_PLAYERS; i++) {
+        cout << characterPacket->characterAssignments[i] << " ";
+      }
+      cout << endl;
+      if (characterManager->selectedCharacter != -1) {
+        PLAYER_ID character = characterManager->selectedCharacter;
+        game->setPlayer(character);
+        cam->setRadius(cam->getCameraRadius(
+            character)); // Set camera radius based on character
+      }
       break;
     }
     case PacketType::LEVELCHANGE: {

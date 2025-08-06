@@ -11,4 +11,4 @@ void cube2Press();
 
 // Name of object to press function
 inline map<string, function<void()>> pressFunctionMap = {
-    {"Cube 2", cube2Press}};
+    {"BlueBox", cube2Press}};

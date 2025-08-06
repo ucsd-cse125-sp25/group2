@@ -15,13 +15,13 @@ class PlayerLogic {
 private:
   // Movement properties
   float speed;
+  float chickenSpeed;
+  float cowSpeed;
   int sheepJumps;
   float jumpForce;
   float sheepJumpForce;
   float glideFallSpeed;
   bool sheepDoubleJump = false;
-  float chickenSpeed;
-  float cowSpeed;
 
   // Interaction properties
   unordered_map<PLAYER_ID, GameObject *>

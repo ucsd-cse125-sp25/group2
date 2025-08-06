@@ -7,7 +7,7 @@ Camera::Camera()
   fov = 60.0f;
   aspect = 1.33f;
   nearClip = 0.1f;
-  farClip = 100.0f;
+  farClip = 200.0f;
 
   yaw = 90.0f; // place camera along +Z axis to see behind the target
   pitch = 0.0f;
@@ -18,12 +18,12 @@ Camera::Camera()
   worldUp = cameraUp;
 
   characterCamRadius[CHICKEN] = 3.0f;
-  characterCamRadius[PIG] = 5.5f;
+  characterCamRadius[PIG] = 4.0f;
   characterCamRadius[SHEEP] = 6.0f;
   characterCamRadius[COW] = 6.0f;
 
   characterCamOffset[CHICKEN] = glm::vec3(0.0f, 2.0f, 0.0f);
-  characterCamOffset[PIG] = glm::vec3(0.0f, 3.0f, 0.0f);
+  characterCamOffset[PIG] = glm::vec3(0.0f, 2.5f, 0.0f);
   characterCamOffset[SHEEP] = glm::vec3(0.0f, 4.3f, 0.0f);
   characterCamOffset[COW] = glm::vec3(0.0f, 4.8f, 0.0f);
 }

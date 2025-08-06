@@ -22,6 +22,7 @@ protected:
   // Physics properties
   bool usesGravity;
   bool grounded;
+  bool pressed;
   unique_ptr<RigidBody> rigidbody;
   vector<Collider *> colliders;
 
@@ -34,6 +35,7 @@ public:
     interactionType = InteractionType::NONE;
     usesGravity = true;
     grounded = true;
+    pressed = false;
   };
 
   void setInteractability(InteractionType interact) {
@@ -57,6 +59,8 @@ public:
   void setArea(float a) { getRigidBody()->setArea(a); };
   bool isGrounded() const { return grounded; };
   bool hasGravity() const { return usesGravity; };
+  void togglePressed() { pressed = !pressed; };
+  bool hasBeenPressed() { return pressed; };
   const float getArea() const { return getRigidBody()->getArea(); };
   RigidBody *getRigidBody() const { return rigidbody.get(); }
   vector<Collider *> getCollider() const { return colliders; }

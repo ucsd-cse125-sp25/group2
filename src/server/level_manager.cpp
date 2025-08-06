@@ -9,6 +9,8 @@ void Level::addMilestonePuzzle(unique_ptr<Puzzle> puzzle) {
   numMilestones++;
 }
 
+void Level::addNote(OBJECT_ID id) { notes.push_back(id); }
+
 bool Level::isLevelComplete() {
   // loop through all clue puzzles, if complete dispatch reward (activate or
   // deactivate)
@@ -37,6 +39,8 @@ vector<pair<RewardType, vector<OBJECT_ID>>> Level::getPuzzleRewards() {
   rewards.clear();
   return res;
 }
+
+vector<OBJECT_ID> Level::getNotes() { return notes; }
 
 void LevelManager::addObject(LevelType levelType, OBJECT_ID objectID,
                              GameObject *object) {
@@ -79,6 +83,9 @@ void LevelManager::loadJSON() {
 
           vector<OBJECT_ID> rewardIDs;
           for (const auto &rewardID : puzzleData["rewardIDs"]) {
+            if (rewardType == RewardType::ACTIVATE) {
+              newLevel->addNote(rewardID.get<int>());
+            }
             rewardIDs.push_back(rewardID.get<int>());
           }
 
@@ -106,6 +113,9 @@ void LevelManager::loadJSON() {
                       object, triggeringObjectID);
                   break;
                 }
+                case ConditionType::PRESSURE_PLATE_OFF:
+                  condition = make_unique<PressurePlateOffCondition>(object);
+                  break;
                 case ConditionType::BUTTON:
                   condition = make_unique<ButtonCondition>(object);
                   break;
@@ -133,20 +143,53 @@ void LevelManager::loadJSON() {
 }
 
 bool LevelManager::updateLevels() {
-  uint8_t levelNum = magic_enum::enum_integer(currentLevelType);
-  if (levelNum < NUM_LEVELS) {
-    return currentLevel->isLevelComplete();
+  if (currentLevelType == LevelType::ALL) {
+    return false;
   }
-  return false;
+  return currentLevel->isLevelComplete();
 }
 
 void LevelManager::advanceLevel() {
+  if (currentLevelType == LevelType::BARN) {
+    currentLevelType = LevelType::ALL;
+    cout << "All levels completed!" << endl;
+    return;
+  }
+
+  // Reset all players to their original positions
+  for (const auto &objPair : levelObjects[LevelType::ALL]) {
+    GameObject *player = objPair.second;
+    player->activate();
+    player->getTransform()->setPosition(player->getOriginalPosition());
+  }
+
+  // Deactivate all objects in the current level
+  for (const auto &objPair : levelObjects[currentLevelType]) {
+    GameObject *object = objPair.second;
+    object->deactivate();
+  }
+
   uint8_t levelNum = magic_enum::enum_integer(currentLevelType);
+
   levelNum++;
-  if (levelNum < NUM_LEVELS) {
-    currentLevelType =
-        magic_enum::enum_cast<LevelType>(levelNum).value_or(LevelType::NONE);
-    currentLevel = levels[currentLevelType].get();
+  cout << "Advancing level to: " << static_cast<int>(levelNum) << endl;
+
+  currentLevelType =
+      magic_enum::enum_cast<LevelType>(levelNum).value_or(LevelType::NONE);
+  currentLevel = levels[currentLevelType].get();
+
+  // get the objects that we don't want to activate when the level changes,
+  // i.e. notes
+  vector<OBJECT_ID> rewardIDs = currentLevel->getNotes();
+
+  // Activate all objects except for notes in the new level
+  for (const auto &objPair : levelObjects[currentLevelType]) {
+    GameObject *object = objPair.second;
+    if (find(rewardIDs.begin(), rewardIDs.end(), object->getID()) !=
+        rewardIDs.end()) {
+      continue;
+    }
+    object->activate();
   }
 }
 

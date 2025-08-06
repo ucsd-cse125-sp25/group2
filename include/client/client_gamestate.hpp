@@ -3,6 +3,7 @@
 #include "client_gameobject.hpp"
 #include "client_object_loader.hpp"
 #include "globals.hpp"
+#include "light_manager.hpp"
 
 #include <magic_enum/magic_enum.hpp>
 #include <memory>
@@ -14,9 +15,9 @@ class ClientGameState {
 private:
   unordered_map<OBJECT_ID, unique_ptr<GameObject>> objectList;
   unordered_map<LevelType, unordered_map<OBJECT_ID, GameObject *>> levelObjects;
-  GameObject *player;
-
   unordered_map<OBJECT_ID, unique_ptr<BaseUI>> notes;
+  GameObject *player;
+  LevelType currentLevelType = LevelType::NONE;
 
 public:
   Gamestate state;
