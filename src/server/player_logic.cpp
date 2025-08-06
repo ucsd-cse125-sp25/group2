@@ -8,8 +8,6 @@ PlayerLogic::PlayerLogic() {
   jumpForce = 60.0f;
   sheepJumpForce = 90.0f;
   glideFallSpeed = 10.0f;
-  cowSpeed = 30.0f;
-  chickenSpeed = 40.0f;
 
   for (int i = 0; i < NUM_PLAYERS; i++) {
     heldObjects[i] = nullptr;
